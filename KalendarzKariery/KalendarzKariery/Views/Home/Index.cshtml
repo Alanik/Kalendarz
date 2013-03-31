@@ -1,73 +1,98 @@
-﻿
+﻿<div id="slides">
+	<ul class="slides-container">
+		<li>
+			<div style="height: 1000px;">
+				22222
+			</div>
+		</li>
+		<li>
+			<div class="slide-item-calendar">
+				<div id="leftSide">
+				</div>
+				<div id="calendarBg">
+					<img src="~/Images/kalendarzTlo.png" alt="background" />
+					<section id="calendar">
+					</section>
+				</div>
+				<div id="rightSide">
+				</div>
+			</div>
 
-       <div id="bodyContainer" class="cs_article">
-            <div id="leftSide">
-            </div>
-            <div id="calendarBg">
-                <img src="~/Images/kalendarzTlo.png" alt="background" />
-                <section id="calendar">
-                </section>
-            </div>
-            <div id="rightSide">
-            </div>
-        </div>
+		</li>
+		<li>33333
+		</li>
+	</ul>
+</div>
+
 
 <script type="text/javascript">
 
-    (function setCalendarBgHeight() {
-        var height = window.innerHeight;
+	$(function () {
+		$('#calendar').calendarWidget({ month: 2, year: 2013 });
 
-        $("#calendarBg").css("height", height);
-    })();
+		$(".current-month").hover(function () {
+			$(this).css({
+				"cursor": "pointer",
+				"-moz-box-shadow": "none",
+				"-webkist-box-shadow": "none",
+				"box-shadow": "none",
+				"top": "3px",
+			});
+		}, function () {
+			$(this).css({
+				"cursor": "auto",
+				"-moz-box-shadow": "0px 3px 5px rgb(235,235,235)",
+				"-webkist-box-shadow": "0px 3px 5px rgb(235,235,235)",
+				"box-shadow": "0px 3px 5px rgb(235,235,235)",
+				"top": "0px"
+			})
+		});
+
+		$(".other-month").hover(function () {
+			$(this).css({
+				"cursor": "pointer",
+				"-moz-box-shadow": "none",
+				"-webkist-box-shadow": "none",
+				"box-shadow": "none",
+				"top": "3px"
+			});
+		}, function () {
+			$(this).css({
+				"cursor": "auto",
+				"-moz-box-shadow": "0px 3px 5px #ddd",
+				"-webkist-box-shadow": "0px 3px 5px #ddd",
+				"box-shadow": "0px 3px 5px #ddd",
+				"top": "0px"
+
+			})
+		});
+
+		$("#leftSide").hover(function () {
+			$(this).css({
+				"cursor": "pointer"
+			});
+		}, function () {
+			$(this).css({
+				"cursor": "auto"
+			});
+		});
+
+		$("#rightSide").hover(function () {
+			$(this).css({
+				"cursor": "pointer"
+			});
+		}, function () {
+			$(this).css({
+				"cursor": "auto"
+			})
+		});
+
+		$(".slide-item-calendar").on("click", "#leftSide", function (event) {
+			alert("leftSide click nigga");
+		});
 
 
-    $(function () {
-
-        $('#calendar').calendarWidget({ month: 2, year: 2013 });
-
-        $(".current-month").hover(function () {
-            $(this).css({
-                "cursor": "pointer",
-                "-moz-box-shadow": "none",
-                "-webkist-box-shadow": "none",
-                "box-shadow": "none",
-                "top": "3px",
-            });
-        }, function () {
-            $(this).css({
-                "cursor": "auto",
-                "-moz-box-shadow": "0px 3px 5px rgb(235,235,235)",
-                "-webkist-box-shadow": "0px 3px 5px rgb(235,235,235)",
-                "box-shadow": "0px 3px 5px rgb(235,235,235)",
-                "top": "0px"
-            })
-        });
-
-        $(".other-month").hover(function () {
-            $(this).css({
-                "cursor": "pointer",
-                "-moz-box-shadow": "none",
-                "-webkist-box-shadow": "none",
-                "box-shadow": "none",
-                "top": "3px"
-            });
-        }, function () {
-            $(this).css({
-                "cursor": "auto",
-                "-moz-box-shadow": "0px 3px 5px #ddd",
-                "-webkist-box-shadow": "0px 3px 5px #ddd",
-                "box-shadow": "0px 3px 5px #ddd",
-                "top": "0px"
-
-            })
-        });
-
-        $("#bodyContainer").on("click", "#leftSide", function (event) {
-            alert("leftSide click nigga");
-        });
-
-
-    });
+	});
 
 
 </script>

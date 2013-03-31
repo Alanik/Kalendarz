@@ -3,6 +3,7 @@
     function calendarWidget(el, params) {
 
         var now = new Date();
+        var today = now.getDate();
         var thismonth = now.getMonth();
         var thisyear = now.getYear() + 1900;
 
@@ -13,8 +14,8 @@
 
         $.extend(opts, params);
 
-        var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        var dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        var monthNames = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Śierpień', 'Wrzesień', 'Pażdziernik', 'Listopad', 'Grudzień'];
+        var dayNames = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'];
         month = i = parseInt(opts.month);
         year = parseInt(opts.year);
         var m = 0;
@@ -34,12 +35,11 @@
         //    var prev_month = '<a href="?month=' + (month) + '&amp;year=' + (year) + '" title="' + monthNames[month - 1] + ' ' + (year) + '">' + monthNames[month - 1] + ' ' + (year) + '</a>';
         //}
 
-        calendar += ('<div id="current-month">' + monthNames[month] + ' ' + year + '</div>');
+        calendar += ('<div id="current-month-header">' + monthNames[month] + ' ' + year + '</div>');
         // uncomment the following lines if you'd like to display calendar month based on 'month' and 'view' paramaters from the URL
         //table += ('<div class="nav-prev">'+ prev_month +'</div>');
         //table += ('<div class="nav-next">'+ next_month +'</div>');
         calendar += ('<div class="weekday-container" ' + 'id="calendar-month' + i + ' ">');
-
 
         for (d = 0; d < 7; d++) {
             calendar += '<div class="weekday">' + dayNames[d] + '</div>';
@@ -47,11 +47,8 @@
 
         var days = getDaysInMonth(month, year);
         var firstDayDate = new Date(year, month, 1);
-        var firstDay = firstDayDate.getDay();
-
         var prev_days = getDaysInMonth(month, year);
-        var firstDayDate = new Date(year, month, 1);
-        var firstDay = firstDayDate.getDay();
+        var firstDay = firstDayDate.getDay() - 1;
 
         var prev_m = month == 0 ? 11 : month - 1;
         var prev_y = prev_m == 11 ? year - 1 : year;
@@ -67,19 +64,28 @@
             }
 
             if ((j < firstDay)) {
-                calendar += ('<div class="other-month calendar-cell"><span class="day">' + (prev_days - firstDay + j + 1) + '</span></div>');
+
+                calendar += ('<div class="other-month calendar-cell"><div class="cell-span-container" style="position:relative;"><span class="day">' + (prev_days - firstDay + j + 1) + '</span></div></div>');
+
             } else if ((j >= firstDay + getDaysInMonth(month, year))) {
+
                 i = i + 1;
-                calendar += ('<div class="other-month calendar-cell"><span class="day">' + i + '</span></div>');
+                calendar += ('<div class="other-month calendar-cell"><div class="cell-span-container" style="position:relative;"><span class="day">' + i + '</span></div></div>');
+
             } else {
-                calendar += ('<div class="current-month  calendar-cell day' + (j - firstDay + 1) + '"><span class="day">' + (j - firstDay + 1) + '</span></div>');
+
+                calendar += ('<div class="current-month  calendar-cell day' + (j - firstDay + 1) + '"><div class="cell-span-container" style="position:relative;"><span class="day">' + (j - firstDay + 1) + '</span></div></div>');
+
             }
+
             if (j % 7 == 6) calendar += ('</div>');
         }
 
         calendar += ('</div>');
 
         el.html(calendar);
+
+        el.find(".current-month:contains(" + today + ")").css({ "border": "3px outset rgb(185, 185, 185)", "color": "rgb(167, 238, 211)", "font-size": "1.7em", "font-weight": "bold" }).addClass("today-cell").find("span").css("top","50px");
     }
 
     function getDaysInMonth(month, year) {
@@ -90,7 +96,6 @@
             return daysInMonth[month];
         }
     }
-
 
     // jQuery plugin initialisation
     $.fn.calendarWidget = function (params) {

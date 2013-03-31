@@ -186,6 +186,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="img\ajax-loader.gif" />
     <Content Include="Images\kalendarzBg2.png" />
     <Content Include="Images\kalendarzTlo.png" />
     <Content Include="Images\kalendarzTloLewy.png" />
@@ -193,10 +194,10 @@
     <Content Include="Images\kalendBackground.png" />
     <Content Include="Images\MiddlePartBg.png" />
     <Content Include="Scripts\CalendarWidget\calendarWidget.js" />
-    <Content Include="Scripts\CalendarWidget\jquery.hoverdir.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.8.20.custom.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />

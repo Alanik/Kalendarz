@@ -76,6 +76,7 @@ body header {
 }
 
 #bodyContainer {
+position:relative;
 }
 
 /*calendar css*/
@@ -88,17 +89,14 @@ body header {
     display: table;
     table-layout: fixed;
     border-spacing: 2px;
-    /*
-background rgb(46,46,46)
-*/
 }
 
-#current-month {
-    padding-left: 40px;
+#current-month-header {
     font-weight: bold;
     font-size: 2em;
     display: table-caption;
     padding: 20px;
+    padding-left: 0px;
 }
 
 .weekday-container {
@@ -107,10 +105,20 @@ background rgb(46,46,46)
 
 .weekday {
     border: 2px solid rgba(255, 255, 255, 0.9);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
     border-radius: 10px;
     display: table-cell;
     text-align: center;
 }
+
+    .weekday:nth-child(6) {
+        border: 2px solid rgb(255, 157, 157);
+    }
+
+    .weekday:nth-child(7) {
+        border: 2px solid rgb(255, 157, 157);
+    }
 
 .calendar-cell {
     height: 80px;
@@ -130,27 +138,33 @@ background rgb(46,46,46)
 .current-month {
     border: 2px solid rgb(235,235,235);
     background-color: rgba(255,255,255,.9);
+    -moz-box-shadow: 0px 3px 5px rgb(235,235,235);
+    -webkist-box-shadow: 0px 3px 5px rgb(235,235,235);
+    box-shadow: 0px 3px 5px rgb(235,235,235);
 }
 
     .current-month span {
         color: rgb(177,177,177);
         position: absolute;
-        bottom: 2px;
         padding-left: 2px;
         padding-right: 5px;
+        top: 60px;
     }
 
 .other-month {
     border: 2px solid #ddd;
     background-color: #eee;
     position: relative;
+    -moz-box-shadow: 0px 3px 5px #ddd;
+    -webkist-box-shadow: 0px 3px 5px #ddd;
+    box-shadow: 0px 3px 5px #ddd;
 }
 
     .other-month span {
         position: absolute;
-        bottom: 2px;
         padding-left: 2px;
         padding-right: 5px;
+        top: 60px;
     }
 
 #calendarBg {
@@ -194,15 +208,4 @@ background rgb(46,46,46)
 #mainContainer {
     word-spacing: 0px;
     letter-spacing: 0px;
-}
-
-
-/*
-for hover plugin
-*/
-.cell-overlay {
-    position: absolute;
-    background: rgba(75,75,75,0.7);
-    width: 100%;
-    height: 100%;
 }

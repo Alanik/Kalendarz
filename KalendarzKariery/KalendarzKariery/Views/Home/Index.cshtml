@@ -1,27 +1,37 @@
-﻿<div>
+﻿
+<div id="contentslider">
+    <div class="cs_wrapper">
+        <div class="cs_slider">
+ 
+       <div id="bodyContainer" class="cs_article">
+            <div id="leftSide">
+            </div>
+            <div id="calendarBg">
+                <img src="~/Images/kalendarzTlo.png" alt="background" />
+                <section id="calendar">
+                </section>
+            </div>
+            <div id="rightSide">
+            </div>
+        </div>
+<div class="cs_article">
 
-<div id="leftSide">
+eferfiper fepfjerpof j54pof po4kj p45gp o54
 </div>
+ 
+        </div><!-- End cs_slider -->
+    </div><!-- End cs_wrapper -->
+</div><!-- End contentslider -->
 
-<div id="bodyContainer">
-<div id="calendarBg">
-<img src="~/Images/kalendarzTlo.png" alt="background" />
-<section id="calendar">
-</section>
-</div>
-</div>
 
-<div id="rightSide">
-</div>
-
-</div>
 
 <script type="text/javascript">
 
     (function setCalendarBgHeight() {
         var height = window.innerHeight;
-     
+
         $("#calendarBg").css("height", height);
+        $('#contentslider').ContentSlider();
     })();
 
 
@@ -29,33 +39,48 @@
 
         $('#calendar').calendarWidget({ month: 2, year: 2013 });
 
-        //$('#calendar .calendar-cell').each(function () {
-        //    $(this).hoverdir({
-        //        hoverDelay: 75
-        //    });
-        //});
+        $(".current-month").hover(function () {
+            $(this).css({
+                "cursor": "pointer",
+                "-moz-box-shadow": "none",
+                "-webkist-box-shadow": "none",
+                "box-shadow": "none",
+                "top": "3px",
+            });
+        }, function () {
+            $(this).css({
+                "cursor": "auto",
+                "-moz-box-shadow": "0px 3px 5px rgb(235,235,235)",
+                "-webkist-box-shadow": "0px 3px 5px rgb(235,235,235)",
+                "box-shadow": "0px 3px 5px rgb(235,235,235)",
+                "top": "0px"
+            })
+        });
+
+        $(".other-month").hover(function () {
+            $(this).css({
+                "cursor": "pointer",
+                "-moz-box-shadow": "none",
+                "-webkist-box-shadow": "none",
+                "box-shadow": "none",
+                "top": "3px"
+            });
+        }, function () {
+            $(this).css({
+                "cursor": "auto",
+                "-moz-box-shadow": "0px 3px 5px #ddd",
+                "-webkist-box-shadow": "0px 3px 5px #ddd",
+                "box-shadow": "0px 3px 5px #ddd",
+                "top": "0px"
+
+            })
+        });
+
+        $("#bodyContainer").on("click", "#leftSide", function (event) {
+            alert("leftSide click nigga");
+        });
 
 
-
-        //$(".current-month").hover(function () {
-        //    $(this).css("border-color", "#00ddff");
-        //    $(this).css("background-color", "rgba(255, 255,255, 1)");
-
-        //}, function () {
-        //    $(this).css("border-color", "rgb(235,235,235)");
-        //    $(this).css("background-color", "rgba(255,255,255,.9");
-        /*
-border: 2px solid rgb(235,235,235);
-background-color: rgba(255,255,255,.9);          
-*/
-        //})
-
-        //$(".other-month").hover(function () {
-        //    $(this).css("border-color", "#0094ff");
-
-        //}, function () {
-        //    $(this).css("border-color", "#ddd");
-        //})
     });
 
 

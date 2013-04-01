@@ -1,20 +1,27 @@
-﻿<div id="slides">
+﻿<div class="navigation-arrows">
+
+
+</div>
+
+<div id="slides">
 	<ul class="slides-container">
 		<li>
-			<div class="slide-item-details">
-				<div id="detailsBg">
+		<div class="slide-item-lobby">
+				<div id="lobbyBg">
 					<img src="~/Images/kalendarzTlo.png" alt="background" />
-					<section id="details">
-					KALENDARZ KARIERY
+					<section id="lobby">
+						KALENDARZ KARIERY: Lobby
 					</section>
 				</div>
-				<div id="rightSideDetails" class="side">
+				<div id="rightSideLobby" class="side">
+
 				</div>
 			</div>
 		</li>
 		<li>
 			<div class="slide-item-calendar">
 				<div id="leftSideCalendar" class="side">
+				
 				</div>
 				<div id="calendarBg">
 					<img src="~/Images/kalendarzTlo.png" alt="background" />
@@ -22,22 +29,22 @@
 					</section>
 				</div>
 				<div id="rightSideCalendar" class="side">
+					
 				</div>
 			</div>
-
 		</li>
-		<li>
-		<div class="slide-item-lobby">
-		<div id="lobbyBg">
+		<li>			
+			<div class="slide-item-details">
+				<div id="detailsBg">
 					<img src="~/Images/kalendarzTlo.png" alt="background" />
-					<section id="lobby">
-					gfergerge
+					<section id="details">
+						KALENDARZ KARIERY: Szczegóły dnia
 					</section>
 				</div>
-				<div id="leftSideLobby" class="side">
-				</div>
+				<div id="leftSideDetails" class="side">
 
-		</div>
+				</div>
+			</div>
 		</li>
 	</ul>
 </div>
@@ -47,6 +54,25 @@
 
 	$(function () {
 		$('#calendar').calendarWidget({ month: 3, year: 2013 });
+
+		$(".calendar-cell").each(function (i) {
+
+			if (i == 5 || i == 6 || i == 12 || i == 13 || i == 19 || i == 20 || i == 26 || i == 27 || i == 33 || i == 34 || i == 40 || i == 41) {
+				$(this).css({
+					"border-color": "rgb(255, 203, 203)",
+					"box-shadow": "0px 3px 5px rgb(255, 203, 203)"
+				});
+			}
+
+		});
+		
+
+		$("#calendar").append('<div class="calendar-navigation-arrows-left"><img src="Images/Nav/arrowLeft.png" alt="arrow-left"/></div>');
+		$("#calendar").append('<div class="calendar-navigation-arrows-right"><img src="Images/Nav/arrowRight.png" alt="arrow-Right"/></div>');
+
+		$("#details").append('<div class="details-navigation-arrows-left"><img src="Images/Nav/arrowLeft.png" alt="arrow-Left"/></div>');
+
+		$("#lobby").append('<div class="lobby-navigation-arrows-right"><img src="Images/Nav/arrowRight.png" alt="arrow-Right"/></div>');
 
 		$(".current-month").hover(function () {
 			$(this).css({
@@ -109,6 +135,151 @@
 			window.location = "http://localhost:59940/#2";
 		});
 
+		$("#mainContainer").on("click", "#leftSideCalendar", function (event) {
+			window.location = "http://localhost:59940/#0";
+		});
+		$("#mainContainer").on("click", ".calendar-navigation-arrows-left", function (event) {
+			window.location = "http://localhost:59940/#0";
+		});
+
+		$("#mainContainer").on("click", "#rightSideCalendar", function (event) {
+			window.location = "http://localhost:59940/#2";
+		});
+		$("#mainContainer").on("click", ".calendar-navigation-arrows-right", function (event) {
+			window.location = "http://localhost:59940/#2";
+		});
+
+		$("#mainContainer").on("click", "#rightSideLobby", function (event) {
+			window.location = "http://localhost:59940/#1";
+		});
+		$("#mainContainer").on("click", ".lobby-navigation-arrows-right", function (event) {
+			window.location = "http://localhost:59940/#1";
+		});
+
+		$("#mainContainer").on("click", "#leftSideDetails", function (event) {
+			window.location = "http://localhost:59940/#1";
+		});
+		$("#mainContainer").on("click", ".details-navigation-arrows-left", function (event) {
+			window.location = "http://localhost:59940/#1";
+		});
+
+
+		$("#leftSideCalendar").hover(function () {
+			$(this).css({
+				"backgroundPosition": "left",
+				"cursor": "pointer"
+			});
+		}, function () {
+			$(this).css({
+				"backgroundPosition": "right",
+				"cursor": "auto"
+			})
+		});
+
+		$(".calendar-navigation-arrows-left").hover(function () {
+			$(this).css({
+				"cursor": "pointer"
+			});
+
+			$("#leftSideCalendar").css({
+				"backgroundPosition": "left"
+			});
+		}, function () {
+			$(this).css({
+				"cursor": "auto"
+			});
+			$("#leftSideCalendar").css({
+				"backgroundPosition": "right"
+			})
+		});
+
+		$("#rightSideCalendar").hover(function () {
+			$(this).css({
+				"backgroundPosition": "right",
+				"cursor": "pointer"
+			});
+		}, function () {
+			$(this).css({
+				"backgroundPosition": "left",
+				"cursor": "auto"
+			})
+		});
+
+		$(".calendar-navigation-arrows-right").hover(function () {
+			$(this).css({
+				"cursor": "pointer"
+			});
+
+			$("#rightSideCalendar").css({
+				"backgroundPosition": "right"
+			});
+		}, function () {
+			$(this).css({
+				"cursor": "auto"
+			});
+			$("#rightSideCalendar").css({
+				"backgroundPosition": "left"
+			})
+		});
+
+		$("#rightSideLobby").hover(function () {
+			$(this).css({
+				"backgroundPosition": "right",
+				"cursor": "pointer"
+			});
+		}, function () {
+			$(this).css({
+				"backgroundPosition": "left",
+				"cursor": "auto"
+			})
+		});
+
+		$(".lobby-navigation-arrows-right").hover(function () {
+			$(this).css({
+				"cursor": "pointer"
+			});
+
+			$("#rightSideLobby").css({
+				"backgroundPosition": "right"
+			});
+		}, function () {
+			$(this).css({
+				"cursor": "auto"
+			});
+			$("#rightSideLobby").css({
+				"backgroundPosition": "left"
+			})
+		});
+
+		$(".details-navigation-arrows-left").hover(function () {
+			$(this).css({
+				"cursor": "pointer"
+			});
+
+			$("#leftSideDetails").css({
+				"backgroundPosition": "left"
+			});
+		}, function () {
+			$(this).css({
+				"cursor": "auto"
+			});
+			$("#leftSideDetais").css({
+				"backgroundPosition": "right"
+			})
+		});
+
+		$("#leftSideDetails").hover(function () {
+			$(this).css({
+				"backgroundPosition": "left",
+				"cursor": "pointer"
+			});
+		}, function () {
+			$(this).css({
+				"backgroundPosition": "right",
+				"cursor": "auto"
+			})
+		});
+
 		///////////////////////////////////////
 		//$("#calendar .calendar-cell").each(function (i) {
 		//	for (var i = 0; i < 15; i++) {
@@ -119,10 +290,6 @@
 
 		//})
 
-		
-
 	});
-
-
 
 </script>

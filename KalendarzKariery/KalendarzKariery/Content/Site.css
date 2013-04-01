@@ -25,19 +25,108 @@ body header {
 	margin: auto;
 	position: relative;
 	width: 100%;
-	height: 500px;
+	height: 100%;
 	color: rgb(177,177,177);
 	display: table;
 	table-layout: fixed;
 	border-spacing: 2px;
 }
 
+#calendarBg {
+	position: relative;
+	width: 80%;
+	left: 10%;
+}
+
+
+#details {
+	margin: auto;
+	position: relative;
+	width: 100%;
+	height: 600px;
+	color: rgb(177,177,177);
+}
+
+#detailsBg {
+	position: relative;
+	width: 90%;
+	left: 10%;
+}
+
+
+#lobby {
+	margin: auto;
+	position: relative;
+	width: 100%;
+	height: 600px;
+	color: rgb(177,177,177);
+
+}
+
+#lobbyBg {
+	position: relative;
+	width: 90%;
+	left: 0px;
+}
+
+.calendar-navigation-arrows-left {
+	left: -9%;
+	position: absolute;
+	top: 50%;
+	width: 50px;
+	z-index: 2;
+}
+
+	.calendar-navigation-arrows-left img {
+		position: static !important;
+		width: 100% !important;
+	}
+
+.calendar-navigation-arrows-right {
+	right: -9%;
+	position: absolute;
+	top: 50%;
+	width: 50px;
+	z-index: 2;
+}
+
+	.calendar-navigation-arrows-right img {
+		position: static !important;
+		width: 100% !important;
+	}
+
+.lobby-navigation-arrows-right {
+	right: -8%;
+	position: absolute;
+	top: 50%;
+	width: 50px;
+	z-index: 2;
+}
+
+	.lobby-navigation-arrows-right img {
+		position: static !important;
+		width: 100% !important;
+	}
+
+	.details-navigation-arrows-left {
+	left: -8%;
+	position: absolute;
+	top: 300px;
+	width: 50px;
+	z-index: 2;
+}
+
+	.details-navigation-arrows-left img {
+		position: static !important;
+		width: 100% !important;
+	}
+
 .calendar-hours {
 	width: 100%;
 	height: 14px;
 	display: table-cell;
 	overflow: hidden;
-	text-align:center;
+	text-align: center;
 }
 
 .hour {
@@ -46,11 +135,15 @@ body header {
 }
 
 #current-month-header {
-	font-weight: bold;
 	font-size: 2em;
 	display: table-caption;
 	text-align: center;
-	padding-top: 20px;
+	margin-top: 20px;
+	background:rgba(107, 107, 107, 0.1);
+	margin-bottom:5px;
+	text-align:right;
+	padding-right:5px;
+	color:rgb(235, 255, 0);
 }
 
 .weekday-container {
@@ -82,8 +175,10 @@ body header {
 }
 
 .calendar-row {
-	width: 100%;
+	/*
 	height: 84px;
+*/
+	width: 100%;
 	margin: auto;
 	display: table-row;
 	position: relative;
@@ -121,24 +216,6 @@ body header {
 		top: 60px;
 	}
 
-#calendarBg {
-	position: relative;
-	width: 80%;
-	left: 10%;
-}
-
-#detailsBg {
-	position: relative;
-	width: 90%;
-	left: 0px;
-}
-
-#lobbyBg {
-	position: relative;
-	width: 90%;
-	left: 0px;
-}
-
 .side {
 	width: 10%;
 	height: 100%;
@@ -147,6 +224,7 @@ body header {
 	top: 0px;
 	position: absolute;
 }
+
 
 #leftSideCalendar {
 	background-image: url("../Images/kalendarzTloLewy.png");
@@ -160,42 +238,24 @@ body header {
 	right: 0px;
 }
 
-#rightSideDetails {
+#leftSideDetails {
+	background-image: url("../Images/kalendarzTloLewy.png");
+	background-position: right;
+	left: 0px;
+}
+
+#rightSideLobby {
 	background-image: url("../Images/kalendarzTloPrawo.png");
 	background-position: left;
 	right: 0px;
 }
 
-#leftSideLobby {
-	background-image: url("../Images/kalendarzTloLewy.png");
-	background-position: right;
-	left: 0px;
-}
 
 #mainContainer {
 	word-spacing: 0px;
 	letter-spacing: 0px;
 }
 
-
-/*
-slider
-*/
-
-.slide-container {
-	position: relative;
-	overflow: scroll;
-	width: 2000px;
-}
-
-.slide-item {
-	position: relative;
-	display: inline-block;
-}
-
-slide-item-calendar {
-	max-width: 100%;
-}
 
 /*
 Slider
@@ -225,27 +285,6 @@ Slider
 			clear: both;
 		}
 
-.slides-navigation {
-	margin: 0 auto;
-	position: absolute;
-	z-index: 3;
-	top: 46%;
-	width: 100%;
-}
-
-	.slides-navigation a {
-		position: absolute;
-		display: block;
-	}
-
-		.slides-navigation a.prev {
-			left: 0;
-		}
-
-		.slides-navigation a.next {
-			right: 0;
-		}
-
 .slides-pagination {
 	position: absolute;
 	z-index: 3;
@@ -255,16 +294,17 @@ Slider
 }
 
 	.slides-pagination a {
-		border: 2px solid #222;
+		border: 2px solid rgb(115, 233, 162);
 		border-radius: 15px;
 		width: 10px;
 		height: 10px;
 		display: inline-block;
 		margin: 2px;
+		background: #F0EDE7;
 	}
 
 		.slides-pagination a.current {
-			background: #222;
+			background: rgb(208, 255, 227);
 		}
 
 

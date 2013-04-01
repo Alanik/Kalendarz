@@ -35,7 +35,7 @@
 		//    var prev_month = '<a href="?month=' + (month) + '&amp;year=' + (year) + '" title="' + monthNames[month - 1] + ' ' + (year) + '">' + monthNames[month - 1] + ' ' + (year) + '</a>';
 		//}
 
-		calendar += ('<div id="current-month-header">' + monthNames[month] + ' ' + year + '</div>');
+		calendar += ('<div id="current-month-header">' + '<span style="font-size:.7em;">' + dayNames[6 % today] + "</span>" + ", " + '<span>' + today + " "  + monthNames[month] + '</span>' + " " + '<span style="font-size:.7em;">' + year + '</span></div>');
 		// uncomment the following lines if you'd like to display calendar month based on 'month' and 'view' paramaters from the URL
 		//table += ('<div class="nav-prev">'+ prev_month +'</div>');
 		//table += ('<div class="nav-next">'+ next_month +'</div>');
@@ -58,8 +58,6 @@
 
 			calendar += '</div>';
 		}
-
-		
 
 		var days = getDaysInMonth(month, year);
 		var firstDayDate = new Date(year, month, 1);

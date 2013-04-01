@@ -1,25 +1,43 @@
 ﻿<div id="slides">
 	<ul class="slides-container">
 		<li>
-			<div style="height: 1000px;">
-				22222
+			<div class="slide-item-details">
+				<div id="detailsBg">
+					<img src="~/Images/kalendarzTlo.png" alt="background" />
+					<section id="details">
+					KALENDARZ KARIERY
+					</section>
+				</div>
+				<div id="rightSideDetails" class="side">
+				</div>
 			</div>
 		</li>
 		<li>
 			<div class="slide-item-calendar">
-				<div id="leftSide">
+				<div id="leftSideCalendar" class="side">
 				</div>
 				<div id="calendarBg">
 					<img src="~/Images/kalendarzTlo.png" alt="background" />
 					<section id="calendar">
 					</section>
 				</div>
-				<div id="rightSide">
+				<div id="rightSideCalendar" class="side">
 				</div>
 			</div>
 
 		</li>
-		<li>33333
+		<li>
+		<div class="slide-item-lobby">
+		<div id="lobbyBg">
+					<img src="~/Images/kalendarzTlo.png" alt="background" />
+					<section id="lobby">
+					gfergerge
+					</section>
+				</div>
+				<div id="leftSideLobby" class="side">
+				</div>
+
+		</div>
 		</li>
 	</ul>
 </div>
@@ -28,7 +46,7 @@
 <script type="text/javascript">
 
 	$(function () {
-		$('#calendar').calendarWidget({ month: 2, year: 2013 });
+		$('#calendar').calendarWidget({ month: 3, year: 2013 });
 
 		$(".current-month").hover(function () {
 			$(this).css({
@@ -87,12 +105,24 @@
 			})
 		});
 
-		$(".slide-item-calendar").on("click", "#leftSide", function (event) {
-			alert("leftSide click nigga");
+		$(".slide-item-calendar").on("click", ".calendar-cell", function (event) {
+			window.location = "http://localhost:59940/#2";
 		});
 
+		///////////////////////////////////////
+		//$("#calendar .calendar-cell").each(function (i) {
+		//	for (var i = 0; i < 15; i++) {
+		//		var left = i * 10; 
+		//		$(this).append('<div style="position:absolute;width:1px;opacity:.1;left:' + left + 'px;background:gray;height:100%;"></div>');
+
+		//	}
+
+		//})
+
+		
 
 	});
+
 
 
 </script>

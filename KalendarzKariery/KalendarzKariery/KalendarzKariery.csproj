@@ -197,7 +197,6 @@
     <Content Include="Scripts\CalendarWidget\Slider\application.js" />
     <Content Include="Scripts\CalendarWidget\Slider\jquery.animate-enhanced.min.js" />
     <Content Include="Scripts\CalendarWidget\Slider\jquery.easing.1.3.js" />
-    <Content Include="Scripts\CalendarWidget\Slider\jquery.superslides.js" />
     <Content Include="Scripts\CalendarWidget\Slider\jquery.superslides.min.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />

@@ -58,8 +58,11 @@ body header {
 	margin: auto;
 	position: relative;
 	width: 100%;
-	height: 600px;
 	color: rgb(177,177,177);
+	height:600px;
+}
+
+.lobby-content-container {
 
 }
 
@@ -67,6 +70,15 @@ body header {
 	position: relative;
 	width: 90%;
 	left: 0px;
+}
+
+#lobby-logo {
+
+padding:20px;
+border:1px solid white;
+background:rgb(202, 255, 208);
+font-size:2em;
+width:300px;
 }
 
 .calendar-navigation-arrows-left {
@@ -108,7 +120,7 @@ body header {
 		width: 100% !important;
 	}
 
-	.details-navigation-arrows-left {
+.details-navigation-arrows-left {
 	left: -8%;
 	position: absolute;
 	top: 300px;
@@ -134,16 +146,20 @@ body header {
 	font-size: 10px;
 }
 
-#current-month-header {
-	font-size: 2em;
-	display: table-caption;
+#calendar-menu-header {
+display: table-caption;
+}
+
+.site-menu-header {
+	font-size: 1.2em;
 	text-align: center;
 	margin-top: 20px;
-	background:rgba(107, 107, 107, 0.1);
-	margin-bottom:5px;
-	text-align:right;
-	padding-right:5px;
+	background: rgba(107, 107, 107, 0.1);
+	margin-bottom: 5px;
+	height:40px;
+	/*
 	color:rgb(235, 255, 0);
+	*/
 }
 
 .weekday-container {
@@ -228,7 +244,7 @@ body header {
 
 #leftSideCalendar {
 	background-image: url("../Images/kalendarzTloLewy.png");
-	background-position: right;
+	background-position: left;
 	left: 0px;
 }
 
@@ -255,6 +271,184 @@ body header {
 	word-spacing: 0px;
 	letter-spacing: 0px;
 }
+
+.menu-item {
+	/*
+	
+	background: rgb(244, 245, 237);
+	background: rgb(238, 255, 147);
+*/
+	background: rgb(243, 243, 243);
+	padding-top: 2px;
+	color: rgb(199, 185, 185);
+	text-align: left;
+	border-top: 2px solid rgb(202, 255, 208);
+	border-bottom: 2px solid rgb(218, 218, 218);
+	font-size: .9em;
+	padding: 2px;
+	padding-left: 5px;
+}
+
+.menu-item-container {
+	margin: 1px;
+	float: right;
+	min-width: 180px;
+	position: relative;
+}
+
+.triangle-header {
+	width: 40px;
+	border-right: 10px solid transparent;
+	height: 20px;
+	border-top: 10px solid #ddd;
+	float: right;
+	position: absolute;
+}
+
+.selected {
+	border-right: 10px solid transparent;
+	border-top: 10px solid rgb(112, 112, 112);
+}
+
+.border-item {
+	width: 100px;
+	border-bottom: 10px solid rgb(202, 255, 208);
+	border-right: 10px solid transparent;
+}
+
+#add-new-event-container {
+	top: 10.5%;
+	position: absolute;
+	z-index: 10;
+	background: rgb(58, 58, 58);
+	opacity: .9;
+	z-index: 4;
+	width: 100% !important;
+	display: none;
+}
+
+.close-btn {
+	width: 20%;
+	float: right;
+	border-top: 60px solid rgb(233, 233, 233);
+	border-left: 40px solid transparent;
+	position: relative;
+	top: 8px;
+	right: 6px;
+}
+
+.close-text {
+	position: absolute;
+	color: rgb(117, 117, 117);
+	font-size: 1.4em;
+	right: 4px;
+	padding: 10px;
+	padding-right: 20px;
+	opacity: .9;
+}
+
+.border-close-text {
+	position: absolute;
+	right: 4px;
+	top: 4px;
+	width: 10%;
+	border-top: 40px solid white;
+	border-left: 28px solid transparent;
+}
+
+.add-event-body {
+	height: auto;
+	color: rgb(216, 216, 216);
+	margin-top: 80px;
+}
+
+.add-event-fieldset label {
+	width: 100px;
+	display: inline-block;
+}
+
+.add-event-fieldset div {
+	padding: 5px;
+	margin-bottom: 5px;
+}
+
+.add-event-form-container {
+	width: 400px;
+}
+
+#btnAddNewEvent {
+	font-size: 2em;
+	color: rgb(152, 255, 163);
+	padding-left: 20px;
+	padding-right: 20px;
+	background: rgb(27,27,27);
+	border: 1px solid gray;
+	margin-top: 20px;
+	text-align: center;
+	width: 100%;
+}
+
+.light-icon {
+	color: white;
+	background: rgb(225,225,225);
+}
+
+.dark-icon {
+	/*
+background:rgb(115, 233, 162);
+*/
+	background: rgb(215,215,215);
+	color: white;
+}
+
+.addNewEvent-cellIcon {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	right: 0px;
+	top: 58px;
+	text-align: center;
+	margin-right: 2px;
+	border-radius: 10px;
+	display: none;
+	z-index: 10;
+}
+
+.title-label {
+	width: 100% !important;
+}
+
+
+.cell-line-style {
+	position: absolute;
+	width: 1px;
+	opacity: .1;
+	background: gray;
+	height: 100%;
+	visibility:hidden;
+}
+
+.event-rectangle {
+	position: absolute;
+	height: 20px;
+	background: rgb(202, 255, 208);
+	z-index: 2;
+	background: rgb(255, 236, 136);
+	display: none;
+}
+
+.event-hover-container {
+	display: none;
+	position: absolute;
+	background: white;
+	z-index:100;
+	padding:20px;
+}
+
+
+
+
+
 
 
 /*
@@ -311,10 +505,12 @@ Slider
 /* Styles for basic forms
 -----------------------------------------------------------*/
 fieldset {
-	border: 1px solid #ddd;
-	padding: 0 1.4em 1.4em 1.4em;
+	border: 1px solid transparent;
+	padding: 1.4em;
 	margin: 0 0 1.5em 0;
+	width: auto;
 }
+
 
 legend {
 	font-size: 1.2em;

@@ -1,0 +1,49 @@
+﻿<div id="add-new-event-container">
+	<div id="closeBtn-add-event-container" class="close-btn">
+	</div>
+	<div class="border-close-text"></div>
+	<div class="close-text">
+		zamknij
+	</div>
+	<section class="add-event-body">
+		<div class="add-event-form-container">
+
+
+			<fieldset class="add-event-fieldset">
+				<div data-bind="with: event">
+					<legend>Dodaj Wydarzenie</legend>
+					<div style="text-align: center;">
+						<label class="title-label">Co </label>
+					</div>
+					<div>
+						<label>Nazwa: </label>
+						<input type="text" name="whatTxtBox" data-bind="value: name" />
+					</div>
+					<div>
+						<label>Gdzie: </label>
+						<input type="text" name="whereTxtBox" data-bind="value: adress" />
+					</div>
+					<div style="text-align: center;">
+						<label class="title-label">Kiedy </label>
+					</div>
+					<div>
+						<label>zaczyna się o godzinie: </label>
+						<input type="text" id="startHourTxtBox" data-bind="value: startTime" />
+					</div>
+					<div>
+						<label>kończy się o godzinie: </label>
+						<input type="text" id="endHourTxtBox" data-bind="value: endTime" />
+					</div>
+				</div>
+
+				<input type="hidden" name="" id="hiddenDay" />
+
+				<button id="btnAddNewEvent" data-bind="click: $root.addEvent">+</button>
+			</fieldset>
+		</div>
+	</section>
+</div>
+<script type="text/javascript">
+
+
+</script>

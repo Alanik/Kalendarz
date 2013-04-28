@@ -1,4 +1,6 @@
-location.hash = '#1';
+
+location.hash = '#0';
+
 $(document).ready(function () {
 	
 	$('#slides').superslides({

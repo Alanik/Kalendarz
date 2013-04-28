@@ -34,11 +34,12 @@
 		//} else {
 		//    var prev_month = '<a href="?month=' + (month) + '&amp;year=' + (year) + '" title="' + monthNames[month - 1] + ' ' + (year) + '">' + monthNames[month - 1] + ' ' + (year) + '</a>';
 		//}
-
-		calendar += ('<div id="current-month-header">' + '<span style="font-size:.7em;">' + dayNames[6 % today] + "</span>" + ", " + '<span>' + today + " "  + monthNames[month] + '</span>' + " " + '<span style="font-size:.7em;">' + year + '</span></div>');
-		// uncomment the following lines if you'd like to display calendar month based on 'month' and 'view' paramaters from the URL
+	// uncomment the following lines if you'd like to display calendar month based on 'month' and 'view' paramaters from the URL
 		//table += ('<div class="nav-prev">'+ prev_month +'</div>');
 		//table += ('<div class="nav-next">'+ next_month +'</div>');
+
+		calendar += ('<div id="calendar-menu-header" class="site-menu-header">' + '<div class="menu-item-container"><div class="border-item"></div><div class="menu-item"><span>Wydarzenia</span></div></div><div class="menu-item-container"><div class="border-item"></div><div class="menu-item"><span>Zajęcia</span></div></div><div class="menu-item-container"><div class="border-item"></div><div class="menu-item"><span>Szkolenia</span></div></div></div>');
+	
 		calendar += ('<div class="weekday-container" ' + 'id="calendar-month' + i + ' ">');
 
 		for (d = 0; d < 7; d++) {
@@ -81,16 +82,16 @@
 
 			if ((j < firstDay)) {
 
-				calendar += ('<div class="other-month calendar-cell"><div class="cell-span-container" style="position:relative;"><span class="day">' + (prev_days - firstDay + j + 1) + '</span></div></div>');
+				calendar += ('<div class="other-month calendar-cell"><div class="cell-span-container" style="position:relative;"><span class="day">' + (prev_days - firstDay + j + 1) + '</span><div class="addNewEvent-cellIcon dark-icon">+</div></div></div>');
 
 			} else if ((j >= firstDay + getDaysInMonth(month, year))) {
 
 				i = i + 1;
-				calendar += ('<div class="other-month calendar-cell"><div class="cell-span-container" style="position:relative;"><span class="day">' + i + '</span></div></div>');
+				calendar += ('<div class="other-month calendar-cell"><div class="cell-span-container" style="position:relative;"><span class="day">' + i + '</span><div class="addNewEvent-cellIcon dark-icon">+</div></div></div>');
 
 			} else {
 
-				calendar += ('<div class="current-month  calendar-cell day' + (j - firstDay + 1) + '"><div class="cell-span-container" style="position:relative;"><span class="day">' + (j - firstDay + 1) +'</span></div></div>');
+				calendar += ('<div class="current-month  calendar-cell day' + (j - firstDay + 1) + '"><div class="cell-span-container" style="position:relative;"><span class="day">' + (j - firstDay + 1) + '</span><div class="addNewEvent-cellIcon light-icon" >+</div></div></div>');
 
 			}
 
@@ -101,7 +102,7 @@
 
 		el.html(calendar);
 
-		el.find('.day' + today).css({ "border": "3px outset rgb(185, 185, 185)", "color": "rgb(167, 238, 211)", "font-size": "1.7em", "font-weight": "bold" }).addClass("today-cell").find("span").css("top", "50px");
+		//el.find('.day' + today).css({ "border": "3px outset rgb(185, 185, 185)", "color": "rgb(167, 238, 211)", "font-size": "1.7em", "font-weight": "bold" }).addClass("today-cell").find("span").css("top", "50px");
 
 	}
 
@@ -119,5 +120,7 @@
 		calendarWidget(this, params);
 		return this;
 	};
+
+	
 
 })(jQuery);

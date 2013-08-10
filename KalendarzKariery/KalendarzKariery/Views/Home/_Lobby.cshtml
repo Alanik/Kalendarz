@@ -1,18 +1,177 @@
 ﻿<div class="lobby-content-container">
-
-	<header class="site-menu-header">
+	<div id="lobby-menu-header" class="site-menu-header">
 		<div id="lobby-logo">
-			KALENDARZ KARIERY
+		</div>
+		<div style="float:right;width:400px;">
+		<div class="menu-item-container">
+			<div class="border-item inne-border-tab"></div>
+			<div class="menu-item"><span>Inne</span></div>
+		</div>
+		<div class="menu-item-container">
+			<div class="border-item spotkania-border-tab"></div>
+			<div class="menu-item"><span>Spotkania</span></div>
+		</div>
+		<div class="menu-item-container">
+			<div class="border-item kursy-border-tab"></div>
+			<div class="menu-item"><span>Kursy</span></div>
+		</div>
+		<div class="menu-item-container">
+			<div class="border-item szkolenia-border-tab"></div>
+			<div class="menu-item"><span>Szkolenia</span></div>
+
+		</div>
+		<div class="menu-item-container">
+			<div class="border-item zajecia-border-tab"></div>
+			<div class="menu-item"><span>Zajęcia</span></div>
+		</div>
+		<div class="menu-item-container">
+			<div class="border-item wydarzenia-border-tab"></div>
+			<div class="menu-item"><span>Wydarzenia</span></div>
+		</div>
+		</div>
+		
+
+	</div>
+
+	<section class="lobby-profile-menu">
+		<div>
+			<a class="login-text" href="#">Zaloguj sie</a>
 		</div>
 
-	</header>
-	<div class="lobby-content-body">
-		<section class="event-list" data-bind="foreach: events">
-			<div>
-				<span data-bind="text: name"></span><span> ,</span><span data-bind="	text: adress"></span>
+		<div style="float:left;"><a class="moje-sprawy-text" href="#">Moje Sprawy</a><a class="moje-sprawy-text" href="#">wiadomości</a><a class="moje-sprawy-text" href="#">opcje</a></div>
+
+	</section>
+	<section>
+	<div id="moje-sprawy-container" class="lobby-content-body">
+
+		<header class="title-header">Moje Sprawy<a class="moje-sprawy-btn" href="#" style="float:right;color:black;">zamknij</a></header>
+		
+		<section class="event-list moje-sprawy-container"" data-bind="foreach: filteredEvents">
+			<div class="news-event-details">
+		
+				<div class="left-event-details">
+					<div class="event-kind-text" data-bind="text: kind.kindName, style: { background: kind.color }">
+					</div>
+					<div class="events-text-container margin-left-fifteen padding-top-ten" data-bind="visible: kind.kindName != 'Aktualności'">
+
+						<span data-bind="text: startTime" class="events-text-startTime"></span><span>:00 - </span><span data-bind="	text: endTime" class="events-text-endTime"></span><span>:00</span>
+						<div>12.03.2012, Piątek</div>
+						<div data-bind="text: adress" class="events-text-address"></div>
+					</div>
+				</div>
+				<div class="middle-event-details">
+					<div class="event-title-container">
+						<a data-bind="text: name" class="events-text-name" href="#"></a>
+					</div>
+
+					<div class="events-text-container">
+						<div data-bind="text: description" class="events-text-description"></div>
+					</div>
+				</div>
+				<div class="right-event-details">
+					<div class="events-text-author-container">
+						<div>
+							<span>dodano przez: </span><a class="events-text-author" data-bind="text: author" href="#"></a>
+						</div>
+						<div>
+							10:47 10.12.2013 
+						</div>
+					</div>
+				</div>
 			</div>
 		</section>
 	</div>
+
+	<div class="selected-content-container">
+
+		<header class="title-header">Szkolenia<a class="szkolenia-btn" href="#" style="float:right;color:black;">zamknij</a></header>
+		<div class="event-list-date-header">
+			12.03.2012
+		</div>
+		
+		<section class="event-list" data-bind="foreach: events">
+			<div class="news-event-details" data-bind="if: kind.kindName == 'Szkolenie', visible: kind.kindName == 'Szkolenie'">
+				
+				<div class="left-event-details">
+					<div class="event-kind-text" data-bind="text: kind.kindName, style: { background: kind.color }">
+					</div>
+					<div class="events-text-container margin-left-fifteen padding-top-ten" data-bind="visible: kind.kindName != 'Aktualności'">
+
+						<span data-bind="text: startTime" class="events-text-startTime"></span><span>:00 - </span><span data-bind="	text: endTime" class="events-text-endTime"></span><span>:00</span>
+						<div>12.03.2012, Piątek</div>
+						<div data-bind="text: adress" class="events-text-address"></div>
+					</div>
+				</div>
+				<div class="middle-event-details">
+					<div class="event-title-container">
+						<a data-bind="text: name" class="events-text-name" href="#"></a>
+					</div>
+
+					<div class="events-text-container">
+						<div data-bind="text: description" class="events-text-description"></div>
+					</div>
+				</div>
+				<div class="right-event-details">
+					<div class="events-text-author-container">
+						<div>
+							<span>dodano przez: </span><a class="events-text-author" data-bind="text: author" href="#"></a>
+						</div>
+						<div>
+							10:47 10.12.2013 
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+
+<div class="lobby-content-body">
+
+		<header class="title-header">Aktualności</header>
+		<div class="event-list-date-header">
+			12.03.2012
+		</div>
+		
+		<section class="event-list" data-bind="foreach: events">
+			<div class="news-event-details" data-bind="ifnot: kind.kindName == 'Zajęcia',visible: kind.kindName != 'Zajęcia'">
+				
+				<div class="left-event-details">
+					<div class="event-kind-text" data-bind="text: kind.kindName, style: { background: kind.color }">
+					</div>
+					<div class="events-text-container margin-left-fifteen padding-top-ten" data-bind="		visible: kind.kindName != 'Aktualności'">
+
+						<span data-bind="text: startTime" class="events-text-startTime"></span><span>:00 - </span><span data-bind="	text: endTime" class="events-text-endTime"></span><span>:00</span>
+						<div>12.03.2012, Piątek</div>
+						<div data-bind="text: adress" class="events-text-address"></div>
+					</div>
+				</div>
+				<div class="middle-event-details">
+					<div class="event-title-container">
+						<a data-bind="text: name" class="events-text-name" href="#"></a>
+					</div>
+
+					<div class="events-text-container">
+						<div data-bind="text: description" class="events-text-description"></div>
+					</div>
+				</div>
+				<div class="right-event-details">
+					<div class="events-text-author-container">
+						<div>
+							<span>dodano przez: </span><a class="events-text-author" data-bind="text: author" href="#"></a>
+						</div>
+						<div>
+							10:47 10.12.2013 
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+	</section>
+	
+	<footer class="lobby-footer">
+		Kalendarz Kariery 2012, wszelkie prawa zastrzezone
+	</footer>
 </div>
 
 

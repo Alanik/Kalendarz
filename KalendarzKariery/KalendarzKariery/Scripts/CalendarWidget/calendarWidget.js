@@ -38,7 +38,7 @@
 		//table += ('<div class="nav-prev">'+ prev_month +'</div>');
 		//table += ('<div class="nav-next">'+ next_month +'</div>');
 
-		calendar += ('<div id="calendar-menu-header" class="site-menu-header">' + '<div class="menu-item-container"><div class="border-item"></div><div class="menu-item"><span>Wydarzenia</span></div></div><div class="menu-item-container"><div class="border-item"></div><div class="menu-item"><span>Zajęcia</span></div></div><div class="menu-item-container"><div class="border-item"></div><div class="menu-item"><span>Szkolenia</span></div></div></div>');
+		calendar += ('<div id="calendar-menu-header" class="site-menu-header"><div class="menu-item-container inne-tab"><div class="border-item inne-border-tab"></div><div class="menu-item"><span>Inne</span></div></div><div class="menu-item-container spotkania-tab"><div class="border-item spotkania-border-tab"></div><div class="menu-item"><span>Spotkania</span></div></div><div class="menu-item-container kursy-tab"><div class="border-item kursy-border-tab"></div><div class="menu-item"><span>Kursy</span></div></div><div class="menu-item-container szkolenia-tab"><div class="border-item szkolenia-border-tab"></div><div class="menu-item"><span>Szkolenia</span></div></div><div class="menu-item-container zajecia-tab"><div class="border-item zajecia-border-tab"></div><div class="menu-item"><span>Zajęcia</span></div></div><div class="menu-item-container wydarzenia-tab"><div class="border-item wydarzenia-border-tab"></div><div class="menu-item"><span>Wydarzenia</span></div></div></div>');
 	
 		calendar += ('<div class="weekday-container" ' + 'id="calendar-month' + i + ' ">');
 

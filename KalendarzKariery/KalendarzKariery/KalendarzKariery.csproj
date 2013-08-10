@@ -186,10 +186,13 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="Images\EventBg.png" />
+    <Content Include="Images\grayLab2.png" />
+    <Content Include="Images\kalendarzTloPrawo2.png" />
     <Content Include="Images\Nav\arrowLeft.png" />
+    <Content Include="Images\Nav\arrowLeftRed.png" />
     <Content Include="Images\Nav\arrowRight.png" />
-    <Content Include="Images\przycisk.png" />
-    <Content Include="Images\whiteColorBg.png" />
+    <Content Include="Images\Nav\arrowRightRed.png" />
     <Content Include="img\ajax-loader.gif" />
     <Content Include="Images\kalendarzBg2.png" />
     <Content Include="Images\kalendarzTlo.png" />
@@ -197,6 +200,12 @@
     <Content Include="Images\kalendarzTloPrawo.png" />
     <Content Include="Images\kalendBackground.png" />
     <Content Include="Images\MiddlePartBg.png" />
+    <Content Include="img\kalendarz.png" />
+    <Content Include="img\kalendarz2.png" />
+    <Content Include="img\point.png" />
+    <Content Include="img\point2.png" />
+    <Content Include="img\point3.png" />
+    <Content Include="Images\tri.png" />
     <Content Include="Models\JSModels\CalendarViewModel.js" />
     <Content Include="Scripts\CalendarWidget\calendarWidget.js" />
     <Content Include="Scripts\CalendarWidget\Slider\application.js" />
@@ -215,9 +224,9 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\knockout-2.1.0.debug.js" />
-    <Content Include="Scripts\knockout-2.1.0.js" />
-    <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Scripts\knockout-2.2.1.debug.js" />
+    <Content Include="Scripts\knockout-2.2.1.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -255,9 +264,9 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>80</DevelopmentServerPort>
+          <DevelopmentServerPort>51797</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:1500/</IISUrl>
           <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>

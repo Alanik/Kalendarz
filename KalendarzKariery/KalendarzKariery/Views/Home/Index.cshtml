@@ -6,9 +6,9 @@
 		<li>
 			<div class="slide-item-lobby">
 				<div id="lobbyBg">
-					<img src="~/Images/kalendarzTlo.png" alt="background" />
+					
 					<section id="lobby">
-					@Html.Partial("_Lobby")
+						@Html.Partial("_Lobby")
 					</section>
 				</div>
 				<div id="rightSideLobby" class="side">
@@ -20,7 +20,7 @@
 				<div id="leftSideCalendar" class="side">
 				</div>
 				<div id="calendarBg">
-					<img src="~/Images/kalendarzTlo.png" alt="background" />
+					
 					<section id="calendar">
 					</section>
 					@Html.Partial("_AddNewEvent")
@@ -33,7 +33,7 @@
 		<li>
 			<div class="slide-item-details">
 				<div id="detailsBg">
-					<img src="~/Images/kalendarzTlo.png" alt="background" />
+					
 					<section id="details">
 						KALENDARZ KARIERY: Szczegóły dnia
 					</section>
@@ -51,9 +51,10 @@
 
 	$(function () {
 
+
+
 		var mainProgram = {
 			Initialize: function () {
-
 				var $calendar = $("#calendar");
 				var $details = $("#details");
 				var $lobby = $("#lobby");
@@ -62,13 +63,13 @@
 
 				$calendar.calendarWidget({ month: date.getMonth(), year: 2013 });
 
-				$(".calendar-cell").each(function (i) {
-					if (i == 5 || i == 6 || i == 12 || i == 13 || i == 19 || i == 20 || i == 26 || i == 27 || i == 33 || i == 34 || i == 40 || i == 41) {
-						$(this).css({
-							"border-color": "rgb(255, 203, 203)",
-						});
-					}
-				});
+				//$(".calendar-cell").each(function (i) {
+				//	if (i == 5 || i == 6 || i == 12 || i == 13 || i == 19 || i == 20 || i == 26 || i == 27 || i == 33 || i == 34 || i == 40 || i == 41) {
+				//		$(this).css({
+				//			"color": "rgb(255, 203, 203)",
+				//		});
+				//	}
+				//});
 
 				$calendar.append('<div class="calendar-navigation-arrows-left"><img src="Images/Nav/arrowLeft.png" alt="arrow-left"/></div>');
 				$calendar.append('<div class="calendar-navigation-arrows-right"><img src="Images/Nav/arrowRight.png" alt="arrow-Right"/></div>');
@@ -110,6 +111,8 @@
 
 					$(".current-month").hover(function () {
 						$(this).css({
+							"border-bottom": "2px solid rgb(235,235,235)",
+							"border-top": "2px solid rgb(250,250,250)",
 							"cursor": "pointer",
 							"-moz-box-shadow": "none",
 							"-webkist-box-shadow": "none",
@@ -118,6 +121,7 @@
 						}).find($currentMonthIcon).fadeIn();
 					}, function () {
 						$(this).css({
+						"border":"2px solid white",
 							"cursor": "auto",
 							"-moz-box-shadow": "0px 3px 5px rgb(235,235,235)",
 							"-webkist-box-shadow": "0px 3px 5px rgb(235,235,235)",
@@ -148,18 +152,14 @@
 					$(".menu-item-container").hover(function () {
 						$(this).css({
 							"cursor": "pointer",
-							"background": "rgb(128, 128, 128)"
 						}).find($menuItem).css({
-							"background": "white",
-							"color": "gray"
+							"font-size": ".9em"
 						});
 					}, function () {
 						$(this).css({
 							"cursor": "auto",
-							"background": "transparent"
 						}).find($menuItem).css({
-							"background": "rgb(243, 243, 243)",
-							"color": "rgb(199, 185, 185)"
+							"font-size": ".8em"
 						});
 					});
 
@@ -375,6 +375,27 @@
 				}();
 
 				this.Initialize.InitializeClick = function () {
+
+
+					$(".szkolenia-btn").click(function () {
+
+						$(".selected-content-container").slideUp("slow");
+					});
+
+					$(".menu-item-container").click(function () {
+
+						$(".selected-content-container").slideDown("slow");
+					});
+
+					$(".moje-sprawy-text").click(function () {
+
+						$("#moje-sprawy-container").slideDown();
+					});
+
+					$(".moje-sprawy-btn").click(function () {
+
+						$("#moje-sprawy-container").slideUp();
+					});
 
 					var $mainContainer = $("#mainContainer");
 

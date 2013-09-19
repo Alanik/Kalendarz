@@ -2,7 +2,7 @@
 	<div id="lobby-menu-header" class="site-menu-header">
 		<div id="lobby-logo">
 		</div>
-		<div style="float:right;width:400px;">
+		<div style="float:right;width:600px;margin-right:10px;">
 		<div class="menu-item-container">
 			<div class="border-item inne-border-tab"></div>
 			<div class="menu-item"><span>Inne</span></div>
@@ -54,7 +54,7 @@
 					</div>
 					<div class="events-text-container margin-left-fifteen padding-top-ten" data-bind="visible: kind.kindName != 'Aktualności'">
 
-						<span data-bind="text: startTime" class="events-text-startTime"></span><span>:00 - </span><span data-bind="	text: endTime" class="events-text-endTime"></span><span>:00</span>
+						<span data-bind="text: date.startHour" class="events-text-startTime"></span><span>:00 - </span><span data-bind="	text: date.endHour" class="events-text-endTime"></span><span>:00</span>
 						<div>12.03.2012, Piątek</div>
 						<div data-bind="text: adress" class="events-text-address"></div>
 					</div>
@@ -97,7 +97,7 @@
 					</div>
 					<div class="events-text-container margin-left-fifteen padding-top-ten" data-bind="visible: kind.kindName != 'Aktualności'">
 
-						<span data-bind="text: startTime" class="events-text-startTime"></span><span>:00 - </span><span data-bind="	text: endTime" class="events-text-endTime"></span><span>:00</span>
+						<span data-bind="text: date.startHour" class="events-text-startTime"></span><span>:00 - </span><span data-bind="	text: date.endHour" class="events-text-endTime"></span><span>:00</span>
 						<div>12.03.2012, Piątek</div>
 						<div data-bind="text: adress" class="events-text-address"></div>
 					</div>
@@ -140,7 +140,7 @@
 					</div>
 					<div class="events-text-container margin-left-fifteen padding-top-ten" data-bind="		visible: kind.kindName != 'Aktualności'">
 
-						<span data-bind="text: startTime" class="events-text-startTime"></span><span>:00 - </span><span data-bind="	text: endTime" class="events-text-endTime"></span><span>:00</span>
+						<span data-bind="text: date.startHour" class="events-text-startTime"></span><span>:00 - </span><span data-bind="	text: date.endHour" class="events-text-endTime"></span><span>:00</span>
 						<div>12.03.2012, Piątek</div>
 						<div data-bind="text: adress" class="events-text-address"></div>
 					</div>

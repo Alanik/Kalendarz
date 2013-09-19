@@ -188,7 +188,13 @@
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Images\EventBg.png" />
     <Content Include="Images\grayLab2.png" />
+    <Content Include="Images\kalendarzGray.png" />
+    <Content Include="Images\kalendarzGray2.png" />
+    <Content Include="Images\kalendarzGray3.png" />
     <Content Include="Images\kalendarzTloPrawo2.png" />
+    <Content Include="Images\kalendarzTloPrawo3.png" />
+    <Content Include="Images\kalendarzTloPrawo4.png" />
+    <Content Include="Images\maleLogoKalendarz.png" />
     <Content Include="Images\Nav\arrowLeft.png" />
     <Content Include="Images\Nav\arrowLeftRed.png" />
     <Content Include="Images\Nav\arrowRight.png" />

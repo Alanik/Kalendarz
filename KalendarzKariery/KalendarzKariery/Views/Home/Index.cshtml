@@ -6,7 +6,7 @@
 		<li>
 			<div class="slide-item-lobby">
 				<div id="lobbyBg">
-					
+
 					<section id="lobby">
 						@Html.Partial("_Lobby")
 					</section>
@@ -20,9 +20,11 @@
 				<div id="leftSideCalendar" class="side">
 				</div>
 				<div id="calendarBg">
-					
+					<img src="~/Images/kalendarzTlo.png" alt="background" />
+
 					<section id="calendar">
 					</section>
+
 					@Html.Partial("_AddNewEvent")
 					@Html.Partial("_HoverEvent")
 				</div>
@@ -33,10 +35,50 @@
 		<li>
 			<div class="slide-item-details">
 				<div id="detailsBg">
-					
-					<section id="details">
-						KALENDARZ KARIERY: Szczegóły dnia
-					</section>
+					<div id="details">
+						<section class="calendar-day-details-container">
+							<table id="calendarDayDetailsTable">
+								<thead>
+									<tr>
+										<td>7:00</td>
+										<td>8:00</td>
+										<td>9:00</td>
+										<td>10:00</td>
+										<td>11:00</td>
+										<td>12:00</td>
+										<td>13:00</td>
+										<td>14:00</td>
+										<td>15:00</td>
+										<td>16:00</td>
+										<td>17:00</td>
+										<td>18:00</td>
+										<td>19:00</td>
+										<td>20:00</td>
+										<td>21:00</td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</section>
+					</div>
 				</div>
 				<div id="leftSideDetails" class="side">
 				</div>
@@ -51,17 +93,17 @@
 
 	$(function () {
 
-
-
 		var mainProgram = {
 			Initialize: function () {
 				var $calendar = $("#calendar");
 				var $details = $("#details");
 				var $lobby = $("#lobby");
-
 				var date = new Date();
 
 				$calendar.calendarWidget({ month: date.getMonth(), year: 2013 });
+				mainProgram.DrawLines();
+
+				ko.applyBindings(new CalendarViewModel(2013, date.getMonth(), date.getDate()));
 
 				//$(".calendar-cell").each(function (i) {
 				//	if (i == 5 || i == 6 || i == 12 || i == 13 || i == 19 || i == 20 || i == 26 || i == 27 || i == 33 || i == 34 || i == 40 || i == 41) {
@@ -121,7 +163,7 @@
 						}).find($currentMonthIcon).fadeIn();
 					}, function () {
 						$(this).css({
-						"border":"2px solid white",
+							"border": "2px solid white",
 							"cursor": "auto",
 							"-moz-box-shadow": "0px 3px 5px rgb(235,235,235)",
 							"-webkist-box-shadow": "0px 3px 5px rgb(235,235,235)",
@@ -132,17 +174,17 @@
 					$(".other-month").hover(function () {
 						$(this).css({
 							"cursor": "pointer",
-							"-moz-box-shadow": "none",
-							"-webkist-box-shadow": "none",
-							"box-shadow": "none",
+							//"-moz-box-shadow": "none",
+							//"-webkist-box-shadow": "none",
+							//"box-shadow": "none",
 							"top": "3px"
 						}).find($otherMonthIcon).fadeIn();
 					}, function () {
 						$(this).css({
 							"cursor": "auto",
-							"-moz-box-shadow": "0px 3px 5px #ddd",
-							"-webkist-box-shadow": "0px 3px 5px #ddd",
-							"box-shadow": "0px 3px 5px #ddd",
+							//"-moz-box-shadow": "0px 3px 5px #ddd",
+							//"-webkist-box-shadow": "0px 3px 5px #ddd",
+							//"box-shadow": "0px 3px 5px #ddd",
 							"top": "0px"
 						}).find($otherMonthIcon).fadeOut();
 					});
@@ -189,12 +231,12 @@
 
 					$leftSideCalendar.hover(function () {
 						$(this).css({
-							"backgroundPosition": "left",
+							//"backgroundPosition": "left",
 							"cursor": "pointer"
 						});
 					}, function () {
 						$(this).css({
-							"backgroundPosition": "right",
+							//"backgroundPosition": "right",
 							"cursor": "auto"
 						})
 					});
@@ -204,24 +246,24 @@
 						});
 
 						$leftSideCalendar.css({
-							"backgroundPosition": "left"
+							//"backgroundPosition": "left"
 						});
 					}, function () {
 						$(this).css({
 							"cursor": "auto"
 						});
 						$leftSideCalendar.css({
-							"backgroundPosition": "right"
+							//"backgroundPosition": "right"
 						})
 					});
 					$rightSideCalendar.hover(function () {
 						$(this).css({
-							"backgroundPosition": "right",
+							//"backgroundPosition": "right",
 							"cursor": "pointer"
 						});
 					}, function () {
 						$(this).css({
-							"backgroundPosition": "left",
+							//"backgroundPosition": "left",
 							"cursor": "auto"
 						})
 					});
@@ -231,14 +273,14 @@
 						});
 
 						$rightSideCalendar.css({
-							"backgroundPosition": "right"
+							//"backgroundPosition": "right"
 						});
 					}, function () {
 						$(this).css({
 							"cursor": "auto"
 						});
 						$rightSideCalendar.css({
-							"backgroundPosition": "left"
+							//"backgroundPosition": "left"
 						})
 					});
 
@@ -248,14 +290,14 @@
 						});
 
 						$rightSideLobby.css({
-							"backgroundPosition": "right"
+							//"backgroundPosition": "right"
 						});
 					}, function () {
 						$(this).css({
 							"cursor": "auto"
 						});
 						$rightSideLobby.css({
-							"backgroundPosition": "left"
+							//"backgroundPosition": "left"
 						})
 					});
 					$(".details-navigation-arrows-left").hover(function () {
@@ -264,35 +306,35 @@
 						});
 
 						$leftSideDetails.css({
-							"backgroundPosition": "left"
+							//"backgroundPosition": "left"
 						});
 					}, function () {
 						$(this).css({
 							"cursor": "auto"
 						});
 						$leftSideDetails.css({
-							"backgroundPosition": "right"
+							//"backgroundPosition": "right"
 						})
 					});
 					$leftSideDetails.hover(function () {
 						$(this).css({
-							"backgroundPosition": "left",
+							//"backgroundPosition": "left",
 							"cursor": "pointer"
 						});
 					}, function () {
 						$(this).css({
-							"backgroundPosition": "right",
+							//"backgroundPosition": "right",
 							"cursor": "auto"
 						})
 					});
 					$rightSideLobby.hover(function () {
 						$(this).css({
-							"backgroundPosition": "right",
+							//"backgroundPosition": "right",
 							"cursor": "pointer"
 						});
 					}, function () {
 						$(this).css({
-							"backgroundPosition": "left",
+							//"backgroundPosition": "left",
 							"cursor": "auto"
 						})
 					});
@@ -378,7 +420,6 @@
 
 
 					$(".szkolenia-btn").click(function () {
-
 						$(".selected-content-container").slideUp("slow");
 					});
 
@@ -399,9 +440,9 @@
 
 					var $mainContainer = $("#mainContainer");
 
-					$mainContainer.on("click", ".calendar-cell", function (event) {
-						window.location = "#2";
-					});
+					//$mainContainer.on("click", ".calendar-cell", function (event) {
+					//	window.location = "#2";
+					//});
 
 					$mainContainer.on("click", "#leftSideCalendar", function (event) {
 						window.location = "#0";
@@ -451,18 +492,36 @@
 				}();
 			},
 			DrawLines: function () {
-				$("#calendar .calendar-cell").each(function (i) {
-					for (var i = 0; i < 16; i++) {
-						var left = i * 10;
-						$(this).append('<div style="left:' + left + 'px;" class="cell-line' + (i + 7) + ' cell-line-style"></div>');
+
+				var $calendarHours = $(".calendar-hours");
+
+				$("#calendar .calendar-cell").each(function (index) {
+
+				//cell lines
+					for (var i = 0.3; i < 16; i++) {
+						var left = i * 6.8;
+						$(this).append('<div style="left:' + left + '%;" class="cell-line' + (parseInt(i, 10) + 7) + ' cell-line-style"></div>');
 
 					}
+
+
+					//hours
+					if (index < 7) {
+						var $hoursContainer = $($calendarHours[index]);
+						var counter = 0;
+						for (var j = 7; j < 22; j += 2) {
+
+							$hoursContainer.append('<div class="hour" style="left:' + ((counter + .4) * 6.4) + '%;"> ' + j + ' </div>');
+
+							counter += 2;
+						}
+					}
+
 				})
 			}
 		}
 
 		mainProgram.Initialize();
-		mainProgram.DrawLines();
 
 	});
 

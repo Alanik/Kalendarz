@@ -13,7 +13,7 @@
 
 					<div>
 						<label>Prywatne czy publiczne: </label>
-						<select id="scopeSelectBox" data-bind="value: scope">
+						<select id="scopeSelectBox" data-bind="value: privacyLevel">
 							<option value="private">prywatne</option>
 							<option value="public">publiczne</option>
 						</select>
@@ -93,7 +93,7 @@
 
 				<input type="hidden" name="" id="hiddenDay" />
 
-				<button id="btnAddNewEvent" data-bind="click: $root.addEvent">+</button>
+				<button id="btnAddNewEvent" data-bind="click: $root.addEventToEvents">+</button>
 			</fieldset>
 		</div>
 	</section>

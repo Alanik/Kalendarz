@@ -5,11 +5,12 @@
 
 body {
 	font-size: .85em;
-	line-height:1.6;
+	line-height: 1.6;
 	font-family: 'Oxygen',"Segoe UI", Verdana, Helvetica, Sans-Serif;
 	padding: 0px;
 	margin: 0px;
-	font-weight:400;
+	font-weight: 400;
+	-webkit-font-smoothing: antialiased;
 }
 
 header, footer, nav, section, div {
@@ -19,6 +20,8 @@ header, footer, nav, section, div {
 
 /* Kalendarz Kariery
 -----------------------------------------------------------*/
+
+
 .dottedWrapper {
 	background: url(../img/point3.png) repeat scroll 0 0 transparent;
 	height: 100%;
@@ -40,7 +43,7 @@ body header {
 	display: table;
 	table-layout: fixed;
 	border-spacing: 1px;
-	margin-top:20px;
+	margin-top: 20px;
 }
 
 #calendarBg {
@@ -72,7 +75,7 @@ body header {
 }
 
 #lobbyBg {
-	background: white;
+
 	position: relative;
 	width: 90%;
 	left: 0px;
@@ -88,11 +91,12 @@ body header {
 }
 
 .calendar-navigation-arrows-left {
-	left: -9%;
-	position: absolute;
-	top: 50%;
+	left: 3%;
+	position: fixed;
+	top: 200px;
 	width: 50px;
-	z-index: 2;
+	z-index: 5;
+	border:1px solid white;
 }
 
 	.calendar-navigation-arrows-left img {
@@ -101,11 +105,12 @@ body header {
 	}
 
 .calendar-navigation-arrows-right {
-	right: -9%;
-	position: absolute;
-	top: 50%;
+	right: 4%;
+	position: fixed;
+	top: 200px;
 	width: 50px;
-	z-index: 2;
+	z-index: 5;
+	border:1px solid white;
 }
 
 	.calendar-navigation-arrows-right img {
@@ -114,11 +119,12 @@ body header {
 	}
 
 .lobby-navigation-arrows-right {
-	right: -8%;
-	position: absolute;
+	right: 4%;
+	position: fixed;
 	top: 200px;
 	width: 50px;
-	z-index: 2;
+	z-index: 5;
+	border:1px solid white;
 }
 
 	.lobby-navigation-arrows-right img {
@@ -127,11 +133,12 @@ body header {
 	}
 
 .details-navigation-arrows-left {
-	left: -8%;
-	position: absolute;
-	top: 300px;
+	left: 4%;
+	position: fixed;
+	top: 200px;
 	width: 50px;
-	z-index: 2;
+	z-index: 5;
+	border:1px solid white;
 }
 
 	.details-navigation-arrows-left img {
@@ -144,27 +151,46 @@ body header {
 	height: 14px;
 	display: table-cell;
 	overflow: hidden;
-	background:white;
-	color:rgb(204,204,204);
-	position:relative;
+	/*color: rgb(204,204,204);*/
+	color: white;
+	background: rgba(0,0,0,.04);
+	position: relative;
+}
+
+.calendar-hours-placeholder {
+	position: relative;
+	width: 100%;
+	height: 100%;
 }
 
 .hour {
 	font-size: 10px;
-	position:absolute;
+	position: absolute;
 }
 
 #calendar-menu-header {
 	display: table-caption;
 	text-align: center;
-	
-	height: 60px;
-	color:white;
-	border-left:1px solid #D8D8D8;
-	background:rgb(250,250,250);
-	border-bottom:1px solid white;
-	border-top:1px solid #D8D8D8;
+	color: white;
+	background: rgba(0,0,0,.04);
+	height:50px;
+	/*border-left: 1px solid #D8D8D8;*/
+	border-bottom: 1px solid rgb(247, 247, 247);
+	border-top: 1px solid #D8D8D8;
+	/*border-left:2px solid #313131;
+	border-right:2px solid #313131;*/
+}
 
+#details-menu-header {
+	text-align: center;
+	color: white;
+	width:90%;
+	min-height:48px;
+	background: rgba(0,0,0,.04);
+	/*border-left: 1px solid #D8D8D8;*/
+	border-bottom: 1px solid rgb(247, 247, 247);
+	border-top: 1px solid #D8D8D8;
+	overflow:hidden;
 	/*border-left:2px solid #313131;
 	border-right:2px solid #313131;*/
 }
@@ -174,8 +200,10 @@ body header {
 	margin-top: 20px;
 	min-height: 132px;
 	position: relative;
-	background:rgb(37, 37, 37);
-	border-right:2px solid #313131;
+	border-bottom:1px solid rgb(247, 247, 247);
+	background:rgba(0,0,0,.04);
+	/*background: rgb(37, 37, 37);
+	border-right: 2px solid #313131;*/
 	border-top: 1px solid rgb(221,221,221);
 	/*border-bottom:1px solid rgb(221,221,221);*/
 }
@@ -189,18 +217,18 @@ body header {
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;*/
+	padding-top: 10px;
 	display: table-cell;
 	text-align: center;
-	background:white;
 	/*background: rgba(255,255,255,.5);*/
 }
 
 	.weekday:nth-child(6) {
-		border: 2px solid rgb(255, 157, 157);
+		color: rgb(255, 124,124);
 	}
 
 	.weekday:nth-child(7) {
-		border: 2px solid rgb(255, 157, 157);
+		color: rgb(255, 124, 124);
 	}
 
 .calendar-cell {
@@ -208,6 +236,12 @@ body header {
 	display: table-cell;
 	/*overflow: hidden;*/
 	position: relative;
+}
+
+.calendar-cell-placeholder {
+	position: relative;
+	width: 100%;
+	height: 100%;
 }
 
 .calendar-row {
@@ -223,7 +257,7 @@ body header {
 .current-month {
 	border: 2px solid white;
 	background-color: rgb(253,253,253);
-	box-shadow:rgb(235, 235, 235) 0px 3px 5px;
+	box-shadow: rgb(235, 235, 235) 0px 3px 5px;
 	color: black;
 }
 
@@ -265,7 +299,7 @@ body header {
 	left: 0px;
 	/*border-right:1px solid #151718;*/
 	/*z-index:2;*/
-	border-right:1px solid #D8D8D8;
+	/*border-right: 1px solid #D8D8D8;*/
 }
 
 #rightSideCalendar {
@@ -273,14 +307,14 @@ body header {
 	background-position: left top;*/
 	/*background: rgb(37, 37, 37);*/
 	right: 0px;
-	border-left:1px solid #D8D8D8;
+	/*border-left: 1px solid #D8D8D8;*/
 	/*border-left:1px solid #151718;*/
 }
 
 #leftSideDetails {
 	/*background-image: url("../Images/kalendarzTloLewy.png");
 	background-position: right top;*/
-	background: rgb(37, 37, 37);
+	/*background: rgb(37, 37, 37);*/
 	left: 0px;
 }
 
@@ -288,9 +322,9 @@ body header {
 	/*background-image: url("../Images/kalendarzTloPrawo.png");
 	background-position: left top;*/
 	right: 0px;
-	height:3000px;
-	background: rgb(37, 37, 37);
-	border-left: 1px solid #151718;
+	/*height: 3000px;*/
+	/*background: rgb(37, 37, 37);
+	border-left: 1px solid #151718;*/
 }
 
 
@@ -301,10 +335,14 @@ body header {
 
 .menu-item {
 	border-top: 2px solid rgb(233, 233, 233);
-	/*background: rgb(252, 252, 252);*/
-	/*box-shadow:4px 2px 8px rgb(94, 94, 94);*/
+	/*border:1px solid rgb(213,213,213);*/
+	/*background: rgb(253, 253, 253);*/
+	background: rgba(0, 0, 0,.47);
+	/*box-shadow:4px 2px 8px rgb(187, 187, 187);*/
+	box-shadow:4px 2px 8px rgb(177, 177, 177);
 	height: 30px;
-	color: rgb(151, 151, 151);
+	/*color: rgb(151, 151, 151);*/
+	color: rgb(213, 213, 213);
 	font-size: 0.8em;
 }
 
@@ -315,7 +353,7 @@ body header {
 
 .menu-item-container {
 	margin: 2px;
-	margin-right:3px;
+	margin-right: 3px;
 	position: relative;
 	/*top:-10px;*/
 	float: right;
@@ -346,7 +384,9 @@ body header {
 	top: 10.5%;
 	position: absolute;
 	z-index: 10;
-	background: rgb(58, 58, 58);
+	/*background: rgb(58, 58, 58);*/
+	background-image:url("/Images/kalendarzTlo2.png");
+	background-size:contain;
 	opacity: .9;
 	z-index: 4;
 	width: 100% !important;
@@ -432,10 +472,10 @@ background:rgb(115, 233, 162);
 	height: 20px;
 	position: absolute;
 	right: 0px;
-	top: 58px;
+	top: 56px;
 	text-align: center;
 	margin-right: 2px;
-	border-radius: 10px;
+	border-radius: 20px;
 	display: none;
 	z-index: 10;
 }
@@ -448,21 +488,36 @@ background:rgb(115, 233, 162);
 .cell-line-style {
 	position: absolute;
 	width: 1px;
-	opacity: .1;
-	background: gray;
+	display:none;
 }
 
 .event-rectangle {
 	color: black;
 	overflow: hidden;
 	position: absolute;
-	height: 16px;
+	height: 2px;
 	z-index: 2;
 	display: none;
 	border-radius: 8px;
 	border: 2px solid;
 	/*background: rgba(255,255,255,.9);*/
 }
+
+.event-rectangle-details {
+	color: gray;
+	overflow: hidden;
+	position: absolute;
+	z-index: 2;
+	border: 2px solid;
+	border-radius: 12px;
+	background: rgba(255,255,255,.8);
+	min-height:40px;
+}
+
+.event-rectangle-details span{
+padding:10px;
+}
+
 
 .event-hover-container {
 	display: none;
@@ -480,12 +535,13 @@ background:rgb(115, 233, 162);
 	}
 
 .title-header {
-text-align: center;
-font-size: 2em;
-padding: 10px;
-background: rgb(37, 37, 37);
-border-top: 1px solid #313131;
-border-right: 2px solid #313131;
+	text-align: center;
+	font-size: 2em;
+	padding: 10px;
+	background:white;
+	/*background: rgb(37, 37, 37);
+	border-top: 1px solid #313131;
+	border-right: 2px solid #313131;*/
 	/*background: rgb(236, 236, 236);*/
 }
 
@@ -513,10 +569,11 @@ border-right: 2px solid #313131;
 	text-align: center;
 	overflow: hidden;
 	position: relative;
-	border-top: 1px solid #DADADA;  
-	/*background: rgb(32, 32, 32);*/
-	background:rgb(240, 240, 223);
-border-bottom: 1px solid white;
+	border-top: 1px solid #DADADA;
+	border-right:1px solid rgb(245,245,245);
+		/*background: rgb(32, 32, 32);*/
+	/*background: rgb(240, 240, 223);*/
+	border-bottom: 1px solid white;
 	/*background-image: url("../Images/kalendarzTlo.png");*/
 }
 
@@ -533,6 +590,7 @@ border-bottom: 1px solid white;
 	position: relative;
 	padding: 20px;
 	color: rgb(109,109,109);
+	background:rgb(253,253,253);
 	/*background:rgb(76, 86, 94);*/
 	/*box-shadow:0 1px 5px rgb(60,60,60);*/
 	/*border:1px solid rgb(207, 207, 207);*/
@@ -547,13 +605,13 @@ border-bottom: 1px solid white;
 
 .lobby-profile-menu {
 	width: 100%;
-color: whitesmoke;
-font-size: 1em;
-padding: 10px 0;
-overflow: hidden;
-background: rgb(32,32,32);
-border-top: 1px solid rgb(24,24,24);
-border-bottom: 1px solid rgb(24,24,24);
+	color: whitesmoke;
+	font-size: 1em;
+	padding: 10px 0;
+	overflow: hidden;
+	/*background: rgb(32,32,32);
+	border-top: 1px solid rgb(24,24,24);
+	border-bottom: 1px solid rgb(24,24,24);*/
 }
 
 	.lobby-profile-menu div {
@@ -565,8 +623,9 @@ border-bottom: 1px solid rgb(24,24,24);
 .event-list-date-header {
 	text-align: center;
 	color: rgb(114,114,114);
-background: rgb(32, 32, 32);
-border-top: 1px solid rgb(24, 24, 24);
+	background:#F0F8FF
+	/*background: rgb(32, 32, 32);
+	border-top: 1px solid rgb(24, 24, 24);*/
 }
 
 .events-text-container {
@@ -575,11 +634,11 @@ border-top: 1px solid rgb(24, 24, 24);
 
 .events-text-name {
 	font-size: 1.2em;
-	font-weight:bold;
+	font-weight: bold;
 }
 
-.event-title-container a{
-	color:rgb(104,104,104);
+.event-title-container a {
+	color: rgb(104,104,104);
 }
 
 
@@ -621,7 +680,7 @@ background: rgba(40,40,40,0.2);
 	width: 100px;
 	padding: 20px;
 	/*box-shadow: 0 2px 10px rgb(60, 60, 60);*/
-	border:1px solid whitesmoke;
+	border: 1px solid whitesmoke;
 	margin-left: 15px;
 	margin-top: 10px;
 }
@@ -681,69 +740,103 @@ wydarzenia-tab {
 }
 
 .slide-item-details {
-	margin-top: 60px;
+	margin-top: 20px;
 }
 
 
 #calendarDayDetailsTable {
 	width: 90%;
-	margin: 0 auto;
-	table-layout: fixed;
-	color:gray;
+	margin-top:40px;
+	color: gray;
+	position: relative;
 }
 
-#calendarDayDetailsTable tbody tr{
-	height:300px;
-}
+	#calendarDayDetailsTable .table-details-head {
+		overflow: hidden;
+		text-align: left;
+		background:rgba(0,0,0,.04);
+		color:white;
 
-#calendarDayDetailsTable tbody tr td{
-	border-color:rgb(243,243,243);
-}
-
-	#calendarDayDetailsTable td {
-		border: 1px solid #ddd;
-		text-align:center;
 	}
 
-.month-nav-container {
-display:inline-block;
+		#calendarDayDetailsTable .table-details-head div {
+			float: left;
+			width: 6.66%;
+		}
 
+	#calendarDayDetailsTable .table-details-body {
+		overflow: hidden;
+		background:rgba(255,255,255,.9);
+		border:2px solid rgb(223,223,223);
+	}
+
+		#calendarDayDetailsTable .table-details-body .details-day-cell {
+			height: 300px;
+			float: left;
+			width: 6.66%;
+		}
+
+.month-nav-container {
+	display: inline-block;
+	float: left;
+	margin-top: 4px;
+	margin-left: 10px;
 }
-.month-nav-container div{
-display:inline-block;
-padding:2px;
-color:orange;
-font-size:1.5em;
-}
+
+	.month-nav-container div {
+		border: 2px solid white;
+		display: inline-block;
+		padding: 0px 10px;
+		color: white;
+		border-radius: 10px;
+		font-size: 1.5em;
+		box-shadow: rgb(201, 201, 201) 0px 3px 5px;
+	}
+
+		.month-nav-container div:hover {
+			cursor: pointer;
+		}
 
 .month-name-calendar {
-margin:0 20px;
-font-size:2em;
-color:gray;
-font-weight:bold;
+	/*font-size: 2em;*/
+	color: gray;
+	font-weight: bold;
+	width: 150px;
+	display: inline-block;
+}
+
+.calendar-eventSummary-btn {
+	margin-right: 20px;
+}
+
+.details-day-cell {
+	position: relative;
+	height: 100%;
+	width: 100%;
+}
+
+.details-hour-line {
+
+position:absolute;
+background:whitesmoke;
+height:100%;
+width:1px;
+
 }
 
 
 
 
 
+/*
+MEDIA QUERIES
+*/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+@media screen and (max-width: 1350px) {
+	#lobby-logo {
+	display:none;
+	}
+}
 
 
 
@@ -788,7 +881,7 @@ Slider
 	z-index: 3;
 	top: 0;
 	text-align: center;
-	width: 100%;
+	width: 90%;
 }
 
 	.slides-pagination a {

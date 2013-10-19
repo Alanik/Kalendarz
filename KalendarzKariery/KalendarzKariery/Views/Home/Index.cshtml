@@ -6,7 +6,7 @@
 		<li>
 			<div class="slide-item-lobby">
 				<div id="lobbyBg">
-
+				<img src="~/Images/kalendarzTlo3.png" alt="background" />
 					<section id="lobby">
 						@Html.Partial("_Lobby")
 					</section>
@@ -20,7 +20,7 @@
 				<div id="leftSideCalendar" class="side">
 				</div>
 				<div id="calendarBg">
-					<img src="~/Images/kalendarzTlo.png" alt="background" />
+					<img src="~/Images/kalendarzTlo3.png" alt="background" />
 
 					<section id="calendar">
 					</section>
@@ -35,48 +35,62 @@
 		<li>
 			<div class="slide-item-details">
 				<div id="detailsBg">
+				<img src="~/Images/kalendarzTlo3.png" alt="background" />
 					<div id="details">
+					<div id="details-menu-header">
+					<div class="menu-item-container inne-tab"><div class="border-item inne-border-tab"></div><div class="menu-item"><span>Inne</span></div></div><div class="menu-item-container spotkania-tab"><div class="border-item spotkania-border-tab"></div><div class="menu-item"><span>Spotkania</span></div></div><div class="menu-item-container kursy-tab"><div class="border-item kursy-border-tab"></div><div class="menu-item"><span>Kursy</span></div></div><div class="menu-item-container szkolenia-tab"><div class="border-item szkolenia-border-tab"></div><div class="menu-item"><span>Szkolenia</span></div></div><div class="menu-item-container zajecia-tab"><div class="border-item zajecia-border-tab"></div><div class="menu-item"><span>Zajęcia</span></div></div><div class="menu-item-container wydarzenia-tab"><div class="border-item wydarzenia-border-tab"></div><div class="menu-item"><span>Wydarzenia</span></div></div></div>
 						<section class="calendar-day-details-container">
-							<table id="calendarDayDetailsTable">
-								<thead>
-									<tr>
-										<td>7:00</td>
-										<td>8:00</td>
-										<td>9:00</td>
-										<td>10:00</td>
-										<td>11:00</td>
-										<td>12:00</td>
-										<td>13:00</td>
-										<td>14:00</td>
-										<td>15:00</td>
-										<td>16:00</td>
-										<td>17:00</td>
-										<td>18:00</td>
-										<td>19:00</td>
-										<td>20:00</td>
-										<td>21:00</td>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-								</tbody>
-							</table>
+							<div id="calendarDayDetailsTable">
+								<div class="table-details-head">
+									<div>7:00</div>
+									<div>8:00</div>
+									<div>9:00</div>
+									<div>10:00</div>
+									<div>11:00</div>
+									<div>12:00</div>
+									<div>13:00</div>
+									<div>14:00</div>
+									<div>15:00</div>
+									<div>16:00</div>
+									<div>17:00</div>
+									<div>18:00</div>
+									<div>19:00</div>
+									<div>20:00</div>
+									<div>21:00</div>
+								</div>
+								<div class="table-details-body">
+									<div class="details-day-cell hour-cell-7"><div class="details-hour-line"></div></div>
+
+									<div class="details-day-cell hour-cell-8"><div class="details-hour-line"></div></div>
+
+									<div class="details-day-cell hour-cell-9"><div class="details-hour-line"></div></div>
+
+									<div class="details-day-cell hour-cell-10"><div class="details-hour-line"></div></div>
+
+									<div class="details-day-cell hour-cell-11"><div class="details-hour-line"></div></div>
+
+									<div class="details-day-cell hour-cell-12"><div class="details-hour-line"></div></div>
+
+									<div class="details-day-cell hour-cell-13"><div class="details-hour-line"></div></div>
+
+									<div class="details-day-cell hour-cell-14"><div class="details-hour-line"></div></div>
+
+									<div class="details-day-cell hour-cell-15"><div class="details-hour-line"></div></div>
+
+									<div class="details-day-cell hour-cell-16"><div class="details-hour-line"></div></div>
+
+									<div class="details-day-cell hour-cell-17"><div class="details-hour-line"></div></div>
+
+									<div class="details-day-cell hour-cell-18"><div class="details-hour-line"></div></div>
+
+									<div class="details-day-cell hour-cell-19"><div class="details-hour-line"></div></div>
+
+									<div class="details-day-cell hour-cell-20"><div class="details-hour-line"></div></div>
+
+									<div class="details-day-cell hour-cell-21"><div class="details-hour-line"></div></div>
+
+								</div>
+							</div>
 						</section>
 					</div>
 				</div>
@@ -101,7 +115,6 @@
 				var date = new Date();
 
 				$calendar.calendarWidget({ month: date.getMonth(), year: 2013 });
-				mainProgram.DrawLines();
 
 				ko.applyBindings(new CalendarViewModel(2013, date.getMonth(), date.getDate()));
 
@@ -490,34 +503,6 @@
 
 
 				}();
-			},
-			DrawLines: function () {
-
-				var $calendarHours = $(".calendar-hours");
-
-				$("#calendar .calendar-cell").each(function (index) {
-
-				//cell lines
-					for (var i = 0.3; i < 16; i++) {
-						var left = i * 6.8;
-						$(this).append('<div style="left:' + left + '%;" class="cell-line' + (parseInt(i, 10) + 7) + ' cell-line-style"></div>');
-
-					}
-
-
-					//hours
-					if (index < 7) {
-						var $hoursContainer = $($calendarHours[index]);
-						var counter = 0;
-						for (var j = 7; j < 22; j += 2) {
-
-							$hoursContainer.append('<div class="hour" style="left:' + ((counter + .4) * 6.4) + '%;"> ' + j + ' </div>');
-
-							counter += 2;
-						}
-					}
-
-				})
 			}
 		}
 

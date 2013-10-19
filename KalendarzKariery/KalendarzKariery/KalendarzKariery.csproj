@@ -185,12 +185,17 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <None Include="Properties\PublishProfiles\Alan.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Images\EventBg.png" />
     <Content Include="Images\grayLab2.png" />
     <Content Include="Images\kalendarzGray.png" />
     <Content Include="Images\kalendarzGray2.png" />
     <Content Include="Images\kalendarzGray3.png" />
+    <Content Include="Images\kalendarzTlo2-transparent.png" />
+    <Content Include="Images\kalendarzTlo2.png" />
+    <Content Include="Images\kalendarzTlo3.png" />
+    <Content Include="Images\kalendarzTlo4.png" />
     <Content Include="Images\kalendarzTloPrawo2.png" />
     <Content Include="Images\kalendarzTloPrawo3.png" />
     <Content Include="Images\kalendarzTloPrawo4.png" />

@@ -11,7 +11,7 @@ namespace KalendarzKariery.Models
 	public class UsersContext : DbContext
 	{
 		public UsersContext()
-			: base("DefaultConnection")
+			: base("KalendarzKarieryConnection")
 		{
 		}
 
@@ -57,35 +57,36 @@ namespace KalendarzKariery.Models
 
 	public class LoginModel
 	{
-		[Required]
-		[Display(Name = "User name")]
+		[Required(ErrorMessage = "Pole \"Nazwa użytkownika\" nie może być puste.")]
+		[Display(Name = "Nazwa użytkownika")]
 		public string UserName { get; set; }
 
-		[Required]
+		[Required(ErrorMessage = "Pole \"Hasło\" nie może być puste.")]
 		[DataType(DataType.Password)]
-		[Display(Name = "Password")]
+		[Display(Name = "Hasło")]
 		public string Password { get; set; }
 
-		[Display(Name = "Remember me?")]
+		[Display(Name = "Zapamiętaj mnie?")]
 		public bool RememberMe { get; set; }
 	}
 
 	public class RegisterModel
 	{
-		[Required]
-		[Display(Name = "User name")]
+		[Required(ErrorMessage = "Pole \"Nazwa użytkownika\" nie może być puste.")]
+		[Display(Name = "Nazwa użytkownika")]
 		public string UserName { get; set; }
 
-		[Required]
-		[StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+		[Required(ErrorMessage="Pole \"Hasło\" nie może być puste.")]
+		[StringLength(100, ErrorMessage = "Pole {0} musi posiadać przynajmniej {2} znaków.", MinimumLength = 6)]
 		[DataType(DataType.Password)]
-		[Display(Name = "Password")]
+		[Display(Name = "Hasło")]
 		public string Password { get; set; }
 
 		[DataType(DataType.Password)]
-		[Display(Name = "Confirm password")]
-		[Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+		[Display(Name = "Potwierdź hasło")]
+		[Compare("Password", ErrorMessage = "Pole \"Hasło\" oraz pole \"Potwierdź hasło\" muszą posiadać tą samą wartość.")]
 		public string ConfirmPassword { get; set; }
+	
 	}
 
 	public class ExternalLogin
@@ -94,4 +95,5 @@ namespace KalendarzKariery.Models
 		public string ProviderDisplayName { get; set; }
 		public string ProviderUserId { get; set; }
 	}
+
 }

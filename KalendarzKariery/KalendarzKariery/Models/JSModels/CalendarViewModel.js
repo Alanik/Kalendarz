@@ -204,6 +204,105 @@ function CalendarViewModel(year, month, day) {
 
 	}
 
+	self.showRegisterFormOnClick = function () {
+		var $loginForm = $("#loginPageContainer");
+		var $registerForm = $("#registerPageContainer");
+
+		$loginForm.slideUp();
+		$registerForm.slideDown();
+
+	}
+
+	self.showLoginFormOnClick = function () {
+		var $loginForm = $("#loginPageContainer");
+		var $registerForm = $("#registerPageContainer");
+
+		$registerForm.slideUp();
+		$loginForm.slideDown()
+
+		document.querySelector('#lobby-menu-header').scrollIntoView();
+	}
+
+	self.loginUserOnClick = function () {
+
+		var $loginForm = $("#loginForm");
+		var action = $loginForm.attr("action");
+
+		$loginForm.validate().form();
+
+		if ($loginForm.valid()) {
+			$.ajax({
+				url: action,
+				type: "POST",
+				data: $loginForm.serialize(),
+				success: function (result) {
+
+					if (result.validationError) {
+						alert("Nazwa użytkownika lub hasło jest nieprawidłowe");
+					}
+					else {
+						window.location = "/home";
+					}
+				},
+				error: function () {
+					alert("Wystąpił nieoczekiwany błąd. Prosze sprobować jeszcze raz.");
+				}
+			});
+		}
+
+		return false;
+	}
+
+	self.registerUserOnClick = function () {
+
+		var $registerForm = $("#registerForm");
+		$registerForm.find(".summary-validation-errors").empty();
+		var action = $registerForm.attr("action");
+
+		$registerForm.validate().form();
+
+		if ($registerForm.valid()) {
+			$.ajax({
+				url: action,
+				type: "POST",
+				data: $registerForm.serialize(),
+				success: function (result) {
+					if (result.isRegisterSuccess === false) {
+						console.log(result.errors);
+						DisplayErrors(result.errors);
+					}
+					else {
+						window.location = "/home";
+					}
+				},
+				error: function () {
+					alert("Wystąpił nieoczekiwany błąd. Prosze sprobować jeszcze raz.");
+				}
+			});
+		}
+
+		return false;
+
+		function DisplayErrors(errors) {
+			var label;
+			var error;
+			var $registerForm = $("#registerForm");
+
+			for (var i = 0; i < errors.length; i++) {
+				error = errors[i];
+
+				if (error.Key === "") {
+					$registerForm.find(".summary-validation-errors").append("<div>" + error.Value[0] + "</div>");
+				}
+				else {
+					label = $registerForm.find("input[name = '" + error.Key + "']").removeClass("valid").addClass("input-validation-error").next().removeClass("field-validation-valid").addClass("field-validation-error");
+					label.html(error.Value[0]);
+				}
+			}
+		}
+
+	}
+
 	ko.unapplyBindings = function ($node, remove) {
 		// unbind events
 		$node.find("*").each(function () {

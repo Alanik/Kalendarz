@@ -10,21 +10,21 @@ using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using KalendarzKariery.Filters;
 using KalendarzKariery.Models;
+using KalendarzKariery.Models.ViewModels;
+using KalendarzKariery.BO.ExtentionMethods;
 
 namespace KalendarzKariery.Controllers
 {
 	[Authorize]
-	[InitializeSimpleMembership]
 	public class AccountController : Controller
 	{
 		//
 		// GET: /Account/Login
 
 		[AllowAnonymous]
-		public ActionResult Login(string returnUrl)
+		public ActionResult Login()
 		{
-			ViewBag.ReturnUrl = returnUrl;
-			return View();
+			return RedirectToAction("Index", "Home");
 		}
 
 		//
@@ -33,16 +33,16 @@ namespace KalendarzKariery.Controllers
 		[HttpPost]
 		[AllowAnonymous]
 		[ValidateAntiForgeryToken]
-		public ActionResult Login(LoginModel model, string returnUrl)
+		public ActionResult Login(LoginModel model)
 		{
 			if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
 			{
-				return RedirectToLocal(returnUrl);
+				return Json(new { userName = model.UserName });
 			}
 
-			// If we got this far, something failed, redisplay form
-			ModelState.AddModelError("", "The user name or password provided is incorrect.");
-			return View(model);
+			ModelState.AddModelError(string.Empty, "Nazwa użytkownika lub hasło jest nieprawidłowe");
+
+			return Json(new { validationError = true });
 		}
 
 		//
@@ -72,25 +72,54 @@ namespace KalendarzKariery.Controllers
 		[HttpPost]
 		[AllowAnonymous]
 		[ValidateAntiForgeryToken]
-		public ActionResult Register(RegisterModel model)
+		public ActionResult Register(RegisterViewModel model)
 		{
 			if (ModelState.IsValid)
 			{
-				// Attempt to register the user
-				try
+				KalendarzKarieryRepository repository = new KalendarzKarieryRepository();
+				if (repository.GetUserByEmail(model.User.Email) == null)
 				{
-					WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-					WebSecurity.Login(model.UserName, model.Password);
-					return RedirectToAction("Index", "Home");
+					try
+					{
+						WebSecurity.CreateUserAndAccount(model.RegisterModel.UserName, model.RegisterModel.Password, propertyValues: new
+						{
+							Email = model.User.Email,
+							FirstName = model.User.FirstName,
+							LastName = model.User.LastName,
+							Bio = model.User.Bio,
+							BirthDay = model.User.BirthDay,
+							UserName = model.User.UserName,
+							Phone = model.User.Phone,
+							Gender = model.User.Gender,
+						});
+
+						int id = WebSecurity.GetUserId(model.RegisterModel.UserName);
+						repository.UpdateUserOnRegiser(id, model.Address);
+						WebSecurity.Login(model.RegisterModel.UserName, model.RegisterModel.Password);
+
+						return Json(new { isRegisterSuccess = true });
+					}
+					catch (MembershipCreateUserException e)
+					{
+						if (e.StatusCode == MembershipCreateStatus.DuplicateUserName)
+						{
+							ModelState.AddModelError("RegisterModel.UserName", ErrorCodeToString(e.StatusCode));
+						}
+						else
+						{
+							ModelState.AddModelError(string.Empty, ErrorCodeToString(e.StatusCode));
+						}
+					}
 				}
-				catch (MembershipCreateUserException e)
+				else
 				{
-					ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+
+					ModelState.AddModelError("User.Email", "Podany adres email już został użyty. Prosze podać inny adres email.");
+
 				}
 			}
 
-			// If we got this far, something failed, redisplay form
-			return View(model);
+			return Json(new { isRegisterSuccess = false, errors = ModelState.Errors() });
 		}
 
 		//
@@ -359,6 +388,7 @@ namespace KalendarzKariery.Controllers
 			public string Provider { get; private set; }
 			public string ReturnUrl { get; private set; }
 
+
 			public override void ExecuteResult(ControllerContext context)
 			{
 				OAuthWebSecurity.RequestAuthentication(Provider, ReturnUrl);
@@ -372,10 +402,10 @@ namespace KalendarzKariery.Controllers
 			switch (createStatus)
 			{
 				case MembershipCreateStatus.DuplicateUserName:
-					return "User name already exists. Please enter a different user name.";
+					return "Podana nazwa użytkownika już istnieje. Prosze wybrać inna nazwe użytkownika.";
 
 				case MembershipCreateStatus.DuplicateEmail:
-					return "A user name for that e-mail address already exists. Please enter a different e-mail address.";
+					return "Podany adres email już został użyty. Prosze podać inny adres email.";
 
 				case MembershipCreateStatus.InvalidPassword:
 					return "The password provided is invalid. Please enter a valid password value.";

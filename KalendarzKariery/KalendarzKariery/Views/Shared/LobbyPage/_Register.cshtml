@@ -1,0 +1,104 @@
+﻿@model KalendarzKariery.Models.ViewModels.RegisterViewModel
+
+<section id="registerPageContainer">
+	@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { id = "registerForm" }))
+ {
+		@Html.AntiForgeryToken()
+
+		<fieldset>
+			<legend>Rejestracja</legend>
+
+			<div class="summary-validation-errors"></div>
+			<ol>
+				<li>
+					@Html.LabelFor(m => m.RegisterModel.UserName, new {@class = "form-label"})
+					@Html.TextBoxFor(m => m.RegisterModel.UserName, new { maxlength = 30 })
+					@Html.ValidationMessageFor(m => m.RegisterModel.UserName)
+				</li>
+				<li>
+					@Html.LabelFor(m => m.RegisterModel.Password, new {@class = "form-label"})
+					@Html.PasswordFor(m => m.RegisterModel.Password , new { maxlength = 30 })
+					@Html.ValidationMessageFor(m => m.RegisterModel.Password)
+				</li>
+				<li>
+					@Html.LabelFor(m => m.RegisterModel.ConfirmPassword, new {@class = "form-label"})
+					@Html.PasswordFor(m => m.RegisterModel.ConfirmPassword, new { maxlength = 30 })
+					@Html.ValidationMessageFor(m => m.RegisterModel.ConfirmPassword, "Pole \"Hasło\" oraz pole \"Potwierdź hasło\" muszą posiadać tą samą wartość.")
+				</li>
+				<li>
+					@Html.LabelFor(m => m.User.FirstName, new {@class = "form-label"})
+					@Html.TextBoxFor(m => m.User.FirstName, new { maxlength = 30 })
+					@Html.ValidationMessageFor(m => m.User.FirstName)
+				</li>
+				<li>
+					@Html.LabelFor(m => m.User.LastName, new {@class = "form-label"})
+					@Html.TextBoxFor(m => m.User.LastName, new { maxlength = 30 })
+					@Html.ValidationMessageFor(m => m.User.LastName)
+				</li>
+				<li>
+					@Html.LabelFor(m => m.User.Gender, new {@class = "form-label"})
+					@Html.DropDownList("User.Gender", 
+    new SelectList(new Dictionary<string, string> 
+        {
+            {"Mężczyzna", "m"},
+            {"Kobieta", "k"},
+        },
+        "Value", "Key")
+)
+					@Html.ValidationMessageFor(m => m.User.Gender)
+				</li>
+				<li>
+					@Html.LabelFor(m => m.User.BirthDay, new {@class = "form-label"})
+					@Html.TextBoxFor(m => m.User.BirthDay)
+					@Html.ValidationMessageFor(m => m.User.BirthDay)
+				</li>
+				<li>
+					@Html.LabelFor(m => m.Address.Address1, new {@class = "form-label"})
+					@Html.TextBoxFor(m => m.Address.Address1, new { maxlength = 50 })
+					@Html.ValidationMessageFor(m => m.Address.Address1)
+				</li>
+				<li>
+					@Html.LabelFor(m => m.Address.City, new {@class = "form-label"})
+					@Html.TextBoxFor(m => m.Address.City, new { maxlength = 30 })
+					@Html.ValidationMessageFor(m => m.Address.City)
+				</li>
+				<li>
+					@Html.LabelFor(m => m.Address.ZipCode, new {@class = "form-label"})
+					@Html.TextBoxFor(m => m.Address.ZipCode, new { maxlength = 6 })
+					@Html.ValidationMessageFor(m => m.Address.ZipCode)
+				</li>
+				<li>
+					@Html.LabelFor(m => m.Address.Country, new {@class = "form-label"})
+					@Html.TextBoxFor(m => m.Address.Country, new { maxlength = 30 })
+					@Html.ValidationMessageFor(m => m.Address.Country)
+				</li>
+				<li>
+					@Html.LabelFor(m => m.User.Email, new {@class = "form-label"})
+					@Html.TextBoxFor(m => m.User.Email, new { maxlength = 30 })
+					@Html.ValidationMessageFor(m => m.User.Email)
+				</li>
+				<li>
+					@Html.LabelFor(m => m.User.Phone, new {@class = "form-label"})
+					@Html.TextBoxFor(m => m.User.Phone, new { maxlength = 20 })
+					@Html.ValidationMessageFor(m => m.User.Phone)
+				</li>
+				<li>
+					@Html.LabelFor(m => m.User.WebSiteUrl, new {@class = "form-label"})
+					@Html.TextBoxFor(m => m.User.WebSiteUrl, new { maxlength = 50 })
+					@Html.ValidationMessageFor(m => m.User.WebSiteUrl)
+				</li>
+				<li>
+					@Html.LabelFor(m => m.User.Bio, new {@class = "form-label"})
+					@Html.TextAreaFor(m => m.User.Bio, new { cols = 50, rows = 5, maxlength = 300})
+					@Html.ValidationMessageFor(m => m.User.Bio)
+				</li>
+
+			</ol>
+			<input type="button" id="registerFormBtn" class="myButton-white" value="Utwórz konto" data-bind="click: $root.registerUserOnClick" />
+		</fieldset>
+ }
+	<p>
+		<a href="#lobby-menu-header" id="showLoginFormBtn" data-bind="click: $root.showLoginFormOnClick">Zaloguj się</a><span> jeśli już posiadasz własne konto.</span>
+	</p>
+
+</section>

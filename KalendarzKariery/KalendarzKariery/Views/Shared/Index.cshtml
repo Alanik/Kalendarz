@@ -1,5 +1,4 @@
-﻿
-<div class="navigation-arrows">
+﻿<div class="navigation-arrows">
 </div>
 
 <div id="slides">
@@ -7,9 +6,9 @@
 		<li>
 			<div class="slide-item-lobby">
 				<div id="lobbyBg">
-				<img src="~/Images/kalendarzTlo.png" alt="background" />
+					<img src="~/Images/kalendarzTloClear.png" alt="background" />
 					<section id="lobby">
-						@Html.Partial("_Lobby")				
+						@Html.Partial("_Lobby")
 					</section>
 				</div>
 				<div id="rightSideLobby" class="side">
@@ -21,12 +20,11 @@
 				<div id="leftSideCalendar" class="side">
 				</div>
 				<div id="calendarBg">
-					<img src="~/Images/kalendarzTlo.png" alt="background" />
+					<img src="~/Images/kalendarzTloClear.png" alt="background" />
 
 					<section id="calendar">
 					</section>
-
-					@Html.Partial("_AddNewEvent")
+					@Html.Partial("_AddNewEvent", new KalendarzKariery.Models.ViewModels.AddEventViewModel())
 					@Html.Partial("_HoverEvent")
 				</div>
 				<div id="rightSideCalendar" class="side">
@@ -36,10 +34,34 @@
 		<li>
 			<div class="slide-item-details">
 				<div id="detailsBg">
-				<img src="~/Images/kalendarzTlo.png" alt="background" />
+					<img src="~/Images/kalendarzTloClear.png" alt="background" />
 					<div id="details">
-					<div id="details-menu-header">
-					<div class="menu-item-container inne-tab"><div class="border-item inne-border-tab"></div><div class="menu-item"><span>Inne</span></div></div><div class="menu-item-container spotkania-tab"><div class="border-item spotkania-border-tab"></div><div class="menu-item"><span>Spotkania</span></div></div><div class="menu-item-container kursy-tab"><div class="border-item kursy-border-tab"></div><div class="menu-item"><span>Kursy</span></div></div><div class="menu-item-container szkolenia-tab"><div class="border-item szkolenia-border-tab"></div><div class="menu-item"><span>Szkolenia</span></div></div><div class="menu-item-container zajecia-tab"><div class="border-item zajecia-border-tab"></div><div class="menu-item"><span>Zajęcia</span></div></div><div class="menu-item-container wydarzenia-tab"><div class="border-item wydarzenia-border-tab"></div><div class="menu-item"><span>Wydarzenia</span></div></div></div>
+						<div id="details-menu-header">
+							<div class="menu-item-container inne-tab">
+								<div class="border-item inne-border-tab"></div>
+								<div class="menu-item"><span>Inne</span></div>
+							</div>
+							<div class="menu-item-container spotkania-tab">
+								<div class="border-item spotkania-border-tab"></div>
+								<div class="menu-item"><span>Spotkania</span></div>
+							</div>
+							<div class="menu-item-container kursy-tab">
+								<div class="border-item kursy-border-tab"></div>
+								<div class="menu-item"><span>Kursy</span></div>
+							</div>
+							<div class="menu-item-container szkolenia-tab">
+								<div class="border-item szkolenia-border-tab"></div>
+								<div class="menu-item"><span>Szkolenia</span></div>
+							</div>
+							<div class="menu-item-container zajecia-tab">
+								<div class="border-item zajecia-border-tab"></div>
+								<div class="menu-item"><span>Zajęcia</span></div>
+							</div>
+							<div class="menu-item-container wydarzenia-tab">
+								<div class="border-item wydarzenia-border-tab"></div>
+								<div class="menu-item"><span>Wydarzenia</span></div>
+							</div>
+						</div>
 						<section class="calendar-day-details-container">
 							<div id="calendarDayDetailsTable">
 								<div class="table-details-head">
@@ -60,35 +82,65 @@
 									<div>21:00</div>
 								</div>
 								<div class="table-details-body">
-									<div class="details-day-cell hour-cell-7"><div class="details-hour-line"></div></div>
+									<div class="details-day-cell hour-cell-7">
+										<div class="details-hour-line"></div>
+									</div>
 
-									<div class="details-day-cell hour-cell-8"><div class="details-hour-line"></div></div>
+									<div class="details-day-cell hour-cell-8">
+										<div class="details-hour-line"></div>
+									</div>
 
-									<div class="details-day-cell hour-cell-9"><div class="details-hour-line"></div></div>
+									<div class="details-day-cell hour-cell-9">
+										<div class="details-hour-line"></div>
+									</div>
 
-									<div class="details-day-cell hour-cell-10"><div class="details-hour-line"></div></div>
+									<div class="details-day-cell hour-cell-10">
+										<div class="details-hour-line"></div>
+									</div>
 
-									<div class="details-day-cell hour-cell-11"><div class="details-hour-line"></div></div>
+									<div class="details-day-cell hour-cell-11">
+										<div class="details-hour-line"></div>
+									</div>
 
-									<div class="details-day-cell hour-cell-12"><div class="details-hour-line"></div></div>
+									<div class="details-day-cell hour-cell-12">
+										<div class="details-hour-line"></div>
+									</div>
 
-									<div class="details-day-cell hour-cell-13"><div class="details-hour-line"></div></div>
+									<div class="details-day-cell hour-cell-13">
+										<div class="details-hour-line"></div>
+									</div>
 
-									<div class="details-day-cell hour-cell-14"><div class="details-hour-line"></div></div>
+									<div class="details-day-cell hour-cell-14">
+										<div class="details-hour-line"></div>
+									</div>
 
-									<div class="details-day-cell hour-cell-15"><div class="details-hour-line"></div></div>
+									<div class="details-day-cell hour-cell-15">
+										<div class="details-hour-line"></div>
+									</div>
 
-									<div class="details-day-cell hour-cell-16"><div class="details-hour-line"></div></div>
+									<div class="details-day-cell hour-cell-16">
+										<div class="details-hour-line"></div>
+									</div>
 
-									<div class="details-day-cell hour-cell-17"><div class="details-hour-line"></div></div>
+									<div class="details-day-cell hour-cell-17">
+										<div class="details-hour-line"></div>
+									</div>
 
-									<div class="details-day-cell hour-cell-18"><div class="details-hour-line"></div></div>
+									<div class="details-day-cell hour-cell-18">
+										<div class="details-hour-line"></div>
+									</div>
 
-									<div class="details-day-cell hour-cell-19"><div class="details-hour-line"></div></div>
+									<div class="details-day-cell hour-cell-19">
+										<div class="details-hour-line"></div>
+									</div>
 
-									<div class="details-day-cell hour-cell-20"><div class="details-hour-line"></div></div>
+									<div class="details-day-cell hour-cell-20">
+										<div class="details-hour-line"></div>
+									</div>
 
-									<div class="details-day-cell hour-cell-21"><div class="details-hour-line"></div></div>
+									<div class="details-day-cell hour-cell-21">
+										<div class="details-hour-line"></div>
+									</div>
 
 								</div>
 							</div>
@@ -110,6 +162,7 @@
 
 		var mainProgram = {
 			Initialize: function () {
+
 				var $calendar = $("#calendar");
 				var $details = $("#details");
 				var $lobby = $("#lobby");
@@ -203,21 +256,55 @@
 						}).find($otherMonthIcon).fadeOut();
 					});
 
-					var $menuItem = $(".menu-item-container .menu-item");
+					var $menuItemContainer = $(".menu-item-container");
 
-					$(".menu-item-container").hover(function () {
+					$menuItemContainer.hover(function () {
+						var $dropDown = $(this).find(".menu-item-dropdown-container");
+						$dropDown.toggleClass("menu-dropdown-visible");
+
+						if ($dropDown.hasClass("menu-dropdown-visible")) {
+							$dropDown.slideDown();
+						}
+						else {
+							$dropDown.slideUp();
+						}
+
+					}, function () {
+						var $dropDown = $(this).find(".menu-item-dropdown-container");
+						$dropDown.toggleClass("menu-dropdown-visible");
+
+						if ($dropDown.hasClass("menu-dropdown-visible")) {
+							$dropDown.slideDown();
+						}
+						else {
+							$dropDown.slideUp();
+						}
+
+
+					});
+
+					$(".menu-item").hover(function () {
 						$(this).css({
 							"cursor": "pointer",
-						}).find($menuItem).css({
 							"font-size": ".9em"
 						});
 					}, function () {
 						$(this).css({
 							"cursor": "auto",
-						}).find($menuItem).css({
 							"font-size": ".8em"
 						});
 					});
+
+					$(".menu-item-dropdown").hover(function () {
+						$(this).css({
+							"cursor": "pointer",
+						});
+					}, function () {
+						$(this).css({
+							"cursor": "auto",
+						});
+					});
+
 
 					$("#leftSide").hover(function () {
 						$(this).css({
@@ -433,24 +520,24 @@
 				this.Initialize.InitializeClick = function () {
 
 
-					$(".szkolenia-btn").click(function () {
-						$(".selected-content-container").slideUp("slow");
-					});
+					//$(".szkolenia-btn").click(function () {
+					//	$(".selected-content-container").slideUp("slow");
+					//});
 
-					$(".menu-item-container").click(function () {
+					//$(".menu-item-container").click(function () {
 
-						$(".selected-content-container").slideDown("slow");
-					});
+					//	$(".selected-content-container").slideDown("slow");
+					//});
 
-					$(".moje-sprawy-text").click(function () {
+					//$(".moje-sprawy-text").click(function () {
 
-						$("#moje-sprawy-container").slideDown();
-					});
+					//	$("#moje-sprawy-container").slideDown();
+					//});
 
-					$(".moje-sprawy-btn").click(function () {
+					//$(".moje-sprawy-btn").click(function () {
 
-						$("#moje-sprawy-container").slideUp();
-					});
+					//	$("#moje-sprawy-container").slideUp();
+					//});
 
 					var $mainContainer = $("#mainContainer");
 

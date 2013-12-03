@@ -7,41 +7,65 @@
 		<div>
 		<div class="menu-item-container">
 			<div class="border-item inne-border-tab"></div>
-			<div class="menu-item"><span>Inne</span></div>
+			<div class="menu-item" name="inne" data-bind="click: function () { $root.slideDownMenuOptionsOnClick($element) }"><span>Inne</span></div>
+			<div class="menu-item-dropdown-container">
+			<div class="menu-item-dropdown">pokaż</div>
+			<div class="menu-item-dropdown" data-bind="click: function () { $root.showAddPublicEventPageOnClick($element) }">dodaj</div>
+			</div>
 		</div>
 		<div class="menu-item-container">
 			<div class="border-item spotkania-border-tab"></div>
-			<div class="menu-item"><span>Spotkania</span></div>
+			<div class="menu-item" name="spotkania" data-bind="click: function () { $root.slideDownMenuOptionsOnClick($element) }"><span>Spotkania</span></div>
+			<div class="menu-item-dropdown-container">
+			<div class="menu-item-dropdown">pokaż</div>
+			<div class="menu-item-dropdown" data-bind="click: function () { $root.showAddPublicEventPageOnClick($element) }">dodaj</div>
+			</div>
 		</div>
 		<div class="menu-item-container">
 			<div class="border-item kursy-border-tab"></div>
-			<div class="menu-item"><span>Kursy</span></div>
+			<div class="menu-item" name="kursy" data-bind="click: function () { $root.slideDownMenuOptionsOnClick($element) }"><span>Kursy</span></div>
+			<div class="menu-item-dropdown-container">
+			<div class="menu-item-dropdown">pokaż</div>
+			<div class="menu-item-dropdown" data-bind="click: function () { $root.showAddPublicEventPageOnClick($element) }">dodaj</div>
+			</div>
 		</div>
 		<div class="menu-item-container">
 			<div class="border-item szkolenia-border-tab"></div>
-			<div class="menu-item"><span>Szkolenia</span></div>
+			<div class="menu-item" name="szkolenia" data-bind="click: function () { $root.slideDownMenuOptionsOnClick($element) }"><span>Szkolenia</span></div>
+			<div class="menu-item-dropdown-container">
+			<div class="menu-item-dropdown">pokaż</div>
+			<div class="menu-item-dropdown" data-bind="click: function () { $root.showAddPublicEventPageOnClick($element) }">dodaj</div>
+			</div>
 
 		</div>
 		<div class="menu-item-container">
 			<div class="border-item zajecia-border-tab"></div>
-			<div class="menu-item"><span>Zajęcia</span></div>
+			<div class="menu-item" name="zajęcia" data-bind="click: function () { $root.slideDownMenuOptionsOnClick($element) }"><span>Zajęcia</span></div>
+			<div class="menu-item-dropdown-container">
+			<div class="menu-item-dropdown">pokaż</div>
+			<div class="menu-item-dropdown" data-bind="click: function () { $root.showAddPublicEventPageOnClick($element) }">dodaj</div>
+			</div>
 		</div>
 		<div class="menu-item-container">
 			<div class="border-item wydarzenia-border-tab"></div>
-			<div class="menu-item"><span>Wydarzenia</span></div>
+			<div class="menu-item" name="wydarzenia" data-bind="click: function () { $root.slideDownMenuOptionsOnClick($element) }"><span>Wydarzenia</span></div>
+			<div class="menu-item-dropdown-container">
+			<div class="menu-item-dropdown">pokaż</div>
+			<div class="menu-item-dropdown" data-bind="click: function () { $root.showAddPublicEventPageOnClick($element) }">dodaj</div>
+			</div>
 		</div>
 		</div>
 	</div>
 	@if (Request.IsAuthenticated)
-	{
+ {
 	@Html.Partial("_LobbyProfileMenu")
-	} 
+ } 
 
-	@if (!Request.IsAuthenticated) 
-	{
+	@if (!Request.IsAuthenticated)
+ {
 	@Html.Partial("_Login")
 	@Html.Partial("_Register")
-	}
+ }
 
 
 	<section style="padding-top:40px;border-top:1px solid whitesmoke;">
@@ -64,7 +88,7 @@
 				</div>
 				<div class="middle-event-details">
 					<div class="event-title-container">
-						<a data-bind="text: name" class="events-text-name" href="#"></a>
+						<a data-bind="text: title" class="events-text-name" href="#"></a>
 					</div>
 
 					<div class="events-text-container">
@@ -74,7 +98,7 @@
 				<div class="right-event-details">
 					<div class="events-text-author-container">
 						<div>
-							<span>dodano przez: </span><a class="events-text-author" data-bind="text: author" href="#"></a>
+							<span>dodano przez: </span><a class="events-text-author" data-bind="text: addedBy" href="#"></a>
 						</div>
 						<div>
 							10:47 10.12.2013 
@@ -108,7 +132,7 @@
 				</div>
 				<div class="middle-event-details">
 					<div class="event-title-container">
-						<a data-bind="text: name" class="events-text-name" href="#"></a>
+						<a data-bind="text: title" class="events-text-name" href="#"></a>
 					</div>
 
 					<div class="events-text-container">
@@ -118,7 +142,7 @@
 				<div class="right-event-details">
 					<div class="events-text-author-container">
 						<div>
-							<span>dodano przez: </span><a class="events-text-author" data-bind="text: author" href="#"></a>
+							<span>dodano przez: </span><a class="events-text-author" data-bind="text: addedBy" href="#"></a>
 						</div>
 						<div>
 							10:47 10.12.2013 
@@ -152,7 +176,7 @@
 				<div class="middle-event-details">
 				
 					<div class="event-title-container">
-						<a data-bind="text: name" class="events-text-name" href="#"></a>
+						<a data-bind="text: title" class="events-text-name" href="#"></a>
 					</div>
 
 					<div class="events-text-container">
@@ -162,7 +186,7 @@
 				<div class="right-event-details">
 					<div class="events-text-author-container">
 						<div>
-							<span>dodano przez: </span><a class="events-text-author" data-bind="text: author" href="#"></a>
+							<span>dodano przez: </span><a class="events-text-author" data-bind="text: addedBy" href="#"></a>
 						</div>
 						<div>
 							10:47 10.12.2013 

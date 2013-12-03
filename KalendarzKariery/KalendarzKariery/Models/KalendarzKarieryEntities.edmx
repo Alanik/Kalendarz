@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="KalendarzKarieryDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="KalendarzKarieryDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="KalendarzKarieryDBModelStoreContainer">
           <EntitySet Name="Address" EntityType="KalendarzKarieryDBModel.Store.Address" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Event" EntityType="KalendarzKarieryDBModel.Store.Event" store:Type="Tables" Schema="dbo" />
@@ -72,13 +72,13 @@
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="Description" Type="varchar" Nullable="false" MaxLength="200" />
-          <Property Name="Details" Type="nvarchar" MaxLength="500" />
+          <Property Name="Details" Type="varchar" MaxLength="500" />
           <Property Name="DateAdded" Type="datetime" Nullable="false" />
           <Property Name="AddedBy" Type="int" Nullable="false" />
           <Property Name="StartDate" Type="datetime" Nullable="false" />
-          <Property Name="EventLength" Type="time" />
+          <Property Name="EventLengthInMinutes" Type="int" />
           <Property Name="OccupancyLimit" Type="int" />
-          <Property Name="WebLink" Type="nvarchar" MaxLength="200" />
+          <Property Name="WebLink" Type="varchar" MaxLength="200" />
           <Property Name="Kind" Type="int" Nullable="false" />
           <Property Name="NumberOfPeopleAttending" Type="int" Nullable="false" />
           <Property Name="PrivacyLevel" Type="int" Nullable="false" />
@@ -292,8 +292,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="KalendarzKarieryDBModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -346,18 +345,18 @@
           <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
-          <Property Name="Details" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="Details" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
           <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="AddedBy" Type="Int32" Nullable="false" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="EventLength" Type="Time" Precision="7" />
           <Property Name="OccupancyLimit" Type="Int32" />
-          <Property Name="WebLink" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="WebLink" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
           <Property Name="Kind" Type="Int32" Nullable="false" />
           <Property Name="NumberOfPeopleAttending" Type="Int32" Nullable="false" />
           <Property Name="PrivacyLevel" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Addresses" Relationship="KalendarzKarieryDBModel.EventAddress" FromRole="Event" ToRole="Address" />
           <NavigationProperty Name="Users" Relationship="KalendarzKarieryDBModel.UserEvent" FromRole="Event" ToRole="User" />
+          <Property Type="Int32" Name="EventLengthInMinutes" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -482,6 +481,7 @@
           <EntitySetMapping Name="Events">
             <EntityTypeMapping TypeName="KalendarzKarieryDBModel.Event">
               <MappingFragment StoreEntitySet="Event">
+                <ScalarProperty Name="EventLengthInMinutes" ColumnName="EventLengthInMinutes" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -489,7 +489,6 @@
                 <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
                 <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
                 <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="EventLength" ColumnName="EventLength" />
                 <ScalarProperty Name="OccupancyLimit" ColumnName="OccupancyLimit" />
                 <ScalarProperty Name="WebLink" ColumnName="WebLink" />
                 <ScalarProperty Name="Kind" ColumnName="Kind" />

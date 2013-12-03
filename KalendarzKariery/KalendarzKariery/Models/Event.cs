@@ -27,12 +27,12 @@ namespace KalendarzKariery.Models
         public System.DateTime DateAdded { get; set; }
         public int AddedBy { get; set; }
         public System.DateTime StartDate { get; set; }
-        public Nullable<System.TimeSpan> EventLength { get; set; }
         public Nullable<int> OccupancyLimit { get; set; }
         public string WebLink { get; set; }
         public int Kind { get; set; }
         public int NumberOfPeopleAttending { get; set; }
         public int PrivacyLevel { get; set; }
+        public Nullable<int> EventLengthInMinutes { get; set; }
     
         public virtual ICollection<Address> Addresses { get; set; }
         public virtual ICollection<User> Users { get; set; }

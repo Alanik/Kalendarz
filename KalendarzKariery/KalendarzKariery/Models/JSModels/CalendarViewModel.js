@@ -5,12 +5,13 @@ function CalendarViewModel(year, month, day) {
 	self.calendarDisplayDate = {
 		year: year,
 		month: month,
-		day: day,
-	};
+		day: day
+	}
+
 	self.privacyLevels = {
 		"public": 1,
 		"private": 2
-	}
+	};
 
 
 	self.event = {

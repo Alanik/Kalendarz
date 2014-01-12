@@ -11,8 +11,7 @@ function CalendarViewModel(year, month, day) {
 	self.privacyLevels = {
 		"public": 1,
 		"private": 2
-	};
-
+	}
 
 	self.event = {
 		title: "",

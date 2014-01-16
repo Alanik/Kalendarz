@@ -4,19 +4,23 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="00aca0e82d9e4d278803bdcafdc82e55" Name="Diagram1">
-        <EntityTypeShape EntityType="KalendarzKarieryDBModel.Address" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="KalendarzKarieryDBModel.Event" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="KalendarzKarieryDBModel.sysdiagram" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="KalendarzKarieryDBModel.User" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="KalendarzKarieryDBModel.UserInfo" Width="1.5" PointX="7.5" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="KalendarzKarieryDBModel.webpages_Membership" Width="1.5" PointX="7.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="KalendarzKarieryDBModel.webpages_OAuthMembership" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="KalendarzKarieryDBModel.webpages_Roles" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
-        <AssociationConnector Association="KalendarzKarieryDBModel.FK_UserInfoTbl_UserInfoTbl" ManuallyRouted="false" />
-        <AssociationConnector Association="KalendarzKarieryDBModel.EventAddress" ManuallyRouted="false" />
-        <AssociationConnector Association="KalendarzKarieryDBModel.UserAddress" ManuallyRouted="false" />
-        <AssociationConnector Association="KalendarzKarieryDBModel.UserEvent" ManuallyRouted="false" />
+      <Diagram DiagramId="3d9ab954e6b244138d69a906d68d7e37" Name="Diagram1">
+        <EntityTypeShape EntityType="KalendarzKarieryDBModel.Address" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KalendarzKarieryDBModel.Comment" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KalendarzKarieryDBModel.Event" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="KalendarzKarieryDBModel.sysdiagram" Width="1.5" PointX="0.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="KalendarzKarieryDBModel.User" Width="1.5" PointX="8.25" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="KalendarzKarieryDBModel.UserAccountInfo" Width="1.5" PointX="6" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KalendarzKarieryDBModel.webpages_Membership" Width="1.5" PointX="2.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="KalendarzKarieryDBModel.webpages_OAuthMembership" Width="1.5" PointX="8.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="KalendarzKarieryDBModel.webpages_Roles" Width="1.5" PointX="6" PointY="9" IsExpanded="true" />
+        <AssociationConnector Association="KalendarzKarieryDBModel.FK_Comment_Event" ManuallyRouted="false" />
+        <AssociationConnector Association="KalendarzKarieryDBModel.FK_Comment_User" ManuallyRouted="false" />
+        <AssociationConnector Association="KalendarzKarieryDBModel.FK_OwnerUser_Event" ManuallyRouted="false" />
+        <AssociationConnector Association="KalendarzKarieryDBModel.FK_User_UserAccountInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="KalendarzKarieryDBModel.Address_Event" ManuallyRouted="false" />
+        <AssociationConnector Association="KalendarzKarieryDBModel.Address_User" ManuallyRouted="false" />
+        <AssociationConnector Association="KalendarzKarieryDBModel.User_Event" ManuallyRouted="false" />
         <AssociationConnector Association="KalendarzKarieryDBModel.webpages_UsersInRoles" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

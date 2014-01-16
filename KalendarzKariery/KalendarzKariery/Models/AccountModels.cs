@@ -11,7 +11,7 @@ namespace KalendarzKariery.Models
 	public class UsersContext : DbContext
 	{
 		public UsersContext()
-			: base("KalendarzKarieryConnection")
+			: base("KalendarzKarieryDBEntities")
 		{
 		}
 

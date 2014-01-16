@@ -16,7 +16,7 @@ namespace KalendarzKariery.Models
 	{
 		[Required(ErrorMessage = "Pole \"Ulica\" nie może być puste.")]
 		[Display(Name = "Ulica")]
-		public string Address1 { get; set; }
+		public string Street { get; set; }
 
 		[Required(ErrorMessage = "Pole \"Miasto\" nie może być puste.")]
 		[Display(Name = "Miasto")]

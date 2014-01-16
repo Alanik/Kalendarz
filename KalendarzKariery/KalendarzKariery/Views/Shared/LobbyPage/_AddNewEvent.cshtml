@@ -75,9 +75,9 @@
 						</div>
 
 						<div>
-							@Html.LabelFor(m => m.Address.Address1, new { @class = "form-label" })
-							@Html.TextBoxFor(m => m.Address.Address1, new { maxlength = 30 })
-							@Html.ValidationMessageFor(m => m.Address.Address1)
+							@Html.LabelFor(m => m.Address.Street, new { @class = "form-label" })
+							@Html.TextBoxFor(m => m.Address.Street, new { maxlength = 30 })
+							@Html.ValidationMessageFor(m => m.Address.Street)
 						</div>
 						<div>
 							@Html.LabelFor(m => m.Address.City, new { @class = "form-label" })

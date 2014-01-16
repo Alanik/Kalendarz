@@ -21,9 +21,9 @@ namespace KalendarzKariery.Models
 
 			currentUser.Addresses.Add(address);
 
-			UserInfo currentUserInfo = new UserInfo() { AverageLoginTime = 0, CreationDate = DateTime.Now, LastLogin = DateTime.Now, LastLogout = null, NumOfLogins = 1, TotalLoginTime = 0 };
+			UserAccountInfo currentUserInfo = new UserAccountInfo() { AverageLoginTime = 0, CreationDate = DateTime.Now, LastLogin = DateTime.Now, LastLogout = null, NumOfLogins = 1, TotalLoginTime = 0 };
 
-			currentUser.UserInfo = currentUserInfo;
+			currentUser.UserAccountInfo = currentUserInfo;
 
 			entities.SaveChanges();
 		}

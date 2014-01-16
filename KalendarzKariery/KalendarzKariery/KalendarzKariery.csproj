@@ -182,6 +182,9 @@
     <Compile Include="Models\Address.cs">
       <DependentUpon>KalendarzKarieryEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Comment.cs">
+      <DependentUpon>KalendarzKarieryEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Event.cs">
       <DependentUpon>KalendarzKarieryEntities.tt</DependentUpon>
     </Compile>
@@ -202,16 +205,22 @@
       <DependentUpon>KalendarzKarieryEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\KalendarzKarieryRepository.cs" />
+    <Compile Include="Models\AddressValidationModel.cs" />
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>KalendarzKarieryEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
+      <DependentUpon>KalendarzKarieryEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>KalendarzKarieryEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
       <DependentUpon>KalendarzKarieryEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\UserInfo.cs">
+    <Compile Include="Models\UserAccountInfo.cs">
       <DependentUpon>KalendarzKarieryEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AddressValidationModel.cs" />
     <Compile Include="Models\UserValidationModel.cs" />
     <Compile Include="Models\ViewModels\AddEventViewModel.cs" />
     <Compile Include="Models\ViewModels\RegisterViewModel.cs" />
@@ -283,10 +292,6 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <EntityDeploy Include="Models\KalendarzKarieryEntities.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>KalendarzKarieryEntities.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <Content Include="Images\kalendarzLogo.png" />
     <Content Include="Images\kalendarzTloClear.png" />
     <Content Include="Images\list-icon.png" />
@@ -295,6 +300,10 @@
     <Content Include="Images\Nav\triangle-left.png" />
     <Content Include="Images\Nav\triangle-right.png" />
     <Content Include="Images\tapeta.jpg" />
+    <EntityDeploy Include="Models\KalendarzKarieryEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>KalendarzKarieryEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
     <Content Include="Models\KalendarzKarieryEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>KalendarzKarieryEntities.edmx</DependentUpon>

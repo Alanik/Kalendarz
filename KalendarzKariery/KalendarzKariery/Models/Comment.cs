@@ -12,10 +12,15 @@ namespace KalendarzKariery.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class webpages_OAuthMembership
+    public partial class Comment
     {
-        public string Provider { get; set; }
-        public string ProviderUserId { get; set; }
-        public int UserId { get; set; }
+        public int CommentId { get; set; }
+        public string Text { get; set; }
+        public int AuthorId { get; set; }
+        public System.DateTime DateAdded { get; set; }
+        public int EventId { get; set; }
+    
+        public virtual Event Event { get; set; }
+        public virtual User User { get; set; }
     }
 }

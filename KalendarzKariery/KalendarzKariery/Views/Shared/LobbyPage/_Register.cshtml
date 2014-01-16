@@ -53,9 +53,9 @@
 					@Html.ValidationMessageFor(m => m.User.BirthDay)
 				</li>
 				<li>
-					@Html.LabelFor(m => m.Address.Address1, new {@class = "form-label"})
-					@Html.TextBoxFor(m => m.Address.Address1, new { maxlength = 50 })
-					@Html.ValidationMessageFor(m => m.Address.Address1)
+					@Html.LabelFor(m => m.Address.Street, new {@class = "form-label"})
+					@Html.TextBoxFor(m => m.Address.Street, new { maxlength = 50 })
+					@Html.ValidationMessageFor(m => m.Address.Street)
 				</li>
 				<li>
 					@Html.LabelFor(m => m.Address.City, new {@class = "form-label"})

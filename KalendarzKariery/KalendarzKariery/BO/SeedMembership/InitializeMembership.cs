@@ -33,7 +33,7 @@ namespace KalendarzKariery.BO.SeedMembership
 		{
 			User user = new User();
 			Address address = new Address();
-			address.Address1 = "Wejherowska 152/30";
+			address.Street = "Wejherowska 152/30";
 			address.City = "Wroclaw";
 			address.Country = "Polska";
 			address.ZipCode = "54-239";
@@ -48,11 +48,12 @@ namespace KalendarzKariery.BO.SeedMembership
 			user.Gender = "m";
 			user.UserName = loginName;
 
-			user.UserInfo = new UserInfo();
+			user.UserAccountInfo = new UserAccountInfo();
+			user.UserAccountInfo.CreationDate = DateTime.Now;
+			user.UserAccountInfo.NumOfLogins = 1;
+			user.UserAccountInfo.LastLogin = DateTime.Now;
 
-			user.UserInfo.CreationDate = DateTime.Now;
-			user.UserInfo.NumOfLogins = 1;
-			user.UserInfo.LastLogin = DateTime.Now;
+			user.UserAccountInfoId = user.UserAccountInfo.UserAccountInfoId;
 
 			return user;
 		}
@@ -64,6 +65,8 @@ namespace KalendarzKariery.BO.SeedMembership
 			{
 				User user = InitializeMembership.GetAlanikAdmin(loginName);
 
+
+
 				WebSecurity.CreateUserAndAccount(loginName, AdminPassword, propertyValues: new
 				{
 					Email = user.Email,
@@ -73,7 +76,7 @@ namespace KalendarzKariery.BO.SeedMembership
 					BirthDay = user.BirthDay,
 					UserName = user.UserName,
 					Phone = user.Phone,
-					Gender = user.Gender,
+					Gender = user.Gender,	
 				});
 
 				if (!Roles.GetRolesForUser(loginName).Contains(AdminRole))
@@ -85,9 +88,6 @@ namespace KalendarzKariery.BO.SeedMembership
 
 				int id = WebSecurity.GetUserId(loginName);
 				User emptyUser = repository.GetUser(id);
-
-				emptyUser.Addresses.Add(user.Addresses.First());
-				emptyUser.UserInfo = user.UserInfo;
 
 				repository.Save();
 			}

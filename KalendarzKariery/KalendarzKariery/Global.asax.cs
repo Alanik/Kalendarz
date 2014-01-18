@@ -30,12 +30,15 @@ namespace KalendarzKariery
 			if (razorEngine != null)
 			{
 				string[] newPartialViewFormats = new[] { 
-                    "~/Views/Shared/LobbyPage/{0}.cshtml",
-					 "~/Views/Shared/CalendarPage/{0}.cshtml",
-					 "~/Views/Shared/DetailsPage/{0}.cshtml"
-            };
+					"~/Views/Home/LobbyPage/{0}.cshtml",
+					 "~/Views/Home/CalendarPage/{0}.cshtml",
+					 "~/Views/Home/DetailsPage/{0}.cshtml",
+					  "~/Views/Home/SharedPartials/{0}.cshtml"
+			};
 				razorEngine.PartialViewLocationFormats =
-					razorEngine.PartialViewLocationFormats.Union(newPartialViewFormats).ToArray();
+					razorEngine.PartialViewLocationFormats.Union(newPartialViewFormats).Reverse().ToArray();
+
+					var formats = razorEngine.PartialViewLocationFormats;
 			}
         }
     }

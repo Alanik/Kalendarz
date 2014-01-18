@@ -358,11 +358,11 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Shared\Index.cshtml" />
-    <Content Include="Views\Shared\LobbyPage\_AddNewEvent.cshtml" />
-    <Content Include="Views\Shared\LobbyPage\_Lobby.cshtml" />
-    <Content Include="Views\Shared\LobbyPage\_HoverEvent.cshtml" />
-    <Content Include="Views\Shared\LobbyPage\_Login.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\SharedPartials\_AddNewEvent.cshtml" />
+    <Content Include="Views\Home\LobbyPage\_Lobby.cshtml" />
+    <Content Include="Views\Home\CalendarPage\_HoverEvent.cshtml" />
+    <Content Include="Views\Home\LobbyPage\_Login.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
     <Content Include="Views\Account\_RemoveExternalLoginsPartial.cshtml" />
@@ -370,14 +370,13 @@
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\Manage.cshtml" />
-    <Content Include="Views\Shared\LobbyPage\_Register.cshtml" />
-    <Content Include="Views\Shared\LobbyPage\_LobbyProfileMenu.cshtml" />
+    <Content Include="Views\Home\LobbyPage\_Register.cshtml" />
+    <Content Include="Views\Home\LobbyPage\_LobbyProfileMenu.cshtml" />
     <Content Include="Views\Emails\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\DetailsPage\_Details.cshtml" />
+    <Content Include="Views\Home\DetailsPage\_Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Shared\CalendarPage\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

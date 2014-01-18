@@ -23,7 +23,7 @@
 				<li>
 					@Html.LabelFor(m => m.RegisterModel.ConfirmPassword, new {@class = "form-label"})
 					@Html.PasswordFor(m => m.RegisterModel.ConfirmPassword, new { maxlength = 30 })
-					@Html.ValidationMessageFor(m => m.RegisterModel.ConfirmPassword, "Pole \"Hasło\" oraz pole \"Potwierdź hasło\" muszą posiadać tą samą wartość.")
+					@Html.ValidationMessageFor(m => m.RegisterModel.ConfirmPassword)
 				</li>
 				<li>
 					@Html.LabelFor(m => m.User.FirstName, new {@class = "form-label"})

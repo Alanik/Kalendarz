@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace KalendarzKarieryData.Models.ValidationModels
+//nie zmieniac namespace'a
+namespace KalendarzKarieryData
 {
 	[MetadataType(typeof(Address_Validation))]
 	public partial class Address

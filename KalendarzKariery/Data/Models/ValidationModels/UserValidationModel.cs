@@ -1,17 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
-namespace KalendarzKarieryData.Models.ValidationModels
+//nie zmieniac namespace'a
+namespace KalendarzKarieryData
 {
-	//KalendarzKariery Entity Models
-	//[MetadataType(typeof(User_Validation))]
-	//public partial class User
-	//{
-	//	// leave it empty.
-	//}
 	[MetadataType(typeof(User_Validation))]
 	public partial class User
 	{

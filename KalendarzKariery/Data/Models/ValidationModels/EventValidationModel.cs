@@ -1,7 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace KalendarzKarieryData.Models.ValidationModels
+//nie zmieniac namespace'a
+namespace KalendarzKarieryData
 {
 
 	[MetadataType(typeof(Event_Validation))]

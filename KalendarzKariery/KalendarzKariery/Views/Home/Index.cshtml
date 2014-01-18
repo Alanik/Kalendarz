@@ -24,7 +24,7 @@
 
 					<section id="calendar">
 					</section>
-					@Html.Partial("_AddNewEvent", new KalendarzKariery.Models.ViewModels.AddEventViewModel())
+					@Html.Partial("_AddNewEvent", new KalendarzKariery.ViewModels.AddEventViewModel())
 					@Html.Partial("_HoverEvent")
 				</div>
 				<div id="rightSideCalendar" class="side">
@@ -51,7 +51,7 @@
 	$(function () {
 
 		var mainProgram = {
-			Initialize: function () {
+			Initialize: function() {
 
 				var $calendar = $("#calendar");
 				var $details = $("#details");
@@ -75,12 +75,12 @@
 				$details.append('<div class="details-navigation-arrows-left"><img src="Images/Nav/arrow-Left.png" alt="arrow-Left"/></div>');
 				$lobby.append('<div class="lobby-navigation-arrows-right"><img src="Images/Nav/arrow-Right.png" alt="arrow-Right"/></div>');
 
-				this.Initialize.InitializeHover = function () {
+				this.Initialize.InitializeHover = function() {
 
 					$container = $(".event-hover-container");
 
 					$("#mainContainer").on({
-						mouseenter: function () {
+						mouseenter: function() {
 
 							var name = $(this).find("input").attr("name");
 							var adress = $(this).find("input").attr("adress");
@@ -99,7 +99,7 @@
 
 							$container.show();
 						},
-						mouseleave: function () {
+						mouseleave: function() {
 							$container.hide();
 						}
 					}, '.event-rectangle');
@@ -108,7 +108,7 @@
 					var $currentMonthIcon = $(".current-month .addNewEvent-cellIcon");
 					var $otherMonthIcon = $(".other-month .addNewEvent-cellIcon");
 
-					$(".current-month").hover(function () {
+					$(".current-month").hover(function() {
 						$(this).css({
 							"border-bottom": "2px solid rgb(235,235,235)",
 							"border-top": "2px solid rgb(250,250,250)",
@@ -118,7 +118,7 @@
 							"box-shadow": "none",
 							"top": "3px"
 						}).find($currentMonthIcon).fadeIn();
-					}, function () {
+					}, function() {
 						$(this).css({
 							"border": "2px solid white",
 							"cursor": "auto",
@@ -128,7 +128,7 @@
 							"top": "0px"
 						}).find($currentMonthIcon).hide();
 					});
-					$(".other-month").hover(function () {
+					$(".other-month").hover(function() {
 						$(this).css({
 							"cursor": "pointer",
 							//"-moz-box-shadow": "none",
@@ -136,7 +136,7 @@
 							//"box-shadow": "none",
 							"top": "3px"
 						}).find($otherMonthIcon).fadeIn();
-					}, function () {
+					}, function() {
 						$(this).css({
 							"cursor": "auto",
 							//"-moz-box-shadow": "0px 3px 5px #ddd",
@@ -148,68 +148,66 @@
 
 					var $menuItemContainer = $(".menu-item-container");
 
-					$menuItemContainer.hover(function () {
+					$menuItemContainer.hover(function() {
 						var $dropDown = $(this).find(".menu-item-dropdown-container");
 						$dropDown.toggleClass("menu-dropdown-visible");
 
 						if ($dropDown.hasClass("menu-dropdown-visible")) {
 							$dropDown.slideDown();
-						}
-						else {
+						} else {
 							$dropDown.slideUp();
 						}
 
-					}, function () {
+					}, function() {
 						var $dropDown = $(this).find(".menu-item-dropdown-container");
 						$dropDown.toggleClass("menu-dropdown-visible");
 
 						if ($dropDown.hasClass("menu-dropdown-visible")) {
 							$dropDown.slideDown();
-						}
-						else {
+						} else {
 							$dropDown.slideUp();
 						}
 
 
 					});
 
-					$(".menu-item").hover(function () {
+					$(".menu-item").hover(function() {
 						$(this).css({
 							"cursor": "pointer",
 							"font-size": ".9em"
 						});
-					}, function () {
+					}, function() {
 						$(this).css({
 							"cursor": "auto",
 							"font-size": ".8em"
 						});
 					});
 
-					$(".menu-item-dropdown").hover(function () {
+					$(".menu-item-dropdown").hover(function() {
 						$(this).css({
 							"cursor": "pointer"
 						});
-					}, function () {
+					}, function() {
 						$(this).css({
 							"cursor": "auto"
 						});
 					});
 
 
-					$("#leftSide").hover(function () {
+					$("#leftSide").hover(function() {
 						$(this).css({
 							"cursor": "pointer"
 						});
-					}, function () {
+					}, function() {
 						$(this).css({
 							"cursor": "auto"
 						});
 					});
-					$("#rightSide").hover(function () {
+					$("#rightSide").hover(function() {
 						$(this).css({
 							"cursor": "pointer"
 						});
-					}, function () {
+					}, function() {
 						$(this).css({
 							"cursor": "auto"
 						})
@@ -220,110 +218,118 @@
 					var $leftSideDetails = $("#leftSideDetails");
 					var $rightSideLobby = $("#rightSideLobby");
 
-					$leftSideCalendar.hover(function () {
+					$leftSideCalendar.hover(function() {
 						$(this).css({
 							//"backgroundPosition": "left",
 							"cursor": "pointer"
 						});
-					}, function () {
+					}, function() {
 						$(this).css({
 							//"backgroundPosition": "right",
 							"cursor": "auto"
 						})
 					});
-					$(".calendar-navigation-arrows-left").hover(function () {
+					$(".calendar-navigation-arrows-left").hover(function() {
 						$(this).css({
 							"cursor": "pointer"
 						});
 
 						$leftSideCalendar.css({
 							//"backgroundPosition": "left"
+						
 						});
-					}, function () {
+					}, function() {
 						$(this).css({
 							"cursor": "auto"
 						});
 						$leftSideCalendar.css({
 							//"backgroundPosition": "right"
+						
 						})
 					});
-					$rightSideCalendar.hover(function () {
+					$rightSideCalendar.hover(function() {
 						$(this).css({
 							//"backgroundPosition": "right",
 							"cursor": "pointer"
 						});
-					}, function () {
+					}, function() {
 						$(this).css({
 							//"backgroundPosition": "left",
 							"cursor": "auto"
 						})
 					});
-					$(".calendar-navigation-arrows-right").hover(function () {
+					$(".calendar-navigation-arrows-right").hover(function() {
 						$(this).css({
 							"cursor": "pointer"
 						});
 
 						$rightSideCalendar.css({
 							//"backgroundPosition": "right"
+						
 						});
-					}, function () {
+					}, function() {
 						$(this).css({
 							"cursor": "auto"
 						});
 						$rightSideCalendar.css({
 							//"backgroundPosition": "left"
+						
 						})
 					});
 
-					$(".lobby-navigation-arrows-right").hover(function () {
+					$(".lobby-navigation-arrows-right").hover(function() {
 						$(this).css({
 							"cursor": "pointer"
 						});
 
 						$rightSideLobby.css({
 							//"backgroundPosition": "right"
+						
 						});
-					}, function () {
+					}, function() {
 						$(this).css({
 							"cursor": "auto"
 						});
 						$rightSideLobby.css({
 							//"backgroundPosition": "left"
+						
 						})
 					});
-					$(".details-navigation-arrows-left").hover(function () {
+					$(".details-navigation-arrows-left").hover(function() {
 						$(this).css({
 							"cursor": "pointer"
 						});
 
 						$leftSideDetails.css({
 							//"backgroundPosition": "left"
+						
 						});
-					}, function () {
+					}, function() {
 						$(this).css({
 							"cursor": "auto"
 						});
 						$leftSideDetails.css({
 							//"backgroundPosition": "right"
+						
 						})
 					});
-					$leftSideDetails.hover(function () {
+					$leftSideDetails.hover(function() {
 						$(this).css({
 							//"backgroundPosition": "left",
 							"cursor": "pointer"
 						});
-					}, function () {
+					}, function() {
 						$(this).css({
 							//"backgroundPosition": "right",
 							"cursor": "auto"
 						})
 					});
-					$rightSideLobby.hover(function () {
+					$rightSideLobby.hover(function() {
 						$(this).css({
 							//"backgroundPosition": "right",
 							"cursor": "pointer"
 						});
-					}, function () {
+					}, function() {
 						$(this).css({
 							//"backgroundPosition": "left",
 							"cursor": "auto"
@@ -332,18 +338,18 @@
 
 					var $closeBtnAddEventContainer = $("#closeBtn-add-event-container");
 
-					$closeBtnAddEventContainer.hover(function () {
+					$closeBtnAddEventContainer.hover(function() {
 						$(this).css({
 							"top": "10px",
 							"cursor": "pointer"
 						})
-					}, function () {
+					}, function() {
 						$(this).css({
 							"top": "8px",
 							"cursor": "auto"
 						})
 					});
-					$(".close-text").hover(function () {
+					$(".close-text").hover(function() {
 						$(this).css({
 							"cursor": "pointer"
 						})
@@ -351,7 +357,7 @@
 							"top": "10px"
 						})
 
-					}, function () {
+					}, function() {
 						$(this).css({
 							"cursor": "auto"
 						})
@@ -359,14 +365,14 @@
 							"top": "8px"
 						})
 					});
-					$(".border-close-text").hover(function () {
+					$(".border-close-text").hover(function() {
 						$(this).css({
 							"cursor": "pointer"
 						})
 						$closeBtnAddEventContainer.css({
 							"top": "10px"
 						})
-					}, function () {
+					}, function() {
 						$(this).css({
 							"cursor": "auto"
 						})
@@ -375,11 +381,11 @@
 						})
 					});
 
-					$("#btnAddNewEvent").hover(function () {
+					$("#btnAddNewEvent").hover(function() {
 						$(this).css({
 							"cursor": "pointer"
 						})
-					}, function () {
+					}, function() {
 						$(this).css({
 							"cursor": "auto"
 						})
@@ -388,26 +394,26 @@
 					var $mainContainer = $("#mainContainer");
 
 					$mainContainer.on({
-						mouseenter: function () {
+						mouseenter: function() {
 							$(this).css("background", "rgb(160, 243, 169)");
 						},
-						mouseleave: function () {
+						mouseleave: function() {
 							$(this).css("background", "rgb(225,225,225)");
 						}
 					}, '.light-icon');
 
 					$mainContainer.on({
-						mouseenter: function () {
+						mouseenter: function() {
 							$(this).css("background", "rgb(160, 243, 169)");
 						},
-						mouseleave: function () {
+						mouseleave: function() {
 							$(this).css("background", "rgb(215,215,215)");
 						}
 					}, '.dark-icon');
 
 				}();
 
-				this.Initialize.InitializeClick = function () {
+				this.Initialize.InitializeClick = function() {
 
 
 					//$(".szkolenia-btn").click(function () {
@@ -435,32 +441,32 @@
 					//	window.location = "#2";
 					//});
 
-					$mainContainer.on("click", "#leftSideCalendar", function (event) {
+					$mainContainer.on("click", "#leftSideCalendar", function(event) {
 						window.location = "#0";
 					});
-					$mainContainer.on("click", ".calendar-navigation-arrows-left", function (event) {
+					$mainContainer.on("click", ".calendar-navigation-arrows-left", function(event) {
 						window.location = "#0";
 					});
-					$mainContainer.on("click", "#rightSideCalendar", function (event) {
+					$mainContainer.on("click", "#rightSideCalendar", function(event) {
 						window.location = "#2";
 					});
-					$mainContainer.on("click", ".calendar-navigation-arrows-right", function (event) {
+					$mainContainer.on("click", ".calendar-navigation-arrows-right", function(event) {
 						window.location = "#2";
 					});
-					$mainContainer.on("click", "#rightSideLobby", function (event) {
+					$mainContainer.on("click", "#rightSideLobby", function(event) {
 						window.location = "#1";
 					});
-					$mainContainer.on("click", ".lobby-navigation-arrows-right", function (event) {
+					$mainContainer.on("click", ".lobby-navigation-arrows-right", function(event) {
 						window.location = "#1";
 					});
-					$mainContainer.on("click", "#leftSideDetails", function (event) {
+					$mainContainer.on("click", "#leftSideDetails", function(event) {
 						window.location = "#1";
 					});
-					$mainContainer.on("click", ".details-navigation-arrows-left", function (event) {
+					$mainContainer.on("click", ".details-navigation-arrows-left", function(event) {
 						window.location = "#1";
 					});
 
-					$mainContainer.on("click", ".addNewEvent-cellIcon", function (event) {
+					$mainContainer.on("click", ".addNewEvent-cellIcon", function(event) {
 						var txtDay = $(this).parent().find(".day").text();
 						$("#hiddenDay").attr("name", txtDay);
 						$("#add-new-event-container").show();
@@ -469,20 +475,20 @@
 
 					var $addNewEventContainer = $("#add-new-event-container");
 
-					$("#closeBtn-add-event-container").click(function () {
+					$("#closeBtn-add-event-container").click(function() {
 						$addNewEventContainer.fadeOut();
 					});
-					$(".border-close-text").click(function () {
+					$(".border-close-text").click(function() {
 						$addNewEventContainer.fadeOut();
 					});
-					$(".close-text").click(function () {
+					$(".close-text").click(function() {
 						$addNewEventContainer.fadeOut();
 					});
 
 
 				}();
 			}
-		}
+		};
 
 		mainProgram.Initialize();
 

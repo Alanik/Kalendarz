@@ -1,0 +1,12 @@
+﻿using KalendarzKarieryData;
+using KalendarzKarieryData.Models.AccountModels;
+
+namespace KalendarzKariery.ViewModels
+{
+	public class RegisterViewModel
+	{
+		public RegisterModel RegisterModel { get; set; }
+		public User User { get; set; }
+		public Address Address {get; set;}
+	}
+}

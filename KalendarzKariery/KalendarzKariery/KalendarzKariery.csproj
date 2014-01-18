@@ -20,6 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,6 +40,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="DotNetOpenAuth.AspNet">
       <HintPath>..\packages\DotNetOpenAuth.AspNet.4.1.4.12333\lib\net45-full\DotNetOpenAuth.AspNet.dll</HintPath>
     </Reference>
@@ -57,17 +62,14 @@
     <Reference Include="DotNetOpenAuth.OpenId.RelyingParty">
       <HintPath>..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.1.4.12333\lib\net45-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.WebPages.OAuth, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.OAuth.3.0.0\lib\net45\Microsoft.Web.WebPages.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Postal">
       <HintPath>..\packages\postal.0.8.2\lib\net45\Postal.dll</HintPath>
@@ -79,6 +81,16 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Extensions">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.18\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.0.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.18\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Transactions" />
@@ -91,6 +103,14 @@
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.0.0\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.0.0\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -125,21 +145,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System.Net.Http">
     </Reference>
-    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
-    </Reference>
     <Reference Include="System.Net.Http.WebRequest">
-    </Reference>
-    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Optimization">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
@@ -147,13 +155,9 @@
     <Reference Include="System.Web.Providers">
       <HintPath>..\packages\Microsoft.AspNet.Providers.Core.1.1\lib\net40\System.Web.Providers.dll</HintPath>
     </Reference>
-    <Reference Include="WebGrease">
-      <Private>True</Private>
-      <HintPath>..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
-    </Reference>
-    <Reference Include="Antlr3.Runtime">
-      <Private>True</Private>
-      <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
+    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
     </Reference>
     <Reference Include="WebMatrix.Data, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -174,66 +178,12 @@
     <Compile Include="BO\SeedMembership\InitializeMembership.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountModels\AccountModels.cs" />
-    <Compile Include="Models\Address.cs">
-      <DependentUpon>KalendarzKarieryEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Comment.cs">
-      <DependentUpon>KalendarzKarieryEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Event.cs">
-      <DependentUpon>KalendarzKarieryEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ValidationModels\EventValidationModel.cs" />
-    <Compile Include="Models\KalendarzKarieryEntities.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>KalendarzKarieryEntities.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\KalendarzKarieryEntities.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>KalendarzKarieryEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\KalendarzKarieryEntities.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>KalendarzKarieryEntities.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\KalendarzKarieryRepository.cs" />
-    <Compile Include="Models\ValidationModels\AddressValidationModel.cs" />
-    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>KalendarzKarieryEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagrams_Result.cs">
-      <DependentUpon>KalendarzKarieryEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>KalendarzKarieryEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\User.cs">
-      <DependentUpon>KalendarzKarieryEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UserAccountInfo.cs">
-      <DependentUpon>KalendarzKarieryEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ValidationModels\UserValidationModel.cs" />
-    <Compile Include="Models\ViewModels\AddEventViewModel.cs" />
-    <Compile Include="Models\ViewModels\RegisterViewModel.cs" />
-    <Compile Include="Models\webpages_Membership.cs">
-      <DependentUpon>KalendarzKarieryEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\webpages_OAuthMembership.cs">
-      <DependentUpon>KalendarzKarieryEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\webpages_Roles.cs">
-      <DependentUpon>KalendarzKarieryEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\AddEventViewModel.cs" />
+    <Compile Include="ViewModels\RegisterViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -300,51 +250,33 @@
     <Content Include="Images\Icons\triangle-left.png" />
     <Content Include="Images\Icons\triangle-right.png" />
     <Content Include="Images\tapeta.jpg" />
-    <EntityDeploy Include="Models\KalendarzKarieryEntities.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>KalendarzKarieryEntities.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\KalendarzKarieryEntities.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>KalendarzKarieryEntities.edmx</DependentUpon>
-      <LastGenOutput>KalendarzKarieryEntities.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\KalendarzKarieryEntities.edmx.diagram">
-      <DependentUpon>KalendarzKarieryEntities.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\KalendarzKarieryEntities.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>KalendarzKarieryEntities.edmx</DependentUpon>
-      <LastGenOutput>KalendarzKarieryEntities.cs</LastGenOutput>
-    </Content>
     <None Include="Properties\PublishProfiles\Alan.pubxml" />
-    <None Include="Scripts\Lib\jquery-1.7.1.intellisense.js" />
+    <None Include="Scripts\Lib\jquery-2.0.3.intellisense.js" />
+    <Content Include="Scripts\Lib\jquery-2.0.3.js" />
+    <Content Include="Scripts\Lib\jquery-2.0.3.min.js" />
+    <Content Include="Scripts\Lib\jquery-2.0.3.min.map" />
     <Content Include="Images\kalendarzTlo.png" />
     <Content Include="Images\Logo\maleLogoKalendarz.png" />
     <Content Include="Images\Loader\ajax-loader.gif" />
     <Content Include="Images\point.png" />
-    <Content Include="Models\JSModels\CalendarViewModel.js" />
+    <Content Include="Scripts\CalendarViewModel.js" />
     <Content Include="Scripts\CalendarWidget\calendarWidget.js" />
     <Content Include="Scripts\CalendarWidget\Slider\application.js" />
     <Content Include="Scripts\CalendarWidget\Slider\jquery.animate-enhanced.min.js" />
     <Content Include="Scripts\CalendarWidget\Slider\jquery.easing.1.3.js" />
     <Content Include="Scripts\CalendarWidget\Slider\jquery.superslides.min.js" />
-    <Content Include="Scripts\Lib\jquery-1.7.1.js" />
-    <Content Include="Scripts\Lib\jquery-1.7.1.min.js" />
     <None Include="Scripts\Lib\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\Lib\jquery-ui-1.8.20.custom.min.js" />
-    <Content Include="Scripts\Lib\jquery-ui-1.8.20.js" />
-    <Content Include="Scripts\Lib\jquery-ui-1.8.20.min.js" />
     <Content Include="Scripts\Lib\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\Lib\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\Lib\jquery.validate.js" />
     <Content Include="Scripts\Lib\jquery.validate.min.js" />
-    <Content Include="Scripts\Lib\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\Lib\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\Lib\knockout-2.2.1.debug.js" />
-    <Content Include="Scripts\Lib\knockout-2.2.1.js" />
-    <Content Include="Scripts\Lib\modernizr-2.6.2.js" />
+    <Content Include="Scripts\Lib\knockout-3.0.0.debug.js" />
+    <Content Include="Scripts\Lib\knockout-3.0.0.js" />
+    <Content Include="Scripts\Lib\jquery-ui-1.8.20.custom.min.js" />
+    <Content Include="Scripts\Lib\jquery-ui-1.8.20.js" />
+    <Content Include="Scripts\Lib\jquery-ui-1.8.20.min.js" />
     <Content Include="Scripts\Lib\_references.js" />
+    <Content Include="Scripts\Lib\modernizr-2.7.1.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -377,12 +309,19 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Filters\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Data\KalendarzKarieryData.csproj">
+      <Project>{556eca30-9acb-4557-abab-a1434957a871}</Project>
+      <Name>KalendarzKarieryData</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -414,6 +353,11 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

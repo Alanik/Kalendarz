@@ -1,10 +1,10 @@
-﻿using KalendarzKariery.Models;
+﻿
+using KalendarzKariery.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using KalendarzKariery.Models.ViewModels;
 
 namespace KalendarzKariery.Controllers
 {

@@ -1,4 +1,4 @@
-﻿using KalendarzKariery.Models;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 using WebMatrix.WebData;
+using KalendarzKarieryData;
 
 namespace KalendarzKariery.BO.SeedMembership
 {
@@ -64,8 +65,6 @@ namespace KalendarzKariery.BO.SeedMembership
 			if (!WebSecurity.UserExists(loginName))
 			{
 				User user = InitializeMembership.GetAlanikAdmin(loginName);
-
-
 
 				WebSecurity.CreateUserAndAccount(loginName, AdminPassword, propertyValues: new
 				{

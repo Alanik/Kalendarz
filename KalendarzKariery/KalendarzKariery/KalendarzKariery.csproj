@@ -178,7 +178,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\AccountModels\AccountModels.cs" />
     <Compile Include="Models\Address.cs">
       <DependentUpon>KalendarzKarieryEntities.tt</DependentUpon>
     </Compile>
@@ -188,7 +188,7 @@
     <Compile Include="Models\Event.cs">
       <DependentUpon>KalendarzKarieryEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\EventValidationModel.cs" />
+    <Compile Include="Models\ValidationModels\EventValidationModel.cs" />
     <Compile Include="Models\KalendarzKarieryEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -205,7 +205,7 @@
       <DependentUpon>KalendarzKarieryEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\KalendarzKarieryRepository.cs" />
-    <Compile Include="Models\AddressValidationModel.cs" />
+    <Compile Include="Models\ValidationModels\AddressValidationModel.cs" />
     <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
       <DependentUpon>KalendarzKarieryEntities.tt</DependentUpon>
     </Compile>
@@ -221,7 +221,7 @@
     <Compile Include="Models\UserAccountInfo.cs">
       <DependentUpon>KalendarzKarieryEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\UserValidationModel.cs" />
+    <Compile Include="Models\ValidationModels\UserValidationModel.cs" />
     <Compile Include="Models\ViewModels\AddEventViewModel.cs" />
     <Compile Include="Models\ViewModels\RegisterViewModel.cs" />
     <Compile Include="Models\webpages_Membership.cs">
@@ -292,13 +292,13 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Images\kalendarzLogo.png" />
+    <Content Include="Images\Logo\kalendarzLogo.png" />
     <Content Include="Images\kalendarzTloClear.png" />
-    <Content Include="Images\list-icon.png" />
+    <Content Include="Images\Icons\list-icon.png" />
     <Content Include="Images\Nav\arrow-left.png" />
     <Content Include="Images\Nav\arrow-right.png" />
-    <Content Include="Images\Nav\triangle-left.png" />
-    <Content Include="Images\Nav\triangle-right.png" />
+    <Content Include="Images\Icons\triangle-left.png" />
+    <Content Include="Images\Icons\triangle-right.png" />
     <Content Include="Images\tapeta.jpg" />
     <EntityDeploy Include="Models\KalendarzKarieryEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -320,7 +320,7 @@
     <None Include="Properties\PublishProfiles\Alan.pubxml" />
     <None Include="Scripts\Lib\jquery-1.7.1.intellisense.js" />
     <Content Include="Images\kalendarzTlo.png" />
-    <Content Include="Images\maleLogoKalendarz.png" />
+    <Content Include="Images\Logo\maleLogoKalendarz.png" />
     <Content Include="Images\Loader\ajax-loader.gif" />
     <Content Include="Images\point.png" />
     <Content Include="Models\JSModels\CalendarViewModel.js" />
@@ -373,11 +373,11 @@
     <Content Include="Views\Shared\LobbyPage\_Register.cshtml" />
     <Content Include="Views\Shared\LobbyPage\_LobbyProfileMenu.cshtml" />
     <Content Include="Views\Emails\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\DetailsPage\_Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Shared\CalendarPage\" />
-    <Folder Include="Views\Shared\DetailsPage\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

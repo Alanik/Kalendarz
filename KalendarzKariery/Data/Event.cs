@@ -16,8 +16,8 @@ namespace KalendarzKarieryData
     {
         public Event()
         {
-            this.Comments = new HashSet<Comment>();
             this.Addresses = new HashSet<Address>();
+            this.Comments = new HashSet<Comment>();
             this.Users = new HashSet<User>();
         }
     
@@ -26,19 +26,18 @@ namespace KalendarzKarieryData
         public string Description { get; set; }
         public string Details { get; set; }
         public System.DateTime DateAdded { get; set; }
-        public Nullable<int> OwnerUserId { get; set; }
+        public int OwnerUserId { get; set; }
         public System.DateTime StartDate { get; set; }
         public Nullable<int> EventLengthInMinutes { get; set; }
         public Nullable<int> OccupancyLimit { get; set; }
         public string UrlLink { get; set; }
         public int Kind { get; set; }
-        public int NumberOfPeopleAttending { get; set; }
+        public Nullable<int> NumberOfPeopleAttending { get; set; }
         public int PrivacyLevel { get; set; }
-        public int AddressId { get; set; }
     
+        public virtual ICollection<Address> Addresses { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual User User { get; set; }
-        public virtual ICollection<Address> Addresses { get; set; }
         public virtual ICollection<User> Users { get; set; }
     }
 }

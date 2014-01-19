@@ -14,22 +14,10 @@
           <Property Name="City" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ZipCode" Type="varchar" MaxLength="6" Nullable="false" />
           <Property Name="Country" Type="varchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Address_Event">
-          <Key>
-            <PropertyRef Name="AddressId" />
-            <PropertyRef Name="EventId" />
-          </Key>
-          <Property Name="AddressId" Type="int" Nullable="false" />
-          <Property Name="EventId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Address_User">
-          <Key>
-            <PropertyRef Name="AddressId" />
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="AddressId" Type="int" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="EventId" Type="int" />
+          <Property Name="Latidute" Type="decimal" Precision="9" Scale="6" />
+          <Property Name="Longitude" Type="decimal" Precision="9" Scale="6" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -50,15 +38,14 @@
           <Property Name="Description" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="Details" Type="varchar" MaxLength="500" />
           <Property Name="DateAdded" Type="datetime" Nullable="false" />
-          <Property Name="OwnerUserId" Type="int" />
+          <Property Name="OwnerUserId" Type="int" Nullable="false" />
           <Property Name="StartDate" Type="datetime" Nullable="false" />
           <Property Name="EventLengthInMinutes" Type="int" />
           <Property Name="OccupancyLimit" Type="int" />
           <Property Name="UrlLink" Type="varchar" MaxLength="200" />
           <Property Name="Kind" Type="int" Nullable="false" />
-          <Property Name="NumberOfPeopleAttending" Type="int" Nullable="false" />
+          <Property Name="NumberOfPeopleAttending" Type="int" />
           <Property Name="PrivacyLevel" Type="int" Nullable="false" />
-          <Property Name="AddressId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -98,7 +85,7 @@
           <Key>
             <PropertyRef Name="UserAccountInfoId" />
           </Key>
-          <Property Name="UserAccountInfoId" Type="int" Nullable="false" />
+          <Property Name="UserAccountInfoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CreationDate" Type="datetime" Nullable="false" />
           <Property Name="LastLogin" Type="datetime" />
           <Property Name="LastLogout" Type="datetime" />
@@ -146,50 +133,26 @@
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="RoleId" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Address_Event_Address">
-          <End Role="Address" Type="Self.Address" Multiplicity="1" />
-          <End Role="Address_Event" Type="Self.Address_Event" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Address">
-              <PropertyRef Name="AddressId" />
-            </Principal>
-            <Dependent Role="Address_Event">
-              <PropertyRef Name="AddressId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Address_Event_Event">
-          <End Role="Event" Type="Self.Event" Multiplicity="1" />
-          <End Role="Address_Event" Type="Self.Address_Event" Multiplicity="*" />
+        <Association Name="FK_Address_Event">
+          <End Role="Event" Type="Self.Event" Multiplicity="0..1" />
+          <End Role="Address" Type="Self.Address" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Event">
               <PropertyRef Name="EventId" />
             </Principal>
-            <Dependent Role="Address_Event">
+            <Dependent Role="Address">
               <PropertyRef Name="EventId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Address_User_Address">
-          <End Role="Address" Type="Self.Address" Multiplicity="1" />
-          <End Role="Address_User" Type="Self.Address_User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Address">
-              <PropertyRef Name="AddressId" />
-            </Principal>
-            <Dependent Role="Address_User">
-              <PropertyRef Name="AddressId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Address_User_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Address_User" Type="Self.Address_User" Multiplicity="*" />
+        <Association Name="FK_Address_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Address" Type="Self.Address" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
             </Principal>
-            <Dependent Role="Address_User">
+            <Dependent Role="Address">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -219,7 +182,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OwnerUser_Event">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Event" Type="Self.Event" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
@@ -323,8 +286,6 @@
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="KalendarzKarieryDBModelStoreContainer">
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Address_Event" EntityType="Self.Address_Event" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Address_User" EntityType="Self.Address_User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Event" EntityType="Self.Event" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -335,21 +296,13 @@
           <EntitySet Name="webpages_OAuthMembership" EntityType="Self.webpages_OAuthMembership" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="webpages_Roles" EntityType="Self.webpages_Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="webpages_UsersInRoles" EntityType="Self.webpages_UsersInRoles" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Address_Event_Address" Association="Self.FK_Address_Event_Address">
-            <End Role="Address" EntitySet="Address" />
-            <End Role="Address_Event" EntitySet="Address_Event" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Address_Event_Event" Association="Self.FK_Address_Event_Event">
+          <AssociationSet Name="FK_Address_Event" Association="Self.FK_Address_Event">
             <End Role="Event" EntitySet="Event" />
-            <End Role="Address_Event" EntitySet="Address_Event" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Address_User_Address" Association="Self.FK_Address_User_Address">
             <End Role="Address" EntitySet="Address" />
-            <End Role="Address_User" EntitySet="Address_User" />
           </AssociationSet>
-          <AssociationSet Name="FK_Address_User_User" Association="Self.FK_Address_User_User">
+          <AssociationSet Name="FK_Address_User" Association="Self.FK_Address_User">
             <End Role="User" EntitySet="User" />
-            <End Role="Address_User" EntitySet="Address_User" />
+            <End Role="Address" EntitySet="Address" />
           </AssociationSet>
           <AssociationSet Name="FK_Comment_Event" Association="Self.FK_Comment_Event">
             <End Role="Event" EntitySet="Event" />
@@ -398,8 +351,12 @@
           <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ZipCode" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Events" Relationship="Self.Address_Event" FromRole="Address" ToRole="Event" />
-          <NavigationProperty Name="Users" Relationship="Self.Address_User" FromRole="Address" ToRole="User" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="EventId" Type="Int32" />
+          <Property Name="Latidute" Type="Decimal" Precision="9" Scale="6" />
+          <Property Name="Longitude" Type="Decimal" Precision="9" Scale="6" />
+          <NavigationProperty Name="Event" Relationship="Self.FK_Address_Event" FromRole="Address" ToRole="Event" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Address_User" FromRole="Address" ToRole="User" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -422,18 +379,17 @@
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Details" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="OwnerUserId" Type="Int32" />
+          <Property Name="OwnerUserId" Type="Int32" Nullable="false" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="EventLengthInMinutes" Type="Int32" />
           <Property Name="OccupancyLimit" Type="Int32" />
           <Property Name="UrlLink" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="Kind" Type="Int32" Nullable="false" />
-          <Property Name="NumberOfPeopleAttending" Type="Int32" Nullable="false" />
+          <Property Name="NumberOfPeopleAttending" Type="Int32" />
           <Property Name="PrivacyLevel" Type="Int32" Nullable="false" />
-          <Property Name="AddressId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Addresses" Relationship="Self.FK_Address_Event" FromRole="Event" ToRole="Address" />
           <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_Event" FromRole="Event" ToRole="Comment" />
           <NavigationProperty Name="User" Relationship="Self.FK_OwnerUser_Event" FromRole="Event" ToRole="User" />
-          <NavigationProperty Name="Addresses" Relationship="Self.Address_Event" FromRole="Event" ToRole="Address" />
           <NavigationProperty Name="Users" Relationship="Self.User_Event" FromRole="Event" ToRole="User" />
         </EntityType>
         <EntityType Name="sysdiagram">
@@ -461,10 +417,10 @@
           <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="Bio" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="UserAccountInfoId" Type="Int32" />
+          <NavigationProperty Name="Addresses" Relationship="Self.FK_Address_User" FromRole="User" ToRole="Address" />
           <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_User" FromRole="User" ToRole="Comment" />
           <NavigationProperty Name="Events" Relationship="Self.FK_OwnerUser_Event" FromRole="User" ToRole="Event" />
           <NavigationProperty Name="UserAccountInfo" Relationship="Self.FK_User_UserAccountInfo" FromRole="User" ToRole="UserAccountInfo" />
-          <NavigationProperty Name="Addresses" Relationship="Self.Address_User" FromRole="User" ToRole="Address" />
           <NavigationProperty Name="Events1" Relationship="Self.User_Event" FromRole="User" ToRole="Event" />
           <NavigationProperty Name="webpages_Roles" Relationship="Self.webpages_UsersInRoles" FromRole="User" ToRole="webpages_Roles" />
         </EntityType>
@@ -472,7 +428,7 @@
           <Key>
             <PropertyRef Name="UserAccountInfoId" />
           </Key>
-          <Property Name="UserAccountInfoId" Type="Int32" Nullable="false" />
+          <Property Name="UserAccountInfoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LastLogin" Type="DateTime" Precision="3" />
           <Property Name="LastLogout" Type="DateTime" Precision="3" />
@@ -514,6 +470,30 @@
           <Property Name="RoleName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Users" Relationship="Self.webpages_UsersInRoles" FromRole="webpages_Roles" ToRole="User" />
         </EntityType>
+        <Association Name="FK_Address_Event">
+          <End Role="Event" Type="Self.Event" Multiplicity="0..1" />
+          <End Role="Address" Type="Self.Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Event">
+              <PropertyRef Name="EventId" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="EventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Address_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Address" Type="Self.Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Comment_Event">
           <End Role="Event" Type="Self.Event" Multiplicity="1" />
           <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
@@ -539,7 +519,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OwnerUser_Event">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Event" Type="Self.Event" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
@@ -562,14 +542,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Address_Event">
-          <End Role="Address" Type="Self.Address" Multiplicity="*" />
-          <End Role="Event" Type="Self.Event" Multiplicity="*" />
-        </Association>
-        <Association Name="Address_User">
-          <End Role="Address" Type="Self.Address" Multiplicity="*" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
-        </Association>
         <Association Name="User_Event">
           <End Role="Event" Type="Self.Event" Multiplicity="*" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
@@ -578,7 +550,7 @@
           <End Role="webpages_Roles" Type="Self.webpages_Roles" Multiplicity="*" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="KalendarzKarieryDBEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="KalendarzKarieryDBEntities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Addresses" EntityType="Self.Address" />
           <EntitySet Name="Comments" EntityType="Self.Comment" />
           <EntitySet Name="Events" EntityType="Self.Event" />
@@ -588,6 +560,14 @@
           <EntitySet Name="webpages_Membership" EntityType="Self.webpages_Membership" />
           <EntitySet Name="webpages_OAuthMembership" EntityType="Self.webpages_OAuthMembership" />
           <EntitySet Name="webpages_Roles" EntityType="Self.webpages_Roles" />
+          <AssociationSet Name="FK_Address_Event" Association="Self.FK_Address_Event">
+            <End Role="Event" EntitySet="Events" />
+            <End Role="Address" EntitySet="Addresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Address_User" Association="Self.FK_Address_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Address" EntitySet="Addresses" />
+          </AssociationSet>
           <AssociationSet Name="FK_Comment_Event" Association="Self.FK_Comment_Event">
             <End Role="Event" EntitySet="Events" />
             <End Role="Comment" EntitySet="Comments" />
@@ -602,14 +582,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_User_UserAccountInfo" Association="Self.FK_User_UserAccountInfo">
             <End Role="UserAccountInfo" EntitySet="UserAccountInfoes" />
-            <End Role="User" EntitySet="Users" />
-          </AssociationSet>
-          <AssociationSet Name="Address_Event" Association="Self.Address_Event">
-            <End Role="Address" EntitySet="Addresses" />
-            <End Role="Event" EntitySet="Events" />
-          </AssociationSet>
-          <AssociationSet Name="Address_User" Association="Self.Address_User">
-            <End Role="Address" EntitySet="Addresses" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
           <AssociationSet Name="User_Event" Association="Self.User_Event">
@@ -667,7 +639,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="KalendarzKarieryDBModelStoreContainer" CdmEntityContainer="KalendarzKarieryDBEntities">
+        <EntityContainerMapping StorageEntityContainer="KalendarzKarieryDBModelStoreContainer" CdmEntityContainer="KalendarzKarieryDBEntities2">
           <EntitySetMapping Name="Addresses">
             <EntityTypeMapping TypeName="KalendarzKarieryDBModel.Address">
               <MappingFragment StoreEntitySet="Address">
@@ -676,6 +648,10 @@
                 <ScalarProperty Name="City" ColumnName="City" />
                 <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
                 <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="EventId" ColumnName="EventId" />
+                <ScalarProperty Name="Latidute" ColumnName="Latidute" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -706,7 +682,6 @@
                 <ScalarProperty Name="Kind" ColumnName="Kind" />
                 <ScalarProperty Name="NumberOfPeopleAttending" ColumnName="NumberOfPeopleAttending" />
                 <ScalarProperty Name="PrivacyLevel" ColumnName="PrivacyLevel" />
-                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -785,22 +760,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="Address_Event" TypeName="KalendarzKarieryDBModel.Address_Event" StoreEntitySet="Address_Event">
-            <EndProperty Name="Address">
-              <ScalarProperty Name="AddressId" ColumnName="AddressId" />
-            </EndProperty>
-            <EndProperty Name="Event">
-              <ScalarProperty Name="EventId" ColumnName="EventId" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="Address_User" TypeName="KalendarzKarieryDBModel.Address_User" StoreEntitySet="Address_User">
-            <EndProperty Name="Address">
-              <ScalarProperty Name="AddressId" ColumnName="AddressId" />
-            </EndProperty>
-            <EndProperty Name="User">
-              <ScalarProperty Name="UserId" ColumnName="UserId" />
-            </EndProperty>
-          </AssociationSetMapping>
           <AssociationSetMapping Name="User_Event" TypeName="KalendarzKarieryDBModel.User_Event" StoreEntitySet="User_Event">
             <EndProperty Name="Event">
               <ScalarProperty Name="EventId" ColumnName="EventId" />

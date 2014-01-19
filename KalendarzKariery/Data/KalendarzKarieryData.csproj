@@ -57,6 +57,7 @@
     <Compile Include="Event.cs">
       <DependentUpon>KalendarzKarieryEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="IRepository.cs" />
     <Compile Include="KalendarzKarieryEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -104,7 +105,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <EntityDeploy Include="KalendarzKarieryEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>KalendarzKarieryEntities.Designer.cs</LastGenOutput>

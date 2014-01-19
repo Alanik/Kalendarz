@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Entity.Migrations.Infrastructure;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.Security;
 using WebMatrix.WebData;
@@ -64,7 +66,7 @@ namespace KalendarzKariery.BO.SeedMembership
 
 			if (!WebSecurity.UserExists(loginName))
 			{
-				User user = InitializeMembership.GetAlanikAdmin(loginName);
+				User user = GetAlanikAdmin(loginName);
 
 				WebSecurity.CreateUserAndAccount(loginName, AdminPassword, propertyValues: new
 				{
@@ -75,7 +77,7 @@ namespace KalendarzKariery.BO.SeedMembership
 					BirthDay = user.BirthDay,
 					UserName = user.UserName,
 					Phone = user.Phone,
-					Gender = user.Gender,	
+					Gender = user.Gender
 				});
 
 				if (!Roles.GetRolesForUser(loginName).Contains(AdminRole))
@@ -83,12 +85,10 @@ namespace KalendarzKariery.BO.SeedMembership
 					Roles.AddUserToRole(loginName, AdminRole);
 				}
 
-				KalendarzKarieryRepository repository = new KalendarzKarieryRepository();
+				var repository = new KalendarzKarieryRepository();
 
 				int id = WebSecurity.GetUserId(loginName);
-				User emptyUser = repository.GetUser(id);
-
-				repository.Save();
+				 repository.UpdateUserOnRegiser(id, user.Addresses.First()); 
 			}
 
 		}

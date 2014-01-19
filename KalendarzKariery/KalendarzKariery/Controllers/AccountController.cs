@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Transactions;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using DotNetOpenAuth.AspNet;
@@ -10,9 +8,9 @@ using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using KalendarzKariery.BO.ExtentionMethods;
 using KalendarzKarieryData;
-using KalendarzKarieryData.Models;
 using KalendarzKariery.ViewModels;
 using KalendarzKarieryData.Models.AccountModels;
+using System.Linq;
 
 
 namespace KalendarzKariery.Controllers
@@ -20,8 +18,7 @@ namespace KalendarzKariery.Controllers
 	[Authorize]
 	public class AccountController : Controller
 	{
-
-		 readonly KalendarzKarieryRepository _repository = new KalendarzKarieryRepository();
+		readonly KalendarzKarieryRepository _repository = new KalendarzKarieryRepository();
 
 		[AllowAnonymous]
 		public ActionResult Login()
@@ -41,7 +38,7 @@ namespace KalendarzKariery.Controllers
 
 			ModelState.AddModelError(string.Empty, "Nazwa użytkownika lub hasło jest nieprawidłowe");
 
-			return Json(new { validationError = true });
+			return Json( new { validationError = true });
 		}
 
 		//
@@ -79,7 +76,9 @@ namespace KalendarzKariery.Controllers
 				{
 					try
 					{
-						WebSecurity.CreateUserAndAccount(model.RegisterModel.UserName, model.RegisterModel.Password, propertyValues: new
+						WebSecurity.CreateUserAndAccount(model.RegisterModel.UserName,
+														 model.RegisterModel.Password,
+														 propertyValues: new
 						{
 							Email = model.User.Email,
 							FirstName = model.User.FirstName,
@@ -88,7 +87,7 @@ namespace KalendarzKariery.Controllers
 							BirthDay = model.User.BirthDay,
 							UserName = model.User.UserName,
 							Phone = model.User.Phone,
-							Gender = model.User.Gender,
+							Gender = model.User.Gender
 						});
 
 						int id = WebSecurity.GetUserId(model.RegisterModel.UserName);
@@ -111,9 +110,7 @@ namespace KalendarzKariery.Controllers
 				}
 				else
 				{
-
 					ModelState.AddModelError("User.Email", "Podany adres email już został użyty. Prosze podać inny adres email.");
-
 				}
 			}
 
@@ -271,51 +268,51 @@ namespace KalendarzKariery.Controllers
 			}
 		}
 
-		//
-		// POST: /Account/ExternalLoginConfirmation
 
-		//[HttpPost]
-		//[AllowAnonymous]
-		//[ValidateAntiForgeryToken]
-		//public ActionResult ExternalLoginConfirmation(RegisterExternalLoginModel model, string returnUrl)
-		//{
-		//	string provider = null;
-		//	string providerUserId = null;
+		//POST: /Account/ExternalLoginConfirmation
 
-		//	if (User.Identity.IsAuthenticated || !OAuthWebSecurity.TryDeserializeProviderUserId(model.ExternalLoginData, out provider, out providerUserId))
-		//	{
-		//		return RedirectToAction("Manage");
-		//	}
+		[HttpPost]
+		[AllowAnonymous]
+		[ValidateAntiForgeryToken]
+		public ActionResult ExternalLoginConfirmation(RegisterExternalLoginModel model, string returnUrl)
+		{
+			string provider = null;
+			string providerUserId = null;
 
-		//	if (ModelState.IsValid)
-		//	{
-		//		// Insert a new user into the database
-		//		using (UsersContext db = new UsersContext())
-		//		{
-		//			UserProfile user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
-		//			// Check if user already exists
-		//			if (user == null)
-		//			{
-		//				// Insert name into the profile table
-		//				db.UserProfiles.Add(new UserProfile { UserName = model.UserName });
-		//				db.SaveChanges();
+			if (User.Identity.IsAuthenticated || !OAuthWebSecurity.TryDeserializeProviderUserId(model.ExternalLoginData, out provider, out providerUserId))
+			{
+				return RedirectToAction("Manage");
+			}
 
-		//				OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
-		//				OAuthWebSecurity.Login(provider, providerUserId, createPersistentCookie: false);
+			if (ModelState.IsValid)
+			{
+				// Insert a new user into the database
+				using (UsersContext db = new UsersContext())
+				{
+					UserProfile user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
+					// Check if user already exists
+					if (user == null)
+					{
+						// Insert name into the profile table
+						db.UserProfiles.Add(new UserProfile { UserName = model.UserName });
+						db.SaveChanges();
 
-		//				return RedirectToLocal(returnUrl);
-		//			}
-		//			else
-		//			{
-		//				ModelState.AddModelError("UserName", "User name already exists. Please enter a different user name.");
-		//			}
-		//		}
-		//	}
+						OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
+						OAuthWebSecurity.Login(provider, providerUserId, createPersistentCookie: false);
 
-		//	ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(provider).DisplayName;
-		//	ViewBag.ReturnUrl = returnUrl;
-		//	return View(model);
-		//}
+						return RedirectToLocal(returnUrl);
+					}
+					else
+					{
+						ModelState.AddModelError("UserName", "User name already exists. Please enter a different user name.");
+					}
+				}
+			}
+
+			ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(provider).DisplayName;
+			ViewBag.ReturnUrl = returnUrl;
+			return View(model);
+		}
 
 		//
 		// GET: /Account/ExternalLoginFailure

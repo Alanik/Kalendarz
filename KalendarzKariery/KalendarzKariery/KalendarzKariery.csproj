@@ -179,7 +179,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="BO\ExtentionMethods\ModelStateHelper.cs" />
     <Compile Include="BO\SeedMembership\InitializeMembership.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -324,9 +323,17 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Core\KalendarzKarieryCore.csproj">
+      <Project>{cedf82d3-6851-4bc8-9e5e-12fd5d64de30}</Project>
+      <Name>KalendarzKarieryCore</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Data\KalendarzKarieryData.csproj">
       <Project>{556eca30-9acb-4557-abab-a1434957a871}</Project>
       <Name>KalendarzKarieryData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KalendarzKarieryWebAPI\KalendarzKarieryWebAPI.csproj">
+      <Project>{b2d55052-26ae-49e4-8f7e-01a260a90dd0}</Project>
+      <Name>KalendarzKarieryWebAPI</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

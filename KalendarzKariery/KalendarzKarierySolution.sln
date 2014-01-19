@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KalendarzKarieryCore", "Cor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KalendarzKarieryData", "Data\KalendarzKarieryData.csproj", "{556ECA30-9ACB-4557-ABAB-A1434957A871}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KalendarzKarieryWebAPI", "KalendarzKarieryWebAPI\KalendarzKarieryWebAPI.csproj", "{B2D55052-26AE-49E4-8F7E-01A260A90DD0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{556ECA30-9ACB-4557-ABAB-A1434957A871}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{556ECA30-9ACB-4557-ABAB-A1434957A871}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{556ECA30-9ACB-4557-ABAB-A1434957A871}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2D55052-26AE-49E4-8F7E-01A260A90DD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2D55052-26AE-49E4-8F7E-01A260A90DD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2D55052-26AE-49E4-8F7E-01A260A90DD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2D55052-26AE-49E4-8F7E-01A260A90DD0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

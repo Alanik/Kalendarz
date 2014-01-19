@@ -20,17 +20,14 @@ namespace KalendarzKariery.Controllers
 	[Authorize]
 	public class AccountController : Controller
 	{
-		//
-		// GET: /Account/Login
+
+		 readonly KalendarzKarieryRepository _repository = new KalendarzKarieryRepository();
 
 		[AllowAnonymous]
 		public ActionResult Login()
 		{
 			return RedirectToAction("Index", "Home");
 		}
-
-		//
-		// POST: /Account/Login
 
 		[HttpPost]
 		[AllowAnonymous]
@@ -78,8 +75,7 @@ namespace KalendarzKariery.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				KalendarzKarieryRepository repository = new KalendarzKarieryRepository();
-				if (repository.GetUserByEmail(model.User.Email) == null)
+				if (_repository.GetUserByEmail(model.User.Email) == null)
 				{
 					try
 					{
@@ -96,7 +92,7 @@ namespace KalendarzKariery.Controllers
 						});
 
 						int id = WebSecurity.GetUserId(model.RegisterModel.UserName);
-						repository.UpdateUserOnRegiser(id, model.Address);
+						_repository.UpdateUserOnRegiser(id, model.Address);
 						WebSecurity.Login(model.RegisterModel.UserName, model.RegisterModel.Password);
 
 						return Json(new { isRegisterSuccess = true });

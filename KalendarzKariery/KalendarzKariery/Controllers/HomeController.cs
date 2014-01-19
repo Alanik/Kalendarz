@@ -1,21 +1,15 @@
 ﻿
 using KalendarzKariery.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace KalendarzKariery.Controllers
 {
 	public class HomeController : Controller
 	{
-
 		public ActionResult Index()
 		{
 			return View();
 		}
-
 
 		[HttpPost]
 		public ActionResult AddEvent(AddEventViewModel eventParam)
@@ -24,6 +18,5 @@ namespace KalendarzKariery.Controllers
 
 			return Json(new { isAddEventSuccess = true });
 		}
-
 	}
 }

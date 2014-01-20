@@ -275,6 +275,8 @@
     <Content Include="Scripts\Lib\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\Lib\jquery.validate.js" />
     <Content Include="Scripts\Lib\jquery.validate.min.js" />
+    <Content Include="Scripts\Lib\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\Lib\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Lib\knockout-3.0.0.debug.js" />
     <Content Include="Scripts\Lib\knockout-3.0.0.js" />
     <Content Include="Scripts\Lib\jquery-ui-1.8.20.custom.min.js" />

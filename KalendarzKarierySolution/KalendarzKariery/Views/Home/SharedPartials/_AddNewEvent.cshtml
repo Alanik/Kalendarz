@@ -2,11 +2,6 @@
 
 <div id="add-new-event-container">
 	<div style="float: left; padding-top: 10px; padding-left: 50px;">
-		<span style="color: rgb(165, 165, 165); vertical-align: bottom;">Kategoria Wydarzenia:  </span>
-		<div class="menu-item-container" style="display: inline-block; float: none;">
-			<div class="border-item zajecia-border-tab"></div>
-			<div class="menu-item" name="zajęcia" style="cursor: auto; font-size: 0.8em; text-align: center;"><span>Zajęcia</span></div>
-		</div>
 	</div>
 	<div id="closeBtn-add-event-container" class="close-btn">
 	</div>
@@ -59,18 +54,18 @@
 
 						<div>
 							@Html.LabelFor(m => m.Event.StartDate, new { @class = "form-label" })
-							@Html.TextBoxFor(m => m.Event.StartDate, new { maxlength = 10, @style= "width:80px;" , @value = "{0:dd/MM/yyyy}"})
+							@Html.TextBoxFor(m => m.Event.StartDate, new { maxlength = 10, @style = "width:80px;", @value = "{0:dd/MM/yyyy}" })
 							@Html.ValidationMessageFor(m => m.Event.StartDate)
 						</div>
 
 						<div>
 							@Html.Label("Godzina rozpoczęcia: ", new { @class = "form-label" })
-							@Html.TextBox("eventStartHourTxtBox", "", new { maxlength = 5, @style= "width:50px;" , @name = "startHour"})
+							@Html.TextBox("eventStartHourTxtBox", "", new { maxlength = 5, @style = "width:50px;", @name = "startHour" })
 							@*@Html.ValidationMessageFor(m => m.Event.StartDate)*@
 						</div>
 						<div>
 							@Html.Label("Godzina zakończenia: ", new { @class = "form-label" })
-							@Html.TextBox("eventEndHourTxtBox", "", new { maxlength = 5, @style= "width:50px;", @name = "endHour"})
+							@Html.TextBox("eventEndHourTxtBox", "", new { maxlength = 5, @style = "width:50px;", @name = "endHour" })
 							@*@Html.ValidationMessageFor(m => m.Event.StartDate)*@
 						</div>
 
@@ -85,8 +80,8 @@
 							@Html.ValidationMessageFor(m => m.Address.City)
 						</div>
 						<div>
-							@Html.LabelFor(m => m.Address.ZipCode, new { @class = "form-label"})
-							@Html.TextBoxFor(m => m.Address.ZipCode, new { maxlength = 30, @style= "width:50px;"})
+							@Html.LabelFor(m => m.Address.ZipCode, new { @class = "form-label" })
+							@Html.TextBoxFor(m => m.Address.ZipCode, new { maxlength = 30, @style = "width:50px;" })
 							@Html.ValidationMessageFor(m => m.Address.ZipCode)
 						</div>
 						<div>
@@ -149,8 +144,6 @@
 					<button id="btnAddNewEvent" class="myButton-white" data-bind="click: $root.addEventOnClick.bind($data, $data.privacyLevels.public)">Dodaj</button>
 				</fieldset>
    }
-
-
 		</div>
 	</section>
 </div>

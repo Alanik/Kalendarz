@@ -23,10 +23,12 @@
 
 		calendar += ('<div id="calendar-menu-header">');
 
+		calendar += ('<div style="height:30px;width:100%;position:absolute;top:10px;background:rgb(82,82,82);border-top:1px solid rgb(231,231,231);border-bottom:1px solid rgb(247,247,247);"></div>');
+
 		calendar += ('<div class="month-nav-container"><div class="calendar-eventSummary-btn"><img src="/images/Icons/list-icon.png" alt="triangle"/></div><div class="nav-prev" data-bind="click: $root.showPreviousMonthOnPrevMonthBtnClick" ><img src="/images/Icons/triangle-left.png" alt="triangle"/></div><span class="month-name-calendar">' + monthNames[month] + '</span><div class="nav-next" data-bind="click: $root.showNextMonthOnNextMonthBtnClick" ><img src="/images/Icons/triangle-right.png" alt="triangle"/></div></div>');
 
-		calendar += ('<div class="menu-item-container inne-tab"><div class="border-item inne-border-tab"></div><div class="menu-item"><span>Inne</span></div></div><div class="menu-item-container spotkania-tab"><div class="border-item spotkania-border-tab"></div><div class="menu-item"><span>Spotkania</span></div></div><div class="menu-item-container kursy-tab"><div class="border-item kursy-border-tab"></div><div class="menu-item"><span>Kursy</span></div></div><div class="menu-item-container szkolenia-tab"><div class="border-item szkolenia-border-tab"></div><div class="menu-item"><span>Szkolenia</span></div></div><div class="menu-item-container zajecia-tab"><div class="border-item zajecia-border-tab"></div><div class="menu-item"><span>Zajęcia</span></div></div><div class="menu-item-container wydarzenia-tab"><div class="border-item wydarzenia-border-tab"></div><div class="menu-item"><span>Wydarzenia</span></div></div></div>');
-		calendar += ('<div class="weekday-container" ' + 'id="calendar-month' + i + ' ">');
+		//calendar += ('<div class="menu-item-container inne-tab"><div class="border-item inne-border-tab"></div><div class="menu-item"><span>Inne</span></div></div><div class="menu-item-container spotkania-tab"><div class="border-item spotkania-border-tab"></div><div class="menu-item"><span>Spotkania</span></div></div><div class="menu-item-container kursy-tab"><div class="border-item kursy-border-tab"></div><div class="menu-item"><span>Kursy</span></div></div><div class="menu-item-container szkolenia-tab"><div class="border-item szkolenia-border-tab"></div><div class="menu-item"><span>Szkolenia</span></div></div><div class="menu-item-container zajecia-tab"><div class="border-item zajecia-border-tab"></div><div class="menu-item"><span>Zajęcia</span></div></div><div class="menu-item-container wydarzenia-tab"><div class="border-item wydarzenia-border-tab"></div><div class="menu-item"><span>Wydarzenia</span></div></div></div>');
+		calendar += ('</div><div class="weekday-container" ' + 'id="calendar-month' + i + ' ">');
 
 		for (d = 0; d < 7; d++) {
 			calendar += '<div class="weekday">' + dayNames[d] + '</div>';

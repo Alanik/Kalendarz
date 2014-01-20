@@ -14,9 +14,11 @@ namespace KalendarzKariery
 			bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
 						"~/Scripts/Lib/jquery-ui-{version}.custom.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/Lib/jquery.unobtrusive*",
-                        "~/Scripts/Lib/jquery.validate*"));
+	        bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
+		        "~/Scripts/Lib/jquery.validate*",
+		        "~/Scripts/Lib/jquery.unobtrusive*"));
+	 
+                       
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.

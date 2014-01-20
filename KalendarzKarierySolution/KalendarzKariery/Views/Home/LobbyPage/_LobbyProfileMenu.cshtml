@@ -1,10 +1,13 @@
 ﻿<section class="lobby-profile-menu">
-
+	<div style="background:rgb(199,199,199);overflow: hidden;padding:20px 0;">
 		@using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
   {
 			@Html.AntiForgeryToken()
 			<a href="javascript:document.getElementById('logoutForm').submit()">wyloguj</a>
-  } <span style="font-size:.8em;">Zalogowany jako: </span><a class="login-text" href="#">@User.Identity.Name </a>
+  }
+  <span style="float:right;"><span style="font-size:.8em;">Zalogowany jako: </span><a class="login-text" href="#">@User.Identity.Name </a></span> 
+	</div>
+		
 
 </section>
 

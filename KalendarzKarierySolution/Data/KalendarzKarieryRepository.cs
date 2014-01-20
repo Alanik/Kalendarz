@@ -26,7 +26,7 @@ namespace KalendarzKarieryData
 
 			if (currentUser == null)
 			{
-				return;
+				throw new ArgumentNullException("user", "UpdateUserOnRegister user is null");
 			}
 
 			currentUser.Addresses.Add(address);

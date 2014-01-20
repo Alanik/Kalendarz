@@ -1,66 +1,7 @@
 ﻿
 <div class="lobby-content-container">
 <div style="background:white;position:relative;width:100%;height:24px;"></div>
-	<div id="lobby-menu-header" class="site-menu-header">
-		<div id="lobbyLogo">
-		</div>
-		<div>
-		<div class="menu-item-container">
-			<div class="border-item inne-border-tab"></div>
-			<div class="menu-item" name="inne" data-bind="click: function () { $root.slideDownMenuOptionsOnClick($element) }"><span>Inne</span></div>
-			<div class="menu-item-dropdown-container">
-			<div class="menu-item-dropdown">pokaż</div>
-			<div class="menu-item-dropdown" data-bind="click: function () { $root.showAddPublicEventPageOnClick($element) }">dodaj</div>
-			</div>
-		</div>
-		<div class="menu-item-container">
-			<div class="border-item spotkania-border-tab"></div>
-			<div class="menu-item" name="spotkania" data-bind="click: function () { $root.slideDownMenuOptionsOnClick($element) }"><span>Spotkania</span></div>
-			<div class="menu-item-dropdown-container">
-			<div class="menu-item-dropdown">pokaż</div>
-			<div class="menu-item-dropdown" data-bind="click: function () { $root.showAddPublicEventPageOnClick($element) }">dodaj</div>
-			</div>
-		</div>
-		<div class="menu-item-container">
-			<div class="border-item kursy-border-tab"></div>
-			<div class="menu-item" name="kursy" data-bind="click: function () { $root.slideDownMenuOptionsOnClick($element) }"><span>Kursy</span></div>
-			<div class="menu-item-dropdown-container">
-			<div class="menu-item-dropdown">pokaż</div>
-			<div class="menu-item-dropdown" data-bind="click: function () { $root.showAddPublicEventPageOnClick($element) }">dodaj</div>
-			</div>
-		</div>
-		<div class="menu-item-container">
-			<div class="border-item szkolenia-border-tab"></div>
-			<div class="menu-item" name="szkolenia" data-bind="click: function () { $root.slideDownMenuOptionsOnClick($element) }"><span>Szkolenia</span></div>
-			<div class="menu-item-dropdown-container">
-			<div class="menu-item-dropdown">pokaż</div>
-			<div class="menu-item-dropdown" data-bind="click: function () { $root.showAddPublicEventPageOnClick($element) }">dodaj</div>
-			</div>
-
-		</div>
-		<div class="menu-item-container">
-			<div class="border-item zajecia-border-tab"></div>
-			<div class="menu-item" name="zajęcia" data-bind="click: function () { $root.slideDownMenuOptionsOnClick($element) }"><span>Zajęcia</span></div>
-			<div class="menu-item-dropdown-container">
-			<div class="menu-item-dropdown">pokaż</div>
-			<div class="menu-item-dropdown" data-bind="click: function () { $root.showAddPublicEventPageOnClick($element) }">dodaj</div>
-			</div>
-		</div>
-		<div class="menu-item-container">
-			<div class="border-item wydarzenia-border-tab"></div>
-			<div class="menu-item" name="wydarzenia" data-bind="click: function () { $root.slideDownMenuOptionsOnClick($element) }"><span>Wydarzenia</span></div>
-			<div class="menu-item-dropdown-container">
-			<div class="menu-item-dropdown">pokaż</div>
-			<div class="menu-item-dropdown" data-bind="click: function () { $root.showAddPublicEventPageOnClick($element) }">dodaj</div>
-			</div>
-		</div>
-		</div>
-	</div>
-	@if (Request.IsAuthenticated)
- {
-	@Html.Partial("_LobbyProfileMenu")
- } 
-
+	
 	@if (!Request.IsAuthenticated)
  {
 	@Html.Partial("_Login")
@@ -68,7 +9,7 @@
  }
 
 
-	<section style="padding-top:40px;border-top:1px solid whitesmoke;">
+	<section>
 	<div id="moje-sprawy-container" class="lobby-content-body">
 
 		<header class="title-header">Moje Sprawy<a class="moje-sprawy-btn" href="#" style="float:right;color:black;">zamknij</a></header>
@@ -154,7 +95,68 @@
 	</div>
 
 <div class="lobby-content-body">
+<div id="lobby-menu-header" class="site-menu-header">
+	<div id="lobbyLogo">
+	</div>
+	<div>
+	<div style="margin-top:150px;width:30%;display:inline-block;margin-left:8%">
+		<div class="menu-item-container">
+			<div class="border-item inne-border-tab"></div>
+			<div class="menu-item" name="inne" data-bind="click: function () { $root.slideDownMenuOptionsOnClick($element) }"><span>Inne</span></div>
+			<div class="menu-item-dropdown-container">
+				<div class="menu-item-dropdown">pokaż</div>
+				<div class="menu-item-dropdown" data-bind="click: function () { $root.showAddPublicEventPageOnClick($element) }">dodaj</div>
+			</div>
+		</div>
+		<div class="menu-item-container">
+			<div class="border-item spotkania-border-tab"></div>
+			<div class="menu-item" name="spotkania" data-bind="click: function () { $root.slideDownMenuOptionsOnClick($element) }"><span>Spotkania</span></div>
+			<div class="menu-item-dropdown-container">
+				<div class="menu-item-dropdown">pokaż</div>
+				<div class="menu-item-dropdown" data-bind="click: function () { $root.showAddPublicEventPageOnClick($element) }">dodaj</div>
+			</div>
+		</div>
+		<div class="menu-item-container">
+			<div class="border-item kursy-border-tab"></div>
+			<div class="menu-item" name="kursy" data-bind="click: function () { $root.slideDownMenuOptionsOnClick($element) }"><span>Kursy</span></div>
+			<div class="menu-item-dropdown-container">
+				<div class="menu-item-dropdown">pokaż</div>
+				<div class="menu-item-dropdown" data-bind="click: function () { $root.showAddPublicEventPageOnClick($element) }">dodaj</div>
+			</div>
+		</div>
+		<div class="menu-item-container">
+			<div class="border-item szkolenia-border-tab"></div>
+			<div class="menu-item" name="szkolenia" data-bind="click: function () { $root.slideDownMenuOptionsOnClick($element) }"><span>Szkolenia</span></div>
+			<div class="menu-item-dropdown-container">
+				<div class="menu-item-dropdown">pokaż</div>
+				<div class="menu-item-dropdown" data-bind="click: function () { $root.showAddPublicEventPageOnClick($element) }">dodaj</div>
+			</div>
 
+		</div>
+		<div class="menu-item-container">
+			<div class="border-item zajecia-border-tab"></div>
+			<div class="menu-item" name="zajęcia" data-bind="click: function () { $root.slideDownMenuOptionsOnClick($element) }"><span>Zajęcia</span></div>
+			<div class="menu-item-dropdown-container">
+				<div class="menu-item-dropdown">pokaż</div>
+				<div class="menu-item-dropdown" data-bind="click: function () { $root.showAddPublicEventPageOnClick($element) }">dodaj</div>
+			</div>
+		</div>
+		<div class="menu-item-container">
+			<div class="border-item wydarzenia-border-tab"></div>
+			<div class="menu-item" name="wydarzenia" data-bind="click: function () { $root.slideDownMenuOptionsOnClick($element) }"><span>Wydarzenia</span></div>
+			<div class="menu-item-dropdown-container">
+				<div class="menu-item-dropdown">pokaż</div>
+				<div class="menu-item-dropdown" data-bind="click: function () { $root.showAddPublicEventPageOnClick($element) }">dodaj</div>
+			</div>
+		</div>
+		</div>
+		@if (Request.IsAuthenticated)
+ {
+	@Html.Partial("_LobbyProfileMenu")
+ } 
+	</div>
+	
+	</div>
 		<header class="title-header">Aktualności</header>
 		<div class="event-list-date-header">
 			12.03.2012

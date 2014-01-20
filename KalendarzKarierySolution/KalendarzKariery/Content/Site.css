@@ -84,7 +84,7 @@ body header {
 	background-image: url(../Images/Logo/kalendarzLogo.png);
 	font-size: 1em;
 	width: 680px;
-	height: 100%;
+	height: 140px;
 	position: absolute;
 	background-repeat: no-repeat;
 }
@@ -177,15 +177,15 @@ body header {
 }
 
 #loginPageContainer {
-	background: rgba(0,0,0,.04);
-	display: block;
-	border-top: 1px solid #DADADA;
-	border-bottom: 1px solid white;
-	margin: 20px 0;
+	margin-right: 8%;
+	float: right;
+	background: rgb(199, 199, 199);
+	display: inline-block;
 	width: 50%;
-	margin-left: 20px;
-	padding: 10px;
+	padding-top: 30px;
 	color: rgb(104,104,104);
+	border: 1px solid rgb(216, 255, 232);
+	margin-top: 164px;
 }
 
 #registerPageContainer {
@@ -216,12 +216,13 @@ body header {
 }
 
 .site-menu-header {
-	text-align: center;
-	min-height: 131px;
-	position: relative;
-	background: rgba(0,0,0,.04);
 	border-top: 1px solid rgb(221,221,221);
-	border-bottom: 1px solid rgb(221,221,221);
+	margin-bottom: 100px;
+}
+
+#loginPageContainer fieldset {
+	border: 1px solid rgb(231, 231, 231);
+	background: rgb(228, 228, 228);
 }
 
 .weekday-container {
@@ -356,6 +357,7 @@ body header {
 	height: 30px;
 	color: rgb(213, 213, 213);
 	font-size: 0.8em;
+	padding-left: 10px;
 }
 
 	.menu-item span {
@@ -365,10 +367,6 @@ body header {
 
 .menu-item-container {
 	margin: 2px;
-	margin-right: 3px;
-	position: relative;
-	/*top:-10px;*/
-	float: right;
 }
 
 .triangle-header {
@@ -438,8 +436,8 @@ body header {
 .add-event-fieldset {
 	color: rgb(155, 155, 155);
 	border: none;
-	background:rgb(238, 238, 238);
-	margin-bottom:6px;
+	background: rgb(238, 238, 238);
+	margin-bottom: 6px;
 }
 
 	.add-event-fieldset label {
@@ -572,14 +570,12 @@ background:rgb(115, 233, 162);
 }
 
 .news-event-details {
-	padding: 10px 10px;
-	background: rgba(0,0,0,.04);
-	margin: 10px 0;
+	border-top: 1px solid rgb(189, 189, 189);
+	background: rgba(0, 0, 0, 0.09);
+	box-shadow: 0 1px 2px white;
 	text-align: center;
 	position: relative;
 	overflow: hidden;
-	border-top: 1px solid #DADADA;
-	border-bottom: 1px solid white;
 }
 
 .left-event-details {
@@ -605,24 +601,23 @@ background:rgb(115, 233, 162);
 	width: 24%;
 }
 
-.lobby-profile-menu {
-	width: 100%;
-	color: white;
-	font-size: 1em;
-	padding: 10px 0px;
-	overflow: hidden;
-	text-align: right;
-	background: rgb(136,136,136);
-	border-bottom: 3px solid rgb(199, 199, 199);
-	border-top: 1px solid rgb(205, 255, 192);
-	border-right: 3px solid rgb(168, 201, 161);
+#showRegisterFormBtn {
+	margin-left: 20px;
+	margin-right: 4px;
 }
 
-	.lobby-profile-menu div {
-		display: inline-block;
-		float: right;
-		margin-left: 10px;
-	}
+.lobby-profile-menu {
+	margin-right: 8%;
+	float: right;
+	background: rgb(228,228,228);
+	display: inline-block;
+	width: 50%;
+	color: rgb(104,104,104);
+	border: 1px solid rgb(216, 255, 232);
+	margin-top: 163px;
+	height: 200px;
+}
+
 
 .event-list-date-header {
 	width: 150px;
@@ -662,19 +657,10 @@ background:rgb(115, 233, 162);
 }
 
 .event-list {
-	width: 70%;
-	/*
-background: rgba(40,40,40,0.2);
-*/
-	/*-webkit-box-shadow: inset 0 3px 10px rgba(0,0,0,0.3);
-	-moz-box-shadow: inset 0 3px 10px rgba(0,0,0,0.3);
-	-ms-box-shadow: inset 0 3px 10px rgba(0,0,0,0.3);
-	-o-box-shadow: inset 0 3px 10px rgba(0,0,0,0.3);*/
-	/*box-shadow: inset 0 1px 1px white;*/
+	width: 80%;
 	color: gray;
 	font-size: 1em;
 	overflow: hidden;
-	/*background: rgb(241,241,241);*/
 }
 
 .login-text {
@@ -922,7 +908,7 @@ wydarzenia-tab {
 
 #loginFormBtn {
 	margin-top: 40px;
-	margin-left: 40px;
+	margin-left: 70px;
 }
 
 #registerFormBtn {
@@ -1057,10 +1043,11 @@ fieldset {
 legend {
 	font-size: 1.2em;
 	font-weight: bold;
+	position: relative;
+	top: -20px;
 }
 
 textarea {
-
 }
 
 .editor-label {

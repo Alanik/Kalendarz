@@ -21,7 +21,7 @@ namespace KalendarzKariery.BO.SeedMembership
 
 		public static void SeedMembership()
 		{
-			WebSecurity.InitializeDatabaseConnection("SimpleMembership_KalendarzKarieryConnection", "User", "UserId", "UserName", autoCreateTables: true);
+			WebSecurity.InitializeDatabaseConnection("SimpleMembership_KalendarzKarieryConnection", "User", "UserId", "UserName", autoCreateTables: false);
 
 			if (!Roles.RoleExists(AdminRole))
 			{
@@ -88,7 +88,7 @@ namespace KalendarzKariery.BO.SeedMembership
 				var repository = new KalendarzKarieryRepository();
 
 				int id = WebSecurity.GetUserId(loginName);
-				 repository.UpdateUserOnRegiser(id, user.Addresses.First()); 
+				repository.UpdateUserOnRegiser(id, user.Addresses.First()); 
 			}
 
 		}

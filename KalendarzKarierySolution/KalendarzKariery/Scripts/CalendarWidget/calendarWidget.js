@@ -23,7 +23,7 @@
 
 		calendar += ('<div id="calendar-menu-header">');
 
-		calendar += ('<div style="height:30px;width:100%;position:absolute;top:10px;background:rgb(82,82,82);border-top:1px solid rgb(231,231,231);border-bottom:1px solid rgb(247,247,247);"></div>');
+		calendar += ('<div style="width:100%;position:absolute;top:24px;border-top:1px solid rgb(221,221,221);border-bottom:1px solid rgb(247,247,247);"></div>');
 
 		calendar += ('<div class="month-nav-container"><div class="calendar-eventSummary-btn"><img src="/images/Icons/list-icon.png" alt="triangle"/></div><div class="nav-prev" data-bind="click: $root.showPreviousMonthOnPrevMonthBtnClick" ><img src="/images/Icons/triangle-left.png" alt="triangle"/></div><span class="month-name-calendar">' + monthNames[month] + '</span><div class="nav-next" data-bind="click: $root.showNextMonthOnNextMonthBtnClick" ><img src="/images/Icons/triangle-right.png" alt="triangle"/></div></div>');
 

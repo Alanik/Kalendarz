@@ -18,7 +18,7 @@ namespace KalendarzKarieryData
     public partial class KalendarzKarieryDBEntities : DbContext
     {
         public KalendarzKarieryDBEntities()
-            : base("name=KalendarzKarieryConnection")
+            : base("name=KalendarzKarieryDBEntities")
         {
         }
     

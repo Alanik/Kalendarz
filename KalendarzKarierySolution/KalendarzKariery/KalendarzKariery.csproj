@@ -311,8 +311,8 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Home\LobbyPage\_Register.cshtml" />
     <Content Include="Views\Home\LobbyPage\_LobbyProfileMenu.cshtml" />
-    <Content Include="Views\Emails\_ViewStart.cshtml" />
     <Content Include="Views\Home\DetailsPage\_Details.cshtml" />
+    <Content Include="Views\Emails\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

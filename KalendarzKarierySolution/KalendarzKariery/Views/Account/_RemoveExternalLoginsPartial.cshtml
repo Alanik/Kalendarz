@@ -1,11 +1,11 @@
-﻿@model ICollection<KalendarzKariery.Models.ExternalLogin>
+﻿@model ICollection<KalendarzKarieryData.Models.AccountModels.ExternalLogin>
 
 @if (Model.Count > 0)
 {
     <h3>Registered external logins</h3>
     <table>
         <tbody>
-        @foreach (KalendarzKariery.Models.ExternalLogin externalLogin in Model)
+        @foreach (KalendarzKarieryData.Models.AccountModels.ExternalLogin externalLogin in Model)
         {
             <tr>
                 <td>@externalLogin.ProviderDisplayName</td>

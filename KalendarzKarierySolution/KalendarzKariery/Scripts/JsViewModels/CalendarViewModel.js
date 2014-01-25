@@ -2,7 +2,7 @@
 function CalendarViewModel(year, month, day) {
 	var self = this;
 
-	self.calendarDisplayDate = {
+	self.calendarPageDisplayDate = {
 		year: year,
 		month: month,
 		day: day
@@ -24,12 +24,7 @@ function CalendarViewModel(year, month, day) {
 			month: "",
 			year: ""
 		},
-
-		//privacy levels
-		//1 public
-		//2 private
 		privacyLevel: "",
-
 		adress: "",
 		description: "",
 		details: "",
@@ -45,8 +40,7 @@ function CalendarViewModel(year, month, day) {
 		addedBy: ""
 	};
 
-	//what day to show on the day details page
-	self.detailsDayToDisplay = {
+	self.detailsPageDayToDisplay = {
 		events: [],
 		date: {
 			day: "",

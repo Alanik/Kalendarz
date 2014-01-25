@@ -60,7 +60,7 @@
 
 				$calendar.calendarWidget({ month: date.getMonth(), year: 2013 });
 
-				ko.applyBindings(new CalendarViewModel(2013, date.getMonth(), date.getDate()));
+				ko.applyBindings(new CalendarViewModel(2014, date.getMonth(), date.getDate()));
 
 				//$(".calendar-cell").each(function (i) {
 				//	if (i == 5 || i == 6 || i == 12 || i == 13 || i == 19 || i == 20 || i == 26 || i == 27 || i == 33 || i == 34 || i == 40 || i == 41) {
@@ -105,10 +105,10 @@
 					}, '.event-rectangle');
 
 
-					var $currentMonthIcon = $(".current-month .addNewEvent-cellIcon");
-					var $otherMonthIcon = $(".other-month .addNewEvent-cellIcon");
+					var $currentMonthIcon = $(".current-month-cell .addNewEvent-cellIcon");
+					var $otherMonthIcon = $(".other-month-cell .addNewEvent-cellIcon");
 
-					$(".current-month").hover(function() {
+					$(".current-month-cell").hover(function() {
 						$(this).css({
 							"border-bottom": "2px solid rgb(235,235,235)",
 							"border-top": "2px solid rgb(250,250,250)",
@@ -128,7 +128,7 @@
 							"top": "0px"
 						}).find($currentMonthIcon).hide();
 					});
-					$(".other-month").hover(function() {
+					$(".other-month-cell").hover(function() {
 						$(this).css({
 							"cursor": "pointer",
 							//"-moz-box-shadow": "none",
@@ -170,6 +170,17 @@
 
 
 					//});
+
+					$(".month-name-calendar").hover(function () {
+						$(this).css({
+							"cursor": "pointer"
+						});
+					}, function () {
+						$(this).css({
+							"cursor": "auto"
+						});
+					});
+
 
 					$(".menu-item").hover(function() {
 						$(this).css({

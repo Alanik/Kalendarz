@@ -40,7 +40,7 @@ function CalendarViewModel(year, month, day) {
 		addedBy: ""
 	};
 
-	self.detailsPageDayToDisplay = {
+	self.detailsPageDisplayDate = {
 		events: [],
 		date: {
 			day: "",
@@ -181,6 +181,7 @@ function CalendarViewModel(year, month, day) {
 		$placeholder.append($event);
 
 		$event.fadeTo("slow", .7);
+		console.log("event added");
 	};
 
 	self.addEventToDetailsDay = function(event) {
@@ -197,11 +198,11 @@ function CalendarViewModel(year, month, day) {
 		$calendar.find(".event-rectangle-details").remove();
 	};
 
-	self.moveToDetailsPageOnCalendarCellClick = function(element) {
+	self.moveToDetailsPageOnCalendarCellClick = function (element) {
 		self.removeEventRectanglesFromDetailsDay();
 
 		var day = $(element).attr("dayNumber");
-		var monthEvents = self.getEventsFromMonth(self.calendarDisplayDate.month, self.calendarDisplayDate.year);
+		var monthEvents = self.getEventsFromMonth(self.calendarPageDisplayDate.month, self.calendarPageDisplayDate.year);
 		var dayEvents = self.getEventsFromDay(monthEvents, day);
 
 		for (var i in dayEvents) {
@@ -211,55 +212,55 @@ function CalendarViewModel(year, month, day) {
 		window.location = "#2";
 	};
 
-	self.showNextMonthOnNextMonthBtnClick = function () {
+	self.showNextMonthOnNextMonthBtnClick = function() {
 		var $calendar = $("#calendar");
 
 		$calendar.empty();
-		self.calendarDisplayDate.month++;
+		self.calendarPageDisplayDate.month++;
 
-		if (self.calendarDisplayDate.month == 12) {
-			self.calendarDisplayDate.year++;
-			self.calendarDisplayDate.month = 0;
-			$calendar.calendarWidget({ month: self.calendarDisplayDate.month, year: self.calendarDisplayDate.year });
+		if (self.calendarPageDisplayDate.month == 12) {
+			self.calendarPageDisplayDate.year++;
+			self.calendarPageDisplayDate.month = 0;
+			$calendar.calendarWidget({ month: self.calendarPageDisplayDate.month, year: self.calendarPageDisplayDate.year });
 		} else {
-			$calendar.calendarWidget({ month: self.calendarDisplayDate.month, year: self.calendarDisplayDate.year });
+			$calendar.calendarWidget({ month: self.calendarPageDisplayDate.month, year: self.calendarPageDisplayDate.year });
 		}
 
 		ko.unapplyBindings($calendar, false);
 		ko.applyBindings(self, $calendar[0]);
 
-		var eventsInMonth = self.getEventsFromMonth(self.calendarDisplayDate.month, self.calendarDisplayDate.year);
+		var eventsInMonth = self.getEventsFromMonth(self.calendarPageDisplayDate.month, self.calendarPageDisplayDate.year);
 
 		//draw to calendar
-		ko.utils.arrayForEach(eventsInMonth, function (event) {
-			if (event.date.month === self.calendarDisplayDate.month && event.date.year === self.calendarDisplayDate.year) {
+		ko.utils.arrayForEach(eventsInMonth, function(event) {
+			if (event.date.month === self.calendarPageDisplayDate.month && event.date.year === self.calendarPageDisplayDate.year) {
 				self.addEventToCalendar(event);
 			}
 		});
-	}
+	};
 
 	self.showPreviousMonthOnPrevMonthBtnClick = function() {
 		var $calendar = $("#calendar");
 		$calendar.empty();
 
-		self.calendarDisplayDate.month--;
+		self.calendarPageDisplayDate.month--;
 
-		if (self.calendarDisplayDate.month == -1) {
-			self.calendarDisplayDate.month = 11;
-			self.calendarDisplayDate.year--;
-			$calendar.calendarWidget({ month: self.calendarDisplayDate.month, year: self.calendarDisplayDate.year });
+		if (self.calendarPageDisplayDate.month == -1) {
+			self.calendarPageDisplayDate.month = 11;
+			self.calendarPageDisplayDate.year--;
+			$calendar.calendarWidget({ month: self.calendarPageDisplayDate.month, year: self.calendarPageDisplayDate.year });
 		} else {
-			$calendar.calendarWidget({ month: self.calendarDisplayDate.month, year: self.calendarDisplayDate.year });
+			$calendar.calendarWidget({ month: self.calendarPageDisplayDate.month, year: self.calendarPageDisplayDate.year });
 		}
 
 		ko.unapplyBindings($calendar, false);
 		ko.applyBindings(self, $calendar[0]);
 
-		var eventsInMonth = self.getEventsFromMonth(self.calendarDisplayDate.month, self.calendarDisplayDate.year);
+		var eventsInMonth = self.getEventsFromMonth(self.calendarPageDisplayDate.month, self.calendarPageDisplayDate.year);
 
 		//draw to calendar
 		ko.utils.arrayForEach(eventsInMonth, function(event) {
-			if (event.date.month === self.calendarDisplayDate.month && event.date.year === self.calendarDisplayDate.year) {
+			if (event.date.month === self.calendarPageDisplayDate.month && event.date.year === self.calendarPageDisplayDate.year) {
 				self.addEventToCalendar(event);
 			}
 		});
@@ -373,19 +374,64 @@ function CalendarViewModel(year, month, day) {
 		}
 	};
 
-	self.showAddPublicEventPageOnClick = function(element) {
+	self.showAddEventPopupOnClick = function(element) {
 
-		var eventKind = $(element).parent().siblings(".menu-item").attr("name");
+		//var eventKind = $(element).parent().siblings(".menu-item").attr("name");
 		var $addEventContainer = $("#add-new-event-container");
 
-		$addEventContainer.css({
-			"top": "170px",
-			"width": "70%",
-			"left": "15%"
-		});
+		//$addEventContainer.css({
+		//	"top": "170px",
+		//	"width": "70%",
+		//	"left": "15%"
+		//});
+
+		$addEventContainer.closest(".dotted-page-overlay").show();
 		$addEventContainer.appendTo(".lobby-content-container");
 		$addEventContainer.fadeIn();
 		document.querySelector('#add-new-event-container').scrollIntoView();
+	};
+
+	self.redisplayCalendarAtChosenMonthOnClick = function (element) {
+		var $calendar = $("#calendar");
+		$calendar.empty();
+
+		var $link = $(element);
+		var $monthNameContainer = $link.parent();
+		var $monthNameHeaderContainer = $monthNameContainer.parent();
+		$monthNameHeaderContainer.find(".current-month-name-calendar").removeClass("current-month-name-calendar");
+		$monthNameContainer.addClass("current-month-name-calendar");
+
+		var month = $link.attr("name");
+		self.calendarPageDisplayDate.month = month;
+
+		$calendar.calendarWidget({ month: self.calendarPageDisplayDate.month, year: self.calendarPageDisplayDate.year });
+		$calendar.append('<div class="calendar-navigation-arrows-left"><img src="Images/Nav/arrow-Left.png" alt="arrow-left"/></div>');
+		$calendar.append('<div class="calendar-navigation-arrows-right"><img src="Images/Nav/arrow-Right.png" alt="arrow-Right"/></div>');
+
+		ko.unapplyBindings($calendar, false);
+		ko.applyBindings(self, $calendar[0]);
+
+		$(".addNewEvent-cellIcon").click(function (event) {
+			$(this).hide();
+			var $overlay = $("#calendar").siblings(".dotted-page-overlay");
+			$overlay.css("opacity", 1);
+			$overlay.show();
+
+			var txtDay = $(this).parent().find(".day").text();
+			$("#hiddenDay").attr("name", txtDay);
+			$("#add-new-event-container").show();
+
+			event.stopPropagation();
+		});
+
+		var eventsInMonth = self.getEventsFromMonth(self.calendarPageDisplayDate.month, self.calendarPageDisplayDate.year);
+
+		//draw to calendar
+		ko.utils.arrayForEach(eventsInMonth, function(event) {
+			if (event.date.month === self.calendarPageDisplayDate.month && event.date.year === self.calendarPageDisplayDate.year) {
+				self.addEventToCalendar(event);
+			}
+		});
 	};
 
 	ko.unapplyBindings = function ($node, remove) {
@@ -416,70 +462,70 @@ function CalendarViewModel(year, month, day) {
 
 	var d = new Date();
 	var desc = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-	var desc2 = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor in;"
+	var desc2 = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor in;";
 
 	self.AddTestEvents = function() {
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 13, endHour: 14, day: 2, month: 11, year: 2013 }, "public", "Co Nowego?", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2013 }, { kindName: "Aktualności", color: "rgb(68, 219, 93)" }, "Admin"));
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 7, endHour: 10, day: 3, month: 11, year: 2013 }, "public", "Bania u Cygana", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2013 }, { kindName: "Inne", color: "rgb(250, 84, 84)" }, "Admin"));
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 8, endHour: 17, day: 4, month: 11, year: 2013 }, "public", "Co Nowego?", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2013 }, { kindName: "Aktualności", color: "rgb(68, 219, 93)" }, "Admin"));
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 16, endHour: 17, day: 2, month: 11, year: 2013 }, "public", "Szkolenie z .Net", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2013 }, { kindName: "Szkolenie", color: "rgb(87, 167, 221)" }, "Heniu"));
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 17, endHour: 21, day: 2, month: 11, year: 2013 }, "public", "Szkolenie z Java", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2013 }, { kindName: "Kurs", color: "rgb(54, 54, 54)" }, "Andrzej"));
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 7, endHour: 10, day: 5, month: 11, year: 2013 }, "public", "Spotkanie kola naukowego EniE", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2013 }, { kindName: "Wydarzenie", color: "rgb(219, 219, 21)" }, "Heniu"));
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 8, endHour: 13, day: 2, month: 11, year: 2013 }, "public", "Kurs z pimpowania", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2013 }, { kindName: "Szkolenie", color: "rgb(87, 167, 221)" }, "Heniu"));
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 7, endHour: 10, day: 7, month: 11, year: 2013 }, "public", "Ty tez mozesz zostac geekiem", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2013 }, { kindName: "Szkolenie", color: "rgb(87, 167, 221)" }, "Heniu"));
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 11, endHour: 15, day: 7, month: 11, year: 2013 }, "public", "Darmowe Browary do rozdania", "Warszwa, Politechnika Wroclawska", desc2, { day: 2, month: 8, year: 2013 }, { kindName: "Kurs", color: "rgb(54, 54, 54)" }, "Heniu"));
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 17, endHour: 21, day: 7, month: 11, year: 2013 }, "public", "Spotkanie organizacyjne", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2013 }, { kindName: "Spotkanie", color: "rgb(253, 104, 170)" }, "Admin"));
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 8, endHour: 17, day: 15, month: 11, year: 2013 }, "public", "Majowka", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2013 }, { kindName: "Szkolenie", color: "rgb(87, 167, 221)" }, "Sebuś"));
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 8, endHour: 17, day: 16, month: 11, year: 2013 }, "public", "Warsztaty twojego taty", "Wroclaw, Politechnika Wroclawska", desc2, { day: 2, month: 8, year: 2013 }, { kindName: "Szkolenie", color: "rgb(87, 167, 221)" }, "Alan"));
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 8, endHour: 17, day: 9, month: 11, year: 2013 }, "public", "Sniadanie z rektorem", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2013 }, { kindName: "Wydarzenie", color: "rgb(219, 219, 21)" }, "Anna"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 13, endHour: 14, day: 2, month: 11, year: 2014 }, "public", "Co Nowego?", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2014 }, { kindName: "Aktualności", color: "rgb(68, 219, 93)" }, "Admin"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 7, endHour: 10, day: 3, month: 11, year: 2014 }, "public", "Bania u Cygana", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2014 }, { kindName: "Inne", color: "rgb(250, 84, 84)" }, "Admin"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 8, endHour: 17, day: 4, month: 11, year: 2014 }, "public", "Co Nowego?", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2014 }, { kindName: "Aktualności", color: "rgb(68, 219, 93)" }, "Admin"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 16, endHour: 17, day: 2, month: 11, year: 2014 }, "public", "Szkolenie z .Net", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2014 }, { kindName: "Szkolenie", color: "rgb(87, 167, 221)" }, "Heniu"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 17, endHour: 21, day: 2, month: 11, year: 2014 }, "public", "Szkolenie z Java", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2014 }, { kindName: "Kurs", color: "rgb(54, 54, 54)" }, "Andrzej"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 7, endHour: 10, day: 5, month: 11, year: 2014 }, "public", "Spotkanie kola naukowego EniE", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2014 }, { kindName: "Wydarzenie", color: "rgb(219, 219, 21)" }, "Heniu"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 8, endHour: 13, day: 2, month: 11, year: 2014 }, "public", "Kurs z pimpowania", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2014 }, { kindName: "Szkolenie", color: "rgb(87, 167, 221)" }, "Heniu"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 7, endHour: 10, day: 7, month: 11, year: 2014 }, "public", "Ty tez mozesz zostac geekiem", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2014 }, { kindName: "Szkolenie", color: "rgb(87, 167, 221)" }, "Heniu"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 11, endHour: 15, day: 7, month: 11, year: 2014 }, "public", "Darmowe Browary do rozdania", "Warszwa, Politechnika Wroclawska", desc2, { day: 2, month: 8, year: 2014 }, { kindName: "Kurs", color: "rgb(54, 54, 54)" }, "Heniu"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 17, endHour: 21, day: 7, month: 11, year: 2014 }, "public", "Spotkanie organizacyjne", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2014 }, { kindName: "Spotkanie", color: "rgb(253, 104, 170)" }, "Admin"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 8, endHour: 17, day: 15, month: 11, year: 2014 }, "public", "Majowka", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2014 }, { kindName: "Szkolenie", color: "rgb(87, 167, 221)" }, "Sebuś"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 8, endHour: 17, day: 16, month: 11, year: 2014 }, "public", "Warsztaty twojego taty", "Wroclaw, Politechnika Wroclawska", desc2, { day: 2, month: 8, year: 2014 }, { kindName: "Szkolenie", color: "rgb(87, 167, 221)" }, "Alan"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 8, endHour: 17, day: 9, month: 11, year: 2014 }, "public", "Sniadanie z rektorem", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2014 }, { kindName: "Wydarzenie", color: "rgb(219, 219, 21)" }, "Anna"));
 
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 13, endHour: 14, day: 5, month: 11, year: 2013 }, "public", "Co Nowego?", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2013 }, { kindName: "Aktualności", color: "rgb(68, 219, 93)" }, "Admin"));
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 7, endHour: 10, day: 5, month: 11, year: 2013 }, "public", "Bania u Cygana", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2013 }, { kindName: "Inne", color: "rgb(250, 84, 84)" }, "Admin"));
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 8, endHour: 17, day: 11, month: 11, year: 2013 }, "public", "Co Nowego?", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2013 }, { kindName: "Aktualności", color: "rgb(68, 219, 93)" }, "Admin"));
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 16, endHour: 17, day: 11, month: 11, year: 2013 }, "public", "Szkolenie z .Net", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2013 }, { kindName: "Szkolenie", color: "rgb(87, 167, 221)" }, "Heniu"));
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 17, endHour: 21, day: 11, month: 11, year: 2013 }, "public", "Szkolenie z Java", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2013 }, { kindName: "Kurs", color: "rgb(54, 54, 54)" }, "Andrzej"));
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 7, endHour: 10, day: 12, month: 11, year: 2013 }, "public", "Spotkanie kola naukowego EniE", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2013 }, { kindName: "Wydarzenie", color: "rgb(219, 219, 21)" }, "Heniu"));
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 8, endHour: 13, day: 12, month: 11, year: 2013 }, "public", "Kurs z pimpowania", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2013 }, { kindName: "Szkolenie", color: "rgb(87, 167, 221)" }, "Heniu"));
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 7, endHour: 10, day: 14, month: 11, year: 2013 }, "public", "Ty tez mozesz zostac geekiem", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2013 }, { kindName: "Szkolenie", color: "rgb(87, 167, 221)" }, "Heniu"));
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 11, endHour: 15, day: 14, month: 11, year: 2013 }, "public", "Darmowe Browary do rozdania", "Warszwa, Politechnika Wroclawska", desc2, { day: 2, month: 8, year: 2013 }, { kindName: "Kurs", color: "rgb(54, 54, 54)" }, "Heniu"));
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 17, endHour: 21, day: 18, month: 11, year: 2013 }, "public", "Spotkanie organizacyjne", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2013 }, { kindName: "Spotkanie", color: "rgb(253, 104, 170)" }, "Admin"));
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 8, endHour: 17, day: 21, month: 11, year: 2013 }, "public", "Majowka", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2013 }, { kindName: "Szkolenie", color: "rgb(87, 167, 221)" }, "Sebuś"));
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 8, endHour: 17, day: 22, month: 11, year: 2013 }, "public", "Warsztaty twojego taty", "Wroclaw, Politechnika Wroclawska", desc2, { day: 2, month: 8, year: 2013 }, { kindName: "Szkolenie", color: "rgb(87, 167, 221)" }, "Alan"));
-		self.events.push(new TestEvent({ startMinute: 30, endMinute: 48, startHour: 8, endHour: 17, day: 23, month: 11, year: 2013 }, "public", "Sniadanie z rektorem", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2013 }, { kindName: "Wydarzenie", color: "rgb(219, 219, 21)" }, "Anna"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 13, endHour: 14, day: 5, month: 11, year: 2014 }, "public", "Co Nowego?", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2014 }, { kindName: "Aktualności", color: "rgb(68, 219, 93)" }, "Admin"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 7, endHour: 10, day: 5, month: 11, year: 2014 }, "public", "Bania u Cygana", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2014 }, { kindName: "Inne", color: "rgb(250, 84, 84)" }, "Admin"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 8, endHour: 17, day: 11, month: 11, year: 2014 }, "public", "Co Nowego?", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2014 }, { kindName: "Aktualności", color: "rgb(68, 219, 93)" }, "Admin"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 16, endHour: 17, day: 11, month: 11, year: 2014 }, "public", "Szkolenie z .Net", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2014 }, { kindName: "Szkolenie", color: "rgb(87, 167, 221)" }, "Heniu"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 17, endHour: 21, day: 11, month: 11, year: 2014 }, "public", "Szkolenie z Java", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2014 }, { kindName: "Kurs", color: "rgb(54, 54, 54)" }, "Andrzej"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 7, endHour: 10, day: 12, month: 11, year: 2014 }, "public", "Spotkanie kola naukowego EniE", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2014 }, { kindName: "Wydarzenie", color: "rgb(219, 219, 21)" }, "Heniu"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 8, endHour: 13, day: 12, month: 11, year: 2014 }, "public", "Kurs z pimpowania", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2014 }, { kindName: "Szkolenie", color: "rgb(87, 167, 221)" }, "Heniu"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 7, endHour: 10, day: 14, month: 11, year: 2014 }, "public", "Ty tez mozesz zostac geekiem", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2014 }, { kindName: "Szkolenie", color: "rgb(87, 167, 221)" }, "Heniu"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 11, endHour: 15, day: 14, month: 11, year: 2014 }, "public", "Darmowe Browary do rozdania", "Warszwa, Politechnika Wroclawska", desc2, { day: 2, month: 8, year: 2014 }, { kindName: "Kurs", color: "rgb(54, 54, 54)" }, "Heniu"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 17, endHour: 21, day: 18, month: 11, year: 2014 }, "public", "Spotkanie organizacyjne", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2014 }, { kindName: "Spotkanie", color: "rgb(253, 104, 170)" }, "Admin"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 8, endHour: 17, day: 21, month: 11, year: 2014 }, "public", "Majowka", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2014 }, { kindName: "Szkolenie", color: "rgb(87, 167, 221)" }, "Sebuś"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 8, endHour: 17, day: 22, month: 11, year: 2014 }, "public", "Warsztaty twojego taty", "Wroclaw, Politechnika Wroclawska", desc2, { day: 2, month: 8, year: 2014 }, { kindName: "Szkolenie", color: "rgb(87, 167, 221)" }, "Alan"));
+		self.events.push(new TestEvent({ startMinute: 30, endMinute: 48, startHour: 8, endHour: 17, day: 23, month: 11, year: 2014 }, "public", "Sniadanie z rektorem", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2014 }, { kindName: "Wydarzenie", color: "rgb(219, 219, 21)" }, "Anna"));
 
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 13, endHour: 14, day: 9, month: 11, year: 2013 }, "public", "Co Nowego?", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2013 }, { kindName: "Aktualności", color: "rgb(68, 219, 93)" }, "Admin"));
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 7, endHour: 10, day: 9, month: 11, year: 2013 }, "public", "Bania u Cygana", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2013 }, { kindName: "Inne", color: "rgb(250, 84, 84)" }, "Admin"));
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 8, endHour: 17, day: 10, month: 11, year: 2013 }, "public", "Co Nowego?", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2013 }, { kindName: "Aktualności", color: "rgb(68, 219, 93)" }, "Admin"));
-		self.events.push(new TestEvent({ startMinute: 10, endMinute: 20, startHour: 12, endHour: 17, day: 6, month: 11, year: 2013 }, "public", "Szkolenie z .Net", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2013 }, { kindName: "Zajęcia", color: "rgb(108, 255, 225)" }, "Heniu"));
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 17, endHour: 21, day: 25, month: 11, year: 2013 }, "public", "Szkolenie z Java", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2013 }, { kindName: "Kurs", color: "rgb(54, 54, 54)" }, "Andrzej"));
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 7, endHour: 10, day: 26, month: 10, year: 2013 }, "public", "Spotkanie kola naukowego EniE", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2013 }, { kindName: "Wydarzenie", color: "rgb(219, 219, 21)" }, "Heniu"));
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 8, endHour: 13, day: 27, month: 10, year: 2013 }, "public", "Kurs z pimpowania", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2013 }, { kindName: "Szkolenie", color: "rgb(87, 167, 221)" }, "Heniu"));
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 7, endHour: 10, day: 28, month: 10, year: 2013 }, "public", "Ty tez mozesz zostac geekiem", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2013 }, { kindName: "Szkolenie", color: "rgb(87, 167, 221)" }, "Heniu"));
-		self.events.push(new TestEvent({ startMinute: 30, endMinute: 55, startHour: 11, endHour: 15, day: 29, month: 10, year: 2013 }, "public", "Darmowe Browary do rozdania", "Warszwa, Politechnika Wroclawska", desc2, { day: 2, month: 8, year: 2013 }, { kindName: "Kurs", color: "rgb(54, 54, 54)" }, "Heniu"));
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 17, endHour: 21, day: 30, month: 10, year: 2013 }, "public", "Spotkanie organizacyjne", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2013 }, { kindName: "Spotkanie", color: "rgb(253, 104, 170)" }, "Admin"));
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 8, endHour: 17, day: 30, month: 10, year: 2013 }, "public", "Majowka", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2013 }, { kindName: "Szkolenie", color: "rgb(87, 167, 221)" }, "Sebuś"));
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 8, endHour: 17, day: 18, month: 10, year: 2013 }, "public", "Warsztaty twojego taty", "Wroclaw, Politechnika Wroclawska", desc2, { day: 2, month: 8, year: 2013 }, { kindName: "Szkolenie", color: "rgb(87, 167, 221)" }, "Alan"));
-		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 8, endHour: 17, day: 19, month: 10, year: 2013 }, "public", "Sniadanie z rektorem", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2013 }, { kindName: "Wydarzenie", color: "rgb(219, 219, 21)" }, "Anna"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 13, endHour: 14, day: 9, month: 11, year: 2014 }, "public", "Co Nowego?", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2014 }, { kindName: "Aktualności", color: "rgb(68, 219, 93)" }, "Admin"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 7, endHour: 10, day: 9, month: 11, year: 2014 }, "public", "Bania u Cygana", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2014 }, { kindName: "Inne", color: "rgb(250, 84, 84)" }, "Admin"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 8, endHour: 17, day: 10, month: 11, year: 2014 }, "public", "Co Nowego?", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2014 }, { kindName: "Aktualności", color: "rgb(68, 219, 93)" }, "Admin"));
+		self.events.push(new TestEvent({ startMinute: 10, endMinute: 20, startHour: 12, endHour: 17, day: 6, month: 11, year: 2014 }, "public", "Szkolenie z .Net", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2014 }, { kindName: "Zajęcia", color: "rgb(108, 255, 225)" }, "Heniu"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 17, endHour: 21, day: 25, month: 11, year: 2014 }, "public", "Szkolenie z Java", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2014 }, { kindName: "Kurs", color: "rgb(54, 54, 54)" }, "Andrzej"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 7, endHour: 10, day: 26, month: 10, year: 2014 }, "public", "Spotkanie kola naukowego EniE", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2014 }, { kindName: "Wydarzenie", color: "rgb(219, 219, 21)" }, "Heniu"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 8, endHour: 13, day: 27, month: 10, year: 2014 }, "public", "Kurs z pimpowania", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2014 }, { kindName: "Szkolenie", color: "rgb(87, 167, 221)" }, "Heniu"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 7, endHour: 10, day: 28, month: 10, year: 2014 }, "public", "Ty tez mozesz zostac geekiem", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2014 }, { kindName: "Szkolenie", color: "rgb(87, 167, 221)" }, "Heniu"));
+		self.events.push(new TestEvent({ startMinute: 30, endMinute: 55, startHour: 11, endHour: 15, day: 29, month: 10, year: 2014 }, "public", "Darmowe Browary do rozdania", "Warszwa, Politechnika Wroclawska", desc2, { day: 2, month: 8, year: 2014 }, { kindName: "Kurs", color: "rgb(54, 54, 54)" }, "Heniu"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 17, endHour: 21, day: 30, month: 10, year: 2014 }, "public", "Spotkanie organizacyjne", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2014 }, { kindName: "Spotkanie", color: "rgb(253, 104, 170)" }, "Admin"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 8, endHour: 17, day: 30, month: 10, year: 2014 }, "public", "Majowka", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2014 }, { kindName: "Szkolenie", color: "rgb(87, 167, 221)" }, "Sebuś"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 8, endHour: 17, day: 18, month: 10, year: 2014 }, "public", "Warsztaty twojego taty", "Wroclaw, Politechnika Wroclawska", desc2, { day: 2, month: 8, year: 2014 }, { kindName: "Szkolenie", color: "rgb(87, 167, 221)" }, "Alan"));
+		self.events.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 8, endHour: 17, day: 19, month: 10, year: 2014 }, "public", "Sniadanie z rektorem", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2014 }, { kindName: "Wydarzenie", color: "rgb(219, 219, 21)" }, "Anna"));
 	};
 
 	////////////////////////////////////////////////
 	var date = new Date();
 
-	self.calendarDisplayDate = { day: 7, month: date.getMonth(), year: 2013 };
-	self.detailsDayToDisplay = { day: 23, month: 8, year: 2013 };
+	self.calendarPageDisplayDate = { day: 7, month: 11, year: 2014 };
+	self.detailsPageDisplayDate = { day: 23, month: 11, year: 2014 };
 
 	self.AddTestEvents();
 
-	var eventsInMonth = self.getEventsFromMonth(self.calendarDisplayDate.month, self.calendarDisplayDate.year);
+	var eventsInMonth = self.getEventsFromMonth(self.calendarPageDisplayDate.month, self.calendarPageDisplayDate.year);
 
 	//draw to calendar
 	ko.utils.arrayForEach(eventsInMonth, function (event) {
-		if (event.date.month === self.calendarDisplayDate.month && event.date.year === self.calendarDisplayDate.year) {
+		if (event.date.month === self.calendarPageDisplayDate.month && event.date.year === self.calendarPageDisplayDate.year) {
 			self.addEventToCalendar(event);
 		}
 	});
 
-	var eventsInToday = self.getEventsFromDay(eventsInMonth, self.calendarDisplayDate.day);
+	var eventsInToday = self.getEventsFromDay(eventsInMonth, self.calendarPageDisplayDate.day);
 
 	for (var i in eventsInToday) {
 		self.addEventToDetailsDay(eventsInToday[i]);

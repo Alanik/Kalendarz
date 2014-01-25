@@ -1,6 +1,6 @@
 ﻿(function ($) {
 
-	function calendarWidget(el, params) {
+	function calendarWidget($calendarBg, params) {
 
 		var now = new Date();
 		var today = now.getDate();
@@ -14,6 +14,8 @@
 
 		$.extend(opts, params);
 
+		var calendarDate = params;
+
 		var monthNames = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Śierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'];
 		var dayNames = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'];
 		month = i = parseInt(opts.month);
@@ -23,35 +25,33 @@
 
 		calendar += ('<div id="calendar-menu-header">');
 
-		calendar += ('<div style="width:100%;z-index:5;position:absolute;top:24px;border-top:1px solid rgb(221,221,221);border-bottom:1px solid rgb(247,247,247);"></div>');
+		calendar += ('<div style="width:100%;z-index:2;position:absolute;top:24px;border-top:1px solid rgb(221,221,221);border-bottom:1px solid rgb(247,247,247);"></div>');
 
-		calendar += ('<div class="year-header-container"><span class="year-name-container">' + year + '</span></div>');
+		calendar += ('<div class="year-header-container"><span>' + year + '</span></div>');
 		calendar += ('<div class="month-name-header-container">');
-
-
 
 		//calendar += ('<div class="calendar-eventSummary-btn"><img src="/images/Icons/list-icon.png" alt="triangle"/></div><div class="nav-prev" data-bind="click: $root.showPreviousMonthOnPrevMonthBtnClick" ><img src="/images/Icons/triangle-left.png" alt="triangle"/></div>');
 
 		for (var j = 0; j < monthNames.length; j++) {
 
 			if (j > 8) {
-				if (j == thismonth) {
-					calendar += ('<div class="month-name-container current-month-name-calendar"><span>' + (j + 1) + ' </span><span>' + monthNames[j] + '</span></div>');
+				if (j == calendarDate.month) {
+					calendar += ('<div class="month-name-container current-month-name-calendar"><span data-bind="click: function(){ $root.redisplayCalendarAtChosenMonthOnClick($element) }" name="' + j + '">' + monthNames[j] + '</span></div>');
 				} else {
-					calendar += ('<div class="month-name-container"><span>' + (j + 1) + ' </span><span class="month-name-calendar">' + monthNames[j] + '</span></div>');
+					calendar += ('<div class="month-name-container"><span class="month-name-calendar" data-bind="click: function(){ $root.redisplayCalendarAtChosenMonthOnClick($element) }" name="' + j + '">' + monthNames[j] + '</span></div>');
 				}
 			} else {
-				if (j == thismonth) {
-					calendar += ('<div class="month-name-container current-month-name-calendar"><span>0' + (j + 1) + ' </span><span>' + monthNames[j] + '</span></div>');
+				if (j == calendarDate.month) {
+					calendar += ('<div class="month-name-container current-month-name-calendar"><span data-bind="click: function(){ $root.redisplayCalendarAtChosenMonthOnClick($element) }" name="' + j + '">' + monthNames[j] + '</span></div>');
 				} else {
-					calendar += ('<div class="month-name-container"><span>0' + (j + 1) + ' </span><span class="month-name-calendar">' + monthNames[j] + '</span></div>');
+					calendar += ('<div class="month-name-container"><span class="month-name-calendar" data-bind="click: function(){ $root.redisplayCalendarAtChosenMonthOnClick($element) }" name="' + j + '">' + monthNames[j] + '</span></div>');
 				}
 			}
 		}
 
 		//calendar += ('<div class="nav-next" data-bind="click: $root.showNextMonthOnNextMonthBtnClick" ><img src="/images/Icons/triangle-right.png" alt="triangle"/></div>');
 
-		calendar += ('</div>');
+		calendar += ('<span class="year-name-container">' + year + '</span></div>');
 
 		//calendar += ('<div class="menu-item-container inne-tab"><div class="border-item inne-border-tab"></div><div class="menu-item"><span>Inne</span></div></div><div class="menu-item-container spotkania-tab"><div class="border-item spotkania-border-tab"></div><div class="menu-item"><span>Spotkania</span></div></div><div class="menu-item-container kursy-tab"><div class="border-item kursy-border-tab"></div><div class="menu-item"><span>Kursy</span></div></div><div class="menu-item-container szkolenia-tab"><div class="border-item szkolenia-border-tab"></div><div class="menu-item"><span>Szkolenia</span></div></div><div class="menu-item-container zajecia-tab"><div class="border-item zajecia-border-tab"></div><div class="menu-item"><span>Zajęcia</span></div></div><div class="menu-item-container wydarzenia-tab"><div class="border-item wydarzenia-border-tab"></div><div class="menu-item"><span>Wydarzenia</span></div></div></div>');
 		calendar += ('</div><div class="weekday-container" ' + 'id="calendar-month' + i + ' ">');
@@ -111,13 +111,12 @@
 
 		calendar += ('</div>');
 
-		el.html(calendar);
+		$calendarBg.html(calendar);
 
 		drawLines();
 		drawHours();
 
-		//el.find('.day' + today).css({ "border": "3px outset rgb(185, 185, 185)", "color": "rgb(167, 238, 211)", "font-size": "1.7em", "font-weight": "bold" }).addClass("today-cell").find("span").css("top", "50px");
-
+		//$calendarDiv.find('.day' + today).css({ "border": "3px outset rgb(185, 185, 185)", "color": "rgb(167, 238, 211)", "font-size": "1.7em", "font-weight": "bold" }).addClass("today-cell").find("span").css("top", "50px");
 	}
 
 	function drawLines() {
@@ -135,7 +134,7 @@
 				$placeholder.append('<div style="left:' + left + '%;" class="cell-line' + (parseInt(i, 10) + 7) + ' cell-line-style"></div>');
 
 			}
-		})
+		});
 	};
 	function drawHours() {
 		var $hoursPlaceholder = $(".calendar-hours").find(".calendar-hours-placeholder");

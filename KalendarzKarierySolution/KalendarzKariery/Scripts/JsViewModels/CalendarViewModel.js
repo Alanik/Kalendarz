@@ -2,17 +2,6 @@
 function CalendarViewModel(year, month, day) {
 	var self = this;
 
-	self.calendarPageDisplayDate = {
-		year: year,
-		month: month,
-		day: day
-	};
-
-	self.privacyLevels = {
-		"public": 1,
-		"private": 2
-	};
-
 	self.event = {
 		title: "",
 		date: {
@@ -40,6 +29,11 @@ function CalendarViewModel(year, month, day) {
 		addedBy: ""
 	};
 
+	self.privacyLevels = {
+		"public": 1,
+		"private": 2
+	};
+
 	self.detailsPageDisplayDate = {
 		events: [],
 		date: {
@@ -49,6 +43,12 @@ function CalendarViewModel(year, month, day) {
 		}
 	};
 
+	self.calendarPageDisplayDate = {
+		year: year,
+		month: month,
+		day: day
+	};
+
 	self.events = ko.observableArray([
 
 	]);
@@ -56,6 +56,10 @@ function CalendarViewModel(year, month, day) {
 	self.filteredEvents = ko.observableArray([
 
 	]);
+
+	//////////////////////////////////////////////////////////
+	// METHODS 
+	//////////////////////////////////////////////////////////
 
 	self.getEventsFromMonth = function (month, year) {
 		return ko.utils.arrayFilter(self.events(), function(item) {
@@ -164,7 +168,7 @@ function CalendarViewModel(year, month, day) {
 		$("#add-new-event-container").hide();
 
 		var cellDay = ".day" + event.date.day;
-		var $placeholder = $(cellDay).find(".calendar-cell-placeholder");
+		var $placeholder = $("#calendar").find(cellDay);
 		var cellLineStart = ".cell-line" + event.date.startHour; //$("#startHourSelectBox").find(":selected").text();
 		var cellLineEnd = ".cell-line" + event.date.endHour; //$("#endHourSelectBox").find(":selected").text();
 
@@ -176,7 +180,7 @@ function CalendarViewModel(year, month, day) {
 
 		var width = endOffset - startOffset;
 
-		var $event = $('<div class="event-rectangle" style="left:' + startOffset + '%; width:' + width + '%; border-color:' + event.kind.color + ' ">' + event.name + '<input type="hidden" name="' + event.name + '" adress="' + event.adress + '" startHour="' + event.date.startHour + '" endHour="' + event.date.endHour + '" ></input></div>');
+		var $event = $('<div class="event-rectangle" style="left:' + startOffset + '%; width:' + width + '%; border-color:' + event.kind.color + ' ">' + event.title + '<input type="hidden" name="' + event.title + '" adress="' + event.adress + '" startHour="' + event.date.startHour + '" endHour="' + event.date.endHour + '" ></input></div>');
 
 		$placeholder.append($event);
 
@@ -190,7 +194,7 @@ function CalendarViewModel(year, month, day) {
 		var endMinuteOffset = event.date.endMinute / 60 * 100;
 		var width = ((event.date.endHour - event.date.startHour) * 100) - startMinuteOffset + endMinuteOffset;
 
-		$hourCell.append('<div class="event-rectangle-details" style="width:' + width + '%;left:' + startMinuteOffset + '%;border-color:' + event.kind.color + ';"><span>' + event.name + '</span></div>');
+		$hourCell.append('<div class="event-rectangle-details" style="width:' + width + '%;left:' + startMinuteOffset + '%;border-color:' + event.kind.color + ';"><span>' + event.title + '</span></div>');
 	};
 
 	self.removeEventRectanglesFromDetailsDay = function() {
@@ -359,19 +363,6 @@ function CalendarViewModel(year, month, day) {
 			}
 		}
 
-	};
-
-	self.slideDownMenuOptionsOnClick = function(element) {
-
-		var $tabElement = $(element);
-		$tabElement.toggleClass("menu-dropdown-visible");
-		var $optionsContainer = $tabElement.siblings(".menu-item-dropdown-container");
-
-		if ($tabElement.hasClass("menu-dropdown-visible")) {
-			$optionsContainer.slideDown();
-		} else {
-			$optionsContainer.slideUp();
-		}
 	};
 
 	self.showAddEventPopupOnClick = function(element) {

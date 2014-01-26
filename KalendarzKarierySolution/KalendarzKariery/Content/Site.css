@@ -147,10 +147,10 @@ body header {
 	height: 14px;
 	display: table-cell;
 	overflow: hidden;
-	/*color: rgb(204,204,204);*/
-	color: white;
-	background: rgb(115, 216, 163);
+	color: rgb(187, 187, 187);
+	/*background: rgb(115, 216, 163);*/
 	position: relative;
+	padding-bottom: 4px;
 }
 
 .calendar-hours-placeholder {
@@ -169,7 +169,7 @@ body header {
 	color: white;
 	background: rgba(0,0,0,.04);
 	height: 50px;
-	border-bottom: 1px solid rgb(247, 247, 247);
+	border-bottom: 1px solid white;
 	border-top: 1px solid #D8D8D8;
 }
 
@@ -281,7 +281,7 @@ body header {
 }
 
 	.current-month-cell span {
-		color: rgb(177,177,177);
+		color: rgb(109,109,109);
 		position: absolute;
 		padding-left: 2px;
 		padding-right: 5px;
@@ -394,6 +394,7 @@ body header {
 }
 
 #add-new-event-container {
+	border-radius: 20px;
 	top: 25px;
 	padding-top: 20px;
 	position: absolute;
@@ -417,7 +418,7 @@ body header {
 
 .btn-close {
 	position: relative;
-	bottom: 4px;
+	bottom: 1px;
 	margin-right: 10px;
 	float: right;
 }
@@ -425,6 +426,12 @@ body header {
 .close-text {
 	color: rgb(117, 117, 117);
 	font-size: 1.4em;
+	color: rgb(255, 255, 255);
+	border: 1px solid rgb(238, 238, 238);
+	padding-left: 30px;
+	padding-right: 10px;
+	padding-bottom: 2px;
+	background: rgb(163, 157, 157);
 }
 
 .add-event-body {
@@ -434,6 +441,7 @@ body header {
 }
 
 .add-event-fieldset {
+	border-radius: 20px;
 	color: rgb(155, 155, 155);
 	border: 1px solid lightgray;
 	background: rgb(243, 243, 243);
@@ -490,15 +498,19 @@ background:rgb(115, 233, 162);
 }
 
 .event-rectangle {
-	color: black;
+	/*color: rgb(235,235,235);*/
 	overflow: hidden;
 	position: absolute;
-	height: 2px;
 	z-index: 2;
-	display: none;
-	border-radius: 8px;
 	border: 2px solid;
-	/*background: rgba(255,255,255,.9);*/
+	top: 0;
+	/*background: rgb(34, 34, 34);*/
+	height: 23px;
+	background: white;
+	color: gray;
+	font-size: 12px;
+	line-height: 1;
+	border-bottom: 5px solid;
 }
 
 .event-rectangle-details {
@@ -764,11 +776,6 @@ wydarzenia-tab {
 			width: 6.66%;
 		}
 
-.month-name-header-container {
-
-}
-
-
 .month-name-container {
 	display: inline-block;
 	padding-left: 10px;
@@ -896,25 +903,6 @@ wydarzenia-tab {
 	margin-left: 40px;
 }
 
-.menu-item-dropdown-container {
-	display: none;
-	position: absolute;
-	width: 100%;
-	padding: 10px 10px;
-	background-color: rgba(0, 0, 0, .47);
-	border-top: 1px solid rgb(136, 136, 136);
-	left: -10px;
-}
-
-.menu-item-dropdown {
-	background: white;
-	margin-top: 4px;
-	width: 100%;
-	padding: 4px 0;
-	border: 1px solid rgb(136, 136, 136);
-	background: rgb(88, 88, 88);
-	color: white;
-}
 
 
 

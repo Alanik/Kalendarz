@@ -60,8 +60,9 @@
 				var $lobby = $("#lobby");
 				var date = new Date();
 
+				$calendar.calendarWidget({ month:11, year:2014 });
 				var calendarViewModel = new CalendarViewModel(2014, date.getMonth(), date.getDate());
-				$calendar.calendarWidget(calendarViewModel.calendarPageDisplayDate);
+				
 
 				ko.applyBindings(calendarViewModel);
 
@@ -195,17 +196,6 @@
 							"font-size": ".8em"
 						});
 					});
-
-					$(".menu-item-dropdown").hover(function () {
-						$(this).css({
-							"cursor": "pointer"
-						});
-					}, function () {
-						$(this).css({
-							"cursor": "auto"
-						});
-					});
-
 
 					$("#leftSide").hover(function () {
 						$(this).css({
@@ -358,7 +348,7 @@
 						});
 					}, function () {
 						$(this).css({
-							"bottom": "4px",
+							"bottom": "1px",
 							"cursor": "auto"
 						});
 					});

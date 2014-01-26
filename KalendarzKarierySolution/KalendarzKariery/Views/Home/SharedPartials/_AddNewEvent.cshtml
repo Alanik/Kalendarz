@@ -3,7 +3,7 @@
 <div id="add-new-event-container">
 	
 	<div class="large-popup-header">
-		<div style="width:100%;z-index:2;position:absolute;top:48px;border-top:1px solid rgb(221,221,221);border-bottom:1px solid rgb(247,247,247);"></div>
+		<div style="width:100%;z-index:2;position:absolute;top:50px;border-top:1px solid rgb(221,221,221);border-bottom:1px solid rgb(247,247,247);"></div>
 		<div id="btnClose-AddEventContainer" class="btn-close">
 			<span class="close-text">zamknij
 			</span>
@@ -11,8 +11,7 @@
 	</div>
 
 
-	<section class="add-event-body">
-		<div class="add-event-form-container">
+	<section class="add-event-body">		<div class="add-event-form-container">
 			@using (Html.BeginForm("AddEvent", "Home", FormMethod.Post, new { id = "addEventForm" }))
 			{
 				<fieldset class="add-event-fieldset">
@@ -50,7 +49,7 @@
 						<textarea rows="4" cols="20" name="descriptionTxtArea" data-bind="value: description">
 						</textarea>*@
 							@Html.LabelFor(m => m.Event.Description, new { @class = "form-label", @style = "vertical-align:top;" })
-							@Html.TextAreaFor(m => m.Event.Description, new { cols = 30, rows = 2, maxlength = 100 })
+							@Html.TextAreaFor(m => m.Event.Description, new { cols = 17, rows = 2, maxlength = 100 })
 							@Html.ValidationMessageFor(m => m.Event.Description)
 						</div>
 
@@ -89,7 +88,7 @@
 						<div>
 
 							@Html.LabelFor(m => m.Event.Details, new { @class = "form-label", @style = "vertical-align:top;" })
-							@Html.TextAreaFor(m => m.Event.Details, new { cols = 30, rows = 5, maxlength = 500 })
+							@Html.TextAreaFor(m => m.Event.Details, new { cols = 17, rows = 5, maxlength = 500 })
 							@Html.ValidationMessageFor(m => m.Event.Details)
 						</div>
 

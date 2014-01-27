@@ -151,6 +151,8 @@ body header {
 	/*background: rgb(115, 216, 163);*/
 	position: relative;
 	padding-bottom: 4px;
+	background: white;
+	border-top: 1px solid rgb(226, 226, 226);
 }
 
 .calendar-hours-placeholder {
@@ -187,6 +189,8 @@ body header {
 
 	#loginPageContainer legend {
 		font-size: 1.5em;
+		position: relative;
+		bottom: 14px;
 	}
 
 #registerPageContainer {
@@ -441,10 +445,12 @@ body header {
 }
 
 .add-event-fieldset {
-	border-radius: 20px;
+	border-bottom-right-radius: 20px;
+	border-bottom-left-radius: 20px;
 	color: rgb(155, 155, 155);
 	border: 1px solid lightgray;
 	background: rgb(243, 243, 243);
+
 }
 
 	.add-event-fieldset label {
@@ -454,6 +460,8 @@ body header {
 
 	.add-event-fieldset legend {
 		font-size: 2em;
+position: relative;
+bottom: 12px;
 	}
 
 .add-event-form-container {
@@ -498,16 +506,16 @@ background:rgb(115, 233, 162);
 }
 
 .event-rectangle {
-	/*color: rgb(235,235,235);*/
 	overflow: hidden;
 	position: absolute;
 	z-index: 2;
 	border: 2px solid;
 	top: 0;
-	/*background: rgb(34, 34, 34);*/
+	background: rgb(34, 34, 34);
 	height: 23px;
-	background: white;
-	color: gray;
+	/*background: white;*/
+	/*color: gray;*/
+	color: rgb(204, 204, 204);
 	font-size: 12px;
 	line-height: 1;
 	border-bottom: 5px solid;
@@ -519,22 +527,31 @@ background:rgb(115, 233, 162);
 	position: absolute;
 	z-index: 2;
 	border: 2px solid;
-	border-radius: 12px;
+	border-bottom: 6px solid;
 	background: rgba(255,255,255,.8);
-	min-height: 40px;
+	height: 40px;
 }
 
 	.event-rectangle-details span {
 		padding: 10px;
 	}
 
+.month-name-header-container {
+	background: white;
+	border-bottom: 1px solid rgb(221, 221, 221);
+	text-align: center;
+}
 
 .event-hover-container {
 	display: none;
 	position: absolute;
-	background: white;
+	background: url(../Images/point.png) repeat scroll 0 0 transparent;
 	z-index: 100;
-	padding: 20px;
+	color: white;
+	border: 1px solid #adff2f;
+	-webkit-box-shadow: 1px 0px 40px 0px rgb(85, 85, 85);
+	-moz-box-shadow: 1px 0px 40px 0px rgb(85, 85, 85);
+	box-shadow: 1px 0px 40px 0px rgb(85, 85, 85);
 }
 
 .lobby-content-body {
@@ -602,8 +619,6 @@ background:rgb(115, 233, 162);
 }
 
 .year-name-container {
-	background: white;
-	color: gray;
 	letter-spacing: 2px;
 	color: rgb(115, 216, 163);
 	display: inline-block;
@@ -611,7 +626,7 @@ background:rgb(115, 233, 162);
 	padding-top: 5px;
 	padding-left: 10px;
 	padding-right: 10px;
-	float: right;
+	font-size: 18px;
 }
 
 #showRegisterFormBtn {
@@ -786,8 +801,7 @@ wydarzenia-tab {
 
 
 .month-name-calendar {
-	/*color: rgb(147, 156, 149);*/
-	color: rgb(252, 252, 252);
+	color: rgb(206,206,206);
 	text-decoration: underline;
 }
 
@@ -1002,7 +1016,6 @@ Slider
 /* Styles for basic forms
 -----------------------------------------------------------*/
 fieldset {
-	padding: 1.4em;
 	margin: 0 0 .5em 0;
 	width: auto;
 }

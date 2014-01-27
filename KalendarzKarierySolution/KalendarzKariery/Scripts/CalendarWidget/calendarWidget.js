@@ -32,6 +32,8 @@
 
 		//calendar += ('<div class="calendar-eventSummary-btn"><img src="/images/Icons/list-icon.png" alt="triangle"/></div><div class="nav-prev" data-bind="click: $root.showPreviousMonthOnPrevMonthBtnClick" ><img src="/images/Icons/triangle-left.png" alt="triangle"/></div>');
 
+		calendar += ('<div style="color:rgb(115, 216, 163);;display:inline-block;font-size:18px;letter-spacing:1px;">' + today + '</div>');
+
 		for (var j = 0; j < monthNames.length; j++) {
 
 			if (j > 8) {

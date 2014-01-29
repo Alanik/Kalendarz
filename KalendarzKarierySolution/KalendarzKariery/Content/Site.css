@@ -142,6 +142,12 @@ body header {
 		width: 100% !important;
 	}
 
+#btnAddNewEvent {
+	position: relative;
+	left: 220px;
+	margin-top: 20px;
+}
+
 .calendar-hours {
 	width: 100%;
 	height: 14px;
@@ -150,7 +156,7 @@ body header {
 	color: rgb(187, 187, 187);
 	/*background: rgb(115, 216, 163);*/
 	position: relative;
-	padding-bottom: 4px;
+	padding-bottom: 2px;
 	background: white;
 	border-top: 1px solid rgb(226, 226, 226);
 }
@@ -170,9 +176,9 @@ body header {
 	display: table-caption;
 	color: white;
 	background: rgba(0,0,0,.04);
-	height: 50px;
-	border-bottom: 1px solid white;
+	border-bottom: 2px solid rgb(250,250,250);
 	border-top: 1px solid #D8D8D8;
+	height: 58px;
 }
 
 #loginPageContainer {
@@ -240,10 +246,11 @@ body header {
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;*/
-	padding-top: 10px;
 	display: table-cell;
 	text-align: center;
-	/*background: rgb(82,82,82);*/
+	color:rgb(219, 219, 183);
+	/*background: rgba(255,255,255, .8);*/
+
 }
 
 	.weekday:nth-child(6) {
@@ -279,7 +286,7 @@ body header {
 
 .current-month-cell {
 	border: 2px solid white;
-	background-color: rgb(253,253,253);
+	background-color: rgba(255,255,255, .5);
 	box-shadow: rgb(235, 235, 235) 0px 3px 5px;
 	color: black;
 }
@@ -450,7 +457,6 @@ body header {
 	color: rgb(155, 155, 155);
 	border: 1px solid lightgray;
 	background: rgb(243, 243, 243);
-
 }
 
 	.add-event-fieldset label {
@@ -460,8 +466,8 @@ body header {
 
 	.add-event-fieldset legend {
 		font-size: 2em;
-position: relative;
-bottom: 12px;
+		position: relative;
+		bottom: 12px;
 	}
 
 .add-event-form-container {
@@ -618,14 +624,17 @@ background:rgb(115, 233, 162);
 	width: 24%;
 }
 
+.current-weekday {
+	color:rgb(221, 221, 0);
+	background: white;
+}
+
 .year-name-container {
-	letter-spacing: 2px;
-	color: rgb(115, 216, 163);
+	letter-spacing: 1px;
+	color: rgb(221, 221, 0);
 	display: inline-block;
 	padding-bottom: 1px;
 	padding-top: 5px;
-	padding-left: 10px;
-	padding-right: 10px;
 	font-size: 18px;
 }
 
@@ -806,8 +815,7 @@ wydarzenia-tab {
 }
 
 .current-month-name-calendar {
-	color: rgb(115, 216, 163);
-	background: white;
+	color: rgb(221, 221, 0);
 }
 
 .calendar-eventSummary-btn {

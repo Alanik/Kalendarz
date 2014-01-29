@@ -4,6 +4,7 @@
 
 		var now = new Date();
 		var today = now.getDate();
+		var weekday = now.getDay();
 		var thismonth = now.getMonth();
 		var thisyear = now.getYear() + 1900;
 
@@ -32,7 +33,7 @@
 
 		//calendar += ('<div class="calendar-eventSummary-btn"><img src="/images/Icons/list-icon.png" alt="triangle"/></div><div class="nav-prev" data-bind="click: $root.showPreviousMonthOnPrevMonthBtnClick" ><img src="/images/Icons/triangle-left.png" alt="triangle"/></div>');
 
-		calendar += ('<div style="color:rgb(115, 216, 163);;display:inline-block;font-size:18px;letter-spacing:1px;">' + today + '</div>');
+		calendar += ('<div style="color:rgb(221, 221, 0);;display:inline-block;font-size:18px;letter-spacing:1px;">' + today + '</div>');
 
 		for (var j = 0; j < monthNames.length; j++) {
 
@@ -59,7 +60,12 @@
 		calendar += ('</div><div class="weekday-container" ' + 'id="calendar-month' + i + ' ">');
 
 		for (var d = 0; d < 7; d++) {
-			calendar += '<div class="weekday">' + dayNames[d] + '</div>';
+
+			if (weekday - 1 === d) {
+				calendar += '<div class="weekday current-weekday">' + dayNames[d] + '</div>';
+			} else {
+				calendar += '<div class="weekday">' + dayNames[d] + '</div>';
+			}
 		}
 
 		calendar += '</div>';
@@ -118,7 +124,7 @@
 		drawLines();
 		drawHours();
 
-		$calendarBg.find('.day' + today).css({"background":"rgb(213, 255, 194)" , "font-weight": "bold" }).addClass("today-cell");
+		$calendarBg.find('.day' + today).css({"background":"white" , "font-weight": "bold" }).addClass("today-cell");
 	}
 
 	function drawLines() {

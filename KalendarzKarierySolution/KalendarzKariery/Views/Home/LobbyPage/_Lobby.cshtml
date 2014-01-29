@@ -13,42 +13,7 @@
 	<div id="moje-sprawy-container" class="lobby-content-body">
 
 		<header class="title-header">Moje Sprawy<a class="moje-sprawy-btn" href="#" style="float:right;color:black;">zamknij</a></header>
-		
-		<section class="event-list moje-sprawy-container"" data-bind="foreach: filteredEvents">
-			<div class="news-event-details">
-		
-				<div class="left-event-details">
-					<div class="event-kind-text" data-bind="text: kind.kindName, style: { background: kind.color }">
-					</div>
-					<div class="events-text-container margin-left-fifteen padding-top-ten" data-bind="visible: kind.kindName != 'Aktualności'">
 
-						<span data-bind="text: date.startHour" class="events-text-startTime"></span><span>:00 - </span><span data-bind="	text: date.endHour" class="events-text-endTime"></span><span>:00</span>
-						<div>12.03.2012, Piątek</div>
-						<div data-bind="text: adress" class="events-text-address"></div>
-					</div>
-				</div>
-				<div class="middle-event-details">
-					<div class="event-title-container">
-						<a data-bind="text: title" class="events-text-name" href="#"></a>
-					</div>
-
-					<div class="events-text-container">
-						<div data-bind="text: description" class="events-text-description"></div>
-					</div>
-				</div>
-				<div class="right-event-details">
-					<div class="events-text-author-container">
-						<div>
-							<span>dodano przez: </span><a class="events-text-author" data-bind="text: addedBy" href="#"></a>
-						</div>
-						<div>
-							10:47 10.12.2013 
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</section>
 	</div>
 
 	<div class="selected-content-container">
@@ -58,7 +23,7 @@
 			12.03.2012
 		</div>
 		
-		<section class="event-list" data-bind="foreach: events">
+		<section class="event-list" data-bind="foreach: allEvents">
 			<div class="news-event-details" data-bind="if: kind.kindName == 'Szkolenie', visible: kind.kindName == 'Szkolenie'">
 				
 				<div class="left-event-details">
@@ -143,7 +108,7 @@
 			12.03.2012
 		</div>
 		
-		<section class="event-list" data-bind="foreach: events">
+		<section class="event-list" data-bind="foreach: allEvents">
 			<div class="news-event-details" data-bind="ifnot: kind.kindName == 'Zajęcia', visible: kind.kindName != 'Zajęcia'">
 				<div class="left-event-details">
 					<div class="event-kind-text" data-bind="text: kind.kindName, style: { background: kind.color }">

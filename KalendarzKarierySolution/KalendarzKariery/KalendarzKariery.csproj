@@ -247,11 +247,9 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Images\efre.png" />
     <Content Include="Images\Logo\kalendarzLogo.png" />
     <Content Include="Images\kalendarzTloClear.png" />
     <Content Include="Images\Icons\list-icon.png" />
-    <Content Include="Images\mHmJxi4.png" />
     <Content Include="Images\Nav\arrow-left.png" />
     <Content Include="Images\Nav\arrow-right.png" />
     <Content Include="Images\Icons\triangle-left.png" />
@@ -259,7 +257,9 @@
     <Content Include="Images\tapeta.jpg" />
     <None Include="Properties\PublishProfiles\Alan.pubxml" />
     <None Include="Scripts\Lib\jquery-2.0.3.intellisense.js" />
-    <Content Include="Images\tapetaBrx.png" />
+    <Content Include="Images\TestBackgrounds\1600x900.jpg" />
+    <Content Include="Images\TestBackgrounds\1600x900 %282%29.jpg" />
+    <Content Include="Images\TestBackgrounds\1600x900purple-white.jpg" />
     <Content Include="Scripts\Lib\jquery-2.0.3.js" />
     <Content Include="Scripts\Lib\jquery-2.0.3.min.js" />
     <Content Include="Scripts\Lib\jquery-2.0.3.min.map" />

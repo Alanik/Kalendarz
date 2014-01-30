@@ -157,8 +157,6 @@ body header {
 	/*background: rgb(115, 216, 163);*/
 	position: relative;
 	padding-bottom: 2px;
-	background: white;
-	border-top: 1px solid rgb(226, 226, 226);
 }
 
 .calendar-hours-placeholder {
@@ -248,9 +246,8 @@ body header {
 	border-radius: 10px;*/
 	display: table-cell;
 	text-align: center;
-	color:rgb(219, 219, 183);
-	background: rgb(255,255,255);
-
+	padding-top: 10px;
+	/*color:rgb(219, 219, 183);*/
 }
 
 	.weekday:nth-child(6) {
@@ -543,7 +540,6 @@ background:rgb(115, 233, 162);
 	}
 
 .month-name-header-container {
-	background: white;
 	border-bottom: 1px solid rgb(221, 221, 221);
 	text-align: center;
 }
@@ -626,7 +622,6 @@ background:rgb(115, 233, 162);
 
 .current-weekday {
 	color:rgb(81, 228, 163);
-	background: white;
 }
 
 .year-header-container {
@@ -815,7 +810,7 @@ wydarzenia-tab {
 
 
 .month-name-calendar {
-	color: rgb(206,206,206);
+	color: rgb(252,252,252);
 	text-decoration: underline;
 }
 

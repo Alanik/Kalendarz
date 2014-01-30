@@ -28,12 +28,12 @@
 
 		calendar += ('<div style="width:100%;z-index:2;position:absolute;top:24px;border-top:1px solid rgb(221,221,221);border-bottom:1px solid rgb(247,247,247);"></div>');
 
-		calendar += ('<div class="year-header-container"><span>' + year + '</span></div>');
+		calendar += ('<div class="year-header-container"><span>Kalendarz Kariery</span></div>');
 		calendar += ('<div class="month-name-header-container">');
 
 		//calendar += ('<div class="calendar-eventSummary-btn"><img src="/images/Icons/list-icon.png" alt="triangle"/></div><div class="nav-prev" data-bind="click: $root.showPreviousMonthOnPrevMonthBtnClick" ><img src="/images/Icons/triangle-left.png" alt="triangle"/></div>');
 
-		calendar += ('<div style="color:rgb(221, 221, 0);;display:inline-block;font-size:18px;letter-spacing:1px;">' + today + '</div>');
+		calendar += ('<div style="color:rgb(81, 228, 163);display:inline-block;font-size:18px;letter-spacing:1px;">' + today + '</div>');
 
 		for (var j = 0; j < monthNames.length; j++) {
 
@@ -124,7 +124,7 @@
 		drawLines();
 		drawHours();
 
-		$calendarBg.find('.day' + today).css({"background":"white" , "font-weight": "bold" }).addClass("today-cell");
+		$calendarBg.find('.day' + today).css({ "background": "white", "font-weight": "bold" }).addClass("today-cell");
 	}
 
 	function drawLines() {

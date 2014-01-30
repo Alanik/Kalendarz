@@ -249,7 +249,7 @@ body header {
 	display: table-cell;
 	text-align: center;
 	color:rgb(219, 219, 183);
-	/*background: rgba(255,255,255, .8);*/
+	background: rgb(255,255,255);
 
 }
 
@@ -286,7 +286,7 @@ body header {
 
 .current-month-cell {
 	border: 2px solid white;
-	background-color: rgba(255,255,255, .5);
+	background-color: rgb(253,253,253);
 	box-shadow: rgb(235, 235, 235) 0px 3px 5px;
 	color: black;
 }
@@ -625,13 +625,18 @@ background:rgb(115, 233, 162);
 }
 
 .current-weekday {
-	color:rgb(221, 221, 0);
+	color:rgb(81, 228, 163);
 	background: white;
+}
+
+.year-header-container {
+
+	text-align: center;
 }
 
 .year-name-container {
 	letter-spacing: 1px;
-	color: rgb(221, 221, 0);
+	color: rgb(81, 228, 163);
 	display: inline-block;
 	padding-bottom: 1px;
 	padding-top: 5px;
@@ -815,7 +820,7 @@ wydarzenia-tab {
 }
 
 .current-month-name-calendar {
-	color: rgb(221, 221, 0);
+	color:rgb(81, 228, 163);
 }
 
 .calendar-eventSummary-btn {

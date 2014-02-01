@@ -5,7 +5,7 @@
 		<li>
 			<div class="slide-item-lobby">
 				<div id="lobbyBg">
-					<img src="~/Images/kalendarzTloClear.png" alt="background" />
+					<img src="~/Images/kalendarzTloClear.png" alt="background" style="top:0 !important"/>
 					<div class="dotted-page-overlay"></div>
 					<section id="lobby">
 						@Html.Partial("_Lobby")
@@ -92,10 +92,12 @@
 							var startHour = $(this).find("input").attr("startHour");
 							var endHour = $(this).find("input").attr("endHour");
 
+							var width = $(this).width();
+							var height = $(this).height();
 							var offset = $(this).offset();
 
-							$container.css("left", offset.left - 200);
-							$container.css("top", offset.top - 200);
+							$container.css("left", offset.left + width);
+							$container.css("top", offset.top + height);
 
 							$container.find(".event-hover-name").text(name);
 							$container.find(".event-hover-adress").text(adress);

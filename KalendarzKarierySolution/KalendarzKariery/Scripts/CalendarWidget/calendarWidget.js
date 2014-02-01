@@ -33,7 +33,7 @@
 
 		//calendar += ('<div class="calendar-eventSummary-btn"><img src="/images/Icons/list-icon.png" alt="triangle"/></div><div class="nav-prev" data-bind="click: $root.showPreviousMonthOnPrevMonthBtnClick" ><img src="/images/Icons/triangle-left.png" alt="triangle"/></div>');
 
-		calendar += ('<div style="color:rgb(81, 228, 163);display:inline-block;font-size:18px;letter-spacing:1px;">' + today + '</div>');
+		calendar += ('<div style="color:rgb(81, 228, 163);display:inline-block;font-size:18px;letter-spacing:1px;padding-top: 5px;padding-bottom: 4px;padding-right: 5px;padding-left: 5px;background:white;">' + today + '</div>');
 
 		for (var j = 0; j < monthNames.length; j++) {
 

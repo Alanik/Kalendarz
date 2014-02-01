@@ -82,7 +82,7 @@ body header {
 }
 
 #lobbyLogo {
-	background-image: url(../Images/Logo/kalendarzLogo.png);
+	background-image: url(../Images/Logo/kalendarzLogoTransparent.png);
 	font-size: 1em;
 	width: 680px;
 	height: 140px;
@@ -188,7 +188,7 @@ body header {
 	padding-top: 30px;
 	color: rgb(104,104,104);
 	border: 1px solid rgb(216, 255, 232);
-	margin-top: 164px;
+	margin-top: 150px;
 }
 
 	#loginPageContainer legend {
@@ -202,7 +202,7 @@ body header {
 	display: block;
 	border-top: 1px solid #DADADA;
 	border-bottom: 1px solid white;
-	margin: 20px 0;
+	margin-top: 150px;
 	width: 50%;
 	margin-left: 20px;
 	padding: 10px;
@@ -362,11 +362,11 @@ body header {
 }
 
 .menu-item {
-	border-top: 2px solid rgb(233, 233, 233);
-	background: rgba(0, 0, 0,.47);
+	border-top: 1px solid rgb(189, 189, 189);
+	/*background: rgba(0, 0, 0,.47);*/
 	/*box-shadow: 4px 2px 8px rgb(177, 177, 177);*/
 	height: 30px;
-	color: rgb(213, 213, 213);
+	color: rgb(116, 116, 116);
 	font-size: 0.8em;
 	padding-left: 10px;
 }
@@ -621,20 +621,22 @@ background:rgb(115, 233, 162);
 }
 
 .current-weekday {
-	color:rgb(81, 228, 163);
+	color: rgb(81, 228, 163);
 }
 
 .year-header-container {
-
 	text-align: center;
 }
 
 .year-name-container {
+	background: white;
 	letter-spacing: 1px;
 	color: rgb(81, 228, 163);
 	display: inline-block;
-	padding-bottom: 1px;
+	padding-bottom: 4px;
 	padding-top: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
 	font-size: 18px;
 }
 
@@ -804,8 +806,6 @@ wydarzenia-tab {
 	display: inline-block;
 	padding-left: 10px;
 	padding-right: 10px;
-	padding-bottom: 1px;
-	padding-top: 5px;
 }
 
 
@@ -814,8 +814,19 @@ wydarzenia-tab {
 	text-decoration: underline;
 }
 
+#lobbyEventSummaryMenu {
+	margin-top:150px;
+	width:30%;
+	display:inline-block;
+	margin-left:8%;
+	background: rgba(0, 0, 0, 0.1);
+	padding: 10px;
+}
+
 .current-month-name-calendar {
-	color:rgb(81, 228, 163);
+	color: rgb(81, 228, 163);
+	padding: 10px 5px 5px 5px;
+	background: white;
 }
 
 .calendar-eventSummary-btn {

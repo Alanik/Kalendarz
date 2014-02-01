@@ -282,8 +282,8 @@ function CalendarViewModel(year, month, day) {
 		var $loginForm = $("#loginPageContainer");
 		var $registerForm = $("#registerPageContainer");
 
-		$loginForm.slideUp();
-		$registerForm.slideDown();
+		$loginForm.hide();
+		$registerForm.fadeIn();
 
 	};
 
@@ -291,8 +291,8 @@ function CalendarViewModel(year, month, day) {
 		var $loginForm = $("#loginPageContainer");
 		var $registerForm = $("#registerPageContainer");
 
-		$registerForm.slideUp();
-		$loginForm.slideDown();
+		$registerForm.hide();
+		$loginForm.fadeIn();
 
 		document.querySelector('#lobby-menu-header').scrollIntoView();
 	};
@@ -425,7 +425,7 @@ function CalendarViewModel(year, month, day) {
 		});
 
 
-		self.calendarPageMonthEvents = self.getEventsFromMonth(self.calendarPageDisplayDate.month, self.calendarPageDisplayDate.year);
+		self.calendarPageMonthEvents = self.getEventsForGivenMonth(self.calendarPageDisplayDate.month, self.calendarPageDisplayDate.year);
 
 		//draw to calendar
 		ko.utils.arrayForEach(self.calendarPageMonthEvents, function(event) {		

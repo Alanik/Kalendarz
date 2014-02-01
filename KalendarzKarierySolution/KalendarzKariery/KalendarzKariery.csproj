@@ -247,14 +247,17 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Images\Logo\kalendarzLogo.png" />
     <Content Include="Images\kalendarzTloClear.png" />
     <Content Include="Images\Icons\list-icon.png" />
+    <Content Include="Images\Logo\kalendarzLogoTransparent.png" />
     <Content Include="Images\Nav\arrow-left.png" />
     <Content Include="Images\Nav\arrow-right.png" />
     <Content Include="Images\Icons\triangle-left.png" />
     <Content Include="Images\Icons\triangle-right.png" />
     <Content Include="Images\tapeta.jpg" />
+    <Content Include="Content\Fonts\CodePro\CODE Bold.otf" />
+    <Content Include="Content\Fonts\CodePro\CODE Light.otf" />
+    <Content Include="Content\Fonts\CodePro\FFF_EULA_license.pdf" />
     <None Include="Properties\PublishProfiles\Alan.pubxml" />
     <None Include="Scripts\Lib\jquery-2.0.3.intellisense.js" />
     <Content Include="Images\TestBackgrounds\1600x900.jpg" />
@@ -316,6 +319,7 @@
     <Content Include="Views\Home\LobbyPage\_LobbyProfileMenu.cshtml" />
     <Content Include="Views\Home\DetailsPage\_Details.cshtml" />
     <Content Include="Views\Emails\_ViewStart.cshtml" />
+    <Content Include="Views\Home\LobbyPage\_LobbyEventSummaryMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

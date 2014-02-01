@@ -168,7 +168,7 @@ function CalendarViewModel(year, month, day) {
 		$("#add-new-event-container").hide();
 
 		var cellDay = ".day" + event.date.day;
-		var $cellPlaceholder = $("#calendar").find(cellDay);
+		var $cellPlaceholder = $("#calendar").find(cellDay).find(".calendar-cell-placeholder");
 		var cellLineStart = ".cell-line" + event.date.startHour; //$("#startHourSelectBox").find(":selected").text();
 		var cellLineEnd = ".cell-line" + event.date.endHour; //$("#endHourSelectBox").find(":selected").text();
 

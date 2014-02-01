@@ -23,6 +23,7 @@
 		year = parseInt(opts.year);
 		var m = 0;
 		var calendar = '';
+		//calendar += ('<div id="calendarLogoSmallContainer"><img src="/Images/Logo/kalendarzLogoSmall.png" alt="small logo" style="height:80px !important; width:57px !important;position:absolute !important;top:-17px !important; left:-10px !important;z-index:100"/></div>');
 
 		calendar += ('<div id="calendar-menu-header">');
 

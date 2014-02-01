@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace KalendarzKarieryData
 {
-	public interface IRepository
+	public interface IKalendarzRepository
 	{
 		User GetUserById(int id);
-		User GetUserByEmail(int id);
+		User GetUserByEmail(string email);
 		void UpdateUserOnRegister(int id, Address address);
 		void Save();
 	}

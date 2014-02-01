@@ -57,7 +57,7 @@
     <Compile Include="Event.cs">
       <DependentUpon>KalendarzKarieryEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="IRepository.cs" />
+    <Compile Include="IKalendarzRepository.cs" />
     <Compile Include="KalendarzKarieryEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace KalendarzKarieryData
 {
-	public class KalendarzKarieryRepository 
+	public class KalendarzKarieryRepository : IKalendarzRepository
 	{
 		private readonly KalendarzKarieryDBEntities _entities;
 
@@ -20,7 +20,7 @@ namespace KalendarzKarieryData
 			return _entities.Users.FirstOrDefault(m => m.UserId == id);
 		}
 
-		public void UpdateUserOnRegiser(int id, Address address)
+		public void UpdateUserOnRegister(int id, Address address)
 		{
 			User currentUser = _entities.Users.FirstOrDefault(m => m.UserId == id);
 

@@ -74,8 +74,8 @@ namespace KalendarzKariery.Controllers
 			{
 				if (_repository.GetUserByEmail(model.User.Email) == null)
 				{
-					try
-					{
+					
+					try{
 						WebSecurity.CreateUserAndAccount(model.RegisterModel.UserName,
 														 model.RegisterModel.Password,
 														 propertyValues: new
@@ -91,7 +91,7 @@ namespace KalendarzKariery.Controllers
 						});
 
 						int id = WebSecurity.GetUserId(model.RegisterModel.UserName);
-						_repository.UpdateUserOnRegiser(id, model.Address);
+						_repository.UpdateUserOnRegister(id, model.Address);
 						WebSecurity.Login(model.RegisterModel.UserName, model.RegisterModel.Password);
 
 						return Json(new { isRegisterSuccess = true });

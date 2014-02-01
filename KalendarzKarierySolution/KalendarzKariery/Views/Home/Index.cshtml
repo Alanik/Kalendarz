@@ -16,13 +16,15 @@
 		</li>
 		<li>
 			<div class="slide-item-calendar">
+			
 				<div id="leftSideCalendar" class="side">
 				</div>
 				<div id="calendarBg">
 					<img src="~/Images/kalendarzTloClear.png" alt="background" />
 					<div class="dotted-page-overlay"></div>
+				
 					<section id="calendar">
-
+						
 						<!-- Calendar is added dynamically (calendarWidget.js)   -->
 
 					</section>
@@ -96,8 +98,8 @@
 							var height = $(this).height();
 							var offset = $(this).offset();
 
-							$container.css("left", offset.left + width);
-							$container.css("top", offset.top + height);
+							$container.css("left", offset.left - 100 + width);
+							$container.css("top", offset.top - height);
 
 							$container.find(".event-hover-name").text(name);
 							$container.find(".event-hover-adress").text(adress);

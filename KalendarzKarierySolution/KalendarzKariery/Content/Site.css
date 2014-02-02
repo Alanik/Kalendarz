@@ -464,6 +464,8 @@ body header {
 	color: rgb(155, 155, 155);
 	border: 1px solid lightgray;
 	background: rgb(243, 243, 243);
+	/*background-image: url(/Images/TestBackgrounds/KalendarzTlo4.png);
+	background-position: center;*/
 }
 
 	.add-event-fieldset label {
@@ -515,7 +517,6 @@ background:rgb(115, 233, 162);
 .cell-line-style {
 	position: absolute;
 	width: 1px;
-	display: none;
 }
 
 .event-rectangle {
@@ -532,6 +533,7 @@ background:rgb(115, 233, 162);
 	font-size: 12px;
 	line-height: 1;
 	border-bottom: 5px solid;
+	left: 0;
 }
 
 .event-rectangle-details {

@@ -121,7 +121,6 @@ function CalendarViewModel(year, month, day) {
 
 			$("#eventStartHourTxtBox").val(startEventDate);
 
-
 			var diff = Math.abs(startEventDate - endEventDate);
 			var minutes = Math.floor((diff / 1000) / 60);
 
@@ -175,8 +174,8 @@ function CalendarViewModel(year, month, day) {
 		var $cellLineStart = $cellPlaceholder.find(cellLineStart);
 		var $cellLineEnd = $cellPlaceholder.find(cellLineEnd);
 
-		var startOffset = parseFloat($cellLineStart.css("left"));
-		var endOffset = parseFloat($cellLineEnd.css("left"));
+		var startOffset = parseFloat($cellLineStart[0].style.left);
+		var endOffset = parseFloat($cellLineEnd[0].style.left);
 
 		var width = endOffset - startOffset;
 

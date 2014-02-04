@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KalendarzKarieryData
 {
-	public interface IKalendarzRepository
+	public interface IKalendarzKarieryRepository
 	{
 		User GetUserById(int id);
 		User GetUserByEmail(string email);

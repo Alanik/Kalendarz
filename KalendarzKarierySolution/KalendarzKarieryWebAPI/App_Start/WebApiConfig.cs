@@ -6,6 +6,7 @@ namespace KalendarzKarieryWebAPI.App_Start
 	{
 		public static void Register(HttpConfiguration config)
 		{
+
 			config.Routes.MapHttpRoute(
 				name: "DefaultApi",
 				routeTemplate: "api/{controller}/{id}",

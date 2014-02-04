@@ -6,7 +6,7 @@ using System.Web;
 
 namespace KalendarzKarieryData
 {
-	public class KalendarzKarieryRepository : IKalendarzRepository
+	public class KalendarzKarieryRepository : IKalendarzKarieryRepository
 	{
 		private readonly KalendarzKarieryDBEntities _entities;
 

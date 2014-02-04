@@ -90,47 +90,51 @@ function CalendarViewModel(year, month, day) {
 
 		if ($addEventForm.valid()) {
 
-			var startHourWithMinutes = $("#eventStartHourTxtBox").val();
-			var endHourWithMinutes = $("#eventEndHourTxtBox").val();
-			var startDayMonthYear = $("#Event_StartDate").val();
+			//var startHourWithMinutes = $("#eventStartHourTxtBox").val();
+			//var endHourWithMinutes = $("#eventEndHourTxtBox").val();
+			//var startDayMonthYear = $("#Event_StartDate").val();
 
-			var startTime = startHourWithMinutes.split(":");
-			var startHour = startTime[0];
-			var startMinute = startTime[1];
-			var startDateArray = startDayMonthYear.split("/");
+			//var startTime = startHourWithMinutes.split(":");
+			//var startHour = startTime[0];
+			//var startMinute = startTime[1];
+			//var startDateArray = startDayMonthYear.split("/");
 
-			var endEventDate = new Date();
-			var endTime = endHourWithMinutes.split(":");
-			var endHour = endTime[0];
-			var endMinute = endTime[1];
+			//var endEventDate = new Date();
+			//var endTime = endHourWithMinutes.split(":");
+			//var endHour = endTime[0];
+			//var endMinute = endTime[1];
 
-			var startEventDate = new Date();
+			//var startEventDate = new Date();
 
-			startEventDate.setMinutes(parseInt(startMinute));
-			startEventDate.setHours(parseInt(startHour));
+			//startEventDate.setMinutes(parseInt(startMinute));
+			//startEventDate.setHours(parseInt(startHour));
 
-			startEventDate.setDate(parseInt(startDateArray[0]));
-			startEventDate.setMonth(parseInt(startDateArray[1]));
-			startEventDate.setYear(parseInt(startDateArray[2]));
+			//startEventDate.setDate(parseInt(startDateArray[0]));
+			//startEventDate.setMonth(parseInt(startDateArray[1]));
+			//startEventDate.setYear(parseInt(startDateArray[2]));
 
-			endEventDate.setMinutes(parseInt(endMinute));
-			endEventDate.setHours(parseInt(endHour));
-			endEventDate.setDate(parseInt(startDateArray[0]));
-			endEventDate.setMonth(parseInt(startDateArray[1]));
-			endEventDate.setYear(parseInt(startDateArray[2]));
+			//endEventDate.setMinutes(parseInt(endMinute));
+			//endEventDate.setHours(parseInt(endHour));
+			//endEventDate.setDate(parseInt(startDateArray[0]));
+			//endEventDate.setMonth(parseInt(startDateArray[1]));
+			//endEventDate.setYear(parseInt(startDateArray[2]));
 
-			$("#eventStartHourTxtBox").val(startEventDate);
+			//$("#eventStartHourTxtBox").val(startEventDate);
 
-			var diff = Math.abs(startEventDate - endEventDate);
-			var minutes = Math.floor((diff / 1000) / 60);
+			//var diff = Math.abs(startEventDate - endEventDate);
+			//var minutes = Math.floor((diff / 1000) / 60);
 
+
+
+			
 			$.ajax({
 				url: action,
 				type: "POST",
-				data: $addEventForm.serialize() + "&Event.EventLengthInMinutes=" + minutes,
+				//data: $addEventForm.serialize() + "&Event.EventLengthInMinutes=" + minutes,
+				data: $addEventForm.serialize(),
 				success: function(result) {
-					if (result.isAddEventSuccess === false) {
-						alert("Nie udalo sie dodac wydarzenia!");
+					if (result.IsSuccess === false) {
+						alert(result.Message);
 					} else {
 						alert("dodane");
 					}
@@ -371,21 +375,28 @@ function CalendarViewModel(year, month, day) {
 
 	};
 
-	self.showAddEventPopupOnClick = function(element) {
-
+	self.showAddEventPopupOnClick = function(element, data, e) {
 		//var eventKind = $(element).parent().siblings(".menu-item").attr("name");
+
+		$(element).hide();
+
+		var $overlay = $("#calendar").siblings(".dotted-page-overlay");
+		$overlay.css("opacity", 1);
+		$overlay.show();
+
+		
 		var $addEventContainer = $("#add-new-event-container");
 
-		//$addEventContainer.css({
-		//	"top": "170px",
-		//	"width": "70%",
-		//	"left": "15%"
-		//});
+		var $eventStartDateTxtBox = $addEventContainer.find("#Event_StartDate");
+		var dayNumber = $(element).siblings(".day").text();
+		var dateString = dayNumber + '/' + (self.calendarPageDisplayDate.month + 1) + '/' + self.calendarPageDisplayDate.year;
+		$eventStartDateTxtBox.val(dateString);
 
-		$addEventContainer.closest(".dotted-page-overlay").show();
-		$addEventContainer.appendTo(".lobby-content-container");
-		$addEventContainer.fadeIn();
-		document.querySelector('#add-new-event-container').scrollIntoView();
+		$addEventContainer.show();
+
+		//document.querySelector('#add-new-event-container').scrollIntoView();
+
+		e.stopPropagation();
 	};
 
 	self.redisplayCalendarAtChosenMonthOnClick = function (element) {
@@ -411,14 +422,8 @@ function CalendarViewModel(year, month, day) {
 		ko.applyBindings(self, $calendar[0]);
 
 		$(".addNewEvent-cellIcon").click(function (event) {
-			$(this).hide();
-			var $overlay = $("#calendar").siblings(".dotted-page-overlay");
-			$overlay.css("opacity", 1);
-			$overlay.show();
 
-			var txtDay = $(this).parent().find(".day").text();
-			$("#hiddenDay").attr("name", txtDay);
-			$("#add-new-event-container").show();
+			self.showAddEventPopupOnClick(this);
 
 			event.stopPropagation();
 		});
@@ -426,10 +431,17 @@ function CalendarViewModel(year, month, day) {
 
 		self.calendarPageMonthEvents = self.getEventsForGivenMonth(self.calendarPageDisplayDate.month, self.calendarPageDisplayDate.year);
 
+		
 		//draw to calendar
 		ko.utils.arrayForEach(self.calendarPageMonthEvents, function(event) {		
 				self.addEventToCalendar(event);			
 		});
+	};
+
+	self.showGivenFieldInAddNewEventPopupOnClick = function(element) {
+		var $element = $(element);
+		$element.next().show();
+		$element.hide();
 	};
 
 	ko.unapplyBindings = function ($node, remove) {
@@ -504,6 +516,7 @@ function CalendarViewModel(year, month, day) {
 		self.allEvents.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 8, endHour: 17, day: 30, month: 10, year: 2014 }, "public", "Majowka", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2014 }, { kindName: "Szkolenie", color: "rgb(87, 167, 221)" }, "Sebuś"));
 		self.allEvents.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 8, endHour: 17, day: 18, month: 10, year: 2014 }, "public", "Warsztaty twojego taty", "Wroclaw, Politechnika Wroclawska", desc2, { day: 2, month: 8, year: 2014 }, { kindName: "Szkolenie", color: "rgb(87, 167, 221)" }, "Alan"));
 		self.allEvents.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 8, endHour: 17, day: 19, month: 10, year: 2014 }, "public", "Sniadanie z rektorem", "Wroclaw, Politechnika Wroclawska", desc, { day: 2, month: 8, year: 2014 }, { kindName: "Wydarzenie", color: "rgb(219, 219, 21)" }, "Anna"));
+		self.allEvents.push(new TestEvent({ startMinute: "", endMinute: "", startHour: 8, endHour: 17, day: 30, month: 10, year: 2014 }, "public", "Sniadanie z rektorem", "Wroclaw, Politechnika Wroclawska", desc, { day: 30, month: 3, year: 2014 }, { kindName: "Wydarzenie", color: "rgb(219, 219, 21)" }, "Anna"));
 	};
 
 	////////////////////////////////////////////////

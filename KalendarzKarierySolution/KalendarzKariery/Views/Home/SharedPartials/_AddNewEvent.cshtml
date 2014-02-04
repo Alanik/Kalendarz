@@ -1,9 +1,9 @@
-﻿@model KalendarzKariery.ViewModels.AddEventViewModel
+﻿@model KalendarzKarieryData.Models.ViewModels.AddEventViewModel
 
 <div id="add-new-event-container">
-	
+
 	<div class="large-popup-header">
-		<div style="width:100%;z-index:2;position:absolute;top:50px;border-top:1px solid rgb(221,221,221);border-bottom:1px solid rgb(247,247,247);"></div>
+		<div style="width: 100%; z-index: 2; position: absolute; top: 50px; border-top: 1px solid rgb(221,221,221); border-bottom: 1px solid rgb(247,247,247);"></div>
 		<div id="btnClose-AddEventContainer" class="btn-close">
 			<span class="close-text">zamknij
 			</span>
@@ -11,140 +11,154 @@
 	</div>
 
 
-	<section class="add-event-body">		<div class="add-event-form-container">
-			@using (Html.BeginForm("AddEvent", "Home", FormMethod.Post, new { id = "addEventForm" }))
-			{
+	<section class="add-event-body">
+		<div class="add-event-form-container">
+
+
+
+			@using (Html.BeginForm("Post", "api/Events", FormMethod.Post, new { id = "addEventForm" }))
+   {
 				<fieldset class="add-event-fieldset">
-					<legend>Dodaj Wydarzenie</legend>
+
+					<legend>Dodaj Wydarzenie<span style="margin-left: 10px; font-size: 20px; color: rgb(184, 184, 167);">prywatne</span></legend>
+
 					<div data-bind="with: event">
 
-						<div>
-							@*<label>Prywatne czy publiczne: </label>
-						<select id="scopeSelectBox" data-bind="value: privacyLevel">
-							<option value="private">prywatne</option>
-							<option value="public">publiczne</option>
-						</select>*@
-							@Html.LabelFor(m => m.Event.Title, new { @class = "form-label" })
-							@Html.TextBoxFor(m => m.Event.Title, new { maxlength = 30 })
-							@Html.ValidationMessageFor(m => m.Event.Title)
-						</div>
-						@*<div>
-						<label>Rodzaj: </label>
-						<selecttion value="Aktualności">aktualności</option>
-							<optio name="kindSelectBox" data-bind="value: kind.kindName">
-							<opn value="Zajęcia">zajęcia</option>
-							<option value="Szkolenie">szkolenie</option>
-							<option value="Kurs">kurs</option>
-							<option value="Wydarzenie">wydarzenie</option>
-							<option value="Spotkanie">spotkanie</option>
-							<option value="Inne">inne</option>
-						</select>
-					</div>*@
-						@*	<div>
-						<label>Nazwa: </label>
-						<input type="text" name="whatTxtBox" data-bind="value: name" />
-					</div>*@
-						<div>
-							@*<label style="vertical-align: top;">Opis: </label>
-						<textarea rows="4" cols="20" name="descriptionTxtArea" data-bind="value: description">
-						</textarea>*@
-							@Html.LabelFor(m => m.Event.Description, new { @class = "form-label", @style = "vertical-align:top;" })
-							@Html.TextAreaFor(m => m.Event.Description, new { cols = 17, rows = 2, maxlength = 100 })
-							@Html.ValidationMessageFor(m => m.Event.Description)
+						<div class="div-separator">
+							<label>Kategoria: </label>
+							<select name="kindSelectBox" data-bind="value: kind.kindName">
+								@if (User.IsInRole("Administrator"))
+		{
+									<option value="Aktualności">aktualności</option>
+		}
+								<option value="Wydarzenie">wydarzenie</option>
+								<option value="Zajęcia">zajęcia</option>
+								<option value="Szkolenie">szkolenie</option>
+								<option value="Kurs">kurs</option>
+								<option value="Spotkanie">spotkanie</option>
+								<option value="Inne">inne</option>
+							</select>
 						</div>
 
-						<div>
-							@Html.LabelFor(m => m.Event.StartDate, new { @class = "form-label" })
-							@Html.TextBoxFor(m => m.Event.StartDate, new { maxlength = 10, @value = "{0:dd/MM/yyyy}" })
-							@Html.ValidationMessageFor(m => m.Event.StartDate)
+						<div class="div-separator">
+							<div class="margin-left-150">
+								@Html.ValidationMessageFor(m => m.Event.Title)
+							</div>
+							<div>
+								@Html.LabelFor(m => m.Event.Title, new { @class = "form-label" })
+								@Html.TextBoxFor(m => m.Event.Title, new { maxlength = 30 })
+							</div>
 						</div>
 
-						<div>
-							@Html.Label("Godzina rozpoczęcia: ", new { @class = "form-label" })
-							@Html.TextBox("eventStartHourTxtBox", "", new { maxlength = 5, @name = "startHour" })
-							@*@Html.ValidationMessageFor(m => m.Event.StartDate)*@
+						<div class="div-separator">
+							<div style="display: inline-block;">
+								<label>Godzina rozpoczęcia: </label>
+								<select id="startHourSelectBox" data-bind="value: date.startHour">
+									@for (int i = 7; i < 22; i++)
+		 {
+										<option value="@i">@i</option>
+		 }
+								</select>
+							</div>
+							<div style="display: inline-block;">
+								<span>: </span>
+								<select id="startMinuteSelectBox" data-bind="value: date.startMinute">
+									@for (int i = 0; i < 60; i++)
+		 {
+										<option value="@i">@i</option>
+		 }
+
+								</select>
+							</div>
 						</div>
-						<div>
-							@Html.Label("Godzina zakończenia: ", new { @class = "form-label" })
-							@Html.TextBox("eventEndHourTxtBox", "", new { maxlength = 5, @name = "endHour" })
-							@*@Html.ValidationMessageFor(m => m.Event.StartDate)*@
+						<div class="div-separator">
+							<div style="display: inline-block;">
+								<label>Godzina zakończenia: </label>
+								<select id="endHourSelectBox" data-bind="value: date.endHour">
+									@for (int i = 7; i < 22; i++)
+		 {
+										<option value="@i">@i</option>
+		 }
+								</select>
+							</div>
+							<div style="display: inline-block;">
+								<span>: </span>
+								<select id="endMinuteSelectBox" data-bind="value: date.endMinute">
+									@for (int i = 0; i < 60; i++)
+		 {
+										<option value="@i">@i</option>
+		 }
+
+								</select>
+							</div>
 						</div>
 
-						<div>
-							@Html.LabelFor(m => m.Address.Street, new { @class = "form-label" })
-							@Html.TextBoxFor(m => m.Address.Street, new { maxlength = 30 })
-							@Html.ValidationMessageFor(m => m.Address.Street)
+						<div class="div-separator">
+							<div class="margin-left-150">
+								@Html.ValidationMessageFor(m => m.Event.StartDate)
+							</div>
+							<div>
+								@Html.LabelFor(m => m.Event.StartDate, new { @class = "form-label" })
+								@Html.TextBoxFor(m => m.Event.StartDate, "{0:dd/MM/yyyy}", new { maxlength = 10, @size = 7 })
+							</div>
 						</div>
-						<div>
-							@Html.LabelFor(m => m.Address.City, new { @class = "form-label" })
-							@Html.TextBoxFor(m => m.Address.City, new { maxlength = 30 })
-							@Html.ValidationMessageFor(m => m.Address.City)
-						</div>
-						<div>
-							@Html.LabelFor(m => m.Address.ZipCode, new { @class = "form-label" })
-							@Html.TextBoxFor(m => m.Address.ZipCode, new { maxlength = 30 })
-							@Html.ValidationMessageFor(m => m.Address.ZipCode)
-						</div>
-						<div>
 
+						<div id="addNewEventAddressLink" class="div-separator margin-left-150"  data-bind="click: function(){ $root.showGivenFieldInAddNewEventPopupOnClick($element)}">
+							<p class="underline">Dodaj adres</p>
+						</div>
+
+						<div id="addNewEventAddressContainer" class="div-separator"  style="display: none;">
+							<div>
+								@Html.LabelFor(m => m.Address.Street, new { @class = "form-label" })
+								@Html.TextBoxFor(m => m.Address.Street, new { maxlength = 30 })
+								@Html.ValidationMessageFor(m => m.Address.Street)
+							</div>
+							<div>
+								@Html.LabelFor(m => m.Address.City, new { @class = "form-label" })
+								@Html.TextBoxFor(m => m.Address.City, new { maxlength = 30 })
+								@Html.ValidationMessageFor(m => m.Address.City)
+							</div>
+							<div>
+								@Html.LabelFor(m => m.Address.ZipCode, new { @class = "form-label" })
+								@Html.TextBoxFor(m => m.Address.ZipCode, new { maxlength = 6, @size=4 })
+								@Html.ValidationMessageFor(m => m.Address.ZipCode)
+							</div>
+						</div>
+						
+						<div id="addNewEventDescriptionLink" class="div-separator margin-left-150" data-bind="click: function () { $root.showGivenFieldInAddNewEventPopupOnClick($element) }">
+							<p class="underline">Dodaj opis</p>
+						</div>
+
+						<div id="addNewEventDescriptionContainer" class="div-separator" style="display: none;">
+							<div>
+								@Html.LabelFor(m => m.Event.Description, new { @class = "form-label", @style = "vertical-align:top;" })
+								@Html.TextAreaFor(m => m.Event.Description, new { cols = 30, rows = 3, maxlength = 100 })
+								@Html.ValidationMessageFor(m => m.Event.Description)
+							</div>
+						</div>
+
+						<div id="addNewEventDetailsLink" class="div-separator margin-left-150" data-bind="click: function () { $root.showGivenFieldInAddNewEventPopupOnClick($element) }">
+							<p class="underline">Dodaj szczegóły</p>
+						</div>
+
+						<div id="btnAddNewEventDetailsContainer" class="div-separator" style="display: none;">
 							@Html.LabelFor(m => m.Event.Details, new { @class = "form-label", @style = "vertical-align:top;" })
-							@Html.TextAreaFor(m => m.Event.Details, new { cols = 17, rows = 5, maxlength = 500 })
+							@Html.TextAreaFor(m => m.Event.Details, new { cols = 30, rows = 5, maxlength = 500 })
 							@Html.ValidationMessageFor(m => m.Event.Details)
 						</div>
-
-						@*<div style="display: inline-block;">
-						<label>zaczyna się o godzinie: </label>
-						<select id="startHourSelectBox" data-bind="value: date.startHour">
-							<option value="7">7</option>
-							<option value="8">8</option>
-							<option value="9">9</option>
-							<option value="10">10</option>
-							<option value="11">11</option>
-							<option value="12">12</option>
-							<option value="13">13</option>
-							<option value="14">14</option>
-							<option value="15">15</option>
-							<option value="16">16</option>
-							<option value="17">17</option>
-							<option value="18">18</option>
-							<option value="19">19</option>
-							<option value="20">20</option>
-							<option value="21">21</option>
-						</select>
-					</div>
-					<div style="display: inline-block;">
-						<label>kończy się o godzinie: </label>
-						<select id="endHourSelectBox" data-bind="value: date.endHour">
-							<option value="7">7</option>
-							<option value="8">8</option>
-							<option value="9">9</option>
-							<option value="10">10</option>
-							<option value="11">11</option>
-							<option value="12">12</option>
-							<option value="13">13</option>
-							<option value="14">14</option>
-							<option value="15">15</option>
-							<option value="16">16</option>
-							<option value="17">17</option>
-							<option value="18">18</option>
-							<option value="19">19</option>
-							<option value="20">20</option>
-							<option value="21">21</option>
-						</select>
-					</div>*@
 
 						@*<div>
 						<label>Dodane przez: </label>
 						<input type="text" data-bind="value: author" />
-					</div>*@
+						</div>*@
 
 					</div>
 
 					<input type="hidden" name="" id="hiddenDay" />
 
-					<button id="btnAddNewEvent" class="myButton-white" data-bind="click: $root.addEventOnClick.bind($data, $data.privacyLevels.public)">Dodaj</button>
+					<button id="btnAddNewEvent" class="myButton-white margin-left-150" data-bind="click: $root.addEventOnClick.bind($data, $data.privacyLevels.public)">Dodaj</button>
 				</fieldset>
-			}
+   }
 		</div>
 	</section>
 </div>

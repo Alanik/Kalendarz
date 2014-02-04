@@ -23,12 +23,12 @@ namespace KalendarzKariery
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 			AuthConfig.RegisterAuth();
-			InitializeMembership.SeedMembership();
+			//InitializeMembership.SeedMembership();
 
 			RazorViewEngine razorEngine = ViewEngines.Engines.OfType<RazorViewEngine>().FirstOrDefault();
 			if (razorEngine != null)
 			{
-				string[] newPartialViewFormats = new[] { 
+				var newPartialViewFormats = new[] { 
 					"~/Views/Home/LobbyPage/{0}.cshtml",
 					 "~/Views/Home/CalendarPage/{0}.cshtml",
 					 "~/Views/Home/DetailsPage/{0}.cshtml",
@@ -36,8 +36,6 @@ namespace KalendarzKariery
 			};
 				razorEngine.PartialViewLocationFormats =
 					razorEngine.PartialViewLocationFormats.Union(newPartialViewFormats).Reverse().ToArray();
-
-					var formats = razorEngine.PartialViewLocationFormats;
 			}
         }
     }

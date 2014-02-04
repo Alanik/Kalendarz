@@ -1,5 +1,5 @@
 ﻿
-using KalendarzKariery.ViewModels;
+using KalendarzKarieryData.Models.ViewModels;
 using System.Web.Mvc;
 
 namespace KalendarzKariery.Controllers

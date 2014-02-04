@@ -6,10 +6,10 @@ using System.Web.Security;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
-using KalendarzKariery.BO.ExtentionMethods;
 using KalendarzKarieryData;
-using KalendarzKariery.ViewModels;
+using KalendarzKarieryData.Models.ViewModels;
 using KalendarzKarieryData.Models.AccountModels;
+using KalendarzKariery.BO.ExtentionMethods;
 using System.Linq;
 
 

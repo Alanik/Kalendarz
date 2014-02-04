@@ -34,7 +34,7 @@
 
 		//calendar += ('<div class="calendar-eventSummary-btn"><img src="/images/Icons/list-icon.png" alt="triangle"/></div><div class="nav-prev" data-bind="click: $root.showPreviousMonthOnPrevMonthBtnClick" ><img src="/images/Icons/triangle-left.png" alt="triangle"/></div>');
 
-		calendar += ('<div style="color:rgb(81, 228, 163);display:inline-block;font-size:18px;letter-spacing:1px;padding-top: 5px;padding-bottom: 4px;padding-right: 5px;padding-left: 5px;background:white;">' + today + '</div>');
+		calendar += ('<div style="box-shadow:0px 5px 20px -5px rgb(151, 151, 151);color:rgb(81, 228, 163);display:inline-block;font-size:18px;letter-spacing:1px;padding-top: 5px;padding-bottom: 4px;padding-right: 5px;padding-left: 5px;background:white;">' + today + '</div>');
 
 		for (var j = 0; j < monthNames.length; j++) {
 
@@ -104,15 +104,17 @@
 				calendar += '<div class="calendar-row">';
 			}
 
+			//<div class="addNewEvent-cellIcon dark-icon" data-bind="click:function(data, e){$root.showAddEventPopupOnClick($element, data, e)}" >+</div>
+
 			if (j < firstDay) {
-				calendar += ('<div class="other-month-cell calendar-cell"><div class="calendar-cell-placeholder"><div class="cell-span-container" style="position:relative;"><span class="day">' + (prev_days - firstDay + j + 1) + '</span><div class="addNewEvent-cellIcon dark-icon">+</div></div></div></div>');
+				calendar += ('<div class="other-month-cell calendar-cell"><div class="calendar-cell-placeholder"><div class="cell-span-container" style="position:relative;"><span class="day">' + (prev_days - firstDay + j + 1) + '</span></div></div></div>');
 
 			} else if (j >= firstDay + getDaysInMonth(month, year)) {
 				i = i + 1;
-				calendar += ('<div class="other-month-cell calendar-cell"><div class="calendar-cell-placeholder"><div class="cell-span-container" style="position:relative;"><span class="day">' + i + '</span><div class="addNewEvent-cellIcon dark-icon">+</div></div></div></div>');
+				calendar += ('<div class="other-month-cell calendar-cell"><div class="calendar-cell-placeholder"><div class="cell-span-container" style="position:relative;"><span class="day">' + i + '</span></div></div></div>');
 
 			} else {
-				calendar += ('<div class="current-month-cell  calendar-cell day' + (j - firstDay + 1) + '" dayNumber="' + (j - firstDay + 1) + '" data-bind="click:function(){ $root.moveToDetailsPageOnCalendarCellClick($element) }"><div class="calendar-cell-placeholder"><div class="cell-span-container" style="position:relative;"><span class="day">' + (j - firstDay + 1) + '</span><div class="addNewEvent-cellIcon light-icon" >+</div></div></div></div>');
+				calendar += ('<div class="current-month-cell  calendar-cell day' + (j - firstDay + 1) + '" dayNumber="' + (j - firstDay + 1) + '" data-bind="click:function(){ $root.moveToDetailsPageOnCalendarCellClick($element) }"><div class="calendar-cell-placeholder"><div class="cell-span-container" style="position:relative;"><span class="day">' + (j - firstDay + 1) + '</span><div class="addNewEvent-cellIcon light-icon" data-bind="click:function(data, e){ $root.showAddEventPopupOnClick($element, data, e)}">+</div></div></div></div>');
 			}
 
 			if (j % 7 == 6) calendar += ('</div>');

@@ -18,6 +18,10 @@ header, footer, nav, section, div {
 	margin: 0;
 }
 
+.underline {
+	text-decoration: underline;
+}
+
 /* Kalendarz Kariery
 -----------------------------------------------------------*/
 
@@ -143,8 +147,6 @@ body header {
 	}
 
 #btnAddNewEvent {
-	position: relative;
-	left: 220px;
 	margin-top: 20px;
 }
 
@@ -296,6 +298,7 @@ body header {
 	background-color: rgb(253,253,253);
 	box-shadow: rgb(235, 235, 235) 0px 3px 5px;
 	color: black;
+	position: relative;
 }
 
 	.current-month-cell span {
@@ -416,7 +419,7 @@ body header {
 	top: 25px;
 	padding-top: 20px;
 	position: absolute;
-	background: white;
+	background: rgb(247,247,247);
 	z-index: 4;
 	width: 80%;
 	margin-left: 10%;
@@ -455,7 +458,7 @@ body header {
 .add-event-body {
 	height: auto;
 	color: rgb(216, 216, 216);
-	margin-top: 30px;
+	margin-top: 20px;
 }
 
 .add-event-fieldset {
@@ -477,6 +480,7 @@ body header {
 		font-size: 2em;
 		position: relative;
 		bottom: 12px;
+		color: rgb(102, 221, 188);
 	}
 
 .add-event-form-container {
@@ -629,6 +633,10 @@ background:rgb(115, 233, 162);
 	width: 24%;
 }
 
+.margin-left-150 {
+	margin-left: 150px;
+}
+
 .current-weekday {
 	color: rgb(81, 228, 163);
 }
@@ -647,6 +655,7 @@ background:rgb(115, 233, 162);
 	padding-left: 5px;
 	padding-right: 5px;
 	font-size: 18px;
+	box-shadow: 0px 5px 20px -5px rgb(151, 151, 151);
 }
 
 #showRegisterFormBtn {
@@ -658,13 +667,14 @@ background:rgb(115, 233, 162);
 .lobby-profile-menu {
 	margin-right: 8%;
 	float: right;
-	background: rgb(228,228,228);
+	background: rgba(0,0,0,.04);
 	display: inline-block;
 	width: 50%;
 	color: rgb(104,104,104);
 	border: 1px solid rgb(216, 255, 232);
 	margin-top: 163px;
 	height: 200px;
+	box-shadow: 0px 0px 30px -6px rgb(111, 111, 111)
 }
 
 
@@ -706,6 +716,10 @@ background:rgb(115, 233, 162);
 
 .padding-top-ten {
 	padding-top: 10px;
+}
+
+.div-separator {
+	margin-top: 10px;
 }
 
 .event-list {
@@ -839,6 +853,7 @@ wydarzenia-tab {
 	color: rgb(81, 228, 163);
 	padding: 10px 5px 5px 5px;
 	background: white;
+	box-shadow: 0px 5px 20px -5px rgb(151, 151, 151);
 }
 
 .calendar-eventSummary-btn {
@@ -956,9 +971,13 @@ wydarzenia-tab {
 
 
 
+/*
+helpers
+*/
 
-
-
+.text-align-center {
+	text-align: center;
+}
 
 
 
@@ -1022,11 +1041,12 @@ Slider
 		}
 
 .slides-pagination {
-	position: absolute;
+	position: relative;
 	z-index: 3;
 	top: 0;
 	text-align: center;
-	width: 100%;
+	width: 100px;
+	margin: 0 auto;
 }
 
 	.slides-pagination a {
@@ -1066,11 +1086,6 @@ textarea {
 .editor-field {
 	margin: 0.5em 0 0 0;
 }
-
-a {
-	color: white;
-}
-
 
 /* Styles for validation helpers
 -----------------------------------------------------------*/

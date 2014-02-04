@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
-
 using System.Web.Routing;
 using KalendarzKarieryWebAPI.App_Start;
 
@@ -16,7 +15,8 @@ namespace KalendarzKarieryWebAPI
 	{
 		protected void Application_Start()
 		{
-			WebApiConfig.Register(GlobalConfiguration.Configuration);
+			//moved to KalendarzKariery Global.asax AplicationStart()
+			//WebApiConfig.Register(GlobalConfiguration.Configuration);
 		}
 	}
 }

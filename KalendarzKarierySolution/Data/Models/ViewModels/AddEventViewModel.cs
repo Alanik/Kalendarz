@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace KalendarzKariery.ViewModels
+namespace KalendarzKarieryData.Models.ViewModels
 {
 	public class AddEventViewModel
 	{

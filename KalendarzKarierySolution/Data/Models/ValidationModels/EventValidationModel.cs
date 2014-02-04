@@ -14,19 +14,20 @@ namespace KalendarzKarieryData
 
 	public class Event_Validation
 	{
-		[DataType(DataType.Date)]
+		[DataType(DataType.Date, ErrorMessage = "Podana data jest nieprawidłowa.")]
 		[Required(ErrorMessage = "Pole \"Data\" nie może być puste.")]
-		[Display(Name = "Data")]
+		[Display(Name = "Data:")]
 		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
 		public DateTime StartDate { get; set; }
 
-		[Display(Name = "Tytuł")]
+		[Display(Name = "Tytuł:")]
 		[Required(ErrorMessage = "Pole \"Tytuł\" nie może być puste.")]
 		public string Title { get; set; }
 
-		[Display(Name = "Opis")]
-		[Required(ErrorMessage = "Pole \"Opis\" nie może być puste.")]
+		[Display(Name = "Krótki opis:")]
 		public string Description { get; set; }
 
+		[Display(Name = "Szczegóły:")]
+		public string Details { get; set; }
 	}
 }

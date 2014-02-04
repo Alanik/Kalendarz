@@ -1,7 +1,7 @@
 ﻿using KalendarzKarieryData;
 using KalendarzKarieryData.Models.AccountModels;
 
-namespace KalendarzKariery.ViewModels
+namespace KalendarzKarieryData.Models.ViewModels
 {
 	public class RegisterViewModel
 	{

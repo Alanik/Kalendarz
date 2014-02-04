@@ -5,7 +5,7 @@
 		<li>
 			<div class="slide-item-lobby">
 				<div id="lobbyBg">
-					<img src="~/Images/kalendarzTloClear.png" alt="background" style="top:0 !important"/>
+					<img src="~/Images/kalendarzTloClear.png" alt="background" style="top: 0 !important" />
 					<div class="dotted-page-overlay"></div>
 					<section id="lobby">
 						@Html.Partial("_Lobby")
@@ -16,15 +16,14 @@
 		</li>
 		<li>
 			<div class="slide-item-calendar">
-			
 				<div id="leftSideCalendar" class="side">
 				</div>
 				<div id="calendarBg">
 					<img src="~/Images/kalendarzTloClear.png" alt="background" />
 					<div class="dotted-page-overlay"></div>
-				
+
 					<section id="calendar">
-						
+
 						<!-- Calendar is added dynamically (calendarWidget.js)   -->
 
 					</section>
@@ -62,9 +61,9 @@
 				var $lobby = $("#lobby");
 				var date = new Date();
 
-				$calendar.calendarWidget({ month:11, year:2014 });
+				$calendar.calendarWidget({ month: 1, year: 2014 });
 				var calendarViewModel = new CalendarViewModel(2014, date.getMonth(), date.getDate());
-				
+
 
 				ko.applyBindings(calendarViewModel);
 
@@ -80,6 +79,52 @@
 				$calendar.append('<div class="calendar-navigation-arrows-right"><img src="Images/Nav/arrow-Right.png" alt="arrow-Right"/></div>');
 				$details.append('<div class="details-navigation-arrows-left"><img src="Images/Nav/arrow-Left.png" alt="arrow-Left"/></div>');
 				$lobby.append('<div class="lobby-navigation-arrows-right"><img src="Images/Nav/arrow-Right.png" alt="arrow-Right"/></div>');
+
+				(function overrideAspMvcDateValidation() {
+
+					$.validator.addMethod(
+		   "date",
+		   function (value, element) {
+		   	
+		   	//Return            NB: isRequired is not checked at this stage
+		   	return (value == "") ? true : isDate(value);
+		   },
+		   "* invalid"
+	   );
+
+					//Validates a date input -- http://jquerybyexample.blogspot.com/2011/12/validate-date-    using-jquery.html
+					function isDate(txtDate) {
+						var currVal = txtDate;
+						if (currVal == '')
+							return false;
+
+						//Declare Regex  
+						var rxDatePattern = /^(\d{1,2})(\/|-)(\d{1,2})(\/|-)(\d{4})$/;
+						var dtArray = currVal.match(rxDatePattern); // is format OK?
+
+						if (dtArray == null)
+							return false;
+
+						//Checks for dd/mm/yyyy format.
+						var dtDay = dtArray[1];
+						var dtMonth = dtArray[3];
+						var dtYear = dtArray[5];
+
+						if (dtMonth < 1 || dtMonth > 12)
+							return false;
+						else if (dtDay < 1 || dtDay > 31)
+							return false;
+						else if ((dtMonth == 4 || dtMonth == 6 || dtMonth == 9 || dtMonth == 11) && dtDay == 31)
+							return false;
+						else if (dtMonth == 2) {
+							var isleap = (dtYear % 4 == 0 && (dtYear % 100 != 0 || dtYear % 400 == 0));
+							if (dtDay > 29 || (dtDay == 29 && !isleap))
+								return false;
+						}
+
+						return true;
+					}
+				}());
 
 				this.Initialize.InitializeHover = function () {
 
@@ -421,19 +466,19 @@
 						window.location = "#1";
 					});
 
-					$(".addNewEvent-cellIcon").click(function (event) {
-						$(this).hide();
+					//$(".addNewEvent-cellIcon").click(function (event) {
+					//	$(this).hide();
 
-						var $overlay = $("#calendar").siblings(".dotted-page-overlay");
-						$overlay.css("opacity", 1);
-						$overlay.show();
+					//	var $overlay = $("#calendar").siblings(".dotted-page-overlay");
+					//	$overlay.css("opacity", 1);
+					//	$overlay.show();
 
-						var txtDay = $(this).parent().find(".day").text();
-						$("#hiddenDay").attr("name", txtDay);
-						$("#add-new-event-container").show();
+					//	var txtDay = $(this).parent().find(".day").text();
+					//	$("#hiddenDay").attr("name", txtDay);
+					//	$("#add-new-event-container").show();
 
-						event.stopPropagation();
-					});
+					//	event.stopPropagation();
+					//});
 
 					$("#btnClose-AddEventContainer").click(function () {
 						var $overlay = $("#calendar").siblings(".dotted-page-overlay");

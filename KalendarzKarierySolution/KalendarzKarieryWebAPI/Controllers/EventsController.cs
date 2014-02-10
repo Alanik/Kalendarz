@@ -19,18 +19,6 @@ namespace KalendarzKarieryWebAPI.Controllers
 		// GET api/events
 		public DefaultResponseModel Get()
 		{
-
-			string alan;
-
-			if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
-			{
-				alan = "alan";
-			}
-			else
-			{
-				alan = "false";
-			}
-
 			var defaultResponse = new DefaultResponseModel() { IsSuccess = true };
 			return defaultResponse;
 		}

@@ -2,91 +2,74 @@
 function CalendarViewModel(year, month, day) {
 	var self = this;
 
-	self.event = {
-		title: "",
-		date: {
-			startMinute: "",
-			endMinute: "",
-			startHour: "",
-			endHour: "",
-			day: "",
-			month: "",
-			year: ""
-		},
-		privacyLevel: "",
-		address: "",
-		description: "",
-		details: "",
-		kind: {
-			index: "",
-			color: ""
-		},
-		dateAdded: {
-			day: "",
-			month: "",
-			year: ""
-		},
-		addedBy: ""
-	};
+	self.event = new KKEvent();
 
 	self.privacyLevels = {
-		"public": 1,
-		"private": 2
+		"public" : 1,
+		"private" : 2
 	};
+
+	self.kinds = [
+		"aktualności",
+		"wydarzenie",
+		"zajęcia",
+		"szkolenie",
+		"kurs",
+		"spotkanie",
+		"inne"
+	];
 
 	self.detailsPageDisplayDate = {
 		events: [],
 		date: {
-			day: "",
-			month: "",
-			year: ""
+			"day" : "",
+			"month" : "",
+			"year" : ""
 		}
 	};
 
 	self.calendarPageDisplayDate = {
-		year: year,
-		month: month,
-		day: day
+		"year" : year,
+		"month" : month,
+		"day" : day
 	};
 
 	self.AddNewEvent_Day = 0;
 
-	self.calendarPageMonthEvents = ko.observableArray([
+	//self.calendarPageMonthEvents = ko.observableArray([
+	//]);
 
-	]);
+	//self.userPrivateEvents = ko.observableArray([
+	//]);
 
-	self.userPrivateEvents = ko.observableArray([
+	//self.publicEvents = ko.observableArray([
+	//]);
 
-	]);
-
-	self.publicEvents = ko.observableArray([
-	]);
+	self.calendarPageMonthEvents = [];
+	self.userPrivateEvents = [];
+	self.publicEvents = [];
 
 	//////////////////////////////////////////////////////////
 	// METHODS 
 	//////////////////////////////////////////////////////////
 
 	self.getEventsForGivenMonth = function (events, month, year) {
-		return ko.utils.arrayFilter(events, function(item) {
-			return item.date.month === month && item.date.year === year;
+		console.log(events);
+		return ko.utils.arrayFilter(events, function (item) {
+			console.log(item.startDate.month + ", " + month);
+			return item.startDate.month == month && item.startDate.year == year;
 		});
 	};
 
-	self.getEventsForGivenDay = function (eventsInMonth, day) {
+	self.getEventsForGivenDay = function (events, day) {
 		var intDay = parseInt(day);
 
-		return ko.utils.arrayFilter(eventsInMonth, function(item) {
-			return item.date.day === intDay;
+		return ko.utils.arrayFilter(events, function(item) {
+			return item.startDate.day === intDay;
 		});
 	};
 
-	self.addEventOnClick = function(privacyLevel) {
-
-		//var date = new Date();
-		//self.event.dayAdded = date.getDay();
-		//self.event.kind.color = self.calculateColor(event.kind.kindName);
-		//self.events.unshift(event);
-
+	self.addEventOnClick = function () {
 		var $addEventForm = $("#addEventForm");
 		var action = $addEventForm.attr("action");
 
@@ -142,14 +125,14 @@ function CalendarViewModel(year, month, day) {
 		return false;
 	};
 
-	self.addEventToCalendar = function (event) {
-		//console.log(event);
+	self.drawEventToCalendar = function(event) {
+		console.log(event);
 		$("#add-new-event-container").hide();
 
-		var cellDay = ".day" + event.date.day;
+		var cellDay = ".day" + event.startDate.day;
 		var $cellPlaceholder = $("#calendar").find(cellDay).find(".calendar-cell-placeholder");
-		var cellLineStart = ".cell-line" + event.date.startHour; //$("#startHourSelectBox").find(":selected").text();
-		var cellLineEnd = ".cell-line" + event.date.endHour; //$("#endHourSelectBox").find(":selected").text();
+		var cellLineStart = ".cell-line" + event.startDate.startHour;
+		var cellLineEnd = ".cell-line" + event.startDate.endHour;
 
 		var $cellLineStart = $cellPlaceholder.find(cellLineStart);
 		var $cellLineEnd = $cellPlaceholder.find(cellLineEnd);
@@ -158,8 +141,9 @@ function CalendarViewModel(year, month, day) {
 		var endOffset = parseFloat($cellLineEnd[0].style.left);
 
 		var width = endOffset - startOffset;
+		var addressStr = typeof event.address == "undefined" ? event.address.street + ", " + event.address.city : "";
 
-		var $event = $('<div class="event-rectangle" style="left:' + startOffset + '%; width:' + width + '%; border-color:' + event.kind.color + ' ">' + event.title + '<input type="hidden" name="' + event.title + '" adress="' + event.address + '" startHour="' + event.date.startHour + '" endHour="' + event.date.endHour + '" ></input></div>');
+	var $event = $('<div class="event-rectangle" style="left:' + startOffset + '%; width:' + width + '%; border-color:' + event.kind.color + ' ">' + event.title + '<input type="hidden" name="' + event.title + '" adress="'+ addressStr +'" startHour="' + event.startDate.startHour + '" endHour="' + event.startDate.endHour + '" ></input></div>');
 
 		$cellPlaceholder.append($event);
 
@@ -173,10 +157,10 @@ function CalendarViewModel(year, month, day) {
 	};
 
 	self.addEventToDetailsDay = function(event) {
-		var $hourCell = $(".hour-cell-" + event.date.startHour);
-		var startMinuteOffset = event.date.startMinute / 60 * 100;
-		var endMinuteOffset = event.date.endMinute / 60 * 100;
-		var width = ((event.date.endHour - event.date.startHour) * 100) - startMinuteOffset + endMinuteOffset;
+		var $hourCell = $(".hour-cell-" + event.startDate.startHour);
+		var startMinuteOffset = event.startDate.startMinute / 60 * 100;
+		var endMinuteOffset = event.startDate.endMinute / 60 * 100;
+		var width = ((event.startDate.endHour - event.startDate.startHour) * 100) - startMinuteOffset + endMinuteOffset;
 
 		$hourCell.append('<div class="event-rectangle-details" style="width:' + width + '%;left:' + startMinuteOffset + '%;border-color:' + event.kind.color + ';"><span>' + event.title + '</span></div>');
 	};
@@ -190,7 +174,10 @@ function CalendarViewModel(year, month, day) {
 		self.removeEventRectanglesFromDetailsDay();
 
 		var day = $(element).attr("dayNumber");
-		var monthEvents = self.getEventsForGivenMonth(self.userPrivateEvents(), self.calendarPageDisplayDate.month, self.calendarPageDisplayDate.year);
+
+		console.log(self.userPrivateEvents);
+
+		var monthEvents = self.getEventsForGivenMonth(self.userPrivateEvents, self.calendarPageDisplayDate.month, self.calendarPageDisplayDate.year);
 
 		//console.log(monthEvents);
 
@@ -224,8 +211,8 @@ function CalendarViewModel(year, month, day) {
 
 		//draw to calendar
 		ko.utils.arrayForEach(eventsInMonth, function(event) {
-			if (event.date.month === self.calendarPageDisplayDate.month && event.date.year === self.calendarPageDisplayDate.year) {
-				self.addEventToCalendar(event);
+			if (event.startDate.month === self.calendarPageDisplayDate.month && event.startDate.year === self.calendarPageDisplayDate.year) {
+				self.drawEventToCalendar(event);
 			}
 		});
 	};
@@ -251,8 +238,8 @@ function CalendarViewModel(year, month, day) {
 
 		//draw to calendar
 		ko.utils.arrayForEach(eventsInMonth, function(event) {
-			if (event.date.month === self.calendarPageDisplayDate.month && event.date.year === self.calendarPageDisplayDate.year) {
-				self.addEventToCalendar(event);
+			if (event.startDate.month === self.calendarPageDisplayDate.month && event.startDate.year === self.calendarPageDisplayDate.year) {
+				self.drawEventToCalendar(event);
 			}
 		});
 
@@ -405,11 +392,11 @@ function CalendarViewModel(year, month, day) {
 			event.stopPropagation();
 		});
 
-		self.calendarPageMonthEvents = self.getEventsForGivenMonth(self.calendarPageDisplayDate.month, self.calendarPageDisplayDate.year);
+		self.calendarPageMonthEvents = self.getEventsForGivenMonth(self.userPrivateEvents, self.calendarPageDisplayDate.month, self.calendarPageDisplayDate.year);
 
 		//draw to calendar
 		ko.utils.arrayForEach(self.calendarPageMonthEvents, function(event) {		
-				self.addEventToCalendar(event);			
+			self.drawEventToCalendar(event);			
 		});
 	};
 
@@ -503,13 +490,13 @@ function CalendarViewModel(year, month, day) {
 
 	//self.AddTestEvents();
 
-	var eventsInMonth = self.getEventsForGivenMonth(self.calendarPageDisplayDate.month, self.calendarPageDisplayDate.year);
+	var eventsInMonth = self.getEventsForGivenMonth(self.userPrivateEvents, self.calendarPageDisplayDate.month, self.calendarPageDisplayDate.year);
 
 	//draw to calendar
 	//ko.utils.arrayForEach(eventsInMonth, function (event) {
-	//	if (event.date.month === self.calendarPageDisplayDate.month && event.date.year === self.calendarPageDisplayDate.year) {
+	//	if (event.startDate.month === self.calendarPageDisplayDate.month && event.startDate.year === self.calendarPageDisplayDate.year) {
 
-	//		self.addEventToCalendar(event);			
+	//		self.drawEventToCalendar(event);			
 	//	}
 	//});
 
@@ -517,6 +504,7 @@ function CalendarViewModel(year, month, day) {
 
 	for (var i in eventsInToday) {
 		self.addEventToDetailsDay(eventsInToday[i]);
-	}
-}
 
+	}
+
+}

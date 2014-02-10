@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace KalendarzKarieryData.Models.ViewModels
 {
-	class IndexViewModel
+	public class IndexViewModel
 	{
-
-
-
+		public IList<Event> UserPrivateEvents { get; set; }
+		public IList<Event> PublicEvents { get; set; }
 	}
 }

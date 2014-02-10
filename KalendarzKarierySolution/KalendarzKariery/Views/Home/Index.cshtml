@@ -52,70 +52,7 @@
 	</ul>
 </div>
 
-<script type="text/javascript">
-	userEvents = @Html.Raw(@Model);
-	var date;
-	var time;
-	var dateStr;
-	var event;
-
-	for (var i = 0; i < userEvents.length; i++) {
-		event = userEvents[i];
-
-		dateStr = event.StartDate.replace('T', ' ');
-		date = new Date(Date.parse(dateStr));
-
-		var transformedDate = {
-			"startMinute": date.getMinutes(),
-			"endMinute": 0,
-			"startHour": date.getHours(),
-			"endHour": 20,
-			"day": date.getDate(),
-			"month": date.getMonth(),
-			"year": date.getFullYear()
-		};
-
-		event.date = transformedDate;
-		delete event.StartDate;
-	}
-	var index = event.kind;
-	event.kind = {
-		"index": index,
-		"color": calculateColor(index)
-	};
-
-	event.title = event.Title;
-	delete event.Title;
-
-	if (event.Addresses.length == 0) {
-		event.address = " -";
-	} else {
-		event.address = event.Addresses[0];
-	}
-
-	//TODO temporary
-	delete event.Addresses;
-
-	function calculateColor(kind) {
-		switch (kind) {
-			case 0:
-				return "rgb(68, 219, 93)";
-			case 1:
-				return "rgb(87, 167, 221)";
-			case 2:
-				return "rgb(54, 54, 54)";
-			case 3:
-				return "rgb(219, 219, 21)";
-			case 4:
-				return "rgb(253, 104, 170)";
-			case 5:
-				return "rgb(108, 255, 225)";
-			default:
-				return "rgb(250, 84, 84)";
-		}			
-	}
-
-</script>
+<script src="~/Scripts/Helpers/CalendarViewModelConverter.js"></script>
 
 <script type="text/javascript">
 
@@ -136,12 +73,19 @@
 				var calendarViewModel = new CalendarViewModel(date.getFullYear(), date.getMonth(), date.getDate());
 				ko.applyBindings(calendarViewModel);
 
-				ko.utils.arrayForEach(userEvents, function (event) {
+				var indexViewModel = @Html.Raw(@Model);
 
+				var serverUserPrivateEvents = indexViewModel.UserPrivateEvents;
+				var serverPublicEvents = indexViewModel.PublicEvents;
+
+				var CvmConverter = new CalendarViewModelConverter();
+				var userPrivateEvents = CvmConverter.getCalendarViewModelEventList(serverUserPrivateEvents);
+			
+				ko.utils.arrayForEach(userPrivateEvents, function (event) {
 					calendarViewModel.userPrivateEvents.push(event);
 
-					if(event.date.month === calendarViewModel.calendarPageDisplayDate.month && event.date.year === calendarViewModel.calendarPageDisplayDate.year) {
-						calendarViewModel.addEventToCalendar(event);
+					if(event.startDate.month === calendarViewModel.calendarPageDisplayDate.month && event.startDate.year === calendarViewModel.calendarPageDisplayDate.year) {
+						calendarViewModel.drawEventToCalendar(event);
 					}
 				});
 

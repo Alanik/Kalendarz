@@ -14,8 +14,6 @@
 	<section class="add-event-body">
 		<div class="add-event-form-container">
 
-
-
 			@using (Html.BeginForm("Post", "api/Events", FormMethod.Post, new { id = "addEventForm" }))
    {
 				<fieldset class="add-event-fieldset">
@@ -27,10 +25,6 @@
 						<div class="div-separator">
 							<label>Kategoria: </label>
 							<select name="kindSelectBox" data-bind="value: kind.kindName">
-								@if (User.IsInRole("Administrator"))
-		{
-									<option value="Aktualności">aktualności</option>
-		}
 								<option value="Wydarzenie">wydarzenie</option>
 								<option value="Zajęcia">zajęcia</option>
 								<option value="Szkolenie">szkolenie</option>
@@ -53,7 +47,7 @@
 						<div class="div-separator">
 							<div style="display: inline-block;">
 								<label>Godzina rozpoczęcia: </label>
-								<select id="startHourSelectBox" data-bind="value: date.startHour">
+								<select id="startHourSelectBox" data-bind="value: startDate.startHour">
 									@for (int i = 7; i < 22; i++)
 		 {
 										<option value="@i">@i</option>
@@ -62,7 +56,7 @@
 							</div>
 							<div style="display: inline-block;">
 								<span>: </span>
-								<select id="startMinuteSelectBox" data-bind="value: date.startMinute">
+								<select id="startMinuteSelectBox" data-bind="value: startDate.startMinute">
 									@for (int i = 0; i < 60; i++)
 		 {
 										<option value="@i">@i</option>
@@ -74,7 +68,7 @@
 						<div class="div-separator">
 							<div style="display: inline-block;">
 								<label>Godzina zakończenia: </label>
-								<select id="endHourSelectBox" data-bind="value: date.endHour">
+								<select id="endHourSelectBox" data-bind="value: startDate.endHour">
 									@for (int i = 7; i < 21; i++)
 		 {
 										<option value="@i">@i</option>
@@ -83,7 +77,7 @@
 							</div>
 							<div style="display: inline-block;">
 								<span>: </span>
-								<select id="endMinuteSelectBox" data-bind="value: date.endMinute">
+								<select id="endMinuteSelectBox" data-bind="value: startDate.endMinute">
 									@for (int i = 0; i < 60; i++)
 		 {
 										<option value="@i">@i</option>

@@ -36,9 +36,9 @@
 					</div>
 					<div class="events-text-container margin-left-fifteen padding-top-ten" data-bind="visible: kind.kindName != 'Aktualności'">
 
-						<span data-bind="text: date.startHour" class="events-text-startTime"></span><span>:00 - </span><span data-bind="	text: date.endHour" class="events-text-endTime"></span><span>:00</span>
+						<span data-bind="text: startDate.startHour" class="events-text-startTime"></span><span>:00 - </span><span data-bind="	text: date.endHour" class="events-text-endTime"></span><span>:00</span>
 						<div>12.03.2012, Piątek</div>
-						<div data-bind="text: adress" class="events-text-address"></div>
+						<div data-bind="text: adress.street" class="events-text-address"></div>
 					</div>
 				</div>
 

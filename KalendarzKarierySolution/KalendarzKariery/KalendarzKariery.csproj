@@ -263,6 +263,8 @@
     <Content Include="Images\TestBackgrounds\1600x900 %282%29.jpg" />
     <Content Include="Images\TestBackgrounds\1600x900purple-white.jpg" />
     <Content Include="Images\TestBackgrounds\kalendarzTlo4.png" />
+    <Content Include="Scripts\Helpers\CalendarViewModelConverter.js" />
+    <Content Include="Scripts\JSModels\KKEventModel.js" />
     <Content Include="Scripts\Lib\jquery-2.0.3.js" />
     <Content Include="Scripts\Lib\jquery-2.0.3.min.js" />
     <Content Include="Scripts\Lib\jquery-2.0.3.min.map" />

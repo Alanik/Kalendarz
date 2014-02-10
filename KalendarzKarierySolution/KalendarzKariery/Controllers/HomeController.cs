@@ -21,8 +21,12 @@ namespace KalendarzKariery.Controllers
 				return View("Index", null);
 			}
 
-			IList<Event> userEventList = Repository.GetEventsForGivenMonth(DateTime.Today.Month);
-			return View("Index", (object)JsonConvert.SerializeObject(userEventList));
+			var indexViewModel = new IndexViewModel();
+
+			indexViewModel.UserPrivateEvents = Repository.GetEventsForGivenMonth(DateTime.Today.Month);
+			indexViewModel.PublicEvents = null;
+
+			return View("Index", (object)JsonConvert.SerializeObject(indexViewModel));
 		}
 
 		[HttpPost]

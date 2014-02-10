@@ -270,7 +270,7 @@
     <Content Include="Images\Logo\maleLogoKalendarz.png" />
     <Content Include="Images\Loader\ajax-loader.gif" />
     <Content Include="Images\point.png" />
-    <Content Include="Scripts\JsViewModels\CalendarViewModel.js" />
+    <Content Include="Scripts\JSViewModels\CalendarViewModel.js" />
     <Content Include="Scripts\CalendarWidget\calendarWidget.js" />
     <Content Include="Scripts\CalendarWidget\Slider\application.js" />
     <Content Include="Scripts\CalendarWidget\Slider\jquery.animate-enhanced.min.js" />

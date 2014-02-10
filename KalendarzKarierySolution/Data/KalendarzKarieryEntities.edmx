@@ -4,16 +4,16 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="KalendarzKarieryDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="KalendarzKarieryDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Address">
           <Key>
             <PropertyRef Name="AddressId" />
           </Key>
           <Property Name="AddressId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Street" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="City" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="ZipCode" Type="varchar" MaxLength="6" Nullable="false" />
-          <Property Name="Country" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Street" Type="varchar" MaxLength="100" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="ZipCode" Type="varchar" MaxLength="6" />
+          <Property Name="Country" Type="varchar" MaxLength="50" />
           <Property Name="UserId" Type="int" />
           <Property Name="EventId" Type="int" />
           <Property Name="Latidute" Type="decimal" Precision="9" Scale="6" />
@@ -35,7 +35,7 @@
           </Key>
           <Property Name="EventId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Description" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="200" />
           <Property Name="Details" Type="varchar" MaxLength="500" />
           <Property Name="DateAdded" Type="datetime" Nullable="false" />
           <Property Name="OwnerUserId" Type="int" Nullable="false" />
@@ -337,8 +337,7 @@
             <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="KalendarzKarieryDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -347,10 +346,10 @@
             <PropertyRef Name="AddressId" />
           </Key>
           <Property Name="AddressId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Street" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ZipCode" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Street" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ZipCode" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="UserId" Type="Int32" />
           <Property Name="EventId" Type="Int32" />
           <Property Name="Latidute" Type="Decimal" Precision="9" Scale="6" />
@@ -376,7 +375,7 @@
           </Key>
           <Property Name="EventId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="Details" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="OwnerUserId" Type="Int32" Nullable="false" />
@@ -550,7 +549,7 @@
           <End Role="webpages_Roles" Type="Self.webpages_Roles" Multiplicity="*" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="KalendarzKarieryDBEntities2" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="KalendarzKarieryDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Addresses" EntityType="Self.Address" />
           <EntitySet Name="Comments" EntityType="Self.Comment" />
           <EntitySet Name="Events" EntityType="Self.Event" />
@@ -639,7 +638,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="KalendarzKarieryDBModelStoreContainer" CdmEntityContainer="KalendarzKarieryDBEntities2">
+        <EntityContainerMapping StorageEntityContainer="KalendarzKarieryDBModelStoreContainer" CdmEntityContainer="KalendarzKarieryDBEntities">
           <EntitySetMapping Name="Addresses">
             <EntityTypeMapping TypeName="KalendarzKarieryDBModel.Address">
               <MappingFragment StoreEntitySet="Address">

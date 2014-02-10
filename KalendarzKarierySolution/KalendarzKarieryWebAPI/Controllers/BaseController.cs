@@ -1,4 +1,6 @@
-﻿using KalendarzKarieryData.Models.ViewModels;
+﻿using System.Text.RegularExpressions;
+using KalendarzKarieryData.Enums;
+using KalendarzKarieryData.Models.ViewModels;
 using KalendarzKarieryWebAPI.Models.ResponseModels;
 using System;
 using System.Collections.Generic;
@@ -10,10 +12,10 @@ namespace KalendarzKarieryWebAPI.Controllers
 {
 	public class BaseController : ApiController
 	{
+		public const string ValidationError = "Formularz zawiera nieprawidłowe dane";
 
 		protected IResponse ValidateUser(IResponse response)
 		{
-
 			const string NotAuthenticatedMsg = "Musisz być zalogowany by wykonać tę operację";
 			const string NotAuthorizedMsg = "Nie masz uprawnień by wykonać tę operację";
 
@@ -34,15 +36,13 @@ namespace KalendarzKarieryWebAPI.Controllers
 
 		protected IResponse ValidateAddEventViewModel(IResponse response, AddEventViewModel viewModel)
 		{
-			const string ValidationError = "Formularz zawiera nieprawidłowe dane";
-
 			if (string.IsNullOrEmpty(viewModel.Event.Title))
 			{
 				SetResponseToInvalidState(response, ValidationError);
 				return response;
 			}
 
-			if (viewModel.Event.Kind > 5)
+			if (viewModel.Event.Kind > Enum.GetNames(typeof(EventKindEnum)).Length)
 			{
 				SetResponseToInvalidState(response, ValidationError);
 				return response;
@@ -56,10 +56,21 @@ namespace KalendarzKarieryWebAPI.Controllers
 				return response;
 			}
 
+			if (!string.IsNullOrEmpty(viewModel.Address.ZipCode))
+			{
+				var reg = new Regex("[0-9]{2}-[0-9]{3}");
+
+				if (!reg.IsMatch(viewModel.Address.ZipCode))
+				{
+					SetResponseToInvalidState(response, ValidationError);
+					return response;
+				}
+			}
+
 			return null;
 		}
 
-		private void SetResponseToInvalidState(IResponse response, string message)
+		public void SetResponseToInvalidState(IResponse response, string message)
 		{
 			response.IsSuccess = false;
 			response.Message = message;

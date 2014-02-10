@@ -75,7 +75,7 @@
 							<div style="display: inline-block;">
 								<label>Godzina zakończenia: </label>
 								<select id="endHourSelectBox" data-bind="value: date.endHour">
-									@for (int i = 7; i < 22; i++)
+									@for (int i = 7; i < 21; i++)
 		 {
 										<option value="@i">@i</option>
 		 }
@@ -93,13 +93,20 @@
 							</div>
 						</div>
 
-						<div class="div-separator">
+						@*<div class="div-separator">
 							<div class="margin-left-150">
 								@Html.ValidationMessageFor(m => m.Event.StartDate)
 							</div>
 							<div>
 								@Html.LabelFor(m => m.Event.StartDate, new { @class = "form-label" })
-								@Html.TextBoxFor(m => m.Event.StartDate, "{0:dd/MM/yyyy}", new { maxlength = 10, @size = 7 })
+								@Html.TextBoxFor(m => m.Event.StartDate, "{0:dd/MM/yyyy}", new { maxlength = 10, size = 7, disabled = true })
+							</div>
+						</div>*@
+						
+						<div class="div-separator">
+							<div>
+								@Html.LabelFor(m => m.Event.StartDate, new { @class = "form-label" })
+								@Html.TextBox("date", string.Empty, new { maxlength = 10, size = 7, disabled = true, id = "Event_StartDate" })
 							</div>
 						</div>
 

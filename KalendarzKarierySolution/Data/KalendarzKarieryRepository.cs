@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.Pkcs;
 using System.Web;
+using KalendarzKarieryData.Models.ViewModels;
 
 namespace KalendarzKarieryData
 {
@@ -14,6 +15,8 @@ namespace KalendarzKarieryData
 		{
 			_entities = new KalendarzKarieryDBEntities();
 		}
+
+		#region User
 
 		public User GetUserById(int id)
 		{
@@ -48,6 +51,29 @@ namespace KalendarzKarieryData
 		{
 			return _entities.Users.FirstOrDefault(m => m.Email == email);
 		}
+
+		public int GetUserIdByName(string name)
+		{
+			return _entities.Users.First(m => m.UserName == name).UserId;
+		}
+
+		#endregion
+
+		#region Events
+
+		public void AddEvent(Event @event)
+		{
+			_entities.Events.Add(@event);
+		}
+
+		public IList<Event> GetEventsForGivenMonth(int month)
+		{
+			_entities.Configuration.ProxyCreationEnabled = false;
+			IList<Event> list = _entities.Events.Where(m => m.StartDate.Month == month).ToList();
+			return list;
+		}
+
+		#endregion
 
 		public void Save()
 		{

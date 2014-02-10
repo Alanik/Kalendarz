@@ -1,4 +1,5 @@
-﻿<div class="lobby-content-container">
+﻿
+<div class="lobby-content-container">
 	@*<div style="background: white; position: relative; width: 100%; height: 24px;"></div>*@
 	<div class="lobby-content-body">
 		
@@ -8,8 +9,8 @@
 
 			@if (!Request.IsAuthenticated)
 			{
-				@Html.Partial("_Login")
-				@Html.Partial("_Register")
+				@Html.Partial("_Login", new KalendarzKarieryData.Models.AccountModels.LoginModel())
+				@Html.Partial("_Register", new KalendarzKarieryData.Models.ViewModels.RegisterViewModel())
 			}
 
 			<div id="lobbyEventSummaryMenu">
@@ -28,7 +29,7 @@
 			12.03.2012
 		</div>
 
-		<section class="event-list" data-bind="foreach: allEvents">
+		<section class="event-list" data-bind="foreach: publicEvents">
 			<div class="news-event-details" data-bind="ifnot: kind.kindName == 'Zajęcia', visible: kind.kindName != 'Zajęcia'">
 				<div class="left-event-details">
 					<div class="event-kind-text" data-bind="text: kind.kindName, style: { background: kind.color }">
@@ -66,7 +67,7 @@
 	</div>
 
 	<footer class="lobby-footer">
-		Kalendarz Kariery 2012, wszelkie prawa zastrzezone
+		Kalendarz Kariery 2014, wszelkie prawa zastrzezone
 	</footer>
 
 </div>

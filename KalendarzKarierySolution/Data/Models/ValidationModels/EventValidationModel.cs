@@ -17,7 +17,7 @@ namespace KalendarzKarieryData
 		[DataType(DataType.Date, ErrorMessage = "Podana data jest nieprawidłowa.")]
 		[Required(ErrorMessage = "Pole \"Data\" nie może być puste.")]
 		[Display(Name = "Data:")]
-		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+		//[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
 		public DateTime StartDate { get; set; }
 
 		[Display(Name = "Tytuł:")]

@@ -187,7 +187,7 @@ body header {
 	background: rgba(0,0,0,.04);
 	border-bottom: 2px solid rgb(250,250,250);
 	border-top: 1px solid #D8D8D8;
-	height: 58px;
+	height: 39px;
 }
 
 #loginPageContainer {
@@ -258,7 +258,7 @@ body header {
 	border-radius: 10px;*/
 	display: table-cell;
 	text-align: center;
-	padding-top: 10px;
+	padding-top: 8px;
 	/*color:rgb(219, 219, 183);*/
 }
 
@@ -293,6 +293,10 @@ body header {
 	position: relative;
 }
 
+.today-cell {
+	
+}
+
 .current-month-cell {
 	border: 2px solid white;
 	background-color: rgb(253,253,253);
@@ -313,7 +317,15 @@ body header {
 	/*border: 2px solid #ddd;
 	background: #F7F7F7;*/
 	/*background-color: #eee;*/
+	/*background: #444444;*/
+	/*background: #5C5C5C;*/
 	position: relative;
+	/*border: 2px solid rgb(184, 184, 184);
+	background: #F0F0F0;*/
+	box-shadow: rgb(221, 221, 221) 0px 3px 5px;
+	border: 2px solid #ddd;
+	background: #eee;
+	/*border: 1px solid rgb(212, 241, 93);*/
 }
 
 	.other-month-cell span {
@@ -529,11 +541,11 @@ background:rgb(115, 233, 162);
 	z-index: 2;
 	border: 2px solid;
 	top: 0;
-	background: rgb(34, 34, 34);
+	/*background: rgb(34, 34, 34);
+	color: rgb(204, 204, 204);*/
 	height: 23px;
-	/*background: white;*/
-	/*color: gray;*/
-	color: rgb(204, 204, 204);
+	background: white;
+	color: gray;
 	font-size: 12px;
 	line-height: 1;
 	border-bottom: 5px solid;

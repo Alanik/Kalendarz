@@ -1,4 +1,6 @@
-﻿<div class="navigation-arrows"></div>
+﻿@model string
+
+<div class="navigation-arrows"></div>
 
 <div id="slides">
 	<ul class="slides-container">
@@ -27,7 +29,8 @@
 						<!-- Calendar is added dynamically (calendarWidget.js)   -->
 
 					</section>
-					@Html.Partial("_AddNewEvent")
+
+					@Html.Partial("_AddNewEvent", new KalendarzKarieryData.Models.ViewModels.AddEventViewModel())
 					@Html.Partial("_HoverEvent")
 				</div>
 				<div id="rightSideCalendar" class="side"></div>
@@ -50,6 +53,71 @@
 </div>
 
 <script type="text/javascript">
+	userEvents = @Html.Raw(@Model);
+	var date;
+	var time;
+	var dateStr;
+	var event;
+
+	for (var i = 0; i < userEvents.length; i++) {
+		event = userEvents[i];
+
+		dateStr = event.StartDate.replace('T', ' ');
+		date = new Date(Date.parse(dateStr));
+
+		var transformedDate = {
+			"startMinute": date.getMinutes(),
+			"endMinute": 0,
+			"startHour": date.getHours(),
+			"endHour": 20,
+			"day": date.getDate(),
+			"month": date.getMonth(),
+			"year": date.getFullYear()
+		};
+
+		event.date = transformedDate;
+		delete event.StartDate;
+	}
+	var index = event.kind;
+	event.kind = {
+		"index": index,
+		"color": calculateColor(index)
+	};
+
+	event.title = event.Title;
+	delete event.Title;
+
+	if (event.Addresses.length == 0) {
+		event.address = " -";
+	} else {
+		event.address = event.Addresses[0];
+	}
+
+	//TODO temporary
+	delete event.Addresses;
+
+	function calculateColor(kind) {
+		switch (kind) {
+			case 0:
+				return "rgb(68, 219, 93)";
+			case 1:
+				return "rgb(87, 167, 221)";
+			case 2:
+				return "rgb(54, 54, 54)";
+			case 3:
+				return "rgb(219, 219, 21)";
+			case 4:
+				return "rgb(253, 104, 170)";
+			case 5:
+				return "rgb(108, 255, 225)";
+			default:
+				return "rgb(250, 84, 84)";
+		}			
+	}
+
+</script>
+
+<script type="text/javascript">
 
 	$(function () {
 
@@ -61,11 +129,21 @@
 				var $lobby = $("#lobby");
 				var date = new Date();
 
-				$calendar.calendarWidget({ month: 1, year: 2014 });
-				var calendarViewModel = new CalendarViewModel(2014, date.getMonth(), date.getDate());
+				$calendar.calendarWidget({
+					month: date.getMonth(), year: date.getFullYear()
+				});
 
-
+				var calendarViewModel = new CalendarViewModel(date.getFullYear(), date.getMonth(), date.getDate());
 				ko.applyBindings(calendarViewModel);
+
+				ko.utils.arrayForEach(userEvents, function (event) {
+
+					calendarViewModel.userPrivateEvents.push(event);
+
+					if(event.date.month === calendarViewModel.calendarPageDisplayDate.month && event.date.year === calendarViewModel.calendarPageDisplayDate.year) {
+						calendarViewModel.addEventToCalendar(event);
+					}
+				});
 
 				//$(".calendar-cell").each(function (i) {
 				//	if (i == 5 || i == 6 || i == 12 || i == 13 || i == 19 || i == 20 || i == 26 || i == 27 || i == 33 || i == 34 || i == 40 || i == 41) {
@@ -83,14 +161,14 @@
 				(function overrideAspMvcDateValidation() {
 
 					$.validator.addMethod(
-		   "date",
-		   function (value, element) {
-		   	
-		   	//Return            NB: isRequired is not checked at this stage
-		   	return (value == "") ? true : isDate(value);
-		   },
-		   "* invalid"
-	   );
+						"date",
+						function (value, element) {
+
+							//Return            NB: isRequired is not checked at this stage
+							return (value == "") ? true : isDate(value);
+						},
+						"* invalid"
+					);
 
 					//Validates a date input -- http://jquerybyexample.blogspot.com/2011/12/validate-date-    using-jquery.html
 					function isDate(txtDate) {

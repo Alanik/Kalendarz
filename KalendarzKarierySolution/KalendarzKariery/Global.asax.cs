@@ -23,7 +23,7 @@ namespace KalendarzKariery
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 			AuthConfig.RegisterAuth();
-			//InitializeMembership.SeedMembership();
+			InitializeMembership.SeedMembership();
 
 			RazorViewEngine razorEngine = ViewEngines.Engines.OfType<RazorViewEngine>().FirstOrDefault();
 			if (razorEngine != null)

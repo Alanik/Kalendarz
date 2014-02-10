@@ -54,6 +54,7 @@
     <Compile Include="Comment.cs">
       <DependentUpon>KalendarzKarieryEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Enums\EventKindEnum.cs" />
     <Compile Include="Event.cs">
       <DependentUpon>KalendarzKarieryEntities.tt</DependentUpon>
     </Compile>
@@ -79,6 +80,7 @@
     <Compile Include="Models\ValidationModels\EventValidationModel.cs" />
     <Compile Include="Models\ValidationModels\UserValidationModel.cs" />
     <Compile Include="Models\ViewModels\AddEventViewModel.cs" />
+    <Compile Include="Models\ViewModels\IndexViewModel.cs" />
     <Compile Include="Models\ViewModels\RegisterViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="sp_helpdiagramdefinition_Result.cs">

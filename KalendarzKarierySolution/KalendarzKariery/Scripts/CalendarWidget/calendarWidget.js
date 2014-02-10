@@ -27,9 +27,9 @@
 
 		calendar += ('<div id="calendar-menu-header">');
 
-		calendar += ('<div style="width:100%;z-index:2;position:absolute;top:24px;border-top:1px solid rgb(221,221,221);border-bottom:1px solid rgb(247,247,247);"></div>');
+		calendar += ('<div style="width:100%;z-index:2;position:absolute;top:2px;border-top:1px solid rgb(221,221,221);border-bottom:1px solid rgb(247,247,247);"></div>');
 
-		calendar += ('<div class="year-header-container"><span>Kalendarz Kariery</span></div>');
+		calendar += ('<div class="year-header-container"></div>');
 		calendar += ('<div class="month-name-header-container">');
 
 		//calendar += ('<div class="calendar-eventSummary-btn"><img src="/images/Icons/list-icon.png" alt="triangle"/></div><div class="nav-prev" data-bind="click: $root.showPreviousMonthOnPrevMonthBtnClick" ><img src="/images/Icons/triangle-left.png" alt="triangle"/></div>');
@@ -127,7 +127,7 @@
 		drawLines();
 		drawHours();
 
-		$calendarBg.find('.day' + today).css({ "background": "white", "font-weight": "bold" }).addClass("today-cell");
+		$calendarBg.find('.day' + today).css({ "background": "white", "font-weight": "bold", "border": "2px solid rgb(212, 241, 93)" }).addClass("today-cell");
 	}
 
 	function drawLines() {

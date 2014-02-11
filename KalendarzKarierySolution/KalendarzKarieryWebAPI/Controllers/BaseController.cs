@@ -42,11 +42,11 @@ namespace KalendarzKarieryWebAPI.Controllers
 				return response;
 			}
 
-			if (viewModel.Event.Kind > Enum.GetNames(typeof(EventKindEnum)).Length)
-			{
-				SetResponseToInvalidState(response, ValidationError);
-				return response;
-			}
+			//if (viewModel.Event.Kind > Enum.GetNames(typeof(EventKindEnum)).Length)
+			//{
+			//	SetResponseToInvalidState(response, ValidationError);
+			//	return response;
+			//}
 
 			var startDate = new DateTime();
 

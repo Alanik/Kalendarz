@@ -157,9 +157,11 @@
 						mouseenter: function () {
 
 							var name = $(this).find("input").attr("name");
-							var adress = $(this).find("input").attr("adress");
-							var startHour = $(this).find("input").attr("startHour");
-							var endHour = $(this).find("input").attr("endHour");
+							var address = $(this).find("input").attr("address");
+							var startHour = $(this).find("input").attr("starthour");
+							var endHour = $(this).find("input").attr("endhour");
+							var startMinute = $(this).find("input").attr("startminute");
+							var endMinute = $(this).find("input").attr("endminute");
 
 							var width = $(this).width();
 							var height = $(this).height();
@@ -169,9 +171,9 @@
 							$container.css("top", offset.top - height);
 
 							$container.find(".event-hover-name").text(name);
-							$container.find(".event-hover-adress").text(adress);
-							$container.find(".event-hover-startHour").text(startHour);
-							$container.find(".event-hover-endHour").text(endHour);
+							$container.find(".event-hover-adress").text(address);
+							$container.find(".event-hover-startHour").text(startHour + " : " + startMinute);
+							$container.find(".event-hover-endHour").text(endHour + " : " + endMinute);
 
 							$container.show();
 						},
@@ -503,9 +505,7 @@
 					//});
 
 					$("#btnClose-AddEventContainer").click(function () {
-						var $overlay = $("#calendar").siblings(".dotted-page-overlay");
-						$overlay.fadeOut();
-						$("#add-new-event-container").hide();
+						calendarViewModel.closeAddNewEventPopup();
 					});
 				}();
 			}

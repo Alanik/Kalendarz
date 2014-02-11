@@ -19,15 +19,20 @@
 		event.dateAdded = dateStr;
 	};
 
-	var setStartDate = function (startDate) {
+	var setStartDate = function (startDate, length) {
 		var dateStr = startDate.replace('T', ' ');
 		var date = new Date(Date.parse(dateStr));
 
+		var h = date.getHours();
+
+		var minutes = (length % 60);
+		var hours = (length - minutes) / 60;
+
 		var transformedDate = {
 			"startMinute": date.getMinutes(),
-			"endMinute": 0,
-			"startHour": date.getHours(),
-			"endHour": 20,
+			"endMinute": minutes,
+			"startHour": h,
+			"endHour": (h + hours),
 			"day": date.getDate(),
 			"month": date.getMonth(),
 			"year": date.getFullYear()
@@ -51,19 +56,38 @@
 	var setKind = function (kind) {
 		event.kind = {
 			"kindName": kind,
-			"color": calculateColor(kind)
+			"color": calculatePrivateEventColor(kind)
 		};
 
-		function calculateColor(kind) {
+		function calculatePrivateEventColor(kind) {
+			switch (kind) {
+			case "wydarzenie":
+				return "#ffff84";
+			case "zajęcia":
+				return "rgb(107, 223, 199)";
+			case "szkolenie":
+				return "#57a7dd";
+			case "kurs":
+				return "#919191";
+			case "spotkanie":
+				return "#ffb6d7";
+			case 'inne':
+				return "#fa5454";
+			default:
+				return "rgb(250, 84, 84)";
+			}
+		}
+
+		function calculatePublicEventColor(kind) {
 			switch (kind) {
 				case "wydarzenie":
 					return "rgb(68, 219, 93)";
 				case "zajęcia":
 					return "rgb(87, 167, 221)";
 				case "szkolenie":
-					return "rgb(54, 54, 54)";
-				case "kurs":
 					return "rgb(219, 219, 21)";
+				case "kurs":
+					return "rgb(54, 54, 54)";
 				case "spotkanie":
 					return "rgb(253, 104, 170)";
 				case 'inne':
@@ -84,11 +108,12 @@
 
 	var setAddress = function (address) {
 		if (address) {
+			console.log("hehe");
 			event.address = {
-				"street": address.street,
-				"city": address.city,
-				"zipCode": address.zipCode
-			};
+				"street": address.Street,
+				"city": address.City,
+				"zipCode": address.ZipCode
+		};
 		} else {
 			event.address = {
 				"street": "",
@@ -111,7 +136,7 @@
 			setDescription(serverEvent.Description);
 			setDetails(serverEvent.Details);
 			setDateAdded(serverEvent.DateAdded);
-			setStartDate(serverEvent.StartDate);
+			setStartDate(serverEvent.StartDate, serverEvent.EventLengthInMinutes);
 			setEventLengthInMinutes(serverEvent.EventLengthInMinutes);
 			setOccupancyLimit(serverEvent.OccupancyLimit);
 			setUrlLink(serverEvent.UrlLink);

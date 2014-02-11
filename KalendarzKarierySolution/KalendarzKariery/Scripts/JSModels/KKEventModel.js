@@ -11,20 +11,20 @@
 	};
 	this.privacyLevel = 1;
 	this.address = {
-		"street": "",
-		"city": "",
-		"zip code": ""
+		street: "",
+		city: "",
+		zipCode: ""
 	};
 	this.description = "";
 	this.details = "";
 	this.kind = {
-		kindColor: "",
-		color: ""
+		kindName : "",
+		color : ""
 	};
 	this.dateAdded = {
-		day: "",
-		month: "",
-		year: ""
+		day : "",
+		month : "",
+		year : ""
 	};
 	this.addedBy = "";
 	this.numberOfPeopleAttending = "";

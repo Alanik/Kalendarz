@@ -127,7 +127,7 @@
 		drawLines();
 		drawHours();
 
-		$calendarBg.find('.day' + today).css({ "background": "white", "font-weight": "bold", "border": "2px solid rgb(212, 241, 93)" }).addClass("today-cell");
+		$calendarBg.find('.day' + today).addClass("today-cell");
 	}
 
 	function drawLines() {

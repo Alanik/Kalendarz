@@ -294,6 +294,7 @@ body header {
 }
 
 .today-cell {
+	background: white !important;
 }
 
 .current-month-cell {

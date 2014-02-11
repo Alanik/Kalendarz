@@ -5,8 +5,8 @@ function CalendarViewModel(year, month, day) {
 	self.event = new KKEvent();
 
 	self.privacyLevels = {
-		"public" : 1,
-		"private" : 2
+		"private" : 0,
+		"public" : 1
 	};
 
 	self.kinds = [
@@ -77,6 +77,8 @@ function CalendarViewModel(year, month, day) {
 		$addEventForm.removeAttr("novalidate");
 
 		if ($addEventForm.valid()) {
+			var kind = $("#kindSelectBox").find(":selected").text();
+
 			var startHour = $("#startHourSelectBox").val();
 			var endHour = $("#endHourSelectBox").val();
 			var startMinute = $("#startMinuteSelectBox").val();
@@ -104,16 +106,30 @@ function CalendarViewModel(year, month, day) {
 			var diff = Math.abs(startEventDate - endEventDate);
 			var minutes = Math.floor((diff / 1000) / 60);
 
+			self.event.startDate = {
+				startMinute: startMinute,
+				endMinute: endMinute,
+				startHour: startHour,
+				endHour: endHour,
+				day: chosenDay,
+				month: chosenMonth,
+				year: chosenYear
+			};
+			self.eventLengthInMinutes = minutes;
+
+			console.log(self.event);
+
 			$.ajax({
 				url: action,
 				dataType: "JSON",
 				type: "POST",
-				data: $addEventForm.serialize() + "&Event.EventLengthInMinutes=" + minutes + "&Event.StartDate=" + startEventDate.toISOString(),
+				data: $addEventForm.serialize() + "&Event.EventLengthInMinutes=" + minutes + "&Event.StartDate=" + startEventDate.toISOString() + "&Event.Kind=" + kind,
 				success: function(result) {
 					if (result.IsSuccess === false) {
 						alert(result.Message);
 					} else {
-						alert("dodane");
+						alert("success");
+						self.drawEventToCalendar(self.event);
 					}
 				},
 				error: function() {
@@ -125,9 +141,9 @@ function CalendarViewModel(year, month, day) {
 		return false;
 	};
 
-	self.drawEventToCalendar = function(event) {
+	self.drawEventToCalendar = function (event) {
 		console.log(event);
-		$("#add-new-event-container").hide();
+		self.closeAddNewEventPopup();
 
 		var cellDay = ".day" + event.startDate.day;
 		var $cellPlaceholder = $("#calendar").find(cellDay).find(".calendar-cell-placeholder");
@@ -141,13 +157,16 @@ function CalendarViewModel(year, month, day) {
 		var endOffset = parseFloat($cellLineEnd[0].style.left);
 
 		var width = endOffset - startOffset;
-		var addressStr = typeof event.address == "undefined" ? event.address.street + ", " + event.address.city : "";
+		var addressStreetStr = event.address.street !== "" ? event.address.street : "";
+		var addressCityStr = event.address.city !== "" ? ", " + event.address.city: "";
 
-	var $event = $('<div class="event-rectangle" style="left:' + startOffset + '%; width:' + width + '%; border-color:' + event.kind.color + ' ">' + event.title + '<input type="hidden" name="' + event.title + '" adress="'+ addressStr +'" startHour="' + event.startDate.startHour + '" endHour="' + event.startDate.endHour + '" ></input></div>');
+		var addressStr = addressStreetStr + addressCityStr;
+
+		var $event = $('<div class="event-rectangle" style="left:' + startOffset + '%; width:' + width + '%; border-color:' + event.kind.color + ' ">' + event.title + '<input type="hidden" name="' + event.title + '" address="' + addressStr + '" starthour="' + event.startDate.startHour + '" endhour="' + event.startDate.endHour + '" startminute="' + event.startDate.startMinute + '" endminute="' + event.startDate.endMinute + '" ></input></div>');
 
 		$cellPlaceholder.append($event);
 
-		$event.fadeTo("slow", .7);
+		$event.fadeTo("slow", .8);
 
 		function placeEvent()
 		{
@@ -404,6 +423,12 @@ function CalendarViewModel(year, month, day) {
 		var $element = $(element);
 		$element.next().show();
 		$element.hide();
+	};
+
+	self.closeAddNewEventPopup = function() {
+		var $overlay = $("#calendar").siblings(".dotted-page-overlay");
+		$overlay.fadeOut();
+		$("#add-new-event-container").hide();
 	};
 
 	ko.unapplyBindings = function ($node, remove) {

@@ -31,7 +31,7 @@ namespace KalendarzKarieryData
         public Nullable<int> EventLengthInMinutes { get; set; }
         public Nullable<int> OccupancyLimit { get; set; }
         public string UrlLink { get; set; }
-        public int Kind { get; set; }
+        public string Kind { get; set; }
         public Nullable<int> NumberOfPeopleAttending { get; set; }
         public int PrivacyLevel { get; set; }
     

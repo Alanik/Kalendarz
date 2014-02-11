@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="KalendarzKarieryDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="KalendarzKarieryDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Address">
           <Key>
             <PropertyRef Name="AddressId" />
@@ -43,7 +43,7 @@
           <Property Name="EventLengthInMinutes" Type="int" />
           <Property Name="OccupancyLimit" Type="int" />
           <Property Name="UrlLink" Type="varchar" MaxLength="200" />
-          <Property Name="Kind" Type="int" Nullable="false" />
+          <Property Name="Kind" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="NumberOfPeopleAttending" Type="int" />
           <Property Name="PrivacyLevel" Type="int" Nullable="false" />
         </EntityType>
@@ -337,7 +337,8 @@
             <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="KalendarzKarieryDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -383,7 +384,7 @@
           <Property Name="EventLengthInMinutes" Type="Int32" />
           <Property Name="OccupancyLimit" Type="Int32" />
           <Property Name="UrlLink" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Kind" Type="Int32" Nullable="false" />
+          <Property Name="Kind" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="NumberOfPeopleAttending" Type="Int32" />
           <Property Name="PrivacyLevel" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Addresses" Relationship="Self.FK_Address_Event" FromRole="Event" ToRole="Address" />

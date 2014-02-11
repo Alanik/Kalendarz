@@ -24,7 +24,7 @@
 
 						<div class="div-separator">
 							<label>Kategoria: </label>
-							<select name="kindSelectBox" data-bind="value: kind.kindName">
+							<select id="kindSelectBox" name="kindSelectBox" data-bind="value: kind.kindName">
 								<option value="Wydarzenie">wydarzenie</option>
 								<option value="Zajęcia">zajęcia</option>
 								<option value="Szkolenie">szkolenie</option>
@@ -40,7 +40,7 @@
 							</div>
 							<div>
 								@Html.LabelFor(m => m.Event.Title, new { @class = "form-label" })
-								@Html.TextBoxFor(m => m.Event.Title, new { maxlength = 30 })
+								@Html.TextBoxFor(m => m.Event.Title, new { maxlength = 30, data_bind ="value: title"})
 							</div>
 						</div>
 
@@ -87,16 +87,6 @@
 							</div>
 						</div>
 
-						@*<div class="div-separator">
-							<div class="margin-left-150">
-								@Html.ValidationMessageFor(m => m.Event.StartDate)
-							</div>
-							<div>
-								@Html.LabelFor(m => m.Event.StartDate, new { @class = "form-label" })
-								@Html.TextBoxFor(m => m.Event.StartDate, "{0:dd/MM/yyyy}", new { maxlength = 10, size = 7, disabled = true })
-							</div>
-						</div>*@
-						
 						<div class="div-separator">
 							<div>
 								@Html.LabelFor(m => m.Event.StartDate, new { @class = "form-label" })
@@ -111,17 +101,17 @@
 						<div id="addNewEventAddressContainer" class="div-separator"  style="display: none;">
 							<div>
 								@Html.LabelFor(m => m.Address.Street, new { @class = "form-label" })
-								@Html.TextBoxFor(m => m.Address.Street, new { maxlength = 30 })
+								@Html.TextBoxFor(m => m.Address.Street, new { maxlength = 30, data_bind="value: address.street"})
 								@Html.ValidationMessageFor(m => m.Address.Street)
 							</div>
 							<div>
 								@Html.LabelFor(m => m.Address.City, new { @class = "form-label" })
-								@Html.TextBoxFor(m => m.Address.City, new { maxlength = 30 })
+								@Html.TextBoxFor(m => m.Address.City, new { maxlength = 30, data_bind="value: address.city" })
 								@Html.ValidationMessageFor(m => m.Address.City)
 							</div>
 							<div>
 								@Html.LabelFor(m => m.Address.ZipCode, new { @class = "form-label" })
-								@Html.TextBoxFor(m => m.Address.ZipCode, new { maxlength = 6, @size=4 })
+								@Html.TextBoxFor(m => m.Address.ZipCode, new { maxlength = 6, @size=4, data_bind="value: address.zipCode"})
 								@Html.ValidationMessageFor(m => m.Address.ZipCode)
 							</div>
 						</div>
@@ -133,7 +123,7 @@
 						<div id="addNewEventDescriptionContainer" class="div-separator" style="display: none;">
 							<div>
 								@Html.LabelFor(m => m.Event.Description, new { @class = "form-label", @style = "vertical-align:top;" })
-								@Html.TextAreaFor(m => m.Event.Description, new { cols = 30, rows = 3, maxlength = 100 })
+								@Html.TextAreaFor(m => m.Event.Description, new { cols = 30, rows = 3, maxlength = 100, data_bind="value: description" })
 								@Html.ValidationMessageFor(m => m.Event.Description)
 							</div>
 						</div>
@@ -144,7 +134,7 @@
 
 						<div id="btnAddNewEventDetailsContainer" class="div-separator" style="display: none;">
 							@Html.LabelFor(m => m.Event.Details, new { @class = "form-label", @style = "vertical-align:top;" })
-							@Html.TextAreaFor(m => m.Event.Details, new { cols = 30, rows = 5, maxlength = 500 })
+							@Html.TextAreaFor(m => m.Event.Details, new { cols = 30, rows = 5, maxlength = 500, data_bind="value: details" })
 							@Html.ValidationMessageFor(m => m.Event.Details)
 						</div>
 
@@ -157,7 +147,7 @@
 
 					<input type="hidden" name="" id="hiddenDay" />
 
-					<button id="btnAddNewEvent" class="myButton-white margin-left-150" data-bind="click: $root.addEventOnClick.bind($data, $data.privacyLevels.public)">Dodaj</button>
+					<button id="btnAddNewEvent" class="myButton-white margin-left-150" data-bind="click: $root.addEventOnClick.bind($data, $data.privacyLevels)">Dodaj</button>
 				</fieldset>
    }
 		</div>

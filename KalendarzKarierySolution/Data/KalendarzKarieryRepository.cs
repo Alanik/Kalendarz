@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Security.Cryptography.Pkcs;
 using System.Web;
@@ -69,8 +70,21 @@ namespace KalendarzKarieryData
 		public IList<Event> GetEventsForGivenMonth(int month)
 		{
 			_entities.Configuration.ProxyCreationEnabled = false;
-			IList<Event> list = _entities.Events.Where(m => m.StartDate.Month == month).ToList();
-			return list;
+
+			IQueryable<Event> list = _entities.Events.Where(m => m.StartDate.Month == month);
+
+			foreach (Event @event in list)
+			{
+				int id = @event.EventId;
+				IQueryable<Address> addressList = _entities.Addresses.Where(m => m.EventId == id);
+				foreach (Address address in addressList)
+				{
+					@event.Addresses.Add(address);
+				}
+			}
+
+
+			return list.ToList();
 		}
 
 		#endregion

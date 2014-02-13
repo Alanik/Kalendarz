@@ -264,6 +264,7 @@
     <Content Include="Images\TestBackgrounds\1600x900purple-white.jpg" />
     <Content Include="Images\TestBackgrounds\kalendarzTlo4.png" />
     <Content Include="Scripts\Helpers\CalendarViewModelConverter.js" />
+    <Content Include="Scripts\Helpers\EventColorHelper.js" />
     <Content Include="Scripts\JSModels\KKEventModel.js" />
     <Content Include="Scripts\Lib\jquery-2.0.3.js" />
     <Content Include="Scripts\Lib\jquery-2.0.3.min.js" />
@@ -321,7 +322,7 @@
     <Content Include="Views\Home\LobbyPage\_LobbyProfileMenu.cshtml" />
     <Content Include="Views\Home\DetailsPage\_Details.cshtml" />
     <Content Include="Views\Emails\_ViewStart.cshtml" />
-    <Content Include="Views\Home\LobbyPage\_LobbyEventSummaryMenu.cshtml" />
+    <Content Include="Views\Home\LobbyPage\_lobbyEventSummary.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,5 +1,7 @@
-﻿var CalendarViewModelConverter = function () {
+﻿var CalendarViewModelConverter = function (evColHelper) {
 	var self = this;
+	var colorHelper = evColHelper;
+
 	var event;
 	var list;
 
@@ -56,46 +58,10 @@
 	var setKind = function (kind) {
 		event.kind = {
 			"kindName": kind,
-			"color": calculatePrivateEventColor(kind)
+			"color":  colorHelper.calculatePrivateEventColor(kind)
 		};
 
-		function calculatePrivateEventColor(kind) {
-			switch (kind) {
-			case "wydarzenie":
-				return "#ffff84";
-			case "zajęcia":
-				return "rgb(107, 223, 199)";
-			case "szkolenie":
-				return "#57a7dd";
-			case "kurs":
-				return "#919191";
-			case "spotkanie":
-				return "#ffb6d7";
-			case 'inne':
-				return "#fa5454";
-			default:
-				return "rgb(250, 84, 84)";
-			}
-		}
-
-		function calculatePublicEventColor(kind) {
-			switch (kind) {
-				case "wydarzenie":
-					return "rgb(68, 219, 93)";
-				case "zajęcia":
-					return "rgb(87, 167, 221)";
-				case "szkolenie":
-					return "rgb(219, 219, 21)";
-				case "kurs":
-					return "rgb(54, 54, 54)";
-				case "spotkanie":
-					return "rgb(253, 104, 170)";
-				case 'inne':
-					return "rgb(108, 255, 225)";
-				default:
-					return "rgb(250, 84, 84)";
-			}
-		};
+		
 	};
 
 	var setNumberOfPeopleAttending = function (people) {
@@ -107,14 +73,26 @@
 	};
 
 	var setAddress = function (address) {
+		var street = "";
+		var city = "";
+
+		console.log("address");
+		console.log(address);
+
 		if (address) {
-			console.log("hehe");
+			if (address.Street) {
+				street = address.Street;
+			}
+			if (address.City) {
+				city = address.City;
+			}
+
 			event.address = {
-				"street": address.Street,
-				"city": address.City,
+				"street": street,
+				"city": city,
 				"zipCode": address.ZipCode
 		};
-		} else {
+	} else {
 			event.address = {
 				"street": "",
 				"city": "",
@@ -124,6 +102,7 @@
 	};
 
 	self.getCalendarViewModelEventList = function (userEvents) {
+		console.log(userEvents);
 		var serverEvent;
 		list = [];
 
@@ -143,7 +122,7 @@
 			setKind(serverEvent.Kind);
 			setNumberOfPeopleAttending(serverEvent.NumberOfPeopleAttending);
 			setPrivacyLevel(serverEvent.PrivacyLevel);
-			setAddress(serverEvent.Address);
+			setAddress(serverEvent.Addresses[0]);
 
 			list.push(event);
 

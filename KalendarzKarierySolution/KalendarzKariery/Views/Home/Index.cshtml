@@ -21,7 +21,7 @@
 				<div id="leftSideCalendar" class="side">
 				</div>
 				<div id="calendarBg">
-					<img src="~/Images/kalendarzTloClear.png" alt="background" />
+					<img src="~/Images/kalendarzTlo.png" alt="background" />
 					<div class="dotted-page-overlay"></div>
 
 					<section id="calendar">
@@ -52,6 +52,7 @@
 	</ul>
 </div>
 
+<script src="~/Scripts/Helpers/EventColorHelper.js"></script>
 <script src="~/Scripts/Helpers/CalendarViewModelConverter.js"></script>
 
 <script type="text/javascript">
@@ -66,11 +67,13 @@
 				var $lobby = $("#lobby");
 				var date = new Date();
 
+				var evColHelper = new EventColorHelper();
+
 				$calendar.calendarWidget({
 					month: date.getMonth(), year: date.getFullYear()
 				});
 
-				var calendarViewModel = new CalendarViewModel(date.getFullYear(), date.getMonth(), date.getDate());
+				var calendarViewModel = new CalendarViewModel(date.getFullYear(), date.getMonth(), date.getDate(), evColHelper);
 				ko.applyBindings(calendarViewModel);
 
 				var indexViewModel = @Html.Raw(@Model);
@@ -78,7 +81,7 @@
 				var serverUserPrivateEvents = indexViewModel.UserPrivateEvents;
 				var serverPublicEvents = indexViewModel.PublicEvents;
 
-				var CvmConverter = new CalendarViewModelConverter();
+				var CvmConverter = new CalendarViewModelConverter(evColHelper);
 				var userPrivateEvents = CvmConverter.getCalendarViewModelEventList(serverUserPrivateEvents);
 			
 				ko.utils.arrayForEach(userPrivateEvents, function (event) {
@@ -88,14 +91,6 @@
 						calendarViewModel.drawEventToCalendar(event);
 					}
 				});
-
-				//$(".calendar-cell").each(function (i) {
-				//	if (i == 5 || i == 6 || i == 12 || i == 13 || i == 19 || i == 20 || i == 26 || i == 27 || i == 33 || i == 34 || i == 40 || i == 41) {
-				//		$(this).css({
-				//			"color": "rgb(255, 203, 203)"
-				//		});
-				//	}
-				//});
 
 				$calendar.append('<div class="calendar-navigation-arrows-left"><img src="Images/Nav/arrow-Left.png" alt="arrow-left"/></div>');
 				$calendar.append('<div class="calendar-navigation-arrows-right"><img src="Images/Nav/arrow-Right.png" alt="arrow-Right"/></div>');

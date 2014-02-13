@@ -69,7 +69,7 @@ namespace KalendarzKarieryData
 
 		public IList<Event> GetEventsForGivenMonth(int month)
 		{
-			_entities.Configuration.ProxyCreationEnabled = false;
+			//_entities.Configuration.ProxyCreationEnabled = false;
 
 			IQueryable<Event> list = _entities.Events.Where(m => m.StartDate.Month == month);
 
@@ -82,7 +82,6 @@ namespace KalendarzKarieryData
 					@event.Addresses.Add(address);
 				}
 			}
-
 
 			return list.ToList();
 		}

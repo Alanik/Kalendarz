@@ -1,6 +1,8 @@
 ﻿
-function CalendarViewModel(year, month, day) {
+function CalendarViewModel(year, month, day, evColHelper) {
 	var self = this;
+
+	var eventColorHelper = evColHelper;
 
 	self.event = new KKEvent();
 
@@ -46,7 +48,7 @@ function CalendarViewModel(year, month, day) {
 	//]);
 
 	self.calendarPageMonthEvents = [];
-	self.userPrivateEvents = [];
+	self.userPrivateEvents = ko.observableArray([]);
 	self.publicEvents = [];
 
 	//////////////////////////////////////////////////////////
@@ -117,7 +119,9 @@ function CalendarViewModel(year, month, day) {
 			};
 			self.eventLengthInMinutes = minutes;
 
+			console.log("---");
 			console.log(self.event);
+			console.log("---");
 
 			$.ajax({
 				url: action,
@@ -128,7 +132,9 @@ function CalendarViewModel(year, month, day) {
 					if (result.IsSuccess === false) {
 						alert(result.Message);
 					} else {
-						alert("success");
+						self.closeAddNewEventPopup();
+						self.event.kind.color = eventColorHelper.calculatePrivateEventColor(self.event.title);
+						self.userPrivateEvents.push(self.event);
 						self.drawEventToCalendar(self.event);
 					}
 				},
@@ -142,8 +148,6 @@ function CalendarViewModel(year, month, day) {
 	};
 
 	self.drawEventToCalendar = function (event) {
-		console.log(event);
-		self.closeAddNewEventPopup();
 
 		var cellDay = ".day" + event.startDate.day;
 		var $cellPlaceholder = $("#calendar").find(cellDay).find(".calendar-cell-placeholder");

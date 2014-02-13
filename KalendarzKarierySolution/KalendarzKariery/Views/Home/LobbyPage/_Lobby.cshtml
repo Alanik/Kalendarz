@@ -1,27 +1,60 @@
-﻿
-<div class="lobby-content-container">
+﻿<div class="lobby-content-container">
 	@*<div style="background: white; position: relative; width: 100%; height: 24px;"></div>*@
 	<div class="lobby-content-body">
-		
+
 		<div id="lobby-menu-header" class="site-menu-header">
 			<div id="lobbyLogo">
 			</div>
 
-			@if (!Request.IsAuthenticated)
-			{
-				@Html.Partial("_Login", new KalendarzKarieryData.Models.AccountModels.LoginModel())
-				@Html.Partial("_Register", new KalendarzKarieryData.Models.ViewModels.RegisterViewModel())
-			}
+			<div style="text-align: center;">
+				<div class="menu-item-container">
+					<div class="border-item wydarzenia-border-tab"></div>
+					<div class="menu-item" name="wydarzenia"><span>Wydarzenia</span></div>
+				</div>
 
-			<div id="lobbyEventSummaryMenu">
-				@Html.Partial("_LobbyEventSummaryMenu")
+				<div class="menu-item-container">
+					<div class="border-item zajecia-border-tab"></div>
+					<div class="menu-item" name="zajęcia"><span>Zajęcia</span></div>
+				</div>
+
+				<div class="menu-item-container">
+					<div class="border-item szkolenia-border-tab"></div>
+					<div class="menu-item" name="szkolenia"><span>Szkolenia</span></div>
+				</div>
+
+				<div class="menu-item-container">
+					<div class="border-item kursy-border-tab"></div>
+					<div class="menu-item" name="kursy"><span>Kursy</span></div>
+				</div>
+
+
+				<div class="menu-item-container">
+					<div class="border-item spotkania-border-tab"></div>
+					<div class="menu-item" name="spotkania"><span>Spotkania</span></div>
+				</div>
+
+				<div class="menu-item-container">
+					<div class="border-item inne-border-tab"></div>
+					<div class="menu-item" name="inne"><span>Inne</span></div>
+				</div>
 			</div>
 
-			@if (Request.IsAuthenticated)
-			{
-				@Html.Partial("_LobbyProfileMenu")
-			}
 
+			@if (!Request.IsAuthenticated)
+   {
+				@Html.Partial("_Login", new KalendarzKarieryData.Models.AccountModels.LoginModel())
+				@Html.Partial("_Register", new KalendarzKarieryData.Models.ViewModels.RegisterViewModel())
+   }
+   else
+   {
+	
+				@Html.Partial("_LobbyProfileMenu")
+	  
+   }
+
+			<div id="lobbyEventSummary">
+				@Html.Partial("_lobbyEventSummary")
+			</div>
 		</div>
 
 		<header class="title-header">Aktualności</header>

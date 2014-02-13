@@ -1,0 +1,15 @@
+﻿<section>
+	<div data-bind="foreach: userPrivateEvents">
+		<div style="margin:4px;border:1px solid rgb(253, 253, 253);float:left;padding:10px;">
+			<div>rodzaj: <span data-bind="text: kind.kindName"></span></div>
+			<div>tytuł: <span data-bind="text: title"></span></div>
+			<div>godzina rozpoczęcia: <span data-bind="text: startDate.startHour"></span><span> : </span><span data-bind="	text: startDate.startMinute"></span></div>
+			<div>godzina zakończenia: <span data-bind="text: startDate.endHour"></span><span> : </span><span data-bind="	text: startDate.endMinute"></span></div>
+			<div>data: <span data-bind="text: startDate.day"></span><span>/</span><span data-bind="text: startDate.month"></span><span>/</span><span data-bind="text: startDate.year"></span></div>
+			<div>adres: <span data-bind="text: address.street"></span><span>, </span><span data-bind="	text: address.city"></span></div>
+		</div>
+	</div>
+</section>
+
+
+

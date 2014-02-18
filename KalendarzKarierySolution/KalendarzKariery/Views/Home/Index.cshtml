@@ -9,7 +9,7 @@
 				<div id="lobbyBg">
 					<img src="~/Images/kalendarzTloClear.png" alt="background" style="top: 0 !important" />
 					<div class="dotted-page-overlay"></div>
-					<section id="lobby">
+					<section id="lobby" class="main-section">
 						@Html.Partial("_Lobby")
 					</section>
 				</div>
@@ -24,7 +24,7 @@
 					<img src="~/Images/kalendarzTlo.png" alt="background" />
 					<div class="dotted-page-overlay"></div>
 
-					<section id="calendar">
+					<section id="calendar" class="main-section">
 
 						<!-- Calendar is added dynamically (calendarWidget.js)   -->
 
@@ -41,7 +41,7 @@
 				<div id="detailsBg">
 					<img src="~/Images/kalendarzTloClear.png" alt="background" />
 					<div class="dotted-page-overlay"></div>
-					<div id="details">
+					<div id="details" class="main-section">
 						@Html.Partial("_Details")
 					</div>
 				</div>
@@ -499,9 +499,6 @@
 					//	event.stopPropagation();
 					//});
 
-					$("#btnClose-AddEventContainer").click(function () {
-						calendarViewModel.closeAddNewEventPopup();
-					});
 				}();
 			}
 		};

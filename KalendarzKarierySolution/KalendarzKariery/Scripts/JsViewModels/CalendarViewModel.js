@@ -6,21 +6,6 @@ function CalendarViewModel(year, month, day, evColHelper) {
 
 	self.event = new KKEvent();
 
-	self.privacyLevels = {
-		"private" : 0,
-		"public" : 1
-	};
-
-	self.kinds = [
-		"aktualności",
-		"wydarzenie",
-		"zajęcia",
-		"szkolenie",
-		"kurs",
-		"spotkanie",
-		"inne"
-	];
-
 	self.detailsPageDisplayDate = {
 		events: [],
 		date: {
@@ -38,27 +23,18 @@ function CalendarViewModel(year, month, day, evColHelper) {
 
 	self.AddNewEvent_Day = 0;
 
-	//self.calendarPageMonthEvents = ko.observableArray([
-	//]);
-
-	//self.userPrivateEvents = ko.observableArray([
-	//]);
-
-	//self.publicEvents = ko.observableArray([
-	//]);
-
-	self.calendarPageMonthEvents = [];
+	self.calendarPageMonthEvents = ko.observableArray([]);
 	self.userPrivateEvents = ko.observableArray([]);
-	self.publicEvents = [];
+	self.publicEvents = ko.observableArray([]);
 
 	//////////////////////////////////////////////////////////
 	// METHODS 
 	//////////////////////////////////////////////////////////
 
 	self.getEventsForGivenMonth = function (events, month, year) {
-		console.log(events);
+		//console.log(events);
 		return ko.utils.arrayFilter(events, function (item) {
-			console.log(item.startDate.month + ", " + month);
+			//console.log(item.startDate.month + ", " + month);
 			return item.startDate.month == month && item.startDate.year == year;
 		});
 	};
@@ -71,7 +47,7 @@ function CalendarViewModel(year, month, day, evColHelper) {
 		});
 	};
 
-	self.addEventOnClick = function () {
+	self.addEventOnClick = function (privacyLvl) {
 		var $addEventForm = $("#addEventForm");
 		var action = $addEventForm.attr("action");
 
@@ -119,21 +95,19 @@ function CalendarViewModel(year, month, day, evColHelper) {
 			};
 			self.eventLengthInMinutes = minutes;
 
-			console.log("---");
-			console.log(self.event);
-			console.log("---");
+			self.privayLevel = 0;
 
 			$.ajax({
 				url: action,
 				dataType: "JSON",
 				type: "POST",
-				data: $addEventForm.serialize() + "&Event.EventLengthInMinutes=" + minutes + "&Event.StartDate=" + startEventDate.toISOString() + "&Event.Kind=" + kind,
+				data: $addEventForm.serialize() + "&Event.EventLengthInMinutes=" + minutes + "&Event.StartDate=" + startEventDate.toISOString() + "&Event.Kind=" + kind + "&Event.PrivacyLevel.value=" + privacyLvl,
 				success: function(result) {
 					if (result.IsSuccess === false) {
 						alert(result.Message);
 					} else {
 						self.closeAddNewEventPopup();
-						self.event.kind.color = eventColorHelper.calculatePrivateEventColor(self.event.title);
+						self.event.kind.color = eventColorHelper.calculatePrivateEventColor(self.event.kindName);
 						self.userPrivateEvents.push(self.event);
 						self.drawEventToCalendar(self.event);
 					}
@@ -198,7 +172,7 @@ function CalendarViewModel(year, month, day, evColHelper) {
 
 		var day = $(element).attr("dayNumber");
 
-		console.log(self.userPrivateEvents);
+		//console.log(self.userPrivateEvents);
 
 		var monthEvents = self.getEventsForGivenMonth(self.userPrivateEvents, self.calendarPageDisplayDate.month, self.calendarPageDisplayDate.year);
 
@@ -362,16 +336,17 @@ function CalendarViewModel(year, month, day, evColHelper) {
 
 	};
 
-	self.showAddEventPopupOnClick = function(element, data, e) {
-		//var eventKind = $(element).parent().siblings(".menu-item").attr("name");
+	self.showAddPrivateEventPopupOnClick = function(element, data, e) {
+		self.event.privacyLevel.name("prywatne");
 
 		$(element).hide();
-
+		
 		var $overlay = $("#calendar").siblings(".dotted-page-overlay");
 		$overlay.css("opacity", 1);
 		$overlay.show();
 
 		var $addEventContainer = $("#add-new-event-container");
+		$addEventContainer.detach().prependTo("#calendar");
 
 		var $eventStartDateTxtBox = $addEventContainer.find("#Event_StartDate");
 		var dayNumber = $(element).siblings(".day").text();
@@ -388,8 +363,30 @@ function CalendarViewModel(year, month, day, evColHelper) {
 		e.stopPropagation();
 	};
 
-	self.redisplayCalendarAtChosenMonthOnClick = function (element) {
+	self.showAddPublicEventPopupOnClick = function(element, data, e) {
 
+		self.event.privacyLevel.name("publiczne");
+
+			var $overlay = $("#lobby").siblings(".dotted-page-overlay");
+			$overlay.css("opacity", 1);
+			$overlay.show();
+
+			var $addEventContainer = $("#add-new-event-container");
+
+			$addEventContainer.detach().prependTo("#lobby");
+
+			//var $eventStartDateTxtBox = $addEventContainer.find("#Event_StartDate");
+			//var dayNumber = $(element).siblings(".day").text();
+
+			//self.AddNewEvent_Day = dayNumber;
+
+			// dateString = dayNumber + '/' + (self.calendarPageDisplayDate.month + 1) + '/' + self.calendarPageDisplayDate.year;
+			//$eventStartDateTxtBox.val(dateString);
+
+			$addEventContainer.show();
+	};
+
+	self.redisplayCalendarAtChosenMonthOnClick = function (element) {
 		var $calendar = $("#calendar");
 		$calendar.empty();
 
@@ -411,7 +408,7 @@ function CalendarViewModel(year, month, day, evColHelper) {
 
 		$(".addNewEvent-cellIcon").click(function (event) {
 
-			self.showAddEventPopupOnClick(this);
+			self.showAddPrivateEventPopupOnClick(this);
 			event.stopPropagation();
 		});
 
@@ -429,8 +426,10 @@ function CalendarViewModel(year, month, day, evColHelper) {
 		$element.hide();
 	};
 
-	self.closeAddNewEventPopup = function() {
-		var $overlay = $("#calendar").siblings(".dotted-page-overlay");
+	self.closeAddNewEventPopup = function () {
+		var $cont = $("#add-new-event-container");
+		var $section = $cont.closest(".main-section");
+		var $overlay = $section.parent().find(".dotted-page-overlay");
 		$overlay.fadeOut();
 		$("#add-new-event-container").hide();
 	};

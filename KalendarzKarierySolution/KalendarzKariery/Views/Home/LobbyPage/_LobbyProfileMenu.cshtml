@@ -7,7 +7,9 @@
   }
   <span style="float:right;"><span style="font-size:.8em;">Zalogowany jako: </span><a class="login-text" href="#">@User.Identity.Name </a></span> 
 	</div>
-		
+	<div style="padding:10px;">
+		<button id="addPublicEventBtn" class="myButton-white" data-bind="click: function (data, e) { $root.showAddPublicEventPopupOnClick($element, data, e) }" >Dodaj publiczne wydarzenie</button>
+	</div>
 
 </section>
 

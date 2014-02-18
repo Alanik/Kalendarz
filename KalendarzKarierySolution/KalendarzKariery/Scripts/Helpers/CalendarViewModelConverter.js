@@ -3,7 +3,7 @@
 	var colorHelper = evColHelper;
 
 	var event;
-	var list;
+	var listOfEvents;
 
 	var setTitle = function (title) {
 		event.title = title;
@@ -69,15 +69,15 @@
 	};
 
 	var setPrivacyLevel = function (privacyLevel) {
-		event.privacyLevel = privacyLevel;
+		event.privacyLevel.value = privacyLevel;
 	};
 
 	var setAddress = function (address) {
 		var street = "";
 		var city = "";
 
-		console.log("address");
-		console.log(address);
+		//console.log("address");
+		//console.log(address);
 
 		if (address) {
 			if (address.Street) {
@@ -102,9 +102,9 @@
 	};
 
 	self.getCalendarViewModelEventList = function (userEvents) {
-		console.log(userEvents);
+		//console.log(userEvents);
 		var serverEvent;
-		list = [];
+		listOfEvents = [];
 
 		for (var i = 0; i < userEvents.length; i++) {
 
@@ -124,10 +124,10 @@
 			setPrivacyLevel(serverEvent.PrivacyLevel);
 			setAddress(serverEvent.Addresses[0]);
 
-			list.push(event);
+			listOfEvents.push(event);
 
 		};
 
-		return list;
+		return listOfEvents;
 	};
 }

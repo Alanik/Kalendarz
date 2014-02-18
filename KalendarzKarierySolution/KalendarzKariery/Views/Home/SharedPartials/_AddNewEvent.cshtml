@@ -4,10 +4,7 @@
 
 	<div class="large-popup-header">
 		<div style="width: 100%; z-index: 2; position: absolute; top: 50px; border-top: 1px solid rgb(221,221,221); border-bottom: 1px solid rgb(247,247,247);"></div>
-		<div id="btnClose-AddEventContainer" class="btn-close">
-			<span class="close-text">zamknij
-			</span>
-		</div>
+		<div id="btnClose-AddEventContainer" class="btn-close" data-bind="click: $root.closeAddNewEventPopup()"><span class="close-text">zamknij</span></div>
 	</div>
 
 
@@ -18,7 +15,7 @@
    {
 				<fieldset class="add-event-fieldset">
 
-					<legend>Dodaj Wydarzenie<span style="margin-left: 10px; font-size: 20px; color: rgb(184, 184, 167);">prywatne</span></legend>
+					<legend>Dodaj Wydarzenie<span style="margin-left: 10px; font-size: 20px; color: rgb(184, 184, 167);" data-bind="text: $root.event.privacyLevel.name"></span></legend>
 
 					<div data-bind="with: event">
 

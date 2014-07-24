@@ -8,7 +8,7 @@ namespace KalendarzKarieryData.Models.ViewModels
 {
 	public class IndexViewModel
 	{
-		public IList<Event> UserPrivateEvents { get; set; }
+		public IList<Event> PrivateEvents { get; set; }
 		public IList<Event> PublicEvents { get; set; }
 	}
 }

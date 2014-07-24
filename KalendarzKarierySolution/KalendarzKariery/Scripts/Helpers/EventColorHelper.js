@@ -1,7 +1,7 @@
 ﻿var EventColorHelper = function () {
 	var self = this;
-	self.calculatePrivateEventColor = function calculatePrivateEventColor(kind) {
-		switch (kind) {
+	self.calculatePrivateEventColor = function calculatePrivateEventColor(kindName) {
+		switch (kindName) {
 			case "wydarzenie":
 				return "#ffff84";
 			case "zajęcia":
@@ -19,8 +19,8 @@
 		}
 	};
 
-	self.calculatePublicEventColor = function calculatePublicEventColor(kind) {
-		switch (kind) {
+	self.calculatePublicEventColor = function calculatePublicEventColor(kindName) {
+		switch (kindName) {
 			case "wydarzenie":
 				return "rgb(68, 219, 93)";
 			case "zajęcia":

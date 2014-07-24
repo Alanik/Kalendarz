@@ -85,13 +85,17 @@ body header {
 	left: 0px;
 }
 
+#eventsMenuContainer {
+	text-align: center;
+}
+
 #lobbyLogo {
 	background-image: url(../Images/Logo/kalendarzLogoTransparent.png);
-	font-size: 1em;
-	width: 680px;
-	height: 140px;
-	position: absolute;
+	position: relative !important;
 	background-repeat: no-repeat;
+	bottom:86px;
+	height:130px;
+	width:540px;
 }
 
 .calendar-navigation-arrows-left {
@@ -185,20 +189,29 @@ body header {
 	display: table-caption;
 	color: white;
 	background: rgba(0,0,0,.04);
-	border-bottom: 2px solid rgb(250,250,250);
+	/*border-bottom: 2px solid rgb(250,250,250);*/
 	border-top: 1px solid #D8D8D8;
 	height: 39px;
 }
 
 #loginPageContainer {
-	margin: 0 auto;
-	background: rgba(0,0,0,.04);
-	width: 50%;
+	/*background: rgba(236, 255, 221, 1);*/
+	background: rgba(249, 255, 249, 1);
+	width: 440px;
 	padding-top: 30px;
+	/*border-radius: 20px;*/
+	top: 25px;
+	margin-left: 38%;
 	color: rgb(104,104,104);
 	/*border: 1px solid rgb(216, 255, 232);*/
 	margin-top: 40px;
 	border: 1px solid rgb(247, 247, 247);
+	display: none;
+	position: absolute;
+	z-index: 4;
+	-webkit-box-shadow: 1px 0px 40px 0px rgb(85, 85, 85);
+	-moz-box-shadow: 1px 0px 40px 0px rgb(85, 85, 85);
+	box-shadow: 1px 0px 40px 0px rgb(85, 85, 85);
 }
 
 	#loginPageContainer legend {
@@ -208,17 +221,34 @@ body header {
 	}
 
 #registerPageContainer {
-	background: rgba(0,0,0,.04);
+	background: rgba(249, 255, 249, 1);
 	display: block;
 	border-top: 1px solid #DADADA;
 	border-bottom: 1px solid white;
-	width: 50%;
-	margin: 0 auto;
+	width: 500px;
+	margin-left: 34%;
+	top: 25px;
 	margin-top: 40px;
-	padding: 10px;
+	padding-top: 30px;
 	color: rgb(104,104,104);
 	display: none;
+	position: absolute;
+	z-index: 4;
+	-webkit-box-shadow: 1px 0px 40px 0px rgb(85, 85, 85);
+	-moz-box-shadow: 1px 0px 40px 0px rgb(85, 85, 85);
+	box-shadow: 1px 0px 40px 0px rgb(85, 85, 85);
 }
+
+	#registerPageContainer legend {
+		font-size: 1.5em;
+		position: relative;
+		bottom: 14px;
+	}
+
+	#registerPageContainer fieldset {
+		border: none;
+		background: rgba(0,0,0,.07);
+	}
 
 #details-menu-header {
 	text-align: center;
@@ -291,8 +321,33 @@ body header {
 	position: relative;
 }
 
+.lobby-event-rectangle {
+	height: 200px;
+	width: 300px;
+	background: rgb(248, 248, 248);
+	border: 1px solid rgb(224,224,224);
+	color: rgb(119,119,119);
+	box-shadow: 2px 2px 10px rgb(216, 216, 216);
+}
+
+.login-link {
+	padding: 0 10px;
+	text-decoration: underline;
+}
+
+#loginSpanLink {
+	font-size: 1.4em;
+}
+
+#loginLinkContainer {
+	text-align: right;
+	padding-right: 100px;
+	color: gray;
+}
+
 .today-cell {
-	background: white !important;
+	background: rgb(255, 234, 195) !important;
+	border: 1px solid white !important;
 }
 
 .current-month-cell {
@@ -314,9 +369,9 @@ body header {
 .other-month-cell {
 	position: relative;
 	border: 1px solid white;
-	border-bottom-right-radius: 12px;
-	border-top-left-radius: 12px;
-	background: rgba(223, 240, 255, 0.7);
+	/*border-bottom-right-radius: 12px;
+	border-top-left-radius: 12px;*/
+	background: rgba(223, 240, 255, 1);
 	/*box-shadow: rgb(221, 221, 221) 0px 3px 5px;
 	border: 2px solid #ddd;
 	background: #eee;*/
@@ -340,38 +395,41 @@ body header {
 
 
 #leftSideCalendar {
-	/*background-image: url("../Images/kalendarzTloLewy.png");
-	background-position:right top;*/
+	background-image: url("../Images/BackgroundParts/kalendarzTloLewy.png");
+	background-position: right top;
 	/*background: rgb(37, 37, 37);*/
 	left: 0px;
 	/*border-right:1px solid #151718;*/
 	/*z-index:2;*/
-	/*border-right: 1px solid #D8D8D8;*/
+	border-right: 1px solid #F0F0F0;
 }
 
 #rightSideCalendar {
-	/*background-image: url("../Images/kalendarzTloPrawo.png");
-	background-position: left top;*/
+	background-image: url("../Images/BackgroundParts/kalendarzTloPrawo.png");
+	background-position: left top;
 	/*background: rgb(37, 37, 37);*/
 	right: 0px;
-	/*border-left: 1px solid #D8D8D8;*/
+	border-left: 1px solid #F0F0F0;
 	/*border-left:1px solid #151718;*/
 }
 
 #leftSideDetails {
-	/*background-image: url("../Images/kalendarzTloLewy.png");
-	background-position: right top;*/
+	background-image: url("../Images/BackgroundParts/kalendarzTloLewy.png");
+	background-position: right top;
 	/*background: rgb(37, 37, 37);*/
 	left: 0px;
+	/*border-right:1px solid #151718;*/
+	/*z-index:2;*/
+	border-right: 1px solid #F0F0F0;
 }
 
 #rightSideLobby {
-	/*background-image: url("../Images/kalendarzTloPrawo.png");
-	background-position: left top;*/
+	background-image: url("../Images/BackgroundParts/kalendarzTloPrawo.png");
+	background-position: left top;
 	right: 0px;
 	/*height: 3000px;*/
-	/*background: rgb(37, 37, 37);
-	border-left: 1px solid #151718;*/
+	/*background: rgb(37, 37, 37);*/
+	border-left: 1px solid #F0F0F0;
 }
 
 
@@ -384,7 +442,6 @@ body header {
 	border-top: 1px solid rgb(189, 189, 189);
 	background: rgba(214, 214, 214, 0.5);
 	box-shadow: 4px 2px 8px rgb(207, 207, 207);
-
 	height: 30px;
 	color: rgb(116, 116, 116);
 	font-size: 0.8em;
@@ -423,12 +480,13 @@ body header {
 	*/
 }
 
-#add-new-event-container {
+#addNewEventContainer {
 	border-radius: 20px;
 	top: 25px;
 	padding-top: 20px;
 	position: absolute;
-	background: rgb(247,247,247);
+	/*background: rgba(236, 255, 221, 1);*/
+	background: rgba(249, 255, 249, 1);
 	z-index: 4;
 	width: 80%;
 	margin-left: 10%;
@@ -440,10 +498,7 @@ body header {
 
 .large-popup-header {
 	width: 100%;
-	height: 60px;
-	background: rgb(233, 233, 233);
-	border-bottom: 1px solid lightgray;
-	border-top: 1px solid lightgray;
+	height: 30px;
 }
 
 .btn-close {
@@ -471,13 +526,9 @@ body header {
 }
 
 .add-event-fieldset {
-	border-bottom-right-radius: 20px;
-	border-bottom-left-radius: 20px;
 	color: rgb(155, 155, 155);
-	border: 1px solid lightgray;
-	background: rgb(243, 243, 243);
-	/*background-image: url(/Images/TestBackgrounds/KalendarzTlo4.png);
-	background-position: center;*/
+	border: none;
+	background: rgba(0,0,0,.07);
 }
 
 	.add-event-fieldset label {
@@ -493,7 +544,6 @@ body header {
 	}
 
 .add-event-form-container {
-	width: 98.5%;
 	margin: 0 auto;
 }
 
@@ -547,6 +597,7 @@ background:rgb(115, 233, 162);
 	line-height: 1;
 	border-bottom: 5px solid;
 	left: 0;
+	background: rgb(228, 228, 228);
 }
 
 .event-rectangle-details {
@@ -565,7 +616,7 @@ background:rgb(115, 233, 162);
 	}
 
 .month-name-header-container {
-	border-bottom: 1px solid rgb(221, 221, 221);
+	border-bottom: 1px solid rgb(213, 213, 213);
 	text-align: center;
 }
 
@@ -648,6 +699,8 @@ background:rgb(115, 233, 162);
 
 .current-weekday {
 	color: rgb(81, 228, 163);
+	border: 1px solid rgb(223,223,223);
+	background: white;
 }
 
 .year-header-container {
@@ -673,9 +726,36 @@ background:rgb(115, 233, 162);
 	color: rgb(87, 87, 87);
 }
 
-#lobbyLogo {
-	position: static !important;
+#siteNavLegendContainer {
+	text-align: center;
+	position: relative;
+	font-size: .8em;
+	color: rgb(184,184,184);
+	z-index:5;
 }
+
+	#siteNavLegendContainer span {
+	border-top:1px solid rgb(216,216,216);
+	}
+
+.site-legend-border {
+	height: 14px;
+	width:3px;
+	padding-right: 12px;
+	display: inline-block;
+	border-right: 1px solid rgb(216,216,216);
+}
+
+#showLoginFormBtn {
+	margin-left: 20px;
+	margin-right: 4px;
+	color: rgb(87, 87, 87);
+}
+
+.link {
+	text-decoration: underline;
+}
+
 
 .lobby-profile-menu {
 	background: rgba(0,0,0,.04);
@@ -850,7 +930,7 @@ wydarzenia-tab {
 	text-decoration: underline;
 }
 
-#lobbyEventSummary {	
+#lobbyEventSummary {
 	width: 90%;
 	margin: 0 auto;
 	margin-top: 40px;
@@ -974,12 +1054,18 @@ wydarzenia-tab {
 	margin-left: 40px;
 }
 
-
-
-
-
-
-
+.loader-container {
+	position: absolute;
+	z-index: 101;
+	width: 300px;
+	height: 200px;
+	padding: 20px;
+	text-align: center;
+	background: white;
+	top: 200px;
+	left: 400px;
+	display: none;
+}
 
 
 /*
@@ -1007,11 +1093,12 @@ helpers
 MEDIA QUERIES
 */
 
-@media screen and (max-width: 1350px) {
+/*@media screen and (max-width: 1350px) {
 	#lobbyLogo {
 		display: none;
 	}
-}
+}*/
+
 
 
 

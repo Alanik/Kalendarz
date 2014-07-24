@@ -22,16 +22,21 @@
 	};
 
 	var setStartDate = function (startDate, length) {
-		var dateStr = startDate.replace('T', ' ');
-		var date = new Date(Date.parse(dateStr));
+		var dateAndTime = startDate.replace('T', ' ').split(' ');
 
-		var h = date.getHours();
+		//TODO: remove the double replace function
+		var dateStr = dateAndTime[0].replace('-', '/').replace('-', '/');
+		var date = new Date(dateStr);
+
+		var timeStr = dateAndTime[1].split(':');
+		var h = parseInt(timeStr[0], 10);
+		var m = parseInt(timeStr[1], 10);
 
 		var minutes = (length % 60);
 		var hours = (length - minutes) / 60;
 
 		var transformedDate = {
-			"startMinute": date.getMinutes(),
+			"startMinute": m,
 			"endMinute": minutes,
 			"startHour": h,
 			"endHour": (h + hours),
@@ -57,8 +62,8 @@
 
 	var setKind = function (kind) {
 		event.kind = {
-			"kindName": kind,
-			"color":  colorHelper.calculatePrivateEventColor(kind)
+			"kindName": ko.observable(kind),
+			"color": colorHelper.calculatePrivateEventColor(kind)
 		};
 
 		
@@ -75,9 +80,6 @@
 	var setAddress = function (address) {
 		var street = "";
 		var city = "";
-
-		//console.log("address");
-		//console.log(address);
 
 		if (address) {
 			if (address.Street) {
@@ -102,11 +104,11 @@
 	};
 
 	self.getCalendarViewModelEventList = function (userEvents) {
-		//console.log(userEvents);
-		var serverEvent;
+		var serverEvent, userEventsLenght = userEvents.length;
 		listOfEvents = [];
 
-		for (var i = 0; i < userEvents.length; i++) {
+
+		for (var i = 0; i < userEventsLenght; i++) {
 
 			event = new KKEvent();
 			serverEvent = userEvents[i];

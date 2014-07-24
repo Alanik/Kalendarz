@@ -1,10 +1,12 @@
 ﻿@model KalendarzKarieryData.Models.AccountModels.LoginModel
 
 <section id="loginPageContainer">
+<div class="large-popup-header">
+<div id="btnClose-loginPopup" data-bind="click: closeLoginPopupOnClick" class="btn-close"><span class="close-text">zamknij</span></div>
+</div>
 	@using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "loginForm"}))
  {
 		@Html.AntiForgeryToken()
-
 
 		<fieldset>
 			<legend>Zaloguj się</legend>
@@ -30,7 +32,7 @@
  }
 
 	<p>
-		<a href="#" id="showRegisterFormBtn" data-bind="click:$root.showRegisterFormOnClick">Utwórz konto</a><span> jeśli jeszcze takiego nie posiadasz.</span>
+		<span class="link" id="showRegisterFormBtn" data-bind="click:$root.showRegisterFormOnClick">Utwórz konto</span><span> jeśli jeszcze takiego nie posiadasz.</span>
 	</p>
 
 </section>

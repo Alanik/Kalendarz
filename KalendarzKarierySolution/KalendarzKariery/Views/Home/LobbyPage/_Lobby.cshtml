@@ -3,10 +3,29 @@
 	<div class="lobby-content-body">
 
 		<div id="lobby-menu-header" class="site-menu-header">
+		<div id="loginLinkContainer">
+				<span data-bind="click: showLoginFormOnClick" id="loginSpanLink" class="login-link link">Zaloguj sie</span>
+				<span id="registerSpanLink" data-bind="click: showRegisterFormOnClick" class="login-link link">Stwórz konto</span>
+
+			</div>
 			<div id="lobbyLogo">
 			</div>
 
-			<div style="text-align: center;">
+			
+
+			@if (!Request.IsAuthenticated)
+   {
+				@Html.Partial("_Login", new KalendarzKarieryData.Models.AccountModels.LoginModel())
+				@Html.Partial("_Register", new KalendarzKarieryData.Models.ViewModels.RegisterViewModel())
+   }
+   else
+   {
+	
+				@Html.Partial("_LobbyProfileMenu")
+	  
+   }
+
+			<div id="eventsMenuContainer">
 				<div class="menu-item-container">
 					<div class="border-item wydarzenia-border-tab"></div>
 					<div class="menu-item" name="wydarzenia"><span>Wydarzenia</span></div>
@@ -39,18 +58,6 @@
 				</div>
 			</div>
 
-
-			@if (!Request.IsAuthenticated)
-   {
-				@Html.Partial("_Login", new KalendarzKarieryData.Models.AccountModels.LoginModel())
-				@Html.Partial("_Register", new KalendarzKarieryData.Models.ViewModels.RegisterViewModel())
-   }
-   else
-   {
-	
-				@Html.Partial("_LobbyProfileMenu")
-	  
-   }
 
 			<div id="lobbyEventSummary">
 				@Html.Partial("_lobbyEventSummary")

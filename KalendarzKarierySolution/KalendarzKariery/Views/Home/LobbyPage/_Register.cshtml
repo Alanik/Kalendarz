@@ -1,6 +1,11 @@
 ﻿@model KalendarzKarieryData.Models.ViewModels.RegisterViewModel
 
 <section id="registerPageContainer">
+<div class="large-popup-header">
+<div id="btnClose-registerPopup" data-bind="click: closeRegisterPopupOnClick" class="btn-close"><span class="close-text">zamknij</span></div>
+</div>
+
+
 	@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { id = "registerForm" }))
  {
 		@Html.AntiForgeryToken()
@@ -98,7 +103,7 @@
 		</fieldset>
  }
 	<p>
-		<a href="#lobby-menu-header" id="showLoginFormBtn" data-bind="click: $root.showLoginFormOnClick">Zaloguj się</a><span> jeśli już posiadasz własne konto.</span>
+		<span class="link" id="showLoginFormBtn" data-bind="click: $root.showLoginFormOnClick">Zaloguj się</span><span> jeśli już posiadasz własne konto.</span>
 	</p>
 
 </section>

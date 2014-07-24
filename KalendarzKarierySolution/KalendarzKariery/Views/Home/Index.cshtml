@@ -6,14 +6,27 @@
 	<ul class="slides-container">
 		<li>
 			<div class="slide-item-lobby">
+			<div id="siteNavLegendContainer">
+				<div style="margin:0 auto;margin-top:16px;position:relative;">
+					<div class="site-legend-border"></div>
+					<div class="site-legend-border"></div>
+					<div class="site-legend-border"></div>
+				</div>
+				<span>strona glówna</span>
+				<span>kalendarz</span>
+				<span>szczegóły</span>
+			</div>
 				<div id="lobbyBg">
 					<img src="~/Images/kalendarzTloClear.png" alt="background" style="top: 0 !important" />
 					<div class="dotted-page-overlay"></div>
+					<div class="loader-container">wczytywanie...</div>
 					<section id="lobby" class="main-section">
 						@Html.Partial("_Lobby")
 					</section>
+
 				</div>
 				<div id="rightSideLobby" class="side"></div>
+
 			</div>
 		</li>
 		<li>
@@ -23,7 +36,7 @@
 				<div id="calendarBg">
 					<img src="~/Images/kalendarzTlo.png" alt="background" />
 					<div class="dotted-page-overlay"></div>
-
+					<div class="loader-container">wczytywanie...</div>
 					<section id="calendar" class="main-section">
 
 						<!-- Calendar is added dynamically (calendarWidget.js)   -->
@@ -41,6 +54,7 @@
 				<div id="detailsBg">
 					<img src="~/Images/kalendarzTloClear.png" alt="background" />
 					<div class="dotted-page-overlay"></div>
+					<div class="loader-container">wczytywanie...</div>
 					<div id="details" class="main-section">
 						@Html.Partial("_Details")
 					</div>
@@ -66,8 +80,7 @@
 				var $details = $("#details");
 				var $lobby = $("#lobby");
 				var date = new Date();
-
-				var evColHelper = new EventColorHelper();
+				var evColHelper = new EventColorHelper();			
 
 				$calendar.calendarWidget({
 					month: date.getMonth(), year: date.getFullYear()
@@ -78,15 +91,16 @@
 
 				var indexViewModel = @Html.Raw(@Model);
 
-				var serverUserPrivateEvents = indexViewModel.UserPrivateEvents;
+				var serverPrivateEvents = indexViewModel.PrivateEvents;
 				var serverPublicEvents = indexViewModel.PublicEvents;
 
 				var CvmConverter = new CalendarViewModelConverter(evColHelper);
-				var userPrivateEvents = CvmConverter.getCalendarViewModelEventList(serverUserPrivateEvents);
+				var privateEvents = CvmConverter.getCalendarViewModelEventList(serverPrivateEvents);
 			
-				ko.utils.arrayForEach(userPrivateEvents, function (event) {
-					calendarViewModel.userPrivateEvents.push(event);
+				ko.utils.arrayForEach(privateEvents, function (event) {
+					calendarViewModel.privateEvents.push(event);
 
+					//TODO: optimize this filter
 					if(event.startDate.month === calendarViewModel.calendarPageDisplayDate.month && event.startDate.year === calendarViewModel.calendarPageDisplayDate.year) {
 						calendarViewModel.drawEventToCalendar(event);
 					}
@@ -253,17 +267,17 @@
 						}
 					}, ".month-name-calendar");
 
-					$(".menu-item").hover(function () {
-						$(this).css({
-							"cursor": "pointer",
-							"font-size": ".9em"
-						});
-					}, function () {
-						$(this).css({
-							"cursor": "auto",
-							"font-size": ".8em"
-						});
-					});
+					//$(".menu-item").hover(function () {
+					//	$(this).css({
+					//		"cursor": "pointer",
+					//		"font-size": ".9em"
+					//	});
+					//}, function () {
+					//	$(this).css({
+					//		"cursor": "auto",
+					//		"font-size": ".8em"
+					//	});
+					//});
 
 					$("#leftSide").hover(function () {
 						$(this).css({
@@ -407,7 +421,7 @@
 						});
 					});
 
-					var $closeBtnAddEventContainer = $("#btnClose-AddEventContainer");
+					var $closeBtnAddEventContainer = $(".btn-close");
 
 					$closeBtnAddEventContainer.hover(function () {
 						$(this).css({
@@ -430,6 +444,27 @@
 							"cursor": "auto"
 						});
 					});
+
+					$(".link").hover(function () {
+						$(this).css({
+							"cursor": "pointer"
+						});
+					}, function () {
+						$(this).css({
+							"cursor": "auto"
+						});
+					});
+
+					$(".login-link").hover(function () {
+						$(this).css({
+							"color":"rgb(73, 226, 140)"						
+						});
+					}, function () {
+						$(this).css({
+							"color":"gray"
+						});
+					});
+
 				}();
 
 				this.Initialize.InitializeClick = function () {
@@ -494,7 +529,7 @@
 
 					//	var txtDay = $(this).parent().find(".day").text();
 					//	$("#hiddenDay").attr("name", txtDay);
-					//	$("#add-new-event-container").show();
+					//	$("#addNewEventContainer").show();
 
 					//	event.stopPropagation();
 					//});

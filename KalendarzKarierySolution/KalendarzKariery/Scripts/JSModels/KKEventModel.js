@@ -1,31 +1,28 @@
 ﻿var KKEvent = function () {
-	this.title = "";
-	this.startDate = {
-		startMinute: "",
-		endMinute: "",
-		startHour: "",
-		endHour: "",
-		day: "",
-		month: "",
-		year: ""
-	};
 
-	//privacyLevel 
-	//	 0 = "private"
-	//	 1 = "public" 
+	var EVENT_COlOR_HELPER = new EventColorHelper();
 
-	this.privacyLevel = function () {
-		this.name = ko.observable('');
-		this.value = ko.observable('');
-	};
+	this.addedBy = "";
 
 	this.address = {
 		street: "",
 		city: "",
 		zipCode: ""
 	};
+
+	this.dateAdded = {
+		minute: "",
+		hour: "",
+		day: "",
+		month: "",
+		year: ""
+	};
+
 	this.description = "";
+
 	this.details = "";
+
+	this.eventLengthInMinutes = 0;
 
 	//kinds
 	//	"aktualności"
@@ -36,26 +33,39 @@
 	//	"spotkanie"
 	//	"inne"
 
-	this.kind = function(){
-		this.kindName = ko.observable(""),
-		this.color = ko.observable("")
+	this.kind = {
+		kindName : ko.observable(""),
+		color: function () {
+			return EVENT_COlOR_HELPER.calculatePrivateEventColor(this.kindName())
+		}
 	}
 
-	this.dateAdded = {
+	this.numberOfPeopleAttending = 0;
+
+	this.occupancyLimit = null;
+
+	//privacyLevel 
+	//	 0 = "private"
+	//	 1 = "public" 
+
+	this.privacyLevel =  {
+		name : ko.observable(''),
+		value : ko.observable('')
+	};
+
+	this.startDate = {
+		startMinute: "",
+		endMinute: "",
+		startHour: "",
+		endHour: "",
 		day: "",
 		month: "",
 		year: ""
 	};
-	this.addedBy = "";
-	this.numberOfPeopleAttending = "";
-	this.occupancyLimit = "";
+
+	this.title = "";
+
 	this.urlLink = "";
-	this.eventLengthInMinutes = 0;
-
-
-	///constructor
-	this.privacyLevel = new this.privacyLevel();
-	this.kind = new this.kind();
 
 };
 

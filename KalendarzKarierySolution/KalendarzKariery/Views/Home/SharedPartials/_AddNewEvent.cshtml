@@ -1,12 +1,12 @@
 ﻿@model KalendarzKarieryData.Models.ViewModels.AddEventViewModel
 
-<div id="add-new-event-container">
+<div id="addNewEventContainer">
 
 	<div class="large-popup-header">
-		<div style="width: 100%; z-index: 2; position: absolute; top: 50px; border-top: 1px solid rgb(221,221,221); border-bottom: 1px solid rgb(247,247,247);"></div>
-		<div id="btnClose-AddEventContainer" class="btn-close" data-bind="click: $root.closeAddNewEventPopup()"><span class="close-text">zamknij</span></div>
+		<div id="btnClose-AddEventContainer" class="btn-close" data-bind="click: $root.closeAddNewEventPopupOnClick()">
+			<span class="close-text">zamknij</span>
+		</div>
 	</div>
-
 
 	<section class="add-event-body">
 		<div class="add-event-form-container">
@@ -22,12 +22,12 @@
 						<div class="div-separator">
 							<label>Kategoria: </label>
 							<select id="kindSelectBox" name="kindSelectBox" data-bind="value: kind.kindName">
-								<option value="Wydarzenie">wydarzenie</option>
-								<option value="Zajęcia">zajęcia</option>
-								<option value="Szkolenie">szkolenie</option>
-								<option value="Kurs">kurs</option>
-								<option value="Spotkanie">spotkanie</option>
-								<option value="Inne">inne</option>
+								<option value="wydarzenie">wydarzenie</option>
+								<option value="zajęcia">zajęcia</option>
+								<option value="szkolenie">szkolenie</option>
+								<option value="kurs">kurs</option>
+								<option value="spotkanie">spotkanie</option>
+								<option value="inne">inne</option>
 							</select>
 						</div>
 
@@ -37,7 +37,7 @@
 							</div>
 							<div>
 								@Html.LabelFor(m => m.Event.Title, new { @class = "form-label" })
-								@Html.TextBoxFor(m => m.Event.Title, new { maxlength = 30, data_bind ="value: title"})
+								@Html.TextBoxFor(m => m.Event.Title, new { maxlength = 30, data_bind = "value: title" })
 							</div>
 						</div>
 
@@ -91,28 +91,28 @@
 							</div>
 						</div>
 
-						<div id="addNewEventAddressLink" class="div-separator margin-left-150"  data-bind="click: function(){ $root.showGivenFieldInAddNewEventPopupOnClick($element)}">
+						<div id="addNewEventAddressLink" class="div-separator margin-left-150" data-bind="click: function () { $root.showGivenFieldInAddNewEventPopupOnClick($element) }">
 							<p class="underline">Dodaj adres</p>
 						</div>
 
-						<div id="addNewEventAddressContainer" class="div-separator"  style="display: none;">
+						<div id="addNewEventAddressContainer" class="div-separator" style="display: none;">
 							<div>
 								@Html.LabelFor(m => m.Address.Street, new { @class = "form-label" })
-								@Html.TextBoxFor(m => m.Address.Street, new { maxlength = 30, data_bind="value: address.street"})
+								@Html.TextBoxFor(m => m.Address.Street, new { maxlength = 30, data_bind = "value: address.street" })
 								@Html.ValidationMessageFor(m => m.Address.Street)
 							</div>
 							<div>
 								@Html.LabelFor(m => m.Address.City, new { @class = "form-label" })
-								@Html.TextBoxFor(m => m.Address.City, new { maxlength = 30, data_bind="value: address.city" })
+								@Html.TextBoxFor(m => m.Address.City, new { maxlength = 30, data_bind = "value: address.city" })
 								@Html.ValidationMessageFor(m => m.Address.City)
 							</div>
 							<div>
 								@Html.LabelFor(m => m.Address.ZipCode, new { @class = "form-label" })
-								@Html.TextBoxFor(m => m.Address.ZipCode, new { maxlength = 6, @size=4, data_bind="value: address.zipCode"})
+								@Html.TextBoxFor(m => m.Address.ZipCode, new { maxlength = 6, @size = 4, data_bind = "value: address.zipCode" })
 								@Html.ValidationMessageFor(m => m.Address.ZipCode)
 							</div>
 						</div>
-						
+
 						<div id="addNewEventDescriptionLink" class="div-separator margin-left-150" data-bind="click: function () { $root.showGivenFieldInAddNewEventPopupOnClick($element) }">
 							<p class="underline">Dodaj opis</p>
 						</div>
@@ -120,7 +120,7 @@
 						<div id="addNewEventDescriptionContainer" class="div-separator" style="display: none;">
 							<div>
 								@Html.LabelFor(m => m.Event.Description, new { @class = "form-label", @style = "vertical-align:top;" })
-								@Html.TextAreaFor(m => m.Event.Description, new { cols = 30, rows = 3, maxlength = 100, data_bind="value: description" })
+								@Html.TextAreaFor(m => m.Event.Description, new { cols = 30, rows = 3, maxlength = 100, data_bind = "value: description" })
 								@Html.ValidationMessageFor(m => m.Event.Description)
 							</div>
 						</div>
@@ -131,7 +131,7 @@
 
 						<div id="btnAddNewEventDetailsContainer" class="div-separator" style="display: none;">
 							@Html.LabelFor(m => m.Event.Details, new { @class = "form-label", @style = "vertical-align:top;" })
-							@Html.TextAreaFor(m => m.Event.Details, new { cols = 30, rows = 5, maxlength = 500, data_bind="value: details" })
+							@Html.TextAreaFor(m => m.Event.Details, new { cols = 30, rows = 5, maxlength = 500, data_bind = "value: details" })
 							@Html.ValidationMessageFor(m => m.Event.Details)
 						</div>
 

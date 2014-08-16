@@ -9,6 +9,8 @@ using System.Web;
 using System.Web.Security;
 using WebMatrix.WebData;
 using KalendarzKarieryData;
+using KalendarzKarieryData.Repository;
+using KalendarzKarieryData.Repository.KalendarzKarieryRepository;
 
 namespace KalendarzKariery.BO.SeedMembership
 {
@@ -85,7 +87,7 @@ namespace KalendarzKariery.BO.SeedMembership
 					Roles.AddUserToRole(loginName, AdminRole);
 				}
 
-				var repository = new KalendarzKarieryRepository();
+				var repository = RepositoryProvider.GetRepository();
 
 				int id = WebSecurity.GetUserId(loginName);
 				repository.UpdateUserOnRegister(id, user.Addresses.First()); 

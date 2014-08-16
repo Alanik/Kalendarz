@@ -5,7 +5,7 @@ using System.Web;
 
 namespace KalendarzKarieryWebAPI.Models.ResponseModels
 {
-	public class DefaultResponseModel : IResponse
+	public class DefaultResponse : IResponse
 	{
 		public bool IsSuccess { get; set; }
 		public string Message { get; set; }

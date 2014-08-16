@@ -7,12 +7,14 @@ using System.Web.Mvc;
 using System.Collections;
 using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
+using KalendarzKarieryData.Repository;
+using KalendarzKarieryData.Repository.KalendarzKarieryRepository;
 
 namespace KalendarzKariery.Controllers
 {
 	public class HomeController : Controller
 	{
-		private static readonly IKalendarzKarieryRepository Repository = new KalendarzKarieryRepository(); 
+		private static readonly IKalendarzKarieryRepository Repository = RepositoryProvider.GetRepository(); 
 		
 		public ActionResult Index()
 		{
@@ -24,6 +26,7 @@ namespace KalendarzKariery.Controllers
 			var indexViewModel = new IndexViewModel();
 
 			indexViewModel.PrivateEvents = Repository.GetEventsForGivenMonth(DateTime.Today.Month);
+			indexViewModel.PrivateEvents = Repository.GetAllEvents();
 			indexViewModel.PublicEvents = null;
 
 			return View("Index", (object)JsonConvert.SerializeObject(indexViewModel, new JsonSerializerSettings()

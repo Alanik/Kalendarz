@@ -114,7 +114,7 @@
 				calendar += ('<div class="other-month-cell calendar-cell"><div class="calendar-cell-placeholder"><div class="cell-span-container" style="position:relative;"><span class="day">' + i + '</span></div></div></div>');
 
 			} else {
-				calendar += ('<div class="current-month-cell  calendar-cell day' + (j - firstDay + 1) + '" dayNumber="' + (j - firstDay + 1) + '" data-bind="click:function(){ $root.moveToDetailsPageOnCalendarCellClick($element) }"><div class="calendar-cell-placeholder"><div class="cell-span-container" style="position:relative;"><span class="day">' + (j - firstDay + 1) + '</span><div class="addNewEvent-cellIcon light-icon" data-bind="click:function(data, e){ $root.showAddPrivateEventPopupOnClick($element, data, e)}">+</div></div></div></div>');
+				calendar += ('<div class="current-month-cell  calendar-cell day' + (j - firstDay + 1) + '" dayNumber="' + (j - firstDay + 1) + '" data-bind="click:function(){ $root.moveToDetailsPageOnCalendarCellClick($element) }"><div class="calendar-cell-placeholder"><div class="cell-span-container" style="position:relative;"><span class="day">' + (j - firstDay + 1) + '</span><div class="addNewEvent-cellIcon light-icon" data-bind="click:function(data, e){ $root.showAddPrivateCalendarEventPopupOnClick($element, data, e)}">+</div></div></div></div>');
 			}
 
 			if (j % 7 == 6) calendar += ('</div>');

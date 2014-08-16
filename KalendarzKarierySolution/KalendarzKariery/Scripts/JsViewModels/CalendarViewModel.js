@@ -8,9 +8,9 @@ function CalendarViewModel(year, month, day) {
 	self.detailsPageDisplayDate = {
 		events: [],
 		date: {
-			"day": "",
-			"month": "",
-			"year": ""
+			"year": year,
+			"month": month,
+			"day": day
 		}
 	};
 
@@ -92,8 +92,13 @@ function CalendarViewModel(year, month, day) {
 				month: chosenMonth,
 				year: chosenYear
 			};
+
 			self.eventLengthInMinutes = minutes;
 			self.privacyLevel = 0;
+
+			if (true) {
+
+			}
 
 			$loader = $addEventForm.closest(".main-section").siblings(".loader-container");
 
@@ -357,7 +362,7 @@ function CalendarViewModel(year, month, day) {
 	};
 
 
-	self.showAddPrivateEventPopupOnClick = function (element, data, e) {
+	self.showAddPrivateCalendarEventPopupOnClick = function (element, data, e) {
 		self.event.privacyLevel.name("prywatne");
 
 		$(element).hide();
@@ -408,6 +413,29 @@ function CalendarViewModel(year, month, day) {
 		$addEventContainer.show();
 	};
 
+	self.showAddPrivateEventPopupOnClick = function (element, data, e) {
+
+		self.event.privacyLevel.name("prywatne");
+
+		var $overlay = $("#lobby").siblings(".dotted-page-overlay");
+		$overlay.css("opacity", 1);
+		$overlay.show();
+
+		var $addEventContainer = $("#addNewEventContainer");
+
+		$addEventContainer.detach().prependTo("#lobby");
+
+		//var $eventStartDateTxtBox = $addEventContainer.find("#Event_StartDate");
+		//var dayNumber = $(element).siblings(".day").text();
+
+		//self.AddNewEvent_Day = dayNumber;
+
+		// dateString = dayNumber + '/' + (self.calendarPageDisplayDate.month + 1) + '/' + self.calendarPageDisplayDate.year;
+		//$eventStartDateTxtBox.val(dateString);
+
+		$addEventContainer.show();
+	};
+
 	self.redisplayCalendarAtChosenMonthOnClick = function (element) {
 		var $calendar = $("#calendar");
 		$calendar.empty();
@@ -430,7 +458,7 @@ function CalendarViewModel(year, month, day) {
 
 		$(".addNewEvent-cellIcon").click(function (event) {
 
-			self.showAddPrivateEventPopupOnClick(this);
+			self.showAddPrivateCalendarEventPopupOnClick(this);
 			event.stopPropagation();
 		});
 

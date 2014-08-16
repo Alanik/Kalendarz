@@ -14,6 +14,8 @@ namespace KalendarzKarieryData
     using System.Data.Entity.Infrastructure;
     using System.Data.Entity.Core.Objects;
     using System.Linq;
+    using System.Data.Common;
+
     
     public partial class KalendarzKarieryDBEntities : DbContext
     {
@@ -21,6 +23,11 @@ namespace KalendarzKarieryData
             : base("name=KalendarzKarieryDBEntities")
         {
         }
+
+		public KalendarzKarieryDBEntities(DbConnection connection)
+			: base(connection, true)
+		{
+		}
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

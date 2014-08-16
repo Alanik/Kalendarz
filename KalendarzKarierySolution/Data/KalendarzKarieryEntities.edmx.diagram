@@ -5,9 +5,9 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="6575ef8fd73949e98d84c1a7e111c6a4" Name="Diagram1">
-        <EntityTypeShape EntityType="KalendarzKarieryDBModel.Address" Width="1.5" PointX="7.5" PointY="9" IsExpanded="true" />
-        <EntityTypeShape EntityType="KalendarzKarieryDBModel.Comment" Width="1.5" PointX="10.5" PointY="9.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="KalendarzKarieryDBModel.Event" Width="1.5" PointX="5.25" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KalendarzKarieryDBModel.Address" Width="1.5" PointX="5.5" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KalendarzKarieryDBModel.Comment" Width="1.5" PointX="7.5" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KalendarzKarieryDBModel.Event" Width="1.5" PointX="1.875" PointY="10.125" IsExpanded="true" />
         <EntityTypeShape EntityType="KalendarzKarieryDBModel.sysdiagram" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="KalendarzKarieryDBModel.User" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
         <EntityTypeShape EntityType="KalendarzKarieryDBModel.UserAccountInfo" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />

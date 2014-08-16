@@ -63,10 +63,9 @@
 	var setKind = function (kind) {
 		event.kind = {
 			"kindName": ko.observable(kind),
-			"color": colorHelper.calculatePrivateEventColor(kind)
-		};
-
-		
+			"color": colorHelper.calculatePrivateEventColor(kind),
+			"headerColor" : colorHelper.calculateEventHeaderTxtColor(kind)
+		};	
 	};
 
 	var setNumberOfPeopleAttending = function (people) {

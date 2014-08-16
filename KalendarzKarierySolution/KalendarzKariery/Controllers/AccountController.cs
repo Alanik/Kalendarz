@@ -11,6 +11,8 @@ using KalendarzKarieryData.Models.ViewModels;
 using KalendarzKarieryData.Models.AccountModels;
 using KalendarzKariery.BO.ExtentionMethods;
 using System.Linq;
+using KalendarzKarieryData.Repository;
+using KalendarzKarieryData.Repository.KalendarzKarieryRepository;
 
 
 namespace KalendarzKariery.Controllers
@@ -18,7 +20,7 @@ namespace KalendarzKariery.Controllers
 	[Authorize]
 	public class AccountController : Controller
 	{
-		readonly KalendarzKarieryRepository _repository = new KalendarzKarieryRepository();
+		readonly IKalendarzKarieryRepository _repository = RepositoryProvider.GetRepository();
 
 		[AllowAnonymous]
 		public ActionResult Login()

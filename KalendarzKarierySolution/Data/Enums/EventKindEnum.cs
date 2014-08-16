@@ -18,7 +18,7 @@ namespace KalendarzKarieryData.Enums
 
 	public enum PrivacyLevel
 	{
-		prywatne = 0,
-		publiczne = 1
+		@private = 0,
+		@public = 1
 	}
 }

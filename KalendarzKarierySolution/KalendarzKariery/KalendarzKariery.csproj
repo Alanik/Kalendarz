@@ -62,12 +62,17 @@
     <Reference Include="DotNetOpenAuth.OpenId.RelyingParty">
       <HintPath>..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.1.4.12333\lib\net45-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
     </Reference>
+    <Reference Include="Effort, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6a46696d54971e6d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Effort.EF6.1.1.0\lib\net45\Effort.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.WebPages.OAuth, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -78,6 +83,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NMemory, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6a46696d54971e6d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NMemory.1.0.0\lib\net45\NMemory.dll</HintPath>
+    </Reference>
     <Reference Include="Postal">
       <HintPath>..\packages\postal.0.8.2\lib\net45\Postal.dll</HintPath>
     </Reference>
@@ -86,6 +95,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http.Extensions">
       <HintPath>..\packages\Microsoft.Net.Http.2.2.18\lib\net45\System.Net.Http.Extensions.dll</HintPath>
@@ -263,6 +273,13 @@
     <Content Include="Content\Fonts\CodePro\CODE Bold.otf" />
     <Content Include="Content\Fonts\CodePro\CODE Light.otf" />
     <Content Include="Content\Fonts\CodePro\FFF_EULA_license.pdf" />
+    <Content Include="Data\FakeRepositoryCsvFiles\Address.csv" />
+    <Content Include="Data\FakeRepositoryCsvFiles\Event.csv" />
+    <Content Include="Data\FakeRepositoryCsvFiles\User.csv" />
+    <Content Include="Data\FakeRepositoryCsvFiles\UserAccountInfo.csv" />
+    <Content Include="Data\FakeRepositoryCsvFiles\webpages_Membership.csv" />
+    <Content Include="Data\FakeRepositoryCsvFiles\webpages_Roles.csv" />
+    <Content Include="Data\FakeRepositoryCsvFiles\webpages_UsersInRoles.csv" />
     <None Include="Properties\PublishProfiles\Alan.pubxml" />
     <None Include="Scripts\Lib\jquery-2.0.3.intellisense.js" />
     <Content Include="Images\TestBackgrounds\1600x900.jpg" />
@@ -325,7 +342,7 @@
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Home\LobbyPage\_Register.cshtml" />
-    <Content Include="Views\Home\LobbyPage\_LobbyProfileMenu.cshtml" />
+    <Content Include="Views\Home\LobbyPage\_LobbyLoggedInBar.cshtml" />
     <Content Include="Views\Home\DetailsPage\_Details.cshtml" />
     <Content Include="Views\Emails\_ViewStart.cshtml" />
     <Content Include="Views\Home\LobbyPage\_lobbyEventSummary.cshtml" />

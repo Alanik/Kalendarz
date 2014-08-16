@@ -1,5 +1,6 @@
 ﻿var EventColorHelper = function () {
 	var self = this;
+
 	self.calculatePrivateEventColor = function calculatePrivateEventColor(kindName) {
 		switch (kindName) {
 			case "wydarzenie":
@@ -33,6 +34,25 @@
 				return "rgb(253, 104, 170)";
 			case 'inne':
 				return "rgb(108, 255, 225)";
+			default:
+				return "rgb(250, 84, 84)";
+		}
+	};
+
+	self.calculateEventHeaderTxtColor = function calculateEventHeaderTxtColor(kindName) {
+		switch (kindName) {
+			case "wydarzenie":
+				return "#ffff84";
+			case "zajęcia":
+				return "rgb(146, 248, 227)";
+			case "szkolenie":
+				return "rgb(165, 218, 255)";
+			case "kurs":
+				return "rgb(221,221,221)";
+			case "spotkanie":
+				return "rgb(255, 202, 226)";
+			case 'inne':
+				return "rgb(255, 136, 136)";
 			default:
 				return "rgb(250, 84, 84)";
 		}

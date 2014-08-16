@@ -7,52 +7,51 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
+using KalendarzKarieryCore.Consts;
 
 namespace KalendarzKarieryWebAPI.Controllers
 {
 	public class BaseController : ApiController
 	{
-		public const string ValidationError = "Formularz zawiera nieprawidłowe dane";
-
-		protected IResponse ValidateUser(IResponse response)
+		protected IResponse ValidateUser()
 		{
-			const string NotAuthenticatedMsg = "Musisz być zalogowany by wykonać tę operację";
-			const string NotAuthorizedMsg = "Nie masz uprawnień by wykonać tę operację";
+			var response = new DefaultResponse();
+			response.IsSuccess = true;
 
 			if (!User.Identity.IsAuthenticated)
 			{
-				response.Message = NotAuthenticatedMsg;
+				response.Message = Consts.NotAuthenticatedErrorMsg;
+				response.IsSuccess = false;
 				return response;
 			}
 
-			if (!User.IsInRole("Administrator"))
+			if (!User.IsInRole(Consts.AdminRole))
 			{
-				response.Message = NotAuthorizedMsg;
+				response.Message = Consts.NotAuthorizedErrorMsg;
+				response.IsSuccess = false;
 				return response;
 			}
 
-			return null;
+			return response;
 		}
 
-		protected IResponse ValidateAddEventViewModel(IResponse response, AddEventViewModel viewModel)
+		protected IResponse ValidateAddEventViewModel(AddEventViewModel viewModel)
 		{
+			var response = new DefaultResponse();
+			response.IsSuccess = true;
+
 			if (string.IsNullOrEmpty(viewModel.Event.Title))
 			{
-				SetResponseToInvalidState(response, ValidationError);
+				response.IsSuccess = false;
+				response.Message = Consts.GeneralValidationErrorMsg;
 				return response;
 			}
 
-			//if (viewModel.Event.Kind > Enum.GetNames(typeof(EventKindEnum)).Length)
-			//{
-			//	SetResponseToInvalidState(response, ValidationError);
-			//	return response;
-			//}
-
 			var startDate = new DateTime();
-
 			if (!DateTime.TryParse(viewModel.Event.StartDate.ToString(), out startDate))
 			{
-				SetResponseToInvalidState(response, ValidationError);
+				response.IsSuccess = false;
+				response.Message = Consts.GeneralValidationErrorMsg;
 				return response;
 			}
 
@@ -62,18 +61,13 @@ namespace KalendarzKarieryWebAPI.Controllers
 
 				if (!reg.IsMatch(viewModel.Address.ZipCode))
 				{
-					SetResponseToInvalidState(response, ValidationError);
+					response.IsSuccess = false;
+					response.Message = Consts.GeneralValidationErrorMsg;
 					return response;
 				}
 			}
 
-			return null;
-		}
-
-		public void SetResponseToInvalidState(IResponse response, string message)
-		{
-			response.IsSuccess = false;
-			response.Message = message;
+			return response;
 		}
 	}
 }

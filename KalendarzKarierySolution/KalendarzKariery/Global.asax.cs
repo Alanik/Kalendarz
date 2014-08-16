@@ -7,6 +7,8 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using KalendarzKarieryData.Repository.KalendarzKarieryRepository;
+using KalendarzKarieryData.Repository;
 
 namespace KalendarzKariery
 {
@@ -24,6 +26,7 @@ namespace KalendarzKariery
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 			AuthConfig.RegisterAuth();
 			InitializeMembership.SeedMembership();
+			Effort.Provider.EffortProviderConfiguration.RegisterProvider();
 
 			RazorViewEngine razorEngine = ViewEngines.Engines.OfType<RazorViewEngine>().FirstOrDefault();
 			if (razorEngine != null)
@@ -37,6 +40,19 @@ namespace KalendarzKariery
 				razorEngine.PartialViewLocationFormats =
 					razorEngine.PartialViewLocationFormats.Union(newPartialViewFormats).Reverse().ToArray();
 			}
+
+			//////////////////
+			//var UserAccountInfo = new UserAccountInfo();
+			//UserAccountInfo.CreationDate = DateTime.Now;
+			//UserAccountInfo.NumOfLogins = 1;
+			//UserAccountInfo.UserAccountInfoId = 1;
+
+			//repo.AddUserAccountInfo(UserAccountInfo);
+			//repo.Save();
+
+			//var list = repo.GetUserAccountInfos();
+			//////////////////
+				
         }
     }
 }

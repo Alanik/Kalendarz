@@ -34,12 +34,11 @@
 	//	"inne"
 
 	this.kind = {
-		kindName : ko.observable(""),
-		color: function () {
-			return EVENT_COlOR_HELPER.calculatePrivateEventColor(this.kindName())
-		}
-	}
-
+		kindName: ko.observable(""),
+		color: "",
+		headerColor: ""
+	}	
+		
 	this.numberOfPeopleAttending = 0;
 
 	this.occupancyLimit = null;

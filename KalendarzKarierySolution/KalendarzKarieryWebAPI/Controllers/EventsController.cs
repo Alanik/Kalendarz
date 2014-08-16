@@ -5,21 +5,24 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.UI.WebControls;
-using KalendarzKarieryData;
+using KalendarzKarieryData.Repository;
 using KalendarzKarieryData.Models.ViewModels;
 using KalendarzKarieryWebAPI.Models.ResponseModels;
 using Newtonsoft.Json;
+using KalendarzKarieryData;
+using KalendarzKarieryData.Repository.KalendarzKarieryRepository;
+
 
 namespace KalendarzKarieryWebAPI.Controllers
 {
 	public class EventsController : BaseController
 	{
-		private static readonly IKalendarzKarieryRepository Repository = new KalendarzKarieryRepository();
+		private static readonly IKalendarzKarieryRepository Repository = RepositoryProvider.GetRepository();
 
 		// GET api/events
-		public DefaultResponseModel Get()
+		public DefaultResponse Get()
 		{
-			var defaultResponse = new DefaultResponseModel() { IsSuccess = true };
+			var defaultResponse = new DefaultResponse() { IsSuccess = true };
 			return defaultResponse;
 		}
 
@@ -33,16 +36,16 @@ namespace KalendarzKarieryWebAPI.Controllers
 		public IResponse Post(AddEventViewModel addEventViewModel)
 		{
 			var errorResponse = Validate(addEventViewModel);
-			if (errorResponse != null)
+			if (!errorResponse.IsSuccess)
 			{			
 				return errorResponse;
 			}
 
 			if (!ModelState.IsValid)
 			{
-				IResponse response = new DefaultResponseModel();
-				SetResponseToInvalidState(response, ValidationError);
-
+				var response = new DefaultResponse();
+				response.IsSuccess = false;
+				response.Message = KalendarzKarieryCore.Consts.Consts.GeneralValidationErrorMsg;
 				return response;
 			}
 
@@ -51,7 +54,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 			Repository.AddEvent(@event);
 			Repository.Save();
 
-			return new DefaultResponseModel { IsSuccess = true };
+			return new DefaultResponse { IsSuccess = true };
 		}
 
 		// PUT api/events/5 (update)
@@ -66,13 +69,13 @@ namespace KalendarzKarieryWebAPI.Controllers
 
 		private IResponse Validate(AddEventViewModel addEventViewModel)
 		{
-			var errorResponse = ValidateUser(new DefaultResponseModel());
+			var errorResponse = this.ValidateUser();
 			if (errorResponse != null)
 			{
 				return errorResponse;
 			}
 
-			errorResponse = ValidateAddEventViewModel(errorResponse, addEventViewModel);
+			errorResponse = ValidateAddEventViewModel(addEventViewModel);
 			if (errorResponse != null)
 			{
 				return errorResponse;
@@ -98,8 +101,11 @@ namespace KalendarzKarieryWebAPI.Controllers
 			@event.StartDate = viewModel.Event.StartDate;
 			@event.EventLengthInMinutes = viewModel.Event.EventLengthInMinutes;
 
-			@event.Addresses.Add(viewModel.Address);
-
+			if (!string.IsNullOrEmpty(viewModel.Address.Street))
+			{
+				@event.Addresses.Add(viewModel.Address);
+			}
+			
 			return @event;
 		}
 	}

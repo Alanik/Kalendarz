@@ -1,0 +1,16 @@
+﻿<section class="lobby-loggedIn-bar">
+	<div style="overflow: hidden; padding: 20px 0; color: rgb(185, 185, 185); background: white;">
+		@using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+  {
+			@Html.AntiForgeryToken()
+			<a style="color: rgb(153,153,153); padding-right: 40px;" href="javascript:document.getElementById('logoutForm').submit()">wyloguj</a>
+  }
+		<span style="float: right;"><span style="font-size: .8em;">Zalogowany jako: </span><a class="loggedIn-nickname" href="#">@User.Identity.Name </a></span>
+	</div>
+	<div style="padding: 18px; text-align: center; max-width: 470px; margin: 0 auto; background: rgb(143,143,143); border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;border-top:1px solid rgb(243,243,243);">
+		<button id="addPublicEventBtn" class="myButton-white" data-bind="click: function (data, e) { $root.showAddPublicEventPopupOnClick($element, data, e) }">Stwórz publiczne wydarzenie</button>
+		<button id="addPrivateEventBtn" class="myButton-white" data-bind="click: function (data, e) { $root.showAddPrivateEventPopupOnClick($element, data, e) }">Dodaj do kalendarza</button>
+	</div>
+
+</section>
+

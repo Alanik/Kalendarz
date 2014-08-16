@@ -133,6 +133,10 @@
       <Project>{556eca30-9acb-4557-abab-a1434957a871}</Project>
       <Name>KalendarzKarieryData</Name>
     </ProjectReference>
+    <ProjectReference Include="..\KalendarzKarieryCore\KalendarzKarieryCore.csproj">
+      <Project>{a2d99e83-cdef-4c1e-8e0a-bf4f697a6036}</Project>
+      <Name>KalendarzKarieryCore</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

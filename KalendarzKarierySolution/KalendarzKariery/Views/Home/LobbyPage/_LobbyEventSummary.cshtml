@@ -1,11 +1,10 @@
 ﻿<section>
-	<div data-bind="foreach: privateEvents">
-		<div class="lobby-event-rectangle" style="margin: 8px; float: left; padding: 10px; margin-left: 0px;">
-			<div data-bind="style: { color: kind.color, background: 'rgb(130,130,130)', padding: '10px', marginBottom: '10px' }">
-				<span data-bind="text: kind.kindName"></span>
-
+	<div data-bind="foreach: privateEvents" style="text-align:center;">
+		<div class="lobby-event-rectangle" style="border:1px solid rgb(221, 221, 221); margin: 2px; display:inline-block; padding: 10px;text-align:left;">
+			<div data-bind="style: { color: kind.headerColor, background: 'rgb(130,130,130)', border:'1px solid rgb(221, 221, 221)',  padding: '10px', marginBottom: '10px' }">
+				<span data-bind="text: kind.kindName"></span>	
 			</div>
-			<div><span data-bind="text: title, style: { fontSize: '2em' } "></span></div>
+			<div><span data-bind="text: title, style: { fontSize: '1.6em' } "></span></div>
 			<div>godzina rozpoczęcia: <span data-bind="text: startDate.startHour"></span><span>: </span><span data-bind="	text: startDate.startMinute"></span></div>
 			<div>godzina zakończenia: <span data-bind="text: startDate.endHour"></span><span>: </span><span data-bind="	text: startDate.endMinute"></span></div>
 			<div>data: <span data-bind="text: startDate.day"></span><span>/</span><span data-bind="	text: startDate.month"></span><span>/</span><span data-bind="	text: startDate.year"></span></div>

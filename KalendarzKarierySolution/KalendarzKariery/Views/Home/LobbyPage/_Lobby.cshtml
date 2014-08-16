@@ -3,11 +3,17 @@
 	<div class="lobby-content-body">
 
 		<div id="lobby-menu-header" class="site-menu-header">
-		<div id="loginLinkContainer">
+
+		@if(!Request.IsAuthenticated)
+		{
+	<div id="loginLinkContainer">
 				<span data-bind="click: showLoginFormOnClick" id="loginSpanLink" class="login-link link">Zaloguj sie</span>
 				<span id="registerSpanLink" data-bind="click: showRegisterFormOnClick" class="login-link link">Stwórz konto</span>
 
 			</div>
+		}
+
+	
 			<div id="lobbyLogo">
 			</div>
 
@@ -21,7 +27,7 @@
    else
    {
 	
-				@Html.Partial("_LobbyProfileMenu")
+				@Html.Partial("_LobbyLoggedInBar")
 	  
    }
 
@@ -57,7 +63,6 @@
 					<div class="menu-item" name="inne"><span>Inne</span></div>
 				</div>
 			</div>
-
 
 			<div id="lobbyEventSummary">
 				@Html.Partial("_lobbyEventSummary")

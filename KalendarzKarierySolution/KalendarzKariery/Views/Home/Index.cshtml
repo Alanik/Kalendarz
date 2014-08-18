@@ -5,7 +5,7 @@
 <div id="slides">
 	<ul class="slides-container">
 		<li>
-			<div class="slide-item-lobby">
+			<div id="slide-item-lobby">
 				<div id="siteNavLegendContainer">
 					<div style="margin: 0 auto; margin-top: 16px; position: relative;">
 						<div class="site-legend-border"></div>
@@ -14,7 +14,7 @@
 					</div>
 					<span>strona glówna</span>
 					<span>kalendarz</span>
-					<span>szczegóły</span>
+					<span>panel</span>
 				</div>
 				<div id="lobbyBg">
 					<img src="~/Images/kalendarzTloClear.png" alt="background" style="top: 0 !important" />
@@ -30,7 +30,7 @@
 			</div>
 		</li>
 		<li>
-			<div class="slide-item-calendar">
+			<div id="slide-item-calendar">
 				<div id="leftSideCalendar" class="side">
 				</div>
 				<div id="calendarBg">
@@ -45,12 +45,16 @@
 
 					@Html.Partial("_AddNewEvent", new KalendarzKarieryData.Models.ViewModels.AddEventViewModel())
 					@Html.Partial("_HoverEvent")
+
+					<section id="calendarListView">
+
+					</section>
 				</div>
 				<div id="rightSideCalendar" class="side"></div>
 			</div>
 		</li>
 		<li>
-			<div class="slide-item-details">
+			<div id="slide-item-details">
 				<div id="detailsBg">
 					<img src="~/Images/kalendarzTloClear.png" alt="background" />
 					<div class="dotted-page-overlay"></div>
@@ -96,6 +100,8 @@
 				calendarViewModel.privateEvents = CvmConverter.getCalendarViewModelEventList(indexViewModel.PrivateEvents);
 			
 				ko.applyBindings(calendarViewModel);
+
+				console.log(calendarViewModel.privateEvents);
 
 				ko.utils.arrayForEach(calendarViewModel.privateEvents, function (event) {
 					//TODO: optimize this filter

@@ -244,18 +244,26 @@ body header {
 }
 
 
-#details-menu-header {
+#detailsMenuHeader {
 	text-align: center;
 	color: white;
 	width: 90%;
 	min-height: 48px;
+	overflow: hidden;
+}
+
+#lowDetailsMenuHeader {
+	text-align: center;
+	color: white;
+	width: 90%;
+	min-height: 48px;
+	overflow: hidden;
+}
+
+.dark-background-div {
 	background: rgba(0,0,0,.04);
-	/*border-left: 1px solid #D8D8D8;*/
 	border-bottom: 1px solid rgb(247, 247, 247);
 	border-top: 1px solid #D8D8D8;
-	overflow: hidden;
-	/*border-left:2px solid #313131;
-	border-right:2px solid #313131;*/
 }
 
 .site-menu-header {
@@ -330,6 +338,10 @@ body header {
 
 #loginSpanLink {
 	font-size: 1.4em;
+}
+
+#detailsPanel {
+	height: 400px;
 }
 
 #loginLinkContainer {
@@ -799,12 +811,47 @@ background:rgb(115, 233, 162);
 	margin-top: 10px;
 }
 
+#todayDateDay {
+	font-size: 6em;
+	display: inline-block;
+	color: rgb(251, 255, 194);
+}
+
+#todayDateDayName {
+	color: rgb(251, 255, 194);
+	font-size: 2em;
+	position:relative;
+	bottom:40px;
+}
+
+#todayDateMonth {
+	font-size: 2em;
+}
+
+#todayDateYear {
+	font-size: 1.5em;
+	position: relative;
+	bottom: 4px;
+}
+
+#todayDateAndTimeContainer {
+	color: rgb(132,132,132);
+	margin-left: 20px;
+	width: 250px;
+}
+
 .event-list {
 	width: 85%;
 	margin: 0 auto;
 	color: gray;
 	font-size: 1em;
 	overflow: hidden;
+}
+
+.calendar-listview-day {
+	width: 100%;
+	border: 1px solid black;
+	margin: 10px 0;
 }
 
 .loggedIn-nickname {
@@ -875,7 +922,6 @@ wydarzenia-tab {
 
 #calendarDayDetailsTable {
 	width: 90%;
-	margin-top: 40px;
 	color: gray;
 	position: relative;
 }
@@ -899,7 +945,7 @@ wydarzenia-tab {
 	}
 
 		#calendarDayDetailsTable .table-details-body .details-day-cell {
-			height: 300px;
+			height: 100px;
 			float: left;
 			width: 6.66%;
 		}
@@ -969,7 +1015,7 @@ wydarzenia-tab {
 
 .summary-validation-errors {
 	color: red;
-	margin-left:40px;
+	margin-left: 40px;
 }
 
 
@@ -1226,6 +1272,7 @@ legend {
 -----------------------------------------------------------*/
 .field-validation-error {
 	color: #f00;
+	padding: 0 4px;
 }
 
 .field-validation-valid {

@@ -133,6 +133,8 @@ function CalendarViewModel(year, month, day) {
 	};
 
 	self.drawEventToCalendar = function (event) {
+		console.log(event.startDate);
+
 		self.event.kind.name(event.kind.name);
 		self.event.kind.value(event.kind.value);
 
@@ -158,6 +160,10 @@ function CalendarViewModel(year, month, day) {
 		$event.css("opacity", .8);
 
 		$cellPlaceholder.append($event);
+
+		function eventPlacementAlgorithm(){
+
+		}
 
 	};
 
@@ -433,7 +439,6 @@ function CalendarViewModel(year, month, day) {
 
 		var $addEventContainer = $("#addNewEventContainer");
 		$addEventContainer.detach().prependTo($calendar);
-
 
 		$addEventContainer.find("#Event_Title").focus();
 

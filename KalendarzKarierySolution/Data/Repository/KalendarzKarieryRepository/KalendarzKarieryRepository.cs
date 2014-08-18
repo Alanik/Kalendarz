@@ -103,7 +103,7 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 				kind = new { name = m.EventKind.Name, value = m.EventKind.Value },
 				privacyLevel = new { name = m.PrivacyLevel.Name, value = m.PrivacyLevel.Value },
 				addresses = m.Addresses.Select(o => new { street = o.Street, city = o.City, zipCode = o.ZipCode })
-			}).ToArray();
+			}).OrderBy(m => m.startDate).ToArray();
 		}
 
 		public ICollection<object> GetAllEvents()

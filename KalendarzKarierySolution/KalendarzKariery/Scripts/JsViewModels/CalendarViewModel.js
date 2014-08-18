@@ -106,15 +106,13 @@ function CalendarViewModel(year, month, day) {
 				data: $addEventForm.serialize() +
 				"&Event.EventLengthInMinutes=" + minutes +
 				"&Event.StartDate=" + startEventDate.toISOString() +
-				"&PrivacyLevel.Value=" +  1 +
+				"&PrivacyLevel.Value=" + 1 +
 				"&EventKind.Value=" + self.event.kind.value(),
 				success: function (result) {
 					if (result.IsSuccess === false) {
-						self.hideLoader($loader);
+						self.hideLoader($loader, true);
 						alert(result.Message);
 					} else {
-
-						self.closeAddNewEventPopupOnClick();
 						self.privateEvents.push(self.event);
 
 						self.event.kind.color = colorHelper.calculatePrivateEventColor(self.event.kind.value());
@@ -476,8 +474,8 @@ function CalendarViewModel(year, month, day) {
 		var $overlay = $section.siblings(".dotted-page-overlay");
 
 		//TODO: overlay might be already hidden, so fadeOut might cause problems / performance issues
-			$overlay.fadeOut();
-		
+		$overlay.fadeOut();
+
 
 		$("#addNewEventContainer").hide();
 
@@ -494,10 +492,15 @@ function CalendarViewModel(year, month, day) {
 
 	};
 
-	self.hideLoader = function ($loaderContainer) {
-		var $overlay = $loaderContainer.siblings(".dotted-page-overlay");
+	self.hideLoader = function ($loaderContainer, keepOverlayVisible) {
+		console.log(keepOverlayVisible);
+
+		if (!keepOverlayVisible) {
+			$loaderContainer.siblings(".dotted-page-overlay").fadeOut();
+		}
+
 		$loaderContainer.hide();
-		$overlay.fadeOut();
+
 	};
 
 	//////////////////////////////////////////////////////

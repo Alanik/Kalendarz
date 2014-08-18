@@ -491,8 +491,7 @@ body header {
 #addNewEventContainer {
 	top: 25px;
 	position: absolute;
-	/*background: rgba(236, 255, 221, 1);*/
-	background: rgba(249, 255, 249, 1);
+	/*background: rgba(249, 255, 249, 1);*/
 	z-index: 4;
 	width: 80%;
 	margin-left: 10%;
@@ -505,14 +504,13 @@ body header {
 .large-popup-header {
 	width: 100%;
 	height: 30px;
-	margin-top: 12px;
 }
 
 .btn-close {
 	position: relative;
-	bottom: 1px;
-	margin-right: 10px;
 	float: right;
+	margin-top: 20px;
+	margin-right: 20px;
 }
 
 .close-text {
@@ -523,7 +521,8 @@ body header {
 	padding-left: 30px;
 	padding-right: 10px;
 	padding-bottom: 2px;
-	background: rgb(163, 157, 157);
+	background: rgb(245, 132, 132);
+	border-radius: 3px;
 }
 
 .add-event-body {
@@ -535,19 +534,12 @@ body header {
 .add-event-fieldset {
 	color: rgb(155, 155, 155);
 	border: none;
-	background: rgba(0,0,0,.07);
+	margin-left: 20px;
 }
 
 	.add-event-fieldset label {
 		width: 150px;
 		display: inline-block;
-	}
-
-	.add-event-fieldset legend {
-		font-size: 2em;
-		position: relative;
-		bottom: 12px;
-		color: rgb(102, 221, 188);
 	}
 
 .add-event-form-container {
@@ -698,6 +690,10 @@ background:rgb(115, 233, 162);
 .right-event-details {
 	float: left;
 	width: 24%;
+}
+
+.margin-left-285 {
+	margin-left: 285px;
 }
 
 .margin-left-150 {
@@ -988,12 +984,6 @@ wydarzenia-tab {
 
 
 
-
-
-
-
-
-
 .myButton-white {
 	-moz-box-shadow: inset 0px 1px 0px 0px #ffffff;
 	-webkit-box-shadow: inset 0px 1px 0px 0px #ffffff;
@@ -1066,15 +1056,10 @@ wydarzenia-tab {
 	display: none;
 }
 
-/*#addEventForm {
-	background: #f7f2ec url('Images/Form/letter_bg.png');
+.slick-contact-form {
+	background: #f7f2ec url('/Images/Form/letter_bg.png');
 	position: relative;
-	top: 200px;
 	overflow: hidden;
-	height: 200px;
-	width: 400px;
-	margin: 0px auto;
-	padding: 20px;
 	border: 1px solid #fff;
 	border-radius: 3px;
 	-moz-border-radius: 3px;
@@ -1082,7 +1067,55 @@ wydarzenia-tab {
 	box-shadow: 0px 0px 3px #9d9d9d, inset 0px 0px 27px #fff;
 	-moz-box-shadow: 0px 0px 3px #9d9d9d, inset 0px 0px 14px #fff;
 	-webkit-box-shadow: 0px 0px 3px #9d9d9d, inset 0px 0px 27px #fff;
-}*/
+}
+
+	.slick-contact-form label {
+		color: #b3aba1;
+		/*text-transform: uppercase;*/
+		text-shadow: 0px 1px 0px #fff;
+	}
+
+	.slick-contact-form legend {
+		color: #7c7873;
+		text-shadow: 0 1px 0 #fff;
+		font-size: 2em;
+		position: relative;
+		bottom: 12px;
+	}
+
+	.slick-contact-form input[type=text], textarea, select {
+		/*font: 14px normal normal uppercase;*/
+		color: #7c7873;
+		background: none;
+		width: 200px;
+		height: 36px;
+		padding: 0px 10px;
+		border: 1px solid #f8f5f1;
+		-moz-border-radius: 5px;
+		-webkit-border-radius: 5px;
+		border-radius: 5px;
+		-moz-box-shadow: inset 0px 0px 1px #726959;
+		-webkit-box-shadow: inset 0px 0px 1px #b3a895;
+		box-shadow: inset 0px 0px 1px #b3a895;
+		outline: none;
+	}
+
+	.slick-contact-form textarea {
+		height: 80px;
+		padding-top: 14px;
+	}
+
+	.slick-contact-form .time-select-box {
+		width: 100px !important;
+	}
+
+	.slick-contact-form #kindSelectBox {
+		width: 209px !important;
+	}
+
+.sllick-contact-form textarea:focus, input[type=text]:focus {
+	background: rgba(255,255,255,.35);
+}
 
 
 /*
@@ -1206,6 +1239,7 @@ textarea {
 -----------------------------------------------------------*/
 .field-validation-error {
 	color: #f00;
+	padding: 0 10px;
 }
 
 .field-validation-valid {
@@ -1213,8 +1247,8 @@ textarea {
 }
 
 .input-validation-error {
-	border: 1px solid #f00;
-	background-color: #fee;
+	border: 1px solid #f00 !important;
+	background-color: #fee !important;
 }
 
 .validation-summary-errors {

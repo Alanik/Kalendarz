@@ -21,7 +21,7 @@ namespace KalendarzKarieryData
             this.Users = new HashSet<User>();
         }
     
-        public int EventId { get; set; }
+        public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string Details { get; set; }
@@ -31,13 +31,17 @@ namespace KalendarzKarieryData
         public Nullable<int> EventLengthInMinutes { get; set; }
         public Nullable<int> OccupancyLimit { get; set; }
         public string UrlLink { get; set; }
-        public string Kind { get; set; }
+        public int EventKindId { get; set; }
         public Nullable<int> NumberOfPeopleAttending { get; set; }
-        public int PrivacyLevel { get; set; }
+        public int PrivacyLevelId { get; set; }
+        public int EventStatusId { get; set; }
     
         public virtual ICollection<Address> Addresses { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
+        public virtual EventKind EventKind { get; set; }
+        public virtual EventStatus EventStatus { get; set; }
         public virtual User User { get; set; }
+        public virtual PrivacyLevel PrivacyLevel { get; set; }
         public virtual ICollection<User> Users { get; set; }
     }
 }

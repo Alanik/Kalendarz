@@ -14,7 +14,7 @@ namespace KalendarzKarieryData
     
     public partial class Comment
     {
-        public int CommentId { get; set; }
+        public int Id { get; set; }
         public string Text { get; set; }
         public int AuthorId { get; set; }
         public System.DateTime DateAdded { get; set; }

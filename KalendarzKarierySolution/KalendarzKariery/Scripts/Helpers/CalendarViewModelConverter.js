@@ -1,8 +1,8 @@
-﻿var CalendarViewModelConverter = function (evColHelper) {
+﻿var CalendarViewModelConverter = function () {
 	var self = this;
-	var colorHelper = evColHelper;
+	var colorHelper = new EventColorHelper();
 
-	var event;
+	var event = new KKEvent();
 	var listOfEvents;
 
 	var setTitle = function (title) {
@@ -52,6 +52,10 @@
 		event.eventLengthInMinutes = minutes;
 	};
 
+	var setPrivacyLevel = function (privacyLevel) {
+		event.privacyLevel = privacyLevel;
+	};
+
 	var setOccupancyLimit = function (limit) {
 		event.occupancyLimit = limit;
 	};
@@ -61,11 +65,10 @@
 	};
 
 	var setKind = function (kind) {
-		event.kind = {
-			"kindName": ko.observable(kind),
-			"color": colorHelper.calculatePrivateEventColor(kind),
-			"headerColor" : colorHelper.calculateEventHeaderTxtColor(kind)
-		};	
+		event.kind.name(kind.name);
+		event.kind.value(kind.value);
+		event.kind.color = colorHelper.calculatePrivateEventColor(kind.value);
+		event.kind.headerColor = colorHelper.calculateEventHeaderTxtColor(kind.value);
 	};
 
 	var setNumberOfPeopleAttending = function (people) {
@@ -73,57 +76,42 @@
 	};
 
 	var setPrivacyLevel = function (privacyLevel) {
-		event.privacyLevel.value = privacyLevel;
+		event.privacyLevel = privacyLevel;
 	};
 
 	var setAddress = function (address) {
-		var street = "";
-		var city = "";
+		event.address = address;
 
-		if (address) {
-			if (address.Street) {
-				street = address.Street;
-			}
-			if (address.City) {
-				city = address.City;
-			}
-
+		if (typeof address == 'undefined' || !address) {
 			event.address = {
-				"street": street,
-				"city": city,
-				"zipCode": address.ZipCode
-		};
-	} else {
-			event.address = {
-				"street": "",
-				"city": "",
-				"zipCode": ""
+				street: "",
+				city: "",
+				zipCode: ""
 			};
 		}
 	};
 
 	self.getCalendarViewModelEventList = function (userEvents) {
-		var serverEvent, userEventsLenght = userEvents.length;
+		var serverEvent, userEventsLength = userEvents.length;
 		listOfEvents = [];
 
-
-		for (var i = 0; i < userEventsLenght; i++) {
+		for (var i = 0; i < userEventsLength; i++) {
 
 			event = new KKEvent();
 			serverEvent = userEvents[i];
 
-			setTitle(serverEvent.Title);
-			setDescription(serverEvent.Description);
-			setDetails(serverEvent.Details);
-			setDateAdded(serverEvent.DateAdded);
-			setStartDate(serverEvent.StartDate, serverEvent.EventLengthInMinutes);
-			setEventLengthInMinutes(serverEvent.EventLengthInMinutes);
-			setOccupancyLimit(serverEvent.OccupancyLimit);
-			setUrlLink(serverEvent.UrlLink);
-			setKind(serverEvent.Kind);
-			setNumberOfPeopleAttending(serverEvent.NumberOfPeopleAttending);
-			setPrivacyLevel(serverEvent.PrivacyLevel);
-			setAddress(serverEvent.Addresses[0]);
+			setTitle(serverEvent.title);
+			setDescription(serverEvent.description);
+			setDetails(serverEvent.details);
+			setDateAdded(serverEvent.dateAdded);
+			setStartDate(serverEvent.startDate, serverEvent.eventLengthInMinutes);
+			setEventLengthInMinutes(serverEvent.eventLengthInMinutes);
+			setOccupancyLimit(serverEvent.occupancyLimit);
+			setUrlLink(serverEvent.urlLink);
+			setNumberOfPeopleAttending(serverEvent.numberOfPeopleAttending);
+			setAddress(serverEvent.addresses[0]);
+			setPrivacyLevel(serverEvent.privacyLevel);
+			setKind(serverEvent.kind);
 
 			listOfEvents.push(event);
 
@@ -131,4 +119,31 @@
 
 		return listOfEvents;
 	};
-}
+
+	self.getCalendarViewModelEventKinds = function (serverEventKinds) {
+		var serverEventKind, serverEventKindsLength = serverEventKinds.length;
+		var listOfEventKinds = [];
+		for (var i = 0; i < serverEventKindsLength; i++) {
+
+			serverEventKind = serverEventKinds[i];
+			//serverEventKind.color = colorHelper.calculatePrivateEventColor(serverEventKind.value);
+			//serverEventKind.headerColor = colorHelper.calculateEventHeaderTxtColor(serverEventKind.value);
+			
+			listOfEventKinds.push(serverEventKind);
+		};
+
+		return listOfEventKinds;
+	};
+
+	self.getCalendarViewModelPrivacyLevels = function (serverPrivacyLevels) {
+		var serverPrivacyLevel, serverPrivacyLevelsLength = serverPrivacyLevels.length;
+		var listOfPrivacyLevel = [];
+		for (var i = 0; i < serverPrivacyLevelsLength; i++) {
+
+			listOfPrivacyLevels.push(serverPrivacyLevels[i]);
+
+		};
+
+		return listOfPrivacyLevels;
+	};
+};

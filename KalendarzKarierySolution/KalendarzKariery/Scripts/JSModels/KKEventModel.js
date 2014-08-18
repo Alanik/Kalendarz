@@ -1,6 +1,6 @@
 ﻿var KKEvent = function () {
-
-	var EVENT_COlOR_HELPER = new EventColorHelper();
+	var self = this;
+	var colorHelper = new EventColorHelper();
 
 	this.addedBy = "";
 
@@ -24,32 +24,20 @@
 
 	this.eventLengthInMinutes = 0;
 
-	//kinds
-	//	"aktualności"
-	//	"wydarzenie"
-	//	"zajęcia"
-	//	"szkolenie"
-	//	"kurs"
-	//	"spotkanie"
-	//	"inne"
-
 	this.kind = {
-		kindName: ko.observable(""),
+		value: ko.observable(),
+		name: ko.observable(),
 		color: "",
 		headerColor: ""
-	}	
-		
+	}
+
 	this.numberOfPeopleAttending = 0;
 
 	this.occupancyLimit = null;
 
-	//privacyLevel 
-	//	 0 = "private"
-	//	 1 = "public" 
-
-	this.privacyLevel =  {
-		name : ko.observable(''),
-		value : ko.observable('')
+	this.privacyLevel = {
+		name : "",
+		value : ""
 	};
 
 	this.startDate = {
@@ -65,6 +53,5 @@
 	this.title = "";
 
 	this.urlLink = "";
-
 };
 

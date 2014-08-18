@@ -21,8 +21,13 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 		#region Event
 
 		void AddEvent(Event @event);
-		IList<Event> GetEventsForGivenMonth(int month); 
-		IList<Event> GetAllEvents();
+		ICollection<object> GetEventsForGivenMonth(int month); 
+		ICollection<object> GetAllEvents();
+		ICollection<object> GetAllPrivacyLevels();
+		ICollection<object> GetAllEventKinds();
+		PrivacyLevel GetPrivacyLevelByValue(int id);
+		EventKind GetEventKindByValue(int id);
+
 		#endregion
 
 		void Save();

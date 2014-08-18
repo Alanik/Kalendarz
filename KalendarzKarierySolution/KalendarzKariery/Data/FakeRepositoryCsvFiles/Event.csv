@@ -1,8 +1,0 @@
-EventId,Title,Description,Details,DateAdded,OwnerUserId,StartDate,EventLengthInMinutes,OccupancyLimit,UrlLink,Kind,NumberOfPeopleAttending,PrivacyLevel
-95,"WydarzenieBezAdesu",,,08/13/2014 18:55:45,11,08/08/2014 08:00:44,120,,,"wydarzenie",0,0
-96,"zajecieBezAdresu",,,08/13/2014 18:59:26,11,08/08/2014 09:00:20,360,,,"zajęcia",0,0
-97,"kursBezAdresu",,,08/13/2014 19:02:30,11,08/08/2014 07:00:24,420,,,"kurs",0,0
-98,"spotkanieZAdresem",,,08/13/2014 19:03:36,11,08/08/2014 07:00:32,360,,,"spotkanie",0,0
-99,"inneBezAdresu",,,08/13/2014 19:13:06,11,08/31/2014 17:00:58,180,,,"inne",0,0
-100,"inneBezAd",,,08/13/2014 19:14:00,11,08/15/2014 16:00:00,240,,,"inne",0,0
-101,"zajecieBezAdresu",,,08/13/2014 20:14:07,11,08/21/2014 07:00:07,780,,,"szkolenie",0,0

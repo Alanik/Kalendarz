@@ -10,5 +10,8 @@ namespace KalendarzKarieryData.Models.ViewModels
 	{
 		public Event Event { get; set; }
 		public Address Address { get; set; }
+		public EventKind EventKind { get; set; }
+		public PrivacyLevel PrivacyLevel{ get; set; }
+		public EventStatus EventStatus { get; set; } 
 	}
 }

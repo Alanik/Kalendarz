@@ -104,8 +104,6 @@
 				calendar += '<div class="calendar-row">';
 			}
 
-			//<div class="addNewEvent-cellIcon dark-icon" data-bind="click:function(data, e){$root.showAddPrivateEventPopupOnClick($element, data, e)}" >+</div>
-
 			if (j < firstDay) {
 				calendar += ('<div class="other-month-cell calendar-cell"><div class="calendar-cell-placeholder"><div class="cell-span-container" style="position:relative;"><span class="day">' + (prev_days - firstDay + j + 1) + '</span></div></div></div>');
 

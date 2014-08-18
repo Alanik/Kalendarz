@@ -1,4 +1,0 @@
-UserId,CreateDate,ConfirmationToken,IsConfirmed,LastPasswordFailureDate,PasswordFailuresSinceLastSuccess,Password,PasswordChangedDate,PasswordSalt,PasswordVerificationToken,PasswordVerificationTokenExpirationDate
-11,01/19/2014 11:00:30,,True,08/13/2014 18:42:45,0,"ANYp6usdtHary8htTZgHGfJK4S2Jq0WJahZtXFHrd0yQKIFQ6W2cqhtD1+DE5pAkBg==",01/19/2014 11:00:30,"",,
-12,01/19/2014 11:00:43,,True,,0,"APpvTu5C0iuJzOu/OPecOPEOA3KE3gCZagYQL+aX2AoseVSour4SMAYuFW60lugVew==",01/19/2014 11:00:43,"",,
-13,01/19/2014 11:09:04,,True,01/19/2014 11:09:24,0,"AME4PIbWD8QHZhE2M87GcxTm8+CWaHa5ni80Fc6O1IKhY3ocCOWviYg1LezjCpa4fQ==",01/19/2014 11:09:04,"",,

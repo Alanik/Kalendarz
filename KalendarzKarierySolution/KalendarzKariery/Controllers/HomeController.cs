@@ -26,8 +26,9 @@ namespace KalendarzKariery.Controllers
 			var indexViewModel = new IndexViewModel();
 
 			indexViewModel.PrivateEvents = Repository.GetEventsForGivenMonth(DateTime.Today.Month);
-			indexViewModel.PrivateEvents = Repository.GetAllEvents();
 			indexViewModel.PublicEvents = null;
+			indexViewModel.EventKinds = Repository.GetAllEventKinds();
+			indexViewModel.PrivacyLevels = Repository.GetAllPrivacyLevels();
 
 			return View("Index", (object)JsonConvert.SerializeObject(indexViewModel, new JsonSerializerSettings()
 			{

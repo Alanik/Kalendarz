@@ -12,19 +12,18 @@ namespace KalendarzKarieryData
     using System;
     using System.Collections.Generic;
     
-    public partial class Address
+    public partial class PrivacyLevel
     {
-        public int Id { get; set; }
-        public string Street { get; set; }
-        public string City { get; set; }
-        public string ZipCode { get; set; }
-        public string Country { get; set; }
-        public Nullable<decimal> Latidute { get; set; }
-        public Nullable<decimal> Longitude { get; set; }
-        public Nullable<int> EventId { get; set; }
-        public Nullable<int> UserId { get; set; }
+        public PrivacyLevel()
+        {
+            this.Events = new HashSet<Event>();
+        }
     
-        public virtual Event Event { get; set; }
-        public virtual User User { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public int Value { get; set; }
+    
+        public virtual ICollection<Event> Events { get; set; }
     }
 }

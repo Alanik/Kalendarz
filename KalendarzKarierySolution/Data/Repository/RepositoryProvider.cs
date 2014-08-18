@@ -9,14 +9,12 @@ namespace KalendarzKarieryData.Repository
 {
 	public static class RepositoryProvider
 	{
-
 		public static IKalendarzKarieryRepository GetRepository()
 		{
-		//TODO: make assignable from web.config
-			bool useFakeRepository = true;
+			//TODO: make assignable from web.config
+			bool useFakeRepository = false;
 
 			return new KalendarzKarieryData.Repository.KalendarzKarieryRepository.KalendarzKarieryRepository(useFakeRepository);
 		}
-
 	}
 }

@@ -6,16 +6,16 @@
 	<ul class="slides-container">
 		<li>
 			<div class="slide-item-lobby">
-			<div id="siteNavLegendContainer">
-				<div style="margin:0 auto;margin-top:16px;position:relative;">
-					<div class="site-legend-border"></div>
-					<div class="site-legend-border"></div>
-					<div class="site-legend-border"></div>
+				<div id="siteNavLegendContainer">
+					<div style="margin: 0 auto; margin-top: 16px; position: relative;">
+						<div class="site-legend-border"></div>
+						<div class="site-legend-border"></div>
+						<div class="site-legend-border"></div>
+					</div>
+					<span>strona glówna</span>
+					<span>kalendarz</span>
+					<span>szczegóły</span>
 				</div>
-				<span>strona glówna</span>
-				<span>kalendarz</span>
-				<span>szczegóły</span>
-			</div>
 				<div id="lobbyBg">
 					<img src="~/Images/kalendarzTloClear.png" alt="background" style="top: 0 !important" />
 					<div class="dotted-page-overlay"></div>
@@ -80,26 +80,26 @@
 				var $details = $("#details");
 				var $lobby = $("#lobby");
 				var date = new Date();
-				var evColHelper = new EventColorHelper();			
 
 				$calendar.calendarWidget({
 					month: date.getMonth(), year: date.getFullYear()
 				});
 
-				var calendarViewModel = new CalendarViewModel(date.getFullYear(), date.getMonth(), date.getDate(), evColHelper);
-				ko.applyBindings(calendarViewModel);
+				var calendarViewModel = new CalendarViewModel(date.getFullYear(), date.getMonth(), date.getDate());
 
 				var indexViewModel = @Html.Raw(@Model);
 
-				var serverPrivateEvents = indexViewModel.PrivateEvents;
-				var serverPublicEvents = indexViewModel.PublicEvents;
+				console.log(indexViewModel.PrivateEvents);
 
-				var CvmConverter = new CalendarViewModelConverter(evColHelper);
-				var privateEvents = CvmConverter.getCalendarViewModelEventList(serverPrivateEvents);
+				var CvmConverter = new CalendarViewModelConverter();
+
+				calendarViewModel.eventPrivacyLevels = indexViewModel.PrivacyLevels;
+				calendarViewModel.eventKinds = CvmConverter.getCalendarViewModelEventKinds(indexViewModel.EventKinds);
+				calendarViewModel.privateEvents = CvmConverter.getCalendarViewModelEventList(indexViewModel.PrivateEvents);
 			
-				ko.utils.arrayForEach(privateEvents, function (event) {
-					calendarViewModel.privateEvents.push(event);
+				ko.applyBindings(calendarViewModel);
 
+				ko.utils.arrayForEach(calendarViewModel.privateEvents, function (event) {
 					//TODO: optimize this filter
 					if(event.startDate.month === calendarViewModel.calendarPageDisplayDate.month && event.startDate.year === calendarViewModel.calendarPageDisplayDate.year) {
 						calendarViewModel.drawEventToCalendar(event);

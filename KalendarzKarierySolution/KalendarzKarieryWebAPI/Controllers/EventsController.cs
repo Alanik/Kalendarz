@@ -11,6 +11,7 @@ using KalendarzKarieryWebAPI.Models.ResponseModels;
 using Newtonsoft.Json;
 using KalendarzKarieryData;
 using KalendarzKarieryData.Repository.KalendarzKarieryRepository;
+using KalendarzKarieryCore.Consts;
 
 
 namespace KalendarzKarieryWebAPI.Controllers
@@ -37,7 +38,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 		{
 			var errorResponse = Validate(addEventViewModel);
 			if (!errorResponse.IsSuccess)
-			{			
+			{
 				return errorResponse;
 			}
 
@@ -50,6 +51,11 @@ namespace KalendarzKarieryWebAPI.Controllers
 			}
 
 			var @event = GetEventModelFromAddEventViewModel(addEventViewModel);
+
+			if (@event == null)
+			{
+				return new DefaultResponse { IsSuccess = false, Message = Consts.GeneralValidationErrorMsg };
+			}
 
 			Repository.AddEvent(@event);
 			Repository.Save();
@@ -90,22 +96,42 @@ namespace KalendarzKarieryWebAPI.Controllers
 
 			@event.OwnerUserId = Repository.GetUserIdByName(User.Identity.Name);
 			@event.Title = viewModel.Event.Title;
-			@event.Kind = viewModel.Event.Kind;
 			@event.NumberOfPeopleAttending = 0;
 			@event.DateAdded = DateTime.Now;
 			@event.Description = viewModel.Event.Description;
-			@event.PrivacyLevel = viewModel.Event.PrivacyLevel;
 			@event.Details = viewModel.Event.Details;
 			@event.UrlLink = viewModel.Event.UrlLink;
 			@event.OccupancyLimit = viewModel.Event.OccupancyLimit;
 			@event.StartDate = viewModel.Event.StartDate;
 			@event.EventLengthInMinutes = viewModel.Event.EventLengthInMinutes;
 
+			var eventKind = Repository.GetEventKindByValue(viewModel.EventKind.Value);
+			if (eventKind != null)
+			{
+				@event.EventKind = eventKind;
+			}
+			else
+			{
+				return null;
+			}
+
+			var privacyLevel = Repository.GetPrivacyLevelByValue(viewModel.PrivacyLevel.Value);
+			if (privacyLevel != null)
+			{
+				@event.PrivacyLevel = privacyLevel;
+			}
+			else
+			{
+				return null;
+			}
+
+			@event.EventStatusId = 3;
+
 			if (!string.IsNullOrEmpty(viewModel.Address.Street))
 			{
 				@event.Addresses.Add(viewModel.Address);
 			}
-			
+
 			return @event;
 		}
 	}

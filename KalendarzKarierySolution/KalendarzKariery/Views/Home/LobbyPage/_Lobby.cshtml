@@ -75,11 +75,11 @@
 		</div>
 
 		<section class="event-list" data-bind="foreach: publicEvents">
-			<div class="news-event-details" data-bind="ifnot: kind.kindName == 'Zajęcia', visible: kind.kindName != 'Zajęcia'">
+			<div class="news-event-details" data-bind="ifnot: kind.name == 'Zajęcia', visible: kind.name != 'Zajęcia'">
 				<div class="left-event-details">
-					<div class="event-kind-text" data-bind="text: kind.kindName, style: { background: kind.color }">
+					<div class="event-kind-text" data-bind="text: kind.name, style: { background: kind.color }">
 					</div>
-					<div class="events-text-container margin-left-fifteen padding-top-ten" data-bind="visible: kind.kindName != 'Aktualności'">
+					<div class="events-text-container margin-left-fifteen padding-top-ten" data-bind="visible: kind.name != 'Aktualności'">
 
 						<span data-bind="text: startDate.startHour" class="events-text-startTime"></span><span>:00 - </span><span data-bind="	text: date.endHour" class="events-text-endTime"></span><span>:00</span>
 						<div>12.03.2012, Piątek</div>

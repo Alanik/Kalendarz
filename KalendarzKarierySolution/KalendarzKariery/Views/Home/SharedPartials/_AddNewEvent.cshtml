@@ -15,20 +15,13 @@
    {
 				<fieldset class="add-event-fieldset">
 
-					<legend>Dodaj Wydarzenie<span style="margin-left: 10px; font-size: 20px; color: rgb(184, 184, 167);" data-bind="text: $root.event.privacyLevel.name"></span></legend>
+					<legend>Dodaj do kalendarza</legend>
 
 					<div data-bind="with: event">
 
 						<div class="div-separator">
 							<label>Kategoria: </label>
-							<select id="kindSelectBox" name="kindSelectBox" data-bind="value: kind.kindName">
-								<option value="wydarzenie">wydarzenie</option>
-								<option value="zajęcia">zajęcia</option>
-								<option value="szkolenie">szkolenie</option>
-								<option value="kurs">kurs</option>
-								<option value="spotkanie">spotkanie</option>
-								<option value="inne">inne</option>
-							</select>
+							<select id="kindSelectBox" name="kindSelectBox" data-bind="options: $root.eventKinds, optionsText: 'name', optionsValue: 'value', selectedText: kind.name, value: kind.value "></select>
 						</div>
 
 						<div class="div-separator">
@@ -62,6 +55,7 @@
 								</select>
 							</div>
 						</div>
+
 						<div class="div-separator">
 							<div style="display: inline-block;">
 								<label>Godzina zakończenia: </label>
@@ -144,7 +138,7 @@
 
 					<input type="hidden" name="" id="hiddenDay" />
 
-					<button id="btnAddNewEvent" class="myButton-white margin-left-150" data-bind="click: $root.addEventOnClick.bind($data, $data.privacyLevels)">Dodaj</button>
+					<button id="btnAddNewEvent" class="myButton-white margin-left-150" data-bind="click: $root.addEventOnClick.bind($data, $data.privacyLevel)">Dodaj</button>
 				</fieldset>
    }
 		</div>

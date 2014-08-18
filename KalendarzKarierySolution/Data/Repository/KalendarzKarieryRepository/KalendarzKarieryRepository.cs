@@ -12,19 +12,18 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 {
 	public class KalendarzKarieryRepository : IKalendarzKarieryRepository
 	{
-		private const string CsvFilesPath = "~/Data/FakeRepositoryCsvFiles";
-		private string physicalPath = HostingEnvironment.MapPath(CsvFilesPath);
-		private const string ConnectionName = "name=KalendarzKarieryDBEntities";
-
 		private readonly KalendarzKarieryDBEntities _entities;
 
 		public KalendarzKarieryRepository(bool useFakeRepository = false)
 		{
 			if (useFakeRepository)
 			{
+				var CsvFilesPath = "~/Data/FakeRepositoryCsvFiles";
+				var physicalPath = HostingEnvironment.MapPath(CsvFilesPath);
+				var ConnectionName = "name=KalendarzKarieryDBEntities";
+
 				var loader = new Effort.DataLoaders.CsvDataLoader(physicalPath);
-				DbConnection connection =
-			Effort.EntityConnectionFactory.CreateTransient(ConnectionName, loader);
+				DbConnection connection = Effort.EntityConnectionFactory.CreateTransient(ConnectionName, loader);
 				_entities = new KalendarzKarieryDBEntities(connection);
 			}
 			else
@@ -38,12 +37,12 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 
 		public User GetUserById(int id)
 		{
-			return _entities.Users.FirstOrDefault(m => m.UserId == id);
+			return _entities.Users.FirstOrDefault(m => m.Id == id);
 		}
 
 		public void UpdateUserOnRegister(int id, Address address)
 		{
-			User currentUser = _entities.Users.FirstOrDefault(m => m.UserId == id);
+			User currentUser = _entities.Users.FirstOrDefault(m => m.Id == id);
 
 			if (currentUser == null)
 			{
@@ -72,7 +71,7 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 
 		public int GetUserIdByName(string name)
 		{
-			return _entities.Users.First(m => m.UserName == name).UserId;
+			return _entities.Users.First(m => m.UserName == name).Id;
 		}
 
 		#endregion
@@ -84,28 +83,66 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 			_entities.Events.Add(@event);
 		}
 
-		public IList<Event> GetEventsForGivenMonth(int month)
+		public ICollection<object> GetEventsForGivenMonth(int month)
 		{
 			//_entities.Configuration.ProxyCreationEnabled = false;
 
 			IQueryable<Event> list = _entities.Events.Where(m => m.StartDate.Month == month);
 
-			foreach (Event @event in list)
+			return list.Select(m => new
 			{
-				int id = @event.EventId;
-				IQueryable<Address> addressList = _entities.Addresses.Where(m => m.EventId == id);
-				foreach (Address address in addressList)
-				{
-					@event.Addresses.Add(address);
-				}
-			}
-
-			return list.ToList();
+				title = m.Title,
+				description = m.Description,
+				details = m.Details,
+				dateAdded = m.DateAdded,
+				eventLengthInMinutes = m.EventLengthInMinutes,
+				occupancyLimit = m.OccupancyLimit,
+				urlLink = m.UrlLink,
+				startDate = m.StartDate,
+				numberOfPeopleAttending = m.NumberOfPeopleAttending,
+				kind = new { name = m.EventKind.Name, value = m.EventKind.Value },
+				privacyLevel = new { name = m.PrivacyLevel.Name, value = m.PrivacyLevel.Value },
+				addresses = m.Addresses.Select(o => new { street = o.Street, city = o.City, zipCode = o.ZipCode })
+			}).ToArray();
 		}
 
-		public IList<Event> GetAllEvents()
+		public ICollection<object> GetAllEvents()
 		{
-			return _entities.Events.ToList();
+			return _entities.Events.Select(m => new
+			{
+				title = m.Title,
+				description = m.Description,
+				details = m.Details,
+				dateAdded = m.DateAdded,
+				eventLenghtInMinutes = m.EventLengthInMinutes,
+				occupancyLimit = m.OccupancyLimit,
+				urlLink = m.UrlLink,
+				numberOfPeopleAttending = m.NumberOfPeopleAttending,
+				kind = new { name = m.EventKind.Name, value = m.EventKind.Value },
+				privacyLevel = new { name = m.PrivacyLevel.Name, value = m.PrivacyLevel.Value },
+				addresses = m.Addresses.Select(o => new { street = o.Street, city = o.City, zipCode = o.ZipCode })
+			}).ToArray();
+
+		}
+
+		public PrivacyLevel GetPrivacyLevelByValue(int value)
+		{
+			return _entities.PrivacyLevels.Where(m => m.Value == value).FirstOrDefault();
+		}
+
+		public ICollection<object> GetAllPrivacyLevels()
+		{
+			return _entities.PrivacyLevels.Select(m => new { name = m.Name, value = m.Value }).ToArray();
+		}
+
+		public EventKind GetEventKindByValue(int value)
+		{
+			return _entities.EventKinds.Where(m => m.Value == value).FirstOrDefault();
+		}
+
+		public ICollection<object> GetAllEventKinds()
+		{
+			return _entities.EventKinds.Select(m => new { name = m.Name, value = m.Value }).ToArray();
 		}
 
 		#endregion

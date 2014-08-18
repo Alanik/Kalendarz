@@ -19,7 +19,7 @@ namespace KalendarzKarieryData
             this.Users = new HashSet<User>();
         }
     
-        public int UserAccountInfoId { get; set; }
+        public int Id { get; set; }
         public System.DateTime CreationDate { get; set; }
         public Nullable<System.DateTime> LastLogin { get; set; }
         public Nullable<System.DateTime> LastLogout { get; set; }

@@ -261,6 +261,7 @@
     <Content Include="Images\BackgroundParts\LeftSidePixelDark.png" />
     <Content Include="Images\BackgroundParts\MiddlePartBg.png" />
     <Content Include="Images\BackgroundParts\RightSidePixelDark.png" />
+    <Content Include="Images\Form\letter_bg.png" />
     <Content Include="Images\kalendarzTloClear.png" />
     <Content Include="Images\Icons\list-icon.png" />
     <Content Include="Images\Logo\kalendarzLogoSmall.png" />
@@ -273,13 +274,6 @@
     <Content Include="Content\Fonts\CodePro\CODE Bold.otf" />
     <Content Include="Content\Fonts\CodePro\CODE Light.otf" />
     <Content Include="Content\Fonts\CodePro\FFF_EULA_license.pdf" />
-    <Content Include="Data\FakeRepositoryCsvFiles\Address.csv" />
-    <Content Include="Data\FakeRepositoryCsvFiles\Event.csv" />
-    <Content Include="Data\FakeRepositoryCsvFiles\User.csv" />
-    <Content Include="Data\FakeRepositoryCsvFiles\UserAccountInfo.csv" />
-    <Content Include="Data\FakeRepositoryCsvFiles\webpages_Membership.csv" />
-    <Content Include="Data\FakeRepositoryCsvFiles\webpages_Roles.csv" />
-    <Content Include="Data\FakeRepositoryCsvFiles\webpages_UsersInRoles.csv" />
     <None Include="Properties\PublishProfiles\Alan.pubxml" />
     <None Include="Scripts\Lib\jquery-2.0.3.intellisense.js" />
     <Content Include="Images\TestBackgrounds\1600x900.jpg" />
@@ -289,6 +283,7 @@
     <Content Include="Scripts\Helpers\CalendarViewModelConverter.js" />
     <Content Include="Scripts\Helpers\EventColorHelper.js" />
     <Content Include="Scripts\JSModels\KKEventModel.js" />
+    <Content Include="Scripts\KnockoutCustomBindings\KOCustomBindings.js" />
     <Content Include="Scripts\Lib\jquery-2.0.3.js" />
     <Content Include="Scripts\Lib\jquery-2.0.3.min.js" />
     <Content Include="Scripts\Lib\jquery-2.0.3.min.map" />
@@ -349,6 +344,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Data\FakeRepositoryCsvFiles\" />
     <Folder Include="Filters\" />
   </ItemGroup>
   <ItemGroup>

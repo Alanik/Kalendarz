@@ -23,7 +23,7 @@ namespace KalendarzKariery.BO.SeedMembership
 
 		public static void SeedMembership()
 		{
-			WebSecurity.InitializeDatabaseConnection("SimpleMembership_KalendarzKarieryConnection", "User", "UserId", "UserName", autoCreateTables: false);
+			WebSecurity.InitializeDatabaseConnection("SimpleMembership_KalendarzKarieryConnection", "User", "Id", "UserName", autoCreateTables: false);
 
 			if (!Roles.RoleExists(AdminRole))
 			{
@@ -58,7 +58,7 @@ namespace KalendarzKariery.BO.SeedMembership
 			user.UserAccountInfo.NumOfLogins = 1;
 			user.UserAccountInfo.LastLogin = DateTime.Now;
 
-			user.UserAccountInfoId = user.UserAccountInfo.UserAccountInfoId;
+			user.UserAccountInfoId = user.UserAccountInfo.Id;
 
 			return user;
 		}

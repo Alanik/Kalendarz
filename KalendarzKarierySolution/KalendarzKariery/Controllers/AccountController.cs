@@ -13,12 +13,14 @@ using KalendarzKariery.BO.ExtentionMethods;
 using System.Linq;
 using KalendarzKarieryData.Repository;
 using KalendarzKarieryData.Repository.KalendarzKarieryRepository;
+using KalendarzKarieryCore.Consts;
 
 
 namespace KalendarzKariery.Controllers
 {
 	[Authorize]
-	public class AccountController : Controller
+	public class 
+	AccountController : Controller
 	{
 		readonly IKalendarzKarieryRepository _repository = RepositoryProvider.GetRepository();
 
@@ -77,6 +79,19 @@ namespace KalendarzKariery.Controllers
 				if (_repository.GetUserByEmail(model.User.Email) == null)
 				{
 					
+					string birthDate = model.BirthDateModel.Year + "-" + model.BirthDateModel.Month + "-" + model.BirthDateModel.Day;
+					DateTime date;
+
+					if (!DateTime.TryParse(birthDate, out date))
+					{
+						ModelState.AddModelError(string.Empty, Consts.InvalidBirthOfDateErrorMsg);
+						ModelState.AddModelError("BirthDateModel.Day", string.Empty);
+						ModelState.AddModelError("BirthDateModel.Month", string.Empty);
+						ModelState.AddModelError("BirthDateModel.Year", string.Empty);
+
+						return Json(new { isRegisterSuccess = false, errors = ModelState.Errors() });
+					}
+
 					try{
 						WebSecurity.CreateUserAndAccount(model.RegisterModel.UserName,
 														 model.RegisterModel.Password,
@@ -86,7 +101,7 @@ namespace KalendarzKariery.Controllers
 							FirstName = model.User.FirstName,
 							LastName = model.User.LastName,
 							Bio = model.User.Bio,
-							BirthDay = model.User.BirthDay,
+							BirthDay = date,
 							UserName = model.User.UserName,
 							Phone = model.User.Phone,
 							Gender = model.User.Gender
@@ -112,7 +127,7 @@ namespace KalendarzKariery.Controllers
 				}
 				else
 				{
-					ModelState.AddModelError("User.Email", "Podany adres email już został użyty. Prosze podać inny adres email.");
+					ModelState.AddModelError("User.Email", Consts.registerUserEmailExistsErrorMsg);
 				}
 			}
 

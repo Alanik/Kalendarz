@@ -2,13 +2,13 @@
 
 <div id="addNewEventContainer" class="slick-contact-form">
 
-	<div class="large-popup-header">
+	<div class="form-header">
 		<div id="btnClose-AddEventContainer" class="btn-close" data-bind="click: $root.closeAddNewEventPopupOnClick()">
 			<span class="close-text">zamknij</span>
 		</div>
 	</div>
 
-	<section class="add-event-body">
+	<div class="form-body">
 		<div class="add-event-form-container">
 
 			@using (Html.BeginForm("Post", "api/Events", FormMethod.Post, new { id = "addEventForm" }))
@@ -85,7 +85,7 @@
 							</div>
 						</div>
 
-						<div id="addNewEventAddressLink" class="div-separator" data-bind="click: function () { $root.showGivenFieldInAddNewEventPopupOnClick($element) }">
+						<div id="addNewEventAddressLink" class="div-separator hover-cursor-picker" data-bind="click: function () { $root.showGivenFieldInAddNewEventPopupOnClick($element) }">
 							<p class="underline">Dodaj adres</p>
 						</div>
 
@@ -107,7 +107,7 @@
 							</div>
 						</div>
 
-						<div id="addNewEventDescriptionLink" class="div-separator" data-bind="click: function () { $root.showGivenFieldInAddNewEventPopupOnClick($element) }">
+						<div id="addNewEventDescriptionLink" class="div-separator hover-cursor-picker" data-bind="click: function () { $root.showGivenFieldInAddNewEventPopupOnClick($element) }">
 							<p class="underline">Dodaj opis</p>
 						</div>
 
@@ -119,7 +119,7 @@
 							</div>
 						</div>
 
-						<div id="addNewEventDetailsLink" class="div-separator" data-bind="click: function () { $root.showGivenFieldInAddNewEventPopupOnClick($element) }">
+						<div id="addNewEventDetailsLink" class="div-separator hover-cursor-picker" data-bind="click: function () { $root.showGivenFieldInAddNewEventPopupOnClick($element) }">
 							<p class="underline">Dodaj szczegóły</p>
 						</div>
 
@@ -142,5 +142,5 @@
 				</fieldset>
    }
 		</div>
-	</section>
+	</div>
 </div>

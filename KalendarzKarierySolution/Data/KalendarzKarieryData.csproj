@@ -91,6 +91,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>KalendarzKarieryDBEntities.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\BirthDateModel.cs" />
     <Compile Include="PrivacyLevel.cs">
       <DependentUpon>KalendarzKarieryDBEntities.tt</DependentUpon>
     </Compile>

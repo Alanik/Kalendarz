@@ -247,7 +247,9 @@ function CalendarViewModel(year, month, day) {
 	self.showRegisterFormOnClick = function () {
 		var $loginForm = $("#loginPageContainer");
 		var $registerForm = $("#registerPageContainer");
+		var $overlay = $("#lobbyBg .dotted-page-overlay");
 
+		$overlay.show();
 		$loginForm.hide();
 		$registerForm.fadeIn();
 
@@ -312,12 +314,22 @@ function CalendarViewModel(year, month, day) {
 	}
 
 	self.registerUserOnClick = function () {
-
+		var $dateBirthValidationMsg;
 		var $registerForm = $("#registerForm");
 		$registerForm.find(".summary-validation-errors").empty();
 		var action = $registerForm.attr("action");
 
 		$registerForm.validate().form();
+
+		var isDateValid = validateBirthDate();
+		
+		if (!isDateValid) {
+			$dateBirthValidationMsg = $("#registerPageContainer #birthDateValidationErrorMsg");
+			$dateBirthValidationMsg.show();
+			$("#registerPageContainer .register-birthdate-txtbox").addClass("input-validation-error");
+
+			return false;
+		}
 
 		if ($registerForm.valid()) {
 			$.ajax({
@@ -339,16 +351,67 @@ function CalendarViewModel(year, month, day) {
 
 		return false;
 
+		function validateBirthDate() {
+			var day = $("#birthDateDayTxtBox").val();
+			var month = $("#birthDateMonthTxtBox").val();
+			var year = $("#birthDateYearTxtBox").val();
+
+			if (day == "" || month == "" || year == "") {
+				return true;
+			}
+
+			var birthDate = day + "/" + month + "/" + year;
+			return isDate(birthDate);
+
+			//Validates a date input -- http://jquerybyexample.blogspot.com/2011/12/validate-date-    using-jquery.html
+			function isDate(txtDate) {
+
+				var currVal = txtDate;
+				if (currVal == '')
+					return false;
+
+				//Declare Regex  
+				var rxDatePattern = /^(\d{1,2})(\/|-)(\d{1,2})(\/|-)(\d{4})$/;
+				var dtArray = currVal.match(rxDatePattern); // is format OK?
+
+				if (dtArray == null)
+					return false;
+
+				//Checks for dd/mm/yyyy format.
+				var dtDay = dtArray[1];
+				var dtMonth = dtArray[3];
+				var dtYear = dtArray[5];
+
+				if (dtMonth < 1 || dtMonth > 12)
+					return false;
+				else if (dtDay < 1 || dtDay > 31)
+					return false;
+				else if ((dtMonth == 4 || dtMonth == 6 || dtMonth == 9 || dtMonth == 11) && dtDay == 31)
+					return false;
+				else if (dtMonth == 2) {
+					var isleap = (dtYear % 4 == 0 && (dtYear % 100 != 0 || dtYear % 400 == 0));
+					if (dtDay > 29 || (dtDay == 29 && !isleap))
+						return false;
+				}
+
+				return true;
+			}
+		}
+
 		function displayErrors(errors) {
+			console.log(errors);
+
 			var label;
 			var error;
 
 			for (var i = 0; i < errors.length; i++) {
 				error = errors[i];
 
-				if (error.Key === "") {
+				if (error.Value && error.Value.length > 0) {
 					$registerForm.find(".summary-validation-errors").append("<div>" + error.Value[0] + "</div>");
-				} else {
+				}
+		
+				if(error.Key !== "") {
 					label = $registerForm.find("input[name = '" + error.Key + "']").removeClass("valid").addClass("input-validation-error").next().removeClass("field-validation-valid").addClass("field-validation-error");
 					label.html(error.Value[0]);
 				}
@@ -370,6 +433,9 @@ function CalendarViewModel(year, month, day) {
 
 		var $addEventContainer = $("#addNewEventContainer");
 		$addEventContainer.detach().prependTo($calendar);
+
+
+		$addEventContainer.find("#Event_Title").focus();
 
 		var $eventStartDateTxtBox = $addEventContainer.find("#Event_StartDate");
 		var dayNumber = $(element).siblings(".day").text();

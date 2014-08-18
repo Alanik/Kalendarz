@@ -1,41 +1,48 @@
 ﻿@model KalendarzKarieryData.Models.AccountModels.LoginModel
 
-<section id="loginPageContainer">
-<div class="large-popup-header">
-<div id="btnClose-loginPopup" data-bind="click: closeLoginPopupOnClick" class="btn-close"><span class="close-text">zamknij</span></div>
-</div>
-	@using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "loginForm"}))
- {
-		@Html.AntiForgeryToken()
+<div id="loginPageContainer" class="slick-contact-form">
+	<div class="form-header">
+		<div id="btnClose-loginPopup" data-bind="click: closeLoginPopupOnClick" class="btn-close"><span class="close-text">zamknij</span></div>
+	</div>
+	<div class="form-body">
+		@using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "loginForm" }))
+  {
+			@Html.AntiForgeryToken()
 
-		<fieldset>
-			<legend>Zaloguj się</legend>
-			<ol>
-				<li>
-					@Html.LabelFor(m => m.UserName, new {@class = "form-label"})
-					@Html.TextBoxFor(m => m.UserName)
-					@Html.ValidationMessageFor(m => m.UserName)
-				</li>
-				<li>
-					@Html.LabelFor(m => m.Password, new {@class = "form-label"})
-					@Html.PasswordFor(m => m.Password)
-					@Html.ValidationMessageFor(m => m.Password)
-				</li>
-				<li>
-					@Html.CheckBoxFor(m => m.RememberMe)
-					@Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
-				</li>
-			</ol>
-			<input type="button" id="loginFormBtn" class="myButton-white" value="Zaloguj sie" data-bind="click: $root.loginUserOnClick" />
-		</fieldset>
+			<fieldset>
+				<legend>Logowanie</legend>
+				<ol>
+					<li>
+
+						@Html.LabelFor(m => m.UserName, new { @class = "form-label" })
+						<div>
+							@Html.ValidationMessageFor(m => m.UserName)
+						</div>
+						@Html.TextBoxFor(m => m.UserName)
+					</li>
+					<li>
+
+						@Html.LabelFor(m => m.Password, new { @class = "form-label" })
+						<div>
+							@Html.ValidationMessageFor(m => m.Password)
+						</div>
+						@Html.PasswordFor(m => m.Password)
+					</li>
+					<li>
+						@Html.CheckBoxFor(m => m.RememberMe)
+						@Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
+					</li>
+				</ol>
+				<input type="button" id="loginFormBtn" class="myButton-white" value="Zaloguj sie" data-bind="click: $root.loginUserOnClick" />
+			</fieldset>
 		
- }
+  }
+		<p>
+			<span class="link" id="showRegisterFormBtn" data-bind="click: $root.showRegisterFormOnClick">Utwórz konto</span><span> jeśli jeszcze takiego nie posiadasz.</span>
+		</p>
 
-	<p>
-		<span class="link" id="showRegisterFormBtn" data-bind="click:$root.showRegisterFormOnClick">Utwórz konto</span><span> jeśli jeszcze takiego nie posiadasz.</span>
-	</p>
-
-</section>
+	</div>
+</div>
 
 
 

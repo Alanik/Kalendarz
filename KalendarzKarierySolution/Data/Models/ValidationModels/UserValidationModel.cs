@@ -26,7 +26,6 @@ namespace KalendarzKarieryData
 		[EmailAddress(ErrorMessage = "Pole \"Email\" jest nieprawidłowe.")]
 		public string Email { get; set; }
 
-		[Required(ErrorMessage = "Pole \"Telefon\" nie może być puste.")]
 		[Display(Name = "Telefon")]
 		[RegularExpression(@"^\d+$", ErrorMessage = "Pole \"Telefon\" powinno zawierać same cyfry.")]
 		public string Phone { get; set; }

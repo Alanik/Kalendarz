@@ -1,4 +1,4 @@
-﻿@model string
+﻿@model KalendarzKarieryData.Models.ViewModels.IndexViewModel
 
 <div class="navigation-arrows"></div>
 
@@ -47,7 +47,6 @@
 					@Html.Partial("_HoverEvent")
 
 					<section id="calendarListView">
-
 					</section>
 				</div>
 				<div id="rightSideCalendar" class="side"></div>
@@ -83,33 +82,163 @@
 				var $calendar = $("#calendar");
 				var $details = $("#details");
 				var $lobby = $("#lobby");
-				var date = new Date();
 
+				var date = new Date();
 				$calendar.calendarWidget({
 					month: date.getMonth(), year: date.getFullYear()
 				});
 
 				var calendarViewModel = new CalendarViewModel(date.getFullYear(), date.getMonth(), date.getDate());
 
-				var indexViewModel = @Html.Raw(@Model);
+				var indexViewModel = @Html.Raw(Json.Encode(@Model));
+
+				////////////////////////////////////////////
+				//build event tree
+				////////////////////////////////////////////
+				var buildEventTree = function (myEvents, eventTree) {
+
+					var groups = myEvents.eventsGroupedByDay;
+					var groupsLength = myEvents.eventsGroupedByDay.length;
+					var dayGroup, day, dayGroupLength, event;
+
+					var year = myEvents.year;
+					var month = myEvents.month;
+
+					var eventTreeYearProp = eventTree[year] ? eventTree[year] : eventTree[year] = {};
+					var eventTreeMonthProp = eventTreeYearProp[month] = {};
+					var eventTreeDayGroupProp;
+					var eventTreeEventsProp;
+
+					var tempList;
+
+					//event day groups
+					for (var i = 0; i < groupsLength; i++) {
+						dayGroup = groups[i];
+						day = dayGroup.day;
+						dayGroupLength = dayGroup.events.length;
+
+						eventTreeDayGroupProp = eventTreeMonthProp[day] = [];
+
+						tempList = [];
+
+						// events in the day group
+						for (var j = 0; j < dayGroupLength; j++) {
+							event = dayGroup.events[j];
+
+							setAddress(event);
+							setKind(event);
+							setStartDate(event);
+							setCalendarPlacementRow(event, tempList, j);
+
+							eventTreeDayGroupProp.push(event);				 
+						}
+					}
+
+					//TODO: put it into converter object or something like that
+					function setKind(event)
+					{
+						var colorHelper = new EventColorHelper();
+						event.kind.color = colorHelper.calculatePrivateEventColor(event.kind.value);
+						event.kind.headerColor = colorHelper.calculateEventHeaderTxtColor(event.kind.value);
+					}
+					function setStartDate(event) {
+						var date = new Date(parseInt(event.startDate.substr(6)));
+
+						var length = parseInt(event.eventLengthInMinutes, 10);
+
+						var minutes = (length % 60);
+						var hours = (length - minutes) / 60;
+
+						var transformedDate = {
+							"startMinute": date.getMinutes(),
+							"endMinute": minutes,
+							"startHour": date.getHours(),
+							"endHour": (date.getHours() + hours),
+							"day": date.getDate(),
+							"month": date.getMonth(),
+							"year": date.getFullYear()
+						};
+
+						event.startDate = transformedDate;
+					};
+					function setAddress(event){
+
+						if (typeof event.address == 'undefined' || !address) {
+							event.address = {
+								street: "",
+								city: "",
+								zipCode: ""
+							}
+						}
+					};
+					function setCalendarPlacementRow(event, eventsInTheSameDay, j){
+						var len = eventsInTheSameDay.length;
+						var anotherEvent;
+
+						var eStartH = event.startDate.startHour;
+						var eEndH = event.startDate.endHour;
+						var eStartM = event.startDate.starMinute;
+						var eEndM = event.startDate.endMinute
+
+						// is not first element
+						if (j > 0) {
+    
+							for (var i = 0; i < len; i++) {
+								anotherEvent = eventsInTheSameDay[i];
+
+								var aeStartH = anotherEvent.startDate.startHour;
+								var aeEndH = anotherEvent.startDate.endHour;
+								var aeStartM = anotherEvent.startDate.starMinute;
+								var aeEndM = anotherEvent.startDate.endMinute
+
+								//eventStartTime < anotherEventEndTime || eventEndTime > anotherEventStartTime
+								if ((eStartH < aeEndH || (eStartH == aeEndH && eStartM < aeEndM)) || (eEndH > aeStartH || eEndH == aeStartH && eEndM > aeStartM)) {
+									//there is conflict
+									if (event.calendarPlacementRow == anotherEvent.calendarPlacementRow) {
+										event.calendarPlacementRow ++;
+									}
+
+								}
+							}
+						}
+
+						eventsInTheSameDay.push(event);
+					}
+				};	
+				buildEventTree(indexViewModel.MyEvents, calendarViewModel.eventTree);
+
+				console.log(calendarViewModel.eventTree);
+				////////////////////////////////////////////
 
 				var CvmConverter = new CalendarViewModelConverter();
 
 				calendarViewModel.eventPrivacyLevels = indexViewModel.PrivacyLevels;
-				calendarViewModel.eventKinds = CvmConverter.getCalendarViewModelEventKinds(indexViewModel.EventKinds);
-				calendarViewModel.privateEvents = CvmConverter.getCalendarViewModelEventList(indexViewModel.PrivateEvents);
+				calendarViewModel.eventKinds = CvmConverter.getCalendarViewModelEventKinds(indexViewModel.EventKinds);		
 			
+				var monthProp = calendarViewModel.eventTree[calendarViewModel.calendarPageDisplayDate.year];
+				var events, len, groups;
+
+				if (monthProp) {
+					groups = monthProp[calendarViewModel.calendarPageDisplayDate.month + 1]
+
+					for (var p in groups) {
+						events = groups[p];
+						len = events.length;
+						for (var i = 0; i < len; i++) {
+							calendarViewModel.privateEvents.push(events[i]);
+						}
+					}
+				}
+
 				ko.applyBindings(calendarViewModel);
 
-				console.log(calendarViewModel.privateEvents);
+				console.log(calendarViewModel.privateEvents)
 
-				ko.utils.arrayForEach(calendarViewModel.privateEvents, function (event) {
-					//TODO: optimize this filter
-					if(event.startDate.month === calendarViewModel.calendarPageDisplayDate.month && event.startDate.year === calendarViewModel.calendarPageDisplayDate.year) {
-						calendarViewModel.drawEventToCalendar(event);
-					}
-				});
-
+				var peLen = calendarViewModel.privateEvents.length;
+				for (var i = 0; i < peLen; i++) {
+					calendarViewModel.drawEventToCalendar(calendarViewModel.privateEvents[i]);
+				}
+					
 				$calendar.append('<div class="calendar-navigation-arrows-left"><img src="Images/Nav/arrow-Left.png" alt="arrow-left"/></div>');
 				$calendar.append('<div class="calendar-navigation-arrows-right"><img src="Images/Nav/arrow-Right.png" alt="arrow-Right"/></div>');
 				$details.append('<div class="details-navigation-arrows-left"><img src="Images/Nav/arrow-Left.png" alt="arrow-Left"/></div>');

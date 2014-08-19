@@ -7,6 +7,7 @@ using System.Web;
 using KalendarzKarieryData.Models.ViewModels;
 using System.Web.Hosting;
 using System.Data.Common;
+using KalendarzKarieryData.Models.TransportModels;
 
 namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 {
@@ -83,27 +84,31 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 			_entities.Events.Add(@event);
 		}
 
-		public ICollection<object> GetEventsForGivenMonth(int month)
+		public CalendarEventTreeModel GetEventsForGivenMonth(int month, int year)
 		{
-			//_entities.Configuration.ProxyCreationEnabled = false;
 
-			IQueryable<Event> list = _entities.Events.Where(m => m.StartDate.Month == month);
-
-			return list.Select(m => new
+			var list = _entities.Events.Where(m => m.StartDate.Month == month).OrderBy(m => m.StartDate.Day).ThenBy(m => m.StartDate.Hour).ThenBy(m => m.StartDate.Minute);
+			var transformedList = list.Select(m => new
 			{
-				title = m.Title,
+				id = m.Id,
+				name = m.Title,
 				description = m.Description,
 				details = m.Details,
 				dateAdded = m.DateAdded,
 				eventLengthInMinutes = m.EventLengthInMinutes,
 				occupancyLimit = m.OccupancyLimit,
 				urlLink = m.UrlLink,
+				calendarPlacementRow = 1,
 				startDate = m.StartDate,
 				numberOfPeopleAttending = m.NumberOfPeopleAttending,
 				kind = new { name = m.EventKind.Name, value = m.EventKind.Value },
 				privacyLevel = new { name = m.PrivacyLevel.Name, value = m.PrivacyLevel.Value },
 				addresses = m.Addresses.Select(o => new { street = o.Street, city = o.City, zipCode = o.ZipCode })
-			}).OrderBy(m => m.startDate).ToArray();
+			});
+
+			var groups = transformedList.ToLookup(m => m.startDate.Day).Select( o => new EventsGroupedByDayModel(o.Key, o.ToArray())).ToArray();
+		
+			return new CalendarEventTreeModel(month, year, groups);
 		}
 
 		public ICollection<object> GetAllEvents()

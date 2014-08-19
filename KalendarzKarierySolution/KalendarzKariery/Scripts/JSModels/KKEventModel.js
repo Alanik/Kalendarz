@@ -1,6 +1,5 @@
 ﻿var KKEvent = function () {
 	var self = this;
-	var colorHelper = new EventColorHelper();
 
 	this.addedBy = "";
 
@@ -9,6 +8,8 @@
 		city: "",
 		zipCode: ""
 	};
+
+	this.calendarPlacementRow = 1;
 
 	this.dateAdded = {
 		minute: "",
@@ -31,6 +32,8 @@
 		headerColor: ""
 	}
 
+	this.id = 0;
+
 	this.numberOfPeopleAttending = 0;
 
 	this.occupancyLimit = null;
@@ -50,7 +53,7 @@
 		year: ""
 	};
 
-	this.title = "";
+	this.name = "";
 
 	this.urlLink = "";
 };

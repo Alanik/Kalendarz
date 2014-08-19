@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KalendarzKarieryData.Models.TransportModels;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 		#region Event
 
 		void AddEvent(Event @event);
-		ICollection<object> GetEventsForGivenMonth(int month); 
+		CalendarEventTreeModel GetEventsForGivenMonth(int month, int year); 
 		ICollection<object> GetAllEvents();
 		ICollection<object> GetAllPrivacyLevels();
 		ICollection<object> GetAllEventKinds();

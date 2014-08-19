@@ -25,15 +25,12 @@ namespace KalendarzKariery.Controllers
 
 			var indexViewModel = new IndexViewModel();
 
-			indexViewModel.PrivateEvents = Repository.GetEventsForGivenMonth(DateTime.Today.Month);
+			indexViewModel.MyEvents = Repository.GetEventsForGivenMonth(DateTime.Today.Month, DateTime.Today.Year);
 			indexViewModel.PublicEvents = null;
 			indexViewModel.EventKinds = Repository.GetAllEventKinds();
 			indexViewModel.PrivacyLevels = Repository.GetAllPrivacyLevels();
 
-			return View("Index", (object)JsonConvert.SerializeObject(indexViewModel, new JsonSerializerSettings()
-			{
-				ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-			}));
+			return View("Index", indexViewModel);
 		}
 
 		[HttpPost]

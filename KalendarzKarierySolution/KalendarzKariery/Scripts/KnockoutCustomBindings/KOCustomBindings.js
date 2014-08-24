@@ -15,4 +15,3 @@ ko.bindingHandlers.selectedText = {
 		$("option", element).filter(function (i, el) { return $(el).text() === value; }).prop("selected", "selected");
 	}
 };
-////////////////////////////////////

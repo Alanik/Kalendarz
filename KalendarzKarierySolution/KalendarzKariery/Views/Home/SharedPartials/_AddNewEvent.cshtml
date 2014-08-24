@@ -38,7 +38,7 @@
 							<div style="display: inline-block;">
 								<label>Godzina rozpoczęcia: </label>
 								<select id="startHourSelectBox" class="time-select-box" data-bind="value: startDate.startHour">
-									@for (int i = 7; i < 22; i++)
+									@for (int i = 7; i < 21; i++)
 		 {
 										<option value="@i">@i</option>
 		 }
@@ -57,25 +57,28 @@
 						</div>
 
 						<div class="div-separator">
-							<div style="display: inline-block;">
 								<label>Godzina zakończenia: </label>
-								<select id="endHourSelectBox" class="time-select-box" data-bind="value: startDate.endHour">
+								<div style="display:inline-block;">
+								<div id="endDateValidationErrorMsg" class="field-validation-error"></div>
+								<select id="endHourSelectBox" class="time-select-box end-date-selectbox" data-bind="value: startDate.endHour">
 									@for (int i = 7; i < 21; i++)
 		 {
 										<option value="@i">@i</option>
 		 }
 								</select>
-							</div>
-							<div style="display: inline-block;">
+			
+							
 								<span>: </span>
-								<select id="endMinuteSelectBox" class="time-select-box" data-bind="value: startDate.endMinute">
+								<select id="endMinuteSelectBox" class="time-select-box end-date-selectbox" data-bind="value: startDate.endMinute">
 									@for (int i = 0; i < 60; i++)
 		 {
 										<option value="@i">@i</option>
 		 }
 
 								</select>
-							</div>
+								</div>
+								
+							
 						</div>
 
 						<div class="div-separator">

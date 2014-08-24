@@ -199,6 +199,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Fonts\Oxygen\OFL.txt" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -274,13 +275,32 @@
     <Content Include="Content\Fonts\CodePro\CODE Bold.otf" />
     <Content Include="Content\Fonts\CodePro\CODE Light.otf" />
     <Content Include="Content\Fonts\CodePro\FFF_EULA_license.pdf" />
+    <Content Include="Content\Fonts\Oxygen\Oxygen-Bold.ttf" />
+    <Content Include="Content\Fonts\Oxygen\Oxygen-Light.ttf" />
+    <Content Include="Content\Fonts\Oxygen\Oxygen-Regular.ttf" />
+    <Content Include="Content\Fonts\SegoeUI\segoeui.ttf" />
+    <Content Include="Content\Fonts\SegoeUI\segoeuib.ttf" />
+    <Content Include="Content\Fonts\SegoeUI\segoeuii.ttf" />
+    <Content Include="Content\Fonts\SegoeUI\segoeuil.ttf" />
+    <Content Include="Content\Fonts\SegoeUI\segoeuiz.ttf" />
+    <Content Include="Content\Fonts\SegoeUI\seguisb.ttf" />
+    <Content Include="Data\FakeRepositoryCsvFiles\Address.csv" />
+    <Content Include="Data\FakeRepositoryCsvFiles\Event.csv" />
+    <Content Include="Data\FakeRepositoryCsvFiles\EventKind.csv" />
+    <Content Include="Data\FakeRepositoryCsvFiles\EventStatus.csv" />
+    <Content Include="Data\FakeRepositoryCsvFiles\PrivacyLevel.csv" />
+    <Content Include="Data\FakeRepositoryCsvFiles\User.csv" />
+    <Content Include="Data\FakeRepositoryCsvFiles\UserAccountInfo.csv" />
+    <Content Include="Data\FakeRepositoryCsvFiles\webpages_Membership.csv" />
+    <Content Include="Data\FakeRepositoryCsvFiles\webpages_Roles.csv" />
+    <Content Include="Data\FakeRepositoryCsvFiles\webpages_UsersInRoles.csv" />
     <None Include="Properties\PublishProfiles\Alan.pubxml" />
     <None Include="Scripts\Lib\jquery-2.0.3.intellisense.js" />
     <Content Include="Images\TestBackgrounds\1600x900.jpg" />
     <Content Include="Images\TestBackgrounds\1600x900 %282%29.jpg" />
     <Content Include="Images\TestBackgrounds\1600x900purple-white.jpg" />
     <Content Include="Images\TestBackgrounds\kalendarzTlo4.png" />
-    <Content Include="Scripts\Helpers\CalendarViewModelConverter.js" />
+    <Content Include="Scripts\Helpers\EventTreeBuilder.js" />
     <Content Include="Scripts\Helpers\EventColorHelper.js" />
     <Content Include="Scripts\JSModels\KKEventModel.js" />
     <Content Include="Scripts\KnockoutCustomBindings\KOCustomBindings.js" />
@@ -341,10 +361,10 @@
     <Content Include="Views\Home\DetailsPage\_Details.cshtml" />
     <Content Include="Views\Emails\_ViewStart.cshtml" />
     <Content Include="Views\Home\LobbyPage\_lobbyEventSummary.cshtml" />
+    <Content Include="Views\Home\DetailsPage\_DetailsEventSummary.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Data\FakeRepositoryCsvFiles\" />
     <Folder Include="Filters\" />
   </ItemGroup>
   <ItemGroup>

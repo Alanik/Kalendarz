@@ -23,17 +23,10 @@
 		year = parseInt(opts.year);
 		var m = 0;
 		var calendar = '';
-		//calendar += ('<div id="calendarLogoSmallContainer"><img src="/Images/Logo/kalendarzLogoSmall.png" alt="small logo" style="height:80px !important; width:57px !important;position:absolute !important;top:-17px !important; left:-10px !important;z-index:100"/></div>');
-
 		calendar += ('<div id="calendar-menu-header">');
-
 		calendar += ('<div style="width:100%;z-index:2;position:absolute;top:2px;border-top:1px solid rgb(221,221,221);border-bottom:1px solid rgb(247,247,247);"></div>');
-
 		calendar += ('<div class="year-header-container"></div>');
 		calendar += ('<div class="month-name-header-container">');
-
-		//calendar += ('<div class="calendar-eventSummary-btn"><img src="/images/Icons/list-icon.png" alt="triangle"/></div><div class="nav-prev" data-bind="click: $root.showPreviousMonthOnPrevMonthBtnClick" ><img src="/images/Icons/triangle-left.png" alt="triangle"/></div>');
-
 		calendar += ('<div style="box-shadow:0px 5px 20px -5px rgb(151, 151, 151);color:rgb(81, 228, 163);display:inline-block;font-size:18px;letter-spacing:1px;padding-top: 5px;padding-bottom: 4px;padding-right: 5px;padding-left: 5px;background:white;">' + today + '</div>');
 
 		for (var j = 0; j < monthNames.length; j++) {
@@ -52,16 +45,10 @@
 				}
 			}
 		}
-
-		//calendar += ('<div class="nav-next" data-bind="click: $root.showNextMonthOnNextMonthBtnClick" ><img src="/images/Icons/triangle-right.png" alt="triangle"/></div>');
-
 		calendar += ('<span class="year-name-container">' + year + '</span></div>');
-
-		//calendar += ('<div class="menu-item-container inne-tab"><div class="border-item inne-border-tab"></div><div class="menu-item"><span>Inne</span></div></div><div class="menu-item-container spotkania-tab"><div class="border-item spotkania-border-tab"></div><div class="menu-item"><span>Spotkania</span></div></div><div class="menu-item-container kursy-tab"><div class="border-item kursy-border-tab"></div><div class="menu-item"><span>Kursy</span></div></div><div class="menu-item-container szkolenia-tab"><div class="border-item szkolenia-border-tab"></div><div class="menu-item"><span>Szkolenia</span></div></div><div class="menu-item-container zajecia-tab"><div class="border-item zajecia-border-tab"></div><div class="menu-item"><span>Zajęcia</span></div></div><div class="menu-item-container wydarzenia-tab"><div class="border-item wydarzenia-border-tab"></div><div class="menu-item"><span>Wydarzenia</span></div></div></div>');
 		calendar += ('</div><div class="weekday-container" ' + 'id="calendar-month' + i + ' ">');
 
 		for (var d = 0; d < 7; d++) {
-
 			if (weekday - 1 === d) {
 				calendar += '<div class="weekday current-weekday">' + dayNames[d] + '</div>';
 			} else {
@@ -73,13 +60,6 @@
 
 		for (var d = 0; d < 7; d++) {
 			calendar += '<div class="calendar-hours"><div class="calendar-hours-placeholder">';
-
-			//for (var h = 7; h < 22; h += 2) {
-
-			//	calendar += '<span class="hour">' + h + '</span>';
-
-			//}
-
 			calendar += '</div></div>';
 		}
 
@@ -96,24 +76,25 @@
 		firstDay--;
 
 		var i = 0;
+		var weekdayModulo;
 
 		for (j = 0; j < 42; j++) {
+			weekdayModulo = j % 7;
 
-			if (j % 7 == 0) {
-
+			if (weekdayModulo == 0) {
 				calendar += '<div class="calendar-row">';
 			}
 
 			if (j < firstDay) {
-				calendar += ('<div class="other-month-cell calendar-cell"><div class="calendar-cell-placeholder"><div class="cell-span-container" style="position:relative;"><span class="day">' + (prev_days - firstDay + j + 1) + '</span></div></div></div>');
+				calendar += ('<div class="other-month-cell calendar-cell"  weekday="' + weekdayModulo + '"><div class="calendar-cell-placeholder"><div class="cell-span-container"><span class="day">' + (prev_days - firstDay + j + 1) + '</span></div></div></div>');
 
 			} else if (j >= firstDay + getDaysInMonth(month, year)) {
 				i = i + 1;
-				calendar += ('<div class="other-month-cell calendar-cell"><div class="calendar-cell-placeholder"><div class="cell-span-container" style="position:relative;"><span class="day">' + i + '</span></div></div></div>');
+				calendar += ('<div class="other-month-cell calendar-cell"  weekday="' + weekdayModulo + '"><div class="calendar-cell-placeholder"><div class="cell-span-container"><span class="day">' + i + '</span></div></div></div>');
 
 			} else {
 				var currentDay = (j - firstDay + 1);
-				calendar += ('<div class="current-month-cell  calendar-cell day' + currentDay + '" dayNumber="' + currentDay + '" data-bind="click:function(){ $root.moveToDetailsPageOnCalendarCellClick($element) }"><div class="calendar-cell-placeholder"><div class="cell-span-container" style="position:relative;"><span class="day">' + currentDay + '</span><div class="addNewEvent-cellIcon light-icon" data-bind="click:function(data, e){ $root.showAddPrivateCalendarEventPopupOnClick($element, data, e)}">+</div></div></div></div>');
+				calendar += ('<div class="current-month-cell  calendar-cell day' + currentDay + '" dayNumber="' + currentDay + '" weekday="' + weekdayModulo + '" data-bind="click:function(){ $root.moveToDetailsPageOnCalendarCellClick($element) }"><div class="calendar-cell-placeholder"><div class="cell-span-container"><span class="day">' + currentDay + '</span><div class="addNewEvent-cellIcon light-icon" data-bind="click:function(data, e){ $root.showAddPrivateCalendarEventPopupOnClick($element, data, e)}">+</div></div></div></div>');
 			}
 
 			if (j % 7 == 6) calendar += ('</div>');
@@ -175,7 +156,5 @@
 		calendarWidget(this, params);
 		return this;
 	};
-
-
 
 })(jQuery);

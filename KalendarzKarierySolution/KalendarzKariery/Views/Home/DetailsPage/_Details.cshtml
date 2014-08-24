@@ -1,35 +1,36 @@
 ﻿<div id="detailsMenuHeader" class="dark-background-div">
 </div>
 <section id="detailsPanel">
-<div id="todayDateAndTimeContainer">
-<div id="todayDateDay">19</div>
-<div style="display:inline-block;">
-<div id="todayDateMonth">Sierpień</div><div id="todayDateYear">2014</div>
-</div>
-<div id="todayDateDayName">Wtorek</div>
+	<div id="todayDateAndTimeContainer">
+		<div id="todayDateDay" data-bind="text: $root.detailsPageDisplayDate.day()"></div>
+		<div style="display: inline-block;">
+			<div id="todayDateMonth" data-bind="text: $root.detailsPageDisplayDate.getMonthName()"></div>
+			<div id="todayDateYear" data-bind="text: $root.detailsPageDisplayDate.year()"></div>
+		</div>
+		<div id="todayDateDayName" data-bind="text: $root.detailsPageDisplayDate.getDayName()"></div>
 
-</div>
+	</div>
 </section>
 <div id="lowDetailsMenuHeader" class="dark-background-div"></div>
 <section id="calendarDayDetailsContainer">
 	<div id="calendarDayDetailsTable">
 		<div class="table-details-head">
-			<div>7:00</div>
-			<div>8:00</div>
-			<div>9:00</div>
-			<div>10:00</div>
-			<div>11:00</div>
-			<div>12:00</div>
-			<div>13:00</div>
-			<div>14:00</div>
-			<div>15:00</div>
-			<div>16:00</div>
-			<div>17:00</div>
-			<div>18:00</div>
-			<div>19:00</div>
-			<div>20:00</div>
-			<div>21:00</div>
+			<div>7<span class="small-minutes">00</span></div>
+			<div>8<span class="small-minutes">00</span></div>
+			<div>9<span class="small-minutes">00</span></div>
+			<div>10<span class="small-minutes">00</span></div>
+			<div>11<span class="small-minutes">00</span></div>
+			<div>12<span class="small-minutes">00</span></div>
+			<div>13<span class="small-minutes">00</span></div>
+			<div>14<span class="small-minutes">00</span></div>
+			<div>15<span class="small-minutes">00</span></div>
+			<div>16<span class="small-minutes">00</span></div>
+			<div>17<span class="small-minutes">00</span></div>
+			<div>18<span class="small-minutes">00</span></div>
+			<div>19<span class="small-minutes">00</span></div>
+			<div>20<span class="small-minutes">00</span></div>
 		</div>
+		<div style="width: 100%; height: 2px; border-top: 1px solid rgb(192,192,192); border-bottom: 1px solid rgb(244,244,244); background: rgba(0,0,0,.1);"></div>
 		<div class="table-details-body">
 			<div class="details-day-cell hour-cell-7">
 				<div class="details-hour-line"></div>
@@ -87,10 +88,10 @@
 				<div class="details-hour-line"></div>
 			</div>
 
-			<div class="details-day-cell hour-cell-21">
-				<div class="details-hour-line"></div>
-			</div>
-
 		</div>
+		
 	</div>
 </section>
+
+@Html.Partial("_DetailsEventSummary")
+<div style="height:200px;"></div>

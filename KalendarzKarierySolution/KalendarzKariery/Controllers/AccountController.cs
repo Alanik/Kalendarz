@@ -14,15 +14,20 @@ using System.Linq;
 using KalendarzKarieryData.Repository;
 using KalendarzKarieryData.Repository.KalendarzKarieryRepository;
 using KalendarzKarieryCore.Consts;
+using System.Web;
+using System.Web.Caching;
+using KalendarzKarieryData.BO.Cache;
 
 
 namespace KalendarzKariery.Controllers
 {
 	[Authorize]
-	public class 
+	public class
 	AccountController : Controller
 	{
+
 		readonly IKalendarzKarieryRepository _repository = RepositoryProvider.GetRepository();
+
 
 		[AllowAnonymous]
 		public ActionResult Login()
@@ -37,12 +42,22 @@ namespace KalendarzKariery.Controllers
 		{
 			if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
 			{
+				var objectId = AppCache.Get(model.UserName.ToLower());
+				if (objectId == null)
+				{
+					int id = _repository.GetUserIdByName(model.UserName);
+					if (id >= 0)
+					{
+						AppCache.Set(model.UserName.ToLower(), id);
+					}
+				}
+
 				return Json(new { userName = model.UserName });
 			}
 
 			ModelState.AddModelError(string.Empty, "Nazwa użytkownika lub hasło jest nieprawidłowe");
 
-			return Json( new { validationError = true });
+			return Json(new { validationError = true });
 		}
 
 		//
@@ -78,7 +93,7 @@ namespace KalendarzKariery.Controllers
 			{
 				if (_repository.GetUserByEmail(model.User.Email) == null)
 				{
-					
+
 					string birthDate = model.BirthDateModel.Year + "-" + model.BirthDateModel.Month + "-" + model.BirthDateModel.Day;
 					DateTime date;
 
@@ -92,7 +107,8 @@ namespace KalendarzKariery.Controllers
 						return Json(new { isRegisterSuccess = false, errors = ModelState.Errors() });
 					}
 
-					try{
+					try
+					{
 						WebSecurity.CreateUserAndAccount(model.RegisterModel.UserName,
 														 model.RegisterModel.Password,
 														 propertyValues: new

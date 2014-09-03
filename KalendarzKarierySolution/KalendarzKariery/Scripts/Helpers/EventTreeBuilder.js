@@ -1,47 +1,47 @@
-﻿var EventTreeBuilder = function (myEvents, eventTree) {
+﻿var EventTreeBuilder = function (yearEventTreeModel, eventTree) {
 	var self = this;
-	self.myEvents = myEvents;
+	self.yearEventTreeModel = yearEventTreeModel;
 	self.eventTree = eventTree;
 
 	self.build = function () {
 		var lengh, largest;
-		var groups = self.myEvents.eventsGroupedByDay;
-		var groupsLength = self.myEvents.eventsGroupedByDay.length;
+		var groups;
+		var groupsLength;
 		var dayGroup, day, dayGroupLength, event;
-
-		var year = self.myEvents.year;
-		var month = self.myEvents.month;
-
+		var year = self.yearEventTreeModel.year;
 		var eventTreeYearProp = self.eventTree[year] ? self.eventTree[year] : self.eventTree[year] = {};
-		var eventTreeMonthProp = eventTreeYearProp[month] = {};
-		var eventTreeDayGroupProp;
-		var eventTreeEventsProp;
+		var eventTreeMonthProp, eventTreeDayGroupProp, eventTreeEventsProp, eventsInTheSameDay;
 
-		var eventsInTheSameDay;
+		for (var k in self.yearEventTreeModel.eventsGroupedByMonth) {
 
-		//event day groups
-		for (var i = 0; i < groupsLength; i++) {
+			eventTreeMonthProp = eventTreeYearProp[self.yearEventTreeModel.eventsGroupedByMonth[k].month] = {};
+			groups = self.yearEventTreeModel.eventsGroupedByMonth[k].events;
+			groupsLength = self.yearEventTreeModel.eventsGroupedByMonth[k].events.length;
 
-			dayGroup = groups[i];
-			day = dayGroup.day;
+			//event day groups
+			for (var i = 0; i < groupsLength; i++) {
 
-			dayGroupLength = dayGroup.events.length;
+				dayGroup = groups[i];
+				day = dayGroup.day;
+				dayGroupLength = dayGroup.events.length;
+				eventTreeDayGroupProp = eventTreeMonthProp[day] = [];
+				eventsInTheSameDay = [];
 
-			eventTreeDayGroupProp = eventTreeMonthProp[day] = [];
+				// events in the day group
+				for (var j = 0; j < dayGroupLength; j++) {
+					event = dayGroup.events[j];
 
-			eventsInTheSameDay = [];
+					setAddress(event);
+					setKind(event);
+					setStartDate(event);
+					setCalendarPlacementRow(event, eventsInTheSameDay);
 
-			// events in the day group
-			for (var j = 0; j < dayGroupLength; j++) {
-				event = dayGroup.events[j];
+					eventTreeDayGroupProp.push(event);
 
-				setAddress(event);
-				setKind(event);
-				setStartDate(event);
-				setCalendarPlacementRow(event, eventsInTheSameDay);
-
-				eventTreeDayGroupProp.push(event);
+				}
 			}
+
+			eventTreeYearProp[self.yearEventTreeModel.eventsGroupedByMonth[k].month] = eventTreeMonthProp;
 		}
 
 		function setKind(event) {
@@ -78,7 +78,7 @@
 				"startHour": startHour,
 				"endHour": (startHour + hourSpan + Math.floor(length / 60)),
 				"day": date.getDate(),
-				"month": date.getMonth(),
+				"month": date.getMonth() + 1,
 				"year": date.getFullYear()
 			};
 
@@ -132,6 +132,4 @@
 			});
 		}
 	};
-
-
 };

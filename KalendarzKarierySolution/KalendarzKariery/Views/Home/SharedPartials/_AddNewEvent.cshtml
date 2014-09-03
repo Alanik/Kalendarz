@@ -57,8 +57,8 @@
 						</div>
 
 						<div class="div-separator">
-								<label>Godzina zakończenia: </label>
-								<div style="display:inline-block;">
+							<label>Godzina zakończenia: </label>
+							<div style="display: inline-block;">
 								<div id="endDateValidationErrorMsg" class="field-validation-error"></div>
 								<select id="endHourSelectBox" class="time-select-box end-date-selectbox" data-bind="value: startDate.endHour">
 									@for (int i = 7; i < 21; i++)
@@ -66,8 +66,8 @@
 										<option value="@i">@i</option>
 		 }
 								</select>
-			
-							
+
+
 								<span>: </span>
 								<select id="endMinuteSelectBox" class="time-select-box end-date-selectbox" data-bind="value: startDate.endMinute">
 									@for (int i = 0; i < 60; i++)
@@ -76,15 +76,31 @@
 		 }
 
 								</select>
-								</div>
-								
-							
+							</div>
+
+
 						</div>
 
 						<div class="div-separator">
 							<div>
+							<div style="position: relative; left: 150px;">
+								<div>
+									@Html.ValidationMessageFor(m => m.StartDate.Day)
+								</div>
+								<div>
+									@Html.ValidationMessageFor(m => m.StartDate.Month)
+								</div>
+								<div>
+									@Html.ValidationMessageFor(m => m.StartDate.Year)
+								</div>	
+								<div>
+								<span id="dateValidationErrorMsg" class="field-validation-error" style="display: none">Nieprawidłowa data.</span>
+								</div>	
+									
+								</div>
+
 								@Html.LabelFor(m => m.Event.StartDate, new { @class = "form-label" })
-								@Html.TextBox("date", string.Empty, new { maxlength = 10, size = 7, disabled = true, id = "Event_StartDate" })
+								@Html.TextBoxFor(m => m.StartDate.Day, string.Empty, new { id = "eventStartDayTxtBox", @class = "event-startdate-txtbox", placeholder = "dzień", maxlength = 2}) <span style="color: #b3aba1;">/ </span>@Html.TextBoxFor(m => m.StartDate.Month, string.Empty, new { id = "eventStartMonthTxtBox", @class = "event-startdate-txtbox", placeholder = "miesiąc", maxlength = 2 }) <span style="color: #b3aba1;">/ </span>@Html.TextBoxFor(m => m.StartDate.Year, string.Empty, new { id = "eventStartYearTxtBox", @class = "event-startdate-txtbox", placeholder = "rok", maxlength = 4 })
 							</div>
 						</div>
 

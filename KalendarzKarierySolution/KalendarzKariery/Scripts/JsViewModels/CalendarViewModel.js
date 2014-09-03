@@ -1,11 +1,13 @@
 ﻿
-function CalendarViewModel(year, month, day, weekday) {
+function CalendarViewModel(year, month, day, weekday, userName) {
+
 	var self = this;
 	var colorHelper = new EventColorHelper();
 	var date = new Date();
 
 	self.monthNames = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'];
 	self.dayNames = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'];
+	self.userName = userName ? userName : '';
 
 	//current event
 	self.event = new KKEvent();
@@ -28,13 +30,12 @@ function CalendarViewModel(year, month, day, weekday) {
 
 	self.detailsPageEventMostBottomRow = 1;
 
-	// from 0 to 11
 	self.calendarPageDisplayDate = {
-		"year": year,
-		"month": month
+		"year": ko.observable(year),
+		"month": ko.observable(month)
 	};
 
-	self.AddNewEvent_Day = 0;
+	self.addNewEvent_Day = ko.observable(0);
 
 	self.calendarPageMonthEvents = [];
 	self.detailsPageDayEvents = ko.observableArray([]);
@@ -44,8 +45,12 @@ function CalendarViewModel(year, month, day, weekday) {
 		// just an example to remember the format of eventTree object
 		//	"2014": {
 		//		"8": [{ "3": [event, event] }, { "7": [event] }, { "9": [event, event, event, event] }],
-		//		"9": [{ "2": [event] }]			
-		//}
+		//		"9": [{ "2": [event] }]	
+		//          },
+		//	"2015": {
+		//		"8": [{ "3": [event, event] }, { "7": [event] }, { "9": [event, event, event, event] }],
+		//		"9": [{ "2": [event] }]	
+		//			}
 	};
 
 	//////////////////////////////////////////////////////////
@@ -56,7 +61,7 @@ function CalendarViewModel(year, month, day, weekday) {
 		var daysProp, events = [];
 		var yearProp = self.eventTree[year], monthProp, daysProp, events = [];
 		if (yearProp) {
-			monthProp = yearProp[month + 1];
+			monthProp = yearProp[month];
 			if (monthProp) {
 				for (var i in monthProp) {
 					daysProp = monthProp[i];
@@ -77,7 +82,7 @@ function CalendarViewModel(year, month, day, weekday) {
 	self.getEventsForGivenDay = function (day) {
 		var yearProp = self.eventTree[self.detailsPageDisplayDate.year()], monthProp, daysProp, events = [];
 		if (yearProp) {
-			monthProp = yearProp[parseInt(self.detailsPageDisplayDate.month(), 10) + 1];
+			monthProp = yearProp[parseInt(self.detailsPageDisplayDate.month(), 10)];
 			if (monthProp) {
 				var daysProp = monthProp[self.detailsPageDisplayDate.day()];
 				if (daysProp) {
@@ -90,19 +95,43 @@ function CalendarViewModel(year, month, day, weekday) {
 	};
 
 	self.addEventOnClick = function (privacyLvl) {
+
 		var $loader;
 		var $addEventForm = $("#addEventForm");
 		var action = $addEventForm.attr("action");
 
+		var day = $("#eventStartDayTxtBox").val();
+		var month = $("#eventStartMonthTxtBox").val();
+		var year = $("#eventStartYearTxtBox").val();
+
+		day = parseInt(day, 10);
+		month = parseInt(month, 10);
+		year = parseInt(year, 10);
+
+		if (!self.validateDate(day, month, year)) {
+			$dateValidationMsg = $("#addNewEventContainer #dateValidationErrorMsg");
+			$("#addNewEventContainer .event-startdate-txtbox").addClass("input-validation-error");
+			$dateValidationMsg.removeClass("field-validation-valid").addClass("field-validation-error").show();
+			return false;
+		}
+
+		self.addNewEvent_Day(day);
+		self.calendarPageDisplayDate.month(month);
+		self.calendarPageDisplayDate.year(year);
+
 		$addEventForm.validate().form();
-		$addEventForm.removeAttr("novalidate");
+		//$addEventForm.removeAttr("novalidate");
 
 		if ($addEventForm.valid()) {
-
 			var startHour = $("#startHourSelectBox").val();
 			var endHour = $("#endHourSelectBox").val();
 			var startMinute = $("#startMinuteSelectBox").val();
 			var endMinute = $("#endMinuteSelectBox").val();
+
+			startHour = parseInt(startHour, 10);
+			endHour = parseInt(endHour, 10);
+			startMinute = parseInt(startMinute, 10);
+			endMinute = parseInt(endMinute, 10);
 
 			var dateDiffAtLeast10Mins = self.validateAddEventFormDates(startHour, endHour, startMinute, endMinute);
 			if (!dateDiffAtLeast10Mins) {
@@ -117,21 +146,17 @@ function CalendarViewModel(year, month, day, weekday) {
 			var startEventDate = new Date();
 			var endEventDate = new Date();
 
-			var chosenDay = self.AddNewEvent_Day;
-			var chosenMonth = self.calendarPageDisplayDate.month;
-			var chosenYear = self.calendarPageDisplayDate.year;
+			startEventDate.setMinutes(startMinute);
+			startEventDate.setHours(startHour);
+			startEventDate.setDate(day);
+			startEventDate.setMonth(month - 1);
+			startEventDate.setYear(year);
 
-			startEventDate.setMinutes(parseInt(startMinute));
-			startEventDate.setHours(parseInt(startHour));
-			startEventDate.setDate(chosenDay);
-			startEventDate.setMonth(chosenMonth);
-			startEventDate.setYear(chosenYear);
-
-			endEventDate.setMinutes(parseInt(endMinute));
-			endEventDate.setHours(parseInt(endHour));
-			endEventDate.setDate(chosenDay);
-			endEventDate.setMonth(chosenMonth);
-			endEventDate.setYear(chosenYear);
+			endEventDate.setMinutes(endMinute);
+			endEventDate.setHours(endHour);
+			endEventDate.setDate(day);
+			endEventDate.setMonth(month - 1);
+			endEventDate.setYear(year);
 
 			var diff = Math.abs(startEventDate - endEventDate);
 			var minutes = Math.floor((diff / 1000) / 60);
@@ -141,9 +166,9 @@ function CalendarViewModel(year, month, day, weekday) {
 				endMinute: endMinute,
 				startHour: startHour,
 				endHour: endHour,
-				day: chosenDay,
-				month: chosenMonth,
-				year: chosenYear
+				day: day,
+				month: month,
+				year: year
 			};
 
 			self.event.eventLengthInMinutes = minutes;
@@ -165,9 +190,62 @@ function CalendarViewModel(year, month, day, weekday) {
 						self.hideLoader($loader, true);
 						alert(result.Message);
 					} else {
-						self.myEvents.push(self.event);
+
+						//todo: color should be calculated automatically
 						self.event.kind.color = colorHelper.calculatePrivateEventColor(self.event.kind.value());
-						self.drawEventToCalendar(self.event);
+
+						var eventToPush = new KKEvent();
+						eventToPush.addedBy = self.userName;
+
+						eventToPush.address.street = self.event.address.street;
+						eventToPush.address.city = self.event.address.city;
+						eventToPush.address.zipCode = self.event.address.zipCode;
+
+						eventToPush.dateAdded.minute = self.event.dateAdded.minute;
+						eventToPush.dateAdded.hour = self.event.dateAdded.hour;
+						eventToPush.dateAdded.day = self.event.dateAdded.day;
+						eventToPush.dateAdded.month = self.event.dateAdded.month;
+						eventToPush.dateAdded.year = self.event.dateAdded.year;
+
+						eventToPush.description = self.event.description;
+						eventToPush.details = self.event.details;
+						eventToPush.eventLengthInMinutes = self.event.eventLengthInMinutes;
+
+						eventToPush.kind.value = self.event.kind.value();
+						eventToPush.kind.name = self.event.kind.name();
+						eventToPush.kind.color = self.event.kind.color;
+						eventToPush.kind.headerColor = self.event.kind.headerColor;
+
+						//TODO: return product id from server and set it here
+						eventToPush.id = self.event.id;
+						eventToPush.occupancyLimit = self.event.occupancyLimit;
+						eventToPush.privacyLevel.name = self.event.privacyLevel.name;
+						eventToPush.privacyLevel.value = self.event.privacyLevel.value;
+
+						eventToPush.startDate.startMinute = self.event.startDate.startMinute;
+						eventToPush.startDate.endMinute = self.event.startDate.endMinute;
+						eventToPush.startDate.startHour = self.event.startDate.startHour;
+						eventToPush.startDate.endHour = self.event.startDate.endHour;
+						eventToPush.startDate.day = self.event.startDate.day;
+						eventToPush.startDate.month = self.event.startDate.month;
+						eventToPush.startDate.year = self.event.startDate.year;
+
+
+						eventToPush.name = self.event.name;
+						eventToPush.urlLink = self.event.urlLink;
+
+						self.myEvents.push(eventToPush);
+
+						var dayEvents = self.addEventToEventTree(eventToPush);
+
+						var cellDay = ".day" + self.addNewEvent_Day();
+						var $cellPlaceholder = $("#calendar").find(cellDay).find(".calendar-cell-placeholder");
+						$cellPlaceholder.find(".event-rectangle").remove();
+
+						for (var i in dayEvents) {
+							self.drawEventToCalendar(dayEvents[i]);
+						}
+
 						$addEventForm[0].reset();
 						$("#addNewEventContainer").hide();
 						self.hideLoader($loader);
@@ -183,17 +261,30 @@ function CalendarViewModel(year, month, day, weekday) {
 		return false;
 	};
 
+	self.addEventToEventTree = function (newEvent) {
+		var year = newEvent.startDate.year;
+		var month = newEvent.startDate.month;
+		var day = newEvent.startDate.day;
+
+		var eventTreeYearProp = self.eventTree[year] ? self.eventTree[year] : self.eventTree[year] = {};
+		var eventTreeMonthProp = eventTreeYearProp[month] ? eventTreeYearProp[month] : eventTreeYearProp[month] = {};
+		var dayEvents = eventTreeMonthProp[day] ? eventTreeMonthProp[day] : eventTreeMonthProp[day] = [];
+
+		dayEvents.push(newEvent);
+		self.setCalendarPlacementRowAfterNewEventIsAdded(dayEvents);
+
+		return dayEvents;
+	}
+
 	self.drawEventToCalendar = function (event) {
 
-		self.event.kind.name(event.kind.name);
-		self.event.kind.value(event.kind.value);
-
-		var cellDay = ".day" + event.startDate.day;
+		var cellDay = ".day" + parseInt(event.startDate.day, 10);
 		var $cellPlaceholder = $("#calendar").find(cellDay).find(".calendar-cell-placeholder");
 		var cellLineStart = ".cell-line" + event.startDate.startHour;
 		var cellLineEnd = ".cell-line" + event.startDate.endHour;
 
 		var $cellLineStart = $cellPlaceholder.find(cellLineStart);
+
 		var $cellLineEnd = $cellPlaceholder.find(cellLineEnd);
 
 		var startOffset = parseFloat($cellLineStart[0].style.left);
@@ -233,8 +324,8 @@ function CalendarViewModel(year, month, day, weekday) {
 
 	self.moveToDetailsPageOnCalendarCellClick = function (element) {
 		self.displayPageEventMostBottomRow = 1;
-		self.detailsPageDisplayDate.year(self.calendarPageDisplayDate.year);
-		self.detailsPageDisplayDate.month(self.calendarPageDisplayDate.month);
+		self.detailsPageDisplayDate.year(self.calendarPageDisplayDate.year());
+		self.detailsPageDisplayDate.month(self.calendarPageDisplayDate.month());
 
 		var day = $(element).attr("dayNumber");
 		var dayInt = parseInt(day, 10);
@@ -277,12 +368,15 @@ function CalendarViewModel(year, month, day, weekday) {
 
 		var $eventTitle = $addEventContainer.find("#Event_Title");
 
-		var $eventStartDateTxtBox = $addEventContainer.find("#Event_StartDate");
 		var dayNumber = $(element).siblings(".day").text();
-		self.AddNewEvent_Day = dayNumber;
+		self.addNewEvent_Day(dayNumber);
 
-		var dateString = dayNumber + '/' + (self.calendarPageDisplayDate.month + 1) + '/' + self.calendarPageDisplayDate.year;
-		$eventStartDateTxtBox.val(dateString).prop("disabled", true);
+		dayNumber = dayNumber < 10 ? '0' + dayNumber : dayNumber;
+		var monthNumber = (self.calendarPageDisplayDate.month()) < 10 ? '0' + (self.calendarPageDisplayDate.month()) : self.calendarPageDisplayDate.month();
+
+		$addEventContainer.find("#eventStartDayTxtBox").val(dayNumber);
+		$addEventContainer.find("#eventStartMonthTxtBox").val(monthNumber);
+		$addEventContainer.find("#eventStartYearTxtBox").val(self.calendarPageDisplayDate.year());
 
 		$addEventContainer.show();
 		$eventTitle.focus();
@@ -293,10 +387,11 @@ function CalendarViewModel(year, month, day, weekday) {
 	};
 
 	self.closeAddNewEventPopupOnClick = function () {
-		
+
 		var $cont = $("#addNewEventContainer");
 		var $section = $cont.closest(".main-section");
 		var $overlay = $section.siblings(".dotted-page-overlay");
+		$cont.find("#addEventForm")[0].reset();
 
 		//TODO: overlay might be already hidden, so fadeOut might cause problems / performance issues
 		$overlay.fadeOut();
@@ -380,15 +475,18 @@ function CalendarViewModel(year, month, day, weekday) {
 		$registerForm.find(".summary-validation-errors").empty();
 		var action = $registerForm.attr("action");
 
-		$registerForm.validate().form();
+		var day = $("#birthDateDayTxtBox").val();
+		var month = $("#birthDateMonthTxtBox").val();
+		var year = $("#birthDateYearTxtBox").val();
 
-		if (!validateBirthDate()) {
+		if (!self.validateDate(day, month, year)) {
 			$dateBirthValidationMsg = $("#registerPageContainer #birthDateValidationErrorMsg");
-			$dateBirthValidationMsg.show();
 			$("#registerPageContainer .register-birthdate-txtbox").addClass("input-validation-error");
-
+			$dateBirthValidationMsg.show();
 			return false;
 		}
+
+		$registerForm.validate().form();
 
 		if ($registerForm.valid()) {
 			$.ajax({
@@ -409,53 +507,6 @@ function CalendarViewModel(year, month, day, weekday) {
 		};
 
 		return false;
-
-		function validateBirthDate() {
-			var day = $("#birthDateDayTxtBox").val();
-			var month = $("#birthDateMonthTxtBox").val();
-			var year = $("#birthDateYearTxtBox").val();
-
-			if (day == "" || month == "" || year == "") {
-				return true;
-			}
-
-			var birthDate = day + "/" + month + "/" + year;
-			return isDate(birthDate);
-
-			//Validates a date input -- http://jquerybyexample.blogspot.com/2011/12/validate-date-    using-jquery.html
-			function isDate(txtDate) {
-
-				var currVal = txtDate;
-				if (currVal == '')
-					return false;
-
-				//Declare Regex  
-				var rxDatePattern = /^(\d{1,2})(\/|-)(\d{1,2})(\/|-)(\d{4})$/;
-				var dtArray = currVal.match(rxDatePattern); // is format OK?
-
-				if (dtArray == null)
-					return false;
-
-				//Checks for dd/mm/yyyy format.
-				var dtDay = dtArray[1];
-				var dtMonth = dtArray[3];
-				var dtYear = dtArray[5];
-
-				if (dtMonth < 1 || dtMonth > 12)
-					return false;
-				else if (dtDay < 1 || dtDay > 31)
-					return false;
-				else if ((dtMonth == 4 || dtMonth == 6 || dtMonth == 9 || dtMonth == 11) && dtDay == 31)
-					return false;
-				else if (dtMonth == 2) {
-					var isleap = (dtYear % 4 == 0 && (dtYear % 100 != 0 || dtYear % 400 == 0));
-					if (dtDay > 29 || (dtDay == 29 && !isleap))
-						return false;
-				}
-
-				return true;
-			}
-		}
 
 		function displayErrors(errors) {
 
@@ -478,6 +529,50 @@ function CalendarViewModel(year, month, day, weekday) {
 
 	};
 
+	self.validateDate = function (day, month, year) {
+
+		if (day == "" || month == "" || year == "") {
+			return true;
+		}
+
+		var birthDate = day + "/" + month + "/" + year;
+		return isDate(birthDate);
+
+		//Validates a date input -- http://jquerybyexample.blogspot.com/2011/12/validate-date-    using-jquery.html
+		function isDate(txtDate) {
+
+			var currVal = txtDate;
+			if (currVal == '')
+				return false;
+
+			//Declare Regex  
+			var rxDatePattern = /^(\d{1,2})(\/|-)(\d{1,2})(\/|-)(\d{4})$/;
+			var dtArray = currVal.match(rxDatePattern); // is format OK?
+
+			if (dtArray == null)
+				return false;
+
+			//Checks for dd/mm/yyyy format.
+			var dtDay = dtArray[1];
+			var dtMonth = dtArray[3];
+			var dtYear = dtArray[5];
+
+			if (dtMonth < 1 || dtMonth > 12)
+				return false;
+			else if (dtDay < 1 || dtDay > 31)
+				return false;
+			else if ((dtMonth == 4 || dtMonth == 6 || dtMonth == 9 || dtMonth == 11) && dtDay == 31)
+				return false;
+			else if (dtMonth == 2) {
+				var isleap = (dtYear % 4 == 0 && (dtYear % 100 != 0 || dtYear % 400 == 0));
+				if (dtDay > 29 || (dtDay == 29 && !isleap))
+					return false;
+			}
+
+			return true;
+		}
+	}
+
 	self.validateAddEventFormDates = function (startH, endH, startM, endM) {
 
 		var startDate = new Date(2014, 1, 1, startH, startM, 0, 0);
@@ -490,7 +585,7 @@ function CalendarViewModel(year, month, day, weekday) {
 		}
 
 		var diffMinutes = Math.ceil(timeDiff / ((1000 * 3600) / 60));
-		
+
 		if (diffMinutes < 10) {
 			return false;
 		}
@@ -509,14 +604,6 @@ function CalendarViewModel(year, month, day, weekday) {
 		var $addEventContainer = $("#addNewEventContainer");
 
 		$addEventContainer.detach().prependTo("#lobby");
-
-		//var $eventStartDateTxtBox = $addEventContainer.find("#Event_StartDate");
-		//var dayNumber = $(element).siblings(".day").text();
-
-		//self.AddNewEvent_Day = dayNumber;
-
-		// dateString = dayNumber + '/' + (self.calendarPageDisplayDate.month + 1) + '/' + self.calendarPageDisplayDate.year;
-		//$eventStartDateTxtBox.val(dateString);
 
 		$addEventContainer.show();
 	};
@@ -540,9 +627,12 @@ function CalendarViewModel(year, month, day, weekday) {
 	};
 
 	self.redisplayCalendarAtChosenMonthOnClick = function (element) {
-
 		var $calendar = $("#calendar");
 		var $addNewEvent = $("#addNewEventContainer");
+		var $loader = $calendar.siblings(".loader-container");
+
+		self.showLoader($loader, true);
+
 		$addNewEvent.detach();
 
 		var $link = $(element);
@@ -551,9 +641,9 @@ function CalendarViewModel(year, month, day, weekday) {
 		$monthNameHeaderContainer.find(".current-month-name-calendar").removeClass("current-month-name-calendar");
 		$monthNameContainer.addClass("current-month-name-calendar");
 
-		var month = parseInt($link.attr("name"));
+		var month = parseInt($link.attr("name"), 10);
 
-		$calendar.calendarWidget({ month: month, year: self.calendarPageDisplayDate.year });
+		$calendar.calendarWidget({ month: month - 1, year: self.calendarPageDisplayDate.year() });
 		ko.unapplyBindings($calendar);
 		ko.applyBindings(self, $calendar[0]);
 
@@ -561,13 +651,15 @@ function CalendarViewModel(year, month, day, weekday) {
 		$calendar.append('<div class="calendar-navigation-arrows-right"><img src="Images/Nav/arrow-Right.png" alt="arrow-Right"/></div>');
 		$addNewEvent.prependTo($calendar);
 
-		self.calendarPageDisplayDate.month = parseInt(month);
-		self.calendarPageMonthEvents = self.getEventsForGivenMonth(self.calendarPageDisplayDate.month, self.calendarPageDisplayDate.year);
+		self.calendarPageDisplayDate.month(month);
+		self.calendarPageMonthEvents = self.getEventsForGivenMonth(self.calendarPageDisplayDate.month(), self.calendarPageDisplayDate.year());
 
 		//draw to calendar
 		ko.utils.arrayForEach(self.calendarPageMonthEvents, function (event) {
 			self.drawEventToCalendar(event);
 		});
+
+		self.hideLoader($loader, true);
 	};
 
 	self.showGivenFieldInAddNewEventPopupOnClick = function (element) {
@@ -576,15 +668,58 @@ function CalendarViewModel(year, month, day, weekday) {
 		$element.hide();
 	};
 
-	self.showLoader = function ($loaderContainer) {
-		var $overlay = $loaderContainer.siblings(".dotted-page-overlay");
+	self.setCalendarPlacementRowAfterNewEventIsAdded = function (dayEvents) {
+		var anotherEvent;
+		var eStartH, eEndH, eStartM, eEndM;
+		var eventsInTheSameDayTemp = [];
+		var event;
 
-		if ($overlay.css("display") == "none") {
-			$overlay.show();
+		for (var i in dayEvents) {
+
+			event = dayEvents[i];
+			eStartH = event.startDate.startHour;
+			eEndH = event.startDate.endHour;
+			eStartM = event.startDate.startMinute;
+			eEndM = event.startDate.endMinute
+
+			for (var j = 0; j < eventsInTheSameDayTemp.length; j++) {
+				anotherEvent = eventsInTheSameDayTemp[j];
+
+				var aeStartH = anotherEvent.startDate.startHour;
+				var aeEndH = anotherEvent.startDate.endHour;
+				var aeStartM = anotherEvent.startDate.starMinute;
+				var aeEndM = anotherEvent.startDate.endMinute
+
+				//eventStartTime < anotherEventEndTime || eventEndTime > anotherEventStartTime
+				if ((eStartH < aeEndH || (eStartH == aeEndH && eStartM < aeEndM)) || (eEndH < aeStartH || eEndH == aeStartH && eEndM < aeStartM)) {
+					//there is conflict
+
+					if (event.calendarPlacementRow == anotherEvent.calendarPlacementRow) {
+						event.calendarPlacementRow++;
+					}
+				}
+			}
+
+			eventsInTheSameDayTemp.push(event);
+
+			//TODO: current sorting not optimal, correct way is to insert value at the correct index
+			eventsInTheSameDayTemp.sort(function (a, b) {
+				return parseInt(a.calendarPlacementRow, 10) - parseInt(b.calendarPlacementRow, 10)
+			});
+
+		}
+	};
+
+	self.showLoader = function ($loaderContainer, dontShowOverlay) {
+		if (!dontShowOverlay) {
+			var $overlay = $loaderContainer.siblings(".dotted-page-overlay");
+
+			if ($overlay.css("display") == "none") {
+				$overlay.show();
+			}
 		}
 
 		$loaderContainer.show();
-
 	};
 
 	self.hideLoader = function ($loaderContainer, keepOverlayVisible) {

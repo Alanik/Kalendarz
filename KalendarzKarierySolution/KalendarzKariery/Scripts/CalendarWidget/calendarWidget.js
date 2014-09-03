@@ -33,20 +33,20 @@
 
 			if (j > 8) {
 				if (j == calendarDate.month) {
-					calendar += ('<div class="month-name-container current-month-name-calendar"><span data-bind="click: function(){ $root.redisplayCalendarAtChosenMonthOnClick($element) }" name="' + j + '">' + monthNames[j] + '</span></div>');
+					calendar += ('<div class="month-name-container current-month-name-calendar"><span data-bind="click: function(){ $root.redisplayCalendarAtChosenMonthOnClick($element) }" name="' + (j + 1) +'">' + monthNames[j] + '</span></div>');
 				} else {
-					calendar += ('<div class="month-name-container"><span class="month-name-calendar" data-bind="click: function(){ $root.redisplayCalendarAtChosenMonthOnClick($element) }" name="' + j + '">' + monthNames[j] + '</span></div>');
+					calendar += ('<div class="month-name-container"><span class="month-name-calendar" data-bind="click: function(){ $root.redisplayCalendarAtChosenMonthOnClick($element) }" name="' + (j + 1) +'">' + monthNames[j] + '</span></div>');
 				}
 			} else {
 				if (j == calendarDate.month) {
-					calendar += ('<div class="month-name-container current-month-name-calendar"><span data-bind="click: function(){ $root.redisplayCalendarAtChosenMonthOnClick($element) }" name="' + j + '">' + monthNames[j] + '</span></div>');
+					calendar += ('<div class="month-name-container current-month-name-calendar"><span data-bind="click: function(){ $root.redisplayCalendarAtChosenMonthOnClick($element) }" name="' + (j + 1) +'">' + monthNames[j] + '</span></div>');
 				} else {
-					calendar += ('<div class="month-name-container"><span class="month-name-calendar" data-bind="click: function(){ $root.redisplayCalendarAtChosenMonthOnClick($element) }" name="' + j + '">' + monthNames[j] + '</span></div>');
+					calendar += ('<div class="month-name-container"><span class="month-name-calendar" data-bind="click: function(){ $root.redisplayCalendarAtChosenMonthOnClick($element) }" name="' + (j + 1) +'">' + monthNames[j] + '</span></div>');
 				}
 			}
 		}
 		calendar += ('<span class="year-name-container">' + year + '</span></div>');
-		calendar += ('</div><div class="weekday-container" ' + 'id="calendar-month' + i + ' ">');
+		calendar += ('</div><div class="weekday-container">');
 
 		for (var d = 0; d < 7; d++) {
 			if (weekday - 1 === d) {

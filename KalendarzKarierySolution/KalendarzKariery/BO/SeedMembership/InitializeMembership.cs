@@ -11,6 +11,7 @@ using WebMatrix.WebData;
 using KalendarzKarieryData;
 using KalendarzKarieryData.Repository;
 using KalendarzKarieryData.Repository.KalendarzKarieryRepository;
+using KalendarzKarieryData.BO.Cache;
 
 namespace KalendarzKariery.BO.SeedMembership
 {
@@ -92,7 +93,6 @@ namespace KalendarzKariery.BO.SeedMembership
 				int id = WebSecurity.GetUserId(loginName);
 				repository.UpdateUserOnRegister(id, user.Addresses.First()); 
 			}
-
 		}
 	}
 }

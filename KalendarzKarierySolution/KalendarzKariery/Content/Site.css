@@ -264,6 +264,10 @@ body header {
 	width: 50px !important;
 }
 
+.event-startdate-txtbox {
+	width: 50px !important;
+}
+
 
 #detailsMenuHeader {
 	text-align: center;
@@ -337,21 +341,26 @@ body header {
 	background: rgb(253, 253, 253);
 	height: 24px;
 	z-index: 98;
+	border-bottom:1px solid rgb(253,253,253);
 }
 
 .today-cell .cell-span-container {
 	position: relative;
 	top: 56px;
 	/*background: rgb(83,83,83);*/
-	background: rgb(255, 234, 195);
+	background: rgb(242, 251, 167);
 	height: 24px;
 	z-index: 98;
+	border-top:1px solid white;
 }
+
+	.today-cell .cell-span-container .day {
+	color:rgb(151, 159, 21);
+	}
 
 .other-month-cell .cell-span-container {
 	position: relative;
-	top: 56px;
-	background: rgb(223, 240, 255);
+	/*background: rgb(223, 240, 255);*/
 	height: 24px;
 	z-index: 98;
 }
@@ -414,16 +423,17 @@ body header {
 }
 
 .today-cell {
-	background: rgb(255, 234, 195) !important;
+	background: rgba(244, 255, 143, .8) !important;
 	/*background:rgb(83,83,83) !important;*/
 	/*border: 1px solid white !important;*/
 }
 
-.today-cell .event-rectangle{
-	background: white !important;
-	/*background:rgb(83,83,83) !important;*/
-	/*border: 1px solid white !important;*/
-}
+	.today-cell .event-rectangle {
+		background: white !important;
+		opacity: 1 !important;
+		/*background:rgb(83,83,83) !important;*/
+		/*border: 1px solid white !important;*/
+	}
 
 .current-month-cell {
 	border: 2px solid white;
@@ -438,18 +448,15 @@ body header {
 		position: absolute;
 		padding-left: 2px;
 		padding-right: 5px;
-		top:4px;
+		top: 4px;
 	}
 
 .other-month-cell {
 	position: relative;
 	border: 1px solid white;
-	/*border-bottom-right-radius: 12px;
-	border-top-left-radius: 12px;*/
-	background: rgb(223, 240, 255);
-	/*box-shadow: rgb(221, 221, 221) 0px 3px 5px;
-	border: 2px solid #ddd;
-	background: #eee;*/
+	/*background: rgb(223, 240, 255);*/
+	background: rgba(150,150,150,.1);
+
 }
 
 	.other-month-cell span {
@@ -629,7 +636,7 @@ background:rgb(115, 233, 162);
 	height: 20px;
 	position: absolute;
 	right: 1px;
-	top:2px;
+	top: 2px;
 	text-align: center;
 	display: none;
 	z-index: 99;

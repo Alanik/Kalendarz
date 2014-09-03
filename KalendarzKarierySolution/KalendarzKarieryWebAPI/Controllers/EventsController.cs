@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using KalendarzKarieryData;
 using KalendarzKarieryData.Repository.KalendarzKarieryRepository;
 using KalendarzKarieryCore.Consts;
+using KalendarzKarieryData.BO.Cache;
 
 
 namespace KalendarzKarieryWebAPI.Controllers
@@ -94,7 +95,25 @@ namespace KalendarzKarieryWebAPI.Controllers
 		{
 			var @event = new Event();
 
-			@event.OwnerUserId = Repository.GetUserIdByName(User.Identity.Name);
+			var objectId = AppCache.Get(User.Identity.Name.ToLower());
+			if (objectId != null)
+			{
+				@event.OwnerUserId = (int)objectId;
+			}
+			else
+			{
+				int id = Repository.GetUserIdByName(User.Identity.Name);
+
+				if (id >= 0)
+				{
+					@event.OwnerUserId = id;
+				}
+				else
+				{
+					return null;
+				}
+			}
+
 			@event.Title = viewModel.Event.Title;
 			@event.NumberOfPeopleAttending = 0;
 			@event.DateAdded = DateTime.Now;
@@ -104,6 +123,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 			@event.OccupancyLimit = viewModel.Event.OccupancyLimit;
 			@event.StartDate = viewModel.Event.StartDate;
 			@event.EventLengthInMinutes = viewModel.Event.EventLengthInMinutes;
+			@event.StartDate = viewModel.Event.StartDate;
 
 			var eventKind = Repository.GetEventKindByValue(viewModel.EventKind.Value);
 			if (eventKind != null)

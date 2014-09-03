@@ -17,6 +17,7 @@ namespace KalendarzKariery
 
     public class MvcApplication : System.Web.HttpApplication
     {
+
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -39,20 +40,7 @@ namespace KalendarzKariery
 			};
 				razorEngine.PartialViewLocationFormats =
 					razorEngine.PartialViewLocationFormats.Union(newPartialViewFormats).Reverse().ToArray();
-			}
-
-			//////////////////
-			//var UserAccountInfo = new UserAccountInfo();
-			//UserAccountInfo.CreationDate = DateTime.Now;
-			//UserAccountInfo.NumOfLogins = 1;
-			//UserAccountInfo.UserAccountInfoId = 1;
-
-			//repo.AddUserAccountInfo(UserAccountInfo);
-			//repo.Save();
-
-			//var list = repo.GetUserAccountInfos();
-			//////////////////
-				
+			}	
         }
     }
 }

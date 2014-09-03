@@ -11,14 +11,12 @@ namespace KalendarzKarieryData.Models.TransportModels
 	public class CalendarEventTreeModel
 	{
 		public int year { get; set; }
-		public int month { get; set; }
-		public IEnumerable<EventsGroupedByDayModel> eventsGroupedByDay { get; set; }
+		public IEnumerable<EventsGroupedByMonthModel> eventsGroupedByMonth { get; set; }
 
-		public CalendarEventTreeModel(int month, int year, IEnumerable<EventsGroupedByDayModel> events)
+		public CalendarEventTreeModel(int year, IEnumerable<EventsGroupedByMonthModel> events)
 		{
 			this.year = year;
-			this.month = month;
-			this.eventsGroupedByDay = events;
+			this.eventsGroupedByMonth = events;
 		}
 	}
 }

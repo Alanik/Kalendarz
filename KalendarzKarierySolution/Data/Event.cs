@@ -28,13 +28,14 @@ namespace KalendarzKarieryData
         public System.DateTime DateAdded { get; set; }
         public int OwnerUserId { get; set; }
         public System.DateTime StartDate { get; set; }
-        public Nullable<int> EventLengthInMinutes { get; set; }
         public Nullable<int> OccupancyLimit { get; set; }
         public string UrlLink { get; set; }
         public int EventKindId { get; set; }
         public Nullable<int> NumberOfPeopleAttending { get; set; }
         public int PrivacyLevelId { get; set; }
         public int EventStatusId { get; set; }
+        public Nullable<decimal> Price { get; set; }
+        public Nullable<System.DateTime> EndDate { get; set; }
     
         public virtual ICollection<Address> Addresses { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }

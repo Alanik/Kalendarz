@@ -48,41 +48,31 @@
 			var colorHelper = new EventColorHelper();
 			event.kind.color = colorHelper.calculatePrivateEventColor(event.kind.value);
 			event.kind.headerColor = colorHelper.calculateEventHeaderTxtColor(event.kind.value);
-		}
+			event.kind.detailsPageEventBorderColor = colorHelper.calculateEventDetailsBorderColor(event.kind.value);
+		};
 		function setStartDate(event) {
 			
-			var date = new Date(parseInt(event.startDate.substr(6)));
-			var length = parseInt(event.eventLengthInMinutes, 10);
-			var startMinute = date.getMinutes();
-			var startHour = date.getHours();
-			var endMinute, hourSpan, minuteDiff, lengthModulo;
+			var sdate = new Date(parseInt(event.startDate.substr(6)));
+			var edate = new Date(parseInt(event.endDate.substr(6)));
+		
+			var startMinute = sdate.getMinutes();
+			var startHour = sdate.getHours();
 
-				lengthModulo = length % 60;
-				minuteDiff = 60 - startMinute;
-				if (minuteDiff < lengthModulo) {
-					hourSpan = 1;
-					endMinute = lengthModulo - minuteDiff;
-				}
-				else if (minuteDiff == lengthModulo) {
-					hourSpan = 1;
-					endMinute = 0;
-				}
-				else {
-					hourSpan = 0;
-					endMinute = lengthModulo + startMinute;
-				}			
+			var endMinute = edate.getMinutes();
+			var endHour = edate.getHours();
 
 			var transformedDate = {
 				"startMinute": startMinute,
 				"endMinute": endMinute,
 				"startHour": startHour,
-				"endHour": (startHour + hourSpan + Math.floor(length / 60)),
-				"day": date.getDate(),
-				"month": date.getMonth() + 1,
-				"year": date.getFullYear()
+				"endHour": endHour,
+				"day": sdate.getDate(),
+				"month": sdate.getMonth() + 1,
+				"year": sdate.getFullYear()
 			};
 
 			event.startDate = transformedDate;
+			event.eventLengthInMinutes = ((parseInt(endHour, 10) - parseInt(startHour, 10)) * 60) + (parseInt(endMinute, 10) - parseInt(startMinute, 10));
 		};
 		function setAddress(event) {
 
@@ -111,7 +101,7 @@
 
 				var aeStartH = anotherEvent.startDate.startHour;
 				var aeEndH = anotherEvent.startDate.endHour;
-				var aeStartM = anotherEvent.startDate.starMinute;
+				var aeStartM = anotherEvent.startDate.startMinute;
 				var aeEndM = anotherEvent.startDate.endMinute
 
 				//eventStartTime < anotherEventEndTime || eventEndTime > anotherEventStartTime
@@ -130,6 +120,6 @@
 			eventsInTheSameDay.sort(function (a, b) {
 				return parseInt(a.calendarPlacementRow, 10) - parseInt(b.calendarPlacementRow, 10)
 			});
-		}
+		};
 	};
 };

@@ -22,9 +22,9 @@ namespace KalendarzKarieryWebAPI.Controllers
 		private static readonly IKalendarzKarieryRepository Repository = RepositoryProvider.GetRepository();
 
 		// GET api/events
-		public DefaultResponse Get()
+		public IResponse Get()
 		{
-			var defaultResponse = new DefaultResponse() { IsSuccess = true };
+			var defaultResponse = new DefaultResponseModel() { IsSuccess = true };
 			return defaultResponse;
 		}
 
@@ -45,7 +45,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 
 			if (!ModelState.IsValid)
 			{
-				var response = new DefaultResponse();
+				var response = new DefaultResponseModel();
 				response.IsSuccess = false;
 				response.Message = KalendarzKarieryCore.Consts.Consts.GeneralValidationErrorMsg;
 				return response;
@@ -55,13 +55,13 @@ namespace KalendarzKarieryWebAPI.Controllers
 
 			if (@event == null)
 			{
-				return new DefaultResponse { IsSuccess = false, Message = Consts.GeneralValidationErrorMsg };
+				return new DefaultResponseModel { IsSuccess = false, Message = Consts.GeneralValidationErrorMsg };
 			}
 
 			Repository.AddEvent(@event);
 			Repository.Save();
 
-			return new DefaultResponse { IsSuccess = true };
+			return new AddEventResponseModel { IsSuccess = true, EventId = @event.Id };
 		}
 
 		// PUT api/events/5 (update)
@@ -70,8 +70,41 @@ namespace KalendarzKarieryWebAPI.Controllers
 		}
 
 		// DELETE api/events/5
-		public void Delete(int id)
+		public IResponse Delete(int id)
 		{
+			if (!User.Identity.IsAuthenticated)
+			{
+				var response = new DefaultResponseModel();
+				response.IsSuccess = false;
+				response.Message = Consts.NotAuthenticatedErrorMsg;
+				return response;
+			}
+
+			var @event = Repository.GetEventById(id);
+
+			if (@event != null)
+			{
+				var response = new DefaultResponseModel();
+
+				if (string.Compare(@event.User.UserName, User.Identity.Name, true) == 0)
+				{
+					Repository.DeleteEvent(@event);
+					Repository.Save();
+
+					response.IsSuccess = true;
+					response.Message = Consts.EventDeletedSuccesfullyMsg;
+					return response;
+				}
+
+				response.IsSuccess = false;
+				response.Message = Consts.GeneralOperationErrorMsg;
+				return response;
+			}
+
+			var r = new DefaultResponseModel();
+			r.IsSuccess = false;
+			r.Message = Consts.EventDoesNotExistErrorMsg;
+			return r;
 		}
 
 		private IResponse Validate(AddEventViewModel addEventViewModel)
@@ -122,8 +155,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 			@event.UrlLink = viewModel.Event.UrlLink;
 			@event.OccupancyLimit = viewModel.Event.OccupancyLimit;
 			@event.StartDate = viewModel.Event.StartDate;
-			@event.EventLengthInMinutes = viewModel.Event.EventLengthInMinutes;
-			@event.StartDate = viewModel.Event.StartDate;
+			@event.EndDate = viewModel.Event.EndDate;
 
 			var eventKind = Repository.GetEventKindByValue(viewModel.EventKind.Value);
 			if (eventKind != null)

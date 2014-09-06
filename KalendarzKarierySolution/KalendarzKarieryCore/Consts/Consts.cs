@@ -14,10 +14,16 @@ namespace KalendarzKarieryCore.Consts
 		public const string GeneralValidationErrorMsg = "Formularz zawiera nieprawidłowe dane.";
 		public const string NotAuthenticatedErrorMsg = "Zaloguj sie by wykonać tę operację.";
 		public const string NotAuthorizedErrorMsg = "Nie masz uprawnień by wykonać tę operację.";
-		public const string registerUserEmailExistsErrorMsg = "Podany adres email już został użyty. Prosze podać inny adres email.";
+		public const string RegisterUserEmailExistsErrorMsg= "Podany adres email już został użyty. Prosze podać inny adres email.";
 		public const string InvalidBirthOfDateErrorMsg = "Podana data urodzenia jest nieprawidłowa.";
 		#endregion
 
+		#region Events
+		public const string EventDoesNotExistErrorMsg = "Błąd, nie ma takiego wydarzenia.";
+		public const string EventDeletedSuccesfullyMsg = "Wydarzenie zostało usunięte pomyślnie";
+		#endregion
+		public const string GeneralOperationErrorMsg = "Operacja nie mogła zostać wykonana.";
+		
 		public const string AdminRole = "Administrator";
 
 	}

@@ -75,7 +75,7 @@
     <Compile Include="EventKind.cs">
       <DependentUpon>KalendarzKarieryDBEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="EventStatu.cs">
+    <Compile Include="EventStatus.cs">
       <DependentUpon>KalendarzKarieryDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="KalendarzKarieryDBEntities.Context.cs">
@@ -164,7 +164,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="SqlScripts\ReseedTable.sql" />
-    <Content Include="SqlScripts\CreateDatabaseScript.sql" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

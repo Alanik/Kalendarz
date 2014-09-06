@@ -14,14 +14,14 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 	self.eventKinds = [];
 	self.eventPrivacyLevels = [];
 
-	// from 0 to 11
+	// month starts from 1 to 12
 	self.detailsPageDisplayDate = {
 		"year": ko.observable(year),
 		"month": ko.observable(month),
 		"day": ko.observable(day),
 		"weekday": ko.observable(weekday),
 		"getMonthName": function () {
-			return self.monthNames[this.month()];
+			return self.monthNames[this.month() - 1];
 		},
 		"getDayName": function () {
 			return self.dayNames[this.weekday()];
@@ -30,6 +30,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 
 	self.detailsPageEventMostBottomRow = 1;
 
+	//month starts from 1 to 12
 	self.calendarPageDisplayDate = {
 		"year": ko.observable(year),
 		"month": ko.observable(month)
@@ -111,6 +112,8 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		if (!self.validateDate(day, month, year)) {
 			$dateValidationMsg = $("#addNewEventContainer #dateValidationErrorMsg");
 			$("#addNewEventContainer .event-startdate-txtbox").addClass("input-validation-error");
+
+			//TODO: validation msg is not colored red, fix it
 			$dateValidationMsg.removeClass("field-validation-valid").addClass("field-validation-error").show();
 			return false;
 		}
@@ -161,18 +164,6 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 			var diff = Math.abs(startEventDate - endEventDate);
 			var minutes = Math.floor((diff / 1000) / 60);
 
-			self.event.startDate = {
-				startMinute: startMinute,
-				endMinute: endMinute,
-				startHour: startHour,
-				endHour: endHour,
-				day: day,
-				month: month,
-				year: year
-			};
-
-			self.event.eventLengthInMinutes = minutes;
-
 			$loader = $addEventForm.closest(".main-section").siblings(".loader-container");
 
 			$.ajax({
@@ -181,18 +172,18 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 				type: "POST",
 				beforeSend: self.showLoader($loader),
 				data: $addEventForm.serialize() +
-				"&Event.EventLengthInMinutes=" + minutes +
+
 				"&Event.StartDate=" + startEventDate.toISOString() +
+				"&Event.EndDate=" + endEventDate.toISOString() +
 				"&PrivacyLevel.Value=" + 1 +
 				"&EventKind.Value=" + self.event.kind.value(),
 				success: function (result) {
 					if (result.IsSuccess === false) {
 						self.hideLoader($loader, true);
+
+						//TODO: change alert to some error popop or error page...
 						alert(result.Message);
 					} else {
-
-						//todo: color should be calculated automatically
-						self.event.kind.color = colorHelper.calculatePrivateEventColor(self.event.kind.value());
 
 						var eventToPush = new KKEvent();
 						eventToPush.addedBy = self.userName;
@@ -201,38 +192,43 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 						eventToPush.address.city = self.event.address.city;
 						eventToPush.address.zipCode = self.event.address.zipCode;
 
-						eventToPush.dateAdded.minute = self.event.dateAdded.minute;
-						eventToPush.dateAdded.hour = self.event.dateAdded.hour;
-						eventToPush.dateAdded.day = self.event.dateAdded.day;
-						eventToPush.dateAdded.month = self.event.dateAdded.month;
-						eventToPush.dateAdded.year = self.event.dateAdded.year;
+						var date = new Date();
+
+						eventToPush.dateAdded.minute = date.getMinutes();
+						eventToPush.dateAdded.hour = date.getHours();
+						eventToPush.dateAdded.day = date.getDate();
+						eventToPush.dateAdded.month = parseInt(date.getMonth(), 10) + 1;
+						eventToPush.dateAdded.year = date.getUTCFullYear();
 
 						eventToPush.description = self.event.description;
 						eventToPush.details = self.event.details;
-						eventToPush.eventLengthInMinutes = self.event.eventLengthInMinutes;
+						eventToPush.eventLengthInMinutes = minutes;
+
+						var val = self.event.kind.value();
+						var colorHelper = new EventColorHelper();
 
 						eventToPush.kind.value = self.event.kind.value();
 						eventToPush.kind.name = self.event.kind.name();
-						eventToPush.kind.color = self.event.kind.color;
-						eventToPush.kind.headerColor = self.event.kind.headerColor;
+						eventToPush.kind.color = colorHelper.calculatePrivateEventColor(val);
+						eventToPush.kind.headerColor = colorHelper.calculateEventHeaderTxtColor(val);
+						eventToPush.kind.detailsPageEventBorderColor = colorHelper.calculateEventDetailsBorderColor(val);
 
-						//TODO: return product id from server and set it here
-						eventToPush.id = self.event.id;
+						eventToPush.id = result.EventId;
 						eventToPush.occupancyLimit = self.event.occupancyLimit;
 						eventToPush.privacyLevel.name = self.event.privacyLevel.name;
 						eventToPush.privacyLevel.value = self.event.privacyLevel.value;
 
-						eventToPush.startDate.startMinute = self.event.startDate.startMinute;
-						eventToPush.startDate.endMinute = self.event.startDate.endMinute;
-						eventToPush.startDate.startHour = self.event.startDate.startHour;
-						eventToPush.startDate.endHour = self.event.startDate.endHour;
-						eventToPush.startDate.day = self.event.startDate.day;
-						eventToPush.startDate.month = self.event.startDate.month;
-						eventToPush.startDate.year = self.event.startDate.year;
-
+						eventToPush.startDate.startMinute = startMinute;
+						eventToPush.startDate.endMinute = endMinute;
+						eventToPush.startDate.startHour = startHour;
+						eventToPush.startDate.endHour = endHour;
+						eventToPush.startDate.day = day;
+						eventToPush.startDate.month = month;
+						eventToPush.startDate.year = year;
 
 						eventToPush.name = self.event.name;
 						eventToPush.urlLink = self.event.urlLink;
+						eventToPush.price = self.event.price;
 
 						self.myEvents.push(eventToPush);
 
@@ -261,6 +257,96 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		return false;
 	};
 
+	self.prepareDeleteEventDetailsPageOnDeleteLinkClick = function (id) {
+		var $popup = $("#details").siblings(".confirmation-popupbox-container");
+		var $yesBtn = $popup.find(".confirmation-popupbox-yesbtn");
+		$yesBtn.attr("data-bind", "click: function () { $root.deleteEventDetailsPageOnConfirmationYesBtnClick($element, " + id + ") }");
+		self.showConfirmationPopupBox($popup, "Czy napewno chcesz usunąć wybrane wydarzenie?");
+
+		ko.applyBindings(self, $yesBtn[0]);
+	};
+
+	self.deleteEventDetailsPageOnConfirmationYesBtnClick = function (element, id) {
+		console.log(element);
+
+		var $loader = $("#details").siblings(".loader-container");
+
+		$.ajax({
+			url: "/api/Events/" + id,
+			dataType: "JSON",
+			type: "DELETE",
+			beforeSend: self.showLoader($loader),
+			data: id,
+			success: function (result) {
+				if (result.IsSuccess === false) {
+					self.hideLoader($loader, true);
+
+					//TODO: change alert to some error popop or error page...
+					alert(result.Message);
+				} else {
+					self.hideLoader($loader);
+					alert(result.Message);
+
+
+				}
+			},
+			error: function () {
+				alert("Wystąpił nieoczekiwany błąd. Prosze sprobować jeszcze raz.");
+				self.hideLoader($loader);
+			}
+		});
+
+		self.hideConfirmationPopupBox(element);
+	};
+
+	self.showConfirmationPopupBox = function ($popup, txt) {
+		var offset = $popup.closest(".scrollable").scrollTop();
+
+		var viewportHeight = $(window).height();
+
+		var offsetPopup = ((viewportHeight / 2) + offset) - ($popup.height());
+		$popup.css("top", offsetPopup + "px");
+
+		$popup.find(".confirmation-popupbox-maintext").text(txt);
+		$popup.siblings(".dotted-page-overlay").show();
+		$popup.show();
+	};
+
+	self.hideConfirmationPopupBox = function (element) {
+		$btn = $(element);
+		$popup = $btn.closest(".confirmation-popupbox-container");
+
+		$yesBtn = $popup.find(".confirmation-popupbox-yesbtn");
+		$yesBtn.attr("data-bind", '');
+
+		$popup.siblings(".dotted-page-overlay").hide();
+		$popup.hide();
+	};
+
+	self.showEventInfoOnClick = function (element) {
+
+		var $link = $(element);
+		var $content = $link.closest(".details-event-block-container").find(".event-block-content");
+		$content.css("color", "rgb(242,242,242)");
+
+		var $eventBlockInfo = $link.closest(".details-event-block-container").find(".details-eventblock-info-container");
+
+		if ($link.hasClass("open")) {
+			$link.text("pokaż");
+			$eventBlockInfo.hide();
+			$content.css("color", "rgb(119,119,119)");
+		}
+		else {
+			$link.text("zamknij");
+			$eventBlockInfo.show();
+			$content.css("color", "rgb(242,242,242)");
+		}
+
+		$link.toggleClass("open");
+
+		//$link[0].scrollIntoView();
+	};
+
 	self.addEventToEventTree = function (newEvent) {
 		var year = newEvent.startDate.year;
 		var month = newEvent.startDate.month;
@@ -274,29 +360,31 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		self.setCalendarPlacementRowAfterNewEventIsAdded(dayEvents);
 
 		return dayEvents;
-	}
+	};
 
 	self.drawEventToCalendar = function (event) {
-
+	
 		var cellDay = ".day" + parseInt(event.startDate.day, 10);
 		var $cellPlaceholder = $("#calendar").find(cellDay).find(".calendar-cell-placeholder");
+
+		//TODO: using const here, maybe better to calculate it in the future
+		var percentWidthBetweenLines = 6.8;
+		var minutePercentage = 6.8 / 60;
+
 		var cellLineStart = ".cell-line" + event.startDate.startHour;
 		var cellLineEnd = ".cell-line" + event.startDate.endHour;
-
 		var $cellLineStart = $cellPlaceholder.find(cellLineStart);
 
-		var $cellLineEnd = $cellPlaceholder.find(cellLineEnd);
+		var hourOffset = parseFloat($cellLineStart[0].style.left);
 
-		var startOffset = parseFloat($cellLineStart[0].style.left);
-		var endOffset = parseFloat($cellLineEnd[0].style.left);
+		var left = hourOffset + (event.startDate.startMinute * minutePercentage);
+		var width = minutePercentage * event.eventLengthInMinutes;
 
-		var width = endOffset - startOffset;
-		var addressStreetStr = event.address.street !== "" ? event.address.street : "";
-		var addressCityStr = event.address.city !== "" ? ", " + event.address.city : "";
-
+		var addressStreetStr = event.address.street ? event.address.street : "";
+		var addressCityStr = event.address.city ? ", " + event.address.city : "";
 		var addressStr = addressStreetStr + addressCityStr;
 
-		var $event = $('<div class="event-rectangle" style="top:' + (event.calendarPlacementRow - 1) * 28 + 'px; left:' + startOffset + '%; width:' + width + '%; border-color:' + event.kind.color + ';">' + event.name + '<input type="hidden" name="' + event.name + '" address="' + addressStr + '" starthour="' + event.startDate.startHour + '" endhour="' + event.startDate.endHour + '" startminute="' + event.startDate.startMinute + '" endminute="' + event.startDate.endMinute + '" ></input></div>');
+		var $event = $('<div class="event-rectangle" style="top:' + (event.calendarPlacementRow - 1) * 28 + 'px; left:' + left + '%; width:' + (width - 2) + '%; border-color:' + event.kind.color + ';">' + event.name + '<input type="hidden" name="' + event.name + '" address="' + addressStr + '" starthour="' + event.startDate.startHour + '" endhour="' + event.startDate.endHour + '" startminute="' + event.startDate.startMinute + '" endminute="' + event.startDate.endMinute + '" ></input></div>');
 
 		$event.css("opacity", .8);
 
@@ -309,12 +397,12 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 			self.displayPageEventMostBottomRow = event.calendarPlacementRow;
 		}
 
-		var $hourCell = $(".hour-cell-" + event.startDate.startHour);
 		var startMinuteOffset = event.startDate.startMinute / 60 * 100;
 		var endMinuteOffset = event.startDate.endMinute / 60 * 100;
 		var width = ((event.startDate.endHour - event.startDate.startHour) * 100) - startMinuteOffset + endMinuteOffset;
 
-		$hourCell.append('<div class="event-rectangle-details" style="width:' + width + '%;top : ' + ((event.calendarPlacementRow - 1) * 46) + 'px;left:' + startMinuteOffset + '%;border-color:' + event.kind.color + ';"><span>' + event.name + '</span></div>');
+		var $hourCell = $(".hour-cell-" + event.startDate.startHour);
+		$hourCell.append('<div class="event-rectangle-details" style="width:' + (width - 6) + '%;top : ' + ((event.calendarPlacementRow - 1) * 46) + 'px;left:' + (startMinuteOffset + 1) + '%;border-color:' + event.kind.detailsPageEventBorderColor + ';"><span>' + event.name + '</span></div>');
 	};
 
 	self.removeEventRectanglesFromDetailsDay = function () {
@@ -344,11 +432,17 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		}
 
 		var $tableBody = $("#calendarDayDetailsTable .table-details-body");
-		var h = self.displayPageEventMostBottomRow * 46;
+		var h = (self.displayPageEventMostBottomRow + 1) * 46;
 		$tableBody.height(h + "px");
 
-		window.location = "#2";
+		var $scrollable = $("#slide-item-details").parent();
+		var scroll;
 
+		window.location = "#2";
+		setTimeout(function () {
+			scroll = $("#lowDetailsMenuHeader").position().top - 20;
+			$scrollable.scrollTop(scroll);
+		}, 10)
 	};
 
 	self.showAddPrivateCalendarEventPopupOnClick = function (element, data, e) {
@@ -459,7 +553,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		$overlay.fadeOut();
 		$login.hide();
 
-	}
+	};
 
 	self.closeRegisterPopupOnClick = function () {
 		var $register = $("#registerPageContainer");
@@ -467,7 +561,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 
 		$overlay.fadeOut();
 		$register.hide();
-	}
+	};
 
 	self.registerUserOnClick = function () {
 		var $dateBirthValidationMsg;
@@ -526,7 +620,6 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 				}
 			}
 		}
-
 	};
 
 	self.validateDate = function (day, month, year) {
@@ -571,7 +664,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 
 			return true;
 		}
-	}
+	};
 
 	self.validateAddEventFormDates = function (startH, endH, startM, endM) {
 
@@ -591,7 +684,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		}
 
 		return true;
-	}
+	};
 
 	self.showAddPublicEventPopupOnClick = function (element, data, e) {
 
@@ -662,13 +755,15 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		self.hideLoader($loader, true);
 	};
 
-	self.showGivenFieldInAddNewEventPopupOnClick = function (element) {
+	self.showChosenFieldInAddNewEventPopupOnClick = function (element) {
 		var $element = $(element);
 		$element.next().show();
+		$element.next().find("input, textarea").first().focus();
 		$element.hide();
 	};
 
 	self.setCalendarPlacementRowAfterNewEventIsAdded = function (dayEvents) {
+
 		var anotherEvent;
 		var eStartH, eEndH, eStartM, eEndM;
 		var eventsInTheSameDayTemp = [];
@@ -687,11 +782,11 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 
 				var aeStartH = anotherEvent.startDate.startHour;
 				var aeEndH = anotherEvent.startDate.endHour;
-				var aeStartM = anotherEvent.startDate.starMinute;
+				var aeStartM = anotherEvent.startDate.startMinute;
 				var aeEndM = anotherEvent.startDate.endMinute
 
 				//eventStartTime < anotherEventEndTime || eventEndTime > anotherEventStartTime
-				if ((eStartH < aeEndH || (eStartH == aeEndH && eStartM < aeEndM)) || (eEndH < aeStartH || eEndH == aeStartH && eEndM < aeStartM)) {
+				if (((eStartH < aeEndH && eEndH > aeStartH) || (eStartH == aeEndH && eStartM < aeEndM && eEndM > aeStartM)) || ((eEndH < aeStartH && eStartH > aeEndH) || (eEndH == aeStartH && eEndM < aeStartM && eStartM > aeEndM))) {
 					//there is conflict
 
 					if (event.calendarPlacementRow == anotherEvent.calendarPlacementRow) {

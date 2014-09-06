@@ -2,7 +2,7 @@
 
 <div id="loginPageContainer" class="slick-contact-form">
 	<div class="form-header">
-		<div id="btnClose-loginPopup" data-bind="click: closeLoginPopupOnClick" class="btn-close"><span class="close-text">zamknij</span></div>
+		<div id="btnClose-loginPopup" data-bind="click: closeLoginPopupOnClick" class="btn-close hover-cursor-pointer 1px-hover"><span class="close-text">zamknij</span></div>
 	</div>
 	<div class="form-body">
 		@using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "loginForm" }))
@@ -13,7 +13,6 @@
 				<legend>Logowanie</legend>
 				<ol>
 					<li>
-
 						@Html.LabelFor(m => m.UserName, new { @class = "form-label" })
 						<div>
 							@Html.ValidationMessageFor(m => m.UserName)

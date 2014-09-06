@@ -20,6 +20,8 @@
 					<img src="~/Images/kalendarzTloClear.png" alt="background" style="top: 0 !important" />
 					<div class="dotted-page-overlay"></div>
 					<div class="loader-container">wczytywanie...</div>
+					@Html.Partial("_ConfirmationPopupBox")
+
 					<section id="lobby" class="main-section">
 						@Html.Partial("_Lobby")
 					</section>
@@ -37,6 +39,7 @@
 					<img src="~/Images/kalendarzTlo.png" alt="background" />
 					<div class="dotted-page-overlay"></div>
 					<div class="loader-container">wczytywanie...</div>
+					@Html.Partial("_ConfirmationPopupBox")
 					<section id="calendar" class="main-section">
 
 						<!-- Calendar is added dynamically (calendarWidget.js)   -->
@@ -58,6 +61,7 @@
 					<img src="~/Images/kalendarzTloClear.png" alt="background" />
 					<div class="dotted-page-overlay"></div>
 					<div class="loader-container">wczytywanie...</div>
+					@Html.Partial("_ConfirmationPopupBox")
 					<div id="details" class="main-section">
 						@Html.Partial("_Details")
 					</div>
@@ -128,12 +132,57 @@
 
 					//console.log(calendarViewModel.myEvents);
 				}
+				//////////////////////////////////////////////////////////////////
+				//initialize details page
+				//////////////////////////////////////////////////////////////////
+				calendarViewModel.displayPageEventMostBottomRow = 1;
+				calendarViewModel.detailsPageDisplayDate.year(date.getFullYear());
+				calendarViewModel.detailsPageDisplayDate.month(date.getMonth() + 1);
+				calendarViewModel.detailsPageDisplayDate.day(date.getDate());
+				calendarViewModel.detailsPageDisplayDate.weekday(currentWeekday);
+
+				var events = calendarViewModel.getEventsForGivenDay(date.getDate())
+				calendarViewModel.detailsPageDayEvents(events);
+
+				for (var i in events) {
+					calendarViewModel.drawEventToDetailsDayTable(events[i]);
+				}
+
+				var $tableBody = $("#calendarDayDetailsTable .table-details-body");
+				var h = (calendarViewModel.displayPageEventMostBottomRow + 1) * 46;
+				$tableBody.height(h + "px");
+				///////////////////////////////////////////////////////////////////
 
 				////////////////////////////////////////////////
 				//Knockout apply bindings
 				////////////////////////////////////////////////
 				ko.applyBindings(calendarViewModel);
 	
+				this.InitializeSlides = function(){
+					location.hash = '#0';
+
+					$('#slides').superslides({
+						slide_easing: 'easeInOutCubic',
+						slide_speed: 600,
+						pagination: true,
+						hashchange: true,
+						scrollable: true
+					});
+
+					$(".slides-pagination a").on("click", function(){
+					
+						var hash = $(this).attr("href");
+						if (hash === "#2") {
+							var $scrollable = $("#slide-item-details").parent();
+							
+							setTimeout(function(){				
+								$scrollable.scrollTop(0);
+							}, 10)
+							
+						}
+					});
+				}();
+
 				$calendar.append('<div class="calendar-navigation-arrows-left"><img src="Images/Nav/arrow-Left.png" alt="arrow-left"/></div>');
 				$calendar.append('<div class="calendar-navigation-arrows-right"><img src="Images/Nav/arrow-Right.png" alt="arrow-Right"/></div>');
 				$details.append('<div class="details-navigation-arrows-left"><img src="Images/Nav/arrow-Left.png" alt="arrow-Left"/></div>');
@@ -173,7 +222,19 @@
 						}
 					}, '.event-rectangle');
 
-					$(".hover-cursor-picker").hover(function () {
+					//TODO: since also using css : hover, maybe remove jquery code?
+					$(".hover-cursor-pointer").hover(function () {
+						$(this).css({
+							"cursor": "pointer"
+						});
+					}, function () {
+						$(this).css({
+							"cursor": "auto"
+						});
+					});
+
+					//TODO: since also using css : hover, maybe remove jquery code?
+					$(".link").hover(function () {
 						$(this).css({
 							"cursor": "pointer"
 						});
@@ -413,31 +474,19 @@
 						});
 					});
 
-					var $closeBtnAddEventContainer = $(".btn-close");
+					var $pixHover = $(".1px-hover");
 
-					$closeBtnAddEventContainer.hover(function () {
+					$pixHover.hover(function () {
 						$(this).css({
-							"bottom": "0",
-							"cursor": "pointer"
+							"bottom": "0"
 						});
 					}, function () {
 						$(this).css({
-							"bottom": "1px",
-							"cursor": "auto"
+							"bottom": "1px"
 						});
 					});
 
 					$("#btnAddNewEvent").hover(function () {
-						$(this).css({
-							"cursor": "pointer"
-						});
-					}, function () {
-						$(this).css({
-							"cursor": "auto"
-						});
-					});
-
-					$(".link").hover(function () {
 						$(this).css({
 							"cursor": "pointer"
 						});
@@ -533,21 +582,8 @@
 						window.location = "#1";
 					});
 
-					//$(".addNewEvent-cellIcon").click(function (event) {
-					//	$(this).hide();
-
-					//	var $overlay = $("#calendar").siblings(".dotted-page-overlay");
-					//	$overlay.css("opacity", 1);
-					//	$overlay.show();
-
-					//	var txtDay = $(this).parent().find(".day").text();
-					//	$("#hiddenDay").attr("name", txtDay);
-					//	$("#addNewEventContainer").show();
-
-					//	event.stopPropagation();
-					//});
-
 				}();
+
 			}
 		};
 

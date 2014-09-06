@@ -17,7 +17,6 @@ namespace KalendarzKarieryData
 		[DataType(DataType.Date, ErrorMessage = "Podana data jest nieprawidłowa.")]
 		[Required(ErrorMessage = "Pole \"Data\" nie może być puste.")]
 		[Display(Name = "Data:")]
-		//[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
 		public DateTime StartDate { get; set; }
 
 		[Display(Name = "Tytuł:")]
@@ -29,5 +28,15 @@ namespace KalendarzKarieryData
 
 		[Display(Name = "Szczegóły:")]
 		public string Details { get; set; }
+
+		[Display(Name = "Opłata za wstęp:")]
+		[DataType(DataType.Currency, ErrorMessage="Podana kwota jest nieprawidłowa.")]
+		public string Price { get; set; }
+
+		[Display(Name = "Link:")]
+		public string UrlLink { get; set; }
+
+		[Display(Name = "Max ilość uczestników:")]
+		public int OccupancyLimit { get; set; }
 	}
 }

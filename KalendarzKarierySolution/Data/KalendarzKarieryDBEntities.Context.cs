@@ -24,10 +24,9 @@ namespace KalendarzKarieryData
         }
 
 		public KalendarzKarieryDBEntities(DbConnection connection)
-		: base(connection, true)
-		{
-		}
-
+				: base(connection, true)
+				{
+				}
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

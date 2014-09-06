@@ -143,7 +143,7 @@ namespace KalendarzKariery.Controllers
 				}
 				else
 				{
-					ModelState.AddModelError("User.Email", Consts.registerUserEmailExistsErrorMsg);
+					ModelState.AddModelError("User.Email", Consts.RegisterUserEmailExistsErrorMsg);
 				}
 			}
 

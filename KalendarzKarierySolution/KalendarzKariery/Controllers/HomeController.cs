@@ -44,11 +44,10 @@ namespace KalendarzKariery.Controllers
 			return View("Index", indexViewModel);
 		}
 
-		[HttpPost]
-		public ActionResult AddEvent(AddEventViewModel eventParam)
-		{
-
-			return Json(new { isAddEventSuccess = true });
-		}
+		//[HttpPost]
+		//public ActionResult AddEvent(AddEventViewModel eventParam)
+		//{
+		//	return Json(new { isAddEventSuccess = true });
+		//}
 	}
 }

@@ -1,17 +1,17 @@
 ﻿var KKEvent = function () {
 	var self = this;
 
-	this.addedBy = "";
+	self.addedBy = "";
 
-	this.address = {
+	self.address = {
 		street: "",
 		city: "",
 		zipCode: ""
 	};
 
-	this.calendarPlacementRow = 1;
+	self.calendarPlacementRow = 1;
 
-	this.dateAdded = {
+	self.dateAdded = {
 		minute: "",
 		hour: "",
 		day: "",
@@ -19,31 +19,36 @@
 		year: ""
 	};
 
-	this.description = "";
+	self.description = "";
 
-	this.details = "";
+	self.details = "";
 
-	this.eventLengthInMinutes = 0;
+	self.eventLengthInMinutes = 0;
 
-	this.kind = {
+	self.kind = {
 		value: ko.observable(),
 		name: ko.observable(),
 		color: "",
-		headerColor: ""
+		headerColor: "",
+		detailsPageEventBorderColor: ""
 	}
 
-	this.id = 0;
+	self.id = 0;
 
-	this.numberOfPeopleAttending = 0;
+	self.name = "";
 
-	this.occupancyLimit = null;
+	self.numberOfPeopleAttending = 0;
 
-	this.privacyLevel = {
+	self.occupancyLimit = null;
+
+	self.privacyLevel = {
 		name : "",
 		value : ""
 	};
 
-	this.startDate = {
+	self.price = null;
+
+	self.startDate = {
 		startMinute: "",
 		endMinute: "",
 		startHour: "",
@@ -53,8 +58,6 @@
 		year: ""
 	};
 
-	this.name = "";
-
-	this.urlLink = "";
+	self.urlLink = "";
 };
 

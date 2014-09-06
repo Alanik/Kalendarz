@@ -15,7 +15,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 	{
 		protected IResponse ValidateUser()
 		{
-			var response = new DefaultResponse();
+			var response = new DefaultResponseModel();
 			response.IsSuccess = true;
 
 			if (!User.Identity.IsAuthenticated)
@@ -25,19 +25,19 @@ namespace KalendarzKarieryWebAPI.Controllers
 				return response;
 			}
 
-			if (!User.IsInRole(Consts.AdminRole))
-			{
-				response.Message = Consts.NotAuthorizedErrorMsg;
-				response.IsSuccess = false;
-				return response;
-			}
+			//if (!User.IsInRole(Consts.AdminRole))
+			//{
+			//	response.Message = Consts.NotAuthorizedErrorMsg;
+			//	response.IsSuccess = false;
+			//	return response;
+			//}
 
 			return response;
 		}
 
 		protected IResponse ValidateAddEventViewModel(AddEventViewModel viewModel)
 		{
-			var response = new DefaultResponse();
+			var response = new DefaultResponseModel();
 			response.IsSuccess = true;
 
 			if (string.IsNullOrEmpty(viewModel.Event.Title))

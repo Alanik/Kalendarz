@@ -27,6 +27,12 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 				var loader = new Effort.DataLoaders.CsvDataLoader(physicalPath);
 				DbConnection connection = Effort.EntityConnectionFactory.CreateTransient(ConnectionName, loader);
 				_entities = new KalendarzKarieryDBEntities(connection);
+
+				//nie kasowac tego komentarza
+				//		public KalendarzKarieryDBEntities(DbConnection connection)
+				//		: base(connection, true)
+				//		{
+				//		}
 			}
 			else
 			{
@@ -85,9 +91,24 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 
 		#region Events
 
+		public Event GetEventById(int id)
+		{
+			return _entities.Events.FirstOrDefault(m => m.Id == id);
+		}
+
 		public void AddEvent(Event @event)
 		{
 			_entities.Events.Add(@event);
+		}
+
+		public void DeleteEvent(Event @event)
+		{
+			_entities.Events.Remove(@event);
+		}
+
+		public IList<Event> GetAllEvents()
+		{
+			return _entities.Events.ToList();
 		}
 
 		//public CalendarEventTreeModel GetAllEventsForGivenMonthByUserId(string userName, int month, int year)
@@ -126,14 +147,16 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 			{
 				id = (int)objectId;
 			}
-			else{
+			else
+			{
 				var user = _entities.Users.Where(m => string.Compare(m.UserName, userName, true) == 0).FirstOrDefault();
 				if (user != null)
 				{
 					id = user.Id;
 					AppCache.Set(userName.ToLower(), id);
 				}
-				else{
+				else
+				{
 					return null;
 				}
 			}
@@ -146,17 +169,17 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 				description = m.Description,
 				details = m.Details,
 				dateAdded = m.DateAdded,
-				eventLengthInMinutes = m.EventLengthInMinutes,
 				occupancyLimit = m.OccupancyLimit,
 				urlLink = m.UrlLink,
 				calendarPlacementRow = 1,
 				startDate = m.StartDate,
+				endDate = m.EndDate,
 				numberOfPeopleAttending = m.NumberOfPeopleAttending,
 				kind = new { name = m.EventKind.Name, value = m.EventKind.Value },
 				privacyLevel = new { name = m.PrivacyLevel.Name, value = m.PrivacyLevel.Value },
 				addresses = m.Addresses.Select(o => new { street = o.Street, city = o.City, zipCode = o.ZipCode })
 			});
-			 
+
 			var groups = transformedList.ToLookup(m => m.startDate.Month).Select(o => new EventsGroupedByMonthModel(o.Key, o.ToArray().ToLookup(t => t.startDate.Day).Select(l => new EventsGroupedByDayModel(l.Key, l.ToArray())))).ToArray();
 
 			return new CalendarEventTreeModel(year, groups);

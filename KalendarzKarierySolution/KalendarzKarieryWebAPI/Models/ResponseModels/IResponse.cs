@@ -9,6 +9,5 @@ namespace KalendarzKarieryWebAPI.Models.ResponseModels
 	public interface IResponse
 	{
 		 bool IsSuccess { get; set; }
-	     string Message { get; set; }
 	}
 }

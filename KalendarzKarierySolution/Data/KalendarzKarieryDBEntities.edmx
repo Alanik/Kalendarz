@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="KalendarzKarieryDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="KalendarzKarieryDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Address">
           <Key>
             <PropertyRef Name="Id" />
@@ -35,18 +35,19 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="Description" Type="varchar" MaxLength="500" />
-          <Property Name="Details" Type="varchar" MaxLength="1000" />
+          <Property Name="Description" Type="varchar" MaxLength="7000" />
+          <Property Name="Details" Type="varchar(max)" />
           <Property Name="DateAdded" Type="datetime" Nullable="false" />
           <Property Name="OwnerUserId" Type="int" Nullable="false" />
           <Property Name="StartDate" Type="datetime" Nullable="false" />
-          <Property Name="EventLengthInMinutes" Type="int" />
           <Property Name="OccupancyLimit" Type="int" />
           <Property Name="UrlLink" Type="varchar" MaxLength="200" />
           <Property Name="EventKindId" Type="int" Nullable="false" />
           <Property Name="NumberOfPeopleAttending" Type="int" />
           <Property Name="PrivacyLevelId" Type="int" Nullable="false" />
           <Property Name="EventStatusId" Type="int" Nullable="false" />
+          <Property Name="Price" Type="money" />
+          <Property Name="EndDate" Type="datetime" />
         </EntityType>
         <EntityType Name="EventKind">
           <Key>
@@ -416,8 +417,7 @@
             <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="KalendarzKarieryDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -455,12 +455,11 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="Details" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="7000" FixedLength="false" Unicode="false" />
+          <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="OwnerUserId" Type="Int32" Nullable="false" />
-          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="EventLengthInMinutes" Type="Int32" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" Nullable="false" />
           <Property Name="OccupancyLimit" Type="Int32" />
           <Property Name="UrlLink" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="EventKindId" Type="Int32" Nullable="false" />
@@ -474,6 +473,8 @@
           <NavigationProperty Name="User" Relationship="Self.FK_OwnerUser_Event" FromRole="Event" ToRole="User" />
           <NavigationProperty Name="PrivacyLevel" Relationship="Self.FK_PrivacyLevel_Event" FromRole="Event" ToRole="PrivacyLevel" />
           <NavigationProperty Name="Users" Relationship="Self.User_Event" FromRole="Event" ToRole="User" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="EventKind">
           <Key>
@@ -833,6 +834,8 @@
           <EntitySetMapping Name="Events">
             <EntityTypeMapping TypeName="KalendarzKarieryDBModel.Event">
               <MappingFragment StoreEntitySet="Event">
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -840,7 +843,6 @@
                 <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
                 <ScalarProperty Name="OwnerUserId" ColumnName="OwnerUserId" />
                 <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="EventLengthInMinutes" ColumnName="EventLengthInMinutes" />
                 <ScalarProperty Name="OccupancyLimit" ColumnName="OccupancyLimit" />
                 <ScalarProperty Name="UrlLink" ColumnName="UrlLink" />
                 <ScalarProperty Name="EventKindId" ColumnName="EventKindId" />

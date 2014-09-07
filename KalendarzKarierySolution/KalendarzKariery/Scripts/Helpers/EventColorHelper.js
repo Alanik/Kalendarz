@@ -17,7 +17,7 @@
 			case 2:
 				return "rgb(107, 223, 199)";
 			case 3:
-				return "orange";
+				return "rgb(255, 215, 141)";
 			case 4:
 				return "#57a7dd";
 			case 5:
@@ -38,7 +38,7 @@
 			case 2:
 				return "rgb(87, 167, 221)";
 			case 3:
-				return "orange";
+				return "rgb(255, 215, 141)";
 			case 4:
 				return "rgb(219, 219, 21)";
 			case 5:
@@ -59,7 +59,7 @@
 			case 2:
 				return "rgb(146, 248, 227)";
 			case 3:
-				return "orange";
+				return "rgb(255, 215, 141)";
 			case 4:
 				return "rgb(165, 218, 255)";
 			case 5:
@@ -80,7 +80,7 @@
 			case 2:
 				return "rgb(146, 248, 227)";
 			case 3:
-				return "orange";
+				return "rgb(255, 215, 141)";
 			case 4:
 				return "rgb(165, 218, 255)";
 			case 5:

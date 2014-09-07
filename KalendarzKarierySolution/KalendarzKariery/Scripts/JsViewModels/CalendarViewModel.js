@@ -326,7 +326,13 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 	self.showEventInfoOnClick = function (element) {
 
 		var $link = $(element);
-		var $content = $link.closest(".details-event-block-container").find(".event-block-content");
+		var $detailsEventBlockContainer = $link.closest(".details-event-block-container");
+		var offset = $detailsEventBlockContainer.position().top;
+		console.log(offset);
+
+		$("#slide-item-details").parent().scrollTop(offset);
+
+		var $content = $detailsEventBlockContainer.find(".event-block-content");
 		$content.css("color", "rgb(242,242,242)");
 
 		var $eventBlockInfo = $link.closest(".details-event-block-container").find(".details-eventblock-info-container");
@@ -343,8 +349,6 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		}
 
 		$link.toggleClass("open");
-
-		//$link[0].scrollIntoView();
 	};
 
 	self.addEventToEventTree = function (newEvent) {
@@ -475,6 +479,9 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		$addEventContainer.show();
 		$eventTitle.focus();
 
+		var top = $addEventContainer.position().top;
+		$("#slide-item-calendar").parent().scrollTop(top);
+
 		if (e) {
 			e.stopPropagation();
 		}
@@ -513,8 +520,8 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		$overlay.show();
 		$registerForm.hide();
 		$loginForm.fadeIn();
-
-		document.querySelector('#lobby-menu-header').scrollIntoView();
+		var top = $loginform.position().top;
+		$("#slide-item-lobby").parent().scrollTop(top);
 	};
 
 	self.loginUserOnClick = function () {

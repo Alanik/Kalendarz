@@ -28,7 +28,7 @@
 
 				</div>
 				<div id="rightSideLobby" class="side"></div>
-
+				<div id="rightSideLobbyTopPart"></div>
 			</div>
 		</li>
 		<li>
@@ -179,6 +179,25 @@
 								$scrollable.scrollTop(0);
 							}, 10)
 							
+						}else if(hash === "#1")
+						{
+						//TODO: not finished
+							//setTimeout(function(){				
+								
+							//	var height1 = $("#calendar #calendarMenuHeader").height();
+							//	var height2 = $("#calendar .weekday-container").height();
+							//	var height3 = $("#calendar .calendar-hours-placeholder").first().height();
+							//	var height4 = 42;
+							//	var winHeight = $(window).height();
+
+							//	var cellHeight = (winHeight - (height1 + height2 + height3 + 60)) / 6;
+
+							//	$("#calendar .calendar-cell").css("height", cellHeight);
+
+							//	console.log(cellHeight);
+
+							//}, 10)
+
 						}
 					});
 				}();
@@ -303,7 +322,7 @@
 							$(this).css("background", "rgb(160, 243, 169)");
 						},
 						mouseleave: function () {
-							$(this).css("background", "rgb(215,215,215)");
+							$(this).css("background", "rgb(188,188,188)");
 						}
 					}, '.dark-icon');
 
@@ -355,15 +374,16 @@
 					var $rightSideCalendar = $("#rightSideCalendar");
 					var $leftSideDetails = $("#leftSideDetails");
 					var $rightSideLobby = $("#rightSideLobby");
+					var $rightSideLobbyTopPart = $("#rightSideLobbyTopPart");
 
 					$leftSideCalendar.hover(function () {
 						$(this).css({
-							//"backgroundPosition": "left",
+							"backgroundPosition": "left",
 							"cursor": "pointer"
 						});
 					}, function () {
 						$(this).css({
-							//"backgroundPosition": "right",
+							"backgroundPosition": "right",
 							"cursor": "auto"
 						});
 					});
@@ -373,7 +393,7 @@
 						});
 
 						$leftSideCalendar.css({
-							//"backgroundPosition": "left"
+							"backgroundPosition": "left"
 
 						});
 					}, function () {
@@ -381,18 +401,18 @@
 							"cursor": "auto"
 						});
 						$leftSideCalendar.css({
-							//"backgroundPosition": "right"
+							"backgroundPosition": "right"
 
 						});
 					});
 					$rightSideCalendar.hover(function () {
 						$(this).css({
-							//"backgroundPosition": "right",
+							"backgroundPosition": "right",
 							"cursor": "pointer"
 						});
 					}, function () {
 						$(this).css({
-							//"backgroundPosition": "left",
+							"backgroundPosition": "left",
 							"cursor": "auto"
 						});
 					});
@@ -402,7 +422,7 @@
 						});
 
 						$rightSideCalendar.css({
-							//"backgroundPosition": "right"
+							"backgroundPosition": "right"
 
 						});
 					}, function () {
@@ -410,7 +430,7 @@
 							"cursor": "auto"
 						});
 						$rightSideCalendar.css({
-							//"backgroundPosition": "left"
+							"backgroundPosition": "left"
 
 						});
 					});
@@ -421,25 +441,37 @@
 						});
 
 						$rightSideLobby.css({
-							//"backgroundPosition": "right"
+							"backgroundPosition": "right"
 
 						});
+
+						$rightSideLobbyTopPart.css({
+							"backgroundPosition": "right"
+
+						});
+
 					}, function () {
 						$(this).css({
 							"cursor": "auto"
 						});
 						$rightSideLobby.css({
-							//"backgroundPosition": "left"
+							"backgroundPosition": "left"
+
+						});
+
+						$rightSideLobbyTopPart.css({
+							"backgroundPosition": "left"
 
 						});
 					});
+
 					$(".details-navigation-arrows-left").hover(function () {
 						$(this).css({
 							"cursor": "pointer"
 						});
 
 						$leftSideDetails.css({
-							//"backgroundPosition": "left"
+							"backgroundPosition": "left"
 
 						});
 					}, function () {
@@ -447,30 +479,65 @@
 							"cursor": "auto"
 						});
 						$leftSideDetails.css({
-							//"backgroundPosition": "right"
+							"backgroundPosition": "right"
 
 						});
 					});
 					$leftSideDetails.hover(function () {
 						$(this).css({
-							//"backgroundPosition": "left",
+							"backgroundPosition": "left",
 							"cursor": "pointer"
 						});
 					}, function () {
 						$(this).css({
-							//"backgroundPosition": "right",
+							"backgroundPosition": "right",
 							"cursor": "auto"
 						});
 					});
+
 					$rightSideLobby.hover(function () {
 						$(this).css({
 							"backgroundPosition": "right",
 							"cursor": "pointer"
 						});
+
+						$rightSideLobbyTopPart.css({
+							"backgroundPosition": "right"
+
+						});
+
 					}, function () {
 						$(this).css({
 							"backgroundPosition": "left",
 							"cursor": "auto"
+						});
+
+						$rightSideLobbyTopPart.css({
+							"backgroundPosition": "left"
+
+						});
+					});
+
+					$rightSideLobbyTopPart.hover(function () {
+						$(this).css({
+							"backgroundPosition": "right",
+							"cursor": "pointer"
+						});
+
+						$rightSideLobby.css({
+							"backgroundPosition": "right"
+
+						});
+
+					}, function () {
+						$(this).css({
+							"backgroundPosition": "left",
+							"cursor": "auto"
+						});
+
+						$rightSideLobby.css({
+							"backgroundPosition": "left"
+
 						});
 					});
 

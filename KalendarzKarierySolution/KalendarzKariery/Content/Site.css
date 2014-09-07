@@ -38,6 +38,11 @@ header, footer, nav, section, div {
 }
 
 @font-face {
+	font-family: CodePro;
+	src: url('Fonts/CodePro/CODE Light.otf');
+}
+
+@font-face {
 	font-family: SegoeUI;
 	src: url('Fonts/SegoeUI/segoeui.ttf');
 }
@@ -70,12 +75,14 @@ body header {
 	table-layout: fixed;
 	border-spacing: 1px;
 	margin-top: 20px;
+	border-bottom: 2px solid rgb(209, 209, 209);
 }
 
 #calendarBg {
 	position: relative;
 	width: 80%;
 	left: 10%;
+	border-top: 1px solid rgb(247,247,247);
 }
 
 
@@ -208,13 +215,13 @@ body header {
 	z-index: 10;*/
 }
 
-#calendar-menu-header {
+#calendarMenuHeader {
 	display: table-caption;
 	color: white;
 	background: rgba(0,0,0,.04);
-	/*border-bottom: 2px solid rgb(250,250,250);*/
-	border-top: 1px solid #D8D8D8;
-	height: 39px;
+	border-bottom: 1px solid rgb(250,250,250);
+	border-top: 1px solid #D6D6D6;
+	height: 38px;
 }
 
 #loginPageContainer {
@@ -346,6 +353,11 @@ body header {
 	border-bottom: 1px solid rgb(253,253,253);
 }
 
+	.current-month-cell .cell-span-container .cell-month-name-span {
+		padding-left: 10px !important;
+		color: rgb(184, 184, 184);
+	}
+
 .today-cell .cell-span-container {
 	position: relative;
 	top: 56px;
@@ -353,7 +365,8 @@ body header {
 	background: rgb(242, 251, 167);
 	height: 24px;
 	z-index: 98;
-	border-top: 1px solid rgb(182, 188, 128);
+	/*border-top: 1px solid rgb(182, 188, 128);*/
+	border-top: 1px solid white;
 }
 
 	.today-cell .cell-span-container .day {
@@ -362,10 +375,17 @@ body header {
 
 .other-month-cell .cell-span-container {
 	position: relative;
-	/*background: rgb(223, 240, 255);*/
+	top: 56px;
 	height: 24px;
 	z-index: 98;
 }
+
+	.other-month-cell .cell-span-container .cell-month-name-span {
+		color: rgb(184,184,184);
+		padding-left: 20px !important;
+	}
+
+
 
 .calendar-row {
 	/*
@@ -425,7 +445,6 @@ body header {
 .lobby-loggedIn-bar {
 	margin-top: 75px;
 	margin-bottom: 30px;
-	/*border-bottom:1px solid rgb(228, 228, 228);*/
 	padding-bottom: 20px;
 }
 
@@ -437,8 +456,6 @@ body header {
 	.today-cell .event-rectangle {
 		background: white !important;
 		opacity: 1 !important;
-		/*background:rgb(83,83,83) !important;*/
-		/*border: 1px solid white !important;*/
 	}
 
 .current-month-cell {
@@ -464,61 +481,69 @@ body header {
 	background: rgba(150,150,150,.1);
 }
 
-	.other-month-cell span {
+	.other-month-cell .cell-span-container span {
 		position: absolute;
 		padding-left: 2px;
 		padding-right: 5px;
-		top: 60px;
+		top: 4px;
 	}
 
 .side {
 	width: 10%;
 	height: 100%;
-	background-repeat: no-repeat;
-	background-size: cover;
 	top: 0px;
 	position: absolute;
 }
 
-
 #leftSideCalendar {
-	background-image: url("../Images/BackgroundParts/kalendarzTloLewy.png");
-	background-position: right top;
-	/*background: rgb(37, 37, 37);*/
+	border-top: 1px solid rgb(240,240,240);
+	border-bottom: 1px solid rgb(240, 240, 240);
+	background-image: url("../Images/BackgroundParts/LeftSidePixelDark.png");
+	background-repeat: repeat-y;
 	left: 0px;
-	/*border-right:1px solid #151718;*/
-	/*z-index:2;*/
+	background-position: right;
+	height: 99% !important;
 	border-right: 1px solid #F0F0F0;
 }
 
 #rightSideCalendar {
-	background-image: url("../Images/BackgroundParts/kalendarzTloPrawo.png");
-	background-position: left top;
-	/*background: rgb(37, 37, 37);*/
+	border-top: 1px solid rgb(240, 240, 240);
+	border-bottom: 1px solid rgb(240, 240, 240);
+	background-image: url("../Images/BackgroundParts/RightSidePixelDark.png");
+	background-repeat: repeat-y;
 	right: 0px;
+	background-position: left;
 	border-left: 1px solid #F0F0F0;
-	/*border-left:1px solid #151718;*/
+	height: 99% !important;
 }
 
 #leftSideDetails {
-	background-image: url("../Images/BackgroundParts/kalendarzTloLewy.png");
-	background-position: right top;
-	/*background: rgb(37, 37, 37);*/
+	background-image: url("../Images/BackgroundParts/LeftSidePixelDark.png");
+	background-repeat: repeat-y;
 	left: 0px;
-	/*border-right:1px solid #151718;*/
-	/*z-index:2;*/
+	background-position: right;
 	border-right: 1px solid #F0F0F0;
 }
 
 #rightSideLobby {
-	background-image: url("../Images/BackgroundParts/kalendarzTloPrawo.png");
-	background-position: left top;
+	background-image: url("../Images/BackgroundParts/RightSidePixelDark.png");
+	background-repeat: repeat-y;
 	right: 0px;
-	/*height: 3000px;*/
-	/*background: rgb(37, 37, 37);*/
+	background-position: left;
 	border-left: 1px solid #F0F0F0;
 }
 
+#rightSideLobbyTopPart {
+	background-image: url("../Images/BackgroundParts/RightSidePixelDark.png");
+	background-repeat: repeat-y;
+	right: 0px;
+	height: 16px;
+	top: -16px;
+	background-position: left;
+	border-left: 1px solid #F0F0F0;
+	position: absolute;
+	width: 10%;egend
+}
 
 #mainContainer {
 	word-spacing: 0px;
@@ -645,7 +670,7 @@ body header {
 	/*
 background:rgb(115, 233, 162);
 */
-	background: rgb(215,215,215);
+	background: rgb(188,188,188);
 	color: white;
 }
 
@@ -856,7 +881,6 @@ background:rgb(115, 233, 162);
 	position: relative;
 	font-size: .8em;
 	color: rgb(184,184,184);
-	z-index: 5;
 }
 
 	#siteNavLegendContainer span {
@@ -964,8 +988,8 @@ background:rgb(115, 233, 162);
 	bottom: 0;
 	left: 0;
 	font-size: 14px;
-	padding: 10px;
-	padding-right: 0;
+	padding: 10px 0;
+	text-align: center;
 }
 
 .margin-left-fifteen {
@@ -1025,13 +1049,16 @@ background:rgb(115, 233, 162);
 
 .loggedIn-nickname {
 	margin-right: 15px;
-	color: rgb(153, 221, 136);
+	margin-right: 15px;
+	font-size: 3em;
+	text-decoration: none;
+	color: rgb(216, 220, 206);
+	font-family: 'Segoe UI';
 }
 
 .event-kind-text {
 	color: rgb(240,240,240);
 	width: 100px;
-	/*box-shadow: 0 2px 10px rgb(60, 60, 60);*/
 	border: 1px solid rgb(224,224,224);
 }
 
@@ -1084,10 +1111,17 @@ wydarzenia-tab {
 	border-bottom: 10px solid rgb(136, 245, 222);
 }
 
-.slide-item-details {
-	margin-top: 20px;
+#slide-item-details {
+	position: relative;
 }
 
+#slide-item-calendar {
+	position: relative;
+}
+
+#slide-item-lobby {
+	position: relative;
+}
 
 #calendarDayDetailsTable {
 	width: 90%;
@@ -1167,8 +1201,8 @@ wydarzenia-tab {
 }
 
 #logoutForm {
-	float: right;
-	margin-right: 20px;
+	display: inline-block;
+	margin-right: 40px;
 }
 
 	#logoutForm a {

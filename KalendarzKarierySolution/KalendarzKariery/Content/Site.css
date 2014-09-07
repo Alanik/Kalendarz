@@ -126,7 +126,7 @@ body header {
 	width: 540px;
 }
 
-.calendar-navigation-arrows-left {
+#calendar-navigation-arrows-left {
 	left: 3%;
 	position: fixed;
 	top: 240px;
@@ -134,12 +134,12 @@ body header {
 	z-index: 5;
 }
 
-	.calendar-navigation-arrows-left img {
+	#calendar-navigation-arrows-left img {
 		position: static !important;
 		width: 100% !important;
 	}
 
-.calendar-navigation-arrows-right {
+#calendar-navigation-arrows-right {
 	right: 4%;
 	position: fixed;
 	top: 240px;
@@ -147,12 +147,12 @@ body header {
 	z-index: 5;
 }
 
-	.calendar-navigation-arrows-right img {
+	#calendar-navigation-arrows-right img {
 		position: static !important;
 		width: 100% !important;
 	}
 
-.lobby-navigation-arrows-right {
+#lobby-navigation-arrows-right {
 	right: 4%;
 	position: fixed;
 	top: 240px;
@@ -160,12 +160,12 @@ body header {
 	z-index: 5;
 }
 
-	.lobby-navigation-arrows-right img {
+	#lobby-navigation-arrows-right img {
 		position: static !important;
 		width: 100% !important;
 	}
 
-.details-navigation-arrows-left {
+#details-navigation-arrows-left {
 	left: 4%;
 	position: fixed;
 	top: 240px;
@@ -173,7 +173,7 @@ body header {
 	z-index: 5;
 }
 
-	.details-navigation-arrows-left img {
+	#details-navigation-arrows-left img {
 		position: static !important;
 		width: 100% !important;
 	}
@@ -542,7 +542,7 @@ body header {
 	background-position: left;
 	border-left: 1px solid #F0F0F0;
 	position: absolute;
-	width: 10%;egend
+	width: 10%;
 }
 
 #mainContainer {

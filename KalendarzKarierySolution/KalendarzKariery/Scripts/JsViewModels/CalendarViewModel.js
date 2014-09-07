@@ -38,6 +38,11 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 
 	self.addNewEvent_Day = ko.observable(0);
 
+	self.calendarDayEventsToUpdate = {
+		"day": 0,
+		"events": null
+	}
+
 	self.calendarPageMonthEvents = [];
 	self.detailsPageDayEvents = ko.observableArray([]);
 
@@ -233,14 +238,9 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 						self.myEvents.push(eventToPush);
 
 						var dayEvents = self.addEventToEventTree(eventToPush);
+						self.setCalendarPlacementRow(dayEvents);
 
-						var cellDay = ".day" + self.addNewEvent_Day();
-						var $cellPlaceholder = $("#calendar").find(cellDay).find(".calendar-cell-placeholder");
-						$cellPlaceholder.find(".event-rectangle").remove();
-
-						for (var i in dayEvents) {
-							self.drawEventToCalendar(dayEvents[i]);
-						}
+						self.redrawCalendarCell(dayEvents, self.addNewEvent_Day());
 
 						$addEventForm[0].reset();
 						$("#addNewEventContainer").hide();
@@ -315,6 +315,9 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 						console.log(self.displayPageEventMostBottomRow);
 						$tableBody.height(h + "px");
 
+						//for calendar to redraw events in day cell
+						self.calendarDayEventsToUpdate.day = self.detailsPageDisplayDate.day();
+						self.calendarDayEventsToUpdate.events = events;	
 					});
 				}
 			},
@@ -324,6 +327,19 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 			}
 		});
 	};
+
+	self.redrawCalendarCell = function (dayEvents, day) {
+
+		//remove events from calendar cell
+		var cellDay = ".day" + day;
+		var $cellPlaceholder = $("#calendar").find(cellDay).find(".calendar-cell-placeholder");
+		$cellPlaceholder.find(".event-rectangle").remove();
+		//
+
+		for (var i in dayEvents) {
+			self.drawEventToCalendar(dayEvents[i]);
+		}
+	}
 
 	self.removeEventRectangleFromEventTree = function (id, year, month, day) {
 		var eventTree = self.eventTree;
@@ -412,8 +428,6 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		var dayEvents = eventTreeMonthProp[day] ? eventTreeMonthProp[day] : eventTreeMonthProp[day] = [];
 
 		dayEvents.push(newEvent);
-		self.setCalendarPlacementRow(dayEvents);
-
 		return dayEvents;
 	};
 
@@ -798,9 +812,47 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		ko.unapplyBindings($calendar);
 		ko.applyBindings(self, $calendar[0]);
 
-		$calendar.append('<div class="calendar-navigation-arrows-left"><img src="Images/Nav/arrow-Left.png" alt="arrow-left"/></div>');
-		$calendar.append('<div class="calendar-navigation-arrows-right"><img src="Images/Nav/arrow-Right.png" alt="arrow-Right"/></div>');
+		$calendar.append('<div id="calendar-navigation-arrows-left"><img src="Images/Nav/arrow-Left.png" alt="arrow-left"/></div>');
+		$calendar.append('<div id="calendar-navigation-arrows-right"><img src="Images/Nav/arrow-Right.png" alt="arrow-Right"/></div>');
 		$addNewEvent.prependTo($calendar);
+
+		var $leftSideCalendar = $("#leftSideCalendar");
+		var $rightSideCalendar = $("#rightSideCalendar");
+
+		$("#calendar-navigation-arrows-left").hover(function () {
+			$(this).css({
+				"cursor": "pointer"
+			});
+
+			$leftSideCalendar.css({
+				"backgroundPosition": "left"
+			});
+		}, function () {
+			$(this).css({
+				"cursor": "auto"
+			});
+			$leftSideCalendar.css({
+				"backgroundPosition": "right"
+			});
+		});
+	
+		$("#calendar-navigation-arrows-right").hover(function () {
+			$(this).css({
+				"cursor": "pointer"
+			});
+
+			$rightSideCalendar.css({
+				"backgroundPosition": "right"
+			});
+		}, function () {
+			$(this).css({
+				"cursor": "auto"
+			});
+			$rightSideCalendar.css({
+				"backgroundPosition": "left"
+
+			});
+		});
 
 		self.calendarPageDisplayDate.month(month);
 		self.calendarPageMonthEvents = self.getEventsForGivenMonth(self.calendarPageDisplayDate.month(), self.calendarPageDisplayDate.year());

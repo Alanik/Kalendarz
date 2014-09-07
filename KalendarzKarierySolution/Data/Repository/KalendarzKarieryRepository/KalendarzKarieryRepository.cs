@@ -32,7 +32,12 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 				//		public KalendarzKarieryDBEntities(DbConnection connection)
 				//		: base(connection, true)
 				//		{
+
+				//TODO: use lazy or eager loading?
+				//this.Configuration.LazyLoadingEnabled = false;
+
 				//		}
+
 			}
 			else
 			{

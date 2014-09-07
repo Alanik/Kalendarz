@@ -169,6 +169,45 @@
 						scrollable: true
 					});
 
+					$(window).on("hashchange", function(){
+					
+						setTimeout(function(){
+
+							if(location.hash === "#1")
+							{
+								if (calendarViewModel.calendarDayEventsToUpdate.events !== null) {
+									setTimeout(function(){
+										calendarViewModel.redrawCalendarCell(calendarViewModel.calendarDayEventsToUpdate.events, calendarViewModel.calendarDayEventsToUpdate.day);
+										calendarViewModel.calendarDayEventsToUpdate.events = null;
+
+									}, 10)
+								}
+
+
+						
+								//TODO: not finished
+								//setTimeout(function(){				
+								
+								//	var height1 = $("#calendar #calendarMenuHeader").height();
+								//	var height2 = $("#calendar .weekday-container").height();
+								//	var height3 = $("#calendar .calendar-hours-placeholder").first().height();
+								//	var height4 = 42;
+								//	var winHeight = $(window).height();
+
+								//	var cellHeight = (winHeight - (height1 + height2 + height3 + 60)) / 6;
+
+								//	$("#calendar .calendar-cell").css("height", cellHeight);
+
+								//	console.log(cellHeight);
+
+								//}, 10)
+
+							}
+
+						}, 10);
+
+					});
+
 					$(".slides-pagination a").on("click", function(){
 					
 						var hash = $(this).attr("href");
@@ -179,33 +218,14 @@
 								$scrollable.scrollTop(0);
 							}, 10)
 							
-						}else if(hash === "#1")
-						{
-						//TODO: not finished
-							//setTimeout(function(){				
-								
-							//	var height1 = $("#calendar #calendarMenuHeader").height();
-							//	var height2 = $("#calendar .weekday-container").height();
-							//	var height3 = $("#calendar .calendar-hours-placeholder").first().height();
-							//	var height4 = 42;
-							//	var winHeight = $(window).height();
-
-							//	var cellHeight = (winHeight - (height1 + height2 + height3 + 60)) / 6;
-
-							//	$("#calendar .calendar-cell").css("height", cellHeight);
-
-							//	console.log(cellHeight);
-
-							//}, 10)
-
 						}
 					});
 				}();
 
-				$calendar.append('<div class="calendar-navigation-arrows-left"><img src="Images/Nav/arrow-Left.png" alt="arrow-left"/></div>');
-				$calendar.append('<div class="calendar-navigation-arrows-right"><img src="Images/Nav/arrow-Right.png" alt="arrow-Right"/></div>');
-				$details.append('<div class="details-navigation-arrows-left"><img src="Images/Nav/arrow-Left.png" alt="arrow-Left"/></div>');
-				$lobby.append('<div class="lobby-navigation-arrows-right"><img src="Images/Nav/arrow-Right.png" alt="arrow-Right"/></div>');
+				$calendar.append('<div id="calendar-navigation-arrows-left"><img src="Images/Nav/arrow-Left.png" alt="arrow-left"/></div>');
+				$calendar.append('<div id="calendar-navigation-arrows-right"><img src="Images/Nav/arrow-Right.png" alt="arrow-Right"/></div>');
+				$details.append('<div id="details-navigation-arrows-left"><img src="Images/Nav/arrow-Left.png" alt="arrow-Left"/></div>');
+				$lobby.append('<div id="lobby-navigation-arrows-right"><img src="Images/Nav/arrow-Right.png" alt="arrow-Right"/></div>');
 
 				this.Initialize.InitializeHover = function () {
 
@@ -351,25 +371,6 @@
 					//	});
 					//});
 
-					$("#leftSide").hover(function () {
-						$(this).css({
-							"cursor": "pointer"
-						});
-					}, function () {
-						$(this).css({
-							"cursor": "auto"
-						});
-					});
-					$("#rightSide").hover(function () {
-						$(this).css({
-							"cursor": "pointer"
-						});
-					}, function () {
-						$(this).css({
-							"cursor": "auto"
-						});
-					});
-
 					var $leftSideCalendar = $("#leftSideCalendar");
 					var $rightSideCalendar = $("#rightSideCalendar");
 					var $leftSideDetails = $("#leftSideDetails");
@@ -387,14 +388,13 @@
 							"cursor": "auto"
 						});
 					});
-					$(".calendar-navigation-arrows-left").hover(function () {
+					$("#calendar-navigation-arrows-left").hover(function () {
 						$(this).css({
 							"cursor": "pointer"
 						});
 
 						$leftSideCalendar.css({
 							"backgroundPosition": "left"
-
 						});
 					}, function () {
 						$(this).css({
@@ -402,7 +402,6 @@
 						});
 						$leftSideCalendar.css({
 							"backgroundPosition": "right"
-
 						});
 					});
 					$rightSideCalendar.hover(function () {
@@ -416,14 +415,13 @@
 							"cursor": "auto"
 						});
 					});
-					$(".calendar-navigation-arrows-right").hover(function () {
+					$("#calendar-navigation-arrows-right").hover(function () {
 						$(this).css({
 							"cursor": "pointer"
 						});
 
 						$rightSideCalendar.css({
 							"backgroundPosition": "right"
-
 						});
 					}, function () {
 						$(this).css({
@@ -435,7 +433,7 @@
 						});
 					});
 
-					$(".lobby-navigation-arrows-right").hover(function () {
+					$("#lobby-navigation-arrows-right").hover(function () {
 						$(this).css({
 							"cursor": "pointer"
 						});
@@ -465,7 +463,7 @@
 						});
 					});
 
-					$(".details-navigation-arrows-left").hover(function () {
+					$("#details-navigation-arrows-left").hover(function () {
 						$(this).css({
 							"cursor": "pointer"
 						});
@@ -627,25 +625,25 @@
 					$mainContainer.on("click", "#leftSideCalendar", function (event) {
 						window.location = "#0";
 					});
-					$mainContainer.on("click", ".calendar-navigation-arrows-left", function (event) {
+					$mainContainer.on("click", "#calendar-navigation-arrows-left", function (event) {
 						window.location = "#0";
 					});
 					$mainContainer.on("click", "#rightSideCalendar", function (event) {
 						window.location = "#2";
 					});
-					$mainContainer.on("click", ".calendar-navigation-arrows-right", function (event) {
+					$mainContainer.on("click", "#calendar-navigation-arrows-right", function (event) {
 						window.location = "#2";
 					});
 					$mainContainer.on("click", "#rightSideLobby", function (event) {
 						window.location = "#1";
 					});
-					$mainContainer.on("click", ".lobby-navigation-arrows-right", function (event) {
+					$mainContainer.on("click", "#lobby-navigation-arrows-right", function (event) {
 						window.location = "#1";
 					});
 					$mainContainer.on("click", "#leftSideDetails", function (event) {
 						window.location = "#1";
 					});
-					$mainContainer.on("click", ".details-navigation-arrows-left", function (event) {
+					$mainContainer.on("click", "#details-navigation-arrows-left", function (event) {
 						window.location = "#1";
 					});
 

@@ -101,7 +101,7 @@
 				if (indexViewModel.MyEventsGroupedByMonth) {
 					//console.log(indexViewModel.MyEventsGroupedByMonth);
 
-					var eventTreeBuilder = new EventTreeBuilder(indexViewModel.MyEventsGroupedByMonth, calendarViewModel.eventTree);
+					var eventTreeBuilder = new EventTreeBuilder(indexViewModel.MyEventsGroupedByMonth, calendarViewModel.eventTree, calendarViewModel.setCalendarPlacementRow);
 					eventTreeBuilder.build();
 				
 					////////////////////////////////////////////

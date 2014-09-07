@@ -93,7 +93,7 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 
 		public Event GetEventById(int id)
 		{
-			return _entities.Events.FirstOrDefault(m => m.Id == id);
+			return _entities.Events.Include(u => u.User).FirstOrDefault(m => m.Id == id);
 		}
 
 		public void AddEvent(Event @event)

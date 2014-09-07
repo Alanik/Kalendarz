@@ -1,5 +1,4 @@
 ﻿<div class="details-eventblock-info-container" style="display: none;">
-
 	<div class="details-eventblock-info">
 		<div>
 			<span data-bind="text: name, style: { fontSize: '1.6em', lineHeight: '1', paddingBottom: '4px', color: 'rgb(159, 138, 255)' } "></span>
@@ -24,7 +23,7 @@
 	</div>
 	<div class="details-eventblock-info-footer">
 		<div style="float: right; margin-right: 10px;">
-			<div class="link details-delete-event-link" data-bind="click: function () { $root.prepareDeleteEventDetailsPageOnDeleteLinkClick(id) }"><span>usuń</span></div>
+			<div class="link details-delete-event-link" data-bind="click: function () { $root.prepareDeleteEventDetailsPageOnDeleteLinkClick(id, startDate.year, startDate.month, startDate.day) }"><span>usuń</span></div>
 		</div>
 	</div>
 </div>

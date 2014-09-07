@@ -40,6 +40,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 
 	self.calendarPageMonthEvents = [];
 	self.detailsPageDayEvents = ko.observableArray([]);
+
 	self.myEvents = [];
 
 	self.eventTree = {
@@ -172,7 +173,6 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 				type: "POST",
 				beforeSend: self.showLoader($loader),
 				data: $addEventForm.serialize() +
-
 				"&Event.StartDate=" + startEventDate.toISOString() +
 				"&Event.EndDate=" + endEventDate.toISOString() +
 				"&PrivacyLevel.Value=" + 1 +
@@ -257,20 +257,20 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		return false;
 	};
 
-	self.prepareDeleteEventDetailsPageOnDeleteLinkClick = function (id) {
+	self.prepareDeleteEventDetailsPageOnDeleteLinkClick = function (id, year, month, day) {
+
 		var $popup = $("#details").siblings(".confirmation-popupbox-container");
 		var $yesBtn = $popup.find(".confirmation-popupbox-yesbtn");
-		$yesBtn.attr("data-bind", "click: function () { $root.deleteEventDetailsPageOnConfirmationYesBtnClick($element, " + id + ") }");
+		$yesBtn.attr("data-bind", "click: function () { $root.deleteEventDetailsPageOnConfirmationYesBtnClick($element, " + id + "," + year + "," + month + "," + day + ") }");
 		self.showConfirmationPopupBox($popup, "Czy napewno chcesz usunąć wybrane wydarzenie?");
 
+		ko.unapplyBindings($yesBtn);
 		ko.applyBindings(self, $yesBtn[0]);
 	};
 
-	self.deleteEventDetailsPageOnConfirmationYesBtnClick = function (element, id) {
-		console.log(element);
-
+	self.deleteEventDetailsPageOnConfirmationYesBtnClick = function (element, id, year, month, day) {
 		var $loader = $("#details").siblings(".loader-container");
-
+		var events;
 		$.ajax({
 			url: "/api/Events/" + id,
 			dataType: "JSON",
@@ -284,10 +284,38 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 					//TODO: change alert to some error popop or error page...
 					alert(result.Message);
 				} else {
+					self.hideConfirmationPopupBox(element);
 					self.hideLoader($loader);
-					alert(result.Message);
+					var $container = $("#details #detailsEventBlockList .details-event-block-container .hidden-event-id:contains(" + id + ")").parent();
+		
+					$container.fadeOut(500, function () {
+						$container.remove();
+						self.detailsPageDayEvents.remove(function (event) {
+							return event.id === id;
+						});
 
+						self.removeEventRectangleFromEventTree(id, year, month, day);
 
+						var $scrollable = $("#slide-item-details").parent();
+						var scroll = $("#details #lowDetailsMenuHeader").position().top - 20;
+							$scrollable.scrollTop(scroll);					
+
+						//redraw details page event rectangle table
+						self.removeEventRectanglesFromDetailsDay();
+						events = self.detailsPageDayEvents();
+						self.setCalendarPlacementRow(events);
+						self.displayPageEventMostBottomRow = 1;
+
+						for (var i in events) {
+							self.drawEventToDetailsDayTable(events[i]);
+						}
+
+						var $tableBody = $("#calendarDayDetailsTable .table-details-body");
+						var h = (self.displayPageEventMostBottomRow + 1) * 46;
+						console.log(self.displayPageEventMostBottomRow);
+						$tableBody.height(h + "px");
+
+					});
 				}
 			},
 			error: function () {
@@ -295,8 +323,32 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 				self.hideLoader($loader);
 			}
 		});
+	};
 
-		self.hideConfirmationPopupBox(element);
+	self.removeEventRectangleFromEventTree = function (id, year, month, day) {
+		var eventTree = self.eventTree;
+		var eventTreeYearProp, eventTreeMonthProp, dayEvents, event;
+
+		if (self.eventTree[year]) {
+			eventTreeYearProp = self.eventTree[year];
+			if (eventTreeYearProp[month]) {
+				eventTreeMonthProp = eventTreeYearProp[month];
+				if (eventTreeMonthProp[day]) {
+					dayEvents = eventTreeMonthProp[day];
+
+					for (var i in dayEvents) {
+						event = dayEvents[i];
+
+						if (event.id === id) {
+							dayEvents.pop(event);
+
+							break;
+						}
+					}
+				}
+			}
+		}
+
 	};
 
 	self.showConfirmationPopupBox = function ($popup, txt) {
@@ -308,7 +360,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		$popup.css("top", offsetPopup + "px");
 
 		$popup.find(".confirmation-popupbox-maintext").text(txt);
-		$popup.siblings(".dotted-page-overlay").show();
+		$popup.siblings(".dotted-page-overlay").fadeIn("fast");
 		$popup.show();
 	};
 
@@ -328,7 +380,6 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		var $link = $(element);
 		var $detailsEventBlockContainer = $link.closest(".details-event-block-container");
 		var offset = $detailsEventBlockContainer.position().top;
-		console.log(offset);
 
 		$("#slide-item-details").parent().scrollTop(offset);
 
@@ -361,13 +412,13 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		var dayEvents = eventTreeMonthProp[day] ? eventTreeMonthProp[day] : eventTreeMonthProp[day] = [];
 
 		dayEvents.push(newEvent);
-		self.setCalendarPlacementRowAfterNewEventIsAdded(dayEvents);
+		self.setCalendarPlacementRow(dayEvents);
 
 		return dayEvents;
 	};
 
 	self.drawEventToCalendar = function (event) {
-	
+
 		var cellDay = ".day" + parseInt(event.startDate.day, 10);
 		var $cellPlaceholder = $("#calendar").find(cellDay).find(".calendar-cell-placeholder");
 
@@ -410,8 +461,8 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 	};
 
 	self.removeEventRectanglesFromDetailsDay = function () {
-		var $calendar = $("#calendarDayDetailsTable");
-		$calendar.find(".event-rectangle-details").remove();
+		var $detailsTable = $("#details #calendarDayDetailsTable");
+		$detailsTable.find(".event-rectangle-details").remove();
 	};
 
 	self.moveToDetailsPageOnCalendarCellClick = function (element) {
@@ -444,7 +495,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 
 		window.location = "#2";
 		setTimeout(function () {
-			scroll = $("#lowDetailsMenuHeader").position().top - 20;
+			scroll = $("#details #lowDetailsMenuHeader").position().top - 20;
 			$scrollable.scrollTop(scroll);
 		}, 10)
 	};
@@ -769,8 +820,8 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		$element.hide();
 	};
 
-	self.setCalendarPlacementRowAfterNewEventIsAdded = function (dayEvents) {
-
+	self.setCalendarPlacementRow = function (dayEvents) {
+		self.detailsPageEventMostBottomRow = 1;
 		var anotherEvent;
 		var eStartH, eEndH, eStartM, eEndM;
 		var eventsInTheSameDayTemp = [];
@@ -779,6 +830,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		for (var i in dayEvents) {
 
 			event = dayEvents[i];
+			event.calendarPlacementRow = 1;
 			eStartH = event.startDate.startHour;
 			eEndH = event.startDate.endHour;
 			eStartM = event.startDate.startMinute;
@@ -791,14 +843,24 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 				var aeEndH = anotherEvent.startDate.endHour;
 				var aeStartM = anotherEvent.startDate.startMinute;
 				var aeEndM = anotherEvent.startDate.endMinute
+				
+				//TODO: looks too complex, simplify it ;) good luck 
+				var firstCheck = (eStartH > aeStartH && eStartH < aeEndH ) || ( aeStartH > eStartH && aeStartH < eEndH );
+				var secondCheck = (eStartH == aeStartH && (eStartM > aeStartM && ((eStartH < aeEndH) || ( eStartM < aeEndM ))));
+				var thirdCheck = (aeStartH == eStartH && (aeStartM > eStartM && ((aeStartH < eEndH) || ( aeStartM < eEndM ))));
+				var fourthCheck = (eStartH == aeStartH && eStartM == aeStartM) || (eEndH == aeEndH && eEndM == aeEndM);
+				var fifthCheck = (eEndH == aeStartH && eEndM > aeStartM) || (aeEndH == eStartH && ( aeStartM > eEndM || aeEndM > eStartM));
 
-				//eventStartTime < anotherEventEndTime || eventEndTime > anotherEventStartTime
-				if (((eStartH < aeEndH && eEndH > aeStartH) || (eStartH == aeEndH && eStartM < aeEndM && eEndM > aeStartM)) || ((eEndH < aeStartH && eStartH > aeEndH) || (eEndH == aeStartH && eEndM < aeStartM && eStartM > aeEndM))) {
+				if (firstCheck || secondCheck || thirdCheck || fourthCheck || fifthCheck) {
 					//there is conflict
 
 					if (event.calendarPlacementRow == anotherEvent.calendarPlacementRow) {
 						event.calendarPlacementRow++;
 					}
+				}
+
+				if (event.calendarPlacementRow > self.detailsPageEventMostBottomRow) {
+					self.detailsPageEventMostBottomRow = event.calendarPlacementRow;
 				}
 			}
 

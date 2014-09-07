@@ -1,4 +1,5 @@
-﻿using KalendarzKarieryData.BO.Cache;
+﻿
+using KalendarzKarieryData.BO.Cache;
 using KalendarzKarieryData.Repository.KalendarzKarieryRepository;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace KalendarzKarieryData.Repository
 		public static IKalendarzKarieryRepository GetRepository()
 		{
 			//TODO: make assignable from web.config
-			bool useFakeRepository = false;
+			bool useFakeRepository = true;
 
 			return new KalendarzKarieryData.Repository.KalendarzKarieryRepository.KalendarzKarieryRepository(useFakeRepository);
 		}

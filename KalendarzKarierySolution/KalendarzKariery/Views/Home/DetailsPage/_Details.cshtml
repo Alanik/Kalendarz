@@ -11,7 +11,12 @@
 
 	</div>
 </section>
-<div id="lowDetailsMenuHeader" class="dark-background-div"></div>
+<div id="lowDetailsMenuHeader" class="dark-background-div">
+<span style="margin-left:5px;">Wydarzenia z dnia: </span>
+<span data-bind="text: $root.detailsPageDisplayDate.day()"></span>
+<span data-bind="text: $root.detailsPageDisplayDate.getMonthName()"> </span>
+<span data-bind="text: $root.detailsPageDisplayDate.year()"> </span>
+</div>
 <section id="calendarDayDetailsContainer">
 	<div id="calendarDayDetailsTable">
 		<div class="table-details-head">

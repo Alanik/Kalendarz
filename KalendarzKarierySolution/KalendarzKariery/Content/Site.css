@@ -284,14 +284,15 @@ body header {
 	width: 90%;
 	min-height: 48px;
 	overflow: hidden;
+
 }
 
 #lowDetailsMenuHeader {
-	text-align: center;
-	color: white;
+	text-align: left;
 	width: 90%;
-	min-height: 48px;
+	padding-top: 10px;
 	overflow: hidden;
+	font-size:1.2em;
 }
 
 .dark-background-div {
@@ -864,8 +865,8 @@ background:rgb(115, 233, 162);
 	display: inline-block;
 	padding-bottom: 4px;
 	padding-top: 5px;
-	padding-left: 5px;
-	padding-right: 5px;
+	padding-left: 14px;
+	padding-right: 14px;
 	font-size: 18px;
 	box-shadow: 0px 5px 20px -5px rgb(151, 151, 151);
 }
@@ -1175,7 +1176,7 @@ wydarzenia-tab {
 
 .current-month-name-calendar {
 	color: rgb(81, 228, 163);
-	padding: 10px 5px 5px 5px;
+	padding: 10px 10px 5px 10px;
 	background: white;
 	box-shadow: 0px 5px 20px -5px rgb(151, 151, 151);
 }

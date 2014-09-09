@@ -264,7 +264,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		$yesBtn.attr("data-bind", "click: function () { $root.deleteEventDetailsPageOnConfirmationYesBtnClick($element, " + id + "," + year + "," + month + "," + day + ") }");
 		self.showConfirmationPopupBox($popup, "Czy napewno chcesz usunąć wybrane wydarzenie?");
 
-		ko.unapplyBindings($yesBtn);
+		ko.unapplyBindings($yesBtn[0]);
 		ko.applyBindings(self, $yesBtn[0]);
 	};
 
@@ -292,7 +292,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 						$container.remove();
 						self.detailsPageDayEvents.remove(function (event) {
 							return event.id === id;
-						});
+						});	
 
 						self.removeEventRectangleFromEventTree(id, year, month, day);
 
@@ -312,7 +312,6 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 
 						var $tableBody = $("#calendarDayDetailsTable .table-details-body");
 						var h = (self.displayPageEventMostBottomRow + 1) * 46;
-						console.log(self.displayPageEventMostBottomRow);
 						$tableBody.height(h + "px");
 
 						//for calendar to redraw events in day cell
@@ -391,7 +390,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		$popup.hide();
 	};
 
-	self.showEventInfoOnClick = function (element) {
+	self.showEventInfoOnShowLinkClick = function (element) {
 
 		var $link = $(element);
 		var $detailsEventBlockContainer = $link.closest(".details-event-block-container");
@@ -460,8 +459,8 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		$cellPlaceholder.append($event);
 	};
 
-	self.drawEventToDetailsDayTable = function (event) {
-		//set detailsPageBottomRow to later calculate events container height dynamically
+	self.drawEventToDetailsDayTable = function (event, onAppInit) {
+		//set detailsPageBottomRow to calculate detailsPageEventsTable height based on the most bottom event.calendarPlacementRow 
 		if (event.calendarPlacementRow > self.displayPageEventMostBottomRow) {
 			self.displayPageEventMostBottomRow = event.calendarPlacementRow;
 		}
@@ -471,7 +470,14 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		var width = ((event.startDate.endHour - event.startDate.startHour) * 100) - startMinuteOffset + endMinuteOffset;
 
 		var $hourCell = $(".hour-cell-" + event.startDate.startHour);
-		$hourCell.append('<div class="event-rectangle-details" style="width:' + (width - 6) + '%;top : ' + ((event.calendarPlacementRow - 1) * 46) + 'px;left:' + (startMinuteOffset + 1) + '%;border-color:' + event.kind.detailsPageEventBorderColor + ';"><span>' + event.name + '</span></div>');
+		var eventRectangle = '<div data-bind="click: function(){ $root.showEventBlockInfoOnDetailsPageEventRectangleClick(' + event.id + ') }" class="event-rectangle-details" style="width:' + (width - 6) + '%;top : ' + ((event.calendarPlacementRow - 1) * 46) + 'px;left:' + (startMinuteOffset + 1) + '%;border-color:' + event.kind.detailsPageEventBorderColor + ';"><span>' + event.name + '</span></div>';
+		var $eventRectangle = $(eventRectangle);
+
+		$eventRectangle.appendTo($hourCell);
+		$eventRectangle.parent();
+
+		ko.unapplyBindings($eventRectangle[0]);
+		ko.applyBindings(self, $eventRectangle[0]);
 	};
 
 	self.removeEventRectanglesFromDetailsDay = function () {
@@ -809,7 +815,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		var month = parseInt($link.attr("name"), 10);
 
 		$calendar.calendarWidget({ month: month - 1, year: self.calendarPageDisplayDate.year() });
-		ko.unapplyBindings($calendar);
+		ko.unapplyBindings($calendar[0]);
 		ko.applyBindings(self, $calendar[0]);
 
 		$calendar.append('<div id="calendar-navigation-arrows-left"><img src="Images/Nav/arrow-Left.png" alt="arrow-left"/></div>');
@@ -870,6 +876,12 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		$element.next().show();
 		$element.next().find("input, textarea").first().focus();
 		$element.hide();
+	};
+
+	self.showEventBlockInfoOnDetailsPageEventRectangleClick = function (id) {
+		var $container = $("#details #detailsEventBlockList .details-event-block-container .hidden-event-id:contains(" + id + ")").parent();
+		var $showLink = $container.find(".details-eventblock-show-link");
+		self.showEventInfoOnShowLinkClick($showLink);
 	};
 
 	self.setCalendarPlacementRow = function (dayEvents) {
@@ -952,14 +964,14 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 	// KO extention/helper methods
 	//////////////////////////////////////////////////////
 
-	ko.unapplyBindings = function ($node) {
+	ko.unapplyBindings = function (node) {
 		// unbind events
 		//$node.find("*").each(function () {
 		//	$(this).unbind();
 		//});
 
 		// Remove KO subscriptions and references
-		ko.cleanNode($node[0]);
+		ko.cleanNode(node);
 	};
 
 }

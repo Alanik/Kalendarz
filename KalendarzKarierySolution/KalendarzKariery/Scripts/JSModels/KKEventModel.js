@@ -55,7 +55,10 @@
 		endHour: "",
 		day: "",
 		month: "",
-		year: ""
+		year: "",
+		display : function(time){
+			return time < 10 ? '0' + time : time;
+		}
 	};
 
 	self.urlLink = "";

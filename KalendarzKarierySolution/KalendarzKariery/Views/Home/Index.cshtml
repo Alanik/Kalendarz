@@ -89,40 +89,35 @@
 					month: date.getMonth(), year: date.getFullYear()
 				});
 
-				var currentWeekday = $calendar.find(".today-cell").attr("weekday");
-
-				var calendarViewModel = new CalendarViewModel(date.getFullYear(), date.getMonth() + 1, date.getDate(), currentWeekday, '@User.Identity.Name');
-
 				var indexViewModel = @Html.Raw(Json.Encode(@Model));
 
+				var currentWeekday = $calendar.find(".today-cell").attr("weekday");
+				var calendarViewModel = new CalendarViewModel(date.getFullYear(), date.getMonth() + 1, date.getDate(), currentWeekday, '@User.Identity.Name');							
 				calendarViewModel.eventPrivacyLevels = indexViewModel.PrivacyLevels;
 				calendarViewModel.eventKinds = indexViewModel.EventKinds;
-
 				if (indexViewModel.MyEventsGroupedByMonth) {
+
 					//console.log(indexViewModel.MyEventsGroupedByMonth);
 
-					var eventTreeBuilder = new EventTreeBuilder(indexViewModel.MyEventsGroupedByMonth, calendarViewModel.eventTree, calendarViewModel.setCalendarPlacementRow);
-					eventTreeBuilder.build();
-				
-					////////////////////////////////////////////
-					//console.log(calendarViewModel.eventTree);
-					////////////////////////////////////////////		
+					var eventTreeBuilder = new EventTreeBuilder(indexViewModel.MyEventsGroupedByMonth, calendarViewModel.setCalendarPlacementRow);
+					calendarViewModel.eventTree = eventTreeBuilder.build();
 
+					//console.log(calendarViewModel.eventTree);
+	
 					/////////////////////////////////////////////////////////////////////////
 					//assign calendarViewModel.myEvents and draw events to the calendar
 					/////////////////////////////////////////////////////////////////////////
 					var yearProp = calendarViewModel.eventTree[calendarViewModel.calendarPageDisplayDate.year()];
-					var events, len, month, event;
+					var events, month, event;
 
 					if (yearProp) {
 						month = yearProp[calendarViewModel.calendarPageDisplayDate.month()]
-
 						if (month) {
 							for (var days in month) {
 								events = month[days];
-								len = events.length;
-								for (var i = 0; i < len; i++) {
+								for (var i = 0; i < events.length; i++) {
 									event = events[i];
+
 									calendarViewModel.myEvents.push(event);
 									calendarViewModel.drawEventToCalendar(event);
 								}
@@ -132,6 +127,7 @@
 
 					//console.log(calendarViewModel.myEvents);
 				}
+
 				//////////////////////////////////////////////////////////////////
 				//initialize details page
 				//////////////////////////////////////////////////////////////////
@@ -143,7 +139,19 @@
 
 				var events = calendarViewModel.getEventsForGivenDay(date.getDate())
 				calendarViewModel.detailsPageDayEvents(events);
+				///////////////////////////////////////////////////////////////////
 
+				///////////////////////////////////////////////////////////////////
+				//Knockout apply bindings
+				///////////////////////////////////////////////////////////////////
+				ko.applyBindings(calendarViewModel);
+				///////////////////////////////////////////////////////////////////
+
+				///////////////////////////////////////////////////////////////////
+				//draw to details page
+				//////////////////////////////////////////////////////////////////
+
+				//method drawEventToDetailsDayTable(events[i]) needs to be called after ko.applyBindings(calendarViewModel)!
 				for (var i in events) {
 					calendarViewModel.drawEventToDetailsDayTable(events[i]);
 				}
@@ -153,11 +161,6 @@
 				$tableBody.height(h + "px");
 				///////////////////////////////////////////////////////////////////
 
-				////////////////////////////////////////////////
-				//Knockout apply bindings
-				////////////////////////////////////////////////
-				ko.applyBindings(calendarViewModel);
-	
 				this.InitializeSlides = function(){
 					location.hash = '#0';
 
@@ -172,7 +175,6 @@
 					$(window).on("hashchange", function(){
 					
 						setTimeout(function(){
-
 							if(location.hash === "#1")
 							{
 								if (calendarViewModel.calendarDayEventsToUpdate.events !== null) {
@@ -182,8 +184,6 @@
 
 									}, 10)
 								}
-
-
 						
 								//TODO: not finished
 								//setTimeout(function(){				
@@ -202,10 +202,7 @@
 
 								//}, 10)
 
-							}
-
-						}, 10);
-
+							}}, 10);
 					});
 
 					$(".slides-pagination a").on("click", function(){
@@ -216,8 +213,7 @@
 							
 							setTimeout(function(){				
 								$scrollable.scrollTop(0);
-							}, 10)
-							
+							}, 10)							
 						}
 					});
 				}();
@@ -574,7 +570,7 @@
 				}();
 
 				this.Initialize.InitializeClick = function () {
-					//validation of dates
+					//TODO: validation of dates into separate initialize method
 
 					//register user
 					var $txtbox = $("#registerPageContainer .register-birthdate-txtbox");
@@ -588,7 +584,6 @@
 						$("#addNewEventContainer #dateValidationErrorMsg").hide();
 						$txtbox.removeClass("input-validation-error");			
 					});
-
 
 					//add new event end hour and end minute select box
 					var $endDate = $("#addNewEventContainer .end-date-selectbox");

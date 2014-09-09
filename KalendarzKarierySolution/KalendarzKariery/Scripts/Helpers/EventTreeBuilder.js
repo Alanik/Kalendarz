@@ -1,7 +1,11 @@
-﻿var EventTreeBuilder = function (yearEventTreeModel, eventTree, setCalendarPlacementRow) {
+﻿var EventTreeBuilder = function (yearEventTreeModel, setCalendarPlacementRow) {
 	var self = this;
+
+	//server event tree model
 	self.yearEventTreeModel = yearEventTreeModel;
-	self.eventTree = eventTree;
+
+	//client tree model
+	self.eventTree = {};
 
 	self.build = function () {
 		var lengh, largest;
@@ -35,7 +39,6 @@
 					setKind(event);
 					setStartDate(event);
 					eventTreeDayGroupProp.push(event);
-
 				}
 
 				setCalendarPlacementRow(eventTreeDayGroupProp);
@@ -51,7 +54,6 @@
 			event.kind.detailsPageEventBorderColor = colorHelper.calculateEventDetailsBorderColor(event.kind.value);
 		};
 		function setStartDate(event) {
-
 			var sdate = new Date(parseInt(event.startDate.substr(6)));
 			var edate = new Date(parseInt(event.endDate.substr(6)));
 
@@ -71,7 +73,8 @@
 				"year": sdate.getFullYear()
 			};
 
-			event.startDate = transformedDate;
+			event.startDate = transformedDate;	
+
 			event.eventLengthInMinutes = ((parseInt(endHour, 10) - parseInt(startHour, 10)) * 60) + (parseInt(endMinute, 10) - parseInt(startMinute, 10));
 		};
 		function setAddress(event) {
@@ -87,5 +90,7 @@
 			}
 			delete event.addresses;
 		};
+
+		return self.eventTree;
 	};
 };

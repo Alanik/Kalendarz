@@ -13,13 +13,9 @@
 			link:
 	<span data-bind="text: urlLink"></span>
 		</div>
-		<div>godzina rozpoczęcia: <span data-bind="text: startDate.startHour"></span><span>: </span><span data-bind="	text: startDate.startMinute"></span></div>
-		<div>godzina zakończenia: <span data-bind="text: startDate.endHour"></span><span>: </span><span data-bind="	text: startDate.endMinute"></span></div>
+		<div>godzina: <span data-bind="text: startDate.startHour"></span><span>: </span><span data-bind="	text: startDate.startMinute"></span><span data-bind="	text: startDate.endHour"></span><span>: </span><span data-bind="	text: startDate.endMinute"></span></div>
 		<div>data: <span data-bind="text: startDate.day"></span><span>/</span><span data-bind="	text: startDate.month"></span><span>/</span><span data-bind="	text: startDate.year"></span></div>
 		<div>adres: <span data-bind="text: address.street"></span><span>, </span><span data-bind="	text: address.zipCode"></span><span></span><span data-bind="	text: address.city"></span></div>
-		<div>
-			limit miejsc: <span data-bind="text: occupancyLimit"></span>
-		</div>
 	</div>
 	<div class="details-eventblock-info-footer">
 		<div style="float: right; margin-right: 10px;">

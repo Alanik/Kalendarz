@@ -70,8 +70,8 @@
 								<span>: </span>
 								<select id="endMinuteSelectBox" class="time-select-box end-date-selectbox" data-bind="value: startDate.endMinute">
 									@for (int i = 0; i < 60; i++)
-		 {	
-										<option value="@i">@i</option>
+		 {
+									<option value="@i">@i</option>								
 		 }
 								</select>
 							</div>
@@ -162,7 +162,7 @@
 								@Html.ValidationMessageFor(m => m.Event.Price)
 							</div>
 							<div>
-							@Html.LabelFor(m => m.Event.Price, new { @class = "form-label", @style = "vertical-align:top;" })
+								@Html.LabelFor(m => m.Event.Price, new { @class = "form-label", @style = "vertical-align:top;" })
 								@Html.TextBoxFor(m => m.Event.Price, new { style = "width:100px;", maxlength = 10, data_bind = "value: price" })
 							</div>
 						</div>

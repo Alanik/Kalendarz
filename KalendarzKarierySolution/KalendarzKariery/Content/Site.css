@@ -113,7 +113,7 @@ body header {
 	left: 0px;
 }
 
-#eventsMenuContainer {
+.events-menu-container {
 	text-align: center;
 }
 
@@ -279,20 +279,22 @@ body header {
 
 
 #detailsMenuHeader {
-	text-align: center;
+	text-align: left;
 	color: white;
 	width: 90%;
 	min-height: 48px;
 	overflow: hidden;
-
+	font-size:2em;
+	padding-left:10px;
 }
 
 #lowDetailsMenuHeader {
-	text-align: left;
+
 	width: 90%;
 	padding-top: 10px;
 	overflow: hidden;
-	font-size:1.2em;
+	font-size: 2em;
+	color: rgb(131, 131, 131);
 }
 
 .dark-background-div {
@@ -362,11 +364,9 @@ body header {
 .today-cell .cell-span-container {
 	position: relative;
 	top: 56px;
-	/*background: rgb(83,83,83);*/
 	background: rgb(242, 251, 167);
 	height: 24px;
 	z-index: 98;
-	/*border-top: 1px solid rgb(182, 188, 128);*/
 	border-top: 1px solid white;
 }
 
@@ -377,8 +377,11 @@ body header {
 .other-month-cell .cell-span-container {
 	position: relative;
 	top: 56px;
-	height: 24px;
+	height: 25px;
 	z-index: 98;
+	border-bottom: 1px solid #E7E5DF;
+	background: #E7E5DF;
+	border-top: 1px solid whitesmoke;
 }
 
 	.other-month-cell .cell-span-container .cell-month-name-span {
@@ -400,12 +403,16 @@ body header {
 
 .lobby-event-rectangle {
 	height: 220px;
-	width: 272px;
+	width: 270px;
 	background: rgb(248, 248, 248);
-	border: 1px solid rgb(224,224,224);
 	color: rgb(119,119,119);
 	box-shadow: 2px 2px 10px rgb(216, 216, 216);
 	overflow: hidden;
+	margin: 2px;
+	border: 1px solid rgb(221, 221, 221);
+	display: inline-block;
+	padding: 10px;
+	text-align: left;
 }
 
 .details-event-block {
@@ -570,6 +577,22 @@ body header {
 .menu-item-container {
 	display: inline-block;
 	margin: 2px;
+	height: 80px;
+}
+
+.menu-item-number-container {
+	color: rgb(202, 197, 197);
+	font-size: 3em;
+}
+
+.menu-item-number-old {
+	font-size: .6em;
+}
+
+.menu-item-number-upcoming {
+	margin-top: 6px;
+	background: rgb(157,157,157);
+	color:rgb(231, 231, 228);
 }
 
 .triangle-header {
@@ -1053,7 +1076,8 @@ background:rgb(115, 233, 162);
 	margin-right: 15px;
 	font-size: 3em;
 	text-decoration: none;
-	color: rgb(216, 220, 206);
+	/*color: rgb(216, 220, 206);*/
+	color:rgb(187, 190, 177);
 	font-family: 'Segoe UI';
 }
 
@@ -1090,6 +1114,10 @@ wydarzenia-tab {
 
 .szkolenia-border-tab {
 	border-bottom: 10px solid rgb(87, 167, 221);
+}
+
+.lekcje-border-tab {
+	border-bottom: 10px solid rgb(255, 215, 141);
 }
 
 .kursy-border-tab {

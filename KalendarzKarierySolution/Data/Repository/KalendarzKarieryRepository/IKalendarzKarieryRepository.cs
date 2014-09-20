@@ -32,6 +32,7 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 		PrivacyLevel GetPrivacyLevelByValue(int id);
 		EventKind GetEventKindByValue(int id);
 		IList<Event> GetAllEvents();
+		object GetMyEventsCountTree();
 
 		#endregion
 

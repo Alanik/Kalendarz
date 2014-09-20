@@ -1,21 +1,110 @@
 ﻿<div id="detailsMenuHeader" class="dark-background-div">
+	<div style="position: relative; top: 8px;">
+		/Moje sprawy/
+	</div>
+
 </div>
 <section id="detailsPanel">
 	<div id="todayDateAndTimeContainer">
-		<div id="todayDateDay" data-bind="text: $root.detailsPageDisplayDate.day()"></div>
+		<div id="todayDateDay" data-bind="text: $root.todayDate.day"></div>
 		<div style="display: inline-block;">
-			<div id="todayDateMonth" data-bind="text: $root.detailsPageDisplayDate.getMonthName()"></div>
-			<div id="todayDateYear" data-bind="text: $root.detailsPageDisplayDate.year()"></div>
+			<div id="todayDateMonth" data-bind="text: $root.todayDate.getMonthName()"></div>
+			<div id="todayDateYear" data-bind="text: $root.todayDate.year"></div>
 		</div>
-		<div id="todayDateDayName" data-bind="text: $root.detailsPageDisplayDate.getDayName()"></div>
-
+		<div id="todayDateDayName" data-bind="text: $root.todayDate.getDayName()"></div>
 	</div>
+
+	<div class="events-menu-container">
+		<div class="menu-item-container">
+			<div class="border-item wydarzenia-border-tab"></div>
+			<div class="menu-item" name="wydarzenia">
+				<span>Wydarzenia</span>
+			</div>
+			<div class="menu-item-number-container">
+				<div class="menu-item-number-upcoming">10</div>
+				<div class="menu-item-number-old">78</div>
+			</div>
+		</div>
+
+		<div class="menu-item-container">
+			<div class="border-item lekcje-border-tab"></div>
+			<div class="menu-item" name="lekcje">
+				<span>Lekcje</span>
+
+			</div>
+			<div class="menu-item-number-container">
+				<div class="menu-item-number-upcoming">10</div>
+				<div class="menu-item-number-old">78</div>
+			</div>
+		</div>
+
+		<div class="menu-item-container">
+			<div class="border-item zajecia-border-tab"></div>
+			<div class="menu-item" name="zajęcia">
+				<span>Zajęcia</span>
+			</div>
+			<div class="menu-item-number-container">
+				<div class="menu-item-number-upcoming">10</div>
+				<div class="menu-item-number-old">78</div>
+			</div>
+		</div>
+
+		<div class="menu-item-container">
+			<div class="border-item szkolenia-border-tab"></div>
+			<div class="menu-item" name="szkolenia">
+				<span>Szkolenia</span>
+
+			</div>
+			<div class="menu-item-number-container">
+				<div class="menu-item-number-upcoming">10</div>
+				<div class="menu-item-number-old">78</div>
+			</div>
+		</div>
+
+		<div class="menu-item-container">
+			<div class="border-item kursy-border-tab"></div>
+			<div class="menu-item" name="kursy">
+				<span>Kursy</span>
+
+			</div>
+			<div class="menu-item-number-container">
+				<div class="menu-item-number-upcoming">10</div>
+				<div class="menu-item-number-old">78</div>
+			</div>
+		</div>
+
+		<div class="menu-item-container">
+			<div class="border-item spotkania-border-tab"></div>
+			<div class="menu-item" name="spotkania">
+				<span>Spotkania</span>
+
+			</div>
+			<div class="menu-item-number-container">
+				<div class="menu-item-number-upcoming">10</div>
+				<div class="menu-item-number-old">78</div>
+			</div>
+		</div>
+
+		<div class="menu-item-container">
+			<div class="border-item inne-border-tab"></div>
+			<div class="menu-item" name="inne">
+				<span>Inne</span>
+
+			</div>
+			<div class="menu-item-number-container">
+				<div class="menu-item-number-upcoming">10</div>
+				<div class="menu-item-number-old">78</div>
+			</div>
+		</div>
+	</div>
+
 </section>
 <div id="lowDetailsMenuHeader" class="dark-background-div">
-<span style="margin-left:5px;">Wydarzenia z dnia: </span>
-<span data-bind="text: $root.detailsPageDisplayDate.day()"></span>
-<span data-bind="text: $root.detailsPageDisplayDate.getMonthName()"> </span>
-<span data-bind="text: $root.detailsPageDisplayDate.year()"> </span>
+	<span style="margin-left: 6px; color: white;">/Szczegóły dnia/</span>
+	<span>wydarzenia z dnia: </span>
+	<span data-bind="text: $root.detailsPageDisplayDate.day()"></span>
+	<span data-bind="text: $root.detailsPageDisplayDate.getMonthName()"></span>
+	<span data-bind="text: $root.detailsPageDisplayDate.year()"></span>
 </div>
 <section id="calendarDayDetailsContainer">
 	<div id="calendarDayDetailsTable">
@@ -34,7 +123,7 @@
 			<div>18<span class="small-minutes">00</span></div>
 			<div>19<span class="small-minutes">00</span></div>
 			<div>20<span class="small-minutes">00</span></div>
-			<div style="position:absolute;right:0;width:26px;"><span>21</span><span class="small-minutes">00</span></div>
+			<div style="position: absolute; right: 0; width: 26px;"><span>21</span><span class="small-minutes">00</span></div>
 		</div>
 		<div style="width: 100%; height: 2px; border-top: 1px solid rgb(192,192,192); border-bottom: 1px solid rgb(244,244,244); background: rgba(0,0,0,.1);"></div>
 		<div class="table-details-body">
@@ -95,12 +184,12 @@
 			</div>
 
 		</div>
-		
+
 	</div>
 </section>
 
+
 @Html.Partial("_DetailsEventSummary")
 
-<div style="height:200px;width:50%;margin-top:100px">
-
+<div style="height: 200px; width: 50%; margin-top: 100px">
 </div>

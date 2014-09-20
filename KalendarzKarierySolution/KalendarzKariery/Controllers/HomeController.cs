@@ -31,6 +31,7 @@ namespace KalendarzKariery.Controllers
 			indexViewModel.PublicEvents = null;
 			indexViewModel.EventKinds = Repository.GetAllEventKinds();
 			indexViewModel.PrivacyLevels = Repository.GetAllPrivacyLevels();
+			indexViewModel.MyEventsCountTree = Repository.GetMyEventsCountTree();
 
 			if (User.Identity.IsAuthenticated)
 			{

@@ -4,12 +4,23 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 	var self = this;
 	var colorHelper = new EventColorHelper();
 	var date = new Date();
+	self.todayDate = {
+		"day": date.getDate(),
+		"month": date.getMonth(),
+		"year": date.getFullYear(),
+		"weekday": date.getDay(),
+		"getMonthName": function () {
+			return self.monthNames[this.month];
+		},
+		"getDayName": function () {
+			return self.dayNames[this.weekday];
+		}
+	}
 
 	self.monthNames = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'];
 	self.dayNames = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'];
 	self.userName = userName ? userName : '';
 
-	//current event
 	self.event = new KKEvent();
 	self.eventKinds = [];
 	self.eventPrivacyLevels = [];
@@ -48,8 +59,17 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 
 	self.myEvents = [];
 
+	self.myEventsCountTree = {
+		// example
+		//
+		//"1": {
+		//	"upcoming": 10,
+		//	"old" : 20
+		//}
+	};
+
 	self.eventTree = {
-		// just an example to remember the format of eventTree object
+		// example to remember the format of eventTree object
 		//	"2014": {
 		//		"8": [{ "3": [event, event] }, { "7": [event] }, { "9": [event, event, event, event] }],
 		//		"9": [{ "2": [event] }]	
@@ -102,7 +122,6 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 	};
 
 	self.addEventOnClick = function (privacyLvl) {
-
 		var $loader;
 		var $addEventForm = $("#addEventForm");
 		var action = $addEventForm.attr("action");
@@ -124,12 +143,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 			return false;
 		}
 
-		self.addNewEvent_Day(day);
-		self.calendarPageDisplayDate.month(month);
-		self.calendarPageDisplayDate.year(year);
-
 		$addEventForm.validate().form();
-		//$addEventForm.removeAttr("novalidate");
 
 		if ($addEventForm.valid()) {
 			var startHour = $("#startHourSelectBox").val();
@@ -152,20 +166,11 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 				return false;
 			}
 
-			var startEventDate = new Date();
-			var endEventDate = new Date();
+			var startEventDate = new Date(year, month - 1, day, startHour, startMinute, 0, 0);
+			var endEventDate = new Date(year, month - 1, day, endHour, endMinute, 0, 0);
 
-			startEventDate.setMinutes(startMinute);
-			startEventDate.setHours(startHour);
-			startEventDate.setDate(day);
-			startEventDate.setMonth(month - 1);
-			startEventDate.setYear(year);
-
-			endEventDate.setMinutes(endMinute);
-			endEventDate.setHours(endHour);
-			endEventDate.setDate(day);
-			endEventDate.setMonth(month - 1);
-			endEventDate.setYear(year);
+			var startDateJson = startEventDate.toJSON();
+			var endDateJson = endEventDate.toJSON();
 
 			var diff = Math.abs(startEventDate - endEventDate);
 			var minutes = Math.floor((diff / 1000) / 60);
@@ -178,8 +183,8 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 				type: "POST",
 				beforeSend: self.showLoader($loader),
 				data: $addEventForm.serialize() +
-				"&Event.StartDate=" + startEventDate.toISOString() +
-				"&Event.EndDate=" + endEventDate.toISOString() +
+				"&Event.StartDate=" + startDateJson +
+				"&Event.EndDate=" + endDateJson +
 				"&PrivacyLevel.Value=" + 1 +
 				"&EventKind.Value=" + self.event.kind.value(),
 				success: function (result) {
@@ -287,18 +292,18 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 					self.hideConfirmationPopupBox(element);
 					self.hideLoader($loader);
 					var $container = $("#details #detailsEventBlockList .details-event-block-container .hidden-event-id:contains(" + id + ")").parent();
-		
+
 					$container.fadeOut(500, function () {
 						$container.remove();
 						self.detailsPageDayEvents.remove(function (event) {
 							return event.id === id;
-						});	
+						});
 
 						self.removeEventRectangleFromEventTree(id, year, month, day);
 
 						var $scrollable = $("#slide-item-details").parent();
 						var scroll = $("#details #lowDetailsMenuHeader").position().top - 20;
-							$scrollable.scrollTop(scroll);					
+						$scrollable.scrollTop(scroll);
 
 						//redraw details page event rectangle table
 						self.removeEventRectanglesFromDetailsDay();
@@ -316,7 +321,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 
 						//for calendar to redraw events in day cell
 						self.calendarDayEventsToUpdate.day = self.detailsPageDisplayDate.day();
-						self.calendarDayEventsToUpdate.events = events;	
+						self.calendarDayEventsToUpdate.events = events;
 					});
 				}
 			},
@@ -432,10 +437,26 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 
 	self.drawEventToCalendar = function (event) {
 
-		var cellDay = ".day" + parseInt(event.startDate.day, 10);
-		var $cellPlaceholder = $("#calendar").find(cellDay).find(".calendar-cell-placeholder");
+		var cellDay, $cellPlaceholder;
 
-		//TODO: using const here, maybe better to calculate it in the future
+		if (event.startDate.month === self.calendarPageDisplayDate.month()) {
+			cellDay = ".day" + parseInt(event.startDate.day, 10);
+			$cellPlaceholder = $("#calendar").find(cellDay).find(".calendar-cell-placeholder");
+		}
+		else if (event.startDate.month < self.calendarPageDisplayDate.month()) {
+			cellDay = ".prev-month-cell.other-month-day" + parseInt(event.startDate.day, 10);
+			$cellPlaceholder = $("#calendar").find(cellDay).find(".calendar-cell-placeholder");
+		}
+		else if (event.startDate.month > self.calendarPageDisplayDate.month()) {
+			cellDay = ".next-month-cell.other-month-day" + parseInt(event.startDate.day, 10);
+			$cellPlaceholder = $("#calendar").find(cellDay).find(".calendar-cell-placeholder");
+		}
+
+		if ($cellPlaceholder.length == 0) {
+			return false;
+		}
+
+		//TODO: using const here, better to calculate it 
 		var percentWidthBetweenLines = 6.8;
 		var minutePercentage = 6.8 / 60;
 
@@ -452,7 +473,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		var addressCityStr = event.address.city ? ", " + event.address.city : "";
 		var addressStr = addressStreetStr + addressCityStr;
 
-		var $event = $('<div class="event-rectangle" style="top:' + (event.calendarPlacementRow - 1) * 28 + 'px; left:' + left + '%; width:' + (width - 2) + '%; border-color:' + event.kind.color + ';">' + event.name + '<input type="hidden" name="' + event.name + '" address="' + addressStr + '" starthour="' + event.startDate.startHour + '" endhour="' + event.startDate.endHour + '" startminute="' + event.startDate.startMinute + '" endminute="' + event.startDate.endMinute + '" ></input></div>');
+		var $event = $('<div class="event-rectangle" style="top:' + (event.calendarPlacementRow - 1) * 28 + 'px; left:' + left + '%; width:' + width + '%; border-color:' + event.kind.color + ';">' + event.name + '<input type="hidden" name="' + event.name + '" address="' + addressStr + '" starthour="' + event.startDate.startHour + '" endhour="' + event.startDate.endHour + '" startminute="' + event.startDate.startMinute + '" endminute="' + event.startDate.endMinute + '" ></input></div>');
 
 		$event.css("opacity", .8);
 
@@ -486,16 +507,39 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 	};
 
 	self.moveToDetailsPageOnCalendarCellClick = function (element) {
-		self.displayPageEventMostBottomRow = 1;
-		self.detailsPageDisplayDate.year(self.calendarPageDisplayDate.year());
-		self.detailsPageDisplayDate.month(self.calendarPageDisplayDate.month());
 
+		self.displayPageEventMostBottomRow = 1;
 		var day = $(element).attr("dayNumber");
 		var dayInt = parseInt(day, 10);
 		self.detailsPageDisplayDate.day(dayInt);
 
 		var weekday = $(element).attr("weekday");
 		self.detailsPageDisplayDate.weekday(weekday);
+
+		var $cell = $(element).closest(".calendar-cell");
+
+		if ($cell.hasClass("prev-month-cell")) {
+			if (self.calendarPageDisplayDate.month() == 1) {
+				self.detailsPageDisplayDate.year(self.calendarPageDisplayDate.year() - 1);
+				self.detailsPageDisplayDate.month(12);
+			} else {
+				self.detailsPageDisplayDate.year(self.calendarPageDisplayDate.year());
+				self.detailsPageDisplayDate.month(self.calendarPageDisplayDate.month() - 1);
+			}
+
+		} else if ($cell.hasClass("next-month-cell")) {
+			if (self.calendarPageDisplayDate.month() == 12) {
+				self.detailsPageDisplayDate.year(self.calendarPageDisplayDate.year() + 1);
+				self.detailsPageDisplayDate.month(1);
+			} else {
+				self.detailsPageDisplayDate.year(self.calendarPageDisplayDate.year())
+				self.detailsPageDisplayDate.month(self.calendarPageDisplayDate.month() + 1);
+			}
+		}
+		else {
+			self.detailsPageDisplayDate.year(self.calendarPageDisplayDate.year());
+			self.detailsPageDisplayDate.month(self.calendarPageDisplayDate.month());
+		}
 
 		self.removeEventRectanglesFromDetailsDay();
 
@@ -541,11 +585,29 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		self.addNewEvent_Day(dayNumber);
 
 		dayNumber = dayNumber < 10 ? '0' + dayNumber : dayNumber;
-		var monthNumber = (self.calendarPageDisplayDate.month()) < 10 ? '0' + (self.calendarPageDisplayDate.month()) : self.calendarPageDisplayDate.month();
+
+		var currMonth = self.calendarPageDisplayDate.month();
+		var currYear = self.calendarPageDisplayDate.year();
+
+		var $cell = $(element).closest(".calendar-cell");
+		if ($cell.hasClass("prev-month-cell")) {
+			if (currMonth == 1) {
+				currMonth = 12;
+				currYear = currYear - 1;
+			}
+		}
+		else if ($cell.hasClass("next-month-cell")) {
+			if (currMonth == 12) {
+				currMonth = 1;
+				currYear = currYear + 1;
+			}
+		}
+
+		var monthNumber = (currMonth) < 10 ? '0' + (currMonth) : currMonth;
 
 		$addEventContainer.find("#eventStartDayTxtBox").val(dayNumber);
 		$addEventContainer.find("#eventStartMonthTxtBox").val(monthNumber);
-		$addEventContainer.find("#eventStartYearTxtBox").val(self.calendarPageDisplayDate.year());
+		$addEventContainer.find("#eventStartYearTxtBox").val(currYear);
 
 		$addEventContainer.show();
 		$eventTitle.focus();
@@ -580,7 +642,6 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		$overlay.show();
 		$loginForm.hide();
 		$registerForm.fadeIn();
-
 	};
 
 	self.showLoginFormOnClick = function () {
@@ -591,7 +652,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		$overlay.show();
 		$registerForm.hide();
 		$loginForm.fadeIn();
-		var top = $loginform.position().top;
+		var top = $loginForm.position().top;
 		$("#slide-item-lobby").parent().scrollTop(top);
 	};
 
@@ -841,7 +902,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 				"backgroundPosition": "right"
 			});
 		});
-	
+
 		$("#calendar-navigation-arrows-right").hover(function () {
 			$(this).css({
 				"cursor": "pointer"
@@ -861,12 +922,15 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		});
 
 		self.calendarPageDisplayDate.month(month);
-		self.calendarPageMonthEvents = self.getEventsForGivenMonth(self.calendarPageDisplayDate.month(), self.calendarPageDisplayDate.year());
 
-		//draw to calendar
-		ko.utils.arrayForEach(self.calendarPageMonthEvents, function (event) {
-			self.drawEventToCalendar(event);
-		});
+		for (var i = -1; i < 2; i++) {
+			self.calendarPageMonthEvents = self.getEventsForGivenMonth(self.calendarPageDisplayDate.month() + i, self.calendarPageDisplayDate.year());
+
+			//draw to calendar
+			ko.utils.arrayForEach(self.calendarPageMonthEvents, function (event) {
+				self.drawEventToCalendar(event);
+			});
+		}
 
 		self.hideLoader($loader, true);
 	};
@@ -907,13 +971,13 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 				var aeEndH = anotherEvent.startDate.endHour;
 				var aeStartM = anotherEvent.startDate.startMinute;
 				var aeEndM = anotherEvent.startDate.endMinute
-				
+
 				//TODO: looks too complex, simplify it ;) good luck 
-				var firstCheck = (eStartH > aeStartH && eStartH < aeEndH ) || ( aeStartH > eStartH && aeStartH < eEndH );
-				var secondCheck = (eStartH == aeStartH && (eStartM > aeStartM && ((eStartH < aeEndH) || ( eStartM < aeEndM ))));
-				var thirdCheck = (aeStartH == eStartH && (aeStartM > eStartM && ((aeStartH < eEndH) || ( aeStartM < eEndM ))));
+				var firstCheck = (eStartH > aeStartH && eStartH < aeEndH) || (aeStartH > eStartH && aeStartH < eEndH);
+				var secondCheck = (eStartH == aeStartH && (eStartM > aeStartM && ((eStartH < aeEndH) || (eStartM < aeEndM))));
+				var thirdCheck = (aeStartH == eStartH && (aeStartM > eStartM && ((aeStartH < eEndH) || (aeStartM < eEndM))));
 				var fourthCheck = (eStartH == aeStartH && eStartM == aeStartM) || (eEndH == aeEndH && eEndM == aeEndM);
-				var fifthCheck = (eEndH == aeStartH && eEndM > aeStartM) || (aeEndH == eStartH && ( aeStartM > eEndM || aeEndM > eStartM));
+				var fifthCheck = (eEndH == aeStartH && eEndM > aeStartM) || (aeEndH == eStartH && (aeStartM > eEndM || aeEndM > eStartM));
 
 				if (firstCheck || secondCheck || thirdCheck || fourthCheck || fifthCheck) {
 					//there is conflict

@@ -207,7 +207,16 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 
 		public ICollection<object> GetAllEventKinds()
 		{
-			return _entities.EventKinds.Select(m => new { name = m.Name, value = m.Value }).ToArray();
+			return _entities.EventKinds.Select(m => new { name = m.Name, value = m.Value }).OrderBy(m => m.value).ToArray();
+		}
+
+		public object GetMyEventsCountTree(){
+
+			var query = from e in _entities.Events
+			group e by e.EventKind.Value into grp
+			select new { value = grp.Key, events = new { upcoming = grp.Where(m => m.StartDate > DateTime.Now).Count(), all = grp.Count() }};
+				
+				return query;
 		}
 
 		#endregion

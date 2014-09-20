@@ -95,6 +95,9 @@
 				var calendarViewModel = new CalendarViewModel(date.getFullYear(), date.getMonth() + 1, date.getDate(), currentWeekday, '@User.Identity.Name');							
 				calendarViewModel.eventPrivacyLevels = indexViewModel.PrivacyLevels;
 				calendarViewModel.eventKinds = indexViewModel.EventKinds;
+
+				console.log(indexViewModel.MyEventsCountTree);
+
 				if (indexViewModel.MyEventsGroupedByMonth) {
 
 					//console.log(indexViewModel.MyEventsGroupedByMonth);
@@ -108,7 +111,7 @@
 					//assign calendarViewModel.myEvents and draw events to the calendar
 					/////////////////////////////////////////////////////////////////////////
 					var yearProp = calendarViewModel.eventTree[calendarViewModel.calendarPageDisplayDate.year()];
-					var events, month, event;
+					var events, month, nextMonth, prevMonth, event;
 
 					if (yearProp) {
 						month = yearProp[calendarViewModel.calendarPageDisplayDate.month()]
@@ -122,7 +125,31 @@
 									calendarViewModel.drawEventToCalendar(event);
 								}
 							}
-						}					
+						}
+						prevMonth = yearProp[calendarViewModel.calendarPageDisplayDate.month() - 1];
+						if (prevMonth) {
+							for (var days in prevMonth) {
+								events = prevMonth[days];
+								for (var i = 0; i < events.length; i++) {
+									event = events[i];
+
+									//calendarViewModel.myEvents.push(event);
+									calendarViewModel.drawEventToCalendar(event);
+								}
+							}
+						}
+						nextMonth = yearProp[calendarViewModel.calendarPageDisplayDate.month() + 1]; 
+						if (nextMonth) {
+							for (var days in nextMonth) {
+								events = nextMonth[days];
+								for (var i = 0; i < events.length; i++) {
+									event = events[i];
+
+									//calendarViewModel.myEvents.push(event);
+									calendarViewModel.drawEventToCalendar(event);
+								}
+							}
+						}
 					}
 
 					//console.log(calendarViewModel.myEvents);
@@ -141,7 +168,7 @@
 				calendarViewModel.detailsPageDayEvents(events);
 				///////////////////////////////////////////////////////////////////
 
-				///////////////////////////////////////////////////////////////////
+				///////////////////////////////////////////////////////////////F///
 				//Knockout apply bindings
 				///////////////////////////////////////////////////////////////////
 				ko.applyBindings(calendarViewModel);

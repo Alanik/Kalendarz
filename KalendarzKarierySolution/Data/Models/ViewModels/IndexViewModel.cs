@@ -17,5 +17,6 @@ namespace KalendarzKarieryData.Models.ViewModels
 		public IList<Event> PublicEvents { get; set; }
 		public ICollection<object> EventKinds { get; set; }
 		public ICollection<object> PrivacyLevels { get; set; }
+		public object MyEventsCountTree { get; set; }
 	}
 }

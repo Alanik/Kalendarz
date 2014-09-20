@@ -78,6 +78,7 @@
 		var i = 0;
 		var weekdayModulo;
 		var monthName;
+		var currentDay;
 
 		for (j = 0; j < 42; j++) {
 			weekdayModulo = j % 7;
@@ -87,28 +88,28 @@
 			}
 
 			if (j < firstDay) {
-
+				currentDay = (prev_days - firstDay + j + 1);
 				if (j + 1 < firstDay) {
-					calendar += ('<div class="other-month-cell calendar-cell"  weekday="' + weekdayModulo + '"><div class="calendar-cell-placeholder"><div class="cell-span-container"><span class="day">' + (prev_days - firstDay + j + 1) + '</span><div class="addNewEvent-cellIcon dark-icon" data-bind="click:function(data, e){ $root.showAddPrivateCalendarEventPopupOnClick($element, data, e)}">+</div></div></div></div>');
+					calendar += ('<div class="other-month-cell other-month-day' + currentDay + ' prev-month-cell calendar-cell"  dayNumber="' + (prev_days - firstDay + j + 1) + '"  weekday="' + weekdayModulo + '" data-bind="click:function(){ $root.moveToDetailsPageOnCalendarCellClick($element) }"><div class="calendar-cell-placeholder"><div class="cell-span-container"><span class="day">' + (prev_days - firstDay + j + 1) + '</span><div class="addNewEvent-cellIcon dark-icon" data-bind="click:function(data, e){ $root.showAddPrivateCalendarEventPopupOnClick($element, data, e)}">+</div></div></div></div>');
 				} else {
 
 					month = month == 0 ? 12 : month;
 
-					calendar += ('<div class="other-month-cell calendar-cell"  weekday="' + weekdayModulo + '"><div class="calendar-cell-placeholder"><div class="cell-span-container"><span class="day">' + (prev_days - firstDay + j + 1) + '</span><span class="cell-month-name-span">' + monthNames[month - 1] + '</span><div class="addNewEvent-cellIcon dark-icon" data-bind="click:function(data, e){ $root.showAddPrivateCalendarEventPopupOnClick($element, data, e)}">+</div></div></div></div>');
+					calendar += ('<div class="other-month-cell other-month-day' + currentDay + ' prev-month-cell calendar-cell"  dayNumber="' + (prev_days - firstDay + j + 1) + '"  weekday="' + weekdayModulo + '" data-bind="click:function(){ $root.moveToDetailsPageOnCalendarCellClick($element) }"><div class="calendar-cell-placeholder"><div class="cell-span-container"><span class="day">' + (prev_days - firstDay + j + 1) + '</span><span class="cell-month-name-span">' + monthNames[month - 1] + '</span><div class="addNewEvent-cellIcon dark-icon" data-bind="click:function(data, e){ $root.showAddPrivateCalendarEventPopupOnClick($element, data, e)}">+</div></div></div></div>');
 				}
 
 			} else if (j >= firstDay + days) {
 				i = i + 1;
 				if (i == 1) {
 					month = month == 11 ? -1 : month;
-					calendar += ('<div class="other-month-cell calendar-cell"  weekday="' + weekdayModulo + '"><div class="calendar-cell-placeholder"><div class="cell-span-container"><span class="day">' + i + '</span><span class="cell-month-name-span">' + monthNames[month + 1] + '</span><div class="addNewEvent-cellIcon dark-icon" data-bind="click:function(data, e){ $root.showAddPrivateCalendarEventPopupOnClick($element, data, e)}">+</div></div></div></div>');
+					calendar += ('<div class="other-month-cell other-month-day' + i + ' next-month-cell calendar-cell" dayNumber="' + i + '"  weekday="' + weekdayModulo + '" data-bind="click:function(){ $root.moveToDetailsPageOnCalendarCellClick($element) }"><div class="calendar-cell-placeholder"><div class="cell-span-container"><span class="day">' + i + '</span><span class="cell-month-name-span">' + monthNames[month + 1] + '</span><div class="addNewEvent-cellIcon dark-icon" data-bind="click:function(data, e){ $root.showAddPrivateCalendarEventPopupOnClick($element, data, e)}">+</div></div></div></div>');
 
 				} else {
-					calendar += ('<div class="other-month-cell calendar-cell"  weekday="' + weekdayModulo + '"><div class="calendar-cell-placeholder"><div class="cell-span-container"><span class="day">' + i + '</span><div class="addNewEvent-cellIcon dark-icon" data-bind="click:function(data, e){ $root.showAddPrivateCalendarEventPopupOnClick($element, data, e)}">+</div></div></div></div>');
+					calendar += ('<div class="other-month-cell other-month-day' + i + ' next-month-cell calendar-cell" dayNumber="' + i + '"  weekday="' + weekdayModulo + '" data-bind="click:function(){ $root.moveToDetailsPageOnCalendarCellClick($element) }"><div class="calendar-cell-placeholder"><div class="cell-span-container"><span class="day">' + i + '</span><div class="addNewEvent-cellIcon dark-icon" data-bind="click:function(data, e){ $root.showAddPrivateCalendarEventPopupOnClick($element, data, e)}">+</div></div></div></div>');
 				}
 
 			} else {
-				var currentDay = (j - firstDay + 1);
+				 currentDay = (j - firstDay + 1);
 				month = month == 12 ? 0 : month;
 
 				if (currentDay == 1) {

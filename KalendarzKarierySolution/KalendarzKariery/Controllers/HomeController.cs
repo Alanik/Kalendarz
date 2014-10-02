@@ -31,15 +31,17 @@ namespace KalendarzKariery.Controllers
 			indexViewModel.PublicEvents = null;
 			indexViewModel.EventKinds = Repository.GetAllEventKinds();
 			indexViewModel.PrivacyLevels = Repository.GetAllPrivacyLevels();
-			indexViewModel.MyEventsCountTree = Repository.GetMyEventsCountTree();
+			
 
 			if (User.Identity.IsAuthenticated)
 			{
-				indexViewModel.MyEventsGroupedByMonth = Repository.GetAllEventsForGivenYearByUserId(User.Identity.Name, DateTime.Today.Year);
+				indexViewModel.MyEvents = Repository.GetAllEventsByUserId(User.Identity.Name);
+				indexViewModel.MyEventsCountTree = Repository.GetMyEventsCountTree();
 			}
 			else
 			{
-				indexViewModel.MyEventsGroupedByMonth = null;
+				indexViewModel.MyEvents = null;
+				indexViewModel.MyEventsCountTree = null;
 			}
 
 			return View("Index", indexViewModel);

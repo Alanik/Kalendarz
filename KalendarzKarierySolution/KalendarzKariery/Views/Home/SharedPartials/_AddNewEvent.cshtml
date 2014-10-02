@@ -115,11 +115,11 @@
 							</div>
 							<div>
 								@Html.LabelFor(m => m.Address.ZipCode, new { @class = "form-label" })
-								@Html.TextBoxFor(m => m.Address.ZipCode, new { maxlength = 6, @size = 4, data_bind = "value: address.zipCode" })
+								@Html.TextBoxFor(m => m.Address.ZipCode, new { maxlength = 6, placeholder="00-000", style="width:50px !important;" })
 								@Html.ValidationMessageFor(m => m.Address.ZipCode)
 							</div>
-						</div>
-
+							</div>
+	
 						<div id="addNewEventDescriptionLink" class="div-separator hover-cursor-pointer" data-bind="click: function () { $root.showChosenFieldInAddNewEventPopupOnClick($element) }">
 							<p class="underline">Dodaj krótki opis</p>
 						</div>
@@ -178,7 +178,7 @@
 						</div>
 					</div>
 
-					<div id="btnAddNewEvent" class="btn-add hover-cursor-pointer 1px-hover margin-left-285" data-bind="click: $root.addEventOnClick.bind($data, $data.privacyLevel)">
+					<div id="btnAddNewEvent" class="btn-add hover-cursor-pointer 1px-hover margin-left-285" data-bind="click: $root.addEventOnClick">
 						<span class="save-text">dodaj</span>
 					</div>
 

@@ -26,8 +26,8 @@
 	self.eventLengthInMinutes = 0;
 
 	self.kind = {
-		value: ko.observable(),
-		name: ko.observable(),
+		value: "",
+		name: ko.observable(""),
 		color: "",
 		headerColor: "",
 		detailsPageEventBorderColor: ""
@@ -42,13 +42,14 @@
 	self.occupancyLimit = null;
 
 	self.privacyLevel = {
-		name : "",
-		value : ""
+		name: "",
+		value: ""
 	};
 
 	self.price = null;
 
 	self.startDate = {
+		javascriptStartDate: "",
 		startMinute: "",
 		endMinute: "",
 		startHour: "",
@@ -56,8 +57,11 @@
 		day: "",
 		month: "",
 		year: "",
-		display : function(time){
+		display: function (time) {
 			return time < 10 ? '0' + time : time;
+		},
+		displayFullDate: function () {
+			return this.display(this.day) + '/' + this.display(this.month) + '/' + this.year;
 		}
 	};
 

@@ -4,16 +4,16 @@
 
 		<div id="lobby-menu-header" class="site-menu-header">
 
-		@if(!Request.IsAuthenticated)
-		{
-	<div id="loginLinkContainer">
-				<span data-bind="click: showLoginFormOnClick" id="loginSpanLink" class="login-link link">Zaloguj sie</span>
-				<span id="registerSpanLink" data-bind="click: showRegisterFormOnClick" class="login-link link">Stwórz konto</span>
+			@if (!Request.IsAuthenticated)
+   {
+				<div id="loginLinkContainer">
+					<span data-bind="click: showLoginFormOnClick" id="loginSpanLink" class="login-link link">Zaloguj sie</span>
+					<span id="registerSpanLink" data-bind="click: showRegisterFormOnClick" class="login-link link">Stwórz konto</span>
 
-			</div>
-		}
+				</div>
+   }
 			<div id="lobbyLogo">
-			</div>			
+			</div>
 
 			@if (!Request.IsAuthenticated)
    {
@@ -22,46 +22,101 @@
    }
    else
    {
-	
+				<div style="text-align:right;color:rgb(182, 182, 182);">
+					<span class="loggedIn-nickname">@User.Identity.Name</span>
+					@using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+	 {
+						@Html.AntiForgeryToken()
+						<a style="color: rgb(255, 109, 109);" href="javascript:document.getElementById('logoutForm').submit()">wyloguj</a>
+	 }
+				</div>
+				
 				@Html.Partial("_LobbyLoggedInBar")
 	  
    }
 
-			<div class="events-menu-container">
+			<div id="lobbyEventsMenuContainer">
+			<div style="margin:0 auto;padding-bottom:10px;color:gray;">publiczne wydarzenia</div>
 				<div class="menu-item-container">
 					<div class="border-item wydarzenia-border-tab"></div>
-					<div class="menu-item" name="wydarzenia"><span>Wydarzenia</span></div>
+					<div class="menu-item" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick($element) }" data-eventkind="1" data-privacylvl="public">
+						<span>Wydarzenia</span>
+					</div>
+					<div class="menu-item-number-container">
+						<div class="menu-item-number-upcoming" data-bind="text: $root.eventTreeCountBasedOnEventKind[1] ? $root.eventTreeCountBasedOnEventKind[1].events.upcoming() : 0"></div>
+						<div class="menu-item-number-old" data-bind="text: $root.eventTreeCountBasedOnEventKind[1] ? $root.eventTreeCountBasedOnEventKind[1].events.old() : 0"></div>
+					</div>
 				</div>
-				
+
 				<div class="menu-item-container">
 					<div class="border-item lekcje-border-tab"></div>
-					<div class="menu-item" name="lekcje"><span>Lekcje</span></div>
+					<div class="menu-item" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick($element) }" data-eventkind="2" data-privacylvl="public">
+						<span>Lekcje</span>
+
+					</div>
+					<div class="menu-item-number-container">
+						<div class="menu-item-number-upcoming" data-bind="text: $root.eventTreeCountBasedOnEventKind[2] ? $root.eventTreeCountBasedOnEventKind[2].events.upcoming() : 0"></div>
+						<div class="menu-item-number-old" data-bind="text: $root.eventTreeCountBasedOnEventKind[2] ? $root.eventTreeCountBasedOnEventKind[2].events.old() : 0"></div>
+					</div>
 				</div>
 
 				<div class="menu-item-container">
 					<div class="border-item zajecia-border-tab"></div>
-					<div class="menu-item" name="zajęcia"><span>Zajęcia</span></div>
+					<div class="menu-item" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick($element) }" data-eventkind="3" data-privacylvl="public">
+						<span>Zajęcia</span>
+					</div>
+					<div class="menu-item-number-container">
+						<div class="menu-item-number-upcoming" data-bind="text: $root.eventTreeCountBasedOnEventKind[3] ? $root.eventTreeCountBasedOnEventKind[3].events.upcoming() : 0"></div>
+						<div class="menu-item-number-old" data-bind="text: $root.eventTreeCountBasedOnEventKind[3] ? $root.eventTreeCountBasedOnEventKind[3].events.old() : 0"></div>
+					</div>
 				</div>
 
 				<div class="menu-item-container">
 					<div class="border-item szkolenia-border-tab"></div>
-					<div class="menu-item" name="szkolenia"><span>Szkolenia</span></div>
+					<div class="menu-item" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick($element) }" data-eventkind="4" data-privacylvl="public">
+						<span>Szkolenia</span>
+
+					</div>
+					<div class="menu-item-number-container">
+						<div class="menu-item-number-upcoming" data-bind="text: $root.eventTreeCountBasedOnEventKind[4] ? $root.eventTreeCountBasedOnEventKind[4].events.upcoming() : 0"></div>
+						<div class="menu-item-number-old" data-bind="text: $root.eventTreeCountBasedOnEventKind[4] ? $root.eventTreeCountBasedOnEventKind[4].events.old() : 0"></div>
+					</div>
 				</div>
 
 				<div class="menu-item-container">
 					<div class="border-item kursy-border-tab"></div>
-					<div class="menu-item" name="kursy"><span>Kursy</span></div>
-				</div>
+					<div class="menu-item" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick($element) }" data-eventkind="5" data-privacylvl="public">
+						<span>Kursy</span>
 
+					</div>
+					<div class="menu-item-number-container">
+						<div class="menu-item-number-upcoming" data-bind="text: $root.eventTreeCountBasedOnEventKind[5] ? $root.eventTreeCountBasedOnEventKind[5].events.upcoming() : 0"></div>
+						<div class="menu-item-number-old" data-bind="text: $root.eventTreeCountBasedOnEventKind[5] ? $root.eventTreeCountBasedOnEventKind[5].events.old() : 0"></div>
+					</div>
+				</div>
 
 				<div class="menu-item-container">
 					<div class="border-item spotkania-border-tab"></div>
-					<div class="menu-item" name="spotkania"><span>Spotkania</span></div>
+					<div class="menu-item" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick($element) }" data-eventkind="6" data-privacylvl="public">
+						<span>Spotkania</span>
+
+					</div>
+					<div class="menu-item-number-container">
+						<div class="menu-item-number-upcoming" data-bind="text: $root.eventTreeCountBasedOnEventKind[6] ? $root.eventTreeCountBasedOnEventKind[6].events.upcoming() : 0"></div>
+						<div class="menu-item-number-old" data-bind="text: $root.eventTreeCountBasedOnEventKind[6] ? $root.eventTreeCountBasedOnEventKind[6].events.old() : 0">78</div>
+					</div>
 				</div>
 
 				<div class="menu-item-container">
 					<div class="border-item inne-border-tab"></div>
-					<div class="menu-item" name="inne"><span>Inne</span></div>
+					<div class="menu-item" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick($element) }" data-eventkind="7" data-privacylvl="public">
+						<span>Inne</span>
+
+					</div>
+					<div class="menu-item-number-container">
+						<div class="menu-item-number-upcoming" data-bind="text: $root.eventTreeCountBasedOnEventKind[7] ? $root.eventTreeCountBasedOnEventKind[7].events.upcoming() : 0"></div>
+						<div class="menu-item-number-old" data-bind="text: $root.eventTreeCountBasedOnEventKind[7] ? $root.eventTreeCountBasedOnEventKind[7].events.old() : 0"></div>
+					</div>
 				</div>
 			</div>
 
@@ -111,8 +166,7 @@
 			</div>
 		</section>*@
 	</div>
-	<div style="height:800px;width:200px;">
-
+	<div style="height: 800px; width: 200px;">
 	</div>
 	<footer class="lobby-footer">
 		Kalendarz Kariery 2014, wszelkie prawa zastrzezone

@@ -271,6 +271,8 @@
     <Content Include="Images\Nav\arrow-right.png" />
     <Content Include="Images\Icons\triangle-left.png" />
     <Content Include="Images\Icons\triangle-right.png" />
+    <Content Include="Images\Nav\arrowLeft.png" />
+    <Content Include="Images\Nav\arrowRight.png" />
     <Content Include="Images\tapeta.jpg" />
     <Content Include="Content\Fonts\CodePro\CODE Bold.otf" />
     <Content Include="Content\Fonts\CodePro\CODE Light.otf" />
@@ -364,6 +366,7 @@
     <Content Include="Views\Home\DetailsPage\_DetailsEventSummary.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsEventInfo.cshtml" />
     <Content Include="Views\Home\SharedPartials\_ConfirmationPopupBox.cshtml" />
+    <Content Include="Views\Home\DetailsPage\_DetailsAllSelectedEventsList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -13,16 +13,6 @@ body {
 	-webkit-font-smoothing: antialiased;
 }
 
-/*body {
-	font-size: .85em;
-	line-height: 1.6;
-	font-family: "SegoeUI", 'Oxygen', Helvetica, Sans-Serif;
-	padding: 0px;
-	margin: 0px;
-	font-weight: 400;
-	-webkit-font-smoothing: antialiased;
-}*/
-
 header, footer, nav, section, div {
 	display: block;
 	margin: 0;
@@ -104,8 +94,6 @@ body header {
 	color: rgb(31, 22, 22);
 }
 
-.lobby-content-container {
-}
 
 #lobbyBg {
 	position: relative;
@@ -115,6 +103,10 @@ body header {
 
 .events-menu-container {
 	text-align: center;
+	display: inline-block;
+	float: right;
+	margin-top: -2px;
+	margin-right: 9%;
 }
 
 #lobbyLogo {
@@ -284,17 +276,17 @@ body header {
 	width: 90%;
 	min-height: 48px;
 	overflow: hidden;
-	font-size:2em;
-	padding-left:10px;
+	font-size: 2em;
+	padding-left: 10px;
 }
 
 #lowDetailsMenuHeader {
-
 	width: 90%;
 	padding-top: 10px;
 	overflow: hidden;
 	font-size: 2em;
-	color: rgb(131, 131, 131);
+	/*color: rgb(131, 131, 131);*/
+	color: rgb(207, 157, 157);
 }
 
 .dark-background-div {
@@ -440,7 +432,7 @@ body header {
 }
 
 #detailsPanel {
-	height: 500px;
+	min-height: 500px;
 }
 
 #loginLinkContainer {
@@ -452,8 +444,13 @@ body header {
 
 .lobby-loggedIn-bar {
 	margin-top: 75px;
-	margin-bottom: 30px;
-	padding-bottom: 20px;
+	overflow: hidden;
+	color: rgb(185, 185, 185);
+	background: rgba(0,0,0,.03);
+	border-top: 1px solid rgb(248,248,248);
+	border-bottom: 1px solid rgb(228, 219, 219);
+	text-align: center;
+	padding-bottom: 10px;
 }
 
 .today-cell {
@@ -560,11 +557,13 @@ body header {
 
 .menu-item {
 	border-top: 1px solid rgb(189, 189, 189);
-	background: rgba(214, 214, 214, 0.5);
+	/*background: rgba(214, 214, 214, 0.5);*/
+	/*background: rgba(255, 255, 255, 0.5);*/
+	background: rgb(235,235,235);
 	box-shadow: 4px 2px 8px rgb(207, 207, 207);
 	height: 30px;
 	color: rgb(116, 116, 116);
-	font-size: 0.8em;
+	font-size: 0.9em;
 	width: 95px;
 	text-align: center;
 }
@@ -577,7 +576,8 @@ body header {
 .menu-item-container {
 	display: inline-block;
 	margin: 2px;
-	height: 80px;
+	position: relative;
+	top: 0px;
 }
 
 .menu-item-number-container {
@@ -591,8 +591,8 @@ body header {
 
 .menu-item-number-upcoming {
 	margin-top: 6px;
-	background: rgb(157,157,157);
-	color:rgb(231, 231, 228);
+	background: rgb(193,193,193);
+	color: rgb(231, 231, 228);
 }
 
 .triangle-header {
@@ -605,8 +605,8 @@ body header {
 }
 
 .selected {
-	border-right: 10px solid transparent;
-	border-top: 10px solid rgb(112, 112, 112);
+	/*border-right: 10px solid transparent;
+	border-top: 10px solid rgb(112, 112, 112);*/
 }
 
 .border-item {
@@ -616,7 +616,12 @@ body header {
 	*/
 }
 
-
+#detailsPageAllEventsListContainer {
+	margin: 20px auto;
+	font-size: 1.4em;
+	padding: 20px 0;
+	width: 600px;
+}
 
 #addNewEventContainer {
 	top: 25px;
@@ -881,6 +886,36 @@ background:rgb(115, 233, 162);
 	text-align: center;
 }
 
+#lobbyEventsMenuContainer {
+	margin: 0 auto;
+	display: block;
+	text-align: center;
+	background: rgba(0,0,0,.03);
+	padding-top: 25px;
+	padding-bottom: 20px;
+	border-top: 1px solid rgb(250, 250, 250);
+	border-bottom: 1px solid rgb(224, 224, 224);
+}
+
+#endDateValidationErrorMsg {
+	color: #f00 !important;
+}
+
+.add-btn {
+	padding: 10px;
+	color: rgb(250, 250, 250);
+	/*border: 1px solid rgb(222, 255, 233);*/
+	/*border: 2px solid rgb(153, 153, 153);*/
+	border: 2px solid rgb(245, 245, 245);
+	border-radius: 6px;
+	/*background: rgb(189, 182, 182);*/
+	background: rgb(129, 202, 162);
+	display: inline-block;
+	text-align: center;
+	margin: 2px;
+	margin-top: 12px;
+}
+
 .year-name-container {
 	background: white;
 	letter-spacing: 1px;
@@ -914,7 +949,7 @@ background:rgb(115, 233, 162);
 .site-legend-border {
 	height: 14px;
 	width: 3px;
-	padding-right: 12px;
+	padding-right: 13px;
 	display: inline-block;
 	border-right: 1px solid rgb(216,216,216);
 }
@@ -1055,6 +1090,7 @@ background:rgb(115, 233, 162);
 	color: rgb(132,132,132);
 	margin-left: 20px;
 	width: 250px;
+	display: inline-block;
 }
 
 .event-list {
@@ -1073,12 +1109,10 @@ background:rgb(115, 233, 162);
 
 .loggedIn-nickname {
 	margin-right: 15px;
-	margin-right: 15px;
 	font-size: 3em;
-	text-decoration: none;
-	/*color: rgb(216, 220, 206);*/
-	color:rgb(187, 190, 177);
-	font-family: 'Segoe UI';
+	vertical-align: baseline;
+	position: relative;
+	top: 2px;
 }
 
 .event-kind-text {
@@ -1354,7 +1388,7 @@ wydarzenia-tab {
 		/*font: 14px normal normal uppercase;*/
 		color: #7c7873;
 		background: none;
-		width: 200px;
+		width: 220px;
 		height: 36px;
 		padding: 0px 10px;
 		border: 1px solid #f8f5f1;
@@ -1373,15 +1407,16 @@ wydarzenia-tab {
 	}
 
 	.slick-contact-form .time-select-box {
-		width: 100px !important;
+		width: 70px !important;
 	}
 
 	.slick-contact-form #kindSelectBox {
-		width: 209px !important;
+		width: 150px !important;
 	}
 
 	.slick-contact-form textarea:focus, input[type=text]:focus, input[type=password]:focus {
 		background: rgba(255,255,255,.35);
+		border:1px solid white;
 	}
 
 
@@ -1392,19 +1427,6 @@ helpers
 .text-align-center {
 	text-align: center;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*
 MEDIA QUERIES

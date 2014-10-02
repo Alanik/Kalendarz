@@ -9,6 +9,7 @@ using System.Web.Hosting;
 using System.Data.Common;
 using KalendarzKarieryData.Models.TransportModels;
 using KalendarzKarieryData.BO.Cache;
+using System.Collections;
 
 namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 {
@@ -98,7 +99,7 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 
 		public Event GetEventById(int id)
 		{
-			return _entities.Events.Include(u => u.User).FirstOrDefault(m => m.Id == id);
+			return _entities.Events.Include("User").FirstOrDefault(m => m.Id == id);
 		}
 
 		public void AddEvent(Event @event)
@@ -116,34 +117,7 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 			return _entities.Events.ToList();
 		}
 
-		//public CalendarEventTreeModel GetAllEventsForGivenMonthByUserId(string userName, int month, int year)
-		//{
-
-		//	var list = _entities.Events.Where(m => m.StartDate.Month == month).OrderBy(m => m.StartDate.Day).ThenBy(m => m.StartDate.Hour).ThenBy(m => m.StartDate.Minute);
-		//	var transformedList = list.Select(m => new
-		//	{
-		//		id = m.Id,
-		//		name = m.Title,
-		//		description = m.Description,
-		//		details = m.Details,
-		//		dateAdded = m.DateAdded,
-		//		eventLengthInMinutes = m.EventLengthInMinutes,
-		//		occupancyLimit = m.OccupancyLimit,
-		//		urlLink = m.UrlLink,
-		//		calendarPlacementRow = 1,
-		//		startDate = m.StartDate,
-		//		numberOfPeopleAttending = m.NumberOfPeopleAttending,
-		//		kind = new { name = m.EventKind.Name, value = m.EventKind.Value },
-		//		privacyLevel = new { name = m.PrivacyLevel.Name, value = m.PrivacyLevel.Value },
-		//		addresses = m.Addresses.Select(o => new { street = o.Street, city = o.City, zipCode = o.ZipCode })
-		//	});
-
-		//	var groups = transformedList.ToLookup(m => m.startDate.Day).Select(o => new EventsGroupedByDayModel(o.Key, o.ToArray())).ToArray();
-
-		//	return new CalendarEventTreeModel(year, groups);
-		//}
-
-		public CalendarEventTreeModel GetAllEventsForGivenYearByUserId(string userName, int year)
+		public EventsGroupedByYearModel GetAllEventsForGivenYearByUserId(string userName, int year)
 		{
 			int id;
 
@@ -187,7 +161,63 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 
 			var groups = transformedList.ToLookup(m => m.startDate.Month).Select(o => new EventsGroupedByMonthModel(o.Key, o.ToArray().ToLookup(t => t.startDate.Day).Select(l => new EventsGroupedByDayModel(l.Key, l.ToArray())))).ToArray();
 
-			return new CalendarEventTreeModel(year, groups);
+			return new EventsGroupedByYearModel(year, groups);
+		}
+
+		public IList<EventsGroupedByYearModel> GetAllEventsByUserId(string userName)
+		{
+			int id;
+
+			var objectId = AppCache.Get(userName.ToLower());
+			if (objectId != null)
+			{
+				id = (int)objectId;
+			}
+			else
+			{
+				var user = _entities.Users.Where(m => string.Compare(m.UserName, userName, true) == 0).FirstOrDefault();
+				if (user != null)
+				{
+					id = user.Id;
+					AppCache.Set(userName.ToLower(), id);
+				}
+				else
+				{
+					return null;
+				}
+			}
+
+			var container = new List<EventsGroupedByYearModel>();
+			var years = GetYearsWhenEventsStart(id);
+
+			foreach (int num in years)
+			{
+
+				var list = _entities.Events.Where(m => m.OwnerUserId == id && m.StartDate.Year == num).OrderBy(m => m.StartDate.Year).ThenBy(m => m.StartDate.Month).ThenBy(m => m.StartDate.Day).ThenBy(m => m.StartDate.Hour).ThenBy(m => m.StartDate.Minute);
+				var transformedList = list.Select(m => new
+				{
+					id = m.Id,
+					name = m.Title,
+					description = m.Description,
+					details = m.Details,
+					dateAdded = m.DateAdded,
+					occupancyLimit = m.OccupancyLimit,
+					urlLink = m.UrlLink,
+					calendarPlacementRow = 1,
+					startDate = m.StartDate,
+					endDate = m.EndDate,
+					numberOfPeopleAttending = m.NumberOfPeopleAttending,
+					kind = new { name = m.EventKind.Name, value = m.EventKind.Value },
+					privacyLevel = new { name = m.PrivacyLevel.Name, value = m.PrivacyLevel.Value },
+					addresses = m.Addresses.Select(o => new { street = o.Street, city = o.City, zipCode = o.ZipCode })
+				});
+
+				var groups = transformedList.ToLookup(m => m.startDate.Month).Select(o => new EventsGroupedByMonthModel(o.Key, o.ToArray().ToLookup(t => t.startDate.Day).Select(l => new EventsGroupedByDayModel(l.Key, l.ToArray())))).ToArray();
+
+				container.Add(new EventsGroupedByYearModel(num, groups));
+			}
+
+			return container;
 		}
 
 		public PrivacyLevel GetPrivacyLevelByValue(int value)
@@ -210,13 +240,14 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 			return _entities.EventKinds.Select(m => new { name = m.Name, value = m.Value }).OrderBy(m => m.value).ToArray();
 		}
 
-		public object GetMyEventsCountTree(){
+		public object GetMyEventsCountTree()
+		{
 
 			var query = from e in _entities.Events
-			group e by e.EventKind.Value into grp
-			select new { value = grp.Key, events = new { upcoming = grp.Where(m => m.StartDate > DateTime.Now).Count(), all = grp.Count() }};
-				
-				return query;
+						group e by e.EventKind.Value into grp
+						select new { value = grp.Key, events = new { upcoming = grp.Where(m => m.StartDate > DateTime.Now).Count(), all = grp.Count() } };
+
+			return query;
 		}
 
 		#endregion
@@ -226,5 +257,15 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 			_entities.SaveChanges();
 		}
 
+		private int[] GetYearsWhenEventsStart(int id)
+		{
+
+			var query = from e in _entities.Events
+						where e.OwnerUserId == id
+						group e by e.StartDate.Year into grp
+						select grp.Key;
+
+			return query.ToArray();
+		}
 	}
 }

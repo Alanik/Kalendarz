@@ -93,7 +93,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>KalendarzKarieryDBEntities.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\TransportModels\CalendarEventTreeModel.cs" />
+    <Compile Include="Models\TransportModels\EventsGroupedByYearModel.cs" />
     <Compile Include="Models\TransportModels\EventsGroupedByDayModel.cs" />
     <Compile Include="Models\TransportModels\EventsGroupedByMonthModel.cs" />
     <Compile Include="Models\ViewModels\DateModel.cs" />

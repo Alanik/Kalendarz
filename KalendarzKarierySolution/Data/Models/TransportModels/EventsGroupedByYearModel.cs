@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 namespace KalendarzKarieryData.Models.TransportModels
 {
 	[Serializable]
-	public class CalendarEventTreeModel
+	public class EventsGroupedByYearModel
 	{
 		public int year { get; set; }
 		public IEnumerable<EventsGroupedByMonthModel> eventsGroupedByMonth { get; set; }
 
-		public CalendarEventTreeModel(int year, IEnumerable<EventsGroupedByMonthModel> events)
+		public EventsGroupedByYearModel(int year, IEnumerable<EventsGroupedByMonthModel> events)
 		{
 			this.year = year;
 			this.eventsGroupedByMonth = events;

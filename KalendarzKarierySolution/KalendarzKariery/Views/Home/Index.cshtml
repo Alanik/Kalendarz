@@ -96,17 +96,16 @@
 				calendarViewModel.eventPrivacyLevels = indexViewModel.PrivacyLevels;
 				calendarViewModel.eventKinds = indexViewModel.EventKinds;
 
-				console.log(indexViewModel.MyEventsCountTree);
+				if (indexViewModel.MyEvents) {
 
-				if (indexViewModel.MyEventsGroupedByMonth) {
+					//console.log(indexViewModel.MyEvents);
 
-					//console.log(indexViewModel.MyEventsGroupedByMonth);
-
-					var eventTreeBuilder = new EventTreeBuilder(indexViewModel.MyEventsGroupedByMonth, calendarViewModel.setCalendarPlacementRow);
-					calendarViewModel.eventTree = eventTreeBuilder.build();
+					var eventTreeBuilder = new EventTreeBuilder();
+					calendarViewModel.eventTree = eventTreeBuilder.buildEventTree(indexViewModel.MyEvents, calendarViewModel.setCalendarPlacementRow);
+					calendarViewModel.eventTreeCountBasedOnEventKind = eventTreeBuilder.buildEventTreeCountBasedOnEventKind(indexViewModel.MyEventsCountTree);
 
 					//console.log(calendarViewModel.eventTree);
-	
+
 					/////////////////////////////////////////////////////////////////////////
 					//assign calendarViewModel.myEvents and draw events to the calendar
 					/////////////////////////////////////////////////////////////////////////
@@ -173,7 +172,7 @@
 				///////////////////////////////////////////////////////////////////
 				ko.applyBindings(calendarViewModel);
 				///////////////////////////////////////////////////////////////////
-
+			
 				///////////////////////////////////////////////////////////////////
 				//draw to details page
 				//////////////////////////////////////////////////////////////////
@@ -245,10 +244,10 @@
 					});
 				}();
 
-				$calendar.append('<div id="calendar-navigation-arrows-left"><img src="Images/Nav/arrow-Left.png" alt="arrow-left"/></div>');
-				$calendar.append('<div id="calendar-navigation-arrows-right"><img src="Images/Nav/arrow-Right.png" alt="arrow-Right"/></div>');
-				$details.append('<div id="details-navigation-arrows-left"><img src="Images/Nav/arrow-Left.png" alt="arrow-Left"/></div>');
-				$lobby.append('<div id="lobby-navigation-arrows-right"><img src="Images/Nav/arrow-Right.png" alt="arrow-Right"/></div>');
+				$calendar.append('<div id="calendar-navigation-arrows-left"><img src="Images/Nav/arrowLeft.png" alt="arrow-left"/></div>');
+				$calendar.append('<div id="calendar-navigation-arrows-right"><img src="Images/Nav/arrowRight.png" alt="arrow-Right"/></div>');
+				$details.append('<div id="details-navigation-arrows-left"><img src="Images/Nav/arrowLeft.png" alt="arrow-Left"/></div>');
+				$lobby.append('<div id="lobby-navigation-arrows-right"><img src="Images/Nav/arrowRight.png" alt="arrow-Right"/></div>');
 
 				this.Initialize.InitializeHover = function () {
 
@@ -382,17 +381,18 @@
 						}
 					}, ".month-name-calendar");
 
-					//$(".menu-item").hover(function () {
-					//	$(this).css({
-					//		"cursor": "pointer",
-					//		"font-size": ".9em"
-					//	});
-					//}, function () {
-					//	$(this).css({
-					//		"cursor": "auto",
-					//		"font-size": ".8em"
-					//	});
-					//});
+					$(".menu-item").hover(function () {
+						$(this).css({
+							"cursor": "pointer",
+							"background": "white"
+						});
+					}, function () {
+						var bgColor = $(this).parent().hasClass("selected") ? 'rgb(252,252,252)' : 'rgb(235,235,235)'; 
+						$(this).css({
+							"cursor": "auto",
+							"background": bgColor
+						});
+					});
 
 					var $leftSideCalendar = $("#leftSideCalendar");
 					var $rightSideCalendar = $("#rightSideCalendar");
@@ -675,7 +675,6 @@
 		};
 
 		mainProgram.Initialize();
-
 	});
 
 </script>

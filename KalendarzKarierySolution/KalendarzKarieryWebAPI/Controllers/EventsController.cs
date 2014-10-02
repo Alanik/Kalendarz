@@ -86,7 +86,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 			{
 				var response = new DefaultResponseModel();
 
-				if (string.Compare(@event.User.UserName, User.Identity.Name, true) == 0)
+				if (@event.User.UserName.ToLower() == User.Identity.Name.ToLower())
 				{
 					Repository.DeleteEvent(@event);
 					Repository.Save();
@@ -177,7 +177,14 @@ namespace KalendarzKarieryWebAPI.Controllers
 				return null;
 			}
 
-			@event.EventStatusId = 3;
+			if (@event.EndDate <= DateTime.Now)
+			{
+				@event.EventStatusId = 2;
+			}
+			else
+			{
+				@event.EventStatusId = 1;
+			}
 
 			if (!string.IsNullOrEmpty(viewModel.Address.Street))
 			{

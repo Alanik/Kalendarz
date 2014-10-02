@@ -1,0 +1,20 @@
+﻿<div id="detailsPageAllEventsListContainer" style="display:none;">
+		<div style="margin: 10px; margin-bottom:15px;  padding: 5px; color: rgb(149, 221, 163); border-bottom: 1px solid rgb(202, 238, 209);">Mój kalendarz:</div>
+		<div data-bind="foreach: $root.detailsPageAllSelectedEvents">
+			<div data-bind="if: startDate.javascriptStartDate <= $root.todayDate.javascriptStartDate" style="margin-bottom: 7px;">
+
+				<div style="width: 120px; display: inline-block; color: white; text-align: right; margin-right: 8px;">
+					<span style="padding: 5px; background: rgb(209,209,209); border-radius: 5px;" data-bind="text: startDate.displayFullDate()"></span>
+				</div>
+				<div style="width: 120px; display: inline-block;"><span style="padding: 5px; background: rgb(180,180,180); border-radius: 5px; margin-right: 8px;" data-bind="text: kind.name, style: { color: kind.headerColor }"></span></div>
+				<div style="display: inline-block; width: 300px; vertical-align: top;padding: 5px; background: rgb(209,209,209); border-radius: 5px; color: white;" data-bind="	text: name"></div>
+			</div>
+			<div data-bind="if: startDate.javascriptStartDate > $root.todayDate.javascriptStartDate" style="margin-bottom: 7px;">
+				<div style="width: 120px; display: inline-block; color: white; text-align: right; margin-right: 8px;">
+					<span style="padding: 5px; background: rgb(173, 151, 151); border-radius: 5px;" data-bind="text: startDate.displayFullDate()"></span>
+				</div>
+				<div style="width: 120px; display: inline-block;"><span style="padding: 5px; background: rgb(130,130,130); border-radius: 5px; margin-right: 8px;" data-bind="text: kind.name, style: { color: kind.headerColor }"></span></div>
+				<div style="display: inline-block; width: 300px; vertical-align: top;padding: 5px; background: rgb(173, 151, 151); border-radius: 5px; color: white;" data-bind="text: name"></div>
+			</div>
+		</div>
+	</div>

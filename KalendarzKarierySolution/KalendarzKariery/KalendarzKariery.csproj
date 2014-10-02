@@ -361,7 +361,6 @@
     <Content Include="Views\Home\LobbyPage\_Register.cshtml" />
     <Content Include="Views\Home\LobbyPage\_LobbyLoggedInBar.cshtml" />
     <Content Include="Views\Home\DetailsPage\_Details.cshtml" />
-    <Content Include="Views\Emails\_ViewStart.cshtml" />
     <Content Include="Views\Home\LobbyPage\_lobbyEventSummary.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsEventSummary.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsEventInfo.cshtml" />
@@ -371,6 +370,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Filters\" />
+    <Folder Include="Views\Emails\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

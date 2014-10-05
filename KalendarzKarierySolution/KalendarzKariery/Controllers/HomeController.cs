@@ -15,7 +15,6 @@ namespace KalendarzKariery.Controllers
 {
 	public class HomeController : Controller
 	{
-
 		private static readonly IKalendarzKarieryRepository Repository = RepositoryProvider.GetRepository();
 
 		public ActionResult Index()
@@ -26,31 +25,41 @@ namespace KalendarzKariery.Controllers
 			}
 
 			var indexViewModel = new IndexViewModel();
-			//indexViewModel.MyEvents = Repository.GetEventsForGivenMonth(DateTime.Today.Month, DateTime.Today.Year);
-
-			indexViewModel.PublicEvents = null;
+			indexViewModel.PublicEvents = Repository.GetAllPublicEvents();
 			indexViewModel.EventKinds = Repository.GetAllEventKinds();
 			indexViewModel.PrivacyLevels = Repository.GetAllPrivacyLevels();
-			
+			indexViewModel.PublicEventCountTree = Repository.GetPublicEventCountTree();
+
+			indexViewModel.MyEvents = null;
+			indexViewModel.MyEventCountTree = null;
 
 			if (User.Identity.IsAuthenticated)
 			{
-				indexViewModel.MyEvents = Repository.GetAllEventsByUserId(User.Identity.Name);
-				indexViewModel.MyEventsCountTree = Repository.GetMyEventsCountTree();
-			}
-			else
-			{
-				indexViewModel.MyEvents = null;
-				indexViewModel.MyEventsCountTree = null;
+				int id;
+				string userName = User.Identity.Name.ToLower();
+
+				var objectId = AppCache.Get(userName);
+				if (objectId != null)
+				{
+					id = (int)objectId;
+
+					indexViewModel.MyEvents = Repository.GetAllEventsByUserId(id);
+					indexViewModel.MyEventCountTree = Repository.GetMyEventCountTree(id);
+				}
+				else
+				{
+					id = Repository.GetUserIdByName(userName);
+					if (id > 0)
+					{
+						AppCache.Set(userName, id);
+
+						indexViewModel.MyEvents = Repository.GetAllEventsByUserId(id);
+						indexViewModel.MyEventCountTree = Repository.GetMyEventCountTree(id);
+					}
+				}
 			}
 
 			return View("Index", indexViewModel);
 		}
-
-		//[HttpPost]
-		//public ActionResult AddEvent(AddEventViewModel eventParam)
-		//{
-		//	return Json(new { isAddEventSuccess = true });
-		//}
 	}
 }

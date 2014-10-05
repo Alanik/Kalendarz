@@ -1,5 +1,4 @@
 ﻿<div class="lobby-content-container">
-	@*<div style="background: white; position: relative; width: 100%; height: 24px;"></div>*@
 	<div class="lobby-content-body">
 
 		<div id="lobby-menu-header" class="site-menu-header">
@@ -22,7 +21,7 @@
    }
    else
    {
-				<div style="text-align:right;color:rgb(182, 182, 182);">
+					<div style="text-align:right;color:rgb(182, 182, 182);">
 					<span class="loggedIn-nickname">@User.Identity.Name</span>
 					@using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
 	 {
@@ -36,15 +35,15 @@
    }
 
 			<div id="lobbyEventsMenuContainer">
-			<div style="margin:0 auto;padding-bottom:10px;color:gray;">publiczne wydarzenia</div>
+			<div style="margin:0 auto;padding-bottom:10px;color:gray;font-size:1.6em;">Tablica ogłoszeń:</div>
 				<div class="menu-item-container">
 					<div class="border-item wydarzenia-border-tab"></div>
 					<div class="menu-item" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick($element) }" data-eventkind="1" data-privacylvl="public">
 						<span>Wydarzenia</span>
 					</div>
 					<div class="menu-item-number-container">
-						<div class="menu-item-number-upcoming" data-bind="text: $root.eventTreeCountBasedOnEventKind[1] ? $root.eventTreeCountBasedOnEventKind[1].events.upcoming() : 0"></div>
-						<div class="menu-item-number-old" data-bind="text: $root.eventTreeCountBasedOnEventKind[1] ? $root.eventTreeCountBasedOnEventKind[1].events.old() : 0"></div>
+						<div class="menu-item-number-upcoming" data-bind="text: $root.publicEventTreeCountBasedOnEventKind[1] ? $root.publicEventTreeCountBasedOnEventKind[1].events.upcoming() : 0"></div>
+						<div class="menu-item-number-old" data-bind="text: $root.publicEventTreeCountBasedOnEventKind[1] ? $root.publicEventTreeCountBasedOnEventKind[1].events.old() : 0"></div>
 					</div>
 				</div>
 
@@ -55,8 +54,8 @@
 
 					</div>
 					<div class="menu-item-number-container">
-						<div class="menu-item-number-upcoming" data-bind="text: $root.eventTreeCountBasedOnEventKind[2] ? $root.eventTreeCountBasedOnEventKind[2].events.upcoming() : 0"></div>
-						<div class="menu-item-number-old" data-bind="text: $root.eventTreeCountBasedOnEventKind[2] ? $root.eventTreeCountBasedOnEventKind[2].events.old() : 0"></div>
+						<div class="menu-item-number-upcoming" data-bind="text: $root.publicEventTreeCountBasedOnEventKind[2] ? $root.publicEventTreeCountBasedOnEventKind[2].events.upcoming() : 0"></div>
+						<div class="menu-item-number-old" data-bind="text: $root.publicEventTreeCountBasedOnEventKind[2] ? $root.publicEventTreeCountBasedOnEventKind[2].events.old() : 0"></div>
 					</div>
 				</div>
 
@@ -66,8 +65,8 @@
 						<span>Zajęcia</span>
 					</div>
 					<div class="menu-item-number-container">
-						<div class="menu-item-number-upcoming" data-bind="text: $root.eventTreeCountBasedOnEventKind[3] ? $root.eventTreeCountBasedOnEventKind[3].events.upcoming() : 0"></div>
-						<div class="menu-item-number-old" data-bind="text: $root.eventTreeCountBasedOnEventKind[3] ? $root.eventTreeCountBasedOnEventKind[3].events.old() : 0"></div>
+						<div class="menu-item-number-upcoming" data-bind="text: $root.publicEventTreeCountBasedOnEventKind[3] ? $root.publicEventTreeCountBasedOnEventKind[3].events.upcoming() : 0"></div>
+						<div class="menu-item-number-old" data-bind="text: $root.publicEventTreeCountBasedOnEventKind[3] ? $root.publicEventTreeCountBasedOnEventKind[3].events.old() : 0"></div>
 					</div>
 				</div>
 
@@ -78,8 +77,8 @@
 
 					</div>
 					<div class="menu-item-number-container">
-						<div class="menu-item-number-upcoming" data-bind="text: $root.eventTreeCountBasedOnEventKind[4] ? $root.eventTreeCountBasedOnEventKind[4].events.upcoming() : 0"></div>
-						<div class="menu-item-number-old" data-bind="text: $root.eventTreeCountBasedOnEventKind[4] ? $root.eventTreeCountBasedOnEventKind[4].events.old() : 0"></div>
+						<div class="menu-item-number-upcoming" data-bind="text: $root.publicEventTreeCountBasedOnEventKind[4] ? $root.publicEventTreeCountBasedOnEventKind[4].events.upcoming() : 0"></div>
+						<div class="menu-item-number-old" data-bind="text: $root.publicEventTreeCountBasedOnEventKind[4] ? $root.publicEventTreeCountBasedOnEventKind[4].events.old() : 0"></div>
 					</div>
 				</div>
 
@@ -90,8 +89,8 @@
 
 					</div>
 					<div class="menu-item-number-container">
-						<div class="menu-item-number-upcoming" data-bind="text: $root.eventTreeCountBasedOnEventKind[5] ? $root.eventTreeCountBasedOnEventKind[5].events.upcoming() : 0"></div>
-						<div class="menu-item-number-old" data-bind="text: $root.eventTreeCountBasedOnEventKind[5] ? $root.eventTreeCountBasedOnEventKind[5].events.old() : 0"></div>
+						<div class="menu-item-number-upcoming" data-bind="text: $root.publicEventTreeCountBasedOnEventKind[5] ? $root.publicEventTreeCountBasedOnEventKind[5].events.upcoming() : 0"></div>
+						<div class="menu-item-number-old" data-bind="text: $root.publicEventTreeCountBasedOnEventKind[5] ? $root.publicEventTreeCountBasedOnEventKind[5].events.old() : 0"></div>
 					</div>
 				</div>
 
@@ -102,8 +101,8 @@
 
 					</div>
 					<div class="menu-item-number-container">
-						<div class="menu-item-number-upcoming" data-bind="text: $root.eventTreeCountBasedOnEventKind[6] ? $root.eventTreeCountBasedOnEventKind[6].events.upcoming() : 0"></div>
-						<div class="menu-item-number-old" data-bind="text: $root.eventTreeCountBasedOnEventKind[6] ? $root.eventTreeCountBasedOnEventKind[6].events.old() : 0">78</div>
+						<div class="menu-item-number-upcoming" data-bind="text: $root.publicEventTreeCountBasedOnEventKind[6] ? $root.publicEventTreeCountBasedOnEventKind[6].events.upcoming() : 0"></div>
+						<div class="menu-item-number-old" data-bind="text: $root.publicEventTreeCountBasedOnEventKind[6] ? $root.publicEventTreeCountBasedOnEventKind[6].events.old() : 0">78</div>
 					</div>
 				</div>
 
@@ -114,57 +113,22 @@
 
 					</div>
 					<div class="menu-item-number-container">
-						<div class="menu-item-number-upcoming" data-bind="text: $root.eventTreeCountBasedOnEventKind[7] ? $root.eventTreeCountBasedOnEventKind[7].events.upcoming() : 0"></div>
-						<div class="menu-item-number-old" data-bind="text: $root.eventTreeCountBasedOnEventKind[7] ? $root.eventTreeCountBasedOnEventKind[7].events.old() : 0"></div>
+						<div class="menu-item-number-upcoming" data-bind="text: $root.publicEventTreeCountBasedOnEventKind[7] ? $root.publicEventTreeCountBasedOnEventKind[7].events.upcoming() : 0"></div>
+						<div class="menu-item-number-old" data-bind="text: $root.publicEventTreeCountBasedOnEventKind[7] ? $root.publicEventTreeCountBasedOnEventKind[7].events.old() : 0"></div>
 					</div>
 				</div>
 			</div>
 
-			<div id="lobbyEventSummary">
-				@Html.Partial("_lobbyEventSummary")
-			</div>
+				@Html.Partial("_LobbyAllSelectedEventsList")
+
 		</div>
+		
+				@Html.Partial("_lobbyEventSummary")
 
 		<header class="title-header">Aktualności</header>
 		<div class="event-list-date-header">
 			12.03.2012
-		</div>
-
-		@*<section class="event-list" data-bind="foreach: publicEvents">
-			<div class="news-event-details" data-bind="ifnot: kind.name == 'Zajęcia', visible: kind.name != 'Zajęcia'">
-				<div class="left-event-details">
-					<div class="event-kind-text" data-bind="text: kind.name, style: { background: kind.color }">
-					</div>
-					<div class="events-text-container margin-left-fifteen padding-top-ten" data-bind="visible: kind.name != 'Aktualności'">
-
-						<span data-bind="text: startDate.startHour" class="events-text-startTime"></span><span>:00 - </span><span data-bind="	text: date.endHour" class="events-text-endTime"></span><span>:00</span>
-						<div>12.03.2012, Piątek</div>
-						<div data-bind="text: adress.street" class="events-text-address"></div>
-					</div>
-				</div>
-
-				<div class="middle-event-details">
-
-					<div class="event-title-container">
-						<a data-bind="text: name" class="events-text-name" href="#"></a>
-					</div>
-
-					<div class="events-text-container">
-						<div data-bind="text: description" class="events-text-description"></div>
-					</div>
-				</div>
-				<div class="right-event-details">
-					<div class="events-text-author-container">
-						<div>
-							<span>dodano przez: </span><a class="events-text-author" data-bind="text: addedBy" href="#"></a>
-						</div>
-						<div>
-							10:47 10.12.2013 
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>*@
+		</div>	
 	</div>
 	<div style="height: 800px; width: 200px;">
 	</div>

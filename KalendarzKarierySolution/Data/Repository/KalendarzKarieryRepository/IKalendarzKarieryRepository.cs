@@ -25,15 +25,17 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 		Event GetEventById(int id);
 		void DeleteEvent(Event @event);
 		void AddEvent(Event @event);
-		//CalendarEventTreeModel GetAllEventsForGivenMonthByUserId(string userName, int month, int year); 
-		EventsGroupedByYearModel GetAllEventsForGivenYearByUserId(string userName, int year);
+		int GetEventStatusIdByValue(int value);
+		IList<EventsGroupedByYearModel> GetAllPublicEvents();
+		EventsGroupedByYearModel GetAllEventsForGivenYearByUserId(int id, int year);
 		ICollection<object> GetAllPrivacyLevels();
 		ICollection<object> GetAllEventKinds();
 		PrivacyLevel GetPrivacyLevelByValue(int id);
 		EventKind GetEventKindByValue(int id);
 		IList<Event> GetAllEvents();
-		object GetMyEventsCountTree();
-		IList<EventsGroupedByYearModel> GetAllEventsByUserId(string userName);
+		object GetMyEventCountTree(int userId);
+		object GetPublicEventCountTree();
+		IList<EventsGroupedByYearModel> GetAllEventsByUserId(int userId);
 
 		#endregion
 

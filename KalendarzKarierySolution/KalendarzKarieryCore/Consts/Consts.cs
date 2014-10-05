@@ -10,7 +10,6 @@ namespace KalendarzKarieryCore.Consts
 	{
 
 		#region validation
-
 		public const string GeneralValidationErrorMsg = "Formularz zawiera nieprawidłowe dane.";
 		public const string NotAuthenticatedErrorMsg = "Zaloguj sie by wykonać tę operację.";
 		public const string NotAuthorizedErrorMsg = "Nie masz uprawnień by wykonać tę operację.";
@@ -22,8 +21,8 @@ namespace KalendarzKarieryCore.Consts
 		public const string EventDoesNotExistErrorMsg = "Błąd, nie ma takiego wydarzenia.";
 		public const string EventDeletedSuccesfullyMsg = "Wydarzenie zostało usunięte pomyślnie";
 		#endregion
+
 		public const string GeneralOperationErrorMsg = "Operacja nie mogła zostać wykonana.";
-		
 		public const string AdminRole = "Administrator";
 
 	}

@@ -14,9 +14,10 @@ namespace KalendarzKarieryData.Models.ViewModels
 		//TODO: remove anonymous types
 
 		public IList<EventsGroupedByYearModel> MyEvents { get; set; }
-		public IList<Event> PublicEvents { get; set; }
+		public IList<EventsGroupedByYearModel> PublicEvents { get; set; }
 		public ICollection<object> EventKinds { get; set; }
 		public ICollection<object> PrivacyLevels { get; set; }
-		public object MyEventsCountTree { get; set; }
+		public object MyEventCountTree { get; set; }
+		public object PublicEventCountTree { get; set; }
 	}
 }

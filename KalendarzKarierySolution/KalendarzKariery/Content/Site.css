@@ -274,10 +274,12 @@ body header {
 	text-align: left;
 	color: white;
 	width: 90%;
-	min-height: 48px;
 	overflow: hidden;
 	font-size: 2em;
 	padding-left: 10px;
+	padding-bottom:10px;
+	position:relative;
+	top:20px;
 }
 
 #lowDetailsMenuHeader {
@@ -297,7 +299,6 @@ body header {
 
 .site-menu-header {
 	border-top: 1px solid rgb(221,221,221);
-	margin-bottom: 100px;
 }
 
 #loginPageContainer fieldset {
@@ -433,6 +434,7 @@ body header {
 
 #detailsPanel {
 	min-height: 500px;
+	padding-top:20px;
 }
 
 #loginLinkContainer {
@@ -446,9 +448,9 @@ body header {
 	margin-top: 75px;
 	overflow: hidden;
 	color: rgb(185, 185, 185);
-	background: rgba(0,0,0,.03);
+	background: rgba(0,0,0,.2);
 	border-top: 1px solid rgb(248,248,248);
-	border-bottom: 1px solid rgb(228, 219, 219);
+	border-bottom: 1px solid rgb(180, 180, 180);
 	text-align: center;
 	padding-bottom: 10px;
 }
@@ -618,9 +620,14 @@ body header {
 
 #detailsPageAllEventsListContainer {
 	margin: 20px auto;
-	font-size: 1.4em;
-	padding: 20px 0;
-	width: 600px;
+	font-size: 1.2em;
+	width: 700px;
+}
+
+#lobbyPageAllEventsListContainer {
+	margin: 20px auto;
+	font-size:1.2em;
+	width: 700px;
 }
 
 #addNewEventContainer {
@@ -656,6 +663,10 @@ body header {
 	padding-bottom: 2px;
 	background: rgb(245, 132, 132);
 	border-radius: 3px;
+}
+
+#addPublicEventBtn {
+	background: rgb(199, 202, 111);
 }
 
 .save-text {
@@ -1228,12 +1239,12 @@ wydarzenia-tab {
 }
 
 #lobbyEventSummary {
-	width: 99%;
 	margin: 0 auto;
-	margin-top: 40px;
 	background: rgba(0, 0, 0, 0.04);
-	border: 1px solid rgb(240, 240, 240);
-	overflow: hidden;
+	border-top:1px solid rgb(250, 250, 250);
+	border-bottom:1px solid rgb(224,224,224);
+	text-align:center;
+	padding-top:25px;
 }
 
 .current-month-name-calendar {
@@ -1416,7 +1427,7 @@ wydarzenia-tab {
 
 	.slick-contact-form textarea:focus, input[type=text]:focus, input[type=password]:focus {
 		background: rgba(255,255,255,.35);
-		border:1px solid white;
+		border: 1px solid white;
 	}
 
 

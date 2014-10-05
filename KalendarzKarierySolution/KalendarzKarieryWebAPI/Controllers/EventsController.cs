@@ -156,6 +156,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 			@event.OccupancyLimit = viewModel.Event.OccupancyLimit;
 			@event.StartDate = viewModel.Event.StartDate;
 			@event.EndDate = viewModel.Event.EndDate;
+			@event.Price = viewModel.Event.Price;
 
 			var eventKind = Repository.GetEventKindByValue(viewModel.EventKind.Value);
 			if (eventKind != null)
@@ -179,11 +180,11 @@ namespace KalendarzKarieryWebAPI.Controllers
 
 			if (@event.EndDate <= DateTime.Now)
 			{
-				@event.EventStatusId = 2;
+				@event.EventStatusId = Repository.GetEventStatusIdByValue(2);
 			}
 			else
 			{
-				@event.EventStatusId = 1;
+				@event.EventStatusId = Repository.GetEventStatusIdByValue(1);
 			}
 
 			if (!string.IsNullOrEmpty(viewModel.Address.Street))

@@ -48,6 +48,7 @@
 
 	self.price = null;
 
+	//make sure startDate is same as transformedDate found in function setStartDate of eventTreeBuilder.buildEventTree
 	self.startDate = {
 		javascriptStartDate: "",
 		startMinute: "",
@@ -57,11 +58,14 @@
 		day: "",
 		month: "",
 		year: "",
-		display: function (time) {
+		formatZero: function (time) {
 			return time < 10 ? '0' + time : time;
 		},
 		displayFullDate: function () {
-			return this.display(this.day) + '/' + this.display(this.month) + '/' + this.year;
+			return this.formatZero(this.day) + '/' + this.formatZero(this.month) + '/' + this.year;
+		},
+		displayFullTime: function () {
+			return this.formatZero(this.startHour) + ':' + this.formatZero(this.startMinute) + " - " + this.formatZero(this.endHour) + ':' + this.formatZero(this.endMinute);
 		}
 	};
 

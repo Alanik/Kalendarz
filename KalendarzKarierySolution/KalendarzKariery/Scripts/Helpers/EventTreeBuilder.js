@@ -1,10 +1,10 @@
 ﻿var EventTreeBuilder = function () {
 	var self = this;
 
-	self.buildEventTree = function (yearEventTreeModel, setCalendarPlacementRow) {
+	self.buildEventTree = function (yearEventTreeModel, setCalendarPlacementRow, publicEvents) {
 		var eventTree = {}, largest, groups;
 		var dayGroup, day, dayGroupLength, event;
-		var year, yearProp, eventTreeYearProp,eventTreeMonthProp, eventTreeDayGroupProp, eventTreeEventsProp;
+		var year, yearProp, eventTreeYearProp, eventTreeMonthProp, eventTreeDayGroupProp, eventTreeEventsProp;
 
 		for (var y = 0; y < yearEventTreeModel.length; y++) {
 			yearProp = yearEventTreeModel[y];
@@ -33,15 +33,19 @@
 						setKind(event);
 						setStartDate(event);
 						eventTreeDayGroupProp.push(event);
+
+						//push public event to calendarViewModel.publicEvents
+						//TODO: maybe it's better to remove it from here and put it in a seperate method for example buildPublicEventTree, but it is just a suggestion
+						if (publicEvents) {
+							publicEvents.push(event);
+							}
 					}
 
 					setCalendarPlacementRow(eventTreeDayGroupProp);
 				}
 
 				eventTreeYearProp[yearProp.eventsGroupedByMonth[k].month] = eventTreeMonthProp;
-
-		}
-
+			}
 		}
 
 		function setKind(event) {
@@ -69,15 +73,19 @@
 				"day": sdate.getDate(),
 				"month": sdate.getMonth() + 1,
 				"year": sdate.getFullYear(),
-				"display": function (time) {
+				"formatZero": function (time) {
 					return time < 10 ? '0' + time : time;
 				},
 				"displayFullDate": function () {
-					return this.display(this.day) + '/' + this.display(this.month) + '/' + this.year;
+					return this.formatZero(this.day) + '/' + this.formatZero(this.month) + '/' + this.year;
+				},
+				"displayFullTime": function () {
+					return this.formatZero(this.startHour) + ':' + this.formatZero(this.startMinute) + " - " + this.formatZero(this.endHour) + ':' + this.formatZero(this.endMinute);
 				}
+
 			};
 
-			event.startDate = transformedDate;	
+			event.startDate = transformedDate;
 
 			event.eventLengthInMinutes = ((parseInt(endHour, 10) - parseInt(startHour, 10)) * 60) + (parseInt(endMinute, 10) - parseInt(startMinute, 10));
 		};
@@ -100,6 +108,7 @@
 
 	self.buildEventTreeCountBasedOnEventKind = function (myEventsCountTree) {
 		var eventTree = {}, element;
+
 		for (var i = 0; i < myEventsCountTree.length; i++) {
 			element = eventTree[i + 1] = {};
 
@@ -129,10 +138,6 @@
 
 		for (var i in serverEventKinds) {
 			eventKind = serverEventKinds[i];
-
-
 		}
-
-
 	}
-};	
+};

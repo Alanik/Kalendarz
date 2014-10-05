@@ -112,35 +112,19 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 			_entities.Events.Remove(@event);
 		}
 
+		public int GetEventStatusIdByValue(int value)
+		{
+			return _entities.EventStatus.Where(m => m.Value == value).FirstOrDefault().Id;
+		}
+
 		public IList<Event> GetAllEvents()
 		{
 			return _entities.Events.ToList();
 		}
 
-		public EventsGroupedByYearModel GetAllEventsForGivenYearByUserId(string userName, int year)
+		public EventsGroupedByYearModel GetAllEventsForGivenYearByUserId(int id, int year)
 		{
-			int id;
-
-			var objectId = AppCache.Get(userName.ToLower());
-			if (objectId != null)
-			{
-				id = (int)objectId;
-			}
-			else
-			{
-				var user = _entities.Users.Where(m => string.Compare(m.UserName, userName, true) == 0).FirstOrDefault();
-				if (user != null)
-				{
-					id = user.Id;
-					AppCache.Set(userName.ToLower(), id);
-				}
-				else
-				{
-					return null;
-				}
-			}
-
-			var list = _entities.Events.Where(m => m.OwnerUserId == id && m.StartDate.Year == year).OrderBy(m => m.StartDate.Month).ThenBy(m => m.StartDate.Day).ThenBy(m => m.StartDate.Hour).ThenBy(m => m.StartDate.Minute);
+			var list = _entities.Events.Where(m => m.OwnerUserId == id && m.StartDate.Year == year).OrderBy(m => m.StartDate);
 			var transformedList = list.Select(m => new
 			{
 				id = m.Id,
@@ -153,6 +137,7 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 				calendarPlacementRow = 1,
 				startDate = m.StartDate,
 				endDate = m.EndDate,
+				price = m.Price,
 				numberOfPeopleAttending = m.NumberOfPeopleAttending,
 				kind = new { name = m.EventKind.Name, value = m.EventKind.Value },
 				privacyLevel = new { name = m.PrivacyLevel.Name, value = m.PrivacyLevel.Value },
@@ -164,35 +149,13 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 			return new EventsGroupedByYearModel(year, groups);
 		}
 
-		public IList<EventsGroupedByYearModel> GetAllEventsByUserId(string userName)
+		public IList<EventsGroupedByYearModel> GetAllEventsByUserId(int id)
 		{
-			int id;
-
-			var objectId = AppCache.Get(userName.ToLower());
-			if (objectId != null)
-			{
-				id = (int)objectId;
-			}
-			else
-			{
-				var user = _entities.Users.Where(m => string.Compare(m.UserName, userName, true) == 0).FirstOrDefault();
-				if (user != null)
-				{
-					id = user.Id;
-					AppCache.Set(userName.ToLower(), id);
-				}
-				else
-				{
-					return null;
-				}
-			}
-
 			var container = new List<EventsGroupedByYearModel>();
-			var years = GetYearsWhenEventsStart(id);
+			var years = GetYearsWhenEventsStartByUserId(id);
 
 			foreach (int num in years)
 			{
-
 				var list = _entities.Events.Where(m => m.OwnerUserId == id && m.StartDate.Year == num).OrderBy(m => m.StartDate.Year).ThenBy(m => m.StartDate.Month).ThenBy(m => m.StartDate.Day).ThenBy(m => m.StartDate.Hour).ThenBy(m => m.StartDate.Minute);
 				var transformedList = list.Select(m => new
 				{
@@ -208,6 +171,42 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 					endDate = m.EndDate,
 					numberOfPeopleAttending = m.NumberOfPeopleAttending,
 					kind = new { name = m.EventKind.Name, value = m.EventKind.Value },
+					price = m.Price,
+					privacyLevel = new { name = m.PrivacyLevel.Name, value = m.PrivacyLevel.Value },
+					addresses = m.Addresses.Select(o => new { street = o.Street, city = o.City, zipCode = o.ZipCode })
+				});
+
+				var groups = transformedList.ToLookup(m => m.startDate.Month).Select(o => new EventsGroupedByMonthModel(o.Key, o.ToArray().ToLookup(t => t.startDate.Day).Select(l => new EventsGroupedByDayModel(l.Key, l.ToArray())))).ToArray();
+
+				container.Add(new EventsGroupedByYearModel(num, groups));
+			}
+
+			return container;
+		}
+
+		public IList<EventsGroupedByYearModel> GetAllPublicEvents()
+		{
+			var container = new List<EventsGroupedByYearModel>();
+			var years = GetYearsWhenEventsStartByPrivacyLvl(2);
+
+			foreach (int num in years)
+			{
+				var list = _entities.Events.Where(m => m.StartDate.Year == num && m.PrivacyLevel.Value == 2).OrderBy(m => m.StartDate);
+				var transformedList = list.Select(m => new
+				{
+					id = m.Id,
+					name = m.Title,
+					description = m.Description,
+					details = m.Details,
+					dateAdded = m.DateAdded,
+					occupancyLimit = m.OccupancyLimit,
+					urlLink = m.UrlLink,
+					calendarPlacementRow = 1,
+					startDate = m.StartDate,
+					endDate = m.EndDate,
+					numberOfPeopleAttending = m.NumberOfPeopleAttending,
+					kind = new { name = m.EventKind.Name, value = m.EventKind.Value },
+					price = m.Price,
 					privacyLevel = new { name = m.PrivacyLevel.Name, value = m.PrivacyLevel.Value },
 					addresses = m.Addresses.Select(o => new { street = o.Street, city = o.City, zipCode = o.ZipCode })
 				});
@@ -240,10 +239,18 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 			return _entities.EventKinds.Select(m => new { name = m.Name, value = m.Value }).OrderBy(m => m.value).ToArray();
 		}
 
-		public object GetMyEventsCountTree()
+		public object GetMyEventCountTree(int userId)
 		{
+			var query = from e in _entities.Events.Where(m => m.OwnerUserId == userId)
+						group e by e.EventKind.Value into grp
+						select new { value = grp.Key, events = new { upcoming = grp.Where(m => m.StartDate > DateTime.Now).Count(), all = grp.Count() } };
 
-			var query = from e in _entities.Events
+			return query;
+		}
+
+		public object GetPublicEventCountTree()
+		{
+			var query = from e in _entities.Events.Where(m => m.PrivacyLevel.Value == 2)
 						group e by e.EventKind.Value into grp
 						select new { value = grp.Key, events = new { upcoming = grp.Where(m => m.StartDate > DateTime.Now).Count(), all = grp.Count() } };
 
@@ -257,11 +264,21 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 			_entities.SaveChanges();
 		}
 
-		private int[] GetYearsWhenEventsStart(int id)
+		private int[] GetYearsWhenEventsStartByUserId(int id)
+		{
+			var query = from e in _entities.Events
+						where e.OwnerUserId == id
+						group e by e.StartDate.Year into grp
+						select grp.Key;
+
+			return query.ToArray();
+		}
+
+		private int[] GetYearsWhenEventsStartByPrivacyLvl(int value)
 		{
 
 			var query = from e in _entities.Events
-						where e.OwnerUserId == id
+						where e.PrivacyLevel.Value == value
 						group e by e.StartDate.Year into grp
 						select grp.Key;
 

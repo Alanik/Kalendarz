@@ -1,12 +1,12 @@
-﻿<div id="detailsPageAllEventsListContainer" style="display: none;">
+﻿<div id="lobbyPageAllEventsListContainer" style="display: none;">
 	<div style="margin-bottom: 4px; padding: 5px; color: rgb(194, 255, 207); /* color: rgb(153, 211, 165); */
 /* border-top: 1px solid rgb(187, 187, 187); */
 /* border-left: 1px solid white; */
 border-bottom: 1px solid rgb(255, 255, 255); /* border-right: 1px solid rgb(214,214,214); */
 background: rgba(0, 0, 0, 0.34);">
-		Mój kalendarz:
+		Wybrane ogłoszenia:
 	</div>
-	<div data-bind="foreach: $root.detailsPageAllSelectedEvents" style="position: relative; left: 1px;">
+	<div data-bind="foreach: $root.lobbyPageAllSelectedEvents" style="position: relative; left: 1px;">
 		<div data-bind="if: startDate.javascriptStartDate <= $root.todayDate.javascriptStartDate">
 			<div style="display: inline-block; width: 300px; margin-bottom: 2px; padding: 5px; vertical-align: top; background: rgb(209,209,209); color: white;" data-bind="	text: name"></div>
 			<div style="display: inline-block; padding: 5px; background: rgb(180,180,180);" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>

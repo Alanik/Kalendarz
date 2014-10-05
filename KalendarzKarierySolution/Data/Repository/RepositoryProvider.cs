@@ -15,7 +15,6 @@ namespace KalendarzKarieryData.Repository
 		{
 			//TODO: make assignable from web.config
 			bool useFakeRepository = false;
-
 			return new KalendarzKarieryData.Repository.KalendarzKarieryRepository.KalendarzKarieryRepository(useFakeRepository);
 		}
 	}

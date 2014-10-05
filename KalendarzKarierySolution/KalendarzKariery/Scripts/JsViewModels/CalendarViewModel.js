@@ -4,6 +4,11 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 	var self = this;
 	var colorHelper = new EventColorHelper();
 	var date = new Date();
+
+	//////////////////////////////////////////////////////////
+	//public properties
+	//////////////////////////////////////////////////////////
+
 	self.todayDate = {
 		"day": date.getDate(),
 		"month": date.getMonth(),
@@ -13,7 +18,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 			return self.monthNames[this.month];
 		},
 		"getDayName": function () {
-			return self.dayNames[this.weekday - 1];
+			return this.weekday == 0 ? self.dayNames[6] : self.dayNames[this.weekday - 1];
 		},
 		"javascriptStartDate": date
 	}
@@ -60,9 +65,23 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 	//TODO: change into event tree with arrays grouped by event kind
 	self.detailsPageAllSelectedEvents = ko.observableArray([]);
 
-	self.myEvents = [];
+	//TODO: change into event tree with arrays grouped by event kind
+	self.lobbyPageAllSelectedEvents = ko.observableArray([]);
 
-	self.eventTreeCountBasedOnEventKind = {
+	//it is filled with public events when building publicEventTree
+	self.publicEvents = [];
+	self.publicEventTree = {
+		// example to remember the format of publicEventTree object
+		//	"2014": {
+		//		"8": [{ "3": [event, event] }, { "7": [event] }, { "9": [event, event, event, event] }],
+		//		"9": [{ "2": [event] }]	
+		//          },
+		//	"2015": {
+		//		"8": [{ "3": [event, event] }, { "7": [event] }, { "9": [event, event, event, event] }],
+		//		"9": [{ "2": [event] }]	
+		//			}
+	};
+	self.publicEventTreeCountBasedOnEventKind = {
 		// example
 		//
 		//"1": {
@@ -75,8 +94,21 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		//},
 	};
 
-	self.eventTree = {
-		// example to remember the format of eventTree object
+	self.myEventTreeCountBasedOnEventKind = {
+		// example
+		//
+		//"1": {
+		//	"upcoming": ko.observable(10),
+		//	"old" : ko.observable(20)
+		//},
+		//"2": {
+		//	"upcoming": ko.observable(10),
+		//	"old" : ko.observable(20)
+		//},
+	};
+
+	self.myEventTree = {
+		// example to remember the format of myEventTree object
 		//	"2014": {
 		//		"8": [{ "3": [event, event] }, { "7": [event] }, { "9": [event, event, event, event] }],
 		//		"9": [{ "2": [event] }]	
@@ -93,7 +125,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 
 	self.getEventsForGivenMonth = function (month, year) {
 		var daysProp, events = [];
-		var yearProp = self.eventTree[year], monthProp, daysProp, events = [];
+		var yearProp = self.myEventTree[year], monthProp, daysProp, events = [];
 		if (yearProp) {
 			monthProp = yearProp[month];
 			if (monthProp) {
@@ -114,7 +146,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 	};
 
 	self.getEventsForGivenDay = function (day) {
-		var yearProp = self.eventTree[self.detailsPageDisplayDate.year()], monthProp, daysProp, events = [];
+		var yearProp = self.myEventTree[self.detailsPageDisplayDate.year()], monthProp, daysProp, events = [];
 		if (yearProp) {
 			monthProp = yearProp[parseInt(self.detailsPageDisplayDate.month(), 10)];
 			if (monthProp) {
@@ -247,9 +279,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 						eventToPush.urlLink = self.event.urlLink;
 						eventToPush.price = self.event.price;
 
-						self.myEvents.push(eventToPush);
-
-						var dayEvents = self.addEventToEventTree(eventToPush);
+						var dayEvents = self.addEventToMyEventTree(eventToPush);
 
 						self.setCalendarPlacementRow(dayEvents);
 						self.redrawCalendarCell(dayEvents, self.addNewEvent_Day());
@@ -308,7 +338,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 							return event.id === id;
 						});
 
-						self.removeEventFromEventTree(id, year, month, day);
+						self.removeEventFromMyEventTree(id, year, month, day);
 
 						var $scrollable = $("#slide-item-details").parent();
 						var scroll = $("#details #lowDetailsMenuHeader").position().top - 20;
@@ -317,8 +347,6 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 						//redraw details page event rectangle table
 						self.removeEventRectanglesFromDetailsDay();
 						events = self.detailsPageDayEvents();
-
-						console.log(events);
 
 						self.setCalendarPlacementRow(events);
 						self.displayPageEventMostBottomRow = 1;
@@ -358,14 +386,14 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		}
 	}
 
-	self.removeEventFromEventTree = function (id, year, month, day) {
-		var eventTree = self.eventTree;
+	self.removeEventFromMyEventTree = function (id, year, month, day) {
+		var eventTree = self.myEventTree;
 		var eventTreeYearProp, eventTreeMonthProp, dayEvents, event;
 		var old, upcoming, eventCount, today, endDate;
 		var array;
 
-		if (self.eventTree[year]) {
-			eventTreeYearProp = self.eventTree[year];
+		if (self.myEventTree[year]) {
+			eventTreeYearProp = self.myEventTree[year];
 			if (eventTreeYearProp[month]) {
 				eventTreeMonthProp = eventTreeYearProp[month];
 				if (eventTreeMonthProp[day]) {
@@ -383,9 +411,9 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 							});
 							self.detailsPageAllSelectedEvents(array);
 
-							//remove from self.eventTreeCountBasedOnEventKind
+							//remove from self.myEventTreeCountBasedOnEventKind
 							// TODO: make count a calculated observable so we don't have to update count value manually
-							eventCount = self.eventTreeCountBasedOnEventKind[event.kind.value];
+							eventCount = self.myEventTreeCountBasedOnEventKind[event.kind.value];
 							if (eventCount) {
 								old = eventCount.events.old();
 								upcoming = eventCount.events.upcoming();
@@ -460,20 +488,20 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		$link.toggleClass("open");
 	};
 
-	self.addEventToEventTree = function (newEvent) {
+	self.addEventToMyEventTree = function (newEvent) {
 		var year = newEvent.startDate.year;
 		var month = newEvent.startDate.month;
 		var day = newEvent.startDate.day;
 
-		var eventTreeYearProp = self.eventTree[year] ? self.eventTree[year] : self.eventTree[year] = {};
+		var eventTreeYearProp = self.myEventTree[year] ? self.myEventTree[year] : self.myEventTree[year] = {};
 		var eventTreeMonthProp = eventTreeYearProp[month] ? eventTreeYearProp[month] : eventTreeYearProp[month] = {};
 		var dayEvents = eventTreeMonthProp[day] ? eventTreeMonthProp[day] : eventTreeMonthProp[day] = [];
 
 		dayEvents.push(newEvent);
 
-		//add to self.eventTreeCountBasedOnEventKind
+		//add to self.myEventTreeCountBasedOnEventKind
 		// TODO: make count a calculated observable so we don't have to update count value manually
-		var eventCount = self.eventTreeCountBasedOnEventKind[newEvent.kind.value];
+		var eventCount = self.myEventTreeCountBasedOnEventKind[newEvent.kind.value];
 		if (eventCount) {
 			old = eventCount.events.old();
 			upcoming = eventCount.events.upcoming();
@@ -491,10 +519,10 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		return dayEvents;
 	};
 
-	self.getFilteredEventsFromEventTree = function (eventPropNameArray, value) {
+	self.getFilteredEventsFromEventTree = function (eventTree, eventPropNameArray, value) {
 		var arr = [], daysArr, event, yearNode, monthNode, dayNode, prop;
-		for (var year in self.eventTree) {
-			yearNode = self.eventTree[year];
+		for (var year in eventTree) {
+			yearNode = eventTree[year];
 			for (var month in yearNode) {
 				monthNode = yearNode[month];
 				for (day in monthNode) {
@@ -650,9 +678,10 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 
 	self.showSelectedEventsOnMenuItemClick = function (element) {
 		var $menuItem = $(element);
-		var value = $menuItem.attr("data-eventkind");
 
 		var eventKindValue = $menuItem.attr("data-eventkind");
+		var eventPrivacyLevelName = $menuItem.attr("data-privacylvl");
+
 		var $menuItemContainer = $menuItem.closest(".menu-item-container");
 		$menuItemContainer.toggleClass("selected");
 
@@ -669,36 +698,70 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		}
 
 		function showSelectedEvents() {
-			$("#details #detailsPanel #detailsPageAllEventsListContainer").show();
+			var combinedArray = [], arr, shownEvents;
+			if (eventPrivacyLevelName == "private") {
 
-			var arr = self.getFilteredEventsFromEventTree(["kind", "value"], parseInt(eventKindValue, 10));
-			var shownEvents = self.detailsPageAllSelectedEvents();
-			var combinedArray = [];
+				$("#details #detailsPageAllEventsListContainer").show();
+				arr = self.getFilteredEventsFromEventTree(self.myEventTree, ["kind", "value"], parseInt(eventKindValue, 10));
+				shownEvents = self.detailsPageAllSelectedEvents();
 
-			if (shownEvents.length) {
-				combinedArray = arr.concat(shownEvents);
-				combinedArray.sort(function (a, b) {
-					return (a.startDate.javascriptStartDate - b.startDate.javascriptStartDate);
-				});
+				if (shownEvents.length) {
+					combinedArray = arr.concat(shownEvents);
+					combinedArray.sort(function (a, b) {
+						return (a.startDate.javascriptStartDate - b.startDate.javascriptStartDate);
+					});
 
-				self.detailsPageAllSelectedEvents(combinedArray);
+					self.detailsPageAllSelectedEvents(combinedArray);
+				} else {
+					self.detailsPageAllSelectedEvents(arr);
+				}
 			} else {
-				self.detailsPageAllSelectedEvents(arr);
-			}
+				$("#lobby #lobbyPageAllEventsListContainer").show();
+				arr = self.getFilteredEventsFromEventTree(self.publicEventTree, ["kind", "value"], parseInt(eventKindValue, 10));
+				shownEvents = self.lobbyPageAllSelectedEvents();
+
+				if (shownEvents.length) {
+					combinedArray = arr.concat(shownEvents);
+					combinedArray.sort(function (a, b) {
+						return (a.startDate.javascriptStartDate - b.startDate.javascriptStartDate);
+					});
+
+					self.lobbyPageAllSelectedEvents(combinedArray);
+				} else {
+					self.lobbyPageAllSelectedEvents(arr);
+				}
+			}			
 		}
 		function removeSelectedEvents() {
-			var array = ko.utils.arrayFilter(self.detailsPageAllSelectedEvents(), function (item) {
-				return item.kind.value != value;
-			});
+			var array;
+			if (eventPrivacyLevelName == "private") {
+				array = ko.utils.arrayFilter(self.detailsPageAllSelectedEvents(), function (item) {
+					return item.kind.value != eventKindValue;
+				});
 
-			//rray.sort(function (a, b) {
-			//	return (a.startDate.javascriptStartDate - b.startDate.javascriptStartDate);
-			//});
+				//array.sort(function (a, b) {
+				//	return (a.startDate.javascriptStartDate - b.startDate.javascriptStartDate);
+				//});
 
-			self.detailsPageAllSelectedEvents(array);
+				self.detailsPageAllSelectedEvents(array);
 
-			if (!$("#details #detailsPanel .menu-item-container").hasClass("selected")) {
-				$("#details #detailsPanel #detailsPageAllEventsListContainer").hide();
+				if (!$("#details #detailsPanel .menu-item-container").hasClass("selected")) {
+					$("#details #detailsPanel #detailsPageAllEventsListContainer").hide();
+				}
+			} else {
+				array = ko.utils.arrayFilter(self.lobbyPageAllSelectedEvents(), function (item) {
+					return item.kind.value != eventKindValue;
+				});
+
+				//array.sort(function (a, b) {
+				//	return (a.startDate.javascriptStartDate - b.startDate.javascriptStartDate);
+				//});
+
+				self.lobbyPageAllSelectedEvents(array);
+
+				if (!$("#lobby #lobbyEventsMenuContainer .menu-item-container").hasClass("selected")) {
+					$("#lobby #lobbyPageAllEventsListContainer").hide();
+				}
 			}
 		}
 	};
@@ -708,13 +771,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		var $cont = $("#addNewEventContainer");
 		$cont.find("#addEventForm")[0].reset();
 
-		var $lobby = $("#lobby");
-		var $calendar = $("#calendar");
-		var $details = $("#details");
-
-		$lobby.siblings(".dotted-page-overlay").fadeOut();
-		$calendar.siblings(".dotted-page-overlay").fadeOut();
-		$details.siblings(".dotted-page-overlay").fadeOut();
+		$cont.closest(".main-section").siblings(".dotted-page-overlay").fadeOut();
 
 		$cont.hide();
 		//TODO:add scroll to top 
@@ -994,7 +1051,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		var $addEventContainer = $("#addNewEventContainer");
 		$addEventContainer.detach().prependTo("#lobby");
 
-		$addEventContainer.find("legend").text("Stwórz publiczne wydarzenie");
+		$addEventContainer.find("legend").text("Dodaj do tablicy ogłoszeń");
 		$addEventContainer.find("#btnAddNewEvent").attr("data-privacylvl", 2);
 		$addEventContainer.show();
 		var $eventTitle = $addEventContainer.find("#Event_Title").focus();

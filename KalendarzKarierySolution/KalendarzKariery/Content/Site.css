@@ -110,11 +110,11 @@ body header {
 }
 
 #lobbyLogo {
-	background-image: url(../Images/Logo/kalendarzLogoTransparent.png);
+	background-image: url(../Images/Logo/blue4.png);
 	position: absolute !important;
 	background-repeat: no-repeat;
 	top: -56px;
-	height: 130px;
+	height: 148px;
 	width: 540px;
 }
 

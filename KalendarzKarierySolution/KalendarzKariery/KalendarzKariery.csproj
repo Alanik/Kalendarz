@@ -265,8 +265,14 @@
     <Content Include="Images\Form\letter_bg.png" />
     <Content Include="Images\kalendarzTloClear.png" />
     <Content Include="Images\Icons\list-icon.png" />
+    <Content Include="Images\Logo\blackLogo.png" />
+    <Content Include="Images\Logo\blue2.png" />
+    <Content Include="Images\Logo\blue3.png" />
+    <Content Include="Images\Logo\blue4.png" />
+    <Content Include="Images\Logo\blueLogo.png" />
     <Content Include="Images\Logo\kalendarzLogoSmall.png" />
     <Content Include="Images\Logo\kalendarzLogoTransparent.png" />
+    <Content Include="Images\Logo\sephiaLogo.png" />
     <Content Include="Images\Nav\arrow-left.png" />
     <Content Include="Images\Nav\arrow-right.png" />
     <Content Include="Images\Icons\triangle-left.png" />

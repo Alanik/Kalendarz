@@ -445,7 +445,7 @@ body header {
 }
 
 .lobby-loggedIn-bar {
-	margin-top: 75px;
+	margin-top: 25px;
 	overflow: hidden;
 	color: rgb(185, 185, 185);
 	background: rgba(0,0,0,.2);

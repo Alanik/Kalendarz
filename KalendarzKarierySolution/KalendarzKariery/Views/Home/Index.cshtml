@@ -12,12 +12,12 @@
 						<div class="site-legend-border"></div>
 						<div class="site-legend-border"></div>
 					</div>
-					<span style="position:relative;left:2px;">Strona Glówna</span>
-					<span style="position:relative;left:2px;">| Kalendarz |</span>
-					<span style="position:relative;left:2px;">Moje Sprawy</span>
+					<span style="position:relative;left:-7px;">Strona Glówna</span>
+					<span style="position:relative;left:-7px;">| Kalendarz |</span>
+					<span style="position:relative;left:-7px;">Dziennik</span>
 				</div>
 				<div id="lobbyBg">
-					<img src="~/Images/kalendarzTloClear.png" alt="background" style="top: 0 !important" />
+					<img src="~/Images/kalendarzTlo.png" alt="background" style="top: 0 !important" />
 					<div class="dotted-page-overlay"></div>
 					<div class="loader-container">wczytywanie...</div>
 					@Html.Partial("_ConfirmationPopupBox")
@@ -37,6 +37,7 @@
 				</div>
 				<div id="calendarBg">
 					<img src="~/Images/kalendarzTlo.png" alt="background" />
+					<img src="~/Images/Logo/lightSmallKKLogo.png" alt="smallLogo" style="position:absolute !important;left:25px !important; top: 10px !important;height:78px !important;width:73px !important;z-index:100 !important;"/>
 					<div class="dotted-page-overlay"></div>
 					<div class="loader-container">wczytywanie...</div>
 					@Html.Partial("_ConfirmationPopupBox")
@@ -58,7 +59,8 @@
 		<li>
 			<div id="slide-item-details">
 				<div id="detailsBg">
-					<img src="~/Images/kalendarzTloClear.png" alt="background" />
+					<img src="~/Images/kalendarzTlo.png" alt="background" />
+					<img src="~/Images/Logo/lightSmallKKLogo.png" alt="smallLogo" style="position:absolute !important;left:25px !important; top: 10px !important;height:78px !important;width:73px !important;z-index:100 !important;"/>
 					<div class="dotted-page-overlay"></div>
 					<div class="loader-container">wczytywanie...</div>
 					@Html.Partial("_ConfirmationPopupBox")
@@ -247,6 +249,9 @@
 				$calendar.append('<div id="calendar-navigation-arrows-right"><img src="Images/Nav/arrowRight.png" alt="arrow-Right"/></div>');
 				$details.append('<div id="details-navigation-arrows-left"><img src="Images/Nav/arrowLeft.png" alt="arrow-Left"/></div>');
 				$lobby.append('<div id="lobby-navigation-arrows-right"><img src="Images/Nav/arrowRight.png" alt="arrow-Right"/></div>');
+
+				calendarViewModel.drawAnalogClock();
+				calendarViewModel.drawDigitalClock();
 
 				this.Initialize.InitializeHover = function () {
 
@@ -674,6 +679,7 @@
 		};
 
 		mainProgram.Initialize();
+
 	});
 
 </script>

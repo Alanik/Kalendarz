@@ -1,18 +1,21 @@
 ﻿<div id="detailsMenuHeader" class="dark-background-div">
 	<div style="position: relative; top: 8px;">
-		/Moje sprawy/
+		/Dziennik/
 	</div>
 
 </div>
 <section id="detailsPanel">
 
 	<div id="todayDateAndTimeContainer">
+	<div style="position:absolute;font-size:19px;color:white;">dzisiaj jest:</div>
 		<div id="todayDateDay" data-bind="text: $root.todayDate.day"></div>
 		<div style="display: inline-block;">
 			<div id="todayDateMonth" data-bind="text: $root.todayDate.getMonthName()"></div>
 			<div id="todayDateYear" data-bind="text: $root.todayDate.year"></div>
 		</div>
 		<div id="todayDateDayName" data-bind="text: $root.todayDate.getDayName()"></div>
+		<div id="clockCanvas"></div>
+		<div id="digitalClock"></div>
 	</div>
 
 	<div class="events-menu-container">

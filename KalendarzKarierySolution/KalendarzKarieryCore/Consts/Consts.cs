@@ -15,6 +15,7 @@ namespace KalendarzKarieryCore.Consts
 		public const string NotAuthorizedErrorMsg = "Nie masz uprawnień by wykonać tę operację.";
 		public const string RegisterUserEmailExistsErrorMsg= "Podany adres email już został użyty. Prosze podać inny adres email.";
 		public const string InvalidBirthOfDateErrorMsg = "Podana data urodzenia jest nieprawidłowa.";
+		public const string InvalidUserNameOrPasswordErrorMsg = "Nazwa użytkownika lub hasło jest nieprawidłowe";
 		#endregion
 
 		#region Events

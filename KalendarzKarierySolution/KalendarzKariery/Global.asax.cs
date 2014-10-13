@@ -26,6 +26,7 @@ namespace KalendarzKariery
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 			AuthConfig.RegisterAuth();
+
 			InitializeMembership.SeedMembership();
 			Effort.Provider.EffortProviderConfiguration.RegisterProvider();
 

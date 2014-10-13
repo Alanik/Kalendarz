@@ -94,11 +94,30 @@ body header {
 	color: rgb(31, 22, 22);
 }
 
+#clockCanvas {
+position:absolute;
+left:70px;
+top:50px;
+
+}
+
+#digitalClock {
+position: relative;
+top: -40px;
+font-size: 34px;
+color:rgb(251, 255, 194);
+border:1px solid whitesmoke;
+border-right:none;
+padding-left:3px;
+width:100px;
+}
 
 #lobbyBg {
 	position: relative;
 	width: 90%;
 	left: 0px;
+	/*background:#c1b8ab;*/
+	/*background:#b1a798;*/
 }
 
 .events-menu-container {
@@ -110,11 +129,11 @@ body header {
 }
 
 #lobbyLogo {
-	background-image: url(../Images/Logo/blue4.png);
+	background-image: url(../Images/Logo/kkLogo.png);
 	position: absolute !important;
 	background-repeat: no-repeat;
-	top: -56px;
-	height: 148px;
+	top: -52px;
+	height: 140px;
 	width: 540px;
 }
 
@@ -277,9 +296,9 @@ body header {
 	overflow: hidden;
 	font-size: 2em;
 	padding-left: 10px;
-	padding-bottom:10px;
-	position:relative;
-	top:20px;
+	padding-bottom: 10px;
+	position: relative;
+	top: 20px;
 }
 
 #lowDetailsMenuHeader {
@@ -298,7 +317,6 @@ body header {
 }
 
 .site-menu-header {
-	border-top: 1px solid rgb(221,221,221);
 }
 
 #loginPageContainer fieldset {
@@ -434,7 +452,7 @@ body header {
 
 #detailsPanel {
 	min-height: 500px;
-	padding-top:20px;
+	padding-top: 20px;
 }
 
 #loginLinkContainer {
@@ -448,9 +466,8 @@ body header {
 	margin-top: 75px;
 	overflow: hidden;
 	color: rgb(185, 185, 185);
-	background: rgba(0,0,0,.2);
-	border-top: 1px solid rgb(248,248,248);
-	border-bottom: 1px solid rgb(180, 180, 180);
+	/*border-top: 1px solid rgb(248,248,248);
+	border-bottom: 1px solid rgb(180, 180, 180);*/
 	text-align: center;
 	padding-bottom: 10px;
 }
@@ -626,7 +643,8 @@ body header {
 
 #lobbyPageAllEventsListContainer {
 	margin: 20px auto;
-	font-size:1.2em;
+	margin-bottom: 80px;
+	font-size: 1.2em;
 	width: 700px;
 }
 
@@ -821,16 +839,10 @@ background:rgb(115, 233, 162);
 .lobby-content-body {
 }
 
-	.lobby-content-body .title-header {
-		color: rgb(114, 114, 114);
-	}
-
 .title-header {
 	text-align: center;
-	/*background: rgb(37, 37, 37);
-	border-top: 1px solid #313131;
-	border-right: 2px solid #313131;*/
-	/*background: rgb(236, 236, 236);*/
+	font-size: 1.6em;
+	color: gray;
 }
 
 .moje-sprawy-text {
@@ -904,8 +916,9 @@ background:rgb(115, 233, 162);
 	background: rgba(0,0,0,.03);
 	padding-top: 25px;
 	padding-bottom: 20px;
-	border-top: 1px solid rgb(250, 250, 250);
-	border-bottom: 1px solid rgb(224, 224, 224);
+	/*border-top: 1px solid rgb(250, 250, 250);
+	border-bottom: 1px solid rgb(224, 224, 224);*/
+	border-top: 1px solid whitesmoke;
 }
 
 #endDateValidationErrorMsg {
@@ -915,11 +928,8 @@ background:rgb(115, 233, 162);
 .add-btn {
 	padding: 10px;
 	color: rgb(250, 250, 250);
-	/*border: 1px solid rgb(222, 255, 233);*/
-	/*border: 2px solid rgb(153, 153, 153);*/
-	border: 2px solid rgb(245, 245, 245);
+	border: 2px solid rgb(238, 238, 238);
 	border-radius: 6px;
-	/*background: rgb(189, 182, 182);*/
 	background: rgb(129, 202, 162);
 	display: inline-block;
 	text-align: center;
@@ -1102,6 +1112,7 @@ background:rgb(115, 233, 162);
 	margin-left: 20px;
 	width: 250px;
 	display: inline-block;
+	position: relative;
 }
 
 .event-list {
@@ -1240,11 +1251,13 @@ wydarzenia-tab {
 
 #lobbyEventSummary {
 	margin: 0 auto;
-	background: rgba(0, 0, 0, 0.04);
-	border-top:1px solid rgb(250, 250, 250);
-	border-bottom:1px solid rgb(224,224,224);
-	text-align:center;
-	padding-top:25px;
+	background: rgba(0, 0, 0, 0.03);
+	/*border-top:1px solid rgb(250, 250, 250);
+	border-bottom:1px solid rgb(224,224,224);*/
+	text-align: center;
+	padding-top: 25px;
+	margin-bottom: 20px;
+	border-top: 1px solid whitesmoke;
 }
 
 .current-month-name-calendar {

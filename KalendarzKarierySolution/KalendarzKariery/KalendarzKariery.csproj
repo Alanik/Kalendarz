@@ -265,14 +265,12 @@
     <Content Include="Images\Form\letter_bg.png" />
     <Content Include="Images\kalendarzTloClear.png" />
     <Content Include="Images\Icons\list-icon.png" />
-    <Content Include="Images\Logo\blackLogo.png" />
-    <Content Include="Images\Logo\blue2.png" />
-    <Content Include="Images\Logo\blue3.png" />
-    <Content Include="Images\Logo\blue4.png" />
-    <Content Include="Images\Logo\blueLogo.png" />
-    <Content Include="Images\Logo\kalendarzLogoSmall.png" />
-    <Content Include="Images\Logo\kalendarzLogoTransparent.png" />
+    <Content Include="Images\Logo\blackAndWhiteSmallKKLogo.png" />
+    <Content Include="Images\Logo\kkLogo.png" />
+    <Content Include="Images\Logo\lightSmallKKLogo.png" />
     <Content Include="Images\Logo\sephiaLogo.png" />
+    <Content Include="Images\Logo\sephiaSmallKKLogo.png" />
+    <Content Include="Images\Logo\smallKKLogo.png" />
     <Content Include="Images\Nav\arrow-left.png" />
     <Content Include="Images\Nav\arrow-right.png" />
     <Content Include="Images\Icons\triangle-left.png" />
@@ -317,7 +315,6 @@
     <Content Include="Scripts\Lib\jquery-2.0.3.min.js" />
     <Content Include="Scripts\Lib\jquery-2.0.3.min.map" />
     <Content Include="Images\kalendarzTlo.png" />
-    <Content Include="Images\Logo\maleLogoKalendarz.png" />
     <Content Include="Images\Loader\ajax-loader.gif" />
     <Content Include="Images\point.png" />
     <Content Include="Scripts\JSViewModels\CalendarViewModel.js" />
@@ -337,6 +334,7 @@
     <Content Include="Scripts\Lib\jquery-ui-1.8.20.custom.min.js" />
     <Content Include="Scripts\Lib\jquery-ui-1.8.20.js" />
     <Content Include="Scripts\Lib\jquery-ui-1.8.20.min.js" />
+    <Content Include="Scripts\Lib\raphael-min.js" />
     <Content Include="Scripts\Lib\_references.js" />
     <Content Include="Scripts\Lib\modernizr-2.7.1.js" />
     <Content Include="Web.config">

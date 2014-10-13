@@ -55,8 +55,7 @@ namespace KalendarzKariery.Controllers
 				return Json(new { userName = model.UserName });
 			}
 
-			ModelState.AddModelError(string.Empty, "Nazwa użytkownika lub hasło jest nieprawidłowe");
-
+			ModelState.AddModelError(string.Empty, Consts.InvalidUserNameOrPasswordErrorMsg);
 			return Json(new { validationError = true });
 		}
 

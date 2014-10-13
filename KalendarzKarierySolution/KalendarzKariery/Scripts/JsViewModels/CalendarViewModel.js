@@ -26,7 +26,9 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 	self.dayNames = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'];
 	self.userName = userName ? userName : '';
 
+	//is used when adding new event
 	self.event = new KKEvent();
+
 	self.eventKinds = [];
 	self.eventPrivacyLevels = [];
 
@@ -1055,6 +1057,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		$addEventContainer.find("#btnAddNewEvent").attr("data-privacylvl", 2);
 		$addEventContainer.show();
 		var $eventTitle = $addEventContainer.find("#Event_Title").focus();
+
 		var top = $addEventContainer.position().top;
 		$("#slide-item-lobby").parent().scrollTop(top);
 	};
@@ -1249,6 +1252,82 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 
 	};
 
+	self.drawAnalogClock = function () {
+		    var paper = Raphael("clockCanvas", 200, 200);
+		    //var clock = paper.circle(100,100,60);
+		    //clock.attr({"fill":"#000000"})  
+		    var hour_sign;
+		    for (i = 0; i < 12; i++) {
+		        var start_x = 100 + Math.round(40 * Math.cos(30 * i * Math.PI / 180));
+		        var start_y = 100 + Math.round(40 * Math.sin(30 * i * Math.PI / 180));
+		        var end_x = 100 + Math.round(45 * Math.cos(30 * i * Math.PI / 180));
+		        var end_y = 100 + Math.round(45 * Math.sin(30 * i * Math.PI / 180));
+		        hour_sign = paper.path("M" + start_x + " " + start_y + "L" + end_x + " " + end_y);
+		        hour_sign.attr({ stroke: "#5d5d5d", "stroke-width": 1 });
+		    }
+		    hour_hand = paper.path("M100 100L100 65");
+		    hour_hand.attr({ stroke: "#c1b8ab", "stroke-width": 6 });
+		    minute_hand = paper.path("M100 100L100 60");
+		    minute_hand.attr({ stroke: "#c1b8ab", "stroke-width": 4 });
+		    second_hand = paper.path("M100 110L100 55");
+		    second_hand.attr({ stroke: "#b1a798", "stroke-width": 1 });
+		    /*
+		    var pin = paper.circle(100, 100, 10);
+		    pin.attr({"fill":"#000000"});    
+		    */
+		    update_clock()
+		    setInterval(function () { update_clock() }, 1000);
+
+
+		function update_clock() {
+		    var now = new Date();
+		    var hours = now.getHours();
+		    var minutes = now.getMinutes();
+		    var seconds = now.getSeconds();
+		    hour_hand.rotate(30*hours+(minutes/2.5), 100, 100);
+		    minute_hand.rotate(6*minutes, 100, 100);
+		    second_hand.rotate(6 * seconds, 100, 100);
+
+		}
+	}
+
+	self.drawDigitalClock = function () {
+
+		setInterval(function () { updateDigitalClock() }, 1000);
+
+		function updateDigitalClock() {
+			var currentTime = new Date();
+			var currentHours = currentTime.getHours();
+			var currentMinutes = currentTime.getMinutes();
+			var currentSeconds = currentTime.getSeconds();
+
+			// Pad the minutes and seconds with leading zeros, if required
+			currentMinutes = (currentMinutes < 10 ? "0" : "") + currentMinutes;
+			currentSeconds = (currentSeconds < 10 ? "0" : "") + currentSeconds;
+			currentHours = (currentHours < 10 ? "0" : "") + currentHours;
+			// Choose either "AM" or "PM" as appropriate
+			//var timeOfDay = ( currentHours < 12 ) ? "AM" : "PM";
+
+			// Convert the hours component to 12-hour format if needed
+			//currentHours = ( currentHours > 12 ) ? currentHours - 12 : currentHours;
+
+			// Convert an hours component of "0" to "12"
+			//currentHours = (currentHours == 0) ? 0 : currentHours;
+
+			// Compose the string for display
+			var currentTimeString = currentHours + ":" + currentMinutes;
+
+
+			$("#details #digitalClock").html(currentTimeString);
+
+		}
+
+		$(function () {
+			
+
+		});
+
+	}
 	//////////////////////////////////////////////////////
 	// KO extention/helper methods
 	//////////////////////////////////////////////////////
@@ -1262,5 +1341,4 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		// Remove KO subscriptions and references
 		ko.cleanNode(node);
 	};
-
 }

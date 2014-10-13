@@ -15,7 +15,7 @@ namespace KalendarzKariery.Controllers
 {
 	public class HomeController : Controller
 	{
-		private static readonly IKalendarzKarieryRepository Repository = RepositoryProvider.GetRepository();
+		private readonly IKalendarzKarieryRepository Repository = RepositoryProvider.GetRepository();
 
 		public ActionResult Index()
 		{

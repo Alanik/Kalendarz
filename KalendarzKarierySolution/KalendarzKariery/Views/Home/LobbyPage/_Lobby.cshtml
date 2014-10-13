@@ -2,26 +2,22 @@
 	<div class="lobby-content-body">
 
 		<div id="lobby-menu-header" class="site-menu-header">
+			<div id="lobbyLogo">
+			</div>
 
 			@if (!Request.IsAuthenticated)
    {
 				<div id="loginLinkContainer">
 					<span data-bind="click: showLoginFormOnClick" id="loginSpanLink" class="login-link link">Zaloguj sie</span>
 					<span id="registerSpanLink" data-bind="click: showRegisterFormOnClick" class="login-link link">Stwórz konto</span>
-
 				</div>
-   }
-			<div id="lobbyLogo">
-			</div>
 
-			@if (!Request.IsAuthenticated)
-   {
 				@Html.Partial("_Login", new KalendarzKarieryData.Models.AccountModels.LoginModel())
 				@Html.Partial("_Register", new KalendarzKarieryData.Models.ViewModels.RegisterViewModel())
    }
    else
    {
-					<div style="text-align:right;color:rgb(182, 182, 182);">
+				<div style="text-align: right; color: rgb(182, 182, 182);">
 					<span class="loggedIn-nickname">@User.Identity.Name</span>
 					@using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
 	 {
@@ -35,7 +31,7 @@
    }
 
 			<div id="lobbyEventsMenuContainer">
-			<div style="margin:0 auto;padding-bottom:10px;color:gray;font-size:1.6em;">Tablica ogłoszeń:</div>
+				<div class="title-header">Tablica wydarzeń:</div>
 				<div class="menu-item-container">
 					<div class="border-item wydarzenia-border-tab"></div>
 					<div class="menu-item" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick($element) }" data-eventkind="1" data-privacylvl="public">
@@ -119,16 +115,16 @@
 				</div>
 			</div>
 
-				@Html.Partial("_LobbyAllSelectedEventsList")
+			@Html.Partial("_LobbyAllSelectedEventsList")
 
 		</div>
-		
-				@Html.Partial("_lobbyEventSummary")
+
+		@Html.Partial("_lobbyEventSummary")
 
 		<header class="title-header">Aktualności</header>
 		<div class="event-list-date-header">
 			12.03.2012
-		</div>	
+		</div>
 	</div>
 	<div style="height: 800px; width: 200px;">
 	</div>

@@ -37,7 +37,7 @@
 				</div>
 				<div id="calendarBg">
 					<img src="~/Images/kalendarzTlo.png" alt="background" />
-					<img src="~/Images/Logo/lightSmallKKLogo.png" alt="smallLogo" style="position:absolute !important;left:25px !important; top: 10px !important;height:78px !important;width:73px !important;z-index:100 !important;"/>
+					@*<img src="~/Images/Logo/lightSmallKKLogo.png" alt="smallLogo" style="position:absolute !important;left:25px !important; top: 10px !important;height:78px !important;width:73px !important;z-index:100 !important;"/>*@
 					<div class="dotted-page-overlay"></div>
 					<div class="loader-container">wczytywanie...</div>
 					@Html.Partial("_ConfirmationPopupBox")
@@ -60,7 +60,7 @@
 			<div id="slide-item-details">
 				<div id="detailsBg">
 					<img src="~/Images/kalendarzTlo.png" alt="background" />
-					<img src="~/Images/Logo/lightSmallKKLogo.png" alt="smallLogo" style="position:absolute !important;left:25px !important; top: 10px !important;height:78px !important;width:73px !important;z-index:100 !important;"/>
+					@*<img src="~/Images/Logo/lightSmallKKLogo.png" alt="smallLogo" style="position:absolute !important;left:25px !important; top: 10px !important;height:78px !important;width:73px !important;z-index:100 !important;"/>*@
 					<div class="dotted-page-overlay"></div>
 					<div class="loader-container">wczytywanie...</div>
 					@Html.Partial("_ConfirmationPopupBox")
@@ -100,6 +100,9 @@
 				calendarViewModel.eventKinds = indexViewModel.EventKinds;				
 				calendarViewModel.publicEventTree = eventTreeBuilder.buildEventTree(indexViewModel.PublicEvents, calendarViewModel.setCalendarPlacementRow, calendarViewModel.publicEvents);
 				calendarViewModel.publicEventTreeCountBasedOnEventKind = eventTreeBuilder.buildEventTreeCountBasedOnEventKind(indexViewModel.PublicEventCountTree);			
+				calendarViewModel.newsEvents = eventTreeBuilder.transformNews(indexViewModel.News);
+
+				console.log(calendarViewModel.newsEvents);
 
 				if (indexViewModel.MyEvents) {
 
@@ -308,6 +311,21 @@
 							"cursor": "auto"
 						});
 					});
+
+					$mainContainer.on({
+						mouseenter: function () {
+							$(this).css({
+								"cursor": "pointer",
+								"background" : "rgb(253,253,253)"
+							});
+						},
+						mouseleave: function () {
+							$(this).css({
+								"cursor": "auto",
+								"background" : "rgb(248,248,248)"
+							});
+						}
+					}, '.lobby-event-rectangle');
 
 					$mainContainer.on({
 						mouseenter: function () {

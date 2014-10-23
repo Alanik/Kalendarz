@@ -26,9 +26,10 @@ namespace KalendarzKariery.Controllers
 
 			var indexViewModel = new IndexViewModel();
 			indexViewModel.PublicEvents = Repository.GetAllPublicEvents();
-			indexViewModel.EventKinds = Repository.GetAllEventKinds();
+			indexViewModel.EventKinds = Repository.GetEventKindsBasedOnUserName(User.Identity.Name);
 			indexViewModel.PrivacyLevels = Repository.GetAllPrivacyLevels();
 			indexViewModel.PublicEventCountTree = Repository.GetPublicEventCountTree();
+			indexViewModel.News = Repository.GetAllNews();
 
 			indexViewModel.MyEvents = null;
 			indexViewModel.MyEventCountTree = null;

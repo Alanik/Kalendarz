@@ -29,7 +29,7 @@ header, footer, nav, section, div {
 
 @font-face {
 	font-family: CodePro;
-	src: url('Fonts/CodePro/CODE Light.otf');
+	src: url('Fonts/CodePro/CODE Bold.otf');
 }
 
 @font-face {
@@ -95,21 +95,21 @@ body header {
 }
 
 #clockCanvas {
-position:absolute;
-left:70px;
-top:50px;
-
+    height:200px;
+	background:rgba(0, 0, 0, .11);
+	position:relative;
+	width:200px;
+	margin-top:5px;
 }
 
 #digitalClock {
-position: relative;
-top: -40px;
-font-size: 34px;
-color:rgb(251, 255, 194);
-border:1px solid whitesmoke;
-border-right:none;
-padding-left:3px;
-width:100px;
+	position: absolute;
+	top: 160px;
+	width:200px;
+	text-align:center;
+	font-size: 22px;
+	/*color: rgb(156, 146, 138);*/
+	color:rgb(255, 238, 224);
 }
 
 #lobbyBg {
@@ -122,10 +122,8 @@ width:100px;
 
 .events-menu-container {
 	text-align: center;
-	display: inline-block;
-	float: right;
-	margin-top: -2px;
-	margin-right: 9%;
+	margin-top: 20px;
+
 }
 
 #lobbyLogo {
@@ -162,6 +160,10 @@ width:100px;
 		position: static !important;
 		width: 100% !important;
 	}
+
+.news-container {
+	text-align: center;
+}
 
 #lobby-navigation-arrows-right {
 	right: 4%;
@@ -307,7 +309,6 @@ width:100px;
 	overflow: hidden;
 	font-size: 2em;
 	/*color: rgb(131, 131, 131);*/
-	color: rgb(207, 157, 157);
 }
 
 .dark-background-div {
@@ -463,13 +464,10 @@ width:100px;
 }
 
 .lobby-loggedIn-bar {
-	margin-top: 25px;
 	overflow: hidden;
 	color: rgb(185, 185, 185);
-	/*border-top: 1px solid rgb(248,248,248);
-	border-bottom: 1px solid rgb(180, 180, 180);*/
 	text-align: center;
-	padding-bottom: 10px;
+	padding-bottom: 40px;
 }
 
 .today-cell {
@@ -639,6 +637,7 @@ width:100px;
 	margin: 20px auto;
 	font-size: 1.2em;
 	width: 700px;
+	padding-left:200px;
 }
 
 #lobbyPageAllEventsListContainer {
@@ -1088,31 +1087,39 @@ background:rgb(115, 233, 162);
 	font-size: 6em;
 	display: inline-block;
 	color: rgb(251, 255, 194);
+	padding-left:5px;
 }
 
 #todayDateDayName {
 	color: rgb(251, 255, 194);
 	font-size: 2em;
 	position: relative;
-	bottom: 40px;
+	bottom: 35px;
+	padding-left:7px;
 }
 
 #todayDateMonth {
-	font-size: 2em;
+font-size: 2em;
+position: relative;
+top: -40px;
+padding-left: 7px;
 }
 
 #todayDateYear {
-	font-size: 1.5em;
-	position: relative;
-	bottom: 4px;
+font-size: 1.5em;
+position: relative;
+top: -40px;
+text-align: left;
+padding-left: 7px;
 }
 
 #todayDateAndTimeContainer {
 	color: rgb(132,132,132);
 	margin-left: 20px;
-	width: 250px;
-	display: inline-block;
+	width: 200px;
+	float:left;
 	position: relative;
+	margin-top:20px;
 }
 
 .event-list {

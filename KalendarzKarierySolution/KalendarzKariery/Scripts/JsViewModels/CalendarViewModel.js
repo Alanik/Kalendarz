@@ -70,6 +70,8 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 	//TODO: change into event tree with arrays grouped by event kind
 	self.lobbyPageAllSelectedEvents = ko.observableArray([]);
 
+	self.newsEvents = [];
+
 	//it is filled with public events when building publicEventTree
 	self.publicEvents = [];
 	self.publicEventTree = {
@@ -1053,7 +1055,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		var $addEventContainer = $("#addNewEventContainer");
 		$addEventContainer.detach().prependTo("#lobby");
 
-		$addEventContainer.find("legend").text("Dodaj do tablicy ogłoszeń");
+		$addEventContainer.find("legend").text("Dodaj do tablicy wydarzeń");
 		$addEventContainer.find("#btnAddNewEvent").attr("data-privacylvl", 2);
 		$addEventContainer.show();
 		var $eventTitle = $addEventContainer.find("#Event_Title").focus();
@@ -1253,24 +1255,24 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 	};
 
 	self.drawAnalogClock = function () {
-		    var paper = Raphael("clockCanvas", 200, 200);
+		    var paper = Raphael("clockCanvas", 200, 160);
 		    //var clock = paper.circle(100,100,60);
 		    //clock.attr({"fill":"#000000"})  
 		    var hour_sign;
 		    for (i = 0; i < 12; i++) {
-		        var start_x = 100 + Math.round(40 * Math.cos(30 * i * Math.PI / 180));
-		        var start_y = 100 + Math.round(40 * Math.sin(30 * i * Math.PI / 180));
-		        var end_x = 100 + Math.round(45 * Math.cos(30 * i * Math.PI / 180));
-		        var end_y = 100 + Math.round(45 * Math.sin(30 * i * Math.PI / 180));
+		        var start_x = 100 + Math.round(50 * Math.cos(30 * i * Math.PI / 180));
+		        var start_y = 100 + Math.round(50 * Math.sin(30 * i * Math.PI / 180));
+		        var end_x = 100 + Math.round(55 * Math.cos(30 * i * Math.PI / 180));
+		        var end_y = 100 + Math.round(55 * Math.sin(30 * i * Math.PI / 180));
 		        hour_sign = paper.path("M" + start_x + " " + start_y + "L" + end_x + " " + end_y);
 		        hour_sign.attr({ stroke: "#5d5d5d", "stroke-width": 1 });
 		    }
-		    hour_hand = paper.path("M100 100L100 65");
-		    hour_hand.attr({ stroke: "#c1b8ab", "stroke-width": 6 });
-		    minute_hand = paper.path("M100 100L100 60");
-		    minute_hand.attr({ stroke: "#c1b8ab", "stroke-width": 4 });
-		    second_hand = paper.path("M100 110L100 55");
-		    second_hand.attr({ stroke: "#b1a798", "stroke-width": 1 });
+		    hour_hand = paper.path("M100 100L100 60");
+		    hour_hand.attr({ stroke: "rgb(255, 238, 224)", "stroke-width": 6 });
+		    minute_hand = paper.path("M100 100L100 55");
+		    minute_hand.attr({ stroke: "rgb(255, 238, 224)", "stroke-width": 4 });
+		    second_hand = paper.path("M100 110L100 50");
+		    second_hand.attr({ stroke: "rgb(255, 238, 224)", "stroke-width": 1 });
 		    /*
 		    var pin = paper.circle(100, 100, 10);
 		    pin.attr({"fill":"#000000"});    
@@ -1284,8 +1286,8 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		    var hours = now.getHours();
 		    var minutes = now.getMinutes();
 		    var seconds = now.getSeconds();
-		    hour_hand.rotate(30*hours+(minutes/2.5), 100, 100);
-		    minute_hand.rotate(6*minutes, 100, 100);
+		    hour_hand.rotate(30 * hours + (minutes/2.5), 100, 100);
+		    minute_hand.rotate(6 * minutes, 100, 100);
 		    second_hand.rotate(6 * seconds, 100, 100);
 
 		}
@@ -1321,12 +1323,6 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 			$("#details #digitalClock").html(currentTimeString);
 
 		}
-
-		$(function () {
-			
-
-		});
-
 	}
 	//////////////////////////////////////////////////////
 	// KO extention/helper methods

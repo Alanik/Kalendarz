@@ -180,14 +180,26 @@ namespace KalendarzKarieryWebAPI.Controllers
 
 			if (@event.EndDate <= DateTime.Now)
 			{
-				@event.EventStatusId = Repository.GetEventStatusIdByValue(2);
+				var id = Repository.GetEventStatusIdByValue(2);
+				if (id < 0)
+				{
+					return null;
+				}
+
+				@event.EventStatusId = id;
 			}
 			else
 			{
-				@event.EventStatusId = Repository.GetEventStatusIdByValue(1);
+				var id = Repository.GetEventStatusIdByValue(1);
+				if (id < 0)
+				{
+					return null;
+				}
+
+				@event.EventStatusId = id;
 			}
 
-			if (!string.IsNullOrEmpty(viewModel.Address.Street))
+			if (!string.IsNullOrEmpty(viewModel.Address.Street) || !string.IsNullOrEmpty(viewModel.Address.City) || !string.IsNullOrEmpty(viewModel.Address.ZipCode))
 			{
 				@event.Addresses.Add(viewModel.Address);
 			}

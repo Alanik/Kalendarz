@@ -114,12 +114,35 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 
 		public int GetEventStatusIdByValue(int value)
 		{
-			return _entities.EventStatus.Where(m => m.Value == value).FirstOrDefault().Id;
+			var status = _entities.EventStatus.Where(m => m.Value == value).FirstOrDefault();
+			return status != null ? status.Id : -1;
 		}
 
 		public IList<Event> GetAllEvents()
 		{
 			return _entities.Events.ToList();
+		}
+
+		public ICollection<object> GetAllNews()
+		{
+			return _entities.Events.Where(m => m.EventKind.Value == 8).Select(m => new
+			{
+				id = m.Id,
+				name = m.Title,
+				description = m.Description,
+				details = m.Details,
+				dateAdded = m.DateAdded,
+				occupancyLimit = m.OccupancyLimit,
+				urlLink = m.UrlLink,
+				calendarPlacementRow = 1,
+				startDate = m.StartDate,
+				endDate = m.EndDate,
+				price = m.Price,
+				numberOfPeopleAttending = m.NumberOfPeopleAttending,
+				kind = new { name = m.EventKind.Name, value = m.EventKind.Value },
+				privacyLevel = new { name = m.PrivacyLevel.Name, value = m.PrivacyLevel.Value },
+				addresses = m.Addresses.Select(o => new { street = o.Street, city = o.City, zipCode = o.ZipCode })
+			}).OrderBy(m => m.startDate).ToArray();
 		}
 
 		public EventsGroupedByYearModel GetAllEventsForGivenYearByUserId(int id, int year)
@@ -237,6 +260,22 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 		public ICollection<object> GetAllEventKinds()
 		{
 			return _entities.EventKinds.Select(m => new { name = m.Name, value = m.Value }).OrderBy(m => m.value).ToArray();
+		}
+
+		public ICollection<object> GetEventKindsBasedOnUserName(string name)
+		{
+			if (!string.IsNullOrEmpty(name))
+			{
+				var user = _entities.Users.Include("webpages_Roles").Where(m => string.Compare(m.UserName, name, true) == 0).FirstOrDefault();
+
+				if (user != null)
+				{
+					var c = user.webpages_Roles.Count;
+					return _entities.EventKinds.Select(m => new { name = m.Name, value = m.Value }).OrderBy(m => m.value).ToArray();
+				}
+			}
+
+			return _entities.EventKinds.Where(m => m.Value != 8).Select(m => new { name = m.Name, value = m.Value }).OrderBy(m => m.value).ToArray();
 		}
 
 		public object GetMyEventCountTree(int userId)

@@ -14,7 +14,7 @@
         <EntityTypeShape EntityType="KalendarzKarieryDBModel.sysdiagram" Width="1.5" PointX="7.75" PointY="1.625" IsExpanded="true" />
         <EntityTypeShape EntityType="KalendarzKarieryDBModel.User" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
         <EntityTypeShape EntityType="KalendarzKarieryDBModel.UserAccountInfo" Width="1.5" PointX="0.75" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="KalendarzKarieryDBModel.webpages_Membership" Width="1.5" PointX="9.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KalendarzKarieryDBModel.webpages_Membership" Width="1.5" PointX="10.25" PointY="1.75" IsExpanded="true" />
         <EntityTypeShape EntityType="KalendarzKarieryDBModel.webpages_OAuthMembership" Width="1.5" PointX="7.75" PointY="10.625" IsExpanded="true" />
         <EntityTypeShape EntityType="KalendarzKarieryDBModel.webpages_Roles" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
         <AssociationConnector Association="KalendarzKarieryDBModel.FK_Address_Event" ManuallyRouted="false" />

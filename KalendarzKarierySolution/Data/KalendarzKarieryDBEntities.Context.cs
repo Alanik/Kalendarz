@@ -21,15 +21,13 @@ namespace KalendarzKarieryData
 		public KalendarzKarieryDBEntities()
 			: base("name=KalendarzKarieryDBEntities")
 		{
-					this.Configuration.LazyLoadingEnabled = false;
-					this.Configuration.ProxyCreationEnabled = false;
+			this.Configuration.LazyLoadingEnabled = false;
 		}
 
 		public KalendarzKarieryDBEntities(DbConnection connection)
 			: base(connection, true)
 		{
-					this.Configuration.LazyLoadingEnabled = false;
-					this.Configuration.ProxyCreationEnabled = false;
+			this.Configuration.LazyLoadingEnabled = false;
 		}
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)

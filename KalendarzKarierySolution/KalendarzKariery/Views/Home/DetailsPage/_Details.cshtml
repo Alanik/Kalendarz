@@ -7,15 +7,17 @@
 <section id="detailsPanel">
 
 	<div id="todayDateAndTimeContainer">
-	<div style="position:absolute;font-size:19px;color:white;">dzisiaj jest:</div>
-		<div id="todayDateDay" data-bind="text: $root.todayDate.day"></div>
-		<div style="display: inline-block;">
+		<div style="background: rgba(0,0,0,.04);width:200px;">
+			<div id="todayDateDay" data-bind="text: $root.todayDate.day"></div>
+			<div id="todayDateDayName" data-bind="text: $root.todayDate.getDayName()"></div>
 			<div id="todayDateMonth" data-bind="text: $root.todayDate.getMonthName()"></div>
 			<div id="todayDateYear" data-bind="text: $root.todayDate.year"></div>
 		</div>
-		<div id="todayDateDayName" data-bind="text: $root.todayDate.getDayName()"></div>
-		<div id="clockCanvas"></div>
-		<div id="digitalClock"></div>
+
+		<div id="clockCanvas">
+			<div id="digitalClock"></div>
+		</div>
+
 	</div>
 
 	<div class="events-menu-container">
@@ -106,12 +108,15 @@
 
 </section>
 <div id="lowDetailsMenuHeader" class="dark-background-div">
-	<div style="margin-left: 6px; color: white;">/Szczegóły dnia/</div>
-	<span style="font-size: .8em;margin-left:6px;">wydarzenia z dnia: </span>
+	<div style="margin-left: 6px; color: white;">/Grafik dnia/</div>
+</div>
+<div style="font-size:2em;">
+<span style="font-size: .8em; margin-left: 6px;	color: rgb(207, 157, 157);">wydarzenia z dnia: </span>
 	<span data-bind="text: $root.detailsPageDisplayDate.day()" style="color: rgb(228, 138, 138);"></span>
 	<span data-bind="text: $root.detailsPageDisplayDate.getMonthName()" style="color: rgb(228, 138, 138);"></span>
 	<span data-bind="text: $root.detailsPageDisplayDate.year()" style="color: rgb(228, 138, 138); font-size: .8em;"></span>
 </div>
+
 <section id="calendarDayDetailsContainer">
 	<div id="calendarDayDetailsTable">
 		<div class="table-details-head">

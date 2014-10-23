@@ -32,6 +32,7 @@
 						setAddress(event);
 						setKind(event);
 						setStartDate(event);
+						setDateAdded(event);
 						eventTreeDayGroupProp.push(event);
 
 						//push public event to calendarViewModel.publicEvents
@@ -89,6 +90,34 @@
 
 			event.eventLengthInMinutes = ((parseInt(endHour, 10) - parseInt(startHour, 10)) * 60) + (parseInt(endMinute, 10) - parseInt(startMinute, 10));
 		};
+		function setDateAdded(event) {
+			var sdate = new Date(parseInt(event.dateAdded.substr(6)));
+
+			var startMinute = sdate.getMinutes();
+			var startHour = sdate.getHours();
+
+			var transformedDate = {
+				"javascriptDateAdded": sdate,
+				"minute": startMinute,
+				"hour": startHour,
+				"day": sdate.getDate(),
+				"month": sdate.getMonth() + 1,
+				"year": sdate.getFullYear(),
+				"formatZero": function (time) {
+					return time < 10 ? '0' + time : time;
+				},
+				"displayFullDate": function () {
+					return this.formatZero(this.day) + '/' + this.formatZero(this.month) + '/' + this.year;
+				},
+				"displayFullTime": function () {
+					return this.formatZero(this.hour) + ':' + this.formatZero(this.minute);
+				}
+
+			};
+
+			event.dateAdded = transformedDate;
+
+		}
 		function setAddress(event) {
 
 			if (!event.addresses[0]) {
@@ -138,6 +167,49 @@
 
 		for (var i in serverEventKinds) {
 			eventKind = serverEventKinds[i];
+		}
+	}
+
+	self.transformNews = function (eventsArray) {
+		var event, events = [];
+
+		for (var i = 0; i < eventsArray.length; i++) {
+  
+			event = eventsArray[i];
+
+			setDateAdded(event);
+			events.push(event);
+		}
+
+		return events;
+
+		function setDateAdded(event) {
+			var sdate = new Date(parseInt(event.dateAdded.substr(6)));
+		
+			var startMinute = sdate.getMinutes();
+			var startHour = sdate.getHours();
+
+			var transformedDate = {
+				"javascriptDateAdded": sdate,
+				"minute": startMinute,
+				"hour": startHour,
+				"day": sdate.getDate(),
+				"month": sdate.getMonth() + 1,
+				"year": sdate.getFullYear(),
+				"formatZero": function (time) {
+					return time < 10 ? '0' + time : time;
+				},
+				"displayFullDate": function () {
+					return this.formatZero(this.day) + '/' + this.formatZero(this.month) + '/' + this.year;
+				},
+				"displayFullTime": function () {
+					return this.formatZero(this.hour) + ':' + this.formatZero(this.minute);
+				}
+
+			};
+
+			event.dateAdded = transformedDate;
+
 		}
 	}
 };

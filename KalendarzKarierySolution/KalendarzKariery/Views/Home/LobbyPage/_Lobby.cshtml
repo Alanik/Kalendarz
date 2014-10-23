@@ -1,6 +1,5 @@
 ﻿<div class="lobby-content-container">
 	<div class="lobby-content-body">
-
 		<div id="lobby-menu-header" class="site-menu-header">
 			<div id="lobbyLogo">
 			</div>
@@ -14,6 +13,10 @@
 
 				@Html.Partial("_Login", new KalendarzKarieryData.Models.AccountModels.LoginModel())
 				@Html.Partial("_Register", new KalendarzKarieryData.Models.ViewModels.RegisterViewModel())
+
+				  <div style="font-size:2em; color:rgb(194, 186, 169);width:80%;margin:40px auto;text-align:center;font-family:CodePro;">
+	Twój osobisty kalendarz stworzony na miare Twoich potrzeb.
+	</div>
    }
    else
    {
@@ -26,10 +29,12 @@
 	 }
 				</div>
 				
-				@Html.Partial("_LobbyLoggedInBar")
-	  
-   }
+				   <div style="font-size:2em; color:rgb(194, 186, 169);margin:40px auto;width:80%;text-align:center;font-family:CodePro;">
+	Twój osobisty kalendarz stworzony na miare Twoich potrzeb.
+	</div>
 
+				@Html.Partial("_LobbyLoggedInBar") 
+   }
 			<div id="lobbyEventsMenuContainer">
 				<div class="title-header">Tablica wydarzeń:</div>
 				<div class="menu-item-container">
@@ -118,13 +123,8 @@
 			@Html.Partial("_LobbyAllSelectedEventsList")
 
 		</div>
-
 		@Html.Partial("_lobbyEventSummary")
-
-		<header class="title-header">Aktualności</header>
-		<div class="event-list-date-header">
-			12.03.2012
-		</div>
+		@Html.Partial("_lobbyNews")
 	</div>
 	<div style="height: 800px; width: 200px;">
 	</div>

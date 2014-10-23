@@ -30,9 +30,11 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 		EventsGroupedByYearModel GetAllEventsForGivenYearByUserId(int id, int year);
 		ICollection<object> GetAllPrivacyLevels();
 		ICollection<object> GetAllEventKinds();
+		ICollection<object> GetEventKindsBasedOnUserName(string name);
 		PrivacyLevel GetPrivacyLevelByValue(int id);
 		EventKind GetEventKindByValue(int id);
 		IList<Event> GetAllEvents();
+		ICollection<object> GetAllNews();
 		object GetMyEventCountTree(int userId);
 		object GetPublicEventCountTree();
 		IList<EventsGroupedByYearModel> GetAllEventsByUserId(int userId);

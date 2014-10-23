@@ -12,11 +12,21 @@
 	self.calendarPlacementRow = 1;
 
 	self.dateAdded = {
-		minute: "",
-		hour: "",
-		day: "",
-		month: "",
-		year: ""
+		"javascriptDateAdded": "",
+		"minute": "",
+		"hour": "",
+		"day": "",
+		"month": "",
+		"year": "",
+		"formatZero": function (time) {
+			return time < 10 ? '0' + time : time;
+		},
+		"displayFullDate": function () {
+			return this.formatZero(this.day) + '/' + this.formatZero(this.month) + '/' + this.year;
+		},
+		"displayFullTime": function () {
+			return this.formatZero(this.hour) + ':' + this.formatZero(this.minute);
+		}
 	};
 
 	self.description = "";
@@ -64,6 +74,7 @@
 		displayFullDate: function () {
 			return this.formatZero(this.day) + '/' + this.formatZero(this.month) + '/' + this.year;
 		},
+		//TODO: remove helper functions from model, instead maybe use custom KO bindings
 		displayFullTime: function () {
 			return this.formatZero(this.startHour) + ':' + this.formatZero(this.startMinute) + " - " + this.formatZero(this.endHour) + ':' + this.formatZero(this.endMinute);
 		}

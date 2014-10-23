@@ -18,7 +18,7 @@ namespace KalendarzKarieryData.BO.Cache
 			return Cache[key];
 		}
 
-		public static void Set(string key, object data, int cacheTime = 60)
+		public static void Set(string key, object data, int cacheTime = 180)
 		{
 			CacheItemPolicy policy = new CacheItemPolicy();
 			policy.AbsoluteExpiration = DateTime.Now + TimeSpan.FromMinutes(cacheTime);

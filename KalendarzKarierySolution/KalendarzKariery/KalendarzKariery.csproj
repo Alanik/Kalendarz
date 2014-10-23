@@ -264,6 +264,7 @@
     <Content Include="Images\BackgroundParts\MiddlePartBg.png" />
     <Content Include="Images\BackgroundParts\RightSidePixelDark.png" />
     <Content Include="Images\Form\letter_bg.png" />
+    <Content Include="Images\Ico\favicon.ico" />
     <Content Include="Images\kalendarzTloClear.png" />
     <Content Include="Images\Icons\list-icon.png" />
     <Content Include="Images\Logo\blackAndWhiteSmallKKLogo.png" />

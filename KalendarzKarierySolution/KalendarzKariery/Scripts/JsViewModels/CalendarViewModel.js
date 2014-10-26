@@ -899,6 +899,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 	};
 
 	self.registerUserOnClick = function () {
+		var $overlay = $("#lobby").siblings(".dotted-page-overlay");
 		var $dateBirthValidationMsg;
 		var $registerForm = $("#registerForm");
 		$registerForm.find(".summary-validation-errors").empty();
@@ -921,8 +922,11 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 			$.ajax({
 				url: action,
 				type: "POST",
+				beforeSend: self.showLoader($overlay),
 				data: $registerForm.serialize(),
 				success: function (result) {
+					self.hideLoader($overlay);
+
 					if (result.isRegisterSuccess === false) {
 						displayErrors(result.errors);
 					} else {
@@ -930,6 +934,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 					}
 				},
 				error: function () {
+					self.hideLoader($overlay);
 					alert("Wystąpił nieoczekiwany błąd. Prosze sprobować jeszcze raz.");
 				}
 			});
@@ -958,6 +963,8 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 	};
 
 	self.updateUserOnClick = function () {
+		var $overlay = $("#details").siblings(".dotted-page-overlay");
+
 		var $dateBirthValidationMsg;
 		var $registerForm = $("#updateProfileForm");
 		$registerForm.find(".summary-validation-errors").empty();
@@ -980,13 +987,17 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 			$.ajax({
 				url: action,
 				type: "POST",
+				beforeSend: self.showLoader($overlay),
 				data: $registerForm.serialize() + "&RegisterModel.Password=DummyPassword&RegisterModel.ConfirmPassword=DummyPassword&RegisterModel.UserName=DummyUserName",
 				success: function (result) {
+					self.hideLoader($overlay);
+
 					if (result.IsSuccess === false) {
 						alert(result.Message)
 					}
 				},
 				error: function () {
+					self.hideLoader($overlay);
 					alert("Wystąpił nieoczekiwany błąd. Prosze sprobować jeszcze raz.");
 				}
 			});
@@ -994,6 +1005,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 
 		return false;
 
+		//TODO: make sure errors are passed from the server (the same as in registerUser)
 		function displayErrors(errors) {
 
 			var label;

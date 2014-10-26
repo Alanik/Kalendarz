@@ -10,12 +10,14 @@ using Newtonsoft.Json;
 using KalendarzKarieryData.Repository;
 using KalendarzKarieryData.Repository.KalendarzKarieryRepository;
 using KalendarzKarieryData.BO.Cache;
+using KalendarzKarieryData.Models.AccountModels;
+using System.Linq;
 
 namespace KalendarzKariery.Controllers
 {
-	public class HomeController : Controller
+	public class HomeController : BaseController
 	{
-		private readonly IKalendarzKarieryRepository Repository = RepositoryProvider.GetRepository();
+		private readonly IKalendarzKarieryRepository _repository = RepositoryProvider.GetRepository();
 
 		public ActionResult Index()
 		{
@@ -24,43 +26,66 @@ namespace KalendarzKariery.Controllers
 				return View("Index", null);
 			}
 
+			MainViewModel container = new MainViewModel();
+
 			var indexViewModel = new IndexViewModel();
-			indexViewModel.PublicEvents = Repository.GetAllPublicEvents();
-			indexViewModel.EventKinds = Repository.GetEventKindsBasedOnUserName(User.Identity.Name);
-			indexViewModel.PrivacyLevels = Repository.GetAllPrivacyLevels();
-			indexViewModel.PublicEventCountTree = Repository.GetPublicEventCountTree();
-			indexViewModel.News = Repository.GetAllNews();
+			indexViewModel.PublicEvents = _repository.GetAllPublicEvents();
+			indexViewModel.EventKinds = _repository.GetEventKindsBasedOnUserName(User.Identity.Name);
+			indexViewModel.PrivacyLevels = _repository.GetAllPrivacyLevels();
+			indexViewModel.PublicEventCountTree = _repository.GetPublicEventCountTree();
+			indexViewModel.News = _repository.GetAllNews();
 
 			indexViewModel.MyEvents = null;
 			indexViewModel.MyEventCountTree = null;
+			RegisterViewModel registerViewModel = new RegisterViewModel();
 
 			if (User.Identity.IsAuthenticated)
 			{
-				int id;
-				string userName = User.Identity.Name.ToLower();
+				int id = GetUserId(User.Identity.Name.ToLower(), _repository);
 
-				var objectId = AppCache.Get(userName);
-				if (objectId != null)
+				if (id >= 0)
 				{
-					id = (int)objectId;
-
-					indexViewModel.MyEvents = Repository.GetAllEventsByUserId(id);
-					indexViewModel.MyEventCountTree = Repository.GetMyEventCountTree(id);
+					indexViewModel.MyEvents = _repository.GetAllEventsByUserId(id);
+					indexViewModel.MyEventCountTree = _repository.GetMyEventCountTree(id);
+					registerViewModel = this.GetRegisterViewModel(id, _repository);
 				}
 				else
 				{
-					id = Repository.GetUserIdByName(userName);
-					if (id > 0)
-					{
-						AppCache.Set(userName, id);
-
-						indexViewModel.MyEvents = Repository.GetAllEventsByUserId(id);
-						indexViewModel.MyEventCountTree = Repository.GetMyEventCountTree(id);
-					}
+					//TODO: throw exception
 				}
 			}
 
-			return View("Index", indexViewModel);
+
+			container.IndexViewModel = indexViewModel;
+			container.RegisterViewModel = registerViewModel;
+
+			return View("Index", container);
+		}
+
+		private RegisterViewModel GetRegisterViewModel(int id, IKalendarzKarieryRepository repository)
+		{
+			RegisterViewModel registerViewModel = new RegisterViewModel();
+
+			var user = repository.GetUserById(id);
+			registerViewModel.User = user;
+
+			if (user.Addresses.Any())
+			{
+				registerViewModel.Address = user.Addresses.First();
+			}
+			else
+			{
+				registerViewModel.Address = new Address();
+			}
+
+			registerViewModel.BirthDateModel = new DateModel();
+			registerViewModel.BirthDateModel.Day = user.BirthDay.Day.ToString();
+			registerViewModel.BirthDateModel.Month = user.BirthDay.Month.ToString();
+			registerViewModel.BirthDateModel.Year = user.BirthDay.Year.ToString();
+			registerViewModel.RegisterModel = new RegisterModel();
+			registerViewModel.RegisterModel.UserName = user.UserName;
+
+			return registerViewModel;
 		}
 	}
 }

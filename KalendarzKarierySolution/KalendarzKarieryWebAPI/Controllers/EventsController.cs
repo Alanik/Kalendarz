@@ -19,7 +19,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 {
 	public class EventsController : BaseController
 	{
-		private static readonly IKalendarzKarieryRepository Repository = RepositoryProvider.GetRepository();
+		private readonly IKalendarzKarieryRepository _repository = RepositoryProvider.GetRepository();
 
 		// GET api/events
 		public IResponse Get()
@@ -58,8 +58,8 @@ namespace KalendarzKarieryWebAPI.Controllers
 				return new DefaultResponseModel { IsSuccess = false, Message = Consts.GeneralValidationErrorMsg };
 			}
 
-			Repository.AddEvent(@event);
-			Repository.Save();
+			_repository.AddEvent(@event);
+			_repository.Save();
 
 			return new AddEventResponseModel { IsSuccess = true, EventId = @event.Id };
 		}
@@ -80,7 +80,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 				return response;
 			}
 
-			var @event = Repository.GetEventById(id);
+			var @event = _repository.GetEventById(id);
 
 			if (@event != null)
 			{
@@ -88,8 +88,8 @@ namespace KalendarzKarieryWebAPI.Controllers
 
 				if (@event.User.UserName.ToLower() == User.Identity.Name.ToLower())
 				{
-					Repository.DeleteEvent(@event);
-					Repository.Save();
+					_repository.DeleteEvent(@event);
+					_repository.Save();
 
 					response.IsSuccess = true;
 					response.Message = Consts.EventDeletedSuccesfullyMsg;
@@ -135,7 +135,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 			}
 			else
 			{
-				int id = Repository.GetUserIdByName(User.Identity.Name);
+				int id = _repository.GetUserIdByName(User.Identity.Name);
 
 				if (id >= 0)
 				{
@@ -158,7 +158,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 			@event.EndDate = viewModel.Event.EndDate;
 			@event.Price = viewModel.Event.Price;
 
-			var eventKind = Repository.GetEventKindByValue(viewModel.EventKind.Value);
+			var eventKind = _repository.GetEventKindByValue(viewModel.EventKind.Value);
 			if (eventKind != null)
 			{
 				@event.EventKind = eventKind;
@@ -168,7 +168,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 				return null;
 			}
 
-			var privacyLevel = Repository.GetPrivacyLevelByValue(viewModel.PrivacyLevel.Value);
+			var privacyLevel = _repository.GetPrivacyLevelByValue(viewModel.PrivacyLevel.Value);
 			if (privacyLevel != null)
 			{
 				@event.PrivacyLevel = privacyLevel;
@@ -180,7 +180,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 
 			if (@event.EndDate <= DateTime.Now)
 			{
-				var id = Repository.GetEventStatusIdByValue(2);
+				var id = _repository.GetEventStatusIdByValue(2);
 				if (id < 0)
 				{
 					return null;
@@ -190,7 +190,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 			}
 			else
 			{
-				var id = Repository.GetEventStatusIdByValue(1);
+				var id = _repository.GetEventStatusIdByValue(1);
 				if (id < 0)
 				{
 					return null;

@@ -50,7 +50,7 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 
 		public User GetUserById(int id)
 		{
-			return _entities.Users.FirstOrDefault(m => m.Id == id);
+			return _entities.Users.Include("Addresses").Include("UserAccountInfo").FirstOrDefault(m => m.Id == id);
 		}
 
 		public void UpdateUserOnRegister(int id, Address address)
@@ -79,7 +79,7 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 
 		public User GetUserByEmail(string email)
 		{
-			return _entities.Users.FirstOrDefault(m => m.Email == email);
+			return _entities.Users.Include("Addresses").FirstOrDefault(m => m.Email == email);
 		}
 
 		public int GetUserIdByName(string name)
@@ -99,7 +99,7 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 
 		public Event GetEventById(int id)
 		{
-			return _entities.Events.Include("User").FirstOrDefault(m => m.Id == id);
+			return _entities.Events.Include("User").Include("Addresses").FirstOrDefault(m => m.Id == id);
 		}
 
 		public void AddEvent(Event @event)

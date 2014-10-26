@@ -30,7 +30,7 @@ namespace KalendarzKarieryData
 		[RegularExpression(@"^\d+$", ErrorMessage = "Pole \"Telefon\" powinno zawierać same cyfry.")]
 		public string Phone { get; set; }
 
-		[Required(ErrorMessage = "Pole \"Data urodzenia\" nie może być puste.")]
+		//[Required(ErrorMessage = "Pole \"Data urodzenia\" nie może być puste.")]
 		[Display(Name = "Data urodzenia")]
 		public DateTime BirthDay { get; set; }
 

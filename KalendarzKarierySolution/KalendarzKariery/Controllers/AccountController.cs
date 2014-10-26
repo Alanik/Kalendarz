@@ -23,11 +23,10 @@ namespace KalendarzKariery.Controllers
 {
 	[Authorize]
 	public class
-	AccountController : Controller
+	AccountController : BaseController
 	{
 
 		readonly IKalendarzKarieryRepository _repository = RepositoryProvider.GetRepository();
-
 
 		[AllowAnonymous]
 		public ActionResult Login()
@@ -42,14 +41,24 @@ namespace KalendarzKariery.Controllers
 		{
 			if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
 			{
-				var objectId = AppCache.Get(model.UserName.ToLower());
-				if (objectId == null)
+				int id = this.GetUserId(model.UserName.ToLower(), _repository);
+				if (id >= 0)
 				{
-					int id = _repository.GetUserIdByName(model.UserName);
-					if (id >= 0)
+					var user = _repository.GetUserById(id);
+					if (user != null && user.UserAccountInfo != null)
 					{
-						AppCache.Set(model.UserName.ToLower(), id);
+						user.UserAccountInfo.LastLogin = DateTime.Now;
+						user.UserAccountInfo.NumOfLogins++;
+						_repository.Save();
 					}
+					else
+					{
+						//TODO: throw exception
+					}
+				}
+				else
+				{
+					//TODO: throw exception
 				}
 
 				return Json(new { userName = model.UserName });
@@ -66,8 +75,26 @@ namespace KalendarzKariery.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult LogOff()
 		{
-			WebSecurity.Logout();
+			int id = this.GetUserId(User.Identity.Name.ToLower(), _repository);
+			if (id >= 0)
+			{
+				var user = _repository.GetUserById(id);
+				if (user != null && user.UserAccountInfo != null)
+				{
+					user.UserAccountInfo.LastLogout = DateTime.Now;
+					_repository.Save();
+				}
+				else
+				{
+					//TODO: throw exception
+				}
+			}
+			else
+			{
+				//TODO: throw exception
+			}
 
+			WebSecurity.Logout();
 			return RedirectToAction("Index", "Home");
 		}
 
@@ -92,7 +119,6 @@ namespace KalendarzKariery.Controllers
 			{
 				if (_repository.GetUserByEmail(model.User.Email) == null)
 				{
-
 					string birthDate = model.BirthDateModel.Year + "-" + model.BirthDateModel.Month + "-" + model.BirthDateModel.Day;
 					DateTime date;
 
@@ -385,6 +411,13 @@ namespace KalendarzKariery.Controllers
 		}
 
 		#region Helpers
+
+		private void UpdateUser()
+		{
+
+
+		}
+
 		private ActionResult RedirectToLocal(string returnUrl)
 		{
 			if (Url.IsLocalUrl(returnUrl))
@@ -459,6 +492,9 @@ namespace KalendarzKariery.Controllers
 					return "An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
 			}
 		}
+
+
+
 		#endregion
 	}
 }

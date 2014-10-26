@@ -6,6 +6,30 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 	var date = new Date();
 
 	//////////////////////////////////////////////////////////
+	//ajax loader 
+	//////////////////////////////////////////////////////////
+	var opts = {
+		lines: 17, // The number of lines to draw
+		length: 17, // The length of each line
+		width: 4, // The line thickness
+		radius: 20, // The radius of the inner circle
+		corners: 1, // Corner roundness (0..1)
+		rotate: 0, // The rotation offset
+		direction: 1, // 1: clockwise, -1: counterclockwise
+		color: '#FFF', // #rgb or #rrggbb or array of colors
+		speed: 1, // Rounds per second
+		trail: 80, // Afterglow percentage
+		shadow: false, // Whether to render a shadow
+		hwaccel: false, // Whether to use hardware acceleration
+		className: 'spinner', // The CSS class to assign to the spinner
+		zIndex: 2e9, // The z-index (defaults to 2000000000)
+		top: '50%', // Top position relative to parent
+		left: '50%' // Left position relative to parent
+	};
+
+	self.spinner = new Spinner(opts);
+
+	//////////////////////////////////////////////////////////
 	//public properties
 	//////////////////////////////////////////////////////////
 
@@ -219,7 +243,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 			var diff = Math.abs(startEventDate - endEventDate);
 			var minutes = Math.floor((diff / 1000) / 60);
 
-			$loader = $addEventForm.closest(".main-section").siblings(".loader-container");
+			$loader = $addEventForm.closest(".main-section").siblings(".dotted-page-overlay");
 
 			$.ajax({
 				url: action,
@@ -233,7 +257,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 				"&EventKind.Value=" + self.event.kind.value,
 				success: function (result) {
 					if (result.IsSuccess === false) {
-						self.hideLoader($loader, true);
+						self.hideLoader();
 
 						//TODO: change alert to some error popop or error page...
 						alert(result.Message);
@@ -315,13 +339,13 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 	};
 
 	self.deleteEventDetailsPageOnConfirmationYesBtnClick = function (element, id, year, month, day) {
-		var $loader = $("#details").siblings(".loader-container");
+		var $loader = $("#details").siblings(".dotted-page-overlay");
 		var events;
 		$.ajax({
 			url: "/api/Events/" + id,
 			dataType: "JSON",
 			type: "DELETE",
-			beforeSend: self.showLoader($loader),
+			beforeSend: function () { self.hideConfirmationPopupBox(element); self.showLoader($loader); },
 			data: id,
 			success: function (result) {
 				if (result.IsSuccess === false) {
@@ -331,7 +355,6 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 					//TODO: change alert to some error popop or error page...
 					alert(result.Message);
 				} else {
-					self.hideConfirmationPopupBox(element);
 					self.hideLoader($loader);
 					var $container = $("#details #detailsEventBlockList .details-event-block-container .hidden-event-id:contains(" + id + ")").parent();
 
@@ -345,7 +368,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 						self.removeEventFromMyEventTree(id, year, month, day);
 
 						var $scrollable = $("#slide-item-details").parent();
-						var scroll = $("#details #lowDetailsMenuHeader").position().top - 20;
+						var scroll = $("#details #calendarDayDetailsContainer").position().top - 20;
 						$scrollable.scrollTop(scroll);
 
 						//redraw details page event rectangle table
@@ -460,8 +483,6 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 
 		$yesBtn = $popup.find(".confirmation-popupbox-yesbtn");
 		$yesBtn.attr("data-bind", '');
-
-		$popup.siblings(".dotted-page-overlay").hide();
 		$popup.hide();
 	};
 
@@ -675,7 +696,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 
 		window.location = "#2";
 		setTimeout(function () {
-			scroll = $("#details #lowDetailsMenuHeader").position().top - 20;
+			scroll = $("#details #calendarDayDetailsContainer").position().top - 20;
 			$scrollable.scrollTop(scroll);
 		}, 10)
 	};
@@ -770,6 +791,29 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		}
 	};
 
+	self.expandUpdateProfileForm = function (element) {
+
+		var $cont = $("#details #updateProfileContainer");
+		$cont.find("ol").slideDown();
+
+		$cont.find("#updateUserFormBtn").show();
+
+		$(element).hide();
+		$cont.find("#hideBtnUpdateProfile").show();
+
+	}
+
+	self.hideUpdateProfileForm = function (element) {
+
+		var $cont = $("#details #updateProfileContainer");
+		$cont.find("#updateUserFormBtn").hide();
+		$cont.find("ol").slideUp();
+
+		$(element).hide();
+		$cont.find("#expandBtnUpdateProfile").show();
+
+	}
+
 	self.closeAddNewEventPopupOnClick = function () {
 
 		var $cont = $("#addNewEventContainer");
@@ -804,6 +848,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 	};
 
 	self.loginUserOnClick = function () {
+
 		var $loader;
 		var $loginForm = $("#lobby #loginForm");
 		var $loginContainer = $("#lobby #loginPageContainer");
@@ -813,11 +858,11 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 
 		if ($loginForm.valid()) {
 			$loginContainer.hide();
-			$loader = $loginContainer.closest(".main-section").siblings(".loader-container");
+			$loader = $loginContainer.closest(".main-section").siblings(".dotted-page-overlay");
 			$.ajax({
 				url: action,
 				type: "POST",
-				beforeSend: self.showLoader($loader),
+				beforeSend:  self.showLoader($loader),
 				data: $loginForm.serialize(),
 				success: function (result) {
 
@@ -911,6 +956,63 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 			}
 		}
 	};
+
+	self.updateUserOnClick = function () {
+		var $dateBirthValidationMsg;
+		var $registerForm = $("#updateProfileForm");
+		$registerForm.find(".summary-validation-errors").empty();
+		var action = $registerForm.attr("action");
+
+		var day = $("#birthDateDayTxtBoxUpdateProfile").val();
+		var month = $("#birthDateMonthTxtBoxUpdateProfile").val();
+		var year = $("#birthDateYearTxtBoxUpdateProfile").val();
+
+		if (!self.validateDate(day, month, year)) {
+			$dateBirthValidationMsg = $("#details #updateProfileContainer #birthDateValidationErrorMsgUpdateProfile");
+			$("#details #updateProfileContainer .register-birthdate-txtbox").addClass("input-validation-error");
+			$dateBirthValidationMsg.show();
+			return false;
+		}
+
+		$registerForm.validate().form();
+
+		if ($registerForm.valid()) {
+			$.ajax({
+				url: action,
+				type: "POST",
+				data: $registerForm.serialize() + "&RegisterModel.Password=DummyPassword&RegisterModel.ConfirmPassword=DummyPassword&RegisterModel.UserName=DummyUserName",
+				success: function (result) {
+					if (result.IsSuccess === false) {
+						alert(result.Message)
+					}
+				},
+				error: function () {
+					alert("Wystąpił nieoczekiwany błąd. Prosze sprobować jeszcze raz.");
+				}
+			});
+		};
+
+		return false;
+
+		function displayErrors(errors) {
+
+			var label;
+			var error;
+
+			for (var i = 0; i < errors.length; i++) {
+				error = errors[i];
+
+				if (error.Value && error.Value.length > 0) {
+					$registerForm.find(".summary-validation-errors").append("<div>" + error.Value[0] + "</div>");
+				}
+
+				if (error.Key !== "") {
+					label = $registerForm.find("input[name = '" + error.Key + "']").removeClass("valid").addClass("input-validation-error").next().removeClass("field-validation-valid").addClass("field-validation-error");
+					label.html(error.Value[0]);
+				}
+			}
+		}
+	}
 
 	self.validateDate = function (day, month, year) {
 
@@ -1090,9 +1192,9 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 	self.redisplayCalendarAtChosenMonthOnClick = function (element) {
 		var $calendar = $("#calendar");
 		var $addNewEvent = $("#addNewEventContainer");
-		var $loader = $calendar.siblings(".loader-container");
+		var $loader = $calendar.siblings(".dotted-page-overlay");
 
-		self.showLoader($loader, true);
+		self.showLoader();
 
 		$addNewEvent.detach();
 
@@ -1161,7 +1263,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 			});
 		}
 
-		self.hideLoader($loader, true);
+		self.hideLoader($loader);
 	};
 
 	self.showChosenFieldInAddNewEventPopupOnClick = function (element) {
@@ -1231,27 +1333,28 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		}
 	};
 
-	self.showLoader = function ($loaderContainer, dontShowOverlay) {
-		if (!dontShowOverlay) {
-			var $overlay = $loaderContainer.siblings(".dotted-page-overlay");
-
+	self.showLoader = function ($overlay) {
+		var $target = $("#spinnerContainer");
+		
+		if ($overlay) {
 			if ($overlay.css("display") == "none") {
 				$overlay.show();
 			}
 		}
 
-		$loaderContainer.show();
-
+		self.spinner.spin($target[0]);
+		$target.show();
 	};
 
-	self.hideLoader = function ($loaderContainer, keepOverlayVisible) {
-
-		if (!keepOverlayVisible) {
-			$loaderContainer.siblings(".dotted-page-overlay").fadeOut();
+	self.hideLoader = function ($overlay) {
+		var $target = $("#spinnerContainer");
+	
+		if ($overlay) {
+			$overlay.fadeOut();
 		}
 
-		$loaderContainer.hide();
-
+		self.spinner.stop();
+		$target.hide();
 	};
 
 	self.drawAnalogClock = function () {
@@ -1324,6 +1427,20 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 
 		}
 	}
+
+	self.centerSpinnerContainer = function () {
+		var $container = $("#spinnerContainer");
+
+		//Get the window height and width
+		var winH = $(window).height();
+		var winW = $(window).width();
+
+		//Set the popup window to center
+		$container.css('top', winH / 2 - $container.height() / 2);
+		$container.css('left', winW / 2 - $container.width() / 2);
+
+	}
+
 	//////////////////////////////////////////////////////
 	// KO extention/helper methods
 	//////////////////////////////////////////////////////

@@ -27,10 +27,10 @@ header, footer, nav, section, div {
 	src: url('Fonts/Oxygen/Oxygen-Regular.ttf');
 }
 
-@font-face {
+/*@font-face {
 	font-family: CodePro;
 	src: url('Fonts/CodePro/CODE Bold.otf');
-}
+}*/
 
 @font-face {
 	font-family: SegoeUI;
@@ -95,21 +95,21 @@ body header {
 }
 
 #clockCanvas {
-    height:200px;
-	background:rgba(0, 0, 0, .11);
-	position:relative;
-	width:200px;
-	margin-top:5px;
+	height: 200px;
+	background: rgba(0, 0, 0, .11);
+	position: relative;
+	width: 200px;
+	margin-top: 5px;
 }
 
 #digitalClock {
 	position: absolute;
 	top: 160px;
-	width:200px;
-	text-align:center;
+	width: 200px;
+	text-align: center;
 	font-size: 22px;
 	/*color: rgb(156, 146, 138);*/
-	color:rgb(255, 238, 224);
+	color: rgb(255, 238, 224);
 }
 
 #lobbyBg {
@@ -123,7 +123,6 @@ body header {
 .events-menu-container {
 	text-align: center;
 	margin-top: 20px;
-
 }
 
 #lobbyLogo {
@@ -292,29 +291,20 @@ body header {
 
 
 #detailsMenuHeader {
-	text-align: left;
-	color: white;
 	width: 90%;
-	overflow: hidden;
-	font-size: 2em;
-	padding-left: 10px;
-	padding-bottom: 10px;
 	position: relative;
 	top: 20px;
-}
-
-#lowDetailsMenuHeader {
-	width: 90%;
-	padding-top: 10px;
-	overflow: hidden;
-	font-size: 2em;
-	/*color: rgb(131, 131, 131);*/
 }
 
 .dark-background-div {
 	background: rgba(0,0,0,.04);
 	border-bottom: 1px solid rgb(247, 247, 247);
 	border-top: 1px solid #D8D8D8;
+	font-size: 2em;
+	width: 100%;
+	color: white;
+	padding-top: 10px;
+	padding-left: 6px;
 }
 
 .site-menu-header {
@@ -637,7 +627,7 @@ body header {
 	margin: 20px auto;
 	font-size: 1.2em;
 	width: 700px;
-	padding-left:200px;
+	padding-left: 200px;
 }
 
 #lobbyPageAllEventsListContainer {
@@ -1087,7 +1077,7 @@ background:rgb(115, 233, 162);
 	font-size: 6em;
 	display: inline-block;
 	color: rgb(251, 255, 194);
-	padding-left:5px;
+	padding-left: 5px;
 }
 
 #todayDateDayName {
@@ -1095,31 +1085,31 @@ background:rgb(115, 233, 162);
 	font-size: 2em;
 	position: relative;
 	bottom: 35px;
-	padding-left:7px;
+	padding-left: 7px;
 }
 
 #todayDateMonth {
-font-size: 2em;
-position: relative;
-top: -40px;
-padding-left: 7px;
+	font-size: 2em;
+	position: relative;
+	top: -40px;
+	padding-left: 7px;
 }
 
 #todayDateYear {
-font-size: 1.5em;
-position: relative;
-top: -40px;
-text-align: left;
-padding-left: 7px;
+	font-size: 1.5em;
+	position: relative;
+	top: -40px;
+	text-align: left;
+	padding-left: 7px;
 }
 
 #todayDateAndTimeContainer {
 	color: rgb(132,132,132);
 	margin-left: 20px;
 	width: 200px;
-	float:left;
+	float: left;
 	position: relative;
-	margin-top:20px;
+	margin-top: 20px;
 }
 
 .event-list {
@@ -1215,8 +1205,12 @@ wydarzenia-tab {
 	position: relative;
 }
 
-#calendarDayDetailsTable {
+#calendarDayDetailsContainer {
 	width: 90%;
+}
+
+#calendarDayDetailsTable {
+	width: 100%;
 	color: gray;
 	position: relative;
 }
@@ -1375,16 +1369,13 @@ wydarzenia-tab {
 	margin-left: 118px;
 }
 
-.loader-container {
+#spinnerContainer {
 	position: absolute;
-	z-index: 1000;
-	width: 300px;
+	width: 200px;
 	height: 200px;
 	padding: 20px;
 	text-align: center;
-	background: white;
-	top: 200px;
-	left: 400px;
+	z-index: 10001;
 	display: none;
 }
 
@@ -1574,4 +1565,43 @@ legend {
 
 .validation-summary-valid {
 	display: none;
+}
+
+
+/*Settings*/
+
+#settingsContainer {
+	margin-top: 40px;
+	width: 90%;
+}
+
+#updateProfileContainer {
+	margin-top: 20px;
+	margin-left: 20px;
+	width: 400px;
+	box-shadow: none;
+	position: relative;
+}
+
+	#updateProfileContainer label {
+		/*color:rgb(38,38,38);
+	text-shadow:0px 1px 0px #F5F5F5;*/
+	}
+
+	#updateProfileContainer fieldset {
+		border: none;
+	}
+
+#updateUserFormBtn {
+	margin: 20px;
+	position: relative;
+	left: 102px;
+	display: none;
+}
+
+.btn-expand {
+	position: absolute;
+	right: 20px;
+	top: 16px;
+	height:30px;
 }

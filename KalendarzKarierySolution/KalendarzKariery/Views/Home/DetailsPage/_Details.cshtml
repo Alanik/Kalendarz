@@ -1,11 +1,12 @@
-﻿<div id="detailsMenuHeader" class="dark-background-div">
-	<div style="position: relative; top: 8px;">
+﻿@model KalendarzKarieryData.Models.ViewModels.RegisterViewModel
+
+<div id="detailsMenuHeader" class="dark-background-div">
+	<span>
 		/Dziennik/
-	</div>
+	</span>
 
 </div>
 <section id="detailsPanel">
-
 	<div id="todayDateAndTimeContainer">
 		<div style="background: rgba(0,0,0,.04);width:200px;">
 			<div id="todayDateDay" data-bind="text: $root.todayDate.day"></div>
@@ -107,8 +108,10 @@
 	@Html.Partial("_DetailsAllSelectedEventsList")
 
 </section>
-<div id="lowDetailsMenuHeader" class="dark-background-div">
-	<div style="margin-left: 6px; color: white;">/Grafik dnia/</div>
+
+<section id="calendarDayDetailsContainer">
+<div class="dark-background-div">
+	<span>/Grafik dnia/</span>
 </div>
 <div style="font-size:2em;">
 <span style="font-size: .8em; margin-left: 6px;	color: rgb(207, 157, 157);">wydarzenia z dnia: </span>
@@ -116,8 +119,6 @@
 	<span data-bind="text: $root.detailsPageDisplayDate.getMonthName()" style="color: rgb(228, 138, 138);"></span>
 	<span data-bind="text: $root.detailsPageDisplayDate.year()" style="color: rgb(228, 138, 138); font-size: .8em;"></span>
 </div>
-
-<section id="calendarDayDetailsContainer">
 	<div id="calendarDayDetailsTable">
 		<div class="table-details-head">
 			<div>7<span class="small-minutes">00</span></div>
@@ -199,9 +200,9 @@
 	</div>
 </section>
 
-
 @Html.Partial("_DetailsEventSummary")
+
+@Html.Partial("_DetailsSettings", @Model)
 
 <div style="height: 200px; width: 50%; margin-top: 100px">
 </div>
-

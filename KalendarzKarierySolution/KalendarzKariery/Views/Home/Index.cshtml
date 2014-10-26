@@ -1,4 +1,4 @@
-﻿@model KalendarzKarieryData.Models.ViewModels.IndexViewModel
+﻿@model KalendarzKarieryData.Models.ViewModels.MainViewModel
 
 <div class="navigation-arrows"></div>
 
@@ -12,14 +12,13 @@
 						<div class="site-legend-border"></div>
 						<div class="site-legend-border"></div>
 					</div>
-					<span style="position:relative;left:-7px;">Strona Glówna</span>
-					<span style="position:relative;left:-7px;">| Kalendarz |</span>
-					<span style="position:relative;left:-7px;">Dziennik</span>
+					<span style="position: relative; left: -7px;">Strona Glówna</span>
+					<span style="position: relative; left: -7px;">| Kalendarz |</span>
+					<span style="position: relative; left: -7px;">Dziennik</span>
 				</div>
 				<div id="lobbyBg">
 					<img src="~/Images/kalendarzTlo.png" alt="background" style="top: 0 !important" />
 					<div class="dotted-page-overlay"></div>
-					<div class="loader-container">wczytywanie...</div>
 					@Html.Partial("_ConfirmationPopupBox")
 
 					<section id="lobby" class="main-section">
@@ -37,19 +36,15 @@
 				</div>
 				<div id="calendarBg">
 					<img src="~/Images/kalendarzTlo.png" alt="background" />
-					@*<img src="~/Images/Logo/lightSmallKKLogo.png" alt="smallLogo" style="position:absolute !important;left:25px !important; top: 10px !important;height:78px !important;width:73px !important;z-index:100 !important;"/>*@
 					<div class="dotted-page-overlay"></div>
-					<div class="loader-container">wczytywanie...</div>
 					@Html.Partial("_ConfirmationPopupBox")
 					<section id="calendar" class="main-section">
 
 						<!-- Calendar is added dynamically (calendarWidget.js)   -->
 
 					</section>
-
 					@Html.Partial("_AddNewEvent", new KalendarzKarieryData.Models.ViewModels.AddEventViewModel())
 					@Html.Partial("_HoverEvent")
-
 					<section id="calendarListView">
 					</section>
 				</div>
@@ -62,10 +57,9 @@
 					<img src="~/Images/kalendarzTlo.png" alt="background" />
 					@*<img src="~/Images/Logo/lightSmallKKLogo.png" alt="smallLogo" style="position:absolute !important;left:25px !important; top: 10px !important;height:78px !important;width:73px !important;z-index:100 !important;"/>*@
 					<div class="dotted-page-overlay"></div>
-					<div class="loader-container">wczytywanie...</div>
 					@Html.Partial("_ConfirmationPopupBox")
 					<div id="details" class="main-section">
-						@Html.Partial("_Details")
+						@Html.Partial("_Details", @Model.RegisterViewModel)
 					</div>
 				</div>
 				<div id="leftSideDetails" class="side">
@@ -92,7 +86,7 @@
 					month: date.getMonth(), year: date.getFullYear()
 				});
 
-				var indexViewModel = @Html.Raw(Json.Encode(@Model));
+				var indexViewModel = @Html.Raw(Json.Encode(@Model.IndexViewModel));
 				var currentWeekday = $calendar.find(".today-cell").attr("weekday");
 				var calendarViewModel = new CalendarViewModel(date.getFullYear(), date.getMonth() + 1, date.getDate(), currentWeekday, '@User.Identity.Name');	
 				
@@ -235,8 +229,7 @@
 							}}, 10);
 					});
 
-					$(".slides-pagination a").on("click", function(){
-					
+					$(".slides-pagination a").on("click", function(){				
 						var hash = $(this).attr("href");
 						if (hash === "#2") {
 							var $scrollable = $("#slide-item-details").parent();
@@ -255,6 +248,7 @@
 
 				calendarViewModel.drawAnalogClock();
 				calendarViewModel.drawDigitalClock();
+				calendarViewModel.centerSpinnerContainer();
 
 				this.Initialize.InitializeHover = function () {
 

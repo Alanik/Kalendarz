@@ -66,7 +66,6 @@ namespace KalendarzKariery.BO.SeedMembership
 
 		private static void CreateAdminUser(string loginName)
 		{
-
 			if (!WebSecurity.UserExists(loginName))
 			{
 				User user = GetAlanikAdmin(loginName);

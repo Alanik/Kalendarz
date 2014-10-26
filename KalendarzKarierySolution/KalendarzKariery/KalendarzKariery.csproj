@@ -193,6 +193,7 @@
     <Compile Include="BO\ExtentionMethods\ModelStateHelper.cs" />
     <Compile Include="BO\SeedMembership\InitializeMembership.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -337,6 +338,7 @@
     <Content Include="Scripts\Lib\jquery-ui-1.8.20.js" />
     <Content Include="Scripts\Lib\jquery-ui-1.8.20.min.js" />
     <Content Include="Scripts\Lib\raphael-min.js" />
+    <Content Include="Scripts\Lib\SpinJS\spin.min.js" />
     <Content Include="Scripts\Lib\_references.js" />
     <Content Include="Scripts\Lib\modernizr-2.7.1.js" />
     <Content Include="Web.config">
@@ -375,6 +377,8 @@
     <Content Include="Views\Emails\_ViewStart.cshtml" />
     <Content Include="Views\Home\LobbyPage\_LobbyAllSelectedEventsList.cshtml" />
     <Content Include="Views\Home\LobbyPage\_lobbyNews.cshtml" />
+    <Content Include="Views\Home\DetailsPage\_DetailsSettings.cshtml" />
+    <Content Include="Views\Home\DetailsPage\_DetailsUserProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -416,7 +420,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>51797</DevelopmentServerPort>
+          <DevelopmentServerPort>57341</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:1500/</IISUrl>
           <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>

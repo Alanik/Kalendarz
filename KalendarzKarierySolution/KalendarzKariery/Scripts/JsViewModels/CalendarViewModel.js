@@ -910,8 +910,8 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		var year = $("#birthDateYearTxtBox").val();
 
 		if (!self.validateDate(day, month, year)) {
-			$dateBirthValidationMsg = $("#registerPageContainer #birthDateValidationErrorMsg");
-			$("#registerPageContainer .register-birthdate-txtbox").addClass("input-validation-error");
+			$dateBirthValidationMsg = $("#lobby #registerPageContainer #birthDateValidationErrorMsg");
+			$("#lobby #registerPageContainer .register-birthdate-txtbox").addClass("input-validation-error");
 			$dateBirthValidationMsg.show();
 			return false;
 		}
@@ -922,19 +922,21 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 			$.ajax({
 				url: action,
 				type: "POST",
-				beforeSend: self.showLoader($overlay),
+				beforeSend: function () { self.showLoader(); $("#lobby #registerPageContainer").hide() },
 				data: $registerForm.serialize(),
 				success: function (result) {
-					self.hideLoader($overlay);
+					self.hideLoader();
 
 					if (result.isRegisterSuccess === false) {
+						$("#lobby #registerPageContainer").show()
 						displayErrors(result.errors);
 					} else {
 						window.location = "/home";
 					}
 				},
 				error: function () {
-					self.hideLoader($overlay);
+					self.hideLoader();
+					$("#lobby #registerPageContainer").show()
 					alert("Wystąpił nieoczekiwany błąd. Prosze sprobować jeszcze raz.");
 				}
 			});
@@ -997,7 +999,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 					}
 				},
 				error: function () {
-					self.hideLoader($overlay);
+						self.hideLoader($overlay);
 					alert("Wystąpił nieoczekiwany błąd. Prosze sprobować jeszcze raz.");
 				}
 			});

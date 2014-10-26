@@ -107,7 +107,7 @@
     <Compile Include="Models\ValidationModels\AddressValidationModel.cs" />
     <Compile Include="Models\ValidationModels\EventValidationModel.cs" />
     <Compile Include="Models\ValidationModels\UserValidationModel.cs" />
-    <Compile Include="Models\ValidationModels\AddEventViewModel.cs" />
+    <Compile Include="Models\ViewModels\AddEventViewModel.cs" />
     <Compile Include="Models\ViewModels\IndexViewModel.cs" />
     <Compile Include="Models\ViewModels\RegisterViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -483,7 +483,9 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 
 		$yesBtn = $popup.find(".confirmation-popupbox-yesbtn");
 		$yesBtn.attr("data-bind", '');
+		$popup.siblings(".dotted-page-overlay").hide();
 		$popup.hide();
+		
 	};
 
 	self.showEventInfoOnShowLinkClick = function (element) {

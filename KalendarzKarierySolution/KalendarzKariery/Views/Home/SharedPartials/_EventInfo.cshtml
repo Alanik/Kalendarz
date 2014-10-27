@@ -1,0 +1,44 @@
+﻿<div class="event-block-info-container" style="display: none;">
+	<div class="event-block-info-body">
+		<div class="event-block-info-name">
+			<span data-bind="text: name"></span>
+		</div>
+		<div class="event-block-info-description">
+			<p data-bind="text: description"></p>
+		</div>
+		<div class="event-block-info-details">
+			<p data-bind="text: details"></p>
+		</div>
+		<div class="event-block-info-time">
+			<div style="display: inline-block; width: 100px; font-size: .8em;">godzina:</div>
+			<span data-bind="text: startDate.displayFullTime()"></span>
+		</div>
+		<div class="event-block-info-date">
+			<div style="display: inline-block; width: 100px; font-size: .8em;">data:</div>
+			<span data-bind="text: startDate.displayFullDate()"></span>
+		</div>
+		<div class="event-block-info-address">
+			<div style="display: inline-block; width: 100px; font-size: .8em; vertical-align: top;">adres:</div>
+			<div style="display: inline-block;">
+				<div data-bind="text: address.street"></div>
+				<span data-bind="text: address.zipCode"></span><span data-bind="	text: ' ' + address.city"></span>
+			</div>
+		</div>
+		<div class="event-block-info-link">
+			<p>
+				<a data-bind="attr: { href: 'http://' + urlLink, title: name }, text: urlLink"></a>
+			</p>
+
+		</div>
+	</div>
+	<div class="event-block-info-footer">
+	<div class="event-block-info-addedby">
+	<span>dodane przez:</span><span data-bind="text: ' ' + addedBy"></span>
+	</div>
+		<div style="float: right; margin-right: 10px;">
+			<div class="link details-delete-event-link" data-bind="if: $root.userName.toUpperCase() == addedBy.toUpperCase(), click: function () { $root.prepareDeleteEventDetailsPageOnDeleteLinkClick(id, startDate.year, startDate.month, startDate.day) }"><span>usuń</span></div>
+		</div>
+	</div>
+</div>
+
+

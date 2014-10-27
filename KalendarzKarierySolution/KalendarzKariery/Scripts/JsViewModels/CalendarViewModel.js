@@ -356,7 +356,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 					alert(result.Message);
 				} else {
 					self.hideLoader($loader);
-					var $container = $("#details #detailsEventBlockList .details-event-block-container .hidden-event-id:contains(" + id + ")").parent();
+					var $container = $("#details #detailsEventBlockList .event-block-container .hidden-event-id:contains(" + id + ")").parent();
 
 					$container.fadeOut(500, function () {
 						$container.remove();
@@ -488,31 +488,28 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		
 	};
 
-	self.showEventInfoOnShowLinkClick = function (element) {
+	self.showEventDetailsOnEventBlockClick = function (element) {
+		var $block = $(element);
+		var $eventBlockContainer = $block.closest(".event-block-container");
+		var offset = $eventBlockContainer.position().top;
 
-		var $link = $(element);
-		var $detailsEventBlockContainer = $link.closest(".details-event-block-container");
-		var offset = $detailsEventBlockContainer.position().top;
+		$eventBlockContainer.closest(".scrollable").scrollTop(offset);
 
-		$("#slide-item-details").parent().scrollTop(offset);
-
-		var $content = $detailsEventBlockContainer.find(".event-block-content");
+		var $content = $eventBlockContainer.find(".event-block-content");
 		$content.css("color", "rgb(242,242,242)");
 
-		var $eventBlockInfo = $link.closest(".details-event-block-container").find(".details-eventblock-info-container");
+		var $eventBlockInfo = $eventBlockContainer.find(".event-block-info-container");
 
-		if ($link.hasClass("open")) {
-			$link.text("pokaż");
-			$eventBlockInfo.hide();
+		if ($block.hasClass("open")) {
+			$eventBlockInfo.slideUp();
 			$content.css("color", "rgb(119,119,119)");
 		}
 		else {
-			$link.text("zamknij");
-			$eventBlockInfo.show();
+			$eventBlockInfo.slideDown();
 			$content.css("color", "rgb(242,242,242)");
 		}
 
-		$link.toggleClass("open");
+		$block.toggleClass("open");
 	};
 
 	self.addEventToMyEventTree = function (newEvent) {

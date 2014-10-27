@@ -371,7 +371,7 @@
     <Content Include="Views\Home\DetailsPage\_Details.cshtml" />
     <Content Include="Views\Home\LobbyPage\_lobbyEventSummary.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsEventSummary.cshtml" />
-    <Content Include="Views\Home\DetailsPage\_DetailsEventInfo.cshtml" />
+    <Content Include="Views\Home\SharedPartials\_EventInfo.cshtml" />
     <Content Include="Views\Home\SharedPartials\_ConfirmationPopupBox.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsAllSelectedEventsList.cshtml" />
     <Content Include="Views\Emails\_ViewStart.cshtml" />

@@ -1,8 +1,8 @@
 ﻿<section id="detailsEventBlockList">
 	<div style="overflow: hidden;" data-bind="foreach: detailsPageDayEvents()">
-		<div class="details-event-block-container">
+		<div class="event-block-container">
 		<span style="display:none;" class="hidden-event-id" data-bind="text: id"></span>
-			<div class="details-event-block">
+			<div class="event-block">
 				<div data-bind="style: { color: kind.headerColor, background: 'rgb(130,130,130)', border: '1px solid rgb(221, 221, 221)', padding: '10px', marginBottom: '10px' }">
 					<span data-bind="text: kind.name"></span>
 				</div>
@@ -14,11 +14,11 @@
 					<span>adres: </span><span data-bind="text: address.street"></span><span>, </span><span data-bind="	text: address.city"></span>
 					</div>
 				</div>
-				<div class="details-eventblock-footer">
-					<div class="details-eventblock-show-link link" data-bind="click: function () { $root.showEventInfoOnShowLinkClick($element) }"><span>pokaż</span></div>
+				<div class="event-block-footer">
+					<div class="details-eventblock-show-link link" data-bind="click: function () { $root.showEventDetailsOnEventBlockClick($element) }"><span>pokaż</span></div>
 				</div>
 			</div>
-			@Html.Partial("_DetailsEventInfo")
+			@Html.Partial("_EventInfo")
 		</div>
 	</div>
 

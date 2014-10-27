@@ -125,10 +125,11 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 
 		public ICollection<object> GetAllNews()
 		{
-			return _entities.Events.Where(m => m.EventKind.Value == 8).Select(m => new
+			return _entities.Events.Include("User").Include("Addresses").Where(m => m.EventKind.Value == 8).Select(m => new
 			{
 				id = m.Id,
 				name = m.Title,
+				addedBy = m.User.UserName,
 				description = m.Description,
 				details = m.Details,
 				dateAdded = m.DateAdded,
@@ -147,11 +148,12 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 
 		public EventsGroupedByYearModel GetAllEventsForGivenYearByUserId(int id, int year)
 		{
-			var list = _entities.Events.Where(m => m.OwnerUserId == id && m.StartDate.Year == year).OrderBy(m => m.StartDate);
+			var list = _entities.Events.Include("User").Include("Addresses").Where(m => m.OwnerUserId == id && m.StartDate.Year == year).OrderBy(m => m.StartDate);
 			var transformedList = list.Select(m => new
 			{
 				id = m.Id,
 				name = m.Title,
+				addedBy = m.User.UserName,
 				description = m.Description,
 				details = m.Details,
 				dateAdded = m.DateAdded,
@@ -179,11 +181,12 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 
 			foreach (int num in years)
 			{
-				var list = _entities.Events.Where(m => m.OwnerUserId == id && m.StartDate.Year == num).OrderBy(m => m.StartDate.Year).ThenBy(m => m.StartDate.Month).ThenBy(m => m.StartDate.Day).ThenBy(m => m.StartDate.Hour).ThenBy(m => m.StartDate.Minute);
+				var list = _entities.Events.Include("User").Include("Addresses").Where(m => m.OwnerUserId == id && m.StartDate.Year == num).OrderBy(m => m.StartDate.Year).ThenBy(m => m.StartDate.Month).ThenBy(m => m.StartDate.Day).ThenBy(m => m.StartDate.Hour).ThenBy(m => m.StartDate.Minute);
 				var transformedList = list.Select(m => new
 				{
 					id = m.Id,
 					name = m.Title,
+					addedBy = m.User.UserName,
 					description = m.Description,
 					details = m.Details,
 					dateAdded = m.DateAdded,
@@ -214,11 +217,12 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 
 			foreach (int num in years)
 			{
-				var list = _entities.Events.Where(m => m.StartDate.Year == num && m.PrivacyLevel.Value == 2).OrderBy(m => m.StartDate);
+				var list = _entities.Events.Include("User").Include("Addresses").Where(m => m.StartDate.Year == num && m.PrivacyLevel.Value == 2).OrderBy(m => m.StartDate);
 				var transformedList = list.Select(m => new
 				{
 					id = m.Id,
 					name = m.Title,
+					addedBy = m.User.UserName,
 					description = m.Description,
 					details = m.Details,
 					dateAdded = m.DateAdded,

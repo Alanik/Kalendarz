@@ -403,35 +403,6 @@ body header {
 	position: relative;
 }
 
-.lobby-event-rectangle {
-	height: 220px;
-	width: 270px;
-	background: rgb(248, 248, 248);
-	color: rgb(119,119,119);
-	box-shadow: 2px 2px 10px rgb(216, 216, 216);
-	overflow: hidden;
-	margin: 2px;
-	border: 1px solid rgb(221, 221, 221);
-	display: inline-block;
-	padding: 10px;
-	text-align: left;
-}
-
-.details-event-block {
-	height: 220px;
-	width: 245px;
-	background: rgb(248, 248, 248);
-	color: rgb(119,119,119);
-	box-shadow: 2px 2px 10px rgb(216, 216, 216);
-	overflow: hidden;
-	position: relative;
-	border: 1px solid rgb(221, 221, 221);
-	margin: 2px;
-	padding: 10px;
-	text-align: left;
-	z-index: 2;
-}
-
 .login-link {
 	padding: 0 10px;
 	text-decoration: underline;
@@ -1013,53 +984,7 @@ background:rgb(115, 233, 162);
 	text-align: center;
 }
 
-.details-eventblock-info-container {
-	width: 516px;
-	position: relative;
-	top: -45px;
-	z-index: 1;
-	margin-left: 2px;
-	margin-right: 2px;
-	border: 1px solid rgb(239,239,239);
-	background: rgb(252,252,252);
-	padding: 10px;
-	padding-top: 60px;
-	color: gray;
-}
 
-.details-eventblock-info {
-	padding: 10px;
-	border: 1px solid white;
-	background: rgb(240, 236,236);
-	border-bottom: 1px solid rgb(223, 223, 223);
-	border-right: 1px solid rgb(223, 223, 223);
-	overflow: hidden;
-}
-
-.details-eventblock-info-footer {
-	padding: 10px 0;
-	border: 1px solid white;
-	background: rgb(239, 239, 239);
-	border-bottom: 1px solid rgb(223, 223, 223);
-	border-right: 1px solid rgb(223, 223, 223);
-	overflow: hidden;
-}
-
-.details-event-block-container {
-	float: left;
-}
-
-
-.details-eventblock-footer {
-	position: absolute;
-	width: 100%;
-	background: white;
-	bottom: 0;
-	left: 0;
-	font-size: 14px;
-	padding: 10px 0;
-	text-align: center;
-}
 
 .margin-left-fifteen {
 	margin-left: 15px;
@@ -1603,5 +1528,123 @@ legend {
 	position: absolute;
 	right: 20px;
 	top: 16px;
-	height:30px;
+	height: 30px;
+}
+
+/*event block*/
+.event-block-info-container {
+	width: 516px;
+	position: relative;
+	top: -45px;
+	z-index: 1;
+	margin-left: 3px;
+	background: rgb(252,252,252);
+	padding: 10px;
+	padding-top: 60px;
+	color: gray;
+}
+
+.event-block-info-body {
+	padding: 10px;
+	border: 1px solid white;
+	background: rgb(240, 236,236);
+	border-bottom: 1px solid rgb(223, 223, 223);
+	border-right: 1px solid rgb(223, 223, 223);
+	overflow: hidden;
+	text-align:left;
+}
+
+.event-block-info-footer {
+	padding: 10px;
+	border: 1px solid white;
+	background: rgb(239, 239, 239);
+	border-bottom: 1px solid rgb(223, 223, 223);
+	border-right: 1px solid rgb(223, 223, 223);
+	overflow: hidden;
+}
+
+.event-block-container {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.event-block {
+	height: 220px;
+	width: 270px;
+	background: rgb(248, 248, 248);
+	color: rgb(119,119,119);
+	box-shadow: 2px 2px 10px rgb(216, 216, 216);
+	overflow: hidden;
+	position: relative;
+	/*border: 1px solid rgb(221, 221, 221);*/
+	margin-bottom: 2px;
+	padding: 10px;
+	text-align: left;
+	z-index: 2;
+}
+
+
+.event-block-footer {
+	position: absolute;
+	width: 100%;
+	background: white;
+	bottom: 0;
+	left: 0;
+	font-size: 14px;
+	padding: 10px 0;
+	text-align: center;
+}
+
+.event-block-info-name {
+	font-size: 1.6em;
+	background: gray;
+	color: white;
+	text-align: center;
+}
+
+.event-block-info-description {
+	line-height: 1;
+	font-size: 1.2em;
+}
+
+.event-block-info-details {
+	line-height: 1;
+	font-size: 1.2em;
+}
+
+.event-block-info-time {
+	font-size: 1.4em;
+	line-height: 1;
+	/*background: rgb(198, 183, 183);
+	color: white;*/
+	color:rgb(106, 106, 106);
+	margin-bottom: 10px;
+	padding: 4px 4px;
+}
+
+.event-block-info-date {
+	font-size: 1.4em;
+	line-height: 1;
+	/*background: rgb(198, 183, 183);
+	color: white;*/
+	color:rgb(106, 106, 106);
+	margin-bottom: 10px;
+	padding: 4px 4px;
+}
+
+.event-block-info-address {
+	font-size: 1.4em;
+	line-height: 1;
+	/*background: rgb(198, 183, 183);*/
+	/*color: white;*/
+	color:rgb(106, 106, 106);
+	padding: 4px 4px;
+}
+
+.event-block-info-link {
+	font-size: 1.2em;
+}
+
+.event-block-info-addedby {
+text-align:left;
 }

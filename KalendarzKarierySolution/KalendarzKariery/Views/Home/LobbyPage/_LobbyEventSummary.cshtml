@@ -1,17 +1,26 @@
 ﻿<div id="lobbyEventSummary">
-<div class="title-header"> Nadchodzące wydarzenia:</div>
-	<div data-bind="foreach: publicEvents">
-		<div class="lobby-event-rectangle">
-			<div data-bind="style: { color: kind.headerColor, background: 'rgb(130,130,130)', border: '1px solid rgb(221, 221, 221)', padding: '10px', marginBottom: '10px' }">
-				<span data-bind="text: kind.name"></span>
+	<div class="title-header">Nadchodzące wydarzenia:</div>
+	<div style="overflow: hidden;" data-bind="foreach: publicEvents">
+		<div class="event-block-container">
+			<span style="display: none;" class="hidden-event-id" data-bind="text: id"></span>
+			<div class="event-block" data-bind="click: function () { $root.showEventDetailsOnEventBlockClick($element) }">
+				<div data-bind="style: { color: kind.headerColor, background: 'rgb(130,130,130)', border: '1px solid rgb(221, 221, 221)', padding: '10px', marginBottom: '10px' }">
+					<span data-bind="text: kind.name"></span>
+				</div>
+				<div class="event-block-content">
+					<div><span data-bind="text: name, style: { fontSize: '1.6em', lineHeight: '1', paddingBottom: '4px' } "></span></div>
+					<div style="font-size: 1.4em;">
+						<span>godzina: </span><span data-bind="text: $root.event.startDate.formatZero(startDate.startHour)"></span><span>:</span><span data-bind="	text: $root.event.startDate.formatZero(startDate.startMinute)"></span><span style="padding: 0 4px;"> - </span>
+						<span data-bind="text: $root.event.startDate.formatZero(startDate.endHour)"></span><span>:</span><span data-bind="	text: $root.event.startDate.formatZero(startDate.endMinute)"></span>
+					</div>
+					<div data-bind="if: address.street">
+						<span>adres: </span><span data-bind="text: address.street"></span><span>, </span><span data-bind="text: address.city"></span>
+					</div>
+				</div>
 			</div>
-			<div style="max-height: 70px;overflow:hidden;"><span data-bind="text: name, style: { fontSize: '1.6em', lineHeight: '1', paddingBottom: '4px' }"></span></div>
-			<div style="font-size:1.2em;">godzina: <span data-bind="text: startDate.formatZero(startDate.startHour)"></span><span>:</span><span data-bind="	text: startDate.formatZero(startDate.startMinute)"></span><span> - </span><span data-bind="	text: startDate.formatZero(startDate.endHour)"></span><span>:</span><span data-bind="text: startDate.formatZero(startDate.endMinute)"></span></div>
-			<div style="font-size:1.2em;">data: <span data-bind="text: startDate.day"></span><span>/</span><span data-bind="	text: startDate.month"></span><span>/</span><span data-bind="	text: startDate.year"></span></div>
-			<div style="font-size:1.2em;">adres: <span data-bind="text: address.street"></span><span>, </span><span data-bind="	text: address.city"></span></div>
+			@Html.Partial("_EventInfo")
 		</div>
 	</div>
-
 </div>
 
 

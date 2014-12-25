@@ -312,6 +312,8 @@
     <Content Include="Images\TestBackgrounds\tapetaBrx.png" />
     <Content Include="Scripts\Helpers\EventTreeBuilder.js" />
     <Content Include="Scripts\Helpers\EventColorHelper.js" />
+    <Content Include="Scripts\JSModels\KKDateModel.js" />
+    <Content Include="Scripts\JSModels\KKEventDateModel.js" />
     <Content Include="Scripts\JSModels\KKEventModel.js" />
     <Content Include="Scripts\KnockoutCustomBindings\KOCustomBindings.js" />
     <Content Include="Scripts\Lib\jquery-2.0.3.js" />

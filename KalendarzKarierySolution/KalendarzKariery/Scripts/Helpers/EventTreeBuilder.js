@@ -29,6 +29,8 @@
 					for (var j = 0; j < dayGroupLength; j++) {
 						event = dayGroup.events[j];
 
+						debugger;
+
 						setAddress(event);
 						setKind(event);
 						setStartDate(event);
@@ -59,64 +61,12 @@
 			var sdate = new Date(parseInt(event.startDate.substr(6)));
 			var edate = new Date(parseInt(event.endDate.substr(6)));
 
-			var startMinute = sdate.getMinutes();
-			var startHour = sdate.getHours();
-
-			var endMinute = edate.getMinutes();
-			var endHour = edate.getHours();
-
-			var transformedDate = {
-				"javascriptStartDate": sdate,
-				"startMinute": startMinute,
-				"endMinute": endMinute,
-				"startHour": startHour,
-				"endHour": endHour,
-				"day": sdate.getDate(),
-				"month": sdate.getMonth() + 1,
-				"year": sdate.getFullYear(),
-				"formatZero": function (time) {
-					return time < 10 ? '0' + time : time;
-				},
-				"displayFullDate": function () {
-					return this.formatZero(this.day) + '/' + this.formatZero(this.month) + '/' + this.year;
-				},
-				"displayFullTime": function () {
-					return this.formatZero(this.startHour) + ':' + this.formatZero(this.startMinute) + " - " + this.formatZero(this.endHour) + ':' + this.formatZero(this.endMinute);
-				}
-
-			};
-
-			event.startDate = transformedDate;
-
-			event.eventLengthInMinutes = ((parseInt(endHour, 10) - parseInt(startHour, 10)) * 60) + (parseInt(endMinute, 10) - parseInt(startMinute, 10));
+			event.startDate = new KKEventDateModel(sdate, sdate.getMinutes(), edate.getMinutes(), sdate.getHours(), edate.getHours(), sdate.getDate(), sdate.getMonth() + 1, sdate.getFullYear());
+			event.eventLengthInMinutes = ((parseInt(edate.getHours(), 10) - parseInt(sdate.getHours(), 10)) * 60) + (parseInt(edate.getMinutes(), 10) - parseInt(sdate.getMinutes(), 10));
 		};
 		function setDateAdded(event) {
 			var sdate = new Date(parseInt(event.dateAdded.substr(6)));
-
-			var startMinute = sdate.getMinutes();
-			var startHour = sdate.getHours();
-
-			var transformedDate = {
-				"javascriptDateAdded": sdate,
-				"minute": startMinute,
-				"hour": startHour,
-				"day": sdate.getDate(),
-				"month": sdate.getMonth() + 1,
-				"year": sdate.getFullYear(),
-				"formatZero": function (time) {
-					return time < 10 ? '0' + time : time;
-				},
-				"displayFullDate": function () {
-					return this.formatZero(this.day) + '/' + this.formatZero(this.month) + '/' + this.year;
-				},
-				"displayFullTime": function () {
-					return this.formatZero(this.hour) + ':' + this.formatZero(this.minute);
-				}
-
-			};
-
-			event.dateAdded = transformedDate;
-
+			event.dateAdded = new KKDateModel( sdate, sdate.getMinutes(), sdate.getHours(), sdate.getDate(), sdate.getMonth() + 1, sdate.getFullYear() );
 		}
 		function setAddress(event) {
 
@@ -174,7 +124,6 @@
 		var event, events = [];
 
 		for (var i = 0; i < eventsArray.length; i++) {
-  
 			event = eventsArray[i];
 
 			setDateAdded(event);
@@ -185,31 +134,7 @@
 
 		function setDateAdded(event) {
 			var sdate = new Date(parseInt(event.dateAdded.substr(6)));
-		
-			var startMinute = sdate.getMinutes();
-			var startHour = sdate.getHours();
-
-			var transformedDate = {
-				"javascriptDateAdded": sdate,
-				"minute": startMinute,
-				"hour": startHour,
-				"day": sdate.getDate(),
-				"month": sdate.getMonth() + 1,
-				"year": sdate.getFullYear(),
-				"formatZero": function (time) {
-					return time < 10 ? '0' + time : time;
-				},
-				"displayFullDate": function () {
-					return this.formatZero(this.day) + '/' + this.formatZero(this.month) + '/' + this.year;
-				},
-				"displayFullTime": function () {
-					return this.formatZero(this.hour) + ':' + this.formatZero(this.minute);
-				}
-
-			};
-
-			event.dateAdded = transformedDate;
-
+			event.dateAdded = new KKDateModel(sdate, sdate.getMinutes(), sdate.getHours(), sdate.getDate(), sdate.getMonth() + 1, sdate.getFullYear());
 		}
 	}
 };

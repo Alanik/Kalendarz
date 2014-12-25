@@ -17,17 +17,17 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 	{
 		private readonly KalendarzKarieryDBEntities _entities;
 
-		public KalendarzKarieryRepository(bool useFakeRepository = false)
+		public KalendarzKarieryRepository( bool useFakeRepository = false )
 		{
 			if (useFakeRepository)
 			{
 				var CsvFilesPath = "~/Data/FakeRepositoryCsvFiles";
-				var physicalPath = HostingEnvironment.MapPath(CsvFilesPath);
+				var physicalPath = HostingEnvironment.MapPath( CsvFilesPath );
 				var ConnectionName = "name=KalendarzKarieryDBEntities";
 
-				var loader = new Effort.DataLoaders.CsvDataLoader(physicalPath);
-				DbConnection connection = Effort.EntityConnectionFactory.CreateTransient(ConnectionName, loader);
-				_entities = new KalendarzKarieryDBEntities(connection);
+				var loader = new Effort.DataLoaders.CsvDataLoader( physicalPath );
+				DbConnection connection = Effort.EntityConnectionFactory.CreateTransient( ConnectionName, loader );
+				_entities = new KalendarzKarieryDBEntities( connection );
 
 				//nie kasowac tego komentarza
 				//		public KalendarzKarieryDBEntities(DbConnection connection)
@@ -48,21 +48,21 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 
 		#region User
 
-		public User GetUserById(int id)
+		public User GetUserById( int id )
 		{
-			return _entities.Users.Include("Addresses").Include("UserAccountInfo").FirstOrDefault(m => m.Id == id);
+			return _entities.Users.Include( "Addresses" ).Include( "UserAccountInfo" ).FirstOrDefault( m => m.Id == id );
 		}
 
-		public void UpdateUserOnRegister(int id, Address address)
+		public void UpdateUserOnRegister( int id, Address address )
 		{
-			User currentUser = _entities.Users.FirstOrDefault(m => m.Id == id);
+			User currentUser = _entities.Users.FirstOrDefault( m => m.Id == id );
 
 			if (currentUser == null)
 			{
-				throw new ArgumentNullException("user", "UpdateUserOnRegister user is null");
+				throw new ArgumentNullException( "user", "UpdateUserOnRegister user is null" );
 			}
 
-			currentUser.Addresses.Add(address);
+			currentUser.Addresses.Add( address );
 
 			currentUser.UserAccountInfo = new UserAccountInfo
 			 {
@@ -77,14 +77,14 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 			_entities.SaveChanges();
 		}
 
-		public User GetUserByEmail(string email)
+		public User GetUserByEmail( string email )
 		{
-			return _entities.Users.Include("Addresses").FirstOrDefault(m => m.Email == email);
+			return _entities.Users.Include( "Addresses" ).FirstOrDefault( m => m.Email == email );
 		}
 
-		public int GetUserIdByName(string name)
+		public int GetUserIdByName( string name )
 		{
-			var user = _entities.Users.FirstOrDefault(m => string.Compare(m.UserName, name, true) == 0);
+			var user = _entities.Users.FirstOrDefault( m => string.Compare( m.UserName, name, true ) == 0 );
 			if (user != null)
 			{
 				return user.Id;
@@ -97,25 +97,19 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 
 		#region Events
 
-		public Event GetEventById(int id)
+		public Event GetEventById( int id )
 		{
-			return _entities.Events.Include("User").Include("Addresses").FirstOrDefault(m => m.Id == id);
+			return _entities.Events.Include( "User" ).Include( "Addresses" ).FirstOrDefault( m => m.Id == id );
 		}
 
-		public void AddEvent(Event @event)
+		public void AddEvent( Event @event )
 		{
-			_entities.Events.Add(@event);
+			_entities.Events.Add( @event );
 		}
 
-		public void DeleteEvent(Event @event)
+		public void DeleteEvent( Event @event )
 		{
-			_entities.Events.Remove(@event);
-		}
-
-		public int GetEventStatusIdByValue(int value)
-		{
-			var status = _entities.EventStatus.Where(m => m.Value == value).FirstOrDefault();
-			return status != null ? status.Id : -1;
+			_entities.Events.Remove( @event );
 		}
 
 		public IList<Event> GetAllEvents()
@@ -123,9 +117,9 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 			return _entities.Events.ToList();
 		}
 
-		public ICollection<object> GetAllNews()
+		public ICollection<JsonEventModel> GetAllNews()
 		{
-			return _entities.Events.Include("User").Include("Addresses").Where(m => m.EventKind.Value == 8).Select(m => new
+			return _entities.Events.Include( "User" ).Include( "Addresses" ).Where( m => m.EventKind.Value == 8 ).Select( m => new JsonEventModel()
 			{
 				id = m.Id,
 				name = m.Title,
@@ -138,18 +132,18 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 				calendarPlacementRow = 1,
 				startDate = m.StartDate,
 				endDate = m.EndDate,
-				price = m.Price,
-				numberOfPeopleAttending = m.NumberOfPeopleAttending,
+				numberOfPeopleAttending = m.NumberOfPeopleAttending ?? 0,
 				kind = new { name = m.EventKind.Name, value = m.EventKind.Value },
+				price = m.Price ?? 0,
 				privacyLevel = new { name = m.PrivacyLevel.Name, value = m.PrivacyLevel.Value },
-				addresses = m.Addresses.Select(o => new { street = o.Street, city = o.City, zipCode = o.ZipCode })
-			}).OrderBy(m => m.startDate).ToArray();
+				addresses = m.Addresses.Select( o => new { street = o.Street, city = o.City, zipCode = o.ZipCode } )
+			} ).OrderBy( m => m.startDate ).ToArray();
 		}
 
-		public EventsGroupedByYearModel GetAllEventsForGivenYearByUserId(int id, int year)
+		public EventsGroupedByYearModel GetAllEventsForGivenYearByUserId( int id, int year )
 		{
-			var list = _entities.Events.Include("User").Include("Addresses").Where(m => m.OwnerUserId == id && m.StartDate.Year == year).OrderBy(m => m.StartDate);
-			var transformedList = list.Select(m => new
+			var list = _entities.Events.Include( "User" ).Include( "Addresses" ).Where( m => m.OwnerUserId == id && m.StartDate.Year == year ).OrderBy( m => m.StartDate );
+			var transformedList = list.Select( m => new JsonEventModel()
 			{
 				id = m.Id,
 				name = m.Title,
@@ -162,27 +156,27 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 				calendarPlacementRow = 1,
 				startDate = m.StartDate,
 				endDate = m.EndDate,
-				price = m.Price,
-				numberOfPeopleAttending = m.NumberOfPeopleAttending,
+				numberOfPeopleAttending = m.NumberOfPeopleAttending ?? 0,
 				kind = new { name = m.EventKind.Name, value = m.EventKind.Value },
+				price = m.Price ?? 0,
 				privacyLevel = new { name = m.PrivacyLevel.Name, value = m.PrivacyLevel.Value },
-				addresses = m.Addresses.Select(o => new { street = o.Street, city = o.City, zipCode = o.ZipCode })
-			});
+				addresses = m.Addresses.Select( o => new { street = o.Street, city = o.City, zipCode = o.ZipCode } )
+			} );
 
-			var groups = transformedList.ToLookup(m => m.startDate.Month).Select(o => new EventsGroupedByMonthModel(o.Key, o.ToArray().ToLookup(t => t.startDate.Day).Select(l => new EventsGroupedByDayModel(l.Key, l.ToArray())))).ToArray();
+			var groups = transformedList.ToLookup( m => m.startDate.Month ).Select( o => new EventsGroupedByMonthModel( o.Key, o.ToArray().ToLookup( t => t.startDate.Day ).Select( l => new EventsGroupedByDayModel( l.Key, l.ToArray() ) ) ) ).ToArray();
 
-			return new EventsGroupedByYearModel(year, groups);
+			return new EventsGroupedByYearModel( year, groups );
 		}
 
-		public IList<EventsGroupedByYearModel> GetAllEventsByUserId(int id)
+		public IList<EventsGroupedByYearModel> GetAllEventsByUserId( int id )
 		{
 			var container = new List<EventsGroupedByYearModel>();
-			var years = GetYearsWhenEventsStartByUserId(id);
+			var years = GetYearsWhenEventsStartByUserId( id );
 
 			foreach (int num in years)
 			{
-				var list = _entities.Events.Include("User").Include("Addresses").Where(m => m.OwnerUserId == id && m.StartDate.Year == num).OrderBy(m => m.StartDate.Year).ThenBy(m => m.StartDate.Month).ThenBy(m => m.StartDate.Day).ThenBy(m => m.StartDate.Hour).ThenBy(m => m.StartDate.Minute);
-				var transformedList = list.Select(m => new
+				var list = _entities.Events.Include( "User" ).Include( "Addresses" ).Where( m => m.OwnerUserId == id && m.StartDate.Year == num ).OrderBy( m => m.StartDate.Year ).ThenBy( m => m.StartDate.Month ).ThenBy( m => m.StartDate.Day ).ThenBy( m => m.StartDate.Hour ).ThenBy( m => m.StartDate.Minute );
+				var transformedList = list.Select( m => new JsonEventModel()
 				{
 					id = m.Id,
 					name = m.Title,
@@ -195,16 +189,15 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 					calendarPlacementRow = 1,
 					startDate = m.StartDate,
 					endDate = m.EndDate,
-					numberOfPeopleAttending = m.NumberOfPeopleAttending,
+					numberOfPeopleAttending = m.NumberOfPeopleAttending ?? 0,
 					kind = new { name = m.EventKind.Name, value = m.EventKind.Value },
-					price = m.Price,
+					price = m.Price ?? 0,
 					privacyLevel = new { name = m.PrivacyLevel.Name, value = m.PrivacyLevel.Value },
-					addresses = m.Addresses.Select(o => new { street = o.Street, city = o.City, zipCode = o.ZipCode })
-				});
+					addresses = m.Addresses.Select( o => new { street = o.Street, city = o.City, zipCode = o.ZipCode } )
+				} );
 
-				var groups = transformedList.ToLookup(m => m.startDate.Month).Select(o => new EventsGroupedByMonthModel(o.Key, o.ToArray().ToLookup(t => t.startDate.Day).Select(l => new EventsGroupedByDayModel(l.Key, l.ToArray())))).ToArray();
-
-				container.Add(new EventsGroupedByYearModel(num, groups));
+				var groups = transformedList.ToLookup( m => m.startDate.Month ).Select( o => new EventsGroupedByMonthModel( o.Key, o.ToArray().ToLookup( t => t.startDate.Day ).Select( l => new EventsGroupedByDayModel( l.Key, l.ToArray() ) ) ) ).ToArray();
+				container.Add( new EventsGroupedByYearModel( num, groups ) );
 			}
 
 			return container;
@@ -213,12 +206,12 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 		public IList<EventsGroupedByYearModel> GetAllPublicEvents()
 		{
 			var container = new List<EventsGroupedByYearModel>();
-			var years = GetYearsWhenEventsStartByPrivacyLvl(2);
+			var years = GetYearsWhenEventsStartByPrivacyLvl( 2 );
 
 			foreach (int num in years)
 			{
-				var list = _entities.Events.Include("User").Include("Addresses").Where(m => m.StartDate.Year == num && m.PrivacyLevel.Value == 2).OrderBy(m => m.StartDate);
-				var transformedList = list.Select(m => new
+				var list = _entities.Events.Include( "User" ).Include( "Addresses" ).Where( m => m.StartDate.Year == num && m.PrivacyLevel.Value == 2 ).OrderBy( m => m.StartDate );
+				var transformedList = list.Select( m => new JsonEventModel()
 				{
 					id = m.Id,
 					name = m.Title,
@@ -231,83 +224,89 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 					calendarPlacementRow = 1,
 					startDate = m.StartDate,
 					endDate = m.EndDate,
-					numberOfPeopleAttending = m.NumberOfPeopleAttending,
+					numberOfPeopleAttending = m.NumberOfPeopleAttending ?? 0,
 					kind = new { name = m.EventKind.Name, value = m.EventKind.Value },
-					price = m.Price,
+					price = m.Price ?? 0,
 					privacyLevel = new { name = m.PrivacyLevel.Name, value = m.PrivacyLevel.Value },
-					addresses = m.Addresses.Select(o => new { street = o.Street, city = o.City, zipCode = o.ZipCode })
-				});
+					addresses = m.Addresses.Select( o => new { street = o.Street, city = o.City, zipCode = o.ZipCode } )
+				} );
 
-				var groups = transformedList.ToLookup(m => m.startDate.Month).Select(o => new EventsGroupedByMonthModel(o.Key, o.ToArray().ToLookup(t => t.startDate.Day).Select(l => new EventsGroupedByDayModel(l.Key, l.ToArray())))).ToArray();
+				var groups = transformedList.ToLookup( m => m.startDate.Month ).Select( o => new EventsGroupedByMonthModel( o.Key, o.ToArray().ToLookup( t => t.startDate.Day ).Select( l => new EventsGroupedByDayModel( l.Key, l.ToArray() ) ) ) ).ToArray();
 
-				container.Add(new EventsGroupedByYearModel(num, groups));
+				container.Add( new EventsGroupedByYearModel( num, groups ) );
 			}
 
 			return container;
 		}
 
-		public PrivacyLevel GetPrivacyLevelByValue(int value)
+		public PrivacyLevel GetPrivacyLevelByValue( int value )
 		{
-			return _entities.PrivacyLevels.Where(m => m.Value == value).FirstOrDefault();
+			return _entities.PrivacyLevels.Where( m => m.Value == value ).FirstOrDefault();
 		}
 
 		public ICollection<object> GetAllPrivacyLevels()
 		{
-			return _entities.PrivacyLevels.Select(m => new { name = m.Name, value = m.Value }).ToArray();
+			return _entities.PrivacyLevels.Select( m => new { name = m.Name, value = m.Value } ).ToArray();
 		}
 
-		public EventKind GetEventKindByValue(int value)
+		public EventKind GetEventKindByValue( int value )
 		{
-			return _entities.EventKinds.Where(m => m.Value == value).FirstOrDefault();
+			return _entities.EventKinds.Where( m => m.Value == value ).FirstOrDefault();
 		}
 
 		public ICollection<object> GetAllEventKinds()
 		{
-			return _entities.EventKinds.Select(m => new { name = m.Name, value = m.Value }).OrderBy(m => m.value).ToArray();
+			return _entities.EventKinds.Select( m => new { name = m.Name, value = m.Value } ).OrderBy( m => m.value ).ToArray();
 		}
 
-		public ICollection<object> GetEventKindsBasedOnUserName(string name)
+		public ICollection<object> GetEventKindsBasedOnUserName( string name )
 		{
-			if (!string.IsNullOrEmpty(name))
+			if (!string.IsNullOrEmpty( name ))
 			{
-				var user = _entities.Users.Include("webpages_Roles").Where(m => string.Compare(m.UserName, name, true) == 0).FirstOrDefault();
+				var user = _entities.Users.Include( "webpages_Roles" ).Where( m => string.Compare( m.UserName, name, true ) == 0 ).FirstOrDefault();
 
 				if (user != null)
 				{
 					var c = user.webpages_Roles.Count;
-					return _entities.EventKinds.Select(m => new { name = m.Name, value = m.Value }).OrderBy(m => m.value).ToArray();
+					return _entities.EventKinds.Select( m => new { name = m.Name, value = m.Value } ).OrderBy( m => m.value ).ToArray();
 				}
 			}
 
-			return _entities.EventKinds.Where(m => m.Value != 8).Select(m => new { name = m.Name, value = m.Value }).OrderBy(m => m.value).ToArray();
+			return _entities.EventKinds.Where( m => m.Value != 8 ).Select( m => new { name = m.Name, value = m.Value } ).OrderBy( m => m.value ).ToArray();
 		}
 
-		public object GetMyEventCountTree(int userId)
+		public object GetMyEventCountTree( int userId )
 		{
-			var query = from e in _entities.Events.Where(m => m.OwnerUserId == userId)
+			var query = from e in _entities.Events.Where( m => m.OwnerUserId == userId )
 						group e by e.EventKind.Value into grp
-						select new { value = grp.Key, events = new { upcoming = grp.Where(m => m.StartDate > DateTime.Now).Count(), all = grp.Count() } };
+						select new { value = grp.Key, events = new { upcoming = grp.Where( m => m.StartDate > DateTime.Now ).Count(), all = grp.Count() } };
 
 			return query;
 		}
 
 		public object GetPublicEventCountTree()
 		{
-			var query = from e in _entities.Events.Where(m => m.PrivacyLevel.Value == 2)
+			var query = from e in _entities.Events.Where( m => m.PrivacyLevel.Value == 2 )
 						group e by e.EventKind.Value into grp
-						select new { value = grp.Key, events = new { upcoming = grp.Where(m => m.StartDate > DateTime.Now).Count(), all = grp.Count() } };
+						select new { value = grp.Key, events = new { upcoming = grp.Where( m => m.StartDate > DateTime.Now ).Count(), all = grp.Count() } };
 
 			return query;
 		}
 
-		#endregion
-
-		public void Save()
+		public int? GetEventStatusIdByValue( int value )
 		{
-			_entities.SaveChanges();
+			var status = _entities.EventStatus.Where( m => m.Value == value ).FirstOrDefault();
+			if (status != null)
+			{
+				return status.Id;
+			}
+			else
+			{
+				return null;
+			}
 		}
 
-		private int[] GetYearsWhenEventsStartByUserId(int id)
+		private int[] GetYearsWhenEventsStartByUserId( int id )
 		{
 			var query = from e in _entities.Events
 						where e.OwnerUserId == id
@@ -317,7 +316,7 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 			return query.ToArray();
 		}
 
-		private int[] GetYearsWhenEventsStartByPrivacyLvl(int value)
+		private int[] GetYearsWhenEventsStartByPrivacyLvl( int value )
 		{
 
 			var query = from e in _entities.Events
@@ -326,6 +325,13 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 						select grp.Key;
 
 			return query.ToArray();
+		}
+
+		#endregion
+
+		public void Save()
+		{
+			_entities.SaveChanges();
 		}
 	}
 }

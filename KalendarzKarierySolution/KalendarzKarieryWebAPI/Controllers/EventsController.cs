@@ -29,15 +29,15 @@ namespace KalendarzKarieryWebAPI.Controllers
 		}
 
 		// GET api/events/5
-		public string Get(int id)
+		public string Get( int id )
 		{
 			return "value";
 		}
 
 		// POST api/events (add)
-		public IResponse Post(AddEventViewModel addEventViewModel)
+		public IResponse Post( AddEventViewModel addEventViewModel )
 		{
-			var errorResponse = Validate(addEventViewModel);
+			var errorResponse = Validate( addEventViewModel );
 			if (!errorResponse.IsSuccess)
 			{
 				return errorResponse;
@@ -51,26 +51,26 @@ namespace KalendarzKarieryWebAPI.Controllers
 				return response;
 			}
 
-			var @event = GetEventModelFromAddEventViewModel(addEventViewModel);
+			var @event = GetEventModelFromAddEventViewModel( addEventViewModel );
 
 			if (@event == null)
 			{
 				return new DefaultResponseModel { IsSuccess = false, Message = Consts.GeneralValidationErrorMsg };
 			}
 
-			_repository.AddEvent(@event);
+			_repository.AddEvent( @event );
 			_repository.Save();
 
 			return new AddEventResponseModel { IsSuccess = true, EventId = @event.Id };
 		}
 
 		// PUT api/events/5 (update)
-		public void Put(int id, [FromBody] string value)
+		public void Put( int id, [FromBody] string value )
 		{
 		}
 
 		// DELETE api/events/5
-		public IResponse Delete(int id)
+		public IResponse Delete( int id )
 		{
 			if (!User.Identity.IsAuthenticated)
 			{
@@ -80,7 +80,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 				return response;
 			}
 
-			var @event = _repository.GetEventById(id);
+			var @event = _repository.GetEventById( id );
 
 			if (@event != null)
 			{
@@ -88,7 +88,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 
 				if (@event.User.UserName.ToLower() == User.Identity.Name.ToLower())
 				{
-					_repository.DeleteEvent(@event);
+					_repository.DeleteEvent( @event );
 					_repository.Save();
 
 					response.IsSuccess = true;
@@ -107,7 +107,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 			return r;
 		}
 
-		private IResponse Validate(AddEventViewModel addEventViewModel)
+		private IResponse Validate( AddEventViewModel addEventViewModel )
 		{
 			var errorResponse = this.ValidateUser();
 			if (errorResponse != null)
@@ -115,7 +115,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 				return errorResponse;
 			}
 
-			errorResponse = ValidateAddEventViewModel(addEventViewModel);
+			errorResponse = ValidateAddEventViewModel( addEventViewModel );
 			if (errorResponse != null)
 			{
 				return errorResponse;
@@ -124,18 +124,18 @@ namespace KalendarzKarieryWebAPI.Controllers
 			return null;
 		}
 
-		private Event GetEventModelFromAddEventViewModel(AddEventViewModel viewModel)
+		private Event GetEventModelFromAddEventViewModel( AddEventViewModel viewModel )
 		{
 			var @event = new Event();
 
-			var objectId = AppCache.Get(User.Identity.Name.ToLower());
+			var objectId = AppCache.Get( User.Identity.Name.ToLower() );
 			if (objectId != null)
 			{
 				@event.OwnerUserId = (int)objectId;
 			}
 			else
 			{
-				int id = _repository.GetUserIdByName(User.Identity.Name);
+				int id = _repository.GetUserIdByName( User.Identity.Name );
 
 				if (id >= 0)
 				{
@@ -158,7 +158,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 			@event.EndDate = viewModel.Event.EndDate;
 			@event.Price = viewModel.Event.Price;
 
-			var eventKind = _repository.GetEventKindByValue(viewModel.EventKind.Value);
+			var eventKind = _repository.GetEventKindByValue( viewModel.EventKind.Value );
 			if (eventKind != null)
 			{
 				@event.EventKind = eventKind;
@@ -168,7 +168,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 				return null;
 			}
 
-			var privacyLevel = _repository.GetPrivacyLevelByValue(viewModel.PrivacyLevel.Value);
+			var privacyLevel = _repository.GetPrivacyLevelByValue( viewModel.PrivacyLevel.Value );
 			if (privacyLevel != null)
 			{
 				@event.PrivacyLevel = privacyLevel;
@@ -180,28 +180,32 @@ namespace KalendarzKarieryWebAPI.Controllers
 
 			if (@event.EndDate <= DateTime.Now)
 			{
-				var id = _repository.GetEventStatusIdByValue(2);
-				if (id < 0)
+				var id = _repository.GetEventStatusIdByValue( 2 );
+				if (id.HasValue)
+				{
+					@event.EventStatusId = id.Value;
+				}
+				else
 				{
 					return null;
 				}
-
-				@event.EventStatusId = id;
 			}
 			else
 			{
-				var id = _repository.GetEventStatusIdByValue(1);
-				if (id < 0)
+				var id = _repository.GetEventStatusIdByValue( 1 );
+				if (id.HasValue)
+				{
+					@event.EventStatusId = id.Value;
+				}
+				else
 				{
 					return null;
 				}
-
-				@event.EventStatusId = id;
 			}
 
-			if (!string.IsNullOrEmpty(viewModel.Address.Street) || !string.IsNullOrEmpty(viewModel.Address.City) || !string.IsNullOrEmpty(viewModel.Address.ZipCode))
+			if (!string.IsNullOrEmpty( viewModel.Address.Street ) || !string.IsNullOrEmpty( viewModel.Address.City ) || !string.IsNullOrEmpty( viewModel.Address.ZipCode ))
 			{
-				@event.Addresses.Add(viewModel.Address);
+				@event.Addresses.Add( viewModel.Address );
 			}
 
 			return @event;

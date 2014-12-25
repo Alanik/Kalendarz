@@ -96,6 +96,7 @@
     <Compile Include="Models\TransportModels\EventsGroupedByYearModel.cs" />
     <Compile Include="Models\TransportModels\EventsGroupedByDayModel.cs" />
     <Compile Include="Models\TransportModels\EventsGroupedByMonthModel.cs" />
+    <Compile Include="Models\TransportModels\JsonEventModel.cs" />
     <Compile Include="Models\ViewModels\DateModel.cs" />
     <Compile Include="Models\ViewModels\MainViewModel.cs" />
     <Compile Include="PrivacyLevel.cs">

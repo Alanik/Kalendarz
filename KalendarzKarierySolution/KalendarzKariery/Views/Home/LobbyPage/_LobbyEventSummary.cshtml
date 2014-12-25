@@ -10,8 +10,8 @@
 				<div class="event-block-content">
 					<div><span data-bind="text: name, style: { fontSize: '1.6em', lineHeight: '1', paddingBottom: '4px' } "></span></div>
 					<div style="font-size: 1.4em;">
-						<span>godzina: </span><span data-bind="text: $root.event.startDate.formatZero(startDate.startHour)"></span><span>:</span><span data-bind="	text: $root.event.startDate.formatZero(startDate.startMinute)"></span><span style="padding: 0 4px;"> - </span>
-						<span data-bind="text: $root.event.startDate.formatZero(startDate.endHour)"></span><span>:</span><span data-bind="	text: $root.event.startDate.formatZero(startDate.endMinute)"></span>
+						<span>godzina: </span><span data-bind="text: startDate.formatZero(startDate.startHour)"></span><span>:</span><span data-bind="	text: startDate.formatZero(startDate.startMinute)"></span><span style="padding: 0 4px;"> - </span>
+						<span data-bind="text: startDate.formatZero(startDate.endHour)"></span><span>:</span><span data-bind="	text: startDate.formatZero(startDate.endMinute)"></span>
 					</div>
 					<div data-bind="if: address.street">
 						<span>adres: </span><span data-bind="text: address.street"></span><span>, </span><span data-bind="text: address.city"></span>

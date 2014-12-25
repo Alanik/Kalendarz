@@ -10,9 +10,9 @@ namespace KalendarzKarieryData.Models.TransportModels
 	public class EventsGroupedByDayModel
 	{
 		public int day { get; set; }
-		public IEnumerable<object> events { get; set; }
+		public IEnumerable<JsonEventModel> events { get; set; }
 
-		public EventsGroupedByDayModel(int day, IEnumerable<object> events)
+		public EventsGroupedByDayModel(int day, IEnumerable<JsonEventModel> events)
 		{
 			this.day = day;
 			this.events = events;

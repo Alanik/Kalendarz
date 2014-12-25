@@ -879,6 +879,8 @@ background:rgb(115, 233, 162);
 	/*border-top: 1px solid rgb(250, 250, 250);
 	border-bottom: 1px solid rgb(224, 224, 224);*/
 	border-top: 1px solid whitesmoke;
+	padding-top:100px;
+	padding-bottom:100px;
 }
 
 #endDateValidationErrorMsg {
@@ -1180,10 +1182,12 @@ wydarzenia-tab {
 	background: rgba(0, 0, 0, 0.03);
 	/*border-top:1px solid rgb(250, 250, 250);
 	border-bottom:1px solid rgb(224,224,224);*/
+	margin-top:60px;
 	text-align: center;
-	padding-top: 25px;
 	margin-bottom: 20px;
 	border-top: 1px solid whitesmoke;
+	padding-bottom:100px;
+	padding-top:100px;
 }
 
 .current-month-name-calendar {

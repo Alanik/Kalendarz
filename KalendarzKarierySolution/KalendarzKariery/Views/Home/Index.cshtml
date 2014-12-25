@@ -87,6 +87,7 @@
 				});
 
 				var indexViewModel = @Html.Raw(Json.Encode(@Model.IndexViewModel));
+
 				var currentWeekday = $calendar.find(".today-cell").attr("weekday");
 				var calendarViewModel = new CalendarViewModel(date.getFullYear(), date.getMonth() + 1, date.getDate(), currentWeekday, '@User.Identity.Name');	
 				
@@ -95,8 +96,6 @@
 				calendarViewModel.publicEventTree = eventTreeBuilder.buildEventTree(indexViewModel.PublicEvents, calendarViewModel.setCalendarPlacementRow, calendarViewModel.publicEvents);
 				calendarViewModel.publicEventTreeCountBasedOnEventKind = eventTreeBuilder.buildEventTreeCountBasedOnEventKind(indexViewModel.PublicEventCountTree);			
 				calendarViewModel.newsEvents = eventTreeBuilder.transformNews(indexViewModel.News);
-
-				console.log(calendarViewModel.newsEvents);
 
 				if (indexViewModel.MyEvents) {
 

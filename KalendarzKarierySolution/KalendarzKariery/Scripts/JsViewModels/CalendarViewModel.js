@@ -271,12 +271,8 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 						eventToPush.address.zipCode = self.event.address.zipCode;
 
 						var date = new Date();
-						eventToPush.dateAdded.javascriptStartDate = date;
-						eventToPush.dateAdded.minute = date.getMinutes();
-						eventToPush.dateAdded.hour = date.getHours();
-						eventToPush.dateAdded.day = date.getDate();
-						eventToPush.dateAdded.month = parseInt(date.getMonth(), 10) + 1;
-						eventToPush.dateAdded.year = date.getUTCFullYear();
+
+						eventToPush.dateAdded = new KKDateModel(date, date.getMinutes(), date.getHours(), date.getDate(), parseInt(date.getMonth(), 10) + 1, date.getFullYear());
 
 						eventToPush.description = self.event.description;
 						eventToPush.details = self.event.details;
@@ -295,13 +291,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 						eventToPush.privacyLevel.name = self.event.privacyLevel.name;
 						eventToPush.privacyLevel.value = self.event.privacyLevel.value;
 
-						eventToPush.startDate.startMinute = startMinute;
-						eventToPush.startDate.endMinute = endMinute;
-						eventToPush.startDate.startHour = startHour;
-						eventToPush.startDate.endHour = endHour;
-						eventToPush.startDate.day = day;
-						eventToPush.startDate.month = month;
-						eventToPush.startDate.year = year;
+						eventToPush.startDate = new KKEventDate(startEventDate, startMinute, endMinute, startHour, endHour, day, month, year);
 
 						eventToPush.name = self.event.name;
 						eventToPush.urlLink = self.event.urlLink;

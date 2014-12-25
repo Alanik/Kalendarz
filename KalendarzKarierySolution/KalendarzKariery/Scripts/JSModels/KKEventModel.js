@@ -11,23 +11,7 @@
 
 	self.calendarPlacementRow = 1;
 
-	self.dateAdded = {
-		"javascriptDateAdded": "",
-		"minute": "",
-		"hour": "",
-		"day": "",
-		"month": "",
-		"year": "",
-		"formatZero": function (time) {
-			return time < 10 ? '0' + time : time;
-		},
-		"displayFullDate": function () {
-			return this.formatZero(this.day) + '/' + this.formatZero(this.month) + '/' + this.year;
-		},
-		"displayFullTime": function () {
-			return this.formatZero(this.hour) + ':' + this.formatZero(this.minute);
-		}
-	};
+	self.dateAdded = {} // = new KKDateModel()
 
 	self.description = "";
 
@@ -58,27 +42,7 @@
 
 	self.price = null;
 
-	//make sure startDate is same as transformedDate found in function setStartDate of eventTreeBuilder.buildEventTree
-	self.startDate = {
-		javascriptStartDate: "",
-		startMinute: "",
-		endMinute: "",
-		startHour: "",
-		endHour: "",
-		day: "",
-		month: "",
-		year: "",
-		formatZero: function (time) {
-			return time < 10 ? '0' + time : time;
-		},
-		displayFullDate: function () {
-			return this.formatZero(this.day) + '/' + this.formatZero(this.month) + '/' + this.year;
-		},
-		//TODO: remove helper functions from model, instead maybe use custom KO bindings
-		displayFullTime: function () {
-			return this.formatZero(this.startHour) + ':' + this.formatZero(this.startMinute) + " - " + this.formatZero(this.endHour) + ':' + this.formatZero(this.endMinute);
-		}
-	};
+	self.startDate = {} // new KKEventDateModel();
 
 	self.urlLink = "";
 };

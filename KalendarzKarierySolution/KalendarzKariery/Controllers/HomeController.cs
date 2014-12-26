@@ -41,13 +41,13 @@ namespace KalendarzKariery.Controllers
 
 			if (User.Identity.IsAuthenticated)
 			{
-				int id = GetUserId(User.Identity.Name.ToLower(), _repository);
+				int? id = GetUserId(User.Identity.Name.ToLower(), _repository);
 
-				if (id >= 0)
+				if (id.HasValue)
 				{
-					indexViewModel.MyEvents = _repository.GetAllEventsByUserId(id);
-					indexViewModel.MyEventCountTree = _repository.GetMyEventCountTree(id);
-					registerViewModel = this.GetRegisterViewModel(id, _repository);
+					indexViewModel.MyEvents = _repository.GetAllEventsByUserId(id.Value);
+					indexViewModel.MyEventCountTree = _repository.GetMyEventCountTree(id.Value);
+					registerViewModel = this.GetRegisterViewModel(id.Value, _repository);
 				}
 				else
 				{

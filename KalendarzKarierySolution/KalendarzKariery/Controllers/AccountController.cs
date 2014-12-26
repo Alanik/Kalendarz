@@ -41,10 +41,10 @@ namespace KalendarzKariery.Controllers
 		{
 			if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
 			{
-				int id = this.GetUserId(model.UserName.ToLower(), _repository);
-				if (id >= 0)
+				int? id = this.GetUserId(model.UserName.ToLower(), _repository);
+				if (id.HasValue)
 				{
-					var user = _repository.GetUserById(id);
+					var user = _repository.GetUserById(id.Value);
 					if (user != null && user.UserAccountInfo != null)
 					{
 						user.UserAccountInfo.LastLogin = DateTime.Now;
@@ -75,10 +75,10 @@ namespace KalendarzKariery.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult LogOff()
 		{
-			int id = this.GetUserId(User.Identity.Name.ToLower(), _repository);
-			if (id >= 0)
+			int? id = this.GetUserId(User.Identity.Name.ToLower(), _repository);
+			if (id.HasValue)
 			{
-				var user = _repository.GetUserById(id);
+				var user = _repository.GetUserById(id.Value);
 				if (user != null && user.UserAccountInfo != null)
 				{
 					user.UserAccountInfo.LastLogout = DateTime.Now;

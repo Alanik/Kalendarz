@@ -17,7 +17,7 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 		User GetUserById( int id );
 		User GetUserByEmail( string email );
 		void UpdateUserOnRegister( int id, Address address );
-		int GetUserIdByName( string name );
+		int? GetUserIdByName( string name );
 
 		#endregion
 

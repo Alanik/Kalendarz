@@ -135,11 +135,11 @@ namespace KalendarzKarieryWebAPI.Controllers
 			}
 			else
 			{
-				int id = _repository.GetUserIdByName( User.Identity.Name );
+				int? id = _repository.GetUserIdByName( User.Identity.Name );
 
-				if (id >= 0)
+				if (id.HasValue)
 				{
-					@event.OwnerUserId = id;
+					@event.OwnerUserId = id.Value;
 				}
 				else
 				{

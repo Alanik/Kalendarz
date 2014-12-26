@@ -82,7 +82,7 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 			return _entities.Users.Include( "Addresses" ).FirstOrDefault( m => m.Email == email );
 		}
 
-		public int GetUserIdByName( string name )
+		public int? GetUserIdByName( string name )
 		{
 			var user = _entities.Users.FirstOrDefault( m => string.Compare( m.UserName, name, true ) == 0 );
 			if (user != null)
@@ -90,7 +90,7 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 				return user.Id;
 			}
 
-			return -1;
+			return null;
 		}
 
 		#endregion

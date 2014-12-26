@@ -12,13 +12,14 @@ namespace KalendarzKarieryData.BO.Cache
 		//TODO: should use lock?
 		private static readonly Object _locker = new object();
 		private static ObjectCache Cache { get { return MemoryCache.Default; } }
+		const int CacheTime = 720; // 12 hours
 
 		public static object Get(string key)
 		{
 			return Cache[key];
 		}
 
-		public static void Set(string key, object data, int cacheTime = 720)
+		public static void Set(string key, object data, int cacheTime = CacheTime)
 		{
 			CacheItemPolicy policy = new CacheItemPolicy();
 			policy.AbsoluteExpiration = DateTime.Now + TimeSpan.FromMinutes(cacheTime);

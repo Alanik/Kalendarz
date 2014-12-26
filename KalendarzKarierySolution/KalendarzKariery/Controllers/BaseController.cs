@@ -11,26 +11,26 @@ namespace KalendarzKariery.Controllers
 {
 	public class BaseController : Controller
 	{
-		protected int GetUserId(string username, IKalendarzKarieryRepository repository)
+		protected int? GetUserId(string username, IKalendarzKarieryRepository repository)
 		{
-			int id;
+			int? id;
 			var objectId = AppCache.Get(Consts.UserIdCacheString + username);
 			if (objectId != null)
 			{
-				id = (int)objectId;
+				id = (int?)objectId;
 				return id;
 			}
 			else
 			{
 				id = repository.GetUserIdByName(username);
 
-				if (id > 0)
+				if (id.HasValue)
 				{
-					AppCache.Set(Consts.UserIdCacheString + username, id);
-					return id;
+					AppCache.Set(Consts.UserIdCacheString + username, id.Value);
+					return id.Value;
 				}
 
-				return -1;
+				return null;
 			}
 		}
 
@@ -44,11 +44,11 @@ namespace KalendarzKariery.Controllers
 				return;
 			}
 
-			int id = repository.GetUserIdByName(username);
+			int? id = repository.GetUserIdByName(username);
 
-			if (id > 0)
+			if (id.HasValue)
 			{
-				AppCache.Set(Consts.UserIdCacheString + username, id);
+				AppCache.Set(Consts.UserIdCacheString + username, id.Value);
 			}
 		}
 	}

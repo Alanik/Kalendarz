@@ -1,7 +1,9 @@
 ﻿var EventTreeBuilder = function () {
 	var self = this;
 
-	self.buildEventTree = function (yearEventTreeModel, setCalendarPlacementRow, publicEvents) {
+	self.buildEventTree = function ( yearEventTreeModel, setCalendarPlacementRow, publicEvents )
+	{
+
 		var eventTree = {}, largest, groups;
 		var dayGroup, day, dayGroupLength, event;
 		var year, yearProp, eventTreeYearProp, eventTreeMonthProp, eventTreeDayGroupProp, eventTreeEventsProp;
@@ -14,7 +16,7 @@
 			for (var k = 0; k < yearProp.eventsGroupedByMonth.length; k++) {
 
 				eventTreeMonthProp = eventTreeYearProp[yearProp.eventsGroupedByMonth[k].month] = {};
-				groups = yearProp.eventsGroupedByMonth[k].events;
+				groups = yearProp.eventsGroupedByMonth[k].eventsGroupedByDay;
 
 				//event day groups
 				for (var i = 0; i < groups.length; i++) {
@@ -28,8 +30,6 @@
 					// events in the day group
 					for (var j = 0; j < dayGroupLength; j++) {
 						event = dayGroup.events[j];
-
-						debugger;
 
 						setAddress(event);
 						setKind(event);
@@ -110,15 +110,6 @@
 
 		return eventTree;
 	};
-
-	self.buildEventKinds = function (serverEventKinds) {
-		var clientEventKinds = [];
-		var eventKind;
-
-		for (var i in serverEventKinds) {
-			eventKind = serverEventKinds[i];
-		}
-	}
 
 	self.transformNews = function (eventsArray) {
 		var event, events = [];

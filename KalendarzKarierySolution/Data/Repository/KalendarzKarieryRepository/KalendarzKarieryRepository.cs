@@ -175,7 +175,7 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 
 			foreach (int num in years)
 			{
-				var list = _entities.Events.Include( "User" ).Include( "Addresses" ).Where( m => m.OwnerUserId == id && m.StartDate.Year == num ).OrderBy( m => m.StartDate.Year ).ThenBy( m => m.StartDate.Month ).ThenBy( m => m.StartDate.Day ).ThenBy( m => m.StartDate.Hour ).ThenBy( m => m.StartDate.Minute );
+				var list = _entities.Events.Include( "User" ).Include( "Addresses" ).Where( m => m.OwnerUserId == id && m.StartDate.Year == num ).OrderBy( m => m.StartDate );
 				var transformedList = list.Select( m => new JsonEventModel()
 				{
 					id = m.Id,

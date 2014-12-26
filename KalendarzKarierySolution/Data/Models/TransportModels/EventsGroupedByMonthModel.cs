@@ -10,12 +10,12 @@ namespace KalendarzKarieryData.Models.TransportModels
 	public class EventsGroupedByMonthModel
 	{
 		public int month { get; set; }
-		public IEnumerable<EventsGroupedByDayModel> events { get; set; }
+		public IEnumerable<EventsGroupedByDayModel> eventsGroupedByDay { get; set; }
 
-		public EventsGroupedByMonthModel(int month, IEnumerable<EventsGroupedByDayModel> events)
+		public EventsGroupedByMonthModel( int month, IEnumerable<EventsGroupedByDayModel> eventsGroupedByDay )
 		{
 			this.month = month;
-			this.events = events;
+			this.eventsGroupedByDay = eventsGroupedByDay;
 		}
 
 	}

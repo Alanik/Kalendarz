@@ -51,7 +51,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 	self.userName = userName ? userName : '';
 
 	//is used when adding new event
-	self.event = new KKEvent();
+	self.event = new KKEventModel();
 
 	self.eventKinds = [];
 	self.eventPrivacyLevels = [];
@@ -263,7 +263,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 						alert(result.Message);
 					} else {
 
-						var eventToPush = new KKEvent();
+						var eventToPush = new KKEventModel();
 						eventToPush.addedBy = self.userName;
 
 						eventToPush.address.street = self.event.address.street;
@@ -291,7 +291,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 						eventToPush.privacyLevel.name = self.event.privacyLevel.name;
 						eventToPush.privacyLevel.value = self.event.privacyLevel.value;
 
-						eventToPush.startDate = new KKEventDate(startEventDate, startMinute, endMinute, startHour, endHour, day, month, year);
+						eventToPush.startDate = new KKEventDateModel(startEventDate, startMinute, endMinute, startHour, endHour, day, month, year);
 
 						eventToPush.name = self.event.name;
 						eventToPush.urlLink = self.event.urlLink;

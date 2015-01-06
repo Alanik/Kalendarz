@@ -1,4 +1,4 @@
-﻿var KKEvent = function () {
+﻿var KKEventModel = function () {
 	var self = this;
 
 	self.addedBy = "";

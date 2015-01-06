@@ -1136,17 +1136,23 @@ wydarzenia-tab {
 	width: 90%;
 }
 
+#detailsEventBlockList {
+margin-top:20px;
+}
+
 #calendarDayDetailsTable {
-	width: 100%;
+	width: 98%;
 	color: gray;
 	position: relative;
+	border:1px solid white;
+	margin:0 auto;
 }
 
 	#calendarDayDetailsTable .table-details-head {
 		overflow: hidden;
 		text-align: left;
-		background: rgba(178,178,178,.6);
-		color: rgb(88,88,88);
+		background: rgba(103, 84, 84, 0.72);
+		color: rgb(246, 246, 246);
 	}
 
 		#calendarDayDetailsTable .table-details-head div {
@@ -1155,9 +1161,10 @@ wydarzenia-tab {
 		}
 
 	#calendarDayDetailsTable .table-details-body {
-		/*background: rgba(255,255,255,.9);*/
-		background: rgba(78,78,78,.6);
+		background:rgba(252, 252, 252, 0.9); 
+		/*background: rgba(78,78,78,.6);*/
 		padding-top: 4px;
+		padding-bottom:4px;
 	}
 
 		#calendarDayDetailsTable .table-details-body .details-day-cell {
@@ -1212,9 +1219,17 @@ wydarzenia-tab {
 
 .details-hour-line {
 	position: absolute;
-	background: rgb(164,164,164);
+	background: rgb(203, 203, 203);
 	height: 100%;
 	width: 1px;
+}
+
+.details-hour-line-21 {
+	position: absolute;
+	background: rgb(203, 203, 203);
+	height: 100%;
+	width: 1px;
+	right:0px;
 }
 
 #logoutForm {

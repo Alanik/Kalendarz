@@ -480,7 +480,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 
 	self.showEventDetailsOnEventBlockClick = function (element) {
 		var $block = $(element);
-		var $eventBlockContainer = $block.closest(".details-event-block-container");
+		var $eventBlockContainer = $block.closest(".event-block-container");
 		var offset = $eventBlockContainer.position().top;
 
 		$eventBlockContainer.closest(".scrollable").scrollTop(offset);

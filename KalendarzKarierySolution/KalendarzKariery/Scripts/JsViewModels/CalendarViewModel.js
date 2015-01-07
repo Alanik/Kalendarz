@@ -480,7 +480,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 
 	self.showEventDetailsOnEventBlockClick = function (element) {
 		var $block = $(element);
-		var $eventBlockContainer = $block.closest(".event-block-container");
+		var $eventBlockContainer = $block.closest(".details-event-block-container");
 		var offset = $eventBlockContainer.position().top;
 
 		$eventBlockContainer.closest(".scrollable").scrollTop(offset);
@@ -606,7 +606,8 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		$cellPlaceholder.append($event);
 	};
 
-	self.drawEventToDetailsDayTable = function (event, onAppInit) {
+	self.drawEventToDetailsDayTable = function ( event, onAppInit ){
+
 		//set detailsPageBottomRow to calculate detailsPageEventsTable height based on the most bottom event.calendarPlacementRow 
 		if (event.calendarPlacementRow > self.displayPageEventMostBottomRow) {
 			self.displayPageEventMostBottomRow = event.calendarPlacementRow;
@@ -617,7 +618,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		var width = ((event.startDate.endHour - event.startDate.startHour) * 100) - startMinuteOffset + endMinuteOffset;
 
 		var $hourCell = $(".hour-cell-" + event.startDate.startHour);
-		var eventRectangle = '<div data-bind="click: function(){ $root.showEventBlockInfoOnDetailsPageEventRectangleClick(' + event.id + ') }" class="event-rectangle-details" style="width:' + (width - 6) + '%;top : ' + ((event.calendarPlacementRow - 1) * 46) + 'px;left:' + (startMinuteOffset + 1) + '%;border-color:' + event.kind.detailsPageEventBorderColor + ';"><span>' + event.name + '</span></div>';
+		var eventRectangle = '<div data-bind="click: function(){ $root.showEventBlockInfoOnDetailsPageEventRectangleClick(' + event.id + ') }" class="event-rectangle-details" style="width:' + (width - 6) + '%;top : ' + (((event.calendarPlacementRow - 1) * 46) + 12) + 'px;left:' + (startMinuteOffset + 1) + '%;border-color:' + event.kind.detailsPageEventBorderColor + ';"><span>' + event.name + '</span></div>';
 		var $eventRectangle = $(eventRectangle);
 
 		$eventRectangle.appendTo($hourCell);

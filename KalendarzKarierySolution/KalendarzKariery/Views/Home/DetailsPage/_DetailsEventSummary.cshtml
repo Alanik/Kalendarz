@@ -1,8 +1,8 @@
 ﻿<section id="detailsEventBlockList">
-	<div style="overflow: hidden;" data-bind="foreach: detailsPageDayEvents()">
+	<div style="overflow: hidden; width: 98%; margin: 0 auto; background: rgb(215, 207, 196); padding: 2px 0; border: 1px solid rgb(255, 253, 247);" data-bind="foreach: detailsPageDayEvents()">
 		<div class="event-block-container">
 		<span style="display:none;" class="hidden-event-id" data-bind="text: id"></span>
-			<div class="event-block">
+			<div class="event-block" style="box-shadow:none !important;">
 				<div data-bind="style: { color: kind.headerColor, background: 'rgb(130,130,130)', border: '1px solid rgb(221, 221, 221)', padding: '10px', marginBottom: '10px' }">
 					<span data-bind="text: kind.name"></span>
 				</div>

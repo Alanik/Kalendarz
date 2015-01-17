@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KalendarzKarieryData.Models.TransportModels
+namespace KalendarzKarieryData.Models.DataTransferModels
 {
 	[Serializable]
 	public class EventsGroupedByDayModel

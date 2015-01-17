@@ -3,14 +3,14 @@
 		Mój kalendarz:
 	</div>
 	<div data-bind="foreach: $root.detailsPageAllSelectedEvents" style="position: relative; left: 1px;">
-		<div data-bind="if: startDate.javascriptStartDate <= $root.todayDate.javascriptStartDate">
+		<div data-bind="if: startDate.javaScriptStartDate <= $root.todayDate.javaScriptStartDate">
 			<div style="display: inline-block; width: 300px; margin-bottom: 2px; padding: 5px; vertical-align: top; background: rgb(209,209,209); color: white;" data-bind="	text: name"></div>
 			<div style="display: inline-block; padding: 5px; background: rgb(180,180,180);width:100px;" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
 			<div style="display: inline-block; color: white; padding: 5px; background: rgb(209,209,209);width:110px;" data-bind="text: startDate.displayFullDate()"></div>
 			<div style="display: inline-block; color: white; padding: 5px; background: rgb(209,209,209);width:110px;" data-bind="text: startDate.displayFullTime()"></div>
 		</div>
 
-		<div data-bind="if: startDate.javascriptStartDate > $root.todayDate.javascriptStartDate">
+		<div data-bind="if: startDate.javaScriptStartDate > $root.todayDate.javaScriptStartDate">
 			<div style="display: inline-block; width: 300px; margin-bottom: 2px; padding: 5px; vertical-align: top; background: rgb(173, 151, 151); color: white;" data-bind="text: name"></div>
 			<div style="display: inline-block; padding: 5px; background: rgb(130,130,130);width:100px;" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
 			<div style="display: inline-block; color: white; padding: 5px; background: rgb(173, 151, 151);width:110px;" data-bind="text: startDate.displayFullDate()"></div>

@@ -6,30 +6,6 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 	var date = new Date();
 
 	//////////////////////////////////////////////////////////
-	//ajax loader 
-	//////////////////////////////////////////////////////////
-	var opts = {
-		lines: 17, // The number of lines to draw
-		length: 17, // The length of each line
-		width: 4, // The line thickness
-		radius: 20, // The radius of the inner circle
-		corners: 1, // Corner roundness (0..1)
-		rotate: 0, // The rotation offset
-		direction: 1, // 1: clockwise, -1: counterclockwise
-		color: '#FFF', // #rgb or #rrggbb or array of colors
-		speed: 1, // Rounds per second
-		trail: 80, // Afterglow percentage
-		shadow: false, // Whether to render a shadow
-		hwaccel: false, // Whether to use hardware acceleration
-		className: 'spinner', // The CSS class to assign to the spinner
-		zIndex: 2e9, // The z-index (defaults to 2000000000)
-		top: '50%', // Top position relative to parent
-		left: '50%' // Left position relative to parent
-	};
-
-	self.spinner = new Spinner(opts);
-
-	//////////////////////////////////////////////////////////
 	//public properties
 	//////////////////////////////////////////////////////////
 
@@ -44,7 +20,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		"getDayName": function () {
 			return this.weekday == 0 ? self.dayNames[6] : self.dayNames[this.weekday - 1];
 		},
-		"javascriptStartDate": date
+		"javaScriptStartDate": date
 	}
 	self.monthNames = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'];
 	self.dayNames = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'];
@@ -146,6 +122,30 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		//		"9": [{ "2": [event] }]	
 		//			}
 	};
+
+	//////////////////////////////////////////////////////////
+	//ajax loader 
+	//////////////////////////////////////////////////////////
+	var opts = {
+		lines: 17, // The number of lines to draw
+		length: 17, // The length of each line
+		width: 4, // The line thickness
+		radius: 20, // The radius of the inner circle
+		corners: 1, // Corner roundness (0..1)
+		rotate: 0, // The rotation offset
+		direction: 1, // 1: clockwise, -1: counterclockwise
+		color: '#FFF', // #rgb or #rrggbb or array of colors
+		speed: 1, // Rounds per second
+		trail: 80, // Afterglow percentage
+		shadow: false, // Whether to render a shadow
+		hwaccel: false, // Whether to use hardware acceleration
+		className: 'spinner', // The CSS class to assign to the spinner
+		zIndex: 2e9, // The z-index (defaults to 2000000000)
+		top: '50%', // Top position relative to parent
+		left: '50%' // Left position relative to parent
+	};
+
+	self.spinner = new Spinner( opts );
 
 	//////////////////////////////////////////////////////////
 	// METHODS 
@@ -486,17 +486,16 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		$eventBlockContainer.closest(".scrollable").scrollTop(offset);
 
 		var $content = $eventBlockContainer.find(".event-block-content");
-		$content.css("color", "rgb(242,242,242)");
 
 		var $eventBlockInfo = $eventBlockContainer.find(".event-block-info-container");
 
 		if ($block.hasClass("open")) {
 			$eventBlockInfo.slideUp();
-			$content.css("color", "rgb(119,119,119)");
+			$content.css( "color", "rgb(229, 211, 180)" );
 		}
 		else {
 			$eventBlockInfo.slideDown();
-			$content.css("color", "rgb(242,242,242)");
+			$content.css( "color", "rgb(161, 147, 123)" );
 		}
 
 		$block.toggleClass("open");
@@ -703,16 +702,15 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		if ($menuItemContainer.hasClass("selected")) {
 			$menuItemContainer.css("top", "20px");
 			$menuItem.css("background", "rgba(255,255,255,.5)");
-			$menuItem.parent().find(".menu-item-number-upcoming").css("background", "rgb(173, 151, 151)");
 			showSelectedEvents();
 		} else {
 			$menuItemContainer.css("top", "0px");
 			$menuItem.css("background", "rgb(235,235,235)");
-			$menuItem.parent().find(".menu-item-number-upcoming").css("background", "rgb(193,193,193)");
 			removeSelectedEvents();
 		}
 
-		function showSelectedEvents() {
+		function showSelectedEvents()
+		{
 			var combinedArray = [], arr, shownEvents;
 			if (eventPrivacyLevelName == "private") {
 
@@ -1278,9 +1276,9 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 	};
 
 	self.showEventBlockInfoOnDetailsPageEventRectangleClick = function (id) {
-		var $container = $("#details #detailsEventBlockList .details-event-block-container .hidden-event-id:contains(" + id + ")").parent();
-		var $showLink = $container.find(".details-eventblock-show-link");
-		self.showEventInfoOnShowLinkClick($showLink);
+		var $container = $("#details #detailsEventBlockList .event-block-container .hidden-event-id:contains(" + id + ")").parent();
+		var block = $container.find(".event-block")[0];
+		self.showEventDetailsOnEventBlockClick( block );
 	};
 
 	self.setCalendarPlacementRow = function (dayEvents) {

@@ -7,9 +7,10 @@ using System.Web;
 using KalendarzKarieryData.Models.ViewModels;
 using System.Web.Hosting;
 using System.Data.Common;
-using KalendarzKarieryData.Models.TransportModels;
+using KalendarzKarieryData.Models.DataTransferModels;
 using KalendarzKarieryData.BO.Cache;
 using System.Collections;
+
 
 namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 {
@@ -112,56 +113,16 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 			_entities.Events.Remove( @event );
 		}
 
-		public IList<Event> GetAllEvents()
-		{
-			return _entities.Events.ToList();
-		}
-
 		public ICollection<JsonEventModel> GetAllNews()
 		{
-			return _entities.Events.Include( "User" ).Include( "Addresses" ).Where( m => m.EventKind.Value == 8 ).Select( m => new JsonEventModel()
-			{
-				id = m.Id,
-				name = m.Title,
-				addedBy = m.User.UserName,
-				description = m.Description,
-				details = m.Details,
-				dateAdded = m.DateAdded,
-				occupancyLimit = m.OccupancyLimit,
-				urlLink = m.UrlLink,
-				calendarPlacementRow = 1,
-				startDate = m.StartDate,
-				endDate = m.EndDate,
-				numberOfPeopleAttending = m.NumberOfPeopleAttending ?? 0,
-				kind = new { name = m.EventKind.Name, value = m.EventKind.Value },
-				price = m.Price ?? 0,
-				privacyLevel = new { name = m.PrivacyLevel.Name, value = m.PrivacyLevel.Value },
-				addresses = m.Addresses.Select( o => new { street = o.Street, city = o.City, zipCode = o.ZipCode } )
-			} ).OrderBy( m => m.startDate ).ToArray();
+			return _entities.Events.Include( "User" ).Include( "Addresses" ).Include( "EventKind" ).Include( "PrivacyLevel" ).Where( m => m.EventKind.Value == 8 ).OrderBy( m => m.StartDate ).AsEnumerable().Select( m => new JsonEventModel( m ) ).ToArray();
 		}
 
 		public EventsGroupedByYearModel GetAllEventsForGivenYearByUserId( int id, int year )
 		{
-			var list = _entities.Events.Include( "User" ).Include( "Addresses" ).Where( m => m.OwnerUserId == id && m.StartDate.Year == year ).OrderBy( m => m.StartDate );
-			var transformedList = list.Select( m => new JsonEventModel()
-			{
-				id = m.Id,
-				name = m.Title,
-				addedBy = m.User.UserName,
-				description = m.Description,
-				details = m.Details,
-				dateAdded = m.DateAdded,
-				occupancyLimit = m.OccupancyLimit,
-				urlLink = m.UrlLink,
-				calendarPlacementRow = 1,
-				startDate = m.StartDate,
-				endDate = m.EndDate,
-				numberOfPeopleAttending = m.NumberOfPeopleAttending ?? 0,
-				kind = new { name = m.EventKind.Name, value = m.EventKind.Value },
-				price = m.Price ?? 0,
-				privacyLevel = new { name = m.PrivacyLevel.Name, value = m.PrivacyLevel.Value },
-				addresses = m.Addresses.Select( o => new { street = o.Street, city = o.City, zipCode = o.ZipCode } )
-			} );
+			var list = _entities.Events.Include( "User" ).Include( "Addresses" ).Include( "EventKind" ).Include( "PrivacyLevel" ).Where( m => m.OwnerUserId == id && m.StartDate.Year == year ).OrderBy( m => m.StartDate ).AsEnumerable();
+
+			var transformedList = list.Select( m => new JsonEventModel(m) );
 
 			var groups = transformedList.ToLookup( m => m.startDate.Month ).Select( o => new EventsGroupedByMonthModel( o.Key, o.ToArray().ToLookup( t => t.startDate.Day ).Select( l => new EventsGroupedByDayModel( l.Key, l.ToArray() ) ) ) ).ToArray();
 
@@ -175,26 +136,9 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 
 			foreach (int num in years)
 			{
-				var list = _entities.Events.Include( "User" ).Include( "Addresses" ).Where( m => m.OwnerUserId == id && m.StartDate.Year == num ).OrderBy( m => m.StartDate );
-				var transformedList = list.Select( m => new JsonEventModel()
-				{
-					id = m.Id,
-					name = m.Title,
-					addedBy = m.User.UserName,
-					description = m.Description,
-					details = m.Details,
-					dateAdded = m.DateAdded,
-					occupancyLimit = m.OccupancyLimit,
-					urlLink = m.UrlLink,
-					calendarPlacementRow = 1,
-					startDate = m.StartDate,
-					endDate = m.EndDate,
-					numberOfPeopleAttending = m.NumberOfPeopleAttending ?? 0,
-					kind = new { name = m.EventKind.Name, value = m.EventKind.Value },
-					price = m.Price ?? 0,
-					privacyLevel = new { name = m.PrivacyLevel.Name, value = m.PrivacyLevel.Value },
-					addresses = m.Addresses.Select( o => new { street = o.Street, city = o.City, zipCode = o.ZipCode } )
-				} );
+				var list = _entities.Events.Include( "User" ).Include( "Addresses" ).Include( "EventKind" ).Include( "PrivacyLevel" ).Where( m => m.OwnerUserId == id && m.StartDate.Year == num ).OrderBy( m => m.StartDate ).AsEnumerable();
+
+				var transformedList = list.Select( m => new JsonEventModel( m ) );
 
 				var groups = transformedList.ToLookup( m => m.startDate.Month ).Select( o => new EventsGroupedByMonthModel( o.Key, o.ToArray().ToLookup( t => t.startDate.Day ).Select( l => new EventsGroupedByDayModel( l.Key, l.ToArray() ) ) ) ).ToArray();
 				container.Add( new EventsGroupedByYearModel( num, groups ) );
@@ -210,26 +154,8 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 
 			foreach (int num in years)
 			{
-				var list = _entities.Events.Include( "User" ).Include( "Addresses" ).Where( m => m.StartDate.Year == num && m.PrivacyLevel.Value == 2 ).OrderBy( m => m.StartDate );
-				var transformedList = list.Select( m => new JsonEventModel()
-				{
-					id = m.Id,
-					name = m.Title,
-					addedBy = m.User.UserName,
-					description = m.Description,
-					details = m.Details,
-					dateAdded = m.DateAdded,
-					occupancyLimit = m.OccupancyLimit,
-					urlLink = m.UrlLink,
-					calendarPlacementRow = 1,
-					startDate = m.StartDate,
-					endDate = m.EndDate,
-					numberOfPeopleAttending = m.NumberOfPeopleAttending ?? 0,
-					kind = new { name = m.EventKind.Name, value = m.EventKind.Value },
-					price = m.Price ?? 0,
-					privacyLevel = new { name = m.PrivacyLevel.Name, value = m.PrivacyLevel.Value },
-					addresses = m.Addresses.Select( o => new { street = o.Street, city = o.City, zipCode = o.ZipCode } )
-				} );
+				var list = _entities.Events.Include( "User" ).Include( "Addresses" ).Include( "EventKind" ).Include( "PrivacyLevel" ).Where( m => m.StartDate.Year == num && m.PrivacyLevel.Value == 2 ).OrderBy( m => m.StartDate ).AsEnumerable();
+				var transformedList = list.Select( m => new JsonEventModel(m));
 
 				var groups = transformedList.ToLookup( m => m.startDate.Month ).Select( o => new EventsGroupedByMonthModel( o.Key, o.ToArray().ToLookup( t => t.startDate.Day ).Select( l => new EventsGroupedByDayModel( l.Key, l.ToArray() ) ) ) ).ToArray();
 
@@ -267,7 +193,6 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 
 				if (user != null)
 				{
-					var c = user.webpages_Roles.Count;
 					return _entities.EventKinds.Select( m => new { name = m.Name, value = m.Value } ).OrderBy( m => m.value ).ToArray();
 				}
 			}

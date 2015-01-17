@@ -1,4 +1,5 @@
-﻿/*background:rgb(225, 219, 211);*/
+﻿
+/*background:rgb(225, 219, 211);*/
 /*background:rgb(215, 207, 196);*/
 /*color:rgb(255, 253, 247);*/
 /*border:1px solid rgb(255, 253, 240);*/
@@ -387,7 +388,8 @@ body header {
 	height: 25px;
 	z-index: 98;
 	border-bottom: 1px solid #E7E5DF;
-	background: #E7E5DF;
+	/*background: #E7E5DF;*/
+	background:rgb(234, 226, 214);
 	border-top: 1px solid whitesmoke;
 }
 
@@ -432,8 +434,8 @@ body header {
 .lobby-loggedIn-bar {
 	overflow: hidden;
 	color: rgb(185, 185, 185);
-	text-align: center;
-	padding-bottom: 40px;
+	padding-left:20px;
+	padding-top:20px;
 }
 
 .today-cell {
@@ -466,7 +468,8 @@ body header {
 	position: relative;
 	border: 1px solid white;
 	/*background: rgb(223, 240, 255);*/
-	background: rgba(150,150,150,.1);
+	/*background: rgba(150,150,150,.1);*/
+	background:rgba(234, 226, 214, 0.5);
 }
 
 	.other-month-cell .cell-span-container span {
@@ -565,7 +568,7 @@ body header {
 
 .menu-item-number-container {
 	color: rgb(202, 197, 197);
-	font-size: 3em;
+	font-size: 2em;
 }
 
 .menu-item-number-old {
@@ -574,8 +577,7 @@ body header {
 
 .menu-item-number-upcoming {
 	margin-top: 6px;
-	background: rgb(193,193,193);
-	color: rgb(231, 231, 228);
+	color: rgb(173, 165, 137);
 }
 
 .triangle-header {
@@ -649,7 +651,7 @@ body header {
 }
 
 #addPublicEventBtn {
-	background: rgb(199, 202, 111);
+	background: rgb(226, 196, 138);
 }
 
 .save-text {
@@ -744,7 +746,7 @@ background:rgb(115, 233, 162);
 	position: absolute;
 	z-index: 2;
 	border: 2px solid;
-	background: rgba(65,65,65,.7);
+	background: rgba(104, 94, 81, 0.7);
 	height: 41px;
 }
 
@@ -806,8 +808,11 @@ background:rgb(115, 233, 162);
 
 .title-header {
 	text-align: center;
-	font-size: 1.6em;
-	color: gray;
+	font-size: 1.2em;
+	/*color: rgb(166, 151, 130);*/
+	color:rgb(150, 135, 116);
+	padding:10px;
+	padding-bottom:20px;
 }
 
 .moje-sprawy-text {
@@ -875,17 +880,10 @@ background:rgb(115, 233, 162);
 }
 
 #lobbyEventsMenuContainer {
-	margin: 0 auto;
+	margin: 0px auto;
 	display: block;
 	text-align: center;
-	background: rgba(0,0,0,.03);
-	padding-top: 25px;
-	padding-bottom: 20px;
-	/*border-top: 1px solid rgb(250, 250, 250);
-	border-bottom: 1px solid rgb(224, 224, 224);*/
-	border-top: 1px solid whitesmoke;
-	padding-top: 100px;
-	padding-bottom: 100px;
+	width:60%;
 }
 
 #endDateValidationErrorMsg {
@@ -1143,6 +1141,10 @@ wydarzenia-tab {
 
 #detailsEventBlockList {
 	width: 90%;
+	border:1px solid rgb(255, 253, 247);
+	border-top:none;
+	background: rgb(215, 207, 196);
+	margin-left:2px;
 }
 
 #calendarDayDetailsTable {
@@ -1150,7 +1152,11 @@ wydarzenia-tab {
 	color: gray;
 	position: relative;
 	border: 1px solid rgb(255, 253, 240);
-	margin: 0 auto;
+	border-bottom: none;
+	margin-left: 2px;
+	padding: 0px 1%;
+	padding-bottom: 20px;
+	background: rgb(215, 207, 196);
 }
 
 	#calendarDayDetailsTable .table-details-head {
@@ -1192,15 +1198,7 @@ wydarzenia-tab {
 
 #lobbyEventSummary {
 	margin: 0 auto;
-	background: rgba(0, 0, 0, 0.03);
-	/*border-top:1px solid rgb(250, 250, 250);
-	border-bottom:1px solid rgb(224,224,224);*/
-	margin-top: 60px;
 	text-align: center;
-	margin-bottom: 20px;
-	border-top: 1px solid whitesmoke;
-	padding-bottom: 100px;
-	padding-top: 100px;
 }
 
 .current-month-name-calendar {
@@ -1560,55 +1558,56 @@ legend {
 .event-block-info-container {
 	width: 516px;
 	position: relative;
-	top: -45px;
 	z-index: 1;
 	margin-left: 3px;
-	background: rgb(252,252,252);
-	padding: 10px;
-	padding-top: 60px;
 	color: gray;
+	background:#fcfcfc;
+	padding:10px;
+	padding-top:60px;
+	top:-45px;
 }
 
 .event-block-info-body {
 	padding: 10px;
 	border: 1px solid white;
-	background: rgb(240, 236,236);
+	background: rgb(236, 228, 211);
 	border-bottom: 1px solid rgb(223, 223, 223);
-	border-right: 1px solid rgb(223, 223, 223);
 	overflow: hidden;
-	text-align: left;
+	text-align:left;
 }
 
 .event-block-info-footer {
 	padding: 10px;
 	border: 1px solid white;
-	background: rgb(239, 239, 239);
-	border-bottom: 1px solid rgb(223, 223, 223);
-	border-right: 1px solid rgb(223, 223, 223);
+	background: rgb(236, 228, 211);
 	overflow: hidden;
 }
 
 .event-block-container {
-	display: inline-block;
+	display:inline-block;
+	margin-right:-5px;
 	vertical-align: top;
 }
 
+.event-block-content {
+color:rgb(229, 211, 180);
+}
+
 .details-event-block-container {
-	float: left;
+	display:inline-block;
 	margin-left: 2px;
 	vertical-align: top;
 }
 
 .event-block {
+
 	height: 220px;
-	width: 270px;
-	background: rgb(248, 248, 248);
-	color: rgb(119,119,119);
-	box-shadow: 2px 2px 10px rgb(216, 216, 216);
+	width:270px;
+	background: rgba(104, 94, 81, 0.7);
+	color: rgb(192, 180, 153);
+	box-shadow: 2px 2px 10px rgb(166, 158, 146);
 	overflow: hidden;
 	position: relative;
-	/*border: 1px solid rgb(221, 221, 221);*/
-	margin-bottom: 2px;
 	padding: 10px;
 	text-align: left;
 	z-index: 2;
@@ -1616,21 +1615,14 @@ legend {
 
 
 .event-block-footer {
-	position: absolute;
-	width: 100%;
-	background: white;
-	bottom: 0;
-	left: 0;
-	font-size: 14px;
-	padding: 10px 0;
-	text-align: center;
+
 }
 
 .event-block-info-name {
 	font-size: 1.6em;
-	background: gray;
+	background: rgb(186, 166, 142);
 	color: white;
-	text-align: center;
+	padding:4px;
 }
 
 .event-block-info-description {

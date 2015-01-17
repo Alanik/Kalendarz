@@ -102,7 +102,7 @@
 					calendarViewModel.myEventTree = eventTreeBuilder.buildEventTree(indexViewModel.MyEvents, calendarViewModel.setCalendarPlacementRow);
 					calendarViewModel.myEventTreeCountBasedOnEventKind = eventTreeBuilder.buildEventTreeCountBasedOnEventKind(indexViewModel.MyEventCountTree);
 
-					//console.log(calendarViewModel.myEventTree);
+					console.log(calendarViewModel.myEventTree);
 
 					//console.log(calendarViewModel.publicEvents);
 					//console.log(calendarViewModel.publicEventTree);
@@ -305,20 +305,20 @@
 						});
 					});
 
-					$mainContainer.on({
-						mouseenter: function () {
-							$(this).css({
-								"cursor": "pointer",
-								"background" : "rgb(253,253,253)"
-							});
-						},
-						mouseleave: function () {
-							$(this).css({
-								"cursor": "auto",
-								"background" : "rgb(248,248,248)"
-							});
-						}
-					}, '.event-block');
+					//$mainContainer.on({
+					//	mouseenter: function () {
+					//		$(this).css({
+					//			"cursor": "pointer",
+					//			"background" : "rgb(253,253,253)"
+					//		});
+					//	},
+					//	mouseleave: function () {
+					//		$(this).css({
+					//			"cursor": "auto",
+					//			"background" : "rgb(248,248,248)"
+					//		});
+					//	}
+					//}, '.event-block');
 
 					$mainContainer.on({
 						mouseenter: function () {

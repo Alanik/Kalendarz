@@ -1,10 +1,11 @@
-﻿using System;
+﻿using KalendarzKarieryData.Models.DataTransferModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KalendarzKarieryData.Models.TransportModels
+namespace KalendarzKarieryData.Models.DataTransferModels
 {
 	[Serializable]
 	public class EventsGroupedByMonthModel

@@ -1,4 +1,4 @@
-﻿using KalendarzKarieryData.Models.TransportModels;
+﻿using KalendarzKarieryData.Models.DataTransferModels;
 using KalendarzKarieryData.Models.ViewModels;
 using System;
 using System.Collections;
@@ -33,7 +33,6 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 		ICollection<object> GetEventKindsBasedOnUserName( string name );
 		PrivacyLevel GetPrivacyLevelByValue( int id );
 		EventKind GetEventKindByValue( int id );
-		IList<Event> GetAllEvents();
 		ICollection<JsonEventModel> GetAllNews();
 		object GetMyEventCountTree( int userId );
 		object GetPublicEventCountTree();

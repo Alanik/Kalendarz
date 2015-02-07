@@ -8,7 +8,7 @@
 </div>
 <section id="detailsPanel">
 	<div id="todayDateAndTimeContainer">
-		<div style="background: rgba(0,0,0,.04);width:200px;">
+		<div>
 			<div id="todayDateDay" data-bind="text: $root.todayDate.day"></div>
 			<div id="todayDateDayName" data-bind="text: $root.todayDate.getDayName()"></div>
 			<div id="todayDateMonth" data-bind="text: $root.todayDate.getMonthName()"></div>
@@ -113,15 +113,15 @@
 <div class="dark-background-div">
 	<span>/Grafik dnia/</span>
 </div>
-<div style="font-size:2em; padding:20px;">
-<span>
-	<span style="font-size: .8em; margin-left: 6px; color: rgb(171, 157, 138);">wydarzenia z dnia: </span>
-	<span data-bind="text: $root.detailsPageDisplayDate.day()" style="color: rgb(228, 138, 138);"></span>
-	<span data-bind="text: $root.detailsPageDisplayDate.getMonthName()" style="color: rgb(228, 138, 138);"></span>
-	<span data-bind="text: $root.detailsPageDisplayDate.year()" style="color: rgb(228, 138, 138); font-size: .8em;"></span>
-</span>
-</div>
 	<div id="calendarDayDetailsTable">
+		<div style="font-size: 2em; padding: 20px;">
+			<span>
+				<span style="font-size: .8em; margin-left: 6px; color: rgb(171, 157, 138);">grafik z dnia: </span>
+				<span data-bind="text: $root.detailsPageDisplayDate.day()" style="color: rgb(255, 254, 234);"></span>
+				<span data-bind="text: $root.detailsPageDisplayDate.getMonthName()" style="color: rgb(255, 254, 234);"></span>
+				<span data-bind="text: $root.detailsPageDisplayDate.year()" style="color: rgb(255, 254, 234); font-size: .8em;"></span>
+			</span>
+		</div>
 		<div class="table-details-head">
 			<div>7<span class="small-minutes">00</span></div>
 			<div>8<span class="small-minutes">00</span></div>

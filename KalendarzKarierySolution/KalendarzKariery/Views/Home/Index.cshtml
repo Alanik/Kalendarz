@@ -17,7 +17,7 @@
 					<span style="position: relative; left: -7px;">Dziennik</span>
 				</div>
 				<div id="lobbyBg">
-					<img src="~/Images/kalendarzTlo.png" alt="background" style="top: 0 !important" />
+					@*<img src="~/Images/kalendarzTlo.png" alt="background" style="top: 0 !important" />*@
 					<div class="dotted-page-overlay"></div>
 					@Html.Partial("_ConfirmationPopupBox")
 
@@ -35,7 +35,7 @@
 				<div id="leftSideCalendar" class="side">
 				</div>
 				<div id="calendarBg">
-					<img src="~/Images/kalendarzTlo.png" alt="background" />
+					@*<img src="~/Images/kalendarzTlo.png" alt="background" />*@
 					<div class="dotted-page-overlay"></div>
 					@Html.Partial("_ConfirmationPopupBox")
 					<section id="calendar" class="main-section">
@@ -54,7 +54,7 @@
 		<li>
 			<div id="slide-item-details">
 				<div id="detailsBg">
-					<img src="~/Images/kalendarzTlo.png" alt="background" />
+					@*<img src="~/Images/kalendarzTlo.png" alt="background" />*@
 					@*<img src="~/Images/Logo/lightSmallKKLogo.png" alt="smallLogo" style="position:absolute !important;left:25px !important; top: 10px !important;height:78px !important;width:73px !important;z-index:100 !important;"/>*@
 					<div class="dotted-page-overlay"></div>
 					@Html.Partial("_ConfirmationPopupBox")
@@ -402,7 +402,7 @@
 							"background": "white"
 						});
 					}, function () {
-						var bgColor = $(this).parent().hasClass("selected") ? 'rgb(252,252,252)' : 'rgb(235,235,235)'; 
+						var bgColor = $(this).parent().hasClass("selected") ? 'rgb(252,252,252)' : 'rgb(223, 215, 188)'; 
 						$(this).css({
 							"cursor": "auto",
 							"background": bgColor

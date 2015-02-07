@@ -26,7 +26,7 @@ namespace KalendarzKariery.Controllers
 				return View("Index", null);
 			}
 
-			MainViewModel container = new MainViewModel();
+			MainViewModel mainViewModel = new MainViewModel();
 
 			var indexViewModel = new IndexViewModel();
 			indexViewModel.PublicEvents = _repository.GetAllPublicEvents();
@@ -56,10 +56,10 @@ namespace KalendarzKariery.Controllers
 			}
 
 
-			container.IndexViewModel = indexViewModel;
-			container.RegisterViewModel = registerViewModel;
+			mainViewModel.IndexViewModel = indexViewModel;
+			mainViewModel.RegisterViewModel = registerViewModel;
 
-			return View("Index", container);
+			return View("Index", mainViewModel);
 		}
 
 		private RegisterViewModel GetRegisterViewModel(int id, IKalendarzKarieryRepository repository)

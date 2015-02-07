@@ -17,6 +17,8 @@ body {
 	margin: 0px;
 	font-weight: 400;
 	-webkit-font-smoothing: antialiased;
+	background: rgb(240, 235, 218);
+	/*rgb(140, 139, 122)*/
 }
 
 header, footer, nav, section, div {
@@ -102,10 +104,10 @@ body header {
 
 #clockCanvas {
 	height: 200px;
-	background: rgba(0, 0, 0, .11);
 	position: relative;
 	width: 200px;
-	margin-top: 5px;
+	margin-top: -70px;
+	right: 50px;
 }
 
 #digitalClock {
@@ -113,9 +115,8 @@ body header {
 	top: 160px;
 	width: 200px;
 	text-align: center;
-	font-size: 22px;
-	/*color: rgb(156, 146, 138);*/
-	color: rgb(255, 238, 224);
+	font-size: 2em;
+	color: rgb(207, 199, 173);
 }
 
 #lobbyBg {
@@ -236,7 +237,7 @@ body header {
 #calendarMenuHeader {
 	display: table-caption;
 	color: white;
-	background: rgba(0,0,0,.04);
+	background: rgba(230, 220, 200, 1);
 	border-bottom: 1px solid rgb(250,250,250);
 	border-top: 1px solid #D6D6D6;
 	height: 38px;
@@ -372,7 +373,7 @@ body header {
 .today-cell .cell-span-container {
 	position: relative;
 	top: 56px;
-	background: rgb(242, 251, 167);
+	background: rgb(241, 244, 216);
 	height: 24px;
 	z-index: 98;
 	border-top: 1px solid white;
@@ -389,7 +390,7 @@ body header {
 	z-index: 98;
 	border-bottom: 1px solid #E7E5DF;
 	/*background: #E7E5DF;*/
-	background:rgb(234, 226, 214);
+	background: rgb(234, 226, 214);
 	border-top: 1px solid whitesmoke;
 }
 
@@ -434,12 +435,13 @@ body header {
 .lobby-loggedIn-bar {
 	overflow: hidden;
 	color: rgb(185, 185, 185);
-	padding-left:20px;
-	padding-top:20px;
+	padding-left: 20px;
+	padding-top: 20px;
+	margin-top:20px;
 }
 
 .today-cell {
-	background: rgba(244, 255, 143, .8) !important;
+	background: white !important;
 	border: 2px solid rgb(182, 188, 128) !important;
 }
 
@@ -469,7 +471,7 @@ body header {
 	border: 1px solid white;
 	/*background: rgb(223, 240, 255);*/
 	/*background: rgba(150,150,150,.1);*/
-	background:rgba(234, 226, 214, 0.5);
+	background: rgba(234, 226, 214, 0.5);
 }
 
 	.other-month-cell .cell-span-container span {
@@ -489,51 +491,56 @@ body header {
 #leftSideCalendar {
 	border-top: 1px solid rgb(240,240,240);
 	border-bottom: 1px solid rgb(240, 240, 240);
-	background-image: url("../Images/BackgroundParts/LeftSidePixelDark.png");
-	background-repeat: repeat-y;
+	/*background-image: url("../Images/BackgroundParts/LeftSidePixelDark.png");
+	background-repeat: repeat-y;*/
 	left: 0px;
-	background-position: right;
+	/*background-position: right;*/
 	height: 99% !important;
 	border-right: 1px solid #F0F0F0;
+	background: rgb(240, 235, 218);
 }
 
 #rightSideCalendar {
 	border-top: 1px solid rgb(240, 240, 240);
 	border-bottom: 1px solid rgb(240, 240, 240);
-	background-image: url("../Images/BackgroundParts/RightSidePixelDark.png");
-	background-repeat: repeat-y;
+	/*background-image: url("../Images/BackgroundParts/RightSidePixelDark.png");
+	background-repeat: repeat-y;*/
 	right: 0px;
-	background-position: left;
+	/*background-position: left;*/
 	border-left: 1px solid #F0F0F0;
 	height: 99% !important;
+	background: rgb(240, 235, 218);
 }
 
 #leftSideDetails {
-	background-image: url("../Images/BackgroundParts/LeftSidePixelDark.png");
-	background-repeat: repeat-y;
+	/*background-image: url("../Images/BackgroundParts/LeftSidePixelDark.png");
+	background-repeat: repeat-y;*/
 	left: 0px;
-	background-position: right;
-	border-right: 1px solid #F0F0F0;
+	/*background-position: right;*/
+	border-right: 1px solid rgb(212, 202, 168);
+	background: rgb(223, 215, 188);
 }
 
 #rightSideLobby {
-	background-image: url("../Images/BackgroundParts/RightSidePixelDark.png");
-	background-repeat: repeat-y;
+	/*background-image: url("../Images/BackgroundParts/RightSidePixelDark.png");
+	background-repeat: repeat-y;*/
 	right: 0px;
-	background-position: left;
-	border-left: 1px solid #F0F0F0;
+	/*background-position: left;*/
+	border-left: 1px solid rgb(212, 202, 168);
+	background: rgb(223, 215, 188);
 }
 
 #rightSideLobbyTopPart {
-	background-image: url("../Images/BackgroundParts/RightSidePixelDark.png");
-	background-repeat: repeat-y;
+	/*background-image: url("../Images/BackgroundParts/RightSidePixelDark.png");
+	background-repeat: repeat-y;*/
 	right: 0px;
 	height: 16px;
 	top: -16px;
-	background-position: left;
-	border-left: 1px solid #F0F0F0;
+	/*background-position: left;*/
+	border-left: 1px solid rgb(212, 202, 168);
 	position: absolute;
 	width: 10%;
+	background: rgb(223, 215, 188);
 }
 
 #mainContainer {
@@ -543,12 +550,10 @@ body header {
 
 .menu-item {
 	border-top: 1px solid rgb(189, 189, 189);
-	/*background: rgba(214, 214, 214, 0.5);*/
-	/*background: rgba(255, 255, 255, 0.5);*/
-	background: rgb(235,235,235);
-	box-shadow: 4px 2px 8px rgb(207, 207, 207);
+	background: rgb(223, 215, 188);
+	/*box-shadow: 4px 2px 8px rgb(196, 194, 184);*/
 	height: 30px;
-	color: rgb(116, 116, 116);
+	color: rgb(133, 123, 100);
 	font-size: 0.9em;
 	width: 95px;
 	text-align: center;
@@ -573,11 +578,13 @@ body header {
 
 .menu-item-number-old {
 	font-size: .6em;
+	display: none;
 }
 
 .menu-item-number-upcoming {
-	margin-top: 6px;
+	background: rgb(223, 215, 188);
 	color: rgb(173, 165, 137);
+	border-top: 1px solid rgb(248, 247, 233);
 }
 
 .triangle-header {
@@ -803,6 +810,10 @@ background:rgb(115, 233, 162);
 	color: red;
 }
 
+.details-edit-event-link {
+	color: rgb(68, 192, 64)
+}
+
 .lobby-content-body {
 }
 
@@ -810,9 +821,9 @@ background:rgb(115, 233, 162);
 	text-align: center;
 	font-size: 1.2em;
 	/*color: rgb(166, 151, 130);*/
-	color:rgb(150, 135, 116);
-	padding:10px;
-	padding-bottom:20px;
+	color: rgb(150, 135, 116);
+	padding: 10px;
+	padding-bottom: 20px;
 }
 
 .moje-sprawy-text {
@@ -870,7 +881,7 @@ background:rgb(115, 233, 162);
 }
 
 .current-weekday {
-	color: rgb(81, 228, 163);
+	color: rgb(223, 214, 189);
 	border: 1px solid rgb(223,223,223);
 	background: white;
 }
@@ -883,7 +894,7 @@ background:rgb(115, 233, 162);
 	margin: 0px auto;
 	display: block;
 	text-align: center;
-	width:60%;
+	width: 60%;
 }
 
 #endDateValidationErrorMsg {
@@ -891,21 +902,23 @@ background:rgb(115, 233, 162);
 }
 
 .add-btn {
+	width: 300px;
 	padding: 10px;
 	color: rgb(250, 250, 250);
-	border: 2px solid rgb(238, 238, 238);
-	border-radius: 6px;
-	background: rgb(129, 202, 162);
-	display: inline-block;
+	/* border: 2px solid rgb(238, 238, 238); */
+	/* border-radius: 6px; */
+	background: rgb(124, 214, 135);
+	/* display: inline-block; */
 	text-align: center;
-	margin: 2px;
+	/* margin: 2px; */
 	margin-top: 12px;
+	margin-left: -20px;
 }
 
 .year-name-container {
 	background: white;
 	letter-spacing: 1px;
-	color: rgb(81, 228, 163);
+	color: rgb(223, 214, 189);
 	display: inline-block;
 	padding-bottom: 4px;
 	padding-top: 5px;
@@ -1006,12 +1019,12 @@ background:rgb(115, 233, 162);
 #todayDateDay {
 	font-size: 6em;
 	display: inline-block;
-	color: rgb(251, 255, 194);
+	color: white;
 	padding-left: 5px;
 }
 
 #todayDateDayName {
-	color: rgb(251, 255, 194);
+	color: white;
 	font-size: 2em;
 	position: relative;
 	bottom: 35px;
@@ -1034,7 +1047,7 @@ background:rgb(115, 233, 162);
 }
 
 #todayDateAndTimeContainer {
-	color: rgb(132,132,132);
+	color: rgb(252, 255, 230);
 	margin-left: 20px;
 	width: 200px;
 	float: left;
@@ -1058,10 +1071,11 @@ background:rgb(115, 233, 162);
 
 .loggedIn-nickname {
 	margin-right: 15px;
-	font-size: 3em;
+	font-size: 2em;
 	vertical-align: baseline;
 	position: relative;
 	top: 2px;
+	color:rgb(217, 208, 183);
 }
 
 .event-kind-text {
@@ -1141,29 +1155,24 @@ wydarzenia-tab {
 
 #detailsEventBlockList {
 	width: 90%;
-	border:1px solid rgb(255, 253, 247);
-	border-top:none;
-	background: rgb(215, 207, 196);
-	margin-left:2px;
+	border-top: none;
+	margin-left: 2px;
 }
 
 #calendarDayDetailsTable {
 	width: 98%;
 	color: gray;
 	position: relative;
-	border: 1px solid rgb(255, 253, 240);
 	border-bottom: none;
 	margin-left: 2px;
 	padding: 0px 1%;
 	padding-bottom: 20px;
-	background: rgb(215, 207, 196);
 }
 
 	#calendarDayDetailsTable .table-details-head {
 		overflow: hidden;
 		text-align: left;
-		background: rgb(215, 207, 196);
-		color: rgb(255, 253, 247);
+		color: rgb(165, 160, 147);
 		padding-top: 20px;
 	}
 
@@ -1202,7 +1211,7 @@ wydarzenia-tab {
 }
 
 .current-month-name-calendar {
-	color: rgb(81, 228, 163);
+	color: rgb(223, 214, 189);
 	padding: 10px 10px 5px 10px;
 	background: white;
 	box-shadow: 0px 5px 20px -5px rgb(151, 151, 151);
@@ -1561,10 +1570,10 @@ legend {
 	z-index: 1;
 	margin-left: 3px;
 	color: gray;
-	background:#fcfcfc;
-	padding:10px;
-	padding-top:60px;
-	top:-45px;
+	background: #fcfcfc;
+	padding: 10px;
+	padding-top: 60px;
+	top: -45px;
 }
 
 .event-block-info-body {
@@ -1573,7 +1582,7 @@ legend {
 	background: rgb(236, 228, 211);
 	border-bottom: 1px solid rgb(223, 223, 223);
 	overflow: hidden;
-	text-align:left;
+	text-align: left;
 }
 
 .event-block-info-footer {
@@ -1584,25 +1593,24 @@ legend {
 }
 
 .event-block-container {
-	display:inline-block;
-	margin-right:-5px;
+	display: inline-block;
+	margin-right: -5px;
 	vertical-align: top;
 }
 
 .event-block-content {
-color:rgb(229, 211, 180);
+	color: rgb(229, 211, 180);
 }
 
 .details-event-block-container {
-	display:inline-block;
+	display: inline-block;
 	margin-left: 2px;
 	vertical-align: top;
 }
 
 .event-block {
-
 	height: 220px;
-	width:270px;
+	width: 270px;
 	background: rgba(104, 94, 81, 0.7);
 	color: rgb(192, 180, 153);
 	box-shadow: 2px 2px 10px rgb(166, 158, 146);
@@ -1615,14 +1623,12 @@ color:rgb(229, 211, 180);
 
 
 .event-block-footer {
-
 }
 
 .event-block-info-name {
 	font-size: 1.6em;
-	background: rgb(186, 166, 142);
 	color: white;
-	padding:4px;
+	padding: 4px;
 }
 
 .event-block-info-description {

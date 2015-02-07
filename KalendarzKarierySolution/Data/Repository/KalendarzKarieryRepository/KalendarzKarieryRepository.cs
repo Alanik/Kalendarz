@@ -118,6 +118,7 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 			return _entities.Events.Include( "User" ).Include( "Addresses" ).Include( "EventKind" ).Include( "PrivacyLevel" ).Where( m => m.EventKind.Value == 8 ).OrderBy( m => m.StartDate ).AsEnumerable().Select( m => new JsonEventModel( m ) ).ToArray();
 		}
 
+		//TODO: check if OrderBY is done in SQL or .NET (for var = list)
 		public EventsGroupedByYearModel GetAllEventsForGivenYearByUserId( int id, int year )
 		{
 			var list = _entities.Events.Include( "User" ).Include( "Addresses" ).Include( "EventKind" ).Include( "PrivacyLevel" ).Where( m => m.OwnerUserId == id && m.StartDate.Year == year ).OrderBy( m => m.StartDate ).AsEnumerable();

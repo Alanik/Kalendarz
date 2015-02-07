@@ -26,7 +26,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 	self.dayNames = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'];
 	self.userName = userName ? userName : '';
 
-	//is used when adding new event
+	//is used when adding or editing event
 	self.event = new KKEventModel();
 
 	self.eventKinds = [];
@@ -148,8 +148,37 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 	self.spinner = new Spinner( opts );
 
 	//////////////////////////////////////////////////////////
+
+	//////////////////////////////////////////////////////////
 	// METHODS 
 	//////////////////////////////////////////////////////////
+
+	self.getEventByDateAndId = function ( id, year, month, day )
+	{
+		var yearProp = self.myEventTree[year], monthProp, daysProp, event;
+		if ( yearProp )
+		{
+			monthProp = yearProp[month];
+			if ( monthProp )
+			{
+				for ( var i in monthProp )
+				{
+					daysProp = monthProp[i];
+					for ( var j in daysProp )
+					{
+						event = daysProp[j];
+
+						if(event.id == id){
+
+							return event;
+						}	
+					}
+				}
+			}
+		}
+
+		return null;
+	}
 
 	self.getEventsForGivenMonth = function (month, year) {
 		var daysProp, events = [];
@@ -322,10 +351,39 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		var $popup = $("#details").siblings(".confirmation-popupbox-container");
 		var $yesBtn = $popup.find(".confirmation-popupbox-yesbtn");
 		$yesBtn.attr("data-bind", "click: function () { $root.deleteEventDetailsPageOnConfirmationYesBtnClick($element, " + id + "," + year + "," + month + "," + day + ") }");
-		self.showConfirmationPopupBox($popup, "Czy napewno chcesz usunąć wybrane wydarzenie?");
+
+		self.showConfirmationPopupBox( $popup, "Czy napewno chcesz usunąć wybrane wydarzenie?" );
 
 		ko.unapplyBindings($yesBtn[0]);
 		ko.applyBindings(self, $yesBtn[0]);
+	};
+
+	self.editEventDetailsPageOnEditLinkClick = function ( id, year, month, day )
+	{
+		var $lobby = $( "#lobby" );
+		var $calendar = $( "#calendar" );
+		var $details = $( "#details" );
+
+		$lobby.siblings( ".dotted-page-overlay" ).hide();
+		$calendar.siblings( ".dotted-page-overlay" ).hide();
+		$details.siblings( ".dotted-page-overlay" ).hide();
+
+		var $overlay = $details.siblings( ".dotted-page-overlay" );
+		$overlay.css( "opacity", 1 );
+		$overlay.show();
+
+		var $addEventContainer = $( "#addNewEventContainer" );
+		$addEventContainer.detach().prependTo( $details );
+		$addEventContainer.find( "legend" ).text( "Edytuj" );
+		$addEventContainer.find( "#btnAddNewEvent" ).attr( "data-privacylvl", 1 );
+		
+		var event = self.getEventByDateAndId( id, year, month, day );
+		self.event = event;
+
+		var docScroll = $( "#slide-item-details" ).parent().scrollTop();
+		$addEventContainer.css( "top", docScroll + 30 );
+		$addEventContainer.show();
+		$addEventContainer.find( "#Event_Title" ).focus();
 	};
 
 	self.deleteEventDetailsPageOnConfirmationYesBtnClick = function (element, id, year, month, day) {
@@ -701,11 +759,11 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 
 		if ($menuItemContainer.hasClass("selected")) {
 			$menuItemContainer.css("top", "20px");
-			$menuItem.css("background", "rgba(255,255,255,.5)");
+			//$menuItem.css( "background", "rgb(223, 215, 188)" );
 			showSelectedEvents();
 		} else {
 			$menuItemContainer.css("top", "0px");
-			$menuItem.css("background", "rgb(235,235,235)");
+			//$menuItem.css( "background", "rgb(223, 215, 188)" );
 			removeSelectedEvents();
 		}
 
@@ -718,10 +776,11 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 				arr = self.getFilteredEventsFromEventTree(self.myEventTree, ["kind", "value"], parseInt(eventKindValue, 10));
 				shownEvents = self.detailsPageAllSelectedEvents();
 
-				if (shownEvents.length) {
+				if ( shownEvents.length )
+				{
 					combinedArray = arr.concat(shownEvents);
 					combinedArray.sort(function (a, b) {
-						return (a.startDate.javascriptStartDate - b.startDate.javascriptStartDate);
+						return (a.startDate.javaScriptStartDate - b.startDate.javaScriptStartDate);
 					});
 
 					self.detailsPageAllSelectedEvents(combinedArray);
@@ -736,7 +795,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 				if (shownEvents.length) {
 					combinedArray = arr.concat(shownEvents);
 					combinedArray.sort(function (a, b) {
-						return (a.startDate.javascriptStartDate - b.startDate.javascriptStartDate);
+						return (a.startDate.javaScriptStartDate - b.startDate.javaScriptStartDate);
 					});
 
 					self.lobbyPageAllSelectedEvents(combinedArray);
@@ -753,7 +812,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 				});
 
 				//array.sort(function (a, b) {
-				//	return (a.startDate.javascriptStartDate - b.startDate.javascriptStartDate);
+				//	return (a.startDate.javaScriptStartDate - b.startDate.javaScriptStartDate);
 				//});
 
 				self.detailsPageAllSelectedEvents(array);
@@ -767,7 +826,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 				});
 
 				//array.sort(function (a, b) {
-				//	return (a.startDate.javascriptStartDate - b.startDate.javascriptStartDate);
+				//	return (a.startDate.javaScriptStartDate - b.startDate.javaScriptStartDate);
 				//});
 
 				self.lobbyPageAllSelectedEvents(array);
@@ -807,9 +866,12 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		var $cont = $("#addNewEventContainer");
 		$cont.find("#addEventForm")[0].reset();
 
+
 		$cont.closest(".main-section").siblings(".dotted-page-overlay").fadeOut();
 
 		$cont.hide();
+
+		$cont.css("top", 30);
 		//TODO:add scroll to top 
 	};
 
@@ -1370,18 +1432,18 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		        var end_x = 100 + Math.round(55 * Math.cos(30 * i * Math.PI / 180));
 		        var end_y = 100 + Math.round(55 * Math.sin(30 * i * Math.PI / 180));
 		        hour_sign = paper.path("M" + start_x + " " + start_y + "L" + end_x + " " + end_y);
-		        hour_sign.attr({ stroke: "#5d5d5d", "stroke-width": 1 });
+		        hour_sign.attr( { stroke: "rgb(207, 199, 173)", "stroke-width": 1 } );
 		    }
 		    hour_hand = paper.path("M100 100L100 60");
-		    hour_hand.attr({ stroke: "rgb(255, 238, 224)", "stroke-width": 6 });
+		    hour_hand.attr( { stroke: "rgb(207, 199, 173)", "stroke-width": 6 } );
 		    minute_hand = paper.path("M100 100L100 55");
-		    minute_hand.attr({ stroke: "rgb(255, 238, 224)", "stroke-width": 4 });
+		    minute_hand.attr( { stroke: "rgb(207, 199, 173)", "stroke-width": 4 } );
 		    second_hand = paper.path("M100 110L100 50");
-		    second_hand.attr({ stroke: "rgb(255, 238, 224)", "stroke-width": 1 });
-		    /*
-		    var pin = paper.circle(100, 100, 10);
-		    pin.attr({"fill":"#000000"});    
-		    */
+		    second_hand.attr( { stroke: "rgb(207, 199, 173)", "stroke-width": 1 } );
+		    
+		   // var pin = paper.circle(100, 100, 10);
+		   // pin.attr({"fill":"#000000"});    
+		    
 		    update_clock()
 		    setInterval(function () { update_clock() }, 1000);
 

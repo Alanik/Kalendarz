@@ -3,7 +3,6 @@
 
 	self.buildEventTree = function ( yearEventTreeModel, setCalendarPlacementRow, publicEvents )
 	{
-
 		var eventTree = {}, largest, groups;
 		var dayGroup, day, dayGroupLength, event;
 		var year, yearProp, eventTreeYearProp, eventTreeMonthProp, eventTreeDayGroupProp, eventTreeEventsProp;

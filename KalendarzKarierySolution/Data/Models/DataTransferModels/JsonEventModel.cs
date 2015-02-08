@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace KalendarzKarieryData.Models.DataTransferModels
 {
+	[Serializable]
 	public class JsonEventModel
 	{
 		public int id { get; set; }
@@ -25,13 +26,7 @@ namespace KalendarzKarieryData.Models.DataTransferModels
 		public object privacyLevel { get; set; }
 		public object addresses { get; set; }
 
-		public JsonEventModel(  )
-		{
-			
-			
-		}
-
-		public JsonEventModel(Event m)
+		public JsonEventModel( Event m )
 		{
 			{
 				id = m.Id;
@@ -49,7 +44,7 @@ namespace KalendarzKarieryData.Models.DataTransferModels
 				kind = new { name = m.EventKind.Name, value = m.EventKind.Value };
 				price = m.Price ?? 0;
 				privacyLevel = new { name = m.PrivacyLevel.Name, value = m.PrivacyLevel.Value };
-				addresses = m.Addresses.Select( o => new { street = o.Street, city = o.City, zipCode = o.ZipCode });
+				addresses = m.Addresses.Select( o => new { street = o.Street, city = o.City, zipCode = o.ZipCode } );
 			};
 		}
 	}

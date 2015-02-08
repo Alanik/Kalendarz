@@ -12,8 +12,8 @@ namespace KalendarzKarieryData.Enums
 		zajęcia = 2,
 		szkolenie = 3,
 		kurs = 4,
-		spotkanie = 5,
-		inne = 6
+		spotkanie = 6,
+		inne = 7
 	}
 
 	public enum PrivacyLevel

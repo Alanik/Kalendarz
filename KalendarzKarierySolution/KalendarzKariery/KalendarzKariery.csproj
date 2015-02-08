@@ -312,11 +312,13 @@
     <Content Include="Images\TestBackgrounds\kalendarzTlo4.png" />
     <Content Include="Images\TestBackgrounds\tapetaBrx.png" />
     <Content Include="JSUnitTests\Jasmine-2.1.3\spec\EventTreeBuilderSpec.js" />
+    <Content Include="Scripts\CalendarWidget\Slider\jquery.superslides.js" />
     <Content Include="Scripts\Helpers\EventTreeBuilder.js" />
     <Content Include="Scripts\Helpers\EventColorHelper.js" />
     <Content Include="Scripts\JSModels\KKDateModel.js" />
     <Content Include="Scripts\JSModels\KKEventDateModel.js" />
     <Content Include="Scripts\JSModels\KKEventModel.js" />
+    <Content Include="Scripts\JSModels\KKEventModelObservable.js" />
     <Content Include="Scripts\KnockoutCustomBindings\KOCustomBindings.js" />
     <Content Include="JSUnitTests\Jasmine-2.1.3\boot.js" />
     <Content Include="JSUnitTests\Jasmine-2.1.3\console.js" />
@@ -431,7 +433,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>57341</DevelopmentServerPort>
+          <DevelopmentServerPort>63445</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:1500/</IISUrl>
           <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>

@@ -141,6 +141,14 @@ body header {
 	width: 540px;
 }
 
+#layoutLogo {
+	background-image: url(../Images/Logo/kkLogo.png);
+	position: absolute !important;
+	background-repeat: no-repeat;
+	height: 140px;
+	width: 540px;
+}
+
 #calendar-navigation-arrows-left {
 	left: 3%;
 	position: fixed;
@@ -437,7 +445,7 @@ body header {
 	color: rgb(185, 185, 185);
 	padding-left: 20px;
 	padding-top: 20px;
-	margin-top:20px;
+	margin-top: 20px;
 }
 
 .today-cell {
@@ -549,7 +557,7 @@ body header {
 }
 
 .menu-item {
-	border-top: 1px solid rgb(189, 189, 189);
+	border-top: 1px solid rgb(190, 186, 172);
 	background: rgb(223, 215, 188);
 	/*box-shadow: 4px 2px 8px rgb(196, 194, 184);*/
 	height: 30px;
@@ -566,7 +574,7 @@ body header {
 
 .menu-item-container {
 	display: inline-block;
-	margin: 2px;
+	margin-right: -4px;
 	position: relative;
 	top: 0px;
 }
@@ -578,13 +586,12 @@ body header {
 
 .menu-item-number-old {
 	font-size: .6em;
-	display: none;
 }
 
 .menu-item-number-upcoming {
 	background: rgb(223, 215, 188);
 	color: rgb(173, 165, 137);
-	border-top: 1px solid rgb(248, 247, 233);
+	/*border-top: 1px solid rgb(248, 247, 233);*/
 }
 
 .triangle-header {
@@ -811,10 +818,19 @@ background:rgb(115, 233, 162);
 }
 
 .details-edit-event-link {
-	color: rgb(68, 192, 64)
+	color: rgb(68, 192, 64);
 }
 
 .lobby-content-body {
+}
+
+#spinnerText {
+	position: absolute;
+	bottom: 20px;
+	left: 40px;
+	z-index: 10001;
+	color: white;
+	font-size: 2em;
 }
 
 .title-header {
@@ -891,6 +907,7 @@ background:rgb(115, 233, 162);
 }
 
 #lobbyEventsMenuContainer {
+	border-bottom: 1px solid white;
 	margin: 0px auto;
 	display: block;
 	text-align: center;
@@ -1052,7 +1069,6 @@ background:rgb(115, 233, 162);
 	width: 200px;
 	float: left;
 	position: relative;
-	margin-top: 20px;
 }
 
 .event-list {
@@ -1075,7 +1091,7 @@ background:rgb(115, 233, 162);
 	vertical-align: baseline;
 	position: relative;
 	top: 2px;
-	color:rgb(217, 208, 183);
+	color: rgb(217, 208, 183);
 }
 
 .event-kind-text {
@@ -1182,10 +1198,10 @@ wydarzenia-tab {
 		}
 
 	#calendarDayDetailsTable .table-details-body {
-		background: rgba(252, 252, 252, 0.9);
+		/*background: rgba(252, 252, 252, 0.9);*/
+		background: rgba(213, 204, 190, 1);
 		padding-top: 4px;
 		padding-bottom: 4px;
-		border: 2px solid white;
 	}
 
 		#calendarDayDetailsTable .table-details-body .details-day-cell {

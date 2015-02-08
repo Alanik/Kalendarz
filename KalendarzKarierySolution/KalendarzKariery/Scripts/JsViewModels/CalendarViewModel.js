@@ -1,5 +1,5 @@
 ﻿
-function CalendarViewModel(year, month, day, weekday, userName) {
+function CalendarViewModel(year, month, day, weekday, userName, spinner) {
 
 	var self = this;
 	var colorHelper = new EventColorHelper();
@@ -8,6 +8,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 	//////////////////////////////////////////////////////////
 	//public properties
 	//////////////////////////////////////////////////////////
+	self.spinner = spinner;
 
 	self.todayDate = {
 		"day": date.getDate(),
@@ -121,31 +122,7 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		//		"8": [{ "3": [event, event] }, { "7": [event] }, { "9": [event, event, event, event] }],
 		//		"9": [{ "2": [event] }]	
 		//			}
-	};
-
-	//////////////////////////////////////////////////////////
-	//ajax loader 
-	//////////////////////////////////////////////////////////
-	var opts = {
-		lines: 17, // The number of lines to draw
-		length: 17, // The length of each line
-		width: 4, // The line thickness
-		radius: 20, // The radius of the inner circle
-		corners: 1, // Corner roundness (0..1)
-		rotate: 0, // The rotation offset
-		direction: 1, // 1: clockwise, -1: counterclockwise
-		color: '#FFF', // #rgb or #rrggbb or array of colors
-		speed: 1, // Rounds per second
-		trail: 80, // Afterglow percentage
-		shadow: false, // Whether to render a shadow
-		hwaccel: false, // Whether to use hardware acceleration
-		className: 'spinner', // The CSS class to assign to the spinner
-		zIndex: 2e9, // The z-index (defaults to 2000000000)
-		top: '50%', // Top position relative to parent
-		left: '50%' // Left position relative to parent
-	};
-
-	self.spinner = new Spinner( opts );
+	};	
 
 	//////////////////////////////////////////////////////////
 
@@ -379,6 +356,10 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 		
 		var event = self.getEventByDateAndId( id, year, month, day );
 		self.event = event;
+
+		var observableEvent = new KKEventModelObservable();
+
+
 
 		var docScroll = $( "#slide-item-details" ).parent().scrollTop();
 		$addEventContainer.css( "top", docScroll + 30 );
@@ -1490,19 +1471,6 @@ function CalendarViewModel(year, month, day, weekday, userName) {
 			$("#details #digitalClock").html(currentTimeString);
 
 		}
-	}
-
-	self.centerSpinnerContainer = function () {
-		var $container = $("#spinnerContainer");
-
-		//Get the window height and width
-		var winH = $(window).height();
-		var winW = $(window).width();
-
-		//Set the popup window to center
-		$container.css('top', winH / 2 - $container.height() / 2);
-		$container.css('left', winW / 2 - $container.width() / 2);
-
 	}
 
 	//////////////////////////////////////////////////////

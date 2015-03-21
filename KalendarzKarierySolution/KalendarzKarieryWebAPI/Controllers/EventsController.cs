@@ -37,7 +37,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 		// POST api/events (add)
 		public IResponse Post( AddEventViewModel addEventViewModel )
 		{
-			var errorResponse = Validate( addEventViewModel );
+			var errorResponse = this.Validate( addEventViewModel );
 			if (!errorResponse.IsSuccess)
 			{
 				return errorResponse;
@@ -51,7 +51,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 				return response;
 			}
 
-			var @event = GetEventModelFromAddEventViewModel( addEventViewModel );
+			var @event = this.GetEventModelFromAddEventViewModel( addEventViewModel );
 
 			if (@event == null)
 			{
@@ -61,7 +61,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 			_repository.AddEvent( @event );
 			_repository.Save();
 
-			return new AddEventResponseModel { IsSuccess = true, EventId = @event.Id };
+			return new AddEventResponseModel { IsSuccess = true, EventId = @event.Id, DateAdded = @event.DateAdded };
 		}
 
 		// PUT api/events/5 (update)

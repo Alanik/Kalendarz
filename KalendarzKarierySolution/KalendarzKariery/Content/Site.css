@@ -129,7 +129,7 @@ body header {
 
 .events-menu-container {
 	text-align: center;
-	margin-top: 20px;
+	margin-top: -11px;
 }
 
 #lobbyLogo {
@@ -381,7 +381,7 @@ body header {
 .today-cell .cell-span-container {
 	position: relative;
 	top: 56px;
-	background: rgb(241, 244, 216);
+	background: rgb(244, 255, 155);
 	height: 24px;
 	z-index: 98;
 	border-top: 1px solid white;
@@ -445,7 +445,9 @@ body header {
 	color: rgb(185, 185, 185);
 	padding-left: 20px;
 	padding-top: 20px;
-	margin-top: 20px;
+	margin-top: 60px;
+	margin-bottom: 60px;
+	text-align: center;
 }
 
 .today-cell {
@@ -557,8 +559,8 @@ body header {
 }
 
 .menu-item {
-	border-top: 1px solid rgb(190, 186, 172);
-	background: rgb(223, 215, 188);
+	border-top: 1px solid rgb(247, 247, 247);
+	/*background: rgb(223, 215, 188);*/
 	/*box-shadow: 4px 2px 8px rgb(196, 194, 184);*/
 	height: 30px;
 	color: rgb(133, 123, 100);
@@ -572,11 +574,41 @@ body header {
 		top: 10px;
 	}
 
+.calendar-header-year-container {
+	display: inline-block;
+}
+
+#calendarHeaderYearArrowUp {
+	width: 16px;
+	height: 14px;
+	background-image: url(../Images/Icons/arrow_up.png);
+	position:absolute !important;
+	right:4px !important;
+	top:8px !important;
+	margin-bottom:4px;
+	background-repeat: no-repeat;
+}
+
+.calendar-year-arrows-container {
+display:inline-block;
+}
+
+#calendarHeaderYearArrowDown {
+	width: 16px;
+	height: 14px;
+	background-image: url(../Images/Icons/arrow_down.png);
+	position:absolute !important;
+	right: 4px !important;
+	bottom: 0px !important;
+	background-repeat: no-repeat;
+}
+
 .menu-item-container {
 	display: inline-block;
-	margin-right: -4px;
+	margin-right: 0px;
 	position: relative;
 	top: 0px;
+	background: rgb(223, 215, 188);
 }
 
 .menu-item-number-container {
@@ -665,7 +697,7 @@ body header {
 }
 
 #addPublicEventBtn {
-	background: rgb(226, 196, 138);
+	background: rgb(159, 151, 135);
 }
 
 .save-text {
@@ -897,7 +929,7 @@ background:rgb(115, 233, 162);
 }
 
 .current-weekday {
-	color: rgb(223, 214, 189);
+	color: rgb(148, 138, 111);
 	border: 1px solid rgb(223,223,223);
 	background: white;
 }
@@ -911,7 +943,6 @@ background:rgb(115, 233, 162);
 	margin: 0px auto;
 	display: block;
 	text-align: center;
-	width: 60%;
 }
 
 #endDateValidationErrorMsg {
@@ -927,22 +958,24 @@ background:rgb(115, 233, 162);
 	background: rgb(124, 214, 135);
 	/* display: inline-block; */
 	text-align: center;
-	/* margin: 2px; */
-	margin-top: 12px;
-	margin-left: -20px;
+	margin: 1px;
+	display: inline-block;
 }
 
 .year-name-container {
 	background: white;
 	letter-spacing: 1px;
-	color: rgb(223, 214, 189);
+	color: rgb(148, 138, 111);
 	display: inline-block;
 	padding-bottom: 4px;
 	padding-top: 5px;
 	padding-left: 14px;
-	padding-right: 14px;
+	padding-right: 30px;
 	font-size: 18px;
 	box-shadow: 0px 5px 20px -5px rgb(151, 151, 151);
+	position:relative;
+	
+	
 }
 
 #showRegisterFormBtn {
@@ -1227,7 +1260,7 @@ wydarzenia-tab {
 }
 
 .current-month-name-calendar {
-	color: rgb(223, 214, 189);
+	color: rgb(148, 138, 111);
 	padding: 10px 10px 5px 10px;
 	background: white;
 	box-shadow: 0px 5px 20px -5px rgb(151, 151, 151);

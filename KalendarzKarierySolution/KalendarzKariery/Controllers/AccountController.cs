@@ -26,7 +26,7 @@ namespace KalendarzKariery.Controllers
 	AccountController : BaseController
 	{
 
-		readonly IKalendarzKarieryRepository _repository = RepositoryProvider.GetRepository();
+		private readonly IKalendarzKarieryRepository _repository = RepositoryProvider.GetRepository();
 
 		[AllowAnonymous]
 		public ActionResult Login()

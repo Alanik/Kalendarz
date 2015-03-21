@@ -29,7 +29,7 @@
 
 	self.id = 0;
 
-	self.name = "";
+	self.name = ko.observable("");
 
 	self.numberOfPeopleAttending = 0;
 

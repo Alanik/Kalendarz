@@ -32,9 +32,9 @@
 
 			<div class="title-header">/Tablica wydarzeń/</div>
 			<div id="lobbyEventsMenuContainer">	
-				<div class="menu-item-container">
+				<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element ) }">
 					<div class="border-item wydarzenia-border-tab"></div>
-					<div class="menu-item" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element ) }" data-eventkind="1" data-privacylvl="public">
+					<div class="menu-item" data-eventkind="1" data-privacylvl="public">
 						<span>Wydarzenia</span>
 					</div>
 					<div class="menu-item-number-container">
@@ -43,9 +43,9 @@
 					</div>
 				</div>
 
-				<div class="menu-item-container">
+				<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element ) }">
 					<div class="border-item lekcje-border-tab"></div>
-					<div class="menu-item" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element ) }" data-eventkind="2" data-privacylvl="public">
+					<div class="menu-item" data-eventkind="2" data-privacylvl="public">
 						<span>Lekcje</span>
 
 					</div>
@@ -55,9 +55,9 @@
 					</div>
 				</div>
 
-				<div class="menu-item-container">
+				<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element ) }">
 					<div class="border-item zajecia-border-tab"></div>
-					<div class="menu-item" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element ) }" data-eventkind="3" data-privacylvl="public">
+					<div class="menu-item" data-eventkind="3" data-privacylvl="public">
 						<span>Zajęcia</span>
 					</div>
 					<div class="menu-item-number-container">
@@ -66,9 +66,9 @@
 					</div>
 				</div>
 
-				<div class="menu-item-container">
+				<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element ) }">
 					<div class="border-item szkolenia-border-tab"></div>
-					<div class="menu-item" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element ) }" data-eventkind="4" data-privacylvl="public">
+					<div class="menu-item" data-eventkind="4" data-privacylvl="public">
 						<span>Szkolenia</span>
 
 					</div>
@@ -78,9 +78,9 @@
 					</div>
 				</div>
 
-				<div class="menu-item-container">
+				<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element ) }">
 					<div class="border-item kursy-border-tab"></div>
-					<div class="menu-item" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element ) }" data-eventkind="5" data-privacylvl="public">
+					<div class="menu-item"  data-eventkind="5" data-privacylvl="public">
 						<span>Kursy</span>
 
 					</div>
@@ -90,9 +90,9 @@
 					</div>
 				</div>
 
-				<div class="menu-item-container">
+				<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element ) }">
 					<div class="border-item spotkania-border-tab"></div>
-					<div class="menu-item" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element ) }" data-eventkind="6" data-privacylvl="public">
+					<div class="menu-item" data-eventkind="6" data-privacylvl="public">
 						<span>Spotkania</span>
 
 					</div>
@@ -102,9 +102,9 @@
 					</div>
 				</div>
 
-				<div class="menu-item-container">
+				<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element ) }">
 					<div class="border-item inne-border-tab"></div>
-					<div class="menu-item" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element ) }" data-eventkind="7" data-privacylvl="public">
+					<div class="menu-item" data-eventkind="7" data-privacylvl="public">
 						<span>Inne</span>
 
 					</div>
@@ -127,7 +127,7 @@
 		@Html.Partial("_lobbyEventSummary")
 		@Html.Partial("_lobbyNews")
 	</div>
-	<div style="height: 800px; width: 200px;">
+	<div style="height: 200px; width: 200px;">
 	</div>
 	<footer class="lobby-footer">
 		Kalendarz Kariery 2014, wszelkie prawa zastrzezone

@@ -27,7 +27,7 @@
 			case 7:
 				return "#fa5454";
 			default:
-				return "black";
+				return "white";
 		}
 	};
 
@@ -48,7 +48,7 @@
 			case 7:
 				return "rgb(108, 255, 225)";
 			default:
-				return "rgb(250, 84, 84)";
+				return "white";
 		}
 	};
 
@@ -69,7 +69,7 @@
 			case 7:
 				return "rgb(255, 136, 136)";
 			default:
-				return "rgb(250, 84, 84)";
+				return "white";
 		}
 	};
 
@@ -90,7 +90,7 @@
 			case 7:
 				return "rgb(255, 136, 136)";
 			default:
-				return "rgb(250, 84, 84)";
+				return "white";
 		}
 	};
 };

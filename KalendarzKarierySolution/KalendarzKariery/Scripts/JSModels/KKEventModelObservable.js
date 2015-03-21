@@ -10,18 +10,14 @@
 		zipCode: ko.observable( "" )
 	};
 
-	self.calendarPlacementRow = 1;
-
 	self.dateAdded = {} // = new KKDateModel()
 
 	self.description = ko.observable( "" );
 
 	self.details = ko.observable( "" );
 
-	self.eventLengthInMinutes = 0;
-
 	self.kind = {
-		value: "",
+		value: ko.observable( "" ),
 		name: ko.observable( "" ),
 		color: "",
 		headerColor: "",

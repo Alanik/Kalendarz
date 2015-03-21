@@ -17,7 +17,7 @@
 
 					<legend>Dodaj do kalendarza</legend>
 
-					<div data-bind="with: event">
+					<div data-bind="with: observableEvent">
 
 						<div class="div-separator">
 							<label>Kategoria: </label>
@@ -107,7 +107,7 @@
 								@Html.LabelFor(m => m.Address.Street, new { @class = "form-label" })
 								@Html.TextBoxFor(m => m.Address.Street, new { maxlength = 30, data_bind = "value: address.street" })
 								@Html.ValidationMessageFor(m => m.Address.Street)
-							</div>
+						</div>
 							<div>
 								@Html.LabelFor(m => m.Address.City, new { @class = "form-label" })
 								@Html.TextBoxFor(m => m.Address.City, new { maxlength = 30, data_bind = "value: address.city" })
@@ -173,7 +173,7 @@
 
 						<div id="btnAddNewEventOccupancyLimitLinkContainer" class="div-separator" style="display: none;">
 							@Html.LabelFor(m => m.Event.OccupancyLimit, new { @class = "form-label", @style = "vertical-align:top;" })
-							@Html.TextBoxFor(m => m.Event.OccupancyLimit, new { style = "width:50px;", maxlength = 7, data_bind = "value: price" })
+							@Html.TextBoxFor(m => m.Event.OccupancyLimit, new { style = "width:50px;", maxlength = 7, data_bind = "value: occupancyLimit" })
 							@Html.ValidationMessageFor(m => m.Event.OccupancyLimit)
 						</div>
 					</div>

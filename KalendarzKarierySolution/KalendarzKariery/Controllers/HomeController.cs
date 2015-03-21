@@ -26,8 +26,6 @@ namespace KalendarzKariery.Controllers
 				return View("Index", null);
 			}
 
-			MainViewModel mainViewModel = new MainViewModel();
-
 			var indexViewModel = new IndexViewModel();
 			indexViewModel.PublicEvents = _repository.GetAllPublicEvents();
 			indexViewModel.EventKinds = _repository.GetEventKindsBasedOnUserName(User.Identity.Name);
@@ -37,6 +35,7 @@ namespace KalendarzKariery.Controllers
 
 			indexViewModel.MyEvents = null;
 			indexViewModel.MyEventCountTree = null;
+
 			RegisterViewModel registerViewModel = new RegisterViewModel();
 
 			if (User.Identity.IsAuthenticated)
@@ -55,7 +54,7 @@ namespace KalendarzKariery.Controllers
 				}
 			}
 
-
+			MainViewModel mainViewModel = new MainViewModel();
 			mainViewModel.IndexViewModel = indexViewModel;
 			mainViewModel.RegisterViewModel = registerViewModel;
 

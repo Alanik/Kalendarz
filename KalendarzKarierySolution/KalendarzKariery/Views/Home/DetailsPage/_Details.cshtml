@@ -4,7 +4,6 @@
 	<span>
 		/Dziennik/
 	</span>
-
 </div>
 <section id="detailsPanel">
 	<div id="todayDateAndTimeContainer">
@@ -18,89 +17,88 @@
 		<div id="clockCanvas">
 			<div id="digitalClock"></div>
 		</div>
-
 	</div>
 
 	<div class="events-menu-container">
-		<div class="menu-item-container">
+		<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element ) }">
 			<div class="border-item wydarzenia-border-tab"></div>
-			<div class="menu-item" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick($element) }" data-eventkind="1" data-privacylvl="private">
+			<div class="menu-item"  data-eventkind="1" data-privacylvl="private">
 				<span>Wydarzenia</span>
 			</div>
 			<div class="menu-item-number-container">
 				<div class="menu-item-number-upcoming" data-bind="text: $root.myEventTreeCountBasedOnEventKind[1] ? $root.myEventTreeCountBasedOnEventKind[1].events.upcoming() : 0"></div>
-				<div class="menu-item-number-old" data-bind="text: $root.myEventTreeCountBasedOnEventKind[1] ? $root.myEventTreeCountBasedOnEventKind[1].events.old() : 0"></div>
+				@*<div class="menu-item-number-old" data-bind="text: $root.myEventTreeCountBasedOnEventKind[1] ? $root.myEventTreeCountBasedOnEventKind[1].events.old() : 0"></div>*@
 			</div>
 		</div>
 
-		<div class="menu-item-container">
+		<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element ) }">
 			<div class="border-item lekcje-border-tab"></div>
-			<div class="menu-item" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick($element) }" data-eventkind="2" data-privacylvl="private">
+			<div class="menu-item" data-eventkind="2" data-privacylvl="private">
 				<span>Lekcje</span>
 
 			</div>
 			<div class="menu-item-number-container">
 				<div class="menu-item-number-upcoming" data-bind="text: $root.myEventTreeCountBasedOnEventKind[2] ? $root.myEventTreeCountBasedOnEventKind[2].events.upcoming() : 0"></div>
-				<div class="menu-item-number-old" data-bind="text: $root.myEventTreeCountBasedOnEventKind[2] ? $root.myEventTreeCountBasedOnEventKind[2].events.old() : 0"></div>
+				@*<div class="menu-item-number-old" data-bind="text: $root.myEventTreeCountBasedOnEventKind[2] ? $root.myEventTreeCountBasedOnEventKind[2].events.old() : 0"></div>*@
 			</div>
 		</div>
 
-		<div class="menu-item-container">
+		<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element ) }">
 			<div class="border-item zajecia-border-tab"></div>
-			<div class="menu-item" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick($element) }" data-eventkind="3" data-privacylvl="private">
+			<div class="menu-item" data-eventkind="3" data-privacylvl="private">
 				<span>Zajęcia</span>
 			</div>
 			<div class="menu-item-number-container">
 				<div class="menu-item-number-upcoming" data-bind="text: $root.myEventTreeCountBasedOnEventKind[3] ? $root.myEventTreeCountBasedOnEventKind[3].events.upcoming() : 0"></div>
-				<div class="menu-item-number-old" data-bind="text: $root.myEventTreeCountBasedOnEventKind[3] ? $root.myEventTreeCountBasedOnEventKind[3].events.old() : 0"></div>
+				@*<div class="menu-item-number-old" data-bind="text: $root.myEventTreeCountBasedOnEventKind[3] ? $root.myEventTreeCountBasedOnEventKind[3].events.old() : 0"></div>*@
 			</div>
 		</div>
 
-		<div class="menu-item-container">
+		<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element ) }">
 			<div class="border-item szkolenia-border-tab"></div>
-			<div class="menu-item" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick($element) }" data-eventkind="4" data-privacylvl="private">
+			<div class="menu-item" data-eventkind="4" data-privacylvl="private">
 				<span>Szkolenia</span>
 
 			</div>
 			<div class="menu-item-number-container">
 				<div class="menu-item-number-upcoming" data-bind="text: $root.myEventTreeCountBasedOnEventKind[4] ? $root.myEventTreeCountBasedOnEventKind[4].events.upcoming() : 0"></div>
-				<div class="menu-item-number-old" data-bind="text: $root.myEventTreeCountBasedOnEventKind[4] ? $root.myEventTreeCountBasedOnEventKind[4].events.old() : 0"></div>
+				@*<div class="menu-item-number-old" data-bind="text: $root.myEventTreeCountBasedOnEventKind[4] ? $root.myEventTreeCountBasedOnEventKind[4].events.old() : 0"></div>*@
 			</div>
 		</div>
 
-		<div class="menu-item-container">
+		<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element ) }">
 			<div class="border-item kursy-border-tab"></div>
-			<div class="menu-item" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick($element) }" data-eventkind="5" data-privacylvl="private">
+			<div class="menu-item" data-eventkind="5" data-privacylvl="private">
 				<span>Kursy</span>
 
 			</div>
 			<div class="menu-item-number-container">
 				<div class="menu-item-number-upcoming" data-bind="text: $root.myEventTreeCountBasedOnEventKind[5] ? $root.myEventTreeCountBasedOnEventKind[5].events.upcoming() : 0"></div>
-				<div class="menu-item-number-old" data-bind="text: $root.myEventTreeCountBasedOnEventKind[5] ? $root.myEventTreeCountBasedOnEventKind[5].events.old() : 0"></div>
+				@*<div class="menu-item-number-old" data-bind="text: $root.myEventTreeCountBasedOnEventKind[5] ? $root.myEventTreeCountBasedOnEventKind[5].events.old() : 0"></div>*@
 			</div>
 		</div>
 
-		<div class="menu-item-container">
+		<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element ) }">
 			<div class="border-item spotkania-border-tab"></div>
-			<div class="menu-item" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick($element) }" data-eventkind="6" data-privacylvl="private">
+			<div class="menu-item" data-eventkind="6" data-privacylvl="private">
 				<span>Spotkania</span>
 
 			</div>
 			<div class="menu-item-number-container">
 				<div class="menu-item-number-upcoming" data-bind="text: $root.myEventTreeCountBasedOnEventKind[6] ? $root.myEventTreeCountBasedOnEventKind[6].events.upcoming() : 0"></div>
-				<div class="menu-item-number-old" data-bind="text: $root.myEventTreeCountBasedOnEventKind[6] ? $root.myEventTreeCountBasedOnEventKind[6].events.old() : 0">78</div>
+				@*<div class="menu-item-number-old" data-bind="text: $root.myEventTreeCountBasedOnEventKind[6] ? $root.myEventTreeCountBasedOnEventKind[6].events.old() : 0">78</div>*@
 			</div>
 		</div>
 
-		<div class="menu-item-container">
+		<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element ) }">
 			<div class="border-item inne-border-tab"></div>
-			<div class="menu-item" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick($element) }" data-eventkind="7" data-privacylvl="private">
+			<div class="menu-item" data-eventkind="7" data-privacylvl="private">
 				<span>Inne</span>
 
 			</div>
 			<div class="menu-item-number-container">
 				<div class="menu-item-number-upcoming" data-bind="text: $root.myEventTreeCountBasedOnEventKind[7] ? $root.myEventTreeCountBasedOnEventKind[7].events.upcoming() : 0"></div>
-				<div class="menu-item-number-old" data-bind="text: $root.myEventTreeCountBasedOnEventKind[7] ? $root.myEventTreeCountBasedOnEventKind[7].events.old() : 0"></div>
+				@*<div class="menu-item-number-old" data-bind="text: $root.myEventTreeCountBasedOnEventKind[7] ? $root.myEventTreeCountBasedOnEventKind[7].events.old() : 0"></div>*@
 			</div>
 		</div>
 	</div>
@@ -110,16 +108,13 @@
 </section>
 
 <section id="calendarDayDetailsContainer">
-<div class="dark-background-div">
-	<span>/Grafik dnia/</span>
-</div>
 	<div id="calendarDayDetailsTable">
-		<div style="font-size: 2em; padding: 20px;">
+		<div style="font-size: 3em; padding: 20px;">
 			<span>
-				<span style="font-size: .8em; margin-left: 6px; color: rgb(171, 157, 138);">grafik z dnia: </span>
-				<span data-bind="text: $root.detailsPageDisplayDate.day()" style="color: rgb(255, 254, 234);"></span>
-				<span data-bind="text: $root.detailsPageDisplayDate.getMonthName()" style="color: rgb(255, 254, 234);"></span>
-				<span data-bind="text: $root.detailsPageDisplayDate.year()" style="color: rgb(255, 254, 234); font-size: .8em;"></span>
+				<span style="font-size: .6em; margin-left: 6px; color: rgb(171, 157, 138);">grafik z dnia: </span>
+				<span data-bind="text: $root.detailsPageDisplayDate.day()" style="color: rgb(148, 147, 123);"></span>
+				<span data-bind="text: $root.detailsPageDisplayDate.getMonthName()" style="color: rgb(148, 147, 123);"></span>
+				<span data-bind="text: $root.detailsPageDisplayDate.year()" style="color: rgb(148, 147, 123); font-size: .8em;"></span>
 			</span>
 		</div>
 		<div class="table-details-head">

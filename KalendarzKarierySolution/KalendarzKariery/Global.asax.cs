@@ -12,12 +12,8 @@ using KalendarzKarieryData.Repository;
 
 namespace KalendarzKariery
 {
-    // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
-    // visit http://go.microsoft.com/?LinkId=9394801
-
     public class MvcApplication : System.Web.HttpApplication
     {
-
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -43,5 +39,20 @@ namespace KalendarzKariery
 					razorEngine.PartialViewLocationFormats.Union(newPartialViewFormats).Reverse().ToArray();
 			}	
         }
+
+		protected void Application_Error( object sender, EventArgs e )
+		{
+			var error = Server.GetLastError();
+			var code = (error is HttpException) ? (error as HttpException).GetHttpCode() : 500;
+
+			if (code == 404)
+			{
+				// do something if page was not found. log for instance
+			}
+			else
+			{
+				// collect request info and log exception
+			}
+		}
     }
 }

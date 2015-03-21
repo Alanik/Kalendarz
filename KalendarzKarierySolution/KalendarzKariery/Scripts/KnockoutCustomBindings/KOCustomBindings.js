@@ -11,7 +11,8 @@ ko.bindingHandlers.selectedText = {
 			value($("option:selected", this).text());
 		});
 	},
-	update: function (element, valueAccessor) {
+	update: function ( element, valueAccessor )
+	{
 		var value = ko.utils.unwrapObservable(valueAccessor());
 		//var value = valueAccessor;
 		$("option", element).filter(function (i, el) { return $(el).text() === value; }).prop("selected", "selected");

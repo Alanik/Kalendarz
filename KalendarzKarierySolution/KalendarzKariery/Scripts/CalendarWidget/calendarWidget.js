@@ -19,33 +19,33 @@
 
 		var monthNames = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'];
 		var dayNames = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'];
-		month = i = parseInt(opts.month);
-		year = parseInt(opts.year);
+		month = i = parseInt(opts.month, 10);
+		year = parseInt(opts.year, 10);
 		var m = 0;
 		var calendar = '';
 		calendar += ('<div id="calendarMenuHeader">');
 		calendar += ('<div style="width:100%;z-index:2;position:absolute;top:2px;border-top:1px solid rgb(221,221,221);border-bottom:1px solid rgb(247,247,247);"></div>');
 		calendar += ('<div class="year-header-container"></div>');
 		calendar += ('<div class="month-name-header-container">');
-		calendar += ( '<div style="box-shadow:0px 5px 20px -5px rgb(151, 151, 151);color:rgb(223, 214, 189);display:inline-block;font-size:18px;letter-spacing:1px;padding-top: 5px;padding-bottom: 4px;padding-right: 14px;padding-left: 14px;background:white;">' + today + '</div>' );
+		calendar += ( '<div style="box-shadow:0px 5px 20px -5px rgb(151, 151, 151);color:rgb(148, 138, 111);display:inline-block;font-size:18px;letter-spacing:1px;padding-top: 5px;padding-bottom: 4px;padding-right: 14px;padding-left: 14px;background:white;">' + today + '</div>' );
 
 		for (var j = 0; j < monthNames.length; j++) {
 
 			if (j > 8) {
 				if (j == calendarDate.month) {
-					calendar += ('<div class="month-name-container current-month-name-calendar"><span data-bind="click: function(){ $root.redisplayCalendarAtChosenMonthOnClick($element) }" name="' + (j + 1) + '">' + monthNames[j] + '</span></div>');
+					calendar += ( '<div class="month-name-container current-month-name-calendar"><span data-bind="click: function(){ $root.redisplayCalendarAtChosenMonth(' + j + ') }">' + monthNames[j] + '</span></div>' );
 				} else {
-					calendar += ('<div class="month-name-container"><span class="month-name-calendar" data-bind="click: function(){ $root.redisplayCalendarAtChosenMonthOnClick($element) }" name="' + (j + 1) + '">' + monthNames[j] + '</span></div>');
+					calendar += ( '<div class="month-name-container"><span class="month-name-calendar" data-bind="click: function(){ $root.redisplayCalendarAtChosenMonth(' + j + ') }">' + monthNames[j] + '</span></div>' );
 				}
 			} else {
 				if (j == calendarDate.month) {
-					calendar += ('<div class="month-name-container current-month-name-calendar"><span data-bind="click: function(){ $root.redisplayCalendarAtChosenMonthOnClick($element) }" name="' + (j + 1) + '">' + monthNames[j] + '</span></div>');
+					calendar += ( '<div class="month-name-container current-month-name-calendar"><span data-bind="click: function(){ $root.redisplayCalendarAtChosenMonth(' + j  + ') }">' + monthNames[j] + '</span></div>' );
 				} else {
-					calendar += ('<div class="month-name-container"><span class="month-name-calendar" data-bind="click: function(){ $root.redisplayCalendarAtChosenMonthOnClick($element) }" name="' + (j + 1) + '">' + monthNames[j] + '</span></div>');
+					calendar += ( '<div class="month-name-container"><span class="month-name-calendar" data-bind="click: function(){ $root.redisplayCalendarAtChosenMonth(' + j + ') }">' + monthNames[j] + '</span></div>' );
 				}
 			}
 		}
-		calendar += ('<span class="year-name-container">' + year + '</span></div>');
+		calendar += ( '<div class="calendar-header-year-container"><span class="year-name-container">' + year + '<div class="calendar-year-arrows-container"><div id="calendarHeaderYearArrowUp" class="calendar-year-arrows" data-bind="click: function(){ $root.redisplayCalendarAtChosenYear( $root.calendarPageDisplayDate.year() + 1 )}"></div><div id="calendarHeaderYearArrowDown" class="calendar-year-arrows" data-bind="click: function(){ $root.redisplayCalendarAtChosenYear( $root.calendarPageDisplayDate.year() - 1 )}"></div></div></div></span></div>' );
 		calendar += ('</div><div class="weekday-container">');
 
 		for (var d = 0; d < 7; d++) {

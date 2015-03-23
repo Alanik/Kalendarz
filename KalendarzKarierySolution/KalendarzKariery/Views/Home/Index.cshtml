@@ -118,11 +118,10 @@
 				calendarViewModel.newsEvents = eventTreeBuilder.transformNews(indexViewModel.News);
 
 				if (indexViewModel.MyEvents) {
-
 					calendarViewModel.myEventTree = eventTreeBuilder.buildEventTree(indexViewModel.MyEvents, calendarViewModel.setCalendarPlacementRow);
 					calendarViewModel.myEventTreeCountBasedOnEventKind = eventTreeBuilder.buildEventTreeCountBasedOnEventKind(indexViewModel.MyEventCountTree);
 
-					//console.log(calendarViewModel.myEventTree);
+					//console.log(JSON.stringify(calendarViewModel.myEventTree));
 
 					//console.log(calendarViewModel.publicEvents);
 					//console.log(calendarViewModel.publicEventTree);

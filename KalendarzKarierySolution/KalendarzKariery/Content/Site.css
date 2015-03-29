@@ -652,11 +652,16 @@ body header {
 }
 
 #detailsPageAllEventsListContainer {
-	margin-top: 50px;
-	font-size: 1.2em;
-	width: 700px;
-	margin-left: 300px;
-	background:rgb(218, 213, 199);
+  margin:0 auto;
+  margin-top: 50px;
+  font-size: 1.2em;
+  /* width: 700px; */
+  /* margin-left: 300px; */
+  background: rgb(223, 215, 188);
+  width:90%;
+  border-radius:12px;
+  border:1px solid rgb(212, 202, 168);
+
 }
 
 #lobbyPageAllEventsListContainer {

@@ -827,6 +827,7 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 
 	self.showSelectedEventsOnMenuItemClick = function ( element )
 	{
+		var $clock = $( "#details #clockCanvas" );
 		var $menuItem = $( element ).find( ".menu-item" );
 
 		var eventKindValue = $menuItem.attr( "data-eventkind" );
@@ -840,16 +841,20 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 			$menuItemContainer.css( "top", "20px" );
 			//$menuItem.css( "background", "rgb(223, 215, 188)" );
 			showSelectedEvents();
+
+			$clock.hide();
 		} else
 		{
 			$menuItemContainer.css( "top", "0px" );
 			//$menuItem.css( "background", "rgb(223, 215, 188)" );
-			removeSelectedEvents();
+			removeSelectedEvents();		
 		}
 
 		function showSelectedEvents()
 		{
 			var combinedArray = [], arr, shownEvents;
+
+			//TODO: change check from privacyLvlName to privacyLvl
 			if ( eventPrivacyLevelName == "private" )
 			{
 
@@ -870,6 +875,9 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 				{
 					self.detailsPageAllSelectedEvents( arr );
 				}
+
+				$clock.hide();
+
 			} else
 			{
 				$( "#lobby #lobbyPageAllEventsListContainer" ).show();
@@ -894,7 +902,9 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 		function removeSelectedEvents()
 		{
 			var array;
-			if ( eventPrivacyLevelName == "private" )
+
+			//TODO: change check from privacyLvlName to privacyLvl
+			if ( eventPrivacyLevelName === "private" )
 			{
 				array = ko.utils.arrayFilter( self.detailsPageAllSelectedEvents(), function ( item )
 				{
@@ -910,6 +920,7 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 				if ( !$( "#details #detailsPanel .menu-item-container" ).hasClass( "selected" ) )
 				{
 					$( "#details #detailsPanel #detailsPageAllEventsListContainer" ).hide();
+					$clock.fadeIn();
 				}
 			} else
 			{

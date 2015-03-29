@@ -13,6 +13,7 @@ using KalendarzKarieryData;
 using KalendarzKarieryData.Repository.KalendarzKarieryRepository;
 using KalendarzKarieryCore.Consts;
 using KalendarzKarieryData.BO.Cache;
+using System.Text.RegularExpressions;
 
 
 namespace KalendarzKarieryWebAPI.Controllers
@@ -209,6 +210,47 @@ namespace KalendarzKarieryWebAPI.Controllers
 			}
 
 			return @event;
+		}
+
+		private IResponse ValidateAddEventViewModel( AddEventViewModel viewModel )
+		{
+			var response = new DefaultResponseModel();
+			response.IsSuccess = true;
+
+			if (string.IsNullOrEmpty( viewModel.Event.Title ))
+			{
+				response.IsSuccess = false;
+				response.Message = Consts.GeneralValidationErrorMsg;
+				return response;
+			}
+
+			var startDate = new DateTime();
+			if (!DateTime.TryParse( viewModel.Event.StartDate.ToString(), out startDate ))
+			{
+				response.IsSuccess = false;
+				response.Message = Consts.GeneralValidationErrorMsg;
+				return response;
+			}
+			
+			//TODO: temporary check
+			if (startDate.Hour < 7 || startDate.Hour >= 21)
+			{
+				throw new ArgumentException("godzina rozpoczecia jest wczesniejsza niz 7:00 lub pozniejsza niz 20:00");
+			}
+
+			if (!string.IsNullOrEmpty( viewModel.Address.ZipCode ))
+			{
+				var reg = new Regex( "[0-9]{2}-[0-9]{3}" );
+
+				if (!reg.IsMatch( viewModel.Address.ZipCode ))
+				{
+					response.IsSuccess = false;
+					response.Message = Consts.GeneralValidationErrorMsg;
+					return response;
+				}
+			}
+
+			return response;
 		}
 	}
 }

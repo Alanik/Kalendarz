@@ -77,8 +77,9 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 		"old": ko.observableArray( [] ),
 		"upcoming": ko.observableArray( [] ),
 		"settings": {
-			"showOldEvents" : ko.observable(true)
-		}
+			"showOldEvents": ko.observable( true )
+		},
+		"selectedKindValues" : []
 	}
 
 	//TODO: change into event tree with arrays grouped by event kind
@@ -617,6 +618,7 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 	self.toggleShowOldEventsOnCheckboxClick = function ( element )
 	{
 		var $chkbox = $( element ).find( "#showOldEventsCheckbox" );
+		var eventsArr;
 
 		if ( self.detailsPageSelectedEvents.settings.showOldEvents() )
 		{
@@ -627,7 +629,9 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 		else
 		{
 			self.detailsPageSelectedEvents.settings.showOldEvents( true );
-			$chkbox.text("✓");
+			eventsArr = self.getFilteredEventsFromEventTree( self.myEventTree, ["kind", "value"], self.detailsPageSelectedEvents.selectedKindValues, "old" );
+			self.detailsPageSelectedEvents.old( eventsArr );
+			$chkbox.text( "✓" );
 		}
 	};
 
@@ -666,19 +670,19 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 		return dayEvents;
 	};
 
-	self.getFilteredEventsFromEventTree = function ( eventTree, eventPropNameArray, value, oldUpcomingOrAny )
+	self.getFilteredEventsFromEventTree = function ( eventTree, eventPropNameArray, values, oldUpcomingOrAll )
 	{
 		var arr = [], daysArr, event, yearNode, monthNode, dayNode, prop;
 		var parsedYear, parsedMonth, parsedDay;
 		var isCurrentYear = false, isCurrentMonth = false, isCurrentDay = false;
 		var date = new Date();
 
-		if (typeof oldUpcomingOrAny == 'undefined')
+		if (typeof oldUpcomingOrAll == 'undefined')
 		{
-			oldUpcomingOrAny = "all";
+			oldUpcomingOrAll = "all";
 		}
 
-		switch ( oldUpcomingOrAny )
+		switch ( oldUpcomingOrAll )
 		{
 			case "old":
 				for ( var year in eventTree )
@@ -732,9 +736,15 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 									prop = prop[eventPropNameArray[j]];
 								}
 
-								if ( prop === value )
+								for ( var n = 0; n < values.length; n++ )
 								{
-									arr.push( event );
+
+									if ( prop === values[n])
+									{
+										arr.push( event );
+										break;
+									}
+
 								}
 							}
 						}
@@ -794,9 +804,15 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 									prop = prop[eventPropNameArray[j]];
 								}
 
-								if ( prop === value )
+								for ( var n = 0; n < values.length; n++ )
 								{
-									arr.push( event );
+
+									if ( prop === values[n] )
+									{
+										arr.push( event );
+										break;
+									}
+
 								}
 							}
 						}
@@ -824,9 +840,15 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 									prop = prop[eventPropNameArray[j]];
 								}
 
-								if ( prop === value )
+								for ( var n = 0; n < values.length; n++ )
 								{
-									arr.push( event );
+
+									if ( prop === values[n] )
+									{
+										arr.push( event );
+										break;
+									}
+
 								}
 							}
 						}
@@ -986,10 +1008,13 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 
 	self.showSelectedEventsOnMenuItemClick = function ( element )
 	{
+		var filteredArray;
 		var $clock = $( "#details #clockCanvas" );
 		var $menuItem = $( element ).find( ".menu-item" );
 
 		var eventKindValue = $menuItem.attr( "data-eventkind" );
+		eventKindValue = parseInt( eventKindValue, 10 );
+
 		var eventPrivacyLevelName = $menuItem.attr( "data-privacylvl" );
 
 		var $menuItemContainer = $menuItem.closest( ".menu-item-container" );
@@ -999,12 +1024,18 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 		{
 			$menuItemContainer.css( "top", "20px" );
 			$menuItemContainer.css( "background", "rgb(239, 232, 208)" );
+
+			self.detailsPageSelectedEvents.selectedKindValues.push( eventKindValue );
 			showSelectedEvents();
+
 		} else
 		{
 			$menuItemContainer.css( "top", "0px" );
 			$menuItemContainer.css( "background", "rgb(223, 215, 188)" );
-			removeSelectedEvents();		
+
+			filteredArray = self.detailsPageSelectedEvents.selectedKindValues.filter( function ( e ) { return e !== eventKindValue } )
+			self.detailsPageSelectedEvents.selectedKindValues = filteredArray;
+			removeSelectedEvents();
 		}
 
 		function showSelectedEvents()
@@ -1014,7 +1045,7 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 			//TODO: change check from privacyLvlName to privacyLvl
 			if ( eventPrivacyLevelName == "private" )
 			{
-				arr = self.getFilteredEventsFromEventTree( self.myEventTree, ["kind", "value"], parseInt( eventKindValue, 10 ), "upcoming" );
+				arr = self.getFilteredEventsFromEventTree( self.myEventTree, ["kind", "value"], [eventKindValue], "upcoming" );
 				shownEvents = self.detailsPageSelectedEvents.upcoming();
 
 				if ( shownEvents.length )
@@ -1036,7 +1067,7 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 
 				if ( self.detailsPageSelectedEvents.settings.showOldEvents())
 				{
-					arr2 = self.getFilteredEventsFromEventTree( self.myEventTree, ["kind", "value"], parseInt( eventKindValue, 10 ), "old" );
+					arr2 = self.getFilteredEventsFromEventTree( self.myEventTree, ["kind", "value"], [eventKindValue], "old" );
 					shownEvents = self.detailsPageSelectedEvents.old();
 
 					if ( shownEvents.length )
@@ -1053,12 +1084,10 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 						self.detailsPageSelectedEvents.old( arr2 );
 					}
 				}
-
-
 			} else
 			{
 				$( "#lobby #lobbyPageAllEventsListContainer" ).show();
-				arr = self.getFilteredEventsFromEventTree( self.publicEventTree, ["kind", "value"], parseInt( eventKindValue, 10 ));
+				arr = self.getFilteredEventsFromEventTree( self.publicEventTree, ["kind", "value"], [eventKindValue]);
 				shownEvents = self.lobbyPageSelectedEvents();
 
 				if ( shownEvents.length )

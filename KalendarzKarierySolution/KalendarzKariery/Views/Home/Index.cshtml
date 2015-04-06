@@ -17,6 +17,7 @@
 					<span style="position: relative; left: -7px;">Dziennik</span>
 				</div>
 				<div id="lobbyBg">
+					@*<img src="~/Images/KalendarzTlo.png" alt="background" />*@
 					<div class="dotted-page-overlay"></div>
 					@Html.Partial( "_ConfirmationPopupBox" )
 
@@ -34,6 +35,7 @@
 				<div id="leftSideCalendar" class="side">
 				</div>
 				<div id="calendarBg">
+					@*<img src="~/Images/KalendarzTlo.png" alt="background" />*@
 					<div class="dotted-page-overlay"></div>
 					@Html.Partial( "_ConfirmationPopupBox" )
 					<section id="calendar" class="main-section">
@@ -52,6 +54,7 @@
 		<li>
 			<div id="slide-item-details">
 				<div id="detailsBg">
+				@*<img src="~/Images/KalendarzTlo.png" alt="background" />*@
 					<div class="dotted-page-overlay"></div>
 					@Html.Partial( "_ConfirmationPopupBox" )
 					<div id="details" class="main-section">
@@ -419,15 +422,24 @@
 					$(".menu-item-container").hover(function () {
 						$(this).css({
 							"cursor": "pointer",
-							"background": "white",
-							"box-shadow": "4px 2px 8px rgb(196, 194, 184)"
+							"background": "rgb(239, 232, 208)",
+							"box-shadow": "4px 2px 8px rgb(196, 194, 184)",
+							"border": "1px solid white"
 						});
 					}, function () {
-						$(this).css({
+						var $this = $(this);
+						$this.css({
 							"cursor": "auto",
-							"background": "rgb(223, 215, 188)",
-							"box-shadow": "none"
+							"box-shadow": "none",
+							"border" : "none"
+
 						});
+
+						if (!$this.hasClass("selected")) {
+							$this.css({						
+								"background": "rgb(223, 215, 188)"
+							});
+						}
 					});
 
 					var $leftSideCalendar = $("#leftSideCalendar");

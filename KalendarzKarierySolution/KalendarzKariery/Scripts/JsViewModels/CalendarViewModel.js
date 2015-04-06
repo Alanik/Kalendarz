@@ -1,7 +1,6 @@
 ﻿
 function CalendarViewModel( year, month, day, weekday, userName, spinner )
 {
-
 	var self = this;
 	var colorHelper = new EventColorHelper();
 	var date = new Date();
@@ -28,6 +27,7 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 		},
 		"javaScriptStartDate": date
 	}
+
 	self.monthNames = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'];
 	self.dayNames = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'];
 	self.userName = userName ? userName : '';
@@ -73,10 +73,16 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 	self.detailsPageDayEvents = ko.observableArray( [] );
 
 	//TODO: change into event tree with arrays grouped by event kind
-	self.detailsPageAllSelectedEvents = ko.observableArray( [] );
+	self.detailsPageSelectedEvents = {
+		"old": ko.observableArray( [] ),
+		"upcoming": ko.observableArray( [] ),
+		"settings": {
+			"showOldEvents" : ko.observable(true)
+		}
+	}
 
 	//TODO: change into event tree with arrays grouped by event kind
-	self.lobbyPageAllSelectedEvents = ko.observableArray( [] );
+	self.lobbyPageSelectedEvents = ko.observableArray( [] );
 
 	self.newsEvents = [];
 
@@ -520,12 +526,12 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 						{
 							dayEvents.pop( event );
 
-							//remove form detailsPageAllSelectedEvents
-							array = ko.utils.arrayFilter( self.detailsPageAllSelectedEvents(), function ( item )
+							//remove from detailsPageSelectedEvents
+							array = ko.utils.arrayFilter( self.detailsPageSelectedEvents(), function ( item )
 							{
 								return item.id != event.id;
 							} );
-							self.detailsPageAllSelectedEvents( array );
+							self.detailsPageSelectedEvents( array );
 
 							//remove from self.myEventTreeCountBasedOnEventKind
 							// TODO: make count a calculated observable so we don't have to update count value manually
@@ -608,6 +614,23 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 		$block.toggleClass( "open" );
 	};
 
+	self.toggleShowOldEventsOnCheckboxClick = function ( element )
+	{
+		var $chkbox = $( element ).find( "#showOldEventsCheckbox" );
+
+		if ( self.detailsPageSelectedEvents.settings.showOldEvents() )
+		{
+			self.detailsPageSelectedEvents.settings.showOldEvents( false );
+			self.detailsPageSelectedEvents.old([]);
+			$chkbox.empty();
+		}
+		else
+		{
+			self.detailsPageSelectedEvents.settings.showOldEvents( true );
+			$chkbox.text("✓");
+		}
+	};
+
 	self.addEventToMyEventTree = function ( newEvent )
 	{
 		var year = newEvent.startDate.year;
@@ -643,39 +666,175 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 		return dayEvents;
 	};
 
-	self.getFilteredEventsFromEventTree = function ( eventTree, eventPropNameArray, value )
+	self.getFilteredEventsFromEventTree = function ( eventTree, eventPropNameArray, value, oldUpcomingOrAny )
 	{
 		var arr = [], daysArr, event, yearNode, monthNode, dayNode, prop;
-		for ( var year in eventTree )
+		var parsedYear, parsedMonth, parsedDay;
+		var isCurrentYear = false, isCurrentMonth = false, isCurrentDay = false;
+		var date = new Date();
+
+		if (typeof oldUpcomingOrAny == 'undefined')
 		{
-			yearNode = eventTree[year];
-			for ( var month in yearNode )
-			{
-				monthNode = yearNode[month];
-				for ( day in monthNode )
+			oldUpcomingOrAny = "all";
+		}
+
+		switch ( oldUpcomingOrAny )
+		{
+			case "old":
+				for ( var year in eventTree )
 				{
-					daysArr = monthNode[day];
+					parsedYear = parseInt( year, 10 );
 
-					for ( var i = 0; i < daysArr.length; i++ )
+					if ( parsedYear > date.getFullYear() )
 					{
-						event = daysArr[i];
-						prop = event;
+						continue;
+					}
 
-						for ( var j = 0; j < eventPropNameArray.length; j++ )
+					isCurrentYear = ( parsedYear == date.getFullYear() );
+					yearNode = eventTree[year];
+
+					for ( var month in yearNode )
+					{
+						parsedMonth = parseInt(month, 10);
+
+						if (isCurrentYear && parsedMonth > (date.getMonth() + 1))
 						{
-							prop = prop[eventPropNameArray[j]];
+							continue;
 						}
 
-						if ( prop === value )
+						isCurrentMonth = ( parsedMonth == date.getMonth() + 1 );
+						monthNode = yearNode[month];
+
+						for ( day in monthNode )
 						{
-							arr.push( event );
+							parsedDay = parseInt(day, 10);
+
+							if (isCurrentYear && isCurrentMonth && parsedDay > date.getDate() )
+							{
+								continue;
+							}
+
+							isCurrentDay = (parsedDay == date.getDate());
+							daysArr = monthNode[day];
+
+							for ( var i = 0; i < daysArr.length; i++ )
+							{
+								event = daysArr[i];
+								prop = event;
+
+								if (isCurrentYear && isCurrentMonth && isCurrentDay && ( event.startDate.endHour > date.getHours() || (event.startDate.endHour == date.getHours() && event.startDate.endMinute > date.getMinutes())))
+								{
+									continue;
+								}
+
+								for ( var j = 0; j < eventPropNameArray.length; j++ )
+								{
+									prop = prop[eventPropNameArray[j]];
+								}
+
+								if ( prop === value )
+								{
+									arr.push( event );
+								}
+							}
 						}
 					}
 				}
-			}
-		}
+				return arr;
+			case "upcoming":
+				for ( var year in eventTree )
+				{
+					parsedYear = parseInt( year, 10 );
 
-		return arr;
+					if ( parsedYear < date.getFullYear() )
+					{
+						continue;
+					}
+
+					isCurrentYear = ( parsedYear == date.getFullYear() );
+					yearNode = eventTree[year];
+
+					for ( var month in yearNode )
+					{
+						parsedMonth = parseInt( month, 10 );
+
+						if (isCurrentYear && parsedMonth < ( date.getMonth() + 1 ) )
+						{
+							continue;
+						}
+
+						isCurrentMonth = ( parsedMonth == date.getMonth() + 1 );
+						monthNode = yearNode[month];
+
+						for ( day in monthNode )
+						{
+
+							parsedDay = parseInt( day, 10 );
+
+							if ( isCurrentYear && isCurrentMonth && parsedDay < date.getDate() )
+							{
+								continue;
+							}
+
+							isCurrentDay = ( parsedDay == date.getDate() );
+							daysArr = monthNode[day];
+
+							for ( var i = 0; i < daysArr.length; i++ )
+							{
+								event = daysArr[i];
+								prop = event;
+
+								if ( isCurrentYear && isCurrentMonth && isCurrentDay && ( event.startDate.endHour <= date.getHours() || ( event.startDate.endHour == date.getHours() && event.startDate.endMinute <= date.getMinutes() ) ) )
+								{
+									continue;
+								}
+
+								for ( var j = 0; j < eventPropNameArray.length; j++ )
+								{
+									prop = prop[eventPropNameArray[j]];
+								}
+
+								if ( prop === value )
+								{
+									arr.push( event );
+								}
+							}
+						}
+					}
+				}
+				return arr;
+			case "all":
+				for ( var year in eventTree )
+				{
+					yearNode = eventTree[year];
+					for ( var month in yearNode )
+					{
+						monthNode = yearNode[month];
+						for ( day in monthNode )
+						{
+							daysArr = monthNode[day];
+
+							for ( var i = 0; i < daysArr.length; i++ )
+							{
+								event = daysArr[i];
+								prop = event;
+
+								for ( var j = 0; j < eventPropNameArray.length; j++ )
+								{
+									prop = prop[eventPropNameArray[j]];
+								}
+
+								if ( prop === value )
+								{
+									arr.push( event );
+								}
+							}
+						}
+					}
+				}
+				return arr;
+			default: return arr;
+		}		
 	}
 
 	self.drawEventToCalendar = function ( event )
@@ -839,28 +998,24 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 		if ( $menuItemContainer.hasClass( "selected" ) )
 		{
 			$menuItemContainer.css( "top", "20px" );
-			//$menuItem.css( "background", "rgb(223, 215, 188)" );
+			$menuItemContainer.css( "background", "rgb(239, 232, 208)" );
 			showSelectedEvents();
-
-			$clock.hide();
 		} else
 		{
 			$menuItemContainer.css( "top", "0px" );
-			//$menuItem.css( "background", "rgb(223, 215, 188)" );
+			$menuItemContainer.css( "background", "rgb(223, 215, 188)" );
 			removeSelectedEvents();		
 		}
 
 		function showSelectedEvents()
 		{
-			var combinedArray = [], arr, shownEvents;
+			var combinedArray = [], combinedArray2 = [], arr, arr2, shownEvents;
 
 			//TODO: change check from privacyLvlName to privacyLvl
 			if ( eventPrivacyLevelName == "private" )
 			{
-
-				$( "#details #detailsPageAllEventsListContainer" ).show();
-				arr = self.getFilteredEventsFromEventTree( self.myEventTree, ["kind", "value"], parseInt( eventKindValue, 10 ) );
-				shownEvents = self.detailsPageAllSelectedEvents();
+				arr = self.getFilteredEventsFromEventTree( self.myEventTree, ["kind", "value"], parseInt( eventKindValue, 10 ), "upcoming" );
+				shownEvents = self.detailsPageSelectedEvents.upcoming();
 
 				if ( shownEvents.length )
 				{
@@ -870,19 +1025,41 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 						return ( a.startDate.javaScriptStartDate - b.startDate.javaScriptStartDate );
 					} );
 
-					self.detailsPageAllSelectedEvents( combinedArray );
+					self.detailsPageSelectedEvents.upcoming( combinedArray );
 				} else
 				{
-					self.detailsPageAllSelectedEvents( arr );
+					self.detailsPageSelectedEvents.upcoming( arr );
+
+					$( "#details #detailsPageAllEventsListContainer" ).show();
+					$clock.hide();
 				}
 
-				$clock.hide();
+				if ( self.detailsPageSelectedEvents.settings.showOldEvents())
+				{
+					arr2 = self.getFilteredEventsFromEventTree( self.myEventTree, ["kind", "value"], parseInt( eventKindValue, 10 ), "old" );
+					shownEvents = self.detailsPageSelectedEvents.old();
+
+					if ( shownEvents.length )
+					{
+						combinedArray2 = arr2.concat( shownEvents );
+						combinedArray2.sort( function ( a, b )
+						{
+							return ( a.startDate.javaScriptStartDate - b.startDate.javaScriptStartDate );
+						} );
+
+						self.detailsPageSelectedEvents.old( combinedArray2 );
+					} else
+					{
+						self.detailsPageSelectedEvents.old( arr2 );
+					}
+				}
+
 
 			} else
 			{
 				$( "#lobby #lobbyPageAllEventsListContainer" ).show();
-				arr = self.getFilteredEventsFromEventTree( self.publicEventTree, ["kind", "value"], parseInt( eventKindValue, 10 ) );
-				shownEvents = self.lobbyPageAllSelectedEvents();
+				arr = self.getFilteredEventsFromEventTree( self.publicEventTree, ["kind", "value"], parseInt( eventKindValue, 10 ));
+				shownEvents = self.lobbyPageSelectedEvents();
 
 				if ( shownEvents.length )
 				{
@@ -892,21 +1069,21 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 						return ( a.startDate.javaScriptStartDate - b.startDate.javaScriptStartDate );
 					} );
 
-					self.lobbyPageAllSelectedEvents( combinedArray );
+					self.lobbyPageSelectedEvents( combinedArray );
 				} else
 				{
-					self.lobbyPageAllSelectedEvents( arr );
+					self.lobbyPageSelectedEvents( arr );
 				}
 			}
 		}
 		function removeSelectedEvents()
 		{
-			var array;
+			var array, array2;
 
 			//TODO: change check from privacyLvlName to privacyLvl
 			if ( eventPrivacyLevelName === "private" )
 			{
-				array = ko.utils.arrayFilter( self.detailsPageAllSelectedEvents(), function ( item )
+				array = ko.utils.arrayFilter( self.detailsPageSelectedEvents.upcoming(), function ( item )
 				{
 					return item.kind.value != eventKindValue;
 				} );
@@ -915,7 +1092,17 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 				//	return (a.startDate.javaScriptStartDate - b.startDate.javaScriptStartDate);
 				//});
 
-				self.detailsPageAllSelectedEvents( array );
+				self.detailsPageSelectedEvents.upcoming( array );
+
+				if ( self.detailsPageSelectedEvents.settings.showOldEvents() )
+				{
+					array2 = ko.utils.arrayFilter( self.detailsPageSelectedEvents.old(), function ( item )
+					{
+						return item.kind.value != eventKindValue;
+					} );
+
+					self.detailsPageSelectedEvents.old( array2 );
+				}
 
 				if ( !$( "#details #detailsPanel .menu-item-container" ).hasClass( "selected" ) )
 				{
@@ -924,7 +1111,7 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 				}
 			} else
 			{
-				array = ko.utils.arrayFilter( self.lobbyPageAllSelectedEvents(), function ( item )
+				array = ko.utils.arrayFilter( self.lobbyPageSelectedEvents(), function ( item )
 				{
 					return item.kind.value != eventKindValue;
 				} );
@@ -933,7 +1120,7 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 				//	return (a.startDate.javaScriptStartDate - b.startDate.javaScriptStartDate);
 				//});
 
-				self.lobbyPageAllSelectedEvents( array );
+				self.lobbyPageSelectedEvents( array );
 
 				if ( !$( "#lobby #lobbyEventsMenuContainer .menu-item-container" ).hasClass( "selected" ) )
 				{

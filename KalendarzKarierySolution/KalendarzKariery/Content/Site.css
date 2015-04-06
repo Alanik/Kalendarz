@@ -45,7 +45,6 @@ header, footer, nav, section, div {
 	src: url('Fonts/SegoeUI/segoeui.ttf');
 }
 
-
 /* Kalendarz Kariery
 -----------------------------------------------------------*/
 
@@ -622,7 +621,6 @@ body header {
 }
 
 .menu-item-number-upcoming {
-	background: rgb(223, 215, 188);
 	color: rgb(173, 165, 137);
 	box-shadow: 1px 1px 1px 0px rgb(186, 184, 174);
 	border-top: 1px solid rgb(250, 249, 230);
@@ -652,15 +650,15 @@ body header {
 }
 
 #detailsPageAllEventsListContainer {
-  margin:0 auto;
+  margin-left:1.8%;
   margin-top: 50px;
+  margin-bottom:40px;
   font-size: 1.2em;
-  /* width: 700px; */
-  /* margin-left: 300px; */
   background: rgb(223, 215, 188);
-  width:90%;
-  border-radius:12px;
+  width:88%;
+  border-radius:6px;
   border:1px solid rgb(212, 202, 168);
+  display:none;
 
 }
 
@@ -1096,6 +1094,10 @@ background:rgb(115, 233, 162);
 	padding-left: 88px;
 }
 
+.selected-event-info-div:nth-child(odd) {
+background: rgb(231, 224, 201);
+}
+
 #todayDateYear {
 	font-size: 1.5em;
 	position: relative;
@@ -1110,6 +1112,7 @@ background:rgb(115, 233, 162);
 	width: 200px;
 	float: left;
 	position: relative;
+	height:100px;
 }
 
 .event-list {

@@ -16,7 +16,7 @@ KKEventDateModel.prototype.formatZero = function ( time ){
 	return time < 10 ? '0' + time : time;
 }
 KKEventDateModel.prototype.displayFullDate = function (){
-	return this.formatZero( this.day ) + '/' + this.formatZero( this.month ) + '/' + this.year;
+	return  this.day + '/' + this.formatZero( this.month ) + '/' + this.year;
 }
 KKEventDateModel.prototype.displayFullTime = function (){
 	return this.formatZero( this.startHour ) + ':' + this.formatZero( this.startMinute ) + " - " + this.formatZero( this.endHour ) + ':' + this.formatZero( this.endMinute );

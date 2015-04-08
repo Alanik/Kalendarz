@@ -77,7 +77,7 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 		"old": ko.observableArray( [] ),
 		"upcoming": ko.observableArray( [] ),
 		"settings": {
-			"showOldEvents": ko.observable( true )
+			"showOldEvents": ko.observable( false )
 		},
 		"selectedKindValues" : []
 	}

@@ -9,6 +9,8 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using KalendarzKarieryData.Repository.KalendarzKarieryRepository;
 using KalendarzKarieryData.Repository;
+using System.Web.Helpers;
+using System.Security.Claims;
 
 namespace KalendarzKariery
 {
@@ -38,6 +40,8 @@ namespace KalendarzKariery
 				razorEngine.PartialViewLocationFormats =
 					razorEngine.PartialViewLocationFormats.Union(newPartialViewFormats).Reverse().ToArray();
 			}	
+
+			AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.Email;
         }
 
 		protected void Application_Error( object sender, EventArgs e )

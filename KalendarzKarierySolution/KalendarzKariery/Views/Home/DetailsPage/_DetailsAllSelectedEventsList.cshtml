@@ -5,12 +5,12 @@
 
 	<div style="padding: 20px;">
 		<div class="selected-events-checkbox-container hover-cursor-pointer" id="showOldEventsCheckboxContainer" style="color: rgb(255, 249, 228); width: 240px;" data-bind="click: function () { $root.toggleShowOldEventsOnCheckboxClick( $element ) }">
-			<div id="showOldEventsCheckbox" style="vertical-align:bottom; border: 2px solid rgb(255, 250, 232); height: 22px; width: 22px; text-align: center; padding: 4px; border-radius: 4px; display: inline-block;">✓</div>
+			<div id="showOldEventsCheckbox" style="vertical-align:bottom; border: 2px solid rgb(255, 250, 232); height: 22px; width: 22px; text-align: center; padding: 4px; border-radius: 4px; display: inline-block;"></div>
 			<span style="padding: 4px;">Pokaż stare wydarzenia</span>
 		</div>
 	</div>
 
-	<div style="text-align: center; padding-top: 20px; font-weight: bold; color: rgb(118, 104, 75); margin: 0 auto; width: 90%; border-bottom: 1px solid rgb(242, 233, 216);">
+	<div style="text-align: center; padding-top: 20px; font-weight: bold; color: rgb(118, 104, 75); margin: 0 auto; width: 90%;">
 		<div style="display: inline-block; width: 300px; margin-bottom: 2px; padding: 5px; vertical-align: top; text-align: left;">Tytuł:</div>
 		<div style="display: inline-block; padding: 5px; width: 110px; text-align: left;">Data:</div>
 		<div style="display: inline-block; padding: 5px; width: 110px; text-align: left;">Godzina:</div>
@@ -19,7 +19,7 @@
 
 	<div data-bind="foreach: $root.detailsPageSelectedEvents.old" style="text-align: center;">
 		<!-- ko if: $index() == 0 -->
-		<div style="color: rgb(255, 249, 228);padding:10px 0;">
+		<div style="color: rgb(255, 249, 228);padding:10px 0;font-size:2em;">
 			/stare/
 		</div>
 		<!-- /ko -->
@@ -34,7 +34,7 @@
 
 	<div data-bind="foreach: $root.detailsPageSelectedEvents.upcoming" style="text-align: center;">
 		<!-- ko if: $index() == 0 -->
-		<div style="color: rgb(255, 249, 228);padding:10px 0;">
+		<div style="color: rgb(255, 249, 228);padding:10px 0;font-size:2em;">
 			/nadchodzące/
 		</div>
 		<!-- /ko -->

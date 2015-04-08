@@ -40,11 +40,9 @@ namespace KalendarzKariery
 			};
 				razorEngine.PartialViewLocationFormats =
 					razorEngine.PartialViewLocationFormats.Union(newPartialViewFormats).Reverse().ToArray();
-			}	
+			}
 
-			//AntiForgeryConfig.UniqueClaimTypeIdentifier = AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.NameIdentifier;
-			AntiForgeryConfig.UniqueClaimTypeIdentifier = "http://sts.msft.net/user/EmailAddress";
-
+			AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.Name;
         }
 
 		protected void Application_Error( object sender, EventArgs e )

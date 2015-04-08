@@ -11,6 +11,7 @@ using KalendarzKarieryData.Repository.KalendarzKarieryRepository;
 using KalendarzKarieryData.Repository;
 using System.Web.Helpers;
 using System.Security.Claims;
+using System.IdentityModel;
 
 namespace KalendarzKariery
 {
@@ -42,6 +43,7 @@ namespace KalendarzKariery
 			}	
 
 			//AntiForgeryConfig.UniqueClaimTypeIdentifier = AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.NameIdentifier;
+			AntiForgeryConfig.UniqueClaimTypeIdentifier = "http://sts.msft.net/user/EmailAddress";
 
         }
 

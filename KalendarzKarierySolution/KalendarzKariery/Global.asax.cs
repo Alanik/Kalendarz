@@ -42,7 +42,7 @@ namespace KalendarzKariery
 					razorEngine.PartialViewLocationFormats.Union(newPartialViewFormats).Reverse().ToArray();
 			}
 
-			//AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.Name;
+			AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.NameIdentifier;
         }
 
 		protected void Application_Error( object sender, EventArgs e )

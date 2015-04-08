@@ -36,7 +36,7 @@ namespace KalendarzKariery.Controllers
 
 		[HttpPost]
 		[AllowAnonymous]
-		//[ValidateAntiForgeryToken]
+		[ValidateAntiForgeryToken]
 		public ActionResult Login(LoginModel model)
 		{
 			if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))

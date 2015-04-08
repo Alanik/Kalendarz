@@ -54,6 +54,11 @@ namespace KalendarzKarieryWebAPI.Controllers
 
 			var @event = this.GetEventModelFromAddEventViewModel( addEventViewModel );
 
+			if (@event.StartDate.Hour < 7 || @event.EndDate.HasValue && @event.EndDate.Value.Hour >= 21)
+			{
+				throw new ArgumentException( "godzina rozpoczecia jest wczesniejsza niz 7:00 lub pozniejsza niz 20:00 - drugie podejscie" );
+			}
+
 			if (@event == null)
 			{
 				return new DefaultResponseModel { IsSuccess = false, Message = Consts.GeneralValidationErrorMsg };
@@ -150,7 +155,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 
 			@event.Title = viewModel.Event.Title;
 			@event.NumberOfPeopleAttending = 0;
-			@event.DateAdded = DateTime.Now;
+			@event.DateAdded = DateTime.UtcNow;
 			@event.Description = viewModel.Event.Description;
 			@event.Details = viewModel.Event.Details;
 			@event.UrlLink = viewModel.Event.UrlLink;
@@ -179,7 +184,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 				return null;
 			}
 
-			if (@event.EndDate <= DateTime.Now)
+			if (@event.EndDate <= DateTime.UtcNow)
 			{
 				var id = _repository.GetEventStatusIdByValue( 2 );
 				if (id.HasValue)

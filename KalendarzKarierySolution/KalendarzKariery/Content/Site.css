@@ -1203,16 +1203,11 @@ wydarzenia-tab {
 }
 
 #calendarDayDetailsTable {
-	border-top-left-radius:6px;
-	border-top-right-radius:6px;
 	position: relative;
 	padding: 0px 2%;
-	background: rgb(228, 223, 205);
+	background: rgb(223, 215, 188);
 	padding-bottom: 20px;
-	border-left: 2px solid #D7D0B8;
 	margin-left: 1px;
-	border-right: 2px solid #D7D0B8;
-	border-top: 2px solid #D7D0B8;
 }
 
 	#calendarDayDetailsTable .table-details-head {
@@ -1590,30 +1585,27 @@ legend {
 
 /*event block*/
 .event-block-info-container {
-	width: 516px;
+	width: 96%;
 	position: relative;
 	z-index: 1;
-	margin-left: 3px;
+	margin-left: 2%;
 	color: gray;
 	background: #fcfcfc;
-	padding: 10px;
 	padding-top: 60px;
 	top: -45px;
 }
 
 .event-block-info-body {
 	padding: 10px;
-	border: 1px solid white;
-	background: rgb(236, 228, 211);
-	border-bottom: 1px solid rgb(223, 223, 223);
+	background: rgb(228, 223, 205);
 	overflow: hidden;
 	text-align: left;
 }
 
 .event-block-info-footer {
 	padding: 10px;
-	border: 1px solid white;
-	background: rgb(236, 228, 211);
+	border-top: 1px solid rgb(250, 250, 250);
+	background: rgb(228, 223, 205);
 	overflow: hidden;
 }
 
@@ -1644,7 +1636,7 @@ legend {
 	text-align: left;
 	z-index: 2;
 	margin: 10px;
-	border:2px solid #D7D0B8;
+	border: 2px solid #D7D0B8;
 }
 
 

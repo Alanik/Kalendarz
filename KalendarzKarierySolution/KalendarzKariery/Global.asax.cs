@@ -19,7 +19,6 @@ namespace KalendarzKariery
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 			KalendarzKarieryWebAPI.App_Start.WebApiConfig.Register(GlobalConfiguration.Configuration);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
@@ -57,6 +56,8 @@ namespace KalendarzKariery
 			{
 				// collect request info and log exception
 			}
+
+			Server.ClearError();
 		}
     }
 }

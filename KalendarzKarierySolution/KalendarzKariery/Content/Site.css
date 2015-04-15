@@ -12,13 +12,12 @@ html {
 body {
 	font-size: .85em;
 	line-height: 1.6;
-	font-family: 'Oxygen', "SegoeUI", Helvetica, Sans-Serif;
+	font-family: "SegoeUI", Helvetica, Sans-Serif;
 	padding: 0px;
 	margin: 0px;
 	font-weight: 400;
 	-webkit-font-smoothing: antialiased;
-	background: rgb(240, 235, 218);
-	/*rgb(140, 139, 122)*/
+	background: rgb(237, 233, 217);
 }
 
 header, footer, nav, section, div {
@@ -129,9 +128,8 @@ body header {
 .events-menu-container {
 	/*text-align: center;*/
 	/*background: rgb(178, 169, 153);*/
-	padding-left:300px;
-	height:100px;
-
+	padding-left: 300px;
+	height: 100px;
 }
 
 #lobbyLogo {
@@ -247,10 +245,7 @@ body header {
 #calendarMenuHeader {
 	display: table-caption;
 	color: white;
-	background: rgba(230, 220, 200, 1);
-	border-bottom: 1px solid rgb(250,250,250);
-	border-top: 1px solid #D6D6D6;
-	height: 38px;
+	text-align: center;
 }
 
 #loginPageContainer {
@@ -398,13 +393,10 @@ body header {
 	height: 25px;
 	z-index: 98;
 	border-bottom: 1px solid #E7E5DF;
-	/*background: #E7E5DF;*/
-	background: rgb(234, 226, 214);
-	border-top: 1px solid whitesmoke;
+	color: rgb(253, 253, 253);
 }
 
 	.other-month-cell .cell-span-container .cell-month-name-span {
-		color: rgb(184,184,184);
 		padding-left: 20px !important;
 	}
 
@@ -480,9 +472,7 @@ body header {
 .other-month-cell {
 	position: relative;
 	border: 1px solid white;
-	/*background: rgb(223, 240, 255);*/
-	/*background: rgba(150,150,150,.1);*/
-	background: rgba(234, 226, 214, 0.5);
+	background: rgb(228, 222, 202);
 }
 
 	.other-month-cell .cell-span-container span {
@@ -507,8 +497,8 @@ body header {
 	left: 0px;
 	/*background-position: right;*/
 	height: 99% !important;
-	border-right: 1px solid #F0F0F0;
-	background: rgb(240, 235, 218);
+	border-right: 1px solid #EFEEEC;
+	background: rgb(237, 233, 217);
 }
 
 #rightSideCalendar {
@@ -518,9 +508,9 @@ body header {
 	background-repeat: repeat-y;*/
 	right: 0px;
 	/*background-position: left;*/
-	border-left: 1px solid #F0F0F0;
+	border-left: 1px solid #EFEEEC;
 	height: 99% !important;
-	background: rgb(240, 235, 218);
+	background: rgb(237, 233, 217);
 }
 
 #leftSideDetails {
@@ -528,8 +518,10 @@ body header {
 	background-repeat: repeat-y;*/
 	left: 0px;
 	/*background-position: right;*/
-	border-right: 1px solid rgb(212, 202, 168);
-	background: rgb(223, 215, 188);
+	/*border-right: 1px solid rgb(212, 202, 168);
+	background: rgb(223, 215, 188);*/
+	background: #D7D0B8;
+	border-right: 1px solid #EFEEEC;
 }
 
 #rightSideLobby {
@@ -537,8 +529,8 @@ body header {
 	background-repeat: repeat-y;*/
 	right: 0px;
 	/*background-position: left;*/
-	border-left: 1px solid rgb(212, 202, 168);
-	background: rgb(223, 215, 188);
+	border-left: 1px solid #EFEEEC;
+	background: #D7D0B8;
 }
 
 #rightSideLobbyTopPart {
@@ -548,10 +540,10 @@ body header {
 	height: 16px;
 	top: -16px;
 	/*background-position: left;*/
-	border-left: 1px solid rgb(212, 202, 168);
+	border-left: 1px solid #EFEEEC;
 	position: absolute;
 	width: 10%;
-	background: rgb(223, 215, 188);
+	background: #D7D0B8;
 }
 
 #mainContainer {
@@ -561,8 +553,6 @@ body header {
 
 .menu-item {
 	border-top: 1px solid rgb(247, 247, 247);
-	/*background: rgb(223, 215, 188);*/
-	/*box-shadow: 4px 2px 8px rgb(196, 194, 184);*/
 	height: 30px;
 	color: rgb(133, 123, 100);
 	font-size: 0.9em;
@@ -609,8 +599,7 @@ body header {
 	margin-right: 0px;
 	position: relative;
 	top: 0px;
-	background: rgb(223, 215, 188);
-	/*background:rgb(239, 232, 208);*/
+	background: rgb(245, 240, 223);
 }
 
 .menu-item-number-container {
@@ -627,7 +616,7 @@ body header {
 	box-shadow: 1px 1px 1px 0px rgb(186, 184, 174);
 	border-top: 1px solid rgb(250, 249, 230);
 	/*border-top: 1px solid rgb(248, 247, 233);*/
-	text-align:center;
+	text-align: center;
 }
 
 .triangle-header {
@@ -652,16 +641,15 @@ body header {
 }
 
 #detailsPageAllEventsListContainer {
-  margin-left:1.8%;
-  margin-top: 50px;
-  margin-bottom:40px;
-  font-size: 1.2em;
-  background: rgb(223, 215, 188);
-  width:88%;
-  border-radius:6px;
-  border:1px solid rgb(212, 202, 168);
-  display:none;
-
+	margin-left: 1.8%;
+	margin-top: 50px;
+	margin-bottom: 40px;
+	font-size: 1.2em;
+	background: rgb(223, 215, 188);
+	width: 88%;
+	border-radius: 6px;
+	border: 1px solid rgb(212, 202, 168);
+	display: none;
 }
 
 #lobbyPageAllEventsListContainer {
@@ -788,7 +776,7 @@ background:rgb(115, 233, 162);
 	font-size: 12px;
 	line-height: 1;
 	left: 0;
-	background: rgb(228, 228, 228);
+	background: rgb(237, 234, 231);
 }
 
 .small-minutes {
@@ -809,11 +797,6 @@ background:rgb(115, 233, 162);
 	.event-rectangle-details span {
 		/*padding: 10px;*/
 	}
-
-.month-name-header-container {
-	border-bottom: 1px solid rgb(213, 213, 213);
-	text-align: center;
-}
 
 .hover-cursor-pointer :hover {
 	cursor: pointer;
@@ -949,7 +932,6 @@ background:rgb(115, 233, 162);
 }
 
 #lobbyEventsMenuContainer {
-	border-bottom: 1px solid white;
 	margin: 0px auto;
 	display: block;
 	text-align: center;
@@ -1097,7 +1079,7 @@ background:rgb(115, 233, 162);
 }
 
 .selected-event-info-div:nth-child(odd) {
-background: rgb(231, 224, 201);
+	background: rgb(231, 224, 201);
 }
 
 #todayDateYear {
@@ -1114,7 +1096,7 @@ background: rgb(231, 224, 201);
 	width: 200px;
 	float: left;
 	position: relative;
-	height:100px;
+	height: 100px;
 }
 
 .event-list {
@@ -1217,19 +1199,20 @@ wydarzenia-tab {
 
 #detailsEventBlockList {
 	width: 90%;
-	border-top: none;
-	margin-left: 2px;
+	background: rgb(228, 223, 205);
 }
 
 #calendarDayDetailsTable {
-	width: 98%;
-	color: gray;
+	border-top-left-radius:6px;
+	border-top-right-radius:6px;
 	position: relative;
-	border-bottom: none;
-	margin-left: 2px;
-	padding: 0px 1%;
+	padding: 0px 2%;
+	background: rgb(228, 223, 205);
 	padding-bottom: 20px;
-	border-top:1px solid rgb(197, 192, 174);
+	border-left: 2px solid #D7D0B8;
+	margin-left: 1px;
+	border-right: 2px solid #D7D0B8;
+	border-top: 2px solid #D7D0B8;
 }
 
 	#calendarDayDetailsTable .table-details-head {
@@ -1245,8 +1228,7 @@ wydarzenia-tab {
 		}
 
 	#calendarDayDetailsTable .table-details-body {
-		/*background: rgba(252, 252, 252, 0.9);*/
-		background: rgba(213, 204, 190, 1);
+		background: rgba(252, 252, 252, 0.9);
 		padding-top: 4px;
 		padding-bottom: 4px;
 	}
@@ -1264,7 +1246,7 @@ wydarzenia-tab {
 
 
 .month-name-calendar {
-	color: rgb(252,252,252);
+	color: rgb(195, 187, 177);
 	text-decoration: underline;
 }
 
@@ -1470,26 +1452,6 @@ helpers
 	text-align: center;
 }
 
-/*
-MEDIA QUERIES
-*/
-
-/*@media screen and (max-width: 1350px) {
-	#lobbyLogo {
-		display: none;
-	}
-}*/
-
-
-
-
-
-
-
-
-
-
-
 
 /*
 Slider
@@ -1657,7 +1619,7 @@ legend {
 
 .event-block-container {
 	display: inline-block;
-	margin-right: -5px;
+	width: 49%;
 	vertical-align: top;
 }
 
@@ -1672,9 +1634,8 @@ legend {
 }
 
 .event-block {
-	height: 220px;
-	width: 270px;
-	background: rgba(104, 94, 81, 0.7);
+	height: 150px;
+	background: rgba(129, 119, 106, 1);
 	color: rgb(192, 180, 153);
 	box-shadow: 2px 2px 10px rgb(166, 158, 146);
 	overflow: hidden;
@@ -1682,6 +1643,8 @@ legend {
 	padding: 10px;
 	text-align: left;
 	z-index: 2;
+	margin: 10px;
+	border:2px solid #D7D0B8;
 }
 
 

@@ -1,0 +1,9 @@
+﻿/*
+MEDIA QUERIES
+*/
+
+@media (max-width: 1300px) {
+	.event-block {
+	box-shadow:none;
+	}
+}

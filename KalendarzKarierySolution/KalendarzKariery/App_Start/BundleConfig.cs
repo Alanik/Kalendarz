@@ -26,7 +26,7 @@ namespace KalendarzKariery
 			bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
 			"~/Scripts/Lib/knockout-*"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
+            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/Site.css", "~/Content/MediaQueries.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",

@@ -39,7 +39,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 		public IResponse Post( AddEventViewModel addEventViewModel )
 		{
 			var errorResponse = this.Validate( addEventViewModel );
-			if (!errorResponse.IsSuccess)
+			if (errorResponse != null && !errorResponse.IsSuccess)
 			{
 				return errorResponse;
 			}
@@ -116,13 +116,13 @@ namespace KalendarzKarieryWebAPI.Controllers
 		private IResponse Validate( AddEventViewModel addEventViewModel )
 		{
 			var errorResponse = this.ValidateUser();
-			if (errorResponse != null)
+			if (!errorResponse.IsSuccess)
 			{
 				return errorResponse;
 			}
 
 			errorResponse = ValidateAddEventViewModel( addEventViewModel );
-			if (errorResponse != null)
+			if (!errorResponse.IsSuccess)
 			{
 				return errorResponse;
 			}
@@ -155,7 +155,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 
 			@event.Title = viewModel.Event.Title;
 			@event.NumberOfPeopleAttending = 0;
-			@event.DateAdded = DateTime.UtcNow;
+			@event.DateAdded = DateTime.Now;
 			@event.Description = viewModel.Event.Description;
 			@event.Details = viewModel.Event.Details;
 			@event.UrlLink = viewModel.Event.UrlLink;
@@ -228,17 +228,9 @@ namespace KalendarzKarieryWebAPI.Controllers
 				response.Message = Consts.GeneralValidationErrorMsg;
 				return response;
 			}
-
-			var startDate = new DateTime();
-			if (!DateTime.TryParse( viewModel.Event.StartDate.ToString(), out startDate ))
-			{
-				response.IsSuccess = false;
-				response.Message = Consts.GeneralValidationErrorMsg;
-				return response;
-			}
 			
 			//TODO: temporary check
-			if (startDate.Hour < 7 || startDate.Hour >= 21)
+			if (viewModel.Event.StartDate.Hour < 7 || viewModel.Event.StartDate.Hour >= 21)
 			{
 				throw new ArgumentException("godzina rozpoczecia jest wczesniejsza niz 7:00 lub pozniejsza niz 20:00");
 			}

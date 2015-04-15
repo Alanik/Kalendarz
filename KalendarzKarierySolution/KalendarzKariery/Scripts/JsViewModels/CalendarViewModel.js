@@ -217,7 +217,7 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 
 	self.addEventOnClick = function ()
 	{
-		var $loader;
+		var $overlay;
 		var $addEventForm = $( "#addEventForm" );
 
 		var privacyLvlValue = self.observableEvent.privacyLevel.value;
@@ -258,7 +258,6 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 			var dateDiffAtLeast10Mins = self.validateAddEventFormDates( startHour, endHour, startMinute, endMinute );
 			if ( !dateDiffAtLeast10Mins )
 			{
-
 				$( "#endHourSelectBox" ).addClass( "input-validation-error" );
 				$( "#endMinuteSelectBox" ).addClass( "input-validation-error" );
 
@@ -268,22 +267,26 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 				return false;
 			}
 
+			
 			var startEventDate = new Date( year, month - 1, day, startHour, startMinute, 0, 0 );
 			var endEventDate = new Date( year, month - 1, day, endHour, endMinute, 0, 0 );
 
 			var startDateJson = startEventDate.toJSON();
 			var endDateJson = endEventDate.toJSON();
 
+			//TODO: move this code to separate class and unit test it
+			////////////
 			var diff = Math.abs( startEventDate - endEventDate );
 			var minutes = Math.floor(( diff / 1000 ) / 60 );
+			/////////////
 
-			$loader = $addEventForm.closest( ".main-section" ).siblings( ".dotted-page-overlay" );
+			$overlay = $addEventForm.closest( ".main-section" ).siblings( ".dotted-page-overlay" );
 
 			$.ajax( {
 				url: action,
 				dataType: "JSON",
 				type: "POST",
-				beforeSend: function () { self.showLoader( $loader ); $( "#addNewEventContainer" ).hide(); },
+				beforeSend: function () { self.showLoader( $overlay ); $( "#addNewEventContainer" ).hide(); },
 				data: $addEventForm.serialize() +
 				"&Event.StartDate=" + startDateJson +
 				"&Event.EndDate=" + endDateJson +
@@ -327,13 +330,13 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 						self.redrawCalendarCell( dayEvents, self.addNewEvent_Day() );
 
 						//$addEventForm[0].reset();
-						self.hideLoader( $loader );
+						self.hideLoader( $overlay );
 					}
 				},
 				error: function ()
 				{
 					alert( "Wystąpił nieoczekiwany błąd. Prosze sprobować jeszcze raz." );
-					self.hideLoader( $loader );
+					self.hideLoader();
 					$( "#addNewEventContainer" ).show();
 				}
 			} );
@@ -1031,7 +1034,7 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 		} else
 		{
 			$menuItemContainer.css( "top", "0px" );
-			$menuItemContainer.css( "background", "rgb(223, 215, 188)" );
+			$menuItemContainer.css( "background", "rgb(245, 240, 223)" );
 
 			filteredArray = self.detailsPageSelectedEvents.selectedKindValues.filter( function ( e ) { return e !== eventKindValue } )
 			self.detailsPageSelectedEvents.selectedKindValues = filteredArray;
@@ -1879,13 +1882,11 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 			hour_hand.rotate( 30 * hours + ( minutes / 2.5 ), 100, 100 );
 			minute_hand.rotate( 6 * minutes, 100, 100 );
 			second_hand.rotate( 6 * seconds, 100, 100 );
-
 		}
 	}
 
 	self.drawDigitalClock = function ()
 	{
-
 		setInterval( function () { updateDigitalClock() }, 1000 );
 
 		function updateDigitalClock()

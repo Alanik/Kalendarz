@@ -1,7 +1,7 @@
 ﻿var EventTreeBuilder = function () {
 	var self = this;
 
-	self.buildEventTree = function ( yearEventTreeModel, setCalendarPlacementRow, publicEvents )
+	self.buildEventTree = function ( yearEventTreeModel, calendarViewModel, isPublicEventTree)
 	{
 		var eventTree = {}, largest, groups;
 		var dayGroup, day, dayGroupLength, event;
@@ -38,12 +38,12 @@
 
 						//push public event to calendarViewModel.publicEvents
 						//TODO: maybe it's better to remove it from here and put it in a seperate method for example buildPublicEventTree, but it is just a suggestion
-						if (publicEvents) {
-							publicEvents.push(event);
+						if (isPublicEventTree) {
+							calendarViewModel.publicEvents.push(event);
 							}
 					}
 
-					setCalendarPlacementRow(eventTreeDayGroupProp);
+					calendarViewModel.setCalendarPlacementRow(eventTreeDayGroupProp);
 				}
 
 				eventTreeYearProp[yearProp.eventsGroupedByMonth[k].month] = eventTreeMonthProp;
@@ -84,17 +84,19 @@
 		return eventTree;
 	};
 
-	self.buildEventTreeCountBasedOnEventKind = function (myEventsCountTree) {
-		var eventTree = {}, element;
+	self.buildEventTreeCountBasedOnEventKind = function (eventsCountTree, defaultEventKinds) {
+		var eventTree = {}, element
 
-		for (var i = 0; i < myEventsCountTree.length; i++) {
-			element = eventTree[i + 1] = {};
+		for ( var i = 0; i < defaultEventKinds.length; i++ )
+		{
+			element = eventTree[i] = {};
 
-			if (myEventsCountTree[i].value === (i + 1)) {
-				element.eventKindValue = myEventsCountTree[i].value;
+			if ( eventsCountTree[i])
+			{
+				element.eventKindValue = eventsCountTree[i].value;
 				element.events = {};
-				element.events.upcoming = ko.observable(myEventsCountTree[i].events.upcoming);
-				element.events.old = ko.observable((myEventsCountTree[i].events.all - myEventsCountTree[i].events.upcoming));
+				element.events.upcoming = ko.observable(eventsCountTree[i].events.upcoming);
+				element.events.old = ko.observable((eventsCountTree[i].events.all - eventsCountTree[i].events.upcoming));
 			} else {
 				//events with given eventKind.value do not exist so we need to create an empty object
 
@@ -103,7 +105,7 @@
 				element.events.upcoming = ko.observable(0);
 				element.events.old = ko.observable(0);
 
-				myEventsCountTree.splice(i, 0, element);
+				eventsCountTree.splice(i, 0, element);
 			}
 		}
 

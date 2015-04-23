@@ -42,7 +42,10 @@
 		this.spinner.spin($target[0]);
 		$target.show();
 	},
-	initialize: function (indexViewModel) {
+	initialize: function ( indexViewModel ){
+
+		//console.log(indexViewModel);
+
 		var $calendar = $("#calendar");
 		var $details = $("#details");
 		var $lobby = $("#lobby");
@@ -58,19 +61,22 @@
 				
 		calendarViewModel.eventPrivacyLevels = indexViewModel.PrivacyLevels;
 		calendarViewModel.eventKinds = indexViewModel.EventKinds;				
-		calendarViewModel.publicEventTree = eventTreeBuilder.buildEventTree(indexViewModel.PublicEvents, calendarViewModel.setCalendarPlacementRow, calendarViewModel.publicEvents);
-		calendarViewModel.publicEventTreeCountBasedOnEventKind = eventTreeBuilder.buildEventTreeCountBasedOnEventKind(indexViewModel.PublicEventCountTree);			
+		calendarViewModel.publicEventTree = eventTreeBuilder.buildEventTree(indexViewModel.PublicEvents, calendarViewModel, true);
+		calendarViewModel.publicEventTreeCountBasedOnEventKind = eventTreeBuilder.buildEventTreeCountBasedOnEventKind(indexViewModel.PublicEventCountTree, calendarViewModel.eventKinds);			
 		calendarViewModel.newsEvents = eventTreeBuilder.transformNews(indexViewModel.News);
+		calendarViewModel.myEventTreeCountBasedOnEventKind = null;
 
-		if (indexViewModel.MyEvents) {
-			calendarViewModel.myEventTree = eventTreeBuilder.buildEventTree(indexViewModel.MyEvents, calendarViewModel.setCalendarPlacementRow);
-			calendarViewModel.myEventTreeCountBasedOnEventKind = eventTreeBuilder.buildEventTreeCountBasedOnEventKind(indexViewModel.MyEventCountTree);
+		if ( indexViewModel.MyEvents )
+		{
+			calendarViewModel.myEventTree = eventTreeBuilder.buildEventTree(indexViewModel.MyEvents, calendarViewModel, false);
+			calendarViewModel.myEventTreeCountBasedOnEventKind = eventTreeBuilder.buildEventTreeCountBasedOnEventKind(indexViewModel.MyEventCountTree, calendarViewModel.eventKinds);
 
 			//console.log(JSON.stringify(calendarViewModel.myEventTree));
 
 			//console.log(calendarViewModel.publicEvents);
 			//console.log(calendarViewModel.publicEventTree);
 			//console.log(calendarViewModel.publicEventTreeCountBasedOnEventKind);
+			//console.log( calendarViewModel.publicEventTreeCountBasedOnEventKind );
 
 			/////////////////////////////////////////////////////////////////////////
 			//draw events to the calendar
@@ -353,7 +359,7 @@
 			$(".menu-item-container").hover(function () {
 				$(this).css({
 					"cursor": "pointer",
-					"background": "rgb(239, 232, 208)",
+					//"background": "rgb(239, 232, 208)"
 					"box-shadow": "4px 2px 8px rgb(196, 194, 184)",
 					"border": "1px solid white"
 				});
@@ -362,16 +368,16 @@
 				$this.css({
 					"cursor": "auto",
 					"box-shadow": "none",
-					"border" : "none",
-					"background": "rgb(239, 232, 208)"
+					"border" : "none"
+					//"background": "rgb(239, 232, 208)"
 
 				});
 
-				if (!$this.hasClass("selected")) {
-					$this.css({						
-						"background": "rgb(245, 240, 223)"
-					});
-				}
+				//if (!$this.hasClass("selected")) {
+				//	$this.css({						
+				//		"background": "rgb(245, 240, 223)"
+				//	});
+				//}
 			});
 
 			var $leftSideCalendar = $("#leftSideCalendar");

@@ -308,16 +308,6 @@ body header {
 	margin-bottom: 20px;
 }
 
-.dark-background-div {
-	background: rgba(0,0,0,.04);
-	border-bottom: 1px solid rgb(247, 247, 247);
-	border-top: 1px solid #CAC8C8;
-	font-size: 2em;
-	width: 100%;
-	color: white;
-	padding-top: 10px;
-}
-
 .site-menu-header {
 }
 
@@ -424,6 +414,7 @@ body header {
 #detailsPanel {
 	min-height: 500px;
 	padding-top: 20px;
+	border-top:2px solid rgb(250, 248, 240);
 }
 
 #loginLinkContainer {
@@ -438,8 +429,7 @@ body header {
 	color: rgb(185, 185, 185);
 	padding-left: 20px;
 	padding-top: 20px;
-	margin-top: 60px;
-	margin-bottom: 60px;
+	margin-bottom:120px;
 	text-align: center;
 }
 
@@ -560,11 +550,6 @@ body header {
 	text-align: center;
 }
 
-	.menu-item span {
-		position: relative;
-		top: 10px;
-	}
-
 .calendar-header-year-container {
 	display: inline-block;
 }
@@ -599,7 +584,8 @@ body header {
 	margin-right: 0px;
 	position: relative;
 	top: 0px;
-	background: rgb(245, 240, 223);
+	/*background: rgb(245, 240, 223);*/
+	/*background: rgb(252, 251, 246);*/
 }
 
 .menu-item-number-container {
@@ -613,8 +599,8 @@ body header {
 
 .menu-item-number-upcoming {
 	color: rgb(173, 165, 137);
-	box-shadow: 1px 1px 1px 0px rgb(186, 184, 174);
-	border-top: 1px solid rgb(250, 249, 230);
+	/*box-shadow: 1px 1px 1px 0px rgb(186, 184, 174);*/
+	/*border-top: 1px solid rgb(250, 249, 230);*/
 	/*border-top: 1px solid rgb(248, 247, 233);*/
 	text-align: center;
 }
@@ -650,6 +636,7 @@ body header {
 	border-radius: 6px;
 	border: 1px solid rgb(212, 202, 168);
 	display: none;
+	padding-bottom:40px;
 }
 
 #lobbyPageAllEventsListContainer {
@@ -859,12 +846,15 @@ background:rgb(115, 233, 162);
 }
 
 .title-header {
-	text-align: center;
-	font-size: 1.2em;
-	/*color: rgb(166, 151, 130);*/
-	color: rgb(150, 135, 116);
+	text-align: left;
+	font-size: 1.6em;
+	/* color: rgb(166, 151, 130); */
+	color: rgb(245, 241, 224);
 	padding: 10px;
 	padding-bottom: 20px;
+	background: rgb(190, 182, 155);
+	border-bottom: 2px solid rgb(174, 168, 144);
+	border-top: 2px solid rgb(174, 168, 144);
 }
 
 .moje-sprawy-text {
@@ -935,6 +925,10 @@ background:rgb(115, 233, 162);
 	margin: 0px auto;
 	display: block;
 	text-align: center;
+	/*background: rgb(228, 221, 197);*/
+	border-top:2px solid rgb(250, 248, 240);
+	border-bottom:2px solid rgb(250, 248, 240);
+	padding: 12px 0;
 }
 
 #endDateValidationErrorMsg {
@@ -1205,7 +1199,7 @@ wydarzenia-tab {
 #calendarDayDetailsTable {
 	position: relative;
 	padding: 0px 2%;
-	background: rgb(223, 215, 188);
+	background: rgb(226, 221, 202);
 	padding-bottom: 20px;
 	margin-left: 1px;
 }
@@ -1589,7 +1583,7 @@ legend {
 	position: relative;
 	z-index: 1;
 	margin-left: 2%;
-	color: gray;
+	color: rgb(250, 250, 250);
 	background: #fcfcfc;
 	padding-top: 60px;
 	top: -45px;
@@ -1597,7 +1591,7 @@ legend {
 
 .event-block-info-body {
 	padding: 10px;
-	background: rgb(228, 223, 205);
+	background: rgb(200, 194, 172);
 	overflow: hidden;
 	text-align: left;
 }
@@ -1605,13 +1599,14 @@ legend {
 .event-block-info-footer {
 	padding: 10px;
 	border-top: 1px solid rgb(250, 250, 250);
-	background: rgb(228, 223, 205);
+	background: rgb(226, 221, 202);
 	overflow: hidden;
+	color: gray;
 }
 
 .event-block-container {
 	display: inline-block;
-	width: 49%;
+	width: 30%;
 	vertical-align: top;
 }
 

@@ -1,5 +1,4 @@
-﻿
-function CalendarViewModel( year, month, day, weekday, userName, spinner )
+﻿function CalendarViewModel( year, month, day, weekday, userName, spinner )
 {
 	var self = this;
 	var colorHelper = new EventColorHelper();
@@ -1026,7 +1025,7 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 		if ( $menuItemContainer.hasClass( "selected" ) )
 		{
 			$menuItemContainer.css( "top", "20px" );
-			$menuItemContainer.css( "background", "rgb(239, 232, 208)" );
+			//$menuItemContainer.css( "background", "rgb(239, 232, 208)" );
 
 			self.detailsPageSelectedEvents.selectedKindValues.push( eventKindValue );
 			showSelectedEvents();
@@ -1034,7 +1033,7 @@ function CalendarViewModel( year, month, day, weekday, userName, spinner )
 		} else
 		{
 			$menuItemContainer.css( "top", "0px" );
-			$menuItemContainer.css( "background", "rgb(245, 240, 223)" );
+			//$menuItemContainer.css( "background", "rgb(245, 240, 223)" );
 
 			filteredArray = self.detailsPageSelectedEvents.selectedKindValues.filter( function ( e ) { return e !== eventKindValue } )
 			self.detailsPageSelectedEvents.selectedKindValues = filteredArray;

@@ -1,6 +1,6 @@
 ﻿<div id="lobbyEventSummary">
 	<div class="title-header">/Nadchodzące wydarzenia/</div>
-	<div style="overflow: hidden;" data-bind="foreach: publicEvents">
+	<div style="overflow: hidden; border-top: 2px solid rgb(250, 248, 240);padding-top:40px;padding-bottom:40px;" data-bind="foreach: publicEvents">
 		<div class="event-block-container">
 			<span style="display: none;" class="hidden-event-id" data-bind="text: id"></span>
 			<div class="event-block hover-cursor-pointer" data-bind="click: function () { $root.showEventDetailsOnEventBlockClick($element) }">
@@ -8,8 +8,8 @@
 					<span data-bind="text: kind.name"></span>
 				</div>
 				<div class="event-block-content">
-					<div><span data-bind="text: name, style: { fontSize: '1.6em', lineHeight: '1', paddingBottom: '4px' } "></span></div>
-					<div style="font-size: 1.4em;">
+					<div><span data-bind="text: name, style: { fontSize: '2em', lineHeight: '1', paddingBottom: '4px' } "></span></div>
+					<div style="font-size: 1.4em; color: rgb(192, 187, 172);">
 						<span>godzina: </span><span data-bind="text: startDate.formatZero(startDate.startHour)"></span><span>:</span><span data-bind="	text: startDate.formatZero(startDate.startMinute)"></span><span style="padding: 0 4px;"> - </span>
 						<span data-bind="text: startDate.formatZero(startDate.endHour)"></span><span>:</span><span data-bind="	text: startDate.formatZero(startDate.endMinute)"></span>
 					</div>

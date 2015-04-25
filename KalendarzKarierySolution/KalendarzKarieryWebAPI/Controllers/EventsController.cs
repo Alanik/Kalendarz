@@ -14,6 +14,7 @@ using KalendarzKarieryData.Repository.KalendarzKarieryRepository;
 using KalendarzKarieryCore.Consts;
 using KalendarzKarieryData.BO.Cache;
 using System.Text.RegularExpressions;
+using KalendarzKarieryCore.BO;
 
 
 namespace KalendarzKarieryWebAPI.Controllers
@@ -155,7 +156,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 
 			@event.Title = viewModel.Event.Title;
 			@event.NumberOfPeopleAttending = 0;
-			@event.DateAdded = DateTime.Now;
+			@event.DateAdded = DateTimeFacade.DateTimeNow();
 			@event.Description = viewModel.Event.Description;
 			@event.Details = viewModel.Event.Details;
 			@event.UrlLink = viewModel.Event.UrlLink;

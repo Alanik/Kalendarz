@@ -17,6 +17,7 @@ using KalendarzKarieryCore.Consts;
 using System.Web;
 using System.Web.Caching;
 using KalendarzKarieryData.BO.Cache;
+using KalendarzKarieryCore.BO;
 
 
 namespace KalendarzKariery.Controllers
@@ -47,7 +48,7 @@ namespace KalendarzKariery.Controllers
 					var user = _repository.GetUserById(id.Value);
 					if (user != null && user.UserAccountInfo != null)
 					{
-						user.UserAccountInfo.LastLogin = DateTime.Now;
+						user.UserAccountInfo.LastLogin = DateTimeFacade.DateTimeNow();
 						user.UserAccountInfo.NumOfLogins++;
 						_repository.Save();
 					}
@@ -81,7 +82,7 @@ namespace KalendarzKariery.Controllers
 				var user = _repository.GetUserById(id.Value);
 				if (user != null && user.UserAccountInfo != null)
 				{
-					user.UserAccountInfo.LastLogout = DateTime.Now;
+					user.UserAccountInfo.LastLogout = DateTimeFacade.DateTimeNow();
 					_repository.Save();
 				}
 				else

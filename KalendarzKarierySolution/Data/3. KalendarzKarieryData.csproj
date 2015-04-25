@@ -167,7 +167,12 @@
   <ItemGroup>
     <Content Include="SqlScripts\ReseedTable.sql" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\KalendarzKarieryCore\2. KalendarzKarieryCore.csproj">
+      <Project>{a2d99e83-cdef-4c1e-8e0a-bf4f697a6036}</Project>
+      <Name>2. KalendarzKarieryCore</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

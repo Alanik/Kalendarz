@@ -12,6 +12,7 @@ using KalendarzKarieryData.Repository.KalendarzKarieryRepository;
 using KalendarzKarieryData.BO.Cache;
 using KalendarzKarieryData.Models.AccountModels;
 using System.Linq;
+using KalendarzKarieryCore.BO;
 
 namespace KalendarzKariery.Controllers
 {

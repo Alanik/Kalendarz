@@ -12,6 +12,7 @@ using KalendarzKarieryData;
 using KalendarzKarieryData.Repository;
 using KalendarzKarieryData.Repository.KalendarzKarieryRepository;
 using KalendarzKarieryData.BO.Cache;
+using KalendarzKarieryCore.BO;
 
 namespace KalendarzKariery.BO.SeedMembership
 {
@@ -55,9 +56,9 @@ namespace KalendarzKariery.BO.SeedMembership
 			user.UserName = loginName;
 
 			user.UserAccountInfo = new UserAccountInfo();
-			user.UserAccountInfo.CreationDate = DateTime.Now;
+			user.UserAccountInfo.CreationDate = DateTimeFacade.DateTimeNow();
 			user.UserAccountInfo.NumOfLogins = 1;
-			user.UserAccountInfo.LastLogin = DateTime.Now;
+			user.UserAccountInfo.LastLogin = DateTimeFacade.DateTimeNow();
 
 			user.UserAccountInfoId = user.UserAccountInfo.Id;
 

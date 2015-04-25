@@ -10,6 +10,7 @@ using System.Data.Common;
 using KalendarzKarieryData.Models.DataTransferModels;
 using KalendarzKarieryData.BO.Cache;
 using System.Collections;
+using KalendarzKarieryCore.BO;
 
 
 namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
@@ -68,8 +69,8 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 			currentUser.UserAccountInfo = new UserAccountInfo
 			 {
 				 AverageLoginTime = 0,
-				 CreationDate = DateTime.Now,
-				 LastLogin = DateTime.Now,
+				 CreationDate = DateTimeFacade.DateTimeNow(),
+				 LastLogin = DateTimeFacade.DateTimeNow(),
 				 LastLogout = null,
 				 NumOfLogins = 1,
 				 TotalLoginTime = 0
@@ -123,7 +124,7 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 		{
 			var list = _entities.Events.Include( "User" ).Include( "Addresses" ).Include( "EventKind" ).Include( "PrivacyLevel" ).Where( m => m.OwnerUserId == id && m.StartDate.Year == year ).OrderBy( m => m.StartDate ).AsEnumerable();
 
-			var transformedList = list.Select( m => new JsonEventModel(m) );
+			var transformedList = list.Select( m => new JsonEventModel( m ) );
 
 			var groups = transformedList.ToLookup( m => m.startDate.Month ).Select( o => new EventsGroupedByMonthModel( o.Key, o.ToArray().ToLookup( t => t.startDate.Day ).Select( l => new EventsGroupedByDayModel( l.Key, l.ToArray() ) ) ) ).ToArray();
 
@@ -156,7 +157,7 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 			foreach (int num in years)
 			{
 				var list = _entities.Events.Include( "User" ).Include( "Addresses" ).Include( "EventKind" ).Include( "PrivacyLevel" ).Where( m => m.StartDate.Year == num && m.PrivacyLevel.Value == 2 ).OrderBy( m => m.StartDate ).AsEnumerable();
-				var transformedList = list.Select( m => new JsonEventModel(m));
+				var transformedList = list.Select( m => new JsonEventModel( m ) );
 
 				var groups = transformedList.ToLookup( m => m.startDate.Month ).Select( o => new EventsGroupedByMonthModel( o.Key, o.ToArray().ToLookup( t => t.startDate.Day ).Select( l => new EventsGroupedByDayModel( l.Key, l.ToArray() ) ) ) ).ToArray();
 
@@ -203,18 +204,22 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 
 		public object GetMyEventCountTree( int userId )
 		{
+			var now = DateTimeFacade.DateTimeNow();
+
 			var query = from e in _entities.Events.Where( m => m.OwnerUserId == userId )
 						group e by e.EventKind.Value into grp
-						select new { value = grp.Key, events = new { upcoming = grp.Where( m => m.StartDate > DateTime.Now ).Count(), all = grp.Count() } };
+						select new { value = grp.Key, events = new { upcoming = grp.Where( m => m.StartDate > now ).Count(), all = grp.Count() } };
 
 			return query;
 		}
 
 		public object GetPublicEventCountTree()
 		{
+			var now = DateTimeFacade.DateTimeNow();
+
 			var query = from e in _entities.Events.Where( m => m.PrivacyLevel.Value == 2 )
 						group e by e.EventKind.Value into grp
-						select new { value = grp.Key, events = new { upcoming = grp.Where( m => m.StartDate > DateTime.Now ).Count(), all = grp.Count() } };
+						select new { value = grp.Key, events = new { upcoming = grp.Where( m => m.StartDate > now ).Count(), all = grp.Count() } };
 
 			return query;
 		}

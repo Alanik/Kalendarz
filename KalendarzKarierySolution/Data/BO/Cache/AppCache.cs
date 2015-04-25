@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KalendarzKarieryCore.BO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Caching;
@@ -22,7 +23,7 @@ namespace KalendarzKarieryData.BO.Cache
 		public static void Set(string key, object data, int cacheTime = CacheTime)
 		{
 			CacheItemPolicy policy = new CacheItemPolicy();
-			policy.AbsoluteExpiration = DateTime.Now + TimeSpan.FromMinutes(cacheTime);
+			policy.AbsoluteExpiration = DateTimeFacade.DateTimeNow() + TimeSpan.FromMinutes(cacheTime);
 
 			Cache.Set(new CacheItem(key, data), policy);
 		}

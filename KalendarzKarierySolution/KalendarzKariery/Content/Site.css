@@ -1061,6 +1061,10 @@ background:rgb(115, 233, 162);
 	margin-top: 10px;
 }
 
+.div-separator label{
+	display:block;
+}
+
 #todayDateDay {
 	font-size: 70px;
 	display: inline-block;
@@ -1410,13 +1414,12 @@ wydarzenia-tab {
 	}
 
 	.slick-contact-form input[type=text], input[type=password], textarea, select {
-		/*font: 14px normal normal uppercase;*/
 		color: #7c7873;
 		background: none;
 		width: 220px;
 		height: 36px;
 		padding: 0px 10px;
-		border: 1px solid #f8f5f1;
+		border: 2px solid #f8f5f1;
 		-moz-border-radius: 5px;
 		-webkit-border-radius: 5px;
 		border-radius: 5px;
@@ -1439,9 +1442,9 @@ wydarzenia-tab {
 		width: 150px !important;
 	}
 
-	.slick-contact-form textarea:focus, input[type=text]:focus, input[type=password]:focus {
+	.slick-contact-form textarea:focus, input[type=text]:focus, input[type=password]:focus select:focus{
 		background: rgba(255,255,255,.35);
-		border: 1px solid white;
+		border: 2px solid white;
 	}
 
 
@@ -1529,7 +1532,6 @@ legend {
 -----------------------------------------------------------*/
 .field-validation-error {
 	color: #f00;
-	padding: 0 4px;
 }
 
 .field-validation-valid {

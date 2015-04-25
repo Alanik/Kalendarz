@@ -81,7 +81,7 @@
 			"pageName": "details",
 			"showOldEvents": ko.observable( false )
 		},
-		"selectedKindValues" : []
+		"selectedKindValues": []
 	}
 
 	//TODO: change into event tree with arrays grouped by event kind
@@ -89,7 +89,7 @@
 		"old": ko.observableArray( [] ),
 		"upcoming": ko.observableArray( [] ),
 		"settings": {
-			"pageName" : "lobby",	
+			"pageName": "lobby",
 			"showOldEvents": ko.observable( false )
 		},
 		"selectedKindValues": []
@@ -110,31 +110,30 @@
 		//		"9": [{ "2": [event] }]	
 		//			}
 	};
-	self.publicEventTreeCountBasedOnEventKind = {
-		// example
-		//
-		//"1": {
-		//	"upcoming": ko.observable(10),
-		//	"old" : ko.observable(20)
-		//},
-		//"2": {
-		//	"upcoming": ko.observable(10),
-		//	"old" : ko.observable(20)
-		//},
-	};
+	self.publicEventTreeCountBasedOnEventKind = null;
+	// example
+	//
+	//"1": {
+	//	"upcoming": ko.observable(10),
+	//	"old" : ko.observable(20)
+	//},
+	//"2": {
+	//	"upcoming": ko.observable(10),
+	//	"old" : ko.observable(20)
+	//}
 
-	self.myEventTreeCountBasedOnEventKind = {
-		// example
-		//
-		//"1": {
-		//	"upcoming": ko.observable(10),
-		//	"old" : ko.observable(20)
-		//},
-		//"2": {
-		//	"upcoming": ko.observable(10),
-		//	"old" : ko.observable(20)
-		//},
-	};
+	self.myEventTreeCountBasedOnEventKind = null
+	// example
+	//
+	//"1": {
+	//	"upcoming": ko.observable(10),
+	//	"old" : ko.observable(20)
+	//},
+	//"2": {
+	//	"upcoming": ko.observable(10),
+	//	"old" : ko.observable(20)
+	//}
+
 
 	self.myEventTree = {
 		// example to remember the format of myEventTree object
@@ -277,7 +276,7 @@
 				return false;
 			}
 
-			
+
 			var startEventDate = new Date( year, month - 1, day, startHour, startMinute, 0, 0 );
 			var endEventDate = new Date( year, month - 1, day, endHour, endMinute, 0, 0 );
 
@@ -698,7 +697,7 @@
 		var isCurrentYear = false, isCurrentMonth = false, isCurrentDay = false;
 		var date = new Date();
 
-		if (typeof oldUpcomingOrAll == 'undefined')
+		if ( typeof oldUpcomingOrAll == 'undefined' )
 		{
 			oldUpcomingOrAll = "all";
 		}
@@ -720,9 +719,9 @@
 
 					for ( var month in yearNode )
 					{
-						parsedMonth = parseInt(month, 10);
+						parsedMonth = parseInt( month, 10 );
 
-						if (isCurrentYear && parsedMonth > (date.getMonth() + 1))
+						if ( isCurrentYear && parsedMonth > ( date.getMonth() + 1 ) )
 						{
 							continue;
 						}
@@ -732,14 +731,14 @@
 
 						for ( day in monthNode )
 						{
-							parsedDay = parseInt(day, 10);
+							parsedDay = parseInt( day, 10 );
 
-							if (isCurrentYear && isCurrentMonth && parsedDay > date.getDate() )
+							if ( isCurrentYear && isCurrentMonth && parsedDay > date.getDate() )
 							{
 								continue;
 							}
 
-							isCurrentDay = (parsedDay == date.getDate());
+							isCurrentDay = ( parsedDay == date.getDate() );
 							daysArr = monthNode[day];
 
 							for ( var i = 0; i < daysArr.length; i++ )
@@ -747,7 +746,7 @@
 								event = daysArr[i];
 								prop = event;
 
-								if (isCurrentYear && isCurrentMonth && isCurrentDay && ( event.startDate.endHour > date.getHours() || (event.startDate.endHour == date.getHours() && event.startDate.endMinute > date.getMinutes())))
+								if ( isCurrentYear && isCurrentMonth && isCurrentDay && ( event.startDate.endHour > date.getHours() || ( event.startDate.endHour == date.getHours() && event.startDate.endMinute > date.getMinutes() ) ) )
 								{
 									continue;
 								}
@@ -760,7 +759,7 @@
 								for ( var n = 0; n < values.length; n++ )
 								{
 
-									if ( prop === values[n])
+									if ( prop === values[n] )
 									{
 										arr.push( event );
 										break;
@@ -789,7 +788,7 @@
 					{
 						parsedMonth = parseInt( month, 10 );
 
-						if (isCurrentYear && parsedMonth < ( date.getMonth() + 1 ) )
+						if ( isCurrentYear && parsedMonth < ( date.getMonth() + 1 ) )
 						{
 							continue;
 						}
@@ -877,7 +876,7 @@
 				}
 				return arr;
 			default: return arr;
-		}		
+		}
 	}
 
 	self.drawEventToCalendar = function ( event )
@@ -961,7 +960,6 @@
 
 	self.moveToDetailsPageOnCalendarCellClick = function ( element )
 	{
-
 		self.displayPageEventMostBottomRow = 1;
 		var day = $( element ).attr( "dayNumber" );
 		var dayInt = parseInt( day, 10 );
@@ -1031,7 +1029,7 @@
 	{
 		var filteredArray;
 		var $menuItem = $( element ).find( ".menu-item" );
-		var eventKindValue = parseInt( $menuItem.attr( "data-eventkind" ), 10);
+		var eventKindValue = parseInt( $menuItem.attr( "data-eventkind" ), 10 );
 		var $menuItemContainer = $menuItem.closest( ".menu-item-container" );
 
 		$menuItemContainer.toggleClass( "selected" );
@@ -1052,7 +1050,7 @@
 			removeSelectedEvents( lobbyOrDetailsPageSelectedEvents.settings.pageName );
 		}
 
-		function showSelectedEvents(lobbyOrDetails)
+		function showSelectedEvents( lobbyOrDetails )
 		{
 			var combinedArray = [], combinedArray2 = [], arr, arr2, shownEvents;
 
@@ -1085,7 +1083,7 @@
 			} else
 			{
 				$( "#lobby #lobbyPageAllEventsListContainer" ).show();
-				arr = self.getFilteredEventsFromEventTree( self.publicEventTree, ["kind", "value"], [eventKindValue], "upcoming");
+				arr = self.getFilteredEventsFromEventTree( self.publicEventTree, ["kind", "value"], [eventKindValue], "upcoming" );
 				shownEvents = lobbyOrDetailsPageSelectedEvents.upcoming();
 
 				if ( shownEvents.length )
@@ -1104,7 +1102,7 @@
 
 				if ( lobbyOrDetailsPageSelectedEvents.settings.showOldEvents() )
 				{
-					showOldEvents(self.publicEventTree)
+					showOldEvents( self.publicEventTree )
 				}
 			}
 
@@ -1129,7 +1127,7 @@
 				}
 			}
 		}
-		function removeSelectedEvents(lobbyOrDetails)
+		function removeSelectedEvents( lobbyOrDetails )
 		{
 			var array, array2, $container;
 
@@ -1687,8 +1685,8 @@
 
 		$addNewEvent.detach();
 
-		$calendar.find(".month-name-header-container .current-month-name-calendar").removeClass( "current-month-name-calendar" );
-		$calendar.find(".month-name-header-container:eq( '" + monthNum  + "' )" ).addClass( "current-month-name-calendar" );
+		$calendar.find( ".month-name-header-container .current-month-name-calendar" ).removeClass( "current-month-name-calendar" );
+		$calendar.find( ".month-name-header-container:eq( '" + monthNum + "' )" ).addClass( "current-month-name-calendar" );
 
 		$calendar.calendarWidget( { month: monthNum, year: self.calendarPageDisplayDate.year() } );
 		ko.unapplyBindings( $calendar[0] );
@@ -1751,7 +1749,7 @@
 			$( this ).css( {
 				"cursor": "auto"
 			} );
-			
+
 		} );
 
 		self.calendarPageDisplayDate.month( monthNum + 1 );
@@ -1786,7 +1784,7 @@
 
 	self.showEventBlockInfoOnDetailsPageEventRectangleClick = function ( id )
 	{
-	//TODO: maybe remove hidden-event-id and use data- attribute instead
+		//TODO: maybe remove hidden-event-id and use data- attribute instead
 		var $container = $( "#details #detailsEventBlockList .event-block-container .hidden-event-id:contains(" + id + ")" ).parent();
 		var block = $container.find( ".event-block" )[0];
 		self.showEventDetailsOnEventBlockClick( block );
@@ -1961,7 +1959,8 @@
 		$( "#details #clockCanvas" ).fadeIn();
 	}
 
-	self.hideDetailsPageClockContainer = function (){
+	self.hideDetailsPageClockContainer = function ()
+	{
 		$( "#details #clockCanvas" ).hide();
 	}
 

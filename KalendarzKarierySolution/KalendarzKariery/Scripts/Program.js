@@ -64,8 +64,6 @@
 		calendarViewModel.publicEventTree = eventTreeBuilder.buildEventTree(indexViewModel.PublicEvents, calendarViewModel, true);
 		calendarViewModel.publicEventTreeCountBasedOnEventKind = eventTreeBuilder.buildEventTreeCountBasedOnEventKind(indexViewModel.PublicEventCountTree, calendarViewModel.eventKinds);			
 		calendarViewModel.newsEvents = eventTreeBuilder.transformNews( indexViewModel.News );
-		calendarViewModel.myEventTreeCountBasedOnEventKind = null;
-		calendarViewModel.myEventTree = null;
 
 		if ( indexViewModel.MyEvents )
 		{
@@ -131,7 +129,7 @@
 		calendarViewModel.detailsPageDisplayDate.year(date.getFullYear());
 		calendarViewModel.detailsPageDisplayDate.month(date.getMonth() + 1);
 		calendarViewModel.detailsPageDisplayDate.day(date.getDate());
-		calendarViewModel.detailsPageDisplayDate.weekday(currentWeekday);
+		calendarViewModel.detailsPageDisplayDate.weekday( currentWeekday );
 
 		var events = calendarViewModel.getEventsForGivenDay(date.getDate())
 		calendarViewModel.detailsPageDayEvents(events);

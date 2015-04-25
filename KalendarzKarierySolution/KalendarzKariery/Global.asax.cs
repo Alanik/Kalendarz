@@ -24,6 +24,7 @@ namespace KalendarzKariery
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 			AuthConfig.RegisterAuth();
 
+			//BundleTable.EnableOptimizations = true;
 			InitializeMembership.SeedMembership();
 			Effort.Provider.EffortProviderConfiguration.RegisterProvider();
 

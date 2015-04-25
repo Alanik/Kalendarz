@@ -1,11 +1,11 @@
-﻿<div id="detailsPageAllEventsListContainer">
+﻿<div id="detailsPageAllEventsListContainer" class="display-events-overview-container">
 	<div style="padding: 5px; padding-left: 20px; color: rgb(231, 224, 202); border-bottom: 1px solid rgb(242, 242, 242); font-size: 1.4em; background: rgb(186, 176, 146); border-top-left-radius: 6px; border-top-right-radius: 6px;">
 		Mój kalendarz
 	</div>
 
 	<div style="padding: 20px;">
-		<div class="hover-cursor-pointer" id="showOldEventsCheckboxContainer" style="color: rgb(147, 139, 114); width: 240px;" data-bind="click: function () { $root.toggleShowOldEventsOnCheckboxClick( $element ) }">
-			<div id="showOldEventsCheckbox" style="vertical-align:bottom; border: 2px solid rgb(255, 250, 232); height: 22px; width: 22px; text-align: center; padding: 4px; border-radius: 4px; display: inline-block;"></div>
+		<div class="hover-cursor-pointer" style="color: rgb(147, 139, 114); width: 240px;" data-bind="click: function () { $root.toggleShowOldEventsOnCheckboxClick( $element, $root.detailsPageSelectedEvents ) }">
+			<div class="show-old-events-checkbox"></div>
 			<span style="padding: 4px;">Pokaż stare wydarzenia</span>
 		</div>
 	</div>
@@ -19,8 +19,8 @@
 
 	<div data-bind="foreach: $root.detailsPageSelectedEvents.old" style="text-align: center;">
 		<!-- ko if: $index() == 0 -->
-		<div style="color: rgb(147, 139, 114); padding: 10px 0; font-size: 2em;">
-			/stare/
+		<div style="color:rgb(255, 250, 232);/*color: rgb(147, 139, 114); */ padding: 10px 0; font-size: 2em;">
+			stare
 		</div>
 		<!-- /ko -->
 
@@ -34,8 +34,8 @@
 
 	<div data-bind="foreach: $root.detailsPageSelectedEvents.upcoming" style="text-align: center;">
 		<!-- ko if: $index() == 0 -->
-		<div style="color: rgb(147, 139, 114); padding: 10px 0; font-size: 2em;">
-			/nadchodzące/
+		<div style="color: rgb(255, 250, 232); padding: 10px 0; font-size: 2em;">
+			nadchodzące
 		</div>
 		<!-- /ko -->
 

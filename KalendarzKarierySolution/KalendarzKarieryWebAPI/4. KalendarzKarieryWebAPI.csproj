@@ -131,13 +131,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Data\KalendarzKarieryData.csproj">
+    <ProjectReference Include="..\Data\3. KalendarzKarieryData.csproj">
       <Project>{556eca30-9acb-4557-abab-a1434957a871}</Project>
-      <Name>KalendarzKarieryData</Name>
+      <Name>3. KalendarzKarieryData</Name>
     </ProjectReference>
-    <ProjectReference Include="..\KalendarzKarieryCore\KalendarzKarieryCore.csproj">
+    <ProjectReference Include="..\KalendarzKarieryCore\2. KalendarzKarieryCore.csproj">
       <Project>{a2d99e83-cdef-4c1e-8e0a-bf4f697a6036}</Project>
-      <Name>KalendarzKarieryCore</Name>
+      <Name>2. KalendarzKarieryCore</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

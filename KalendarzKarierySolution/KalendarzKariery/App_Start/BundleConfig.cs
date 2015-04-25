@@ -28,19 +28,22 @@ namespace KalendarzKariery
 
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/Site.css", "~/Content/MediaQueries.css"));
 
-            bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
-                        "~/Content/themes/base/jquery.ui.core.css",
-                        "~/Content/themes/base/jquery.ui.resizable.css",
-                        "~/Content/themes/base/jquery.ui.selectable.css",
-                        "~/Content/themes/base/jquery.ui.accordion.css",
-                        "~/Content/themes/base/jquery.ui.autocomplete.css",
-                        "~/Content/themes/base/jquery.ui.button.css",
-                        "~/Content/themes/base/jquery.ui.dialog.css",
-                        "~/Content/themes/base/jquery.ui.slider.css",
-                        "~/Content/themes/base/jquery.ui.tabs.css",
-                        "~/Content/themes/base/jquery.ui.datepicker.css",
-                        "~/Content/themes/base/jquery.ui.progressbar.css",
-                        "~/Content/themes/base/jquery.ui.theme.css"));
+			bundles.Add(new ScriptBundle("~/bundles/kalendarzKarieryScripts").Include(
+			"~/Scripts/Lib/SpinJS/spin.min.js",
+			"~/Scripts/KnockoutCustomBindings/KOCustomBindings.js",
+			"~/Scripts/CalendarWidget/calendarWidget.js",
+			"~/Scripts/CalendarWidget/Slider/jquery.animate-enhanced.min.js",
+			"~/Scripts/CalendarWidget/Slider/jquery.easing.1.3.js",
+			"~/Scripts/CalendarWidget/Slider/jquery.superslides.min.js",
+			"~/Scripts/JSModels/KKEventModel.js",
+			"~/Scripts/JSModels/KKEventModelObservable.js",
+			"~/Scripts/JSModels/KKDateModel.js",
+			"~/Scripts/JSModels/KKEventDateModel.js",
+			"~/Scripts/JSViewModels/CalendarViewModel.js",
+			"~/Scripts/Helpers/EventColorHelper.js",
+			"~/Scripts/Helpers/EventTreeBuilder.js",
+			"~/Scripts/Helpers/EventFactory.js",
+			"~/Scripts/Program.js"));
         }
     }
 }

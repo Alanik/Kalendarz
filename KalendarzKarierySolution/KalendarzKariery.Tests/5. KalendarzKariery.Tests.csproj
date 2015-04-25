@@ -171,9 +171,9 @@
     <None Include="Scripts\jquery-2.0.3.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\KalendarzKariery\KalendarzKariery.csproj">
+    <ProjectReference Include="..\KalendarzKariery\1. KalendarzKariery.csproj">
       <Project>{7C231524-5F3B-4E35-A009-EB4B87D01AD9}</Project>
-      <Name>KalendarzKariery</Name>
+      <Name>1. KalendarzKariery</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

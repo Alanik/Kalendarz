@@ -7,18 +7,21 @@ namespace KalendarzKarieryData.Enums
 {
 	public enum EventKindEnum
 	{
-		aktualności = 0,
+		none = 0,
 		wydarzenie = 1,
-		zajęcia = 2,
-		szkolenie = 3,
-		kurs = 4,
+		lekcje = 2,
+		zajęcia = 3,
+		szkolenie = 4,
+		kurs = 5,
 		spotkanie = 6,
-		inne = 7
+		inne = 7,
+		aktualności = 8
 	}
 
 	public enum PrivacyLevel
 	{
-		@private = 0,
-		@public = 1
+		none = 0,
+		prywatne = 1,
+		publiczne = 2
 	}
 }

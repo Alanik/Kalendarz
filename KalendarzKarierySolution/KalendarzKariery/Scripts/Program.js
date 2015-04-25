@@ -42,7 +42,7 @@
 		this.spinner.spin($target[0]);
 		$target.show();
 	},
-	initialize: function ( indexViewModel ){
+	initialize: function ( indexViewModel, userName ){
 
 		//console.log(indexViewModel);
 
@@ -57,14 +57,15 @@
 		});
 
 		var currentWeekday = $calendar.find(".today-cell").attr("weekday");
-		var calendarViewModel = new CalendarViewModel(date.getFullYear(), date.getMonth() + 1, date.getDate(), currentWeekday, '@User.Identity.Name', this.spinner);	
+		var calendarViewModel = new CalendarViewModel(date.getFullYear(), date.getMonth() + 1, date.getDate(), currentWeekday, userName, this.spinner);	
 				
 		calendarViewModel.eventPrivacyLevels = indexViewModel.PrivacyLevels;
 		calendarViewModel.eventKinds = indexViewModel.EventKinds;				
 		calendarViewModel.publicEventTree = eventTreeBuilder.buildEventTree(indexViewModel.PublicEvents, calendarViewModel, true);
 		calendarViewModel.publicEventTreeCountBasedOnEventKind = eventTreeBuilder.buildEventTreeCountBasedOnEventKind(indexViewModel.PublicEventCountTree, calendarViewModel.eventKinds);			
-		calendarViewModel.newsEvents = eventTreeBuilder.transformNews(indexViewModel.News);
+		calendarViewModel.newsEvents = eventTreeBuilder.transformNews( indexViewModel.News );
 		calendarViewModel.myEventTreeCountBasedOnEventKind = null;
+		calendarViewModel.myEventTree = null;
 
 		if ( indexViewModel.MyEvents )
 		{

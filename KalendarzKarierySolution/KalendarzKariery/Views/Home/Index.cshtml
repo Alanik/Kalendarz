@@ -70,11 +70,13 @@
 
 @Scripts.Render( "~/bundles/jquery" )
 @Scripts.Render( "~/bundles/jqueryval" )
-@Scripts.Render( "~/bundles/jqueryui" )
 @Scripts.Render( "~/bundles/modernizr" )
 @Scripts.Render( "~/bundles/knockout" )
 
 <script src="~/Scripts/Lib/raphael-min.js"></script>
+
+@*@Scripts.Render( "~/bundles/kalendarzKarieryScripts" )*@
+
 <script src="~/Scripts/Lib/SpinJS/spin.min.js"></script>
 <script src="~/Scripts/KnockoutCustomBindings/KOCustomBindings.js"></script>
 <script src="~/Scripts/CalendarWidget/calendarWidget.js"></script>
@@ -103,9 +105,10 @@
 
 		var PROGRAM = Program;
 		var indexViewModel = @Html.Raw( Json.Encode( @Model.IndexViewModel ) );
+		var userName = '@User.Identity.Name';
 
 		PROGRAM.initializeAndStartSpinner();
-		PROGRAM.initialize(indexViewModel);
+		PROGRAM.initialize(indexViewModel, userName);
 	});
 
 </script>

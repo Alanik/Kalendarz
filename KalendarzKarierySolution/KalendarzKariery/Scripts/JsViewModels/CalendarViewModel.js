@@ -2,6 +2,8 @@
 {
 	var self = this;
 	var colorHelper = new EventColorHelper();
+
+	//TODO: inject today date from server
 	var date = new Date();
 
 	//////////////////////////////////////////////////////////
@@ -29,7 +31,7 @@
 
 	self.monthNames = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'];
 	self.dayNames = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'];
-	self.userName = userName ? userName : '';
+	self.userName = userName;
 
 	self.eventKinds = [];
 	self.eventPrivacyLevels = [];
@@ -76,13 +78,22 @@
 		"old": ko.observableArray( [] ),
 		"upcoming": ko.observableArray( [] ),
 		"settings": {
+			"pageName": "details",
 			"showOldEvents": ko.observable( false )
 		},
 		"selectedKindValues" : []
 	}
 
 	//TODO: change into event tree with arrays grouped by event kind
-	self.lobbyPageSelectedEvents = ko.observableArray( [] );
+	self.lobbyPageSelectedEvents = {
+		"old": ko.observableArray( [] ),
+		"upcoming": ko.observableArray( [] ),
+		"settings": {
+			"pageName" : "lobby",	
+			"showOldEvents": ko.observable( false )
+		},
+		"selectedKindValues": []
+	}
 
 	self.newsEvents = [];
 
@@ -617,22 +628,30 @@
 		$block.toggleClass( "open" );
 	};
 
-	self.toggleShowOldEventsOnCheckboxClick = function ( element )
+	self.toggleShowOldEventsOnCheckboxClick = function ( element, lobbyOrDetailsPageSelectedEvents )
 	{
-		var $chkbox = $( element ).find( "#showOldEventsCheckbox" );
+		var $chkbox = $( element ).find( ".show-old-events-checkbox" );
 		var eventsArr;
 
-		if ( self.detailsPageSelectedEvents.settings.showOldEvents() )
+		if ( lobbyOrDetailsPageSelectedEvents.settings.showOldEvents() )
 		{
-			self.detailsPageSelectedEvents.settings.showOldEvents( false );
-			self.detailsPageSelectedEvents.old([]);
+			lobbyOrDetailsPageSelectedEvents.settings.showOldEvents( false );
+			lobbyOrDetailsPageSelectedEvents.old( [] );
 			$chkbox.empty();
 		}
 		else
 		{
-			self.detailsPageSelectedEvents.settings.showOldEvents( true );
-			eventsArr = self.getFilteredEventsFromEventTree( self.myEventTree, ["kind", "value"], self.detailsPageSelectedEvents.selectedKindValues, "old" );
-			self.detailsPageSelectedEvents.old( eventsArr );
+			lobbyOrDetailsPageSelectedEvents.settings.showOldEvents( true );
+
+			if ( lobbyOrDetailsPageSelectedEvents.pageName == "details" )
+			{
+				eventsArr = self.getFilteredEventsFromEventTree( self.myEventTree, ["kind", "value"], lobbyOrDetailsPageSelectedEvents.selectedKindValues, "old" );
+			} else
+			{
+				eventsArr = self.getFilteredEventsFromEventTree( self.publicEventTree, ["kind", "value"], lobbyOrDetailsPageSelectedEvents.selectedKindValues, "old" );
+			}
+
+			lobbyOrDetailsPageSelectedEvents.old( eventsArr );
 			$chkbox.text( "✓" );
 		}
 	};
@@ -1008,47 +1027,39 @@
 		}, 10 )
 	};
 
-	self.showSelectedEventsOnMenuItemClick = function ( element )
+	self.showSelectedEventsOnMenuItemClick = function ( element, lobbyOrDetailsPageSelectedEvents )
 	{
 		var filteredArray;
-		var $clock = $( "#details #clockCanvas" );
 		var $menuItem = $( element ).find( ".menu-item" );
-
-		var eventKindValue = $menuItem.attr( "data-eventkind" );
-		eventKindValue = parseInt( eventKindValue, 10 );
-
-		var eventPrivacyLevelName = $menuItem.attr( "data-privacylvl" );
-
+		var eventKindValue = parseInt( $menuItem.attr( "data-eventkind" ), 10);
 		var $menuItemContainer = $menuItem.closest( ".menu-item-container" );
+
 		$menuItemContainer.toggleClass( "selected" );
 
 		if ( $menuItemContainer.hasClass( "selected" ) )
 		{
 			$menuItemContainer.css( "top", "20px" );
-			//$menuItemContainer.css( "background", "rgb(239, 232, 208)" );
 
-			self.detailsPageSelectedEvents.selectedKindValues.push( eventKindValue );
-			showSelectedEvents();
+			lobbyOrDetailsPageSelectedEvents.selectedKindValues.push( eventKindValue );
+			showSelectedEvents( lobbyOrDetailsPageSelectedEvents.settings.pageName );
 
 		} else
 		{
 			$menuItemContainer.css( "top", "0px" );
-			//$menuItemContainer.css( "background", "rgb(245, 240, 223)" );
 
-			filteredArray = self.detailsPageSelectedEvents.selectedKindValues.filter( function ( e ) { return e !== eventKindValue } )
-			self.detailsPageSelectedEvents.selectedKindValues = filteredArray;
-			removeSelectedEvents();
+			filteredArray = lobbyOrDetailsPageSelectedEvents.selectedKindValues.filter( function ( e ) { return e !== eventKindValue } )
+			lobbyOrDetailsPageSelectedEvents.selectedKindValues = filteredArray;
+			removeSelectedEvents( lobbyOrDetailsPageSelectedEvents.settings.pageName );
 		}
 
-		function showSelectedEvents()
+		function showSelectedEvents(lobbyOrDetails)
 		{
 			var combinedArray = [], combinedArray2 = [], arr, arr2, shownEvents;
 
-			//TODO: change check from privacyLvlName to privacyLvl
-			if ( eventPrivacyLevelName == "private" )
+			if ( lobbyOrDetails == "details" )
 			{
 				arr = self.getFilteredEventsFromEventTree( self.myEventTree, ["kind", "value"], [eventKindValue], "upcoming" );
-				shownEvents = self.detailsPageSelectedEvents.upcoming();
+				shownEvents = lobbyOrDetailsPageSelectedEvents.upcoming();
 
 				if ( shownEvents.length )
 				{
@@ -1058,39 +1069,24 @@
 						return ( a.startDate.javaScriptStartDate - b.startDate.javaScriptStartDate );
 					} );
 
-					self.detailsPageSelectedEvents.upcoming( combinedArray );
+					lobbyOrDetailsPageSelectedEvents.upcoming( combinedArray );
 				} else
 				{
-					self.detailsPageSelectedEvents.upcoming( arr );
+					lobbyOrDetailsPageSelectedEvents.upcoming( arr );
 
 					$( "#details #detailsPageAllEventsListContainer" ).show();
-					$clock.hide();
+					self.hideDetailsPageClockContainer();
 				}
 
-				if ( self.detailsPageSelectedEvents.settings.showOldEvents())
+				if ( lobbyOrDetailsPageSelectedEvents.settings.showOldEvents() )
 				{
-					arr2 = self.getFilteredEventsFromEventTree( self.myEventTree, ["kind", "value"], [eventKindValue], "old" );
-					shownEvents = self.detailsPageSelectedEvents.old();
-
-					if ( shownEvents.length )
-					{
-						combinedArray2 = arr2.concat( shownEvents );
-						combinedArray2.sort( function ( a, b )
-						{
-							return ( a.startDate.javaScriptStartDate - b.startDate.javaScriptStartDate );
-						} );
-
-						self.detailsPageSelectedEvents.old( combinedArray2 );
-					} else
-					{
-						self.detailsPageSelectedEvents.old( arr2 );
-					}
+					showOldEvents( self.myEventTree );
 				}
 			} else
 			{
 				$( "#lobby #lobbyPageAllEventsListContainer" ).show();
-				arr = self.getFilteredEventsFromEventTree( self.publicEventTree, ["kind", "value"], [eventKindValue]);
-				shownEvents = self.lobbyPageSelectedEvents();
+				arr = self.getFilteredEventsFromEventTree( self.publicEventTree, ["kind", "value"], [eventKindValue], "upcoming");
+				shownEvents = lobbyOrDetailsPageSelectedEvents.upcoming();
 
 				if ( shownEvents.length )
 				{
@@ -1100,21 +1096,46 @@
 						return ( a.startDate.javaScriptStartDate - b.startDate.javaScriptStartDate );
 					} );
 
-					self.lobbyPageSelectedEvents( combinedArray );
+					lobbyOrDetailsPageSelectedEvents.upcoming( combinedArray );
 				} else
 				{
-					self.lobbyPageSelectedEvents( arr );
+					lobbyOrDetailsPageSelectedEvents.upcoming( arr );
+				}
+
+				if ( lobbyOrDetailsPageSelectedEvents.settings.showOldEvents() )
+				{
+					showOldEvents(self.publicEventTree)
+				}
+			}
+
+
+			function showOldEvents( eventTree )
+			{
+				arr2 = self.getFilteredEventsFromEventTree( eventTree, ["kind", "value"], [eventKindValue], "old" );
+				shownEvents = lobbyOrDetailsPageSelectedEvents.old();
+
+				if ( shownEvents.length )
+				{
+					combinedArray2 = arr2.concat( shownEvents );
+					combinedArray2.sort( function ( a, b )
+					{
+						return ( a.startDate.javaScriptStartDate - b.startDate.javaScriptStartDate );
+					} );
+
+					lobbyOrDetailsPageSelectedEvents.old( combinedArray2 );
+				} else
+				{
+					lobbyOrDetailsPageSelectedEvents.old( arr2 );
 				}
 			}
 		}
-		function removeSelectedEvents()
+		function removeSelectedEvents(lobbyOrDetails)
 		{
-			var array, array2;
+			var array, array2, $container;
 
-			//TODO: change check from privacyLvlName to privacyLvl
-			if ( eventPrivacyLevelName === "private" )
+			if ( lobbyOrDetails == "details" )
 			{
-				array = ko.utils.arrayFilter( self.detailsPageSelectedEvents.upcoming(), function ( item )
+				array = ko.utils.arrayFilter( lobbyOrDetailsPageSelectedEvents.upcoming(), function ( item )
 				{
 					return item.kind.value != eventKindValue;
 				} );
@@ -1123,26 +1144,31 @@
 				//	return (a.startDate.javaScriptStartDate - b.startDate.javaScriptStartDate);
 				//});
 
-				self.detailsPageSelectedEvents.upcoming( array );
+				lobbyOrDetailsPageSelectedEvents.upcoming( array );
 
-				if ( self.detailsPageSelectedEvents.settings.showOldEvents() )
+				if ( lobbyOrDetailsPageSelectedEvents.settings.showOldEvents() )
 				{
-					array2 = ko.utils.arrayFilter( self.detailsPageSelectedEvents.old(), function ( item )
+					array2 = ko.utils.arrayFilter( lobbyOrDetailsPageSelectedEvents.old(), function ( item )
 					{
 						return item.kind.value != eventKindValue;
 					} );
 
-					self.detailsPageSelectedEvents.old( array2 );
+					lobbyOrDetailsPageSelectedEvents.old( array2 );
 				}
 
 				if ( !$( "#details #detailsPanel .menu-item-container" ).hasClass( "selected" ) )
 				{
-					$( "#details #detailsPanel #detailsPageAllEventsListContainer" ).hide();
-					$clock.fadeIn();
+
+					$container = $( "#details #detailsPanel #detailsPageAllEventsListContainer" );
+					$container.hide();
+					$container.find( ".show-old-events-checkbox" ).text( "" );
+					lobbyOrDetailsPageSelectedEvents.settings.showOldEvents( false );
+
+					self.showDetailsPageClockContainer();
 				}
 			} else
 			{
-				array = ko.utils.arrayFilter( self.lobbyPageSelectedEvents(), function ( item )
+				array = ko.utils.arrayFilter( lobbyOrDetailsPageSelectedEvents.upcoming(), function ( item )
 				{
 					return item.kind.value != eventKindValue;
 				} );
@@ -1151,11 +1177,24 @@
 				//	return (a.startDate.javaScriptStartDate - b.startDate.javaScriptStartDate);
 				//});
 
-				self.lobbyPageSelectedEvents( array );
+				lobbyOrDetailsPageSelectedEvents.upcoming( array );
+
+				if ( lobbyOrDetailsPageSelectedEvents.settings.showOldEvents() )
+				{
+					array2 = ko.utils.arrayFilter( lobbyOrDetailsPageSelectedEvents.old(), function ( item )
+					{
+						return item.kind.value != eventKindValue;
+					} );
+
+					lobbyOrDetailsPageSelectedEvents.old( array2 );
+				}
 
 				if ( !$( "#lobby #lobbyEventsMenuContainer .menu-item-container" ).hasClass( "selected" ) )
 				{
-					$( "#lobby #lobbyPageAllEventsListContainer" ).hide();
+					$container = $( "#lobby #lobbyPageAllEventsListContainer" );
+					$container.hide();
+					$container.find( ".show-old-events-checkbox" ).text( "" );
+					lobbyOrDetailsPageSelectedEvents.settings.showOldEvents( false );
 				}
 			}
 		}
@@ -1915,6 +1954,15 @@
 			$( "#details #digitalClock" ).html( currentTimeString );
 
 		}
+	}
+
+	self.showDetailsPageClockContainer = function ()
+	{
+		$( "#details #clockCanvas" ).fadeIn();
+	}
+
+	self.hideDetailsPageClockContainer = function (){
+		$( "#details #clockCanvas" ).hide();
 	}
 
 	//////////////////////////////////////////////////////

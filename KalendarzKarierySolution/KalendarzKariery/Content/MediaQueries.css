@@ -12,11 +12,11 @@ MEDIA QUERIES
 	}
 
 	.slick-contact-form {
-		box-shadow: none !important;
+		box-shadow: none;
 	}
 
 		.slick-contact-form input[type=text], input[type=password], textarea, select {
-			box-shadow: none !important;
+			box-shadow: none;
 		}
 
 	.year-name-container {
@@ -28,6 +28,26 @@ MEDIA QUERIES
 	}
 
 	.today-day-header-calendar {
+		box-shadow: none;
+	}
+
+	.event-kind-tag {
+		box-shadow: none;
+	}
+
+	.myButton-white {
+		box-shadow: none;
+	}
+
+	#registerPageContainer {
+		box-shadow: none;
+	}
+
+	#loginPageContainer {
+		box-shadow: none;
+	}
+
+	.event-hover-container {
 		box-shadow: none;
 	}
 }

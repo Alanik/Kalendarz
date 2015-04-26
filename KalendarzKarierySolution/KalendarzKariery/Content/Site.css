@@ -599,9 +599,6 @@ body header {
 
 .menu-item-number-upcoming {
 	color: rgb(173, 165, 137);
-	/*box-shadow: 1px 1px 1px 0px rgb(186, 184, 174);*/
-	/*border-top: 1px solid rgb(250, 249, 230);*/
-	/*border-top: 1px solid rgb(248, 247, 233);*/
 	text-align: center;
 }
 
@@ -887,27 +884,9 @@ background:rgb(115, 233, 162);
 	margin-bottom: 50px;
 }
 
-.news-event-details {
-	border-top: 1px solid rgb(202, 202, 202);
-	background: rgba(0, 0, 0, 0.04);
-	box-shadow: 0 2px 0 white;
-	text-align: center;
-	position: relative;
-	overflow: hidden;
-}
-
 .left-event-details {
 	float: left;
 	position: relative;
-}
-
-.middle-event-details {
-	margin-left: 10px;
-	float: left;
-	position: relative;
-	background: rgba(65, 65, 13, 0.29);
-	box-shadow: 0 1px 5px rgb(60,60,60);
-	border: 1px solid rgb(243, 243, 243);
 }
 
 .right-event-details {

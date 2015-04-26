@@ -279,7 +279,7 @@
 			var startEventDate = new Date( year, month - 1, day, startHour, startMinute, 0, 0 );
 			var endEventDate = new Date( year, month - 1, day, endHour, endMinute, 0, 0 );
 
-			//var startDateJson = startEventDate.toJSON();
+			var startDateJson = startEventDate.toJSON();
 			//var endDateJson = endEventDate.toJSON();
 
 			//TODO: move this code to separate class and unit test it
@@ -296,6 +296,7 @@
 				type: "POST",
 				beforeSend: function () { self.showLoader( $overlay ); $( "#addNewEventContainer" ).hide(); },
 				data: $addEventForm.serialize() +
+				"&Event.StartDate=" + startDateJson +
 				"&EventStartDate.Year=" + year +
 				"&EventStartDate.Month=" + month +
 				"&EventStartDate.Day=" + day +

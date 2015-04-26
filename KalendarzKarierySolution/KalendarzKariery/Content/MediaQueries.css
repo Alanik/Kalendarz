@@ -4,6 +4,22 @@ MEDIA QUERIES
 
 @media (max-width: 1300px) {
 	.event-block {
-	box-shadow:none;
+		box-shadow: none;
+	}
+
+	.current-month-cell {
+		box-shadow: none;
+	}
+
+	.slick-contact-form {
+		box-shadow: none !important;
+	}
+
+		.slick-contact-form input[type=text], input[type=password], textarea, select {
+			box-shadow: none !important;
+		}
+
+	.year-name-container {
+		box-shadow: none;
 	}
 }

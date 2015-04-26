@@ -50,4 +50,8 @@ MEDIA QUERIES
 	.event-hover-container {
 		box-shadow: none;
 	}
+
+	.event-block-container {
+	width:45%;
+	}
 }

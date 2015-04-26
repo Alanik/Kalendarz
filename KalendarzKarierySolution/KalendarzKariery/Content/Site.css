@@ -144,6 +144,7 @@ body header {
 #layoutLogo {
 	background-image: url(../Images/Logo/kkLogo.png);
 	position: absolute !important;
+	top:-1px;
 	background-repeat: no-repeat;
 	height: 140px;
 	width: 540px;

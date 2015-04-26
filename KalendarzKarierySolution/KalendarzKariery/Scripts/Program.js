@@ -641,7 +641,6 @@
 				$txtbox.removeClass("input-validation-error");			
 			});
 
-			//add new event end hour and end minute select box
 			var $endDate = $("#addNewEventContainer .end-date-selectbox");
 			$endDate.change(function(){
 				$endDate.removeClass("input-validation-error");

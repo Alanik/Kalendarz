@@ -1,10 +1,4 @@
-﻿
-/*background:rgb(225, 219, 211);*/
-/*background:rgb(215, 207, 196);*/
-/*color:rgb(255, 253, 247);*/
-/*border:1px solid rgb(255, 253, 240);*/
-
-html {
+﻿html {
 	padding: 0px;
 	margin: 0px;
 }
@@ -25,13 +19,19 @@ header, footer, nav, section, div {
 	margin: 0;
 }
 
-.underline {
-	text-decoration: underline;
+@font-face {
+	font-family: Raleway;
+	src: url('Fonts/Raleway/Raleway-Thin.ttf');
 }
 
 @font-face {
-	font-family: Oxygen;
-	src: url('Fonts/Oxygen/Oxygen-Regular.ttf');
+	font-family: Raleway-Regular;
+	src: url('Fonts/Raleway/Raleway-Regular.ttf');
+}
+
+@font-face {
+	font-family: SegoeUI;
+	src: url('Fonts/SegoeUI/segoeui.ttf');
 }
 
 /*@font-face {
@@ -39,14 +39,16 @@ header, footer, nav, section, div {
 	src: url('Fonts/CodePro/CODE Bold.otf');
 }*/
 
-@font-face {
-	font-family: SegoeUI;
-	src: url('Fonts/SegoeUI/segoeui.ttf');
-}
+/*@font-face {
+	font-family: Oxygen;
+	src: url('Fonts/Oxygen/Oxygen-Regular.ttf');
+}*/
 
 /* Kalendarz Kariery
 -----------------------------------------------------------*/
-
+.underline {
+	text-decoration: underline;
+}
 
 .dotted-page-overlay {
 	background: url(../Images/point.png) repeat scroll 0 0 transparent;
@@ -55,9 +57,6 @@ header, footer, nav, section, div {
 	z-index: 100;
 	position: absolute;
 	display: none;
-}
-
-body header {
 }
 
 /*calendar css*/
@@ -425,7 +424,8 @@ body header {
 	text-align: right;
 	padding-right: 100px;
 	color: gray;
-	margin-bottom: 60px;
+	position:relative;
+	top:25px;
 }
 
 .lobby-loggedIn-bar {
@@ -644,7 +644,7 @@ body header {
 
 #lobbyPageAllEventsListContainer {
 	margin: 20px auto;
-	margin-top: 50px;
+	margin-top: 30px;
 }
 
 .display-events-overview-container {
@@ -690,10 +690,6 @@ body header {
 	padding-bottom: 2px;
 	background: rgb(245, 132, 132);
 	border-radius: 3px;
-}
-
-#addPublicEventBtn {
-	background: rgb(159, 151, 135);
 }
 
 .save-text {
@@ -865,19 +861,6 @@ background:rgb(115, 233, 162);
 	border-top: 2px solid rgb(174, 168, 144);
 }
 
-.moje-sprawy-text {
-	color: gray;
-	margin-right: 10px;
-}
-
-.moje-sprawy-container {
-	margin-bottom: 20px;
-}
-
-#moje-sprawy-container {
-	display: none;
-}
-
 .selected-content-container {
 	display: none;
 	margin-bottom: 50px;
@@ -911,14 +894,21 @@ background:rgb(115, 233, 162);
 	text-align: center;
 }
 
+#addPrivateEventBtn {
+  display: block;
+  padding-bottom: 20px;
+  margin-bottom: 0px;
+  border-bottom: 2px solid rgb(145, 141, 123);
+}
+
 #lobbyEventsMenuContainer {
 	margin: 0px auto;
 	display: block;
 	text-align: center;
-	/*background: rgb(228, 221, 197);*/
 	border-top: 2px solid rgb(250, 248, 240);
-	border-bottom: 2px solid rgb(250, 248, 240);
-	padding: 12px 0;
+	border-bottom: 2px solid rgb(145, 141, 123);
+	padding-top: 4px;
+	padding-bottom:10px;
 }
 
 #endDateValidationErrorMsg {
@@ -926,16 +916,11 @@ background:rgb(115, 233, 162);
 }
 
 .add-btn {
-	width: 300px;
 	padding: 10px;
-	color: rgb(250, 250, 250);
-	/* border: 2px solid rgb(238, 238, 238); */
-	/* border-radius: 6px; */
-	background: rgb(124, 214, 135);
-	/* display: inline-block; */
+	color: gray;
 	text-align: center;
-	margin: 1px;
 	display: inline-block;
+	margin-bottom:10px;
 }
 
 .year-name-container {
@@ -963,6 +948,7 @@ background:rgb(115, 233, 162);
 	position: relative;
 	font-size: .8em;
 	color: rgb(184,184,184);
+	visibility:hidden;
 }
 
 	#siteNavLegendContainer span {
@@ -1107,7 +1093,7 @@ background:rgb(115, 233, 162);
 	vertical-align: baseline;
 	position: relative;
 	top: 2px;
-	color: rgb(217, 208, 183);
+	color:rgb(205, 198, 180);
 }
 
 .event-kind-text {
@@ -1474,7 +1460,7 @@ Slider
 	}
 
 		.slides-pagination a.current {
-			background: rgb(208, 255, 227);
+			background: rgb(240, 255, 226);
 		}
 
 

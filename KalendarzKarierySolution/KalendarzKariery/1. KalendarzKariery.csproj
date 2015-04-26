@@ -203,6 +203,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Fonts\Oxygen\OFL.txt" />
+    <Content Include="Content\Fonts\Raleway\FONTLOG.txt" />
+    <Content Include="Content\Fonts\Raleway\images\raleway-1.jpeg" />
+    <Content Include="Content\Fonts\Raleway\images\raleway-2.jpeg" />
+    <Content Include="Content\Fonts\Raleway\images\raleway-3.jpeg" />
+    <Content Include="Content\Fonts\Raleway\images\raleway-4.jpeg" />
+    <Content Include="Content\Fonts\Raleway\OFL.txt" />
     <Content Include="Content\MediaQueries.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -253,6 +259,24 @@
     <Content Include="Data\FakeRepositoryCsvFiles\webpages_Membership.csv" />
     <Content Include="Data\FakeRepositoryCsvFiles\webpages_Roles.csv" />
     <Content Include="Data\FakeRepositoryCsvFiles\webpages_UsersInRoles.csv" />
+    <Content Include="Content\Fonts\Raleway\Raleway-Black-Italic.ttf" />
+    <Content Include="Content\Fonts\Raleway\Raleway-Black.ttf" />
+    <Content Include="Content\Fonts\Raleway\Raleway-Bold-Italic.ttf" />
+    <Content Include="Content\Fonts\Raleway\Raleway-Bold.ttf" />
+    <Content Include="Content\Fonts\Raleway\Raleway-ExtraBold-Italic.ttf" />
+    <Content Include="Content\Fonts\Raleway\Raleway-ExtraBold.ttf" />
+    <Content Include="Content\Fonts\Raleway\Raleway-ExtraLight-Italic.ttf" />
+    <Content Include="Content\Fonts\Raleway\Raleway-ExtraLight.ttf" />
+    <Content Include="Content\Fonts\Raleway\Raleway-Light-Italic.ttf" />
+    <Content Include="Content\Fonts\Raleway\Raleway-Light.ttf" />
+    <Content Include="Content\Fonts\Raleway\Raleway-Medium-Italic.ttf" />
+    <Content Include="Content\Fonts\Raleway\Raleway-Medium.ttf" />
+    <Content Include="Content\Fonts\Raleway\Raleway-Regular-Italic.ttf" />
+    <Content Include="Content\Fonts\Raleway\Raleway-Regular.ttf" />
+    <Content Include="Content\Fonts\Raleway\Raleway-SemiBold-Italic.ttf" />
+    <Content Include="Content\Fonts\Raleway\Raleway-SemiBold.ttf" />
+    <Content Include="Content\Fonts\Raleway\Raleway-Thin-Italic.ttf" />
+    <Content Include="Content\Fonts\Raleway\Raleway-Thin.ttf" />
     <None Include="Properties\PublishProfiles\Alan.pubxml" />
     <None Include="Scripts\Lib\jquery-2.0.3.intellisense.js" />
     <Content Include="Images\TestBackgrounds\1600x900.jpg" />
@@ -330,7 +354,6 @@
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Home\LobbyPage\_Register.cshtml" />
-    <Content Include="Views\Home\LobbyPage\_LobbyLoggedInBar.cshtml" />
     <Content Include="Views\Home\DetailsPage\_Details.cshtml" />
     <Content Include="Views\Home\LobbyPage\_lobbyEventSummary.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsEventSummary.cshtml" />

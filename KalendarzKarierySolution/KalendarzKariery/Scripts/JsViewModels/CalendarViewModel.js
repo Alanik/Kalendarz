@@ -342,6 +342,8 @@
 
 						var dayEvents = self.addEventToMyEventTree( eventToPush );
 
+						console.log(eventToPush);
+
 						self.setCalendarPlacementRow( dayEvents );
 						self.redrawCalendarCell( dayEvents, self.addNewEvent_Day() );
 

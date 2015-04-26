@@ -96,6 +96,7 @@
     <Compile Include="Models\DataTransferModels\EventsGroupedByYearModel.cs" />
     <Compile Include="Models\DataTransferModels\EventsGroupedByDayModel.cs" />
     <Compile Include="Models\DataTransferModels\EventsGroupedByMonthModel.cs" />
+    <Compile Include="Models\DataTransferModels\JsonDateTimeModel.cs" />
     <Compile Include="Models\DataTransferModels\JsonEventModel.cs" />
     <Compile Include="Models\ViewModels\DateModel.cs" />
     <Compile Include="Models\ViewModels\MainViewModel.cs" />

@@ -71,6 +71,7 @@
 			calendarViewModel.myEventTreeCountBasedOnEventKind = eventTreeBuilder.buildEventTreeCountBasedOnEventKind(indexViewModel.MyEventCountTree, calendarViewModel.eventKinds);
 
 			//console.log(JSON.stringify(calendarViewModel.myEventTree));
+			console.log(calendarViewModel.myEventTree);
 
 			//console.log(calendarViewModel.publicEvents);
 			//console.log(calendarViewModel.publicEventTree);

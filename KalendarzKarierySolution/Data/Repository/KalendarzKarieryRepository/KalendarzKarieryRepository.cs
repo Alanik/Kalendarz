@@ -126,7 +126,7 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 
 			var transformedList = list.Select( m => new JsonEventModel( m ) );
 
-			var groups = transformedList.ToLookup( m => m.startDate.Month ).Select( o => new EventsGroupedByMonthModel( o.Key, o.ToArray().ToLookup( t => t.startDate.Day ).Select( l => new EventsGroupedByDayModel( l.Key, l.ToArray() ) ) ) ).ToArray();
+			var groups = transformedList.ToLookup( m => m.startDate.month ).Select( o => new EventsGroupedByMonthModel( o.Key, o.ToArray().ToLookup( t => t.startDate.day ).Select( l => new EventsGroupedByDayModel( l.Key, l.ToArray() ) ) ) ).ToArray();
 
 			return new EventsGroupedByYearModel( year, groups );
 		}
@@ -142,7 +142,7 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 
 				var transformedList = list.Select( m => new JsonEventModel( m ) );
 
-				var groups = transformedList.ToLookup( m => m.startDate.Month ).Select( o => new EventsGroupedByMonthModel( o.Key, o.ToArray().ToLookup( t => t.startDate.Day ).Select( l => new EventsGroupedByDayModel( l.Key, l.ToArray() ) ) ) ).ToArray();
+				var groups = transformedList.ToLookup( m => m.startDate.month ).Select( o => new EventsGroupedByMonthModel( o.Key, o.ToArray().ToLookup( t => t.startDate.day ).Select( l => new EventsGroupedByDayModel( l.Key, l.ToArray() ) ) ) ).ToArray();
 				container.Add( new EventsGroupedByYearModel( num, groups ) );
 			}
 
@@ -159,7 +159,7 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 				var list = _entities.Events.Include( "User" ).Include( "Addresses" ).Include( "EventKind" ).Include( "PrivacyLevel" ).Where( m => m.StartDate.Year == num && m.PrivacyLevel.Value == 2 ).OrderBy( m => m.StartDate ).AsEnumerable();
 				var transformedList = list.Select( m => new JsonEventModel( m ) );
 
-				var groups = transformedList.ToLookup( m => m.startDate.Month ).Select( o => new EventsGroupedByMonthModel( o.Key, o.ToArray().ToLookup( t => t.startDate.Day ).Select( l => new EventsGroupedByDayModel( l.Key, l.ToArray() ) ) ) ).ToArray();
+				var groups = transformedList.ToLookup( m => m.startDate.month ).Select( o => new EventsGroupedByMonthModel( o.Key, o.ToArray().ToLookup( t => t.startDate.day ).Select( l => new EventsGroupedByDayModel( l.Key, l.ToArray() ) ) ) ).ToArray();
 
 				container.Add( new EventsGroupedByYearModel( num, groups ) );
 			}

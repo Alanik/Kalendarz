@@ -18,8 +18,8 @@ namespace KalendarzKarieryData.Models.DataTransferModels
 		public int? occupancyLimit { get; set; }
 		public string urlLink { get; set; }
 		public int calendarPlacementRow { get; set; }
-		public DateTime startDate { get; set; }
-		public DateTime? endDate { get; set; }
+		public JsonDateTimeModel startDate { get; set; }
+		public JsonDateTimeModel endDate { get; set; }
 		public int numberOfPeopleAttending { get; set; }
 		public object kind { get; set; }
 		public decimal price { get; set; }
@@ -38,8 +38,8 @@ namespace KalendarzKarieryData.Models.DataTransferModels
 				occupancyLimit = m.OccupancyLimit;
 				urlLink = m.UrlLink;
 				calendarPlacementRow = 1;
-				startDate = m.StartDate;
-				endDate = m.EndDate;
+				startDate = new JsonDateTimeModel(m.StartDate);
+				endDate = m.EndDate.HasValue ? new JsonDateTimeModel(m.EndDate.Value) : null;
 				numberOfPeopleAttending = m.NumberOfPeopleAttending ?? 0;
 				kind = new { name = m.EventKind.Name, value = m.EventKind.Value };
 				price = m.Price ?? 0;

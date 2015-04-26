@@ -144,7 +144,7 @@ body header {
 #layoutLogo {
 	background-image: url(../Images/Logo/kkLogo.png);
 	position: absolute !important;
-	top:-1px;
+	top: -1px;
 	background-repeat: no-repeat;
 	height: 140px;
 	width: 540px;
@@ -446,7 +446,7 @@ body header {
 .current-month-cell {
 	border: 2px solid white;
 	background-color: rgb(253,253,253);
-	box-shadow: rgb(235, 235, 235) 0px 3px 5px;
+	/*box-shadow: rgb(235, 235, 235) 0px 3px 5px;*/
 	color: black;
 	position: relative;
 }
@@ -1041,9 +1041,9 @@ background:rgb(115, 233, 162);
 	margin-top: 10px;
 }
 
-.div-separator label{
-	display:block;
-}
+	.div-separator label {
+		display: block;
+	}
 
 #todayDateDay {
 	font-size: 70px;
@@ -1422,7 +1422,7 @@ wydarzenia-tab {
 		width: 150px !important;
 	}
 
-	.slick-contact-form textarea:focus, input[type=text]:focus, input[type=password]:focus select:focus{
+	.slick-contact-form textarea:focus, input[type=text]:focus, input[type=password]:focus select:focus {
 		background: rgba(255,255,255,.35);
 		border: 2px solid white;
 	}
@@ -1626,6 +1626,18 @@ legend {
 	border: 2px solid #D7D0B8;
 }
 
+.today-day-header-calendar {
+	box-shadow: 0px 5px 20px -5px rgb(151, 151, 151);
+	color: rgb(148, 138, 111);
+	display: inline-block;
+	font-size: 18px;
+	letter-spacing: 1px;
+	padding-top: 5px;
+	padding-bottom: 4px;
+	padding-right: 14px;
+	padding-left: 14px;
+	background: white;
+}
 
 .event-block-footer {
 }

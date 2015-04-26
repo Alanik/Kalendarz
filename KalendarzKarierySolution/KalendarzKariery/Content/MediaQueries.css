@@ -22,4 +22,12 @@ MEDIA QUERIES
 	.year-name-container {
 		box-shadow: none;
 	}
+
+	.current-month-name-calendar {
+		box-shadow: none;
+	}
+
+	.today-day-header-calendar {
+		box-shadow: none;
+	}
 }

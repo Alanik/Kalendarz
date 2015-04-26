@@ -286,9 +286,9 @@
 						"border-bottom": "2px solid rgb(235,235,235)",
 						"border-top": "2px solid rgb(250,250,250)",
 						"cursor": "pointer",
-						"-moz-box-shadow": "none",
-						"-webkist-box-shadow": "none",
-						"box-shadow": "none",
+						//"-moz-box-shadow": "none",
+						//"-webkist-box-shadow": "none",
+						//"box-shadow": "none",
 						"top": "3px"
 					}).find(".addNewEvent-cellIcon").fadeIn();
 				},
@@ -296,9 +296,9 @@
 					$(this).css({
 						"border": "2px solid white",
 						"cursor": "auto",
-						"-moz-box-shadow": "0px 3px 5px rgb(235,235,235)",
-						"-webkist-box-shadow": "0px 3px 5px rgb(235,235,235)",
-						"box-shadow": "0px 3px 5px rgb(235,235,235)",
+						//"-moz-box-shadow": "0px 3px 5px rgb(235,235,235)",
+						//"-webkist-box-shadow": "0px 3px 5px rgb(235,235,235)",
+						//"box-shadow": "0px 3px 5px rgb(235,235,235)",
 						"top": "0"
 					}).find(".addNewEvent-cellIcon").hide();
 				}

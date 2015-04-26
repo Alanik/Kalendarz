@@ -27,7 +27,7 @@
 		calendar += ('<div style="width:100%;z-index:2;position:absolute;top:2px;border-top:1px solid rgb(221,221,221);border-bottom:1px solid rgb(247,247,247);"></div>');
 		calendar += ('<div class="year-header-container"></div>');
 		calendar += ('<div class="month-name-header-container">');
-		calendar += ( '<div style="box-shadow:0px 5px 20px -5px rgb(151, 151, 151);color:rgb(148, 138, 111);display:inline-block;font-size:18px;letter-spacing:1px;padding-top: 5px;padding-bottom: 4px;padding-right: 14px;padding-left: 14px;background:white;">' + today + '</div>' );
+		calendar += ( '<div class="today-day-header-calendar">' + today + '</div>' );
 
 		for (var j = 0; j < monthNames.length; j++) {
 

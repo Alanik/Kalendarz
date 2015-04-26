@@ -44,8 +44,6 @@
 	},
 	initialize: function ( indexViewModel, userName ){
 
-		console.log(indexViewModel);
-
 		var $calendar = $("#calendar");
 		var $details = $("#details");
 		var $lobby = $("#lobby");
@@ -71,7 +69,7 @@
 			calendarViewModel.myEventTreeCountBasedOnEventKind = eventTreeBuilder.buildEventTreeCountBasedOnEventKind(indexViewModel.MyEventCountTree, calendarViewModel.eventKinds);
 
 			//console.log(JSON.stringify(calendarViewModel.myEventTree));
-			console.log(calendarViewModel.myEventTree);
+			//console.log(calendarViewModel.myEventTree);
 
 			//console.log(calendarViewModel.publicEvents);
 			//console.log(calendarViewModel.publicEventTree);

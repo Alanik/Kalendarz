@@ -208,7 +208,7 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 
 			var query = from e in _entities.Events.Where( m => m.OwnerUserId == userId )
 						group e by e.EventKind.Value into grp
-						select new { value = grp.Key, events = new { upcoming = grp.Where( m => m.EndDate > now ).Count(), all = grp.Count() } };
+						select new { value = grp.Key, events = new { upcoming = grp.Where( m => m.EndDate.HasValue && m.EndDate > now ).Count(), old = grp.Where( m => m.EndDate.HasValue && m.EndDate <= now ).Count() } };
 
 			return query;
 		}
@@ -219,7 +219,7 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 
 			var query = from e in _entities.Events.Where( m => m.PrivacyLevel.Value == 2 )
 						group e by e.EventKind.Value into grp
-						select new { value = grp.Key, events = new { upcoming = grp.Where( m => m.EndDate > now ).Count(), all = grp.Count() } };
+						select new { value = grp.Key, events = new { upcoming = grp.Where( m => m.EndDate.HasValue && m.EndDate > now ).Count(), old = grp.Where( m => m.EndDate.HasValue && m.EndDate <= now ).Count() } };
 
 			return query;
 		}

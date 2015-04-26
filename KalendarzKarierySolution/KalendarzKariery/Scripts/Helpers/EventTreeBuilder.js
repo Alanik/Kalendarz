@@ -104,20 +104,21 @@
 		return eventTree;
 	};
 
-	self.buildEventTreeCountBasedOnEventKind = function ( eventsCountTree, defaultEventKinds )
+	self.buildEventTreeCountBasedOnEventKind = function ( indexViewModelEventCountTree, defaultEventKinds )
 	{
-		var eventTree = {}, element
+		var eventTree = {}, element, eventCountTreeElement;
 
 		for ( var i = 0; i < defaultEventKinds.length; i++ )
 		{
 			element = eventTree[i] = {};
+			eventCountTreeElement = indexViewModelEventCountTree[i];
 
-			if ( eventsCountTree[i] )
+			if ( eventCountTreeElement && eventCountTreeElement.value == (i + 1))
 			{
-				element.eventKindValue = eventsCountTree[i].value;
+				element.eventKindValue = eventCountTreeElement.value;
 				element.events = {};
-				element.events.upcoming = ko.observable( eventsCountTree[i].events.upcoming );
-				element.events.old = ko.observable(( eventsCountTree[i].events.all - eventsCountTree[i].events.upcoming ) );
+				element.events.upcoming = ko.observable( eventCountTreeElement.events.upcoming );
+				element.events.old = ko.observable(eventCountTreeElement.events.old);
 			} else
 			{
 				//events with given eventKind.value do not exist so we need to create an empty object
@@ -127,7 +128,7 @@
 				element.events.upcoming = ko.observable( 0 );
 				element.events.old = ko.observable( 0 );
 
-				eventsCountTree.splice( i, 0, element );
+				indexViewModelEventCountTree.splice( i, 0, element );
 			}
 		}
 

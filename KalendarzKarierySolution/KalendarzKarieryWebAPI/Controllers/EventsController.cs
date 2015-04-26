@@ -24,9 +24,9 @@ namespace KalendarzKarieryWebAPI.Controllers
 		private readonly IKalendarzKarieryRepository _repository = RepositoryProvider.GetRepository();
 
 		// GET api/events
-		public IResponse Get()
+		public IValidationResponse Get()
 		{
-			var defaultResponse = new DefaultResponseModel() { IsSuccess = true };
+			var defaultResponse = new DefaultValidationResponseModel() { IsSuccess = true };
 			return defaultResponse;
 		}
 
@@ -37,17 +37,18 @@ namespace KalendarzKarieryWebAPI.Controllers
 		}
 
 		// POST api/events (add)
-		public IResponse Post( AddEventViewModel addEventViewModel )
+		public IValidationResponse Post( AddEventViewModel addEventViewModel )
 		{
-			var errorResponse = this.Validate( addEventViewModel );
-			if (errorResponse != null && !errorResponse.IsSuccess)
+			var errorResponse = this.ValidateUser();
+
+			if (!errorResponse.IsSuccess)
 			{
 				return errorResponse;
 			}
 
 			if (!ModelState.IsValid)
 			{
-				var response = new DefaultResponseModel();
+				var response = new DefaultValidationResponseModel();
 				response.IsSuccess = false;
 				response.Message = KalendarzKarieryCore.Consts.Consts.GeneralValidationErrorMsg;
 				return response;
@@ -57,18 +58,18 @@ namespace KalendarzKarieryWebAPI.Controllers
 
 			if (@event.StartDate.Hour < 7 || @event.EndDate.HasValue && @event.EndDate.Value.Hour >= 21)
 			{
-				throw new ArgumentException( "godzina rozpoczecia jest wczesniejsza niz 7:00 lub pozniejsza niz 20:00 - drugie podejscie" );
+				//throw new ArgumentException( "godzina rozpoczecia jest wczesniejsza niz 7:00 lub pozniejsza niz 20:00 - drugie podejscie" );
 			}
 
 			if (@event == null)
 			{
-				return new DefaultResponseModel { IsSuccess = false, Message = Consts.GeneralValidationErrorMsg };
+				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralValidationErrorMsg };
 			}
 
 			_repository.AddEvent( @event );
 			_repository.Save();
 
-			return new AddEventResponseModel { IsSuccess = true, EventId = @event.Id, DateAdded = @event.DateAdded };
+			return new AddEventValidationResponseModel { IsSuccess = true, EventId = @event.Id, DateAdded = @event.DateAdded };
 		}
 
 		// PUT api/events/5 (update)
@@ -77,11 +78,11 @@ namespace KalendarzKarieryWebAPI.Controllers
 		}
 
 		// DELETE api/events/5
-		public IResponse Delete( int id )
+		public IValidationResponse Delete( int id )
 		{
 			if (!User.Identity.IsAuthenticated)
 			{
-				var response = new DefaultResponseModel();
+				var response = new DefaultValidationResponseModel();
 				response.IsSuccess = false;
 				response.Message = Consts.NotAuthenticatedErrorMsg;
 				return response;
@@ -91,7 +92,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 
 			if (@event != null)
 			{
-				var response = new DefaultResponseModel();
+				var response = new DefaultValidationResponseModel();
 
 				if (@event.User.UserName.ToLower() == User.Identity.Name.ToLower())
 				{
@@ -108,32 +109,18 @@ namespace KalendarzKarieryWebAPI.Controllers
 				return response;
 			}
 
-			var r = new DefaultResponseModel();
+			var r = new DefaultValidationResponseModel();
 			r.IsSuccess = false;
 			r.Message = Consts.EventDoesNotExistErrorMsg;
 			return r;
 		}
 
-		private IResponse Validate( AddEventViewModel addEventViewModel )
-		{
-			var errorResponse = this.ValidateUser();
-			if (!errorResponse.IsSuccess)
-			{
-				return errorResponse;
-			}
-
-			errorResponse = ValidateAddEventViewModel( addEventViewModel );
-			if (!errorResponse.IsSuccess)
-			{
-				return errorResponse;
-			}
-
-			return null;
-		}
-
 		private Event GetEventModelFromAddEventViewModel( AddEventViewModel viewModel )
 		{
 			var @event = new Event();
+
+			var statusId = _repository.GetEventStatusIdByValue( 3 );
+			@event.EventStatusId = statusId.Value;
 
 			var objectId = AppCache.Get( User.Identity.Name.ToLower() );
 			if (objectId != null)
@@ -161,8 +148,13 @@ namespace KalendarzKarieryWebAPI.Controllers
 			@event.Details = viewModel.Event.Details;
 			@event.UrlLink = viewModel.Event.UrlLink;
 			@event.OccupancyLimit = viewModel.Event.OccupancyLimit;
-			@event.StartDate = viewModel.Event.StartDate;
-			@event.EndDate = viewModel.Event.EndDate;
+
+			DateTime startDate = new DateTime(viewModel.EventStartDate.Year, viewModel.EventStartDate.Month, viewModel.EventStartDate.Day, viewModel.EventStartDate.Hour, viewModel.EventStartDate.Minute, 0);
+
+			DateTime endDate = new DateTime( viewModel.EventEndDate.Year, viewModel.EventEndDate.Month, viewModel.EventEndDate.Day, viewModel.EventEndDate.Hour, viewModel.EventEndDate.Minute, 0 );
+
+			@event.StartDate = startDate;
+			@event.EndDate = endDate;
 			@event.Price = viewModel.Event.Price;
 
 			var eventKind = _repository.GetEventKindByValue( viewModel.EventKind.Value );
@@ -185,31 +177,6 @@ namespace KalendarzKarieryWebAPI.Controllers
 				return null;
 			}
 
-			if (@event.EndDate <= DateTime.UtcNow)
-			{
-				var id = _repository.GetEventStatusIdByValue( 2 );
-				if (id.HasValue)
-				{
-					@event.EventStatusId = id.Value;
-				}
-				else
-				{
-					return null;
-				}
-			}
-			else
-			{
-				var id = _repository.GetEventStatusIdByValue( 1 );
-				if (id.HasValue)
-				{
-					@event.EventStatusId = id.Value;
-				}
-				else
-				{
-					return null;
-				}
-			}
-
 			if (!string.IsNullOrEmpty( viewModel.Address.Street ) || !string.IsNullOrEmpty( viewModel.Address.City ) || !string.IsNullOrEmpty( viewModel.Address.ZipCode ))
 			{
 				@event.Addresses.Add( viewModel.Address );
@@ -218,37 +185,5 @@ namespace KalendarzKarieryWebAPI.Controllers
 			return @event;
 		}
 
-		private IResponse ValidateAddEventViewModel( AddEventViewModel viewModel )
-		{
-			var response = new DefaultResponseModel();
-			response.IsSuccess = true;
-
-			if (string.IsNullOrEmpty( viewModel.Event.Title ))
-			{
-				response.IsSuccess = false;
-				response.Message = Consts.GeneralValidationErrorMsg;
-				return response;
-			}
-			
-			//TODO: temporary check
-			if (viewModel.Event.StartDate.Hour < 7 || viewModel.Event.StartDate.Hour >= 21)
-			{
-				throw new ArgumentException("godzina rozpoczecia jest wczesniejsza niz 7:00 lub pozniejsza niz 20:00");
-			}
-
-			if (!string.IsNullOrEmpty( viewModel.Address.ZipCode ))
-			{
-				var reg = new Regex( "[0-9]{2}-[0-9]{3}" );
-
-				if (!reg.IsMatch( viewModel.Address.ZipCode ))
-				{
-					response.IsSuccess = false;
-					response.Message = Consts.GeneralValidationErrorMsg;
-					return response;
-				}
-			}
-
-			return response;
-		}
 	}
 }

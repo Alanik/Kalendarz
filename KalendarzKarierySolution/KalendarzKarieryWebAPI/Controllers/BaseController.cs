@@ -13,9 +13,9 @@ namespace KalendarzKarieryWebAPI.Controllers
 {
 	public class BaseController : ApiController
 	{
-		protected IResponse ValidateUser()
+		protected IValidationResponse ValidateUser()
 		{
-			var response = new DefaultResponseModel();
+			var response = new DefaultValidationResponseModel();
 			response.IsSuccess = true;
 
 			if (!User.Identity.IsAuthenticated)

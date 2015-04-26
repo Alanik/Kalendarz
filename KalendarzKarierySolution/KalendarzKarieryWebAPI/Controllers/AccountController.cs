@@ -16,7 +16,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 		private readonly IKalendarzKarieryRepository _repository = RepositoryProvider.GetRepository();
 
 		// POST api/events (add)
-		public IResponse Post(RegisterViewModel model)
+		public IValidationResponse Post(RegisterViewModel model)
 		{
 			var errorResponse = this.ValidateUser();
 			if (!errorResponse.IsSuccess)
@@ -26,7 +26,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 
 			if (!ModelState.IsValid)
 			{
-				var response = new DefaultResponseModel();
+				var response = new DefaultValidationResponseModel();
 				response.IsSuccess = false;
 				response.Message = KalendarzKarieryCore.Consts.Consts.GeneralValidationErrorMsg;
 				return response;
@@ -55,13 +55,13 @@ namespace KalendarzKarieryWebAPI.Controllers
 
 					_repository.Save();
 
-					var response = new DefaultResponseModel();
+					var response = new DefaultValidationResponseModel();
 					response.IsSuccess = true;
 					return response;
 				}
 				else
 				{
-					var response = new DefaultResponseModel();
+					var response = new DefaultValidationResponseModel();
 					response.IsSuccess = false;
 					response.Message = KalendarzKarieryCore.Consts.Consts.GeneralValidationErrorMsg;
 					return response;
@@ -69,7 +69,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 			}
 			else
 			{
-				var response = new DefaultResponseModel();
+				var response = new DefaultValidationResponseModel();
 				response.IsSuccess = false;
 				response.Message = KalendarzKarieryCore.Consts.Consts.GeneralValidationErrorMsg;
 				return response;

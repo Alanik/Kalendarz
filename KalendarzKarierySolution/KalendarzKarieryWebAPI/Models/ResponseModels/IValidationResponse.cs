@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KalendarzKarieryWebAPI.Models.ResponseModels
 {
-	public interface IResponse
+	public interface IValidationResponse
 	{
 		 bool IsSuccess { get; set; }
 	}

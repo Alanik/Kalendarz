@@ -44,7 +44,7 @@
 	},
 	initialize: function ( indexViewModel, userName ){
 
-		//console.log(indexViewModel);
+		console.log(indexViewModel);
 
 		var $calendar = $("#calendar");
 		var $details = $("#details");

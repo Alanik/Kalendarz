@@ -441,6 +441,8 @@
 
 	self.deleteEventDetailsPageOnConfirmationYesBtnClick = function ( element, id, year, month, day )
 	{
+
+
 		var $loader = $( "#details" ).siblings( ".dotted-page-overlay" );
 		var events;
 		$.ajax( {
@@ -453,7 +455,6 @@
 			{
 				if ( result.IsSuccess === false )
 				{
-
 					self.hideLoader( $loader );
 
 					//TODO: change alert to some error popop or error page...
@@ -461,7 +462,7 @@
 				} else
 				{
 					self.hideLoader( $loader );
-					var $container = $( "#details #detailsEventBlockList .event-block-container .hidden-event-id:contains(" + id + ")" ).parent();
+					var $container = $( "#details #detailsEventBlockList .event-block-container[data-eventid='" + id + "']");
 
 					$container.fadeOut( 500, function ()
 					{
@@ -1794,8 +1795,7 @@
 
 	self.showEventBlockInfoOnDetailsPageEventRectangleClick = function ( id )
 	{
-		//TODO: maybe remove hidden-event-id and use data- attribute instead
-		var $container = $( "#details #detailsEventBlockList .event-block-container .hidden-event-id:contains(" + id + ")" ).parent();
+		var $container = $( "#details #detailsEventBlockList .event-block-container[data-eventid='" + id + "']");
 		var block = $container.find( ".event-block" )[0];
 		self.showEventDetailsOnEventBlockClick( block );
 	};

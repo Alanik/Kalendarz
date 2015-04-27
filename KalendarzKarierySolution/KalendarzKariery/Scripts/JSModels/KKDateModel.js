@@ -1,11 +1,13 @@
 ﻿var KKDateModel = function ( javaScriptDate, minute, hour, day, month, year ){
 	var self = this;
 
+	//month is from 0 - 11
 	self.javaScriptDate = javaScriptDate;
 	self.minute = minute;
 	self.hour = hour;
 	self.day = day;
-	self.month = month;
+	//month is from 1 - 12
+	self.month = month + 1;
 	self.year = year;
 }
 

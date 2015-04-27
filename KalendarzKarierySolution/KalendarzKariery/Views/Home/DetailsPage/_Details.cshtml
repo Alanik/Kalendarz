@@ -6,7 +6,7 @@
 	</span>
 </div>
 <section id="detailsPanel">
-	<div id="todayDateAndTimeContainer">
+	<div id="todayDateAndTimeContainer" data-bind="click: $root.showTodayInDetailsPageCalendarDetailsTable" class="hover-cursor-pointer">
 		<div style="position:relative;z-index:-1;">
 			<div id="todayDateDay" data-bind="text: $root.todayDate.day"></div>
 			<div id="todayDateDayName" data-bind="text: $root.todayDate.getDayName()"></div>

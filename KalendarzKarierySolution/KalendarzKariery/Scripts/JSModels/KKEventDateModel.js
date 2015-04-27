@@ -2,13 +2,15 @@
 {
 	var self = this;
 
+	//month value starts from 0 - 11
 	self.javaScriptStartDate = javaScriptStartDate;
 	self.startMinute = startMinute;
 	self.endMinute = endMinute
 	self.startHour = startHour;
 	self.endHour = endHour;
 	self.day = day;
-	self.month = month;
+	//month value starts from 1 - 12
+	self.month = month + 1;
 	self.year = year;
 }
 

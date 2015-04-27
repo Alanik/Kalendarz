@@ -56,14 +56,14 @@ namespace KalendarzKarieryWebAPI.Controllers
 
 			var @event = this.GetEventModelFromAddEventViewModel( addEventViewModel );
 
-			if (@event.StartDate.Hour < 7 || @event.EndDate.HasValue && @event.EndDate.Value.Hour >= 21)
-			{
-				//throw new ArgumentException( "godzina rozpoczecia jest wczesniejsza niz 7:00 lub pozniejsza niz 20:00 - drugie podejscie" );
-			}
-
 			if (@event == null)
 			{
 				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralValidationErrorMsg };
+			}
+
+			if (@event.StartDate.Hour < 7 || @event.EndDate.HasValue && @event.EndDate.Value.Hour >= 21)
+			{
+				//throw new ArgumentException( "godzina rozpoczecia jest wczesniejsza niz 7:00 lub pozniejsza niz 20:00 - drugie podejscie" );
 			}
 
 			_repository.AddEvent( @event );

@@ -1,7 +1,8 @@
 ﻿var Program = {
-	indexViewModel : null,
+	indexViewModel: null,
 
-	initializeAndStartSpinner: function(){
+	initializeAndStartSpinner: function ()
+	{
 		//////////////////////////////////////////////////////////
 		//ajax loader (spinner)
 		//////////////////////////////////////////////////////////
@@ -29,44 +30,45 @@
 		//used in jquery.superslides to turn spinner off when superslides fades in.
 		window.spinner = this.spinner;
 
-		var $target = $("#spinnerContainer");
+		var $target = $( "#spinnerContainer" );
 
 		//Get the window height and width
-		var winH = $(window).height();
-		var winW = $(window).width();
+		var winH = $( window ).height();
+		var winW = $( window ).width();
 
 		//Set the popup window to center
-		$target.css('top', winH / 2 - $target.height() / 2);
-		$target.css('left', winW / 2 - $target.width() / 2);
+		$target.css( 'top', winH / 2 - $target.height() / 2 );
+		$target.css( 'left', winW / 2 - $target.width() / 2 );
 
-		this.spinner.spin($target[0]);
+		this.spinner.spin( $target[0] );
 		$target.show();
 	},
-	initialize: function ( indexViewModel, userName ){
+	initialize: function ( indexViewModel, userName )
+	{
 
-		var $calendar = $("#calendar");
-		var $details = $("#details");
-		var $lobby = $("#lobby");
+		var $calendar = $( "#calendar" );
+		var $details = $( "#details" );
+		var $lobby = $( "#lobby" );
 		var eventTreeBuilder = new EventTreeBuilder();
 
 		var date = new Date();
-		$calendar.calendarWidget({
+		$calendar.calendarWidget( {
 			month: date.getMonth(), year: date.getFullYear()
-		});
+		} );
 
-		var currentWeekday = $calendar.find(".today-cell").attr("weekday");
-		var calendarViewModel = new CalendarViewModel(date.getFullYear(), date.getMonth() + 1, date.getDate(), currentWeekday, userName, this.spinner);	
-				
+		var currentWeekday = $calendar.find( ".today-cell" ).attr( "weekday" );
+		var calendarViewModel = new CalendarViewModel( date.getFullYear(), date.getMonth(), date.getDate(), currentWeekday, userName, this.spinner );
+
 		calendarViewModel.eventPrivacyLevels = indexViewModel.PrivacyLevels;
-		calendarViewModel.eventKinds = indexViewModel.EventKinds;				
-		calendarViewModel.publicEventTree = eventTreeBuilder.buildEventTree(indexViewModel.PublicEvents, calendarViewModel, true);
-		calendarViewModel.publicEventTreeCountBasedOnEventKind = eventTreeBuilder.buildEventTreeCountBasedOnEventKind(indexViewModel.PublicEventCountTree, calendarViewModel.eventKinds);			
+		calendarViewModel.eventKinds = indexViewModel.EventKinds;
+		calendarViewModel.publicEventTree = eventTreeBuilder.buildEventTree( indexViewModel.PublicEvents, calendarViewModel, true );
+		calendarViewModel.publicEventTreeCountBasedOnEventKind = eventTreeBuilder.buildEventTreeCountBasedOnEventKind( indexViewModel.PublicEventCountTree, calendarViewModel.eventKinds );
 		calendarViewModel.newsEvents = eventTreeBuilder.transformNews( indexViewModel.News );
 
 		if ( indexViewModel.MyEvents )
 		{
-			calendarViewModel.myEventTree = eventTreeBuilder.buildEventTree(indexViewModel.MyEvents, calendarViewModel, false);
-			calendarViewModel.myEventTreeCountBasedOnEventKind = eventTreeBuilder.buildEventTreeCountBasedOnEventKind(indexViewModel.MyEventCountTree, calendarViewModel.eventKinds);
+			calendarViewModel.myEventTree = eventTreeBuilder.buildEventTree( indexViewModel.MyEvents, calendarViewModel, false );
+			calendarViewModel.myEventTreeCountBasedOnEventKind = eventTreeBuilder.buildEventTreeCountBasedOnEventKind( indexViewModel.MyEventCountTree, calendarViewModel.eventKinds );
 
 			//console.log(JSON.stringify(calendarViewModel.myEventTree));
 			//console.log(calendarViewModel.myEventTree);
@@ -84,37 +86,47 @@
 
 
 			//TODO: what about december of previous year and january of next year? are events drawn properly for those cases?
-			if (yearProp) {
+			if ( yearProp )
+			{
 				month = yearProp[calendarPageMonth]
-				if (month) {
-					for (var days in month) {
+				if ( month )
+				{
+					for ( var days in month )
+					{
 						events = month[days];
-						for (var i = 0; i < events.length; i++) {
+						for ( var i = 0; i < events.length; i++ )
+						{
 							event = events[i];
 
-							calendarViewModel.drawEventToCalendar(event);
+							calendarViewModel.drawEventToCalendar( event );
 						}
 					}
 				}
 				prevMonth = yearProp[calendarPageMonth - 1];
-				if (prevMonth) {
-					for (var days in prevMonth) {
+				if ( prevMonth )
+				{
+					for ( var days in prevMonth )
+					{
 						events = prevMonth[days];
-						for (var i = 0; i < events.length; i++) {
+						for ( var i = 0; i < events.length; i++ )
+						{
 							event = events[i];
 
-							calendarViewModel.drawEventToCalendar(event);
+							calendarViewModel.drawEventToCalendar( event );
 						}
 					}
 				}
-				nextMonth = yearProp[calendarPageMonth + 1]; 
-				if (nextMonth) {
-					for (var days in nextMonth) {
+				nextMonth = yearProp[calendarPageMonth + 1];
+				if ( nextMonth )
+				{
+					for ( var days in nextMonth )
+					{
 						events = nextMonth[days];
-						for (var i = 0; i < events.length; i++) {
+						for ( var i = 0; i < events.length; i++ )
+						{
 							event = events[i];
 
-							calendarViewModel.drawEventToCalendar(event);
+							calendarViewModel.drawEventToCalendar( event );
 						}
 					}
 				}
@@ -125,62 +137,68 @@
 		//initialize details page
 		//////////////////////////////////////////////////////////////////
 		calendarViewModel.displayPageEventMostBottomRow = 1;
-		calendarViewModel.detailsPageDisplayDate.year(date.getFullYear());
-		calendarViewModel.detailsPageDisplayDate.month(date.getMonth() + 1);
-		calendarViewModel.detailsPageDisplayDate.day(date.getDate());
+		calendarViewModel.detailsPageDisplayDate.year( date.getFullYear() );
+		calendarViewModel.detailsPageDisplayDate.month( date.getMonth() + 1 );
+		calendarViewModel.detailsPageDisplayDate.day( date.getDate() );
 		calendarViewModel.detailsPageDisplayDate.weekday( currentWeekday );
 
-		var events = calendarViewModel.getEventsForGivenDay(date.getDate())
-		calendarViewModel.detailsPageDayEvents(events);
+		var events = calendarViewModel.getEventsForGivenDay( date.getDate() )
+		calendarViewModel.detailsPageDayEvents( events );
 		///////////////////////////////////////////////////////////////////
 
 		///////////////////////////////////////////////////////////////F///
 		//Knockout apply bindings
 		///////////////////////////////////////////////////////////////////
-		ko.applyBindings(calendarViewModel);
+		ko.applyBindings( calendarViewModel );
 		///////////////////////////////////////////////////////////////////
-			
+
 		///////////////////////////////////////////////////////////////////
 		//draw to details page
 		//////////////////////////////////////////////////////////////////
 
 		//method drawEventToDetailsDayTable(events[i]) needs to be called after ko.applyBindings(calendarViewModel)!
-		for (var i in events) {
-			calendarViewModel.drawEventToDetailsDayTable(events[i]);
+		for ( var i in events )
+		{
+			calendarViewModel.drawEventToDetailsDayTable( events[i] );
 		}
 
-		var $tableBody = $("#calendarDayDetailsTable .table-details-body");
-		var h = (calendarViewModel.displayPageEventMostBottomRow + 1) * 46;
-		$tableBody.height(h + "px");
+		var $tableBody = $( "#calendarDayDetailsTable .table-details-body" );
+		var h = ( calendarViewModel.displayPageEventMostBottomRow + 1 ) * 46;
+		$tableBody.height( h + "px" );
 		///////////////////////////////////////////////////////////////////
 
-		this.initializeSlides = function(){
+		this.initializeSlides = function ()
+		{
 			location.hash = '#0';
 
-			$('#slides').superslides({
+			$( '#slides' ).superslides( {
 				slide_easing: 'easeInOutCubic',
 				slide_speed: 600,
 				pagination: true,
 				hashchange: true,
 				scrollable: true
-			});
+			} );
 
-			$(window).on("hashchange", function(){
-					
-				setTimeout(function(){
-					if(location.hash === "#1")
+			$( window ).on( "hashchange", function ()
+			{
+
+				setTimeout( function ()
+				{
+					if ( location.hash === "#1" )
 					{
-						if (calendarViewModel.calendarDayEventsToUpdate.events !== null) {
-							setTimeout(function(){
-								calendarViewModel.redrawCalendarCell(calendarViewModel.calendarDayEventsToUpdate.events, calendarViewModel.calendarDayEventsToUpdate.day);
+						if ( calendarViewModel.calendarDayEventsToUpdate.events !== null )
+						{
+							setTimeout( function ()
+							{
+								calendarViewModel.redrawCalendarCell( calendarViewModel.calendarDayEventsToUpdate.events, calendarViewModel.calendarDayEventsToUpdate.day );
 								calendarViewModel.calendarDayEventsToUpdate.events = null;
 
-							}, 10)
+							}, 10 )
 						}
-						
+
 						//TODO: not finished set dynamic height of calendar cells (calendar to be as height as browser window)
 						//setTimeout(function(){				
-								
+
 						//	var height1 = $("#calendar #calendarMenuHeader").height();
 						//	var height2 = $("#calendar .weekday-container").height();
 						//	var height3 = $("#calendar .calendar-hours-placeholder").first().height();
@@ -195,373 +213,422 @@
 
 						//}, 10)
 
-					}}, 10);
-			});
+					}
+				}, 10 );
+			} );
 
-			$(".slides-pagination a").on("click", function(){				
-				var hash = $(this).attr("href");
-				if (hash === "#2") {
-					var $scrollable = $("#slide-item-details").parent();
-							
-					setTimeout(function(){				
-						$scrollable.scrollTop(0);
-					}, 10)							
+			$( ".slides-pagination a" ).on( "click", function ()
+			{
+				var hash = $( this ).attr( "href" );
+				if ( hash === "#2" )
+				{
+					var $scrollable = $( "#slide-item-details" ).parent();
+
+					setTimeout( function ()
+					{
+						$scrollable.scrollTop( 0 );
+					}, 10 )
 				}
-			});
+			} );
 		}();
 
-		this.createCalendarNavigationArrows = function(){
-			$calendar.append('<div id="calendar-navigation-arrows-left"><img src="Images/Nav/arrowLeft.png" alt="arrow-left"/></div>');
-			$calendar.append('<div id="calendar-navigation-arrows-right"><img src="Images/Nav/arrowRight.png" alt="arrow-Right"/></div>');
-			$details.append('<div id="details-navigation-arrows-left"><img src="Images/Nav/arrowLeft.png" alt="arrow-Left"/></div>');
-			$lobby.append('<div id="lobby-navigation-arrows-right"><img src="Images/Nav/arrowRight.png" alt="arrow-Right"/></div>');
+		this.createCalendarNavigationArrows = function ()
+		{
+			$calendar.append( '<div id="calendar-navigation-arrows-left"><img src="Images/Nav/arrowLeft.png" alt="arrow-left"/></div>' );
+			$calendar.append( '<div id="calendar-navigation-arrows-right"><img src="Images/Nav/arrowRight.png" alt="arrow-Right"/></div>' );
+			$details.append( '<div id="details-navigation-arrows-left"><img src="Images/Nav/arrowLeft.png" alt="arrow-Left"/></div>' );
+			$lobby.append( '<div id="lobby-navigation-arrows-right"><img src="Images/Nav/arrowRight.png" alt="arrow-Right"/></div>' );
 		}();
 
-		this.drawClocks = function(){
+		this.drawClocks = function ()
+		{
 			calendarViewModel.drawAnalogClock();
 			calendarViewModel.drawDigitalClock();
 		}();
 
-		this.initializeHover = function () {
+		this.initializeHover = function ()
+		{
 
-			var $container = $(".event-hover-container");
-			var $mainContainer = $("#mainContainer");
+			var $container = $( ".event-hover-container" );
+			var $mainContainer = $( "#mainContainer" );
 
-			$mainContainer.on({
-				mouseenter: function () {
+			$mainContainer.on( {
+				mouseenter: function ()
+				{
 
-					var name = $(this).find("input").attr("name");
-					var address = $(this).find("input").attr("address");
-					var startHour = $(this).find("input").attr("starthour");
-					var endHour = $(this).find("input").attr("endhour");
-					var startMinute = $(this).find("input").attr("startminute");
-					var endMinute = $(this).find("input").attr("endminute");
+					var name = $( this ).find( "input" ).attr( "name" );
+					var address = $( this ).find( "input" ).attr( "address" );
+					var startHour = $( this ).find( "input" ).attr( "starthour" );
+					var endHour = $( this ).find( "input" ).attr( "endhour" );
+					var startMinute = $( this ).find( "input" ).attr( "startminute" );
+					var endMinute = $( this ).find( "input" ).attr( "endminute" );
 
-					var width = $(this).width();
-					var height = $(this).height();
-					var offset = $(this).offset();
+					var width = $( this ).width();
+					var height = $( this ).height();
+					var offset = $( this ).offset();
 
-					$container.css("left", offset.left - 100 + width);
-					$container.css("top", offset.top - height);
+					$container.css( "left", offset.left - 100 + width );
+					$container.css( "top", offset.top - height );
 
-					$container.find(".event-hover-name").text(name);
-					$container.find(".event-hover-adress").text(address);
-					$container.find(".event-hover-startHour").text(startHour + " : " + startMinute);
-					$container.find(".event-hover-endHour").text(endHour + " : " + endMinute);
+					$container.find( ".event-hover-name" ).text( name );
+					$container.find( ".event-hover-adress" ).text( address );
+					$container.find( ".event-hover-startHour" ).text( startHour + " : " + startMinute );
+					$container.find( ".event-hover-endHour" ).text( endHour + " : " + endMinute );
 
 					$container.show();
 				},
-				mouseleave: function () {
+				mouseleave: function ()
+				{
 					$container.hide();
 				}
-			}, '.event-rectangle');
+			}, '.event-rectangle' );
 
 			//TODO: since also using css : hover, maybe remove jquery code?
-			$(".hover-cursor-pointer").hover(function () {
-				$(this).css({
+			$( ".hover-cursor-pointer" ).hover( function ()
+			{
+				$( this ).css( {
 					"cursor": "pointer"
-				});
-			}, function () {
-				$(this).css({
+				} );
+			}, function ()
+			{
+				$( this ).css( {
 					"cursor": "auto"
-				});
-			});
+				} );
+			} );
 
 			//TODO: since also using css : hover, maybe remove jquery code?
-			$(".link").hover(function () {
-				$(this).css({
+			$( ".link" ).hover( function ()
+			{
+				$( this ).css( {
 					"cursor": "pointer"
-				});
-			}, function () {
-				$(this).css({
+				} );
+			}, function ()
+			{
+				$( this ).css( {
 					"cursor": "auto"
-				});
-			});
+				} );
+			} );
 
-			$mainContainer.on({
-				mouseenter: function () {
-					$(this).css({
+			$mainContainer.on( {
+				mouseenter: function ()
+				{
+					$( this ).css( {
 						"border-bottom": "2px solid rgb(235,235,235)",
 						"border-top": "2px solid rgb(250,250,250)",
 						"cursor": "pointer",
 						"top": "3px"
-					}).find(".addNewEvent-cellIcon").fadeIn();
+					} ).find( ".addNewEvent-cellIcon" ).fadeIn();
 				},
-				mouseleave: function () {
-					$(this).css({
+				mouseleave: function ()
+				{
+					$( this ).css( {
 						"border": "2px solid white",
 						"cursor": "auto",
 						"top": "0"
-					}).find(".addNewEvent-cellIcon").hide();
+					} ).find( ".addNewEvent-cellIcon" ).hide();
 				}
-			}, '.current-month-cell');
+			}, '.current-month-cell' );
 
-			$mainContainer.on({
-				mouseenter: function () {
-					$(this).css({
+			$mainContainer.on( {
+				mouseenter: function ()
+				{
+					$( this ).css( {
 						"cursor": "pointer",
 						"top": "3px"
-					}).find(".addNewEvent-cellIcon").fadeIn();
+					} ).find( ".addNewEvent-cellIcon" ).fadeIn();
 				},
-				mouseleave: function () {
-					$(this).css({
+				mouseleave: function ()
+				{
+					$( this ).css( {
 						"cursor": "auto",
 						"top": "0px"
-					}).find(".addNewEvent-cellIcon").fadeOut();
+					} ).find( ".addNewEvent-cellIcon" ).fadeOut();
 				}
-			}, '.other-month-cell');
+			}, '.other-month-cell' );
 
-			$mainContainer.on({
-				mouseenter: function () {
-					$(this).css("background", "rgb(160, 243, 169)");
+			$mainContainer.on( {
+				mouseenter: function ()
+				{
+					$( this ).css( "background", "rgb(160, 243, 169)" );
 				},
-				mouseleave: function () {
-					$(this).css("background", "rgb(225,225,225)");
+				mouseleave: function ()
+				{
+					$( this ).css( "background", "rgb(225,225,225)" );
 				}
-			}, '.light-icon');
+			}, '.light-icon' );
 
-			$mainContainer.on({
-				mouseenter: function () {
-					$(this).css("background", "rgb(160, 243, 169)");
+			$mainContainer.on( {
+				mouseenter: function ()
+				{
+					$( this ).css( "background", "rgb(160, 243, 169)" );
 				},
-				mouseleave: function () {
-					$(this).css("background", "rgb(188,188,188)");
+				mouseleave: function ()
+				{
+					$( this ).css( "background", "rgb(188,188,188)" );
 				}
-			}, '.dark-icon');
+			}, '.dark-icon' );
 
-			$mainContainer.on({
-				mouseenter: function () {
-					$(this).css({
+			$mainContainer.on( {
+				mouseenter: function ()
+				{
+					$( this ).css( {
 						"cursor": "pointer"
-					});
+					} );
 				},
-				mouseleave: function () {
-					$(this).css({
+				mouseleave: function ()
+				{
+					$( this ).css( {
 						"cursor": "auto"
-					});
+					} );
 				}
-			}, ".month-name-calendar");
+			}, ".month-name-calendar" );
 
-			$(".menu-item-container").hover(function () {
-				$(this).css({
+			$( ".menu-item-container" ).hover( function ()
+			{
+				$( this ).css( {
 					"cursor": "pointer",
 					"box-shadow": "4px 2px 8px rgb(196, 194, 184)",
 					"border": "1px solid white"
-				});
-			}, function () {
-				var $this = $(this);
-				$this.css({
+				} );
+			}, function ()
+			{
+				var $this = $( this );
+				$this.css( {
 					"cursor": "auto",
 					"box-shadow": "none",
-					"border" : "none"
-				});
+					"border": "none"
+				} );
 
 				//if (!$this.hasClass("selected")) {
 				//	$this.css({						
 				//		"background": "rgb(245, 240, 223)"
 				//	});
 				//}
-			});
+			} );
 
-			var $leftSideCalendar = $("#leftSideCalendar");
-			var $rightSideCalendar = $("#rightSideCalendar");
-			var $leftSideDetails = $("#leftSideDetails");
-			var $rightSideLobby = $("#rightSideLobby");
-			var $rightSideLobbyTopPart = $("#rightSideLobbyTopPart");
+			var $leftSideCalendar = $( "#leftSideCalendar" );
+			var $rightSideCalendar = $( "#rightSideCalendar" );
+			var $leftSideDetails = $( "#leftSideDetails" );
+			var $rightSideLobby = $( "#rightSideLobby" );
+			var $rightSideLobbyTopPart = $( "#rightSideLobbyTopPart" );
 
-			$leftSideCalendar.hover(function () {
-				$(this).css({
+			$leftSideCalendar.hover( function ()
+			{
+				$( this ).css( {
 					"backgroundPosition": "left",
 					"cursor": "pointer"
-				});
-			}, function () {
-				$(this).css({
+				} );
+			}, function ()
+			{
+				$( this ).css( {
 					"backgroundPosition": "right",
 					"cursor": "auto"
-				});
-			});
-			$("#calendar-navigation-arrows-left").hover(function () {
-				$(this).css({
+				} );
+			} );
+			$( "#calendar-navigation-arrows-left" ).hover( function ()
+			{
+				$( this ).css( {
 					"cursor": "pointer"
-				});
+				} );
 
-				$leftSideCalendar.css({
+				$leftSideCalendar.css( {
 					"backgroundPosition": "left"
-				});
-			}, function () {
-				$(this).css({
+				} );
+			}, function ()
+			{
+				$( this ).css( {
 					"cursor": "auto"
-				});
-				$leftSideCalendar.css({
+				} );
+				$leftSideCalendar.css( {
 					"backgroundPosition": "right"
-				});
-			});
-			$rightSideCalendar.hover(function () {
-				$(this).css({
+				} );
+			} );
+			$rightSideCalendar.hover( function ()
+			{
+				$( this ).css( {
 					"backgroundPosition": "right",
 					"cursor": "pointer"
-				});
-			}, function () {
-				$(this).css({
+				} );
+			}, function ()
+			{
+				$( this ).css( {
 					"backgroundPosition": "left",
 					"cursor": "auto"
-				});
-			});
-			$("#calendar-navigation-arrows-right").hover(function () {
-				$(this).css({
+				} );
+			} );
+			$( "#calendar-navigation-arrows-right" ).hover( function ()
+			{
+				$( this ).css( {
 					"cursor": "pointer"
-				});
+				} );
 
-				$rightSideCalendar.css({
+				$rightSideCalendar.css( {
 					"backgroundPosition": "right"
-				});
-			}, function () {
-				$(this).css({
+				} );
+			}, function ()
+			{
+				$( this ).css( {
 					"cursor": "auto"
-				});
-				$rightSideCalendar.css({
+				} );
+				$rightSideCalendar.css( {
 					"backgroundPosition": "left"
 
-				});
-			});
+				} );
+			} );
 
-			$("#lobby-navigation-arrows-right").hover(function () {
-				$(this).css({
+			$( "#lobby-navigation-arrows-right" ).hover( function ()
+			{
+				$( this ).css( {
 					"cursor": "pointer"
-				});
+				} );
 
-				$rightSideLobby.css({
+				$rightSideLobby.css( {
 					"backgroundPosition": "right"
 
-				});
+				} );
 
-				$rightSideLobbyTopPart.css({
+				$rightSideLobbyTopPart.css( {
 					"backgroundPosition": "right"
 
-				});
+				} );
 
-			}, function () {
-				$(this).css({
+			}, function ()
+			{
+				$( this ).css( {
 					"cursor": "auto"
-				});
-				$rightSideLobby.css({
+				} );
+				$rightSideLobby.css( {
 					"backgroundPosition": "left"
 
-				});
+				} );
 
-				$rightSideLobbyTopPart.css({
+				$rightSideLobbyTopPart.css( {
 					"backgroundPosition": "left"
 
-				});
-			});
+				} );
+			} );
 
-			$("#details-navigation-arrows-left").hover(function () {
-				$(this).css({
+			$( "#details-navigation-arrows-left" ).hover( function ()
+			{
+				$( this ).css( {
 					"cursor": "pointer"
-				});
+				} );
 
-				$leftSideDetails.css({
+				$leftSideDetails.css( {
 					"backgroundPosition": "left"
 
-				});
-			}, function () {
-				$(this).css({
+				} );
+			}, function ()
+			{
+				$( this ).css( {
 					"cursor": "auto"
-				});
-				$leftSideDetails.css({
+				} );
+				$leftSideDetails.css( {
 					"backgroundPosition": "right"
 
-				});
-			});
-			$leftSideDetails.hover(function () {
-				$(this).css({
+				} );
+			} );
+			$leftSideDetails.hover( function ()
+			{
+				$( this ).css( {
 					"backgroundPosition": "left",
 					"cursor": "pointer"
-				});
-			}, function () {
-				$(this).css({
+				} );
+			}, function ()
+			{
+				$( this ).css( {
 					"backgroundPosition": "right",
 					"cursor": "auto"
-				});
-			});
+				} );
+			} );
 
-			$rightSideLobby.hover(function () {
-				$(this).css({
-					"backgroundPosition": "right",
-					"cursor": "pointer"
-				});
-
-				$rightSideLobbyTopPart.css({
-					"backgroundPosition": "right"
-
-				});
-
-			}, function () {
-				$(this).css({
-					"backgroundPosition": "left",
-					"cursor": "auto"
-				});
-
-				$rightSideLobbyTopPart.css({
-					"backgroundPosition": "left"
-
-				});
-			});
-
-			$rightSideLobbyTopPart.hover(function () {
-				$(this).css({
+			$rightSideLobby.hover( function ()
+			{
+				$( this ).css( {
 					"backgroundPosition": "right",
 					"cursor": "pointer"
-				});
+				} );
 
-				$rightSideLobby.css({
+				$rightSideLobbyTopPart.css( {
 					"backgroundPosition": "right"
 
-				});
+				} );
 
-			}, function () {
-				$(this).css({
+			}, function ()
+			{
+				$( this ).css( {
 					"backgroundPosition": "left",
 					"cursor": "auto"
-				});
+				} );
 
-				$rightSideLobby.css({
+				$rightSideLobbyTopPart.css( {
 					"backgroundPosition": "left"
 
-				});
-			});
+				} );
+			} );
 
-			var $pixHover = $(".1px-hover");
+			$rightSideLobbyTopPart.hover( function ()
+			{
+				$( this ).css( {
+					"backgroundPosition": "right",
+					"cursor": "pointer"
+				} );
 
-			$pixHover.hover(function () {
-				$(this).css({
+				$rightSideLobby.css( {
+					"backgroundPosition": "right"
+
+				} );
+
+			}, function ()
+			{
+				$( this ).css( {
+					"backgroundPosition": "left",
+					"cursor": "auto"
+				} );
+
+				$rightSideLobby.css( {
+					"backgroundPosition": "left"
+
+				} );
+			} );
+
+			var $pixHover = $( ".1px-hover" );
+
+			$pixHover.hover( function ()
+			{
+				$( this ).css( {
 					"bottom": "0"
-				});
-			}, function () {
-				$(this).css({
+				} );
+			}, function ()
+			{
+				$( this ).css( {
 					"bottom": "1px"
-				});
-			});
+				} );
+			} );
 
-			$("#btnAddNewEvent").hover(function () {
-				$(this).css({
+			$( "#btnAddNewEvent" ).hover( function ()
+			{
+				$( this ).css( {
 					"cursor": "pointer"
-				});
-			}, function () {
-				$(this).css({
+				} );
+			}, function ()
+			{
+				$( this ).css( {
 					"cursor": "auto"
-				});
-			});
+				} );
+			} );
 
-			$(".login-link").hover(function () {
-				$(this).css({
-					"color":"rgb(73, 226, 140)"						
-				});
-			}, function () {
-				$(this).css({
-					"color":"gray"
-				});
-			});
+			$( ".login-link" ).hover( function ()
+			{
+				$( this ).css( {
+					"color": "rgb(73, 226, 140)"
+				} );
+			}, function ()
+			{
+				$( this ).css( {
+					"color": "gray"
+				} );
+			} );
 
 			$( "#calendar .calendar-year-arrows" ).hover( function ()
 			{
@@ -574,61 +641,95 @@
 				$( this ).css( {
 					"cursor": "auto"
 				} );
-			
+
 			} );
 
 		}();
 
-		this.initializeClick = function () {
+		this.initializeClick = function ()
+		{
 			//register user
-			var $txtbox = $("#registerPageContainer .register-birthdate-txtbox");
-			$txtbox.keyup(function(){			
-				$("#registerPageContainer #birthDateValidationErrorMsg").hide();
-				$txtbox.removeClass("input-validation-error");			
-			});
+			var $txtbox = $( "#registerPageContainer .register-birthdate-txtbox" );
+			$txtbox.keyup( function ()
+			{
+				$( "#registerPageContainer #birthDateValidationErrorMsg" ).hide();
+				$txtbox.removeClass( "input-validation-error" );
+			} );
 
-			var $mainContainer = $("#mainContainer");
+			var $mainContainer = $( "#mainContainer" );
 
-			$mainContainer.on("click", "#leftSideCalendar", function (event) {
+			$mainContainer.on( "click", "#leftSideCalendar", function ( event )
+			{
 				window.location = "#0";
-			});
-			$mainContainer.on("click", "#calendar-navigation-arrows-left", function (event) {
+			} );
+			$mainContainer.on( "click", "#calendar-navigation-arrows-left", function ( event )
+			{
 				window.location = "#0";
-			});
-			$mainContainer.on("click", "#rightSideCalendar", function (event) {
+			} );
+			$mainContainer.on( "click", "#rightSideCalendar", function ( event )
+			{
 				window.location = "#2";
-			});
-			$mainContainer.on("click", "#calendar-navigation-arrows-right", function (event) {
+			} );
+			$mainContainer.on( "click", "#calendar-navigation-arrows-right", function ( event )
+			{
 				window.location = "#2";
-			});
-			$mainContainer.on("click", "#rightSideLobby", function (event) {
+			} );
+			$mainContainer.on( "click", "#rightSideLobby", function ( event )
+			{
 				window.location = "#1";
-			});
-			$mainContainer.on("click", "#lobby-navigation-arrows-right", function (event) {
+			} );
+			$mainContainer.on( "click", "#lobby-navigation-arrows-right", function ( event )
+			{
 				window.location = "#1";
-			});
-			$mainContainer.on("click", "#leftSideDetails", function (event) {
+			} );
+			$mainContainer.on( "click", "#leftSideDetails", function ( event )
+			{
 				window.location = "#1";
-			});
-			$mainContainer.on("click", "#details-navigation-arrows-left", function (event) {
+			} );
+			$mainContainer.on( "click", "#details-navigation-arrows-left", function ( event )
+			{
 				window.location = "#1";
-			});
+			} );
 
 		}();
 
-		this.initializeDateValidationErrorMsgDisplay = function(){
+		this.initializeDateValidationErrorMsgDisplay = function ()
+		{
 
-			var $txtbox = $("#addNewEventContainer .event-startdate-txtbox");
-			$txtbox.keyup(function(){			
-				$("#addNewEventContainer #dateValidationErrorMsg").hide();
-				$txtbox.removeClass("input-validation-error");			
-			});
+			var $txtbox = $( "#addNewEventContainer .event-startdate-txtbox" );
+			$txtbox.keyup( function ()
+			{
+				$( "#addNewEventContainer #dateValidationErrorMsg" ).hide();
+				$txtbox.removeClass( "input-validation-error" );
+			} );
 
-			var $endDate = $("#addNewEventContainer .end-date-selectbox");
-			$endDate.change(function(){
-				$endDate.removeClass("input-validation-error");
-				$("#addNewEventContainer #endDateValidationErrorMsg").hide();
-			});
+			var $endDate = $( "#addNewEventContainer .end-date-selectbox" );
+			$endDate.change( function ()
+			{
+				$endDate.removeClass( "input-validation-error" );
+				$( "#addNewEventContainer #endDateValidationErrorMsg" ).hide();
+			} );
+
+		}();
+
+		this.initializeJQueryExtentionMethods = function ()
+		{
+			//scrollTo
+			jQuery.fn.extend( {
+				scrollTo: function ( speed, offset )
+				{
+					if ( !offset )
+					{
+						offset = this.offset().top - 20;
+					}
+					
+					console.log(offset);
+
+					this.closest( ".scrollable" ).animate( { scrollTop: offset }, speed );
+				}
+			} );
+
+
 
 		}();
 	}

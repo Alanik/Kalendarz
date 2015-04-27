@@ -65,11 +65,23 @@
 		};
 		function setStartDate( event )
 		{
+			//TODO: create KKEventModel from the event returned from the server
+
+			////////////////////////////////////////////////////////////////
+			//in javascript months start from 0 to 11 so we need to adjust it
+			event.startDate.month = event.startDate.month - 1;
+			////////////////////////////////////////////////////////////////
+
 			var sdate = new Date( event.startDate.year, event.startDate.month, event.startDate.day, event.startDate.hour, event.startDate.minute, 0, 0 );
 			var edate;
 
 			if ( event.endDate )
 			{
+				////////////////////////////////////////////////////////////////
+				//in javascript months start from 0 to 11 so we need to adjust it
+				event.endDate.month = event.endDate.month - 1;
+				////////////////////////////////////////////////////////////////
+
 				edate = new Date( event.endDate.year, event.endDate.month, event.endDate.day, event.endDate.hour, event.endDate.minute, 0, 0 );
 				event.startDate = new KKEventDateModel( sdate, sdate.getMinutes(), edate.getMinutes(), sdate.getHours(), edate.getHours(), sdate.getDate(), sdate.getMonth(), sdate.getFullYear() );
 				event.eventLengthInMinutes = ( ( parseInt( edate.getHours(), 10 ) - parseInt( sdate.getHours(), 10 ) ) * 60 ) + ( parseInt( edate.getMinutes(), 10 ) - parseInt( sdate.getMinutes(), 10 ) );
@@ -86,7 +98,6 @@
 		}
 		function setAddress( event )
 		{
-
 			if ( !event.addresses[0] )
 			{
 				event.address = {
@@ -113,12 +124,12 @@
 			element = eventTree[i] = {};
 			eventCountTreeElement = indexViewModelEventCountTree[i];
 
-			if ( eventCountTreeElement && eventCountTreeElement.value == (i + 1))
+			if ( eventCountTreeElement && eventCountTreeElement.value == ( i + 1 ) )
 			{
 				element.eventKindValue = eventCountTreeElement.value;
 				element.events = {};
 				element.events.upcoming = ko.observable( eventCountTreeElement.events.upcoming );
-				element.events.old = ko.observable(eventCountTreeElement.events.old);
+				element.events.old = ko.observable( eventCountTreeElement.events.old );
 			} else
 			{
 				//events with given eventKind.value do not exist so we need to create an empty object

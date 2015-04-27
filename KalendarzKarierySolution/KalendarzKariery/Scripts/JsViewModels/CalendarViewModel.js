@@ -13,9 +13,11 @@
 	//ajax loader 
 	self.spinner = spinner;
 
+
 	self.todayDate = {
 		"day": date.getDate(),
-		"month": date.getMonth(),
+		//month starts from 1 to 12
+		"month": date.getMonth() + 1,
 		"year": date.getFullYear(),
 		"weekday": date.getDay(),
 		"getMonthName": function ()
@@ -42,7 +44,7 @@
 	// month starts from 1 to 12
 	self.detailsPageDisplayDate = {
 		"year": ko.observable( year ),
-		"month": ko.observable( month ),
+		"month": ko.observable( month + 1 ),
 		"day": ko.observable( day ),
 		"weekday": ko.observable( weekday ),
 		"getMonthName": function ()
@@ -60,7 +62,7 @@
 	//month starts from 1 to 12
 	self.calendarPageDisplayDate = {
 		"year": ko.observable( year ),
-		"month": ko.observable( month )
+		"month": ko.observable( month + 1)
 	};
 
 	self.addNewEvent_Day = ko.observable( 0 );
@@ -335,7 +337,7 @@
 						self.observableEvent.occupancyLimit(),
 						self.observableEvent.privacyLevel.name,
 						self.observableEvent.privacyLevel.value,
-						new KKEventDateModel( startEventDate, startMinute, endMinute, startHour, endHour, day, month, year ),
+						new KKEventDateModel( startEventDate, startMinute, endMinute, startHour, endHour, day, month - 1, year ),
 						self.observableEvent.name(),
 						self.observableEvent.urlLink(),
 						self.observableEvent.price()
@@ -512,7 +514,6 @@
 
 	self.redrawCalendarCell = function ( dayEvents, day )
 	{
-
 		//remove events from calendar cell
 		var cellDay = ".day" + day;
 		var $cellPlaceholder = $( "#calendar" ).find( cellDay ).find( ".calendar-cell-placeholder" );
@@ -614,23 +615,23 @@
 
 	self.showEventDetailsOnEventBlockClick = function ( element )
 	{
-		var $block = $( element );
+		var $block = $( element ), offset;
 		var $eventBlockContainer = $block.closest( ".event-block-container" );
-		var offset = $eventBlockContainer.position().top;
-
-		$eventBlockContainer.closest( ".scrollable" ).scrollTop( offset );
-
+		var $detailsEventBlockList = $eventBlockContainer.closest( "#detailsEventBlockList" );
 		var $content = $eventBlockContainer.find( ".event-block-body" );
-
 		var $eventBlockInfo = $eventBlockContainer.find( ".event-block-info-container" );
 
 		if ( $block.hasClass( "open" ) )
 		{
+			offset = $detailsEventBlockList.position().top - 20;
+			$detailsEventBlockList.scrollTo(500, offset);
 			$eventBlockInfo.slideUp();
 			$content.css( "color", "rgb(229, 211, 180)" );
 		}
 		else
 		{
+			offset = $eventBlockContainer.position().top - 20;
+			$eventBlockContainer.scrollTo( 500, offset );
 			$eventBlockInfo.slideDown();
 			$content.css( "color", "rgb(161, 147, 123)" );
 		}
@@ -640,6 +641,8 @@
 
 	self.toggleShowOldEventsOnCheckboxClick = function ( element, lobbyOrDetailsPageSelectedEvents )
 	{
+		debugger;
+
 		var $chkbox = $( element ).find( ".show-old-events-checkbox" );
 		var eventsArr;
 
@@ -653,7 +656,7 @@
 		{
 			lobbyOrDetailsPageSelectedEvents.settings.showOldEvents( true );
 
-			if ( lobbyOrDetailsPageSelectedEvents.pageName == "details" )
+			if ( lobbyOrDetailsPageSelectedEvents.settings.pageName == "details" )
 			{
 				eventsArr = self.getFilteredEventsFromEventTree( self.myEventTree, ["kind", "value"], lobbyOrDetailsPageSelectedEvents.selectedKindValues, "old" );
 			} else
@@ -665,6 +668,35 @@
 			$chkbox.text( "✓" );
 		}
 	};
+
+	self.showTodayInDetailsPageCalendarDetailsTable = function (){
+
+
+		self.detailsPageDisplayDate.day( self.todayDate.day );
+		self.detailsPageDisplayDate.month( self.todayDate.month );
+		self.detailsPageDisplayDate.year( self.todayDate.year );
+
+		self.removeEventRectanglesFromDetailsDay();
+
+		var events = self.getEventsForGivenDay( self.todayDate.day )
+		self.detailsPageDayEvents( events );
+
+		for ( var i in events )
+		{
+			self.drawEventToDetailsDayTable( events[i] );
+		}
+
+		var $calendarDayDetailsTable = $( "#details #calendarDayDetailsTable" );
+
+		var $tableBody = $calendarDayDetailsTable.find( ".table-details-body" );
+		var h = ( self.displayPageEventMostBottomRow + 1 ) * 46;
+		$tableBody.height( h + "px" );
+
+		var offset = $calendarDayDetailsTable.position().top;
+
+		var $scrollable = $calendarDayDetailsTable.closest( ".scrollable" );
+		$calendarDayDetailsTable.scrollTo( 500 );
+	}
 
 	self.addEventToMyEventTree = function ( newEvent )
 	{
@@ -1021,7 +1053,7 @@
 			self.drawEventToDetailsDayTable( events[i] );
 		}
 
-		var $tableBody = $( "#calendarDayDetailsTable .table-details-body" );
+		var $tableBody = $( "#details #calendarDayDetailsTable .table-details-body" );
 		var h = ( self.displayPageEventMostBottomRow + 1 ) * 46;
 		$tableBody.height( h + "px" );
 
@@ -1533,7 +1565,6 @@
 
 	self.validateAddEventFormDates = function ( startH, endH, startM, endM )
 	{
-
 		var startDate = new Date( 2014, 1, 1, startH, startM, 0, 0 );
 		var endDate = new Date( 2014, 1, 1, endH, endM, 0, 0 );
 
@@ -1687,7 +1718,10 @@
 
 	self.redisplayCalendarAtChosenMonth = function ( monthNum )
 	{
+		//TODO: change so monthNum is from 1 - 12 (to make consistent throughout the app - lets agree that month values will be passed as values from 1 to 12).
+
 		//monthNum is between 0 - 11
+
 		var $calendar = $( "#calendar" );
 		var $addNewEvent = $( "#addNewEventContainer" );
 		var $loader = $calendar.siblings( ".dotted-page-overlay" );

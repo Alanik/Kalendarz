@@ -1,0 +1,8 @@
+﻿<div class="login-bar-container">
+	<span class="lobby-user-nickname">@User.Identity.Name</span>
+	@using (Html.BeginForm( "LogOff", "Account", FormMethod.Post, new { id = "logoutForm" } ))
+	 {
+		@Html.AntiForgeryToken()
+		<a style="color: rgb(255, 109, 109);" href="javascript:document.getElementById('logoutForm').submit()">wyloguj</a>
+	 }
+</div>

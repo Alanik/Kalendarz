@@ -355,17 +355,20 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Home\LobbyPage\_Register.cshtml" />
     <Content Include="Views\Home\DetailsPage\_Details.cshtml" />
-    <Content Include="Views\Home\LobbyPage\_lobbyEventSummary.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsEventSummary.cshtml" />
     <Content Include="Views\Home\SharedPartials\_EventInfo.cshtml" />
     <Content Include="Views\Home\SharedPartials\_ConfirmationPopupBox.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsAllSelectedEventsList.cshtml" />
     <Content Include="Views\Emails\_ViewStart.cshtml" />
     <Content Include="Views\Home\LobbyPage\_LobbyAllSelectedEventsList.cshtml" />
-    <Content Include="Views\Home\LobbyPage\_lobbyNews.cshtml" />
+    <Content Include="Views\Home\LobbyPage\_LobbyNews.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsSettings.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsUserProfile.cshtml" />
     <Content Include="Views\Shared\JSUnitTests.cshtml" />
+    <Content Include="Views\Home\LobbyPage\_LobbyNotLoggedInBar.cshtml" />
+    <Content Include="Views\Home\LobbyPage\_LobbyLoggedInBar.cshtml" />
+    <Content Include="Views\Home\LobbyPage\_LobbyEventsDisplay.cshtml" />
+    <Content Include="Views\Home\LobbyPage\_LobbyEventsMenuItems.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -15,10 +15,6 @@ MEDIA QUERIES
 		box-shadow: none;
 	}
 
-		.slick-contact-form input[type=text], input[type=password], textarea, select {
-			box-shadow: none;
-		}
-
 	.year-name-container {
 		box-shadow: none;
 	}
@@ -32,10 +28,6 @@ MEDIA QUERIES
 	}
 
 	.event-kind-tag {
-		box-shadow: none;
-	}
-
-	.myButton-white {
 		box-shadow: none;
 	}
 

@@ -50,6 +50,48 @@ header, footer, nav, section, div {
 	text-decoration: underline;
 }
 
+#lobbyNavContainer {
+	font-family: Raleway-Regular;
+	color: gray;
+	text-align: center;
+}
+
+	#lobbyNavContainer a {
+		text-decoration: none;
+		color: gray;
+	}
+
+		#lobbyNavContainer a:visited {
+			color: gray;
+		}
+
+		#lobbyNavContainer a:active {
+			color: gray;
+		}
+
+.lobby-nav-link-container {
+	display: inline-block;
+	margin: 10px;
+}
+
+.selected-nav-link {
+	text-shadow: 0px 1px 1px #D8D4C2;
+}
+
+#lobbyQuoteContainer {
+	font-family: Raleway;
+	font-weight: bold;
+	font-size: 2em;
+	color: rgb(253, 252, 251);
+	text-align: center;
+	text-shadow: 0px 1px 1px rgb(207, 200, 176);
+}
+
+#lobbyQuoteAndNavSection {
+	margin-top: 160px;
+	margin-bottom: 400px;
+}
+
 .dotted-page-overlay {
 	background: url(../Images/point.png) repeat scroll 0 0 transparent;
 	height: 100%;
@@ -228,6 +270,80 @@ header, footer, nav, section, div {
 	height: 100%;
 }
 
+.display-events-overview-header {
+	text-align: left;
+	padding: 5px;
+	padding-left: 20px;
+	color: rgb(231, 224, 202);
+	border-bottom: 1px solid rgb(242, 242, 242);
+	font-size: 1.4em;
+	background: rgb(186, 176, 146);
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+}
+
+
+.display-events-overview-container {
+	font-size: 1.2em;
+	background: rgb(223, 215, 188);
+	width: 88%;
+	border-radius: 6px;
+	border: 1px solid rgb(212, 202, 168);
+	display: none;
+	padding-bottom: 40px;
+}
+
+	.display-events-overview-container .legend-container {
+		text-align: center;
+		font-weight: bold;
+		color: rgb(118, 104, 75);
+		margin: 0 auto;
+		width: 90%;
+	}
+
+	.display-events-overview-container .legend-title {
+		display: inline-block;
+		width: 300px;
+		padding: 5px;
+		text-align: left;
+	}
+
+	.display-events-overview-container .legend-other {
+		display: inline-block;
+		padding: 5px;
+		width: 110px;
+		text-align: left;
+	}
+
+	.display-events-overview-container .legend-oldorupcoming {
+		color: rgb(255, 250, 232);
+		padding: 10px 0;
+		font-size: 2em;
+		text-align: center;
+	}
+
+	.display-events-overview-container .list-item-title {
+		display: inline-block;
+		width: 300px;
+		margin-bottom: 2px;
+		padding: 5px;
+		vertical-align: top;
+		color: rgb(118, 104, 75);
+		text-align: left;
+	}
+
+	.display-events-overview-container .list-item-other {
+		display: inline-block;
+		color: rgb(118, 104, 75);
+		padding: 5px;
+		width: 110px;
+		text-align: left;
+	}
+
+.display-events-overview-list:nth-child(odd) {
+	background: rgb(231, 224, 201);
+}
+
 .hour {
 	font-size: 10px;
 	position: absolute;
@@ -309,9 +425,6 @@ header, footer, nav, section, div {
 	position: relative;
 	top: 20px;
 	margin-bottom: 20px;
-}
-
-.site-menu-header {
 }
 
 #loginPageContainer fieldset {
@@ -420,12 +533,12 @@ header, footer, nav, section, div {
 	border-top: 2px solid rgb(250, 248, 240);
 }
 
-#loginLinkContainer {
+.login-bar-container {
 	text-align: right;
-	padding-right: 100px;
 	color: gray;
-	position:relative;
-	top:25px;
+	position: relative;
+	top: 28px;
+	margin-right: 40px;
 }
 
 .lobby-loggedIn-bar {
@@ -647,16 +760,6 @@ header, footer, nav, section, div {
 	margin-top: 30px;
 }
 
-.display-events-overview-container {
-	font-size: 1.2em;
-	background: rgb(223, 215, 188);
-	width: 88%;
-	border-radius: 6px;
-	border: 1px solid rgb(212, 202, 168);
-	display: none;
-	padding-bottom: 40px;
-}
-
 #addNewEventContainer {
 	top: 25px;
 	position: absolute;
@@ -838,9 +941,6 @@ background:rgb(115, 233, 162);
 	color: rgb(68, 192, 64);
 }
 
-.lobby-content-body {
-}
-
 #spinnerText {
 	position: absolute;
 	bottom: 20px;
@@ -895,20 +995,20 @@ background:rgb(115, 233, 162);
 }
 
 #addPrivateEventBtn {
-  display: block;
-  padding-bottom: 20px;
-  margin-bottom: 0px;
-  border-bottom: 2px solid rgb(145, 141, 123);
+	display: block;
+	padding-bottom: 20px;
+	margin-bottom: 0px;
+	border-bottom: 2px solid rgb(145, 141, 123);
 }
 
-#lobbyEventsMenuContainer {
+#lobbyTableOfEventsSection {
 	margin: 0px auto;
 	display: block;
 	text-align: center;
 	border-top: 2px solid rgb(250, 248, 240);
 	border-bottom: 2px solid rgb(145, 141, 123);
 	padding-top: 4px;
-	padding-bottom:10px;
+	padding-bottom: 10px;
 }
 
 #endDateValidationErrorMsg {
@@ -920,7 +1020,7 @@ background:rgb(115, 233, 162);
 	color: gray;
 	text-align: center;
 	display: inline-block;
-	margin-bottom:10px;
+	margin-bottom: 10px;
 }
 
 .year-name-container {
@@ -948,7 +1048,7 @@ background:rgb(115, 233, 162);
 	position: relative;
 	font-size: .8em;
 	color: rgb(184,184,184);
-	visibility:hidden;
+	visibility: hidden;
 }
 
 	#siteNavLegendContainer span {
@@ -1052,9 +1152,7 @@ background:rgb(115, 233, 162);
 	padding-left: 88px;
 }
 
-.selected-event-info-div:nth-child(odd) {
-	background: rgb(231, 224, 201);
-}
+
 
 #todayDateYear {
 	font-size: 1.5em;
@@ -1087,13 +1185,13 @@ background:rgb(115, 233, 162);
 	margin: 10px 0;
 }
 
-.loggedIn-nickname {
+.lobby-user-nickname {
 	margin-right: 15px;
 	font-size: 2em;
 	vertical-align: baseline;
 	position: relative;
 	top: 2px;
-	color:rgb(205, 198, 180);
+	color: rgb(205, 198, 180);
 }
 
 .event-kind-text {
@@ -1220,9 +1318,16 @@ wydarzenia-tab {
 	text-decoration: underline;
 }
 
-#lobbyEventSummary {
+#lobbyEventsDisplaySection {
 	margin: 0 auto;
 	text-align: center;
+}
+
+#lobbyEventsDisplayListContainer {
+	overflow: hidden;
+	border-top: 2px solid rgb(250, 248, 240);
+	padding-top: 40px;
+	padding-bottom: 40px;
 }
 
 .current-month-name-calendar {
@@ -1262,12 +1367,7 @@ wydarzenia-tab {
 
 #logoutForm {
 	display: inline-block;
-	margin-right: 40px;
 }
-
-	#logoutForm a {
-		color: white;
-	}
 
 .form-label {
 	width: 200px;
@@ -1578,7 +1678,24 @@ legend {
 	margin: 4px;
 }
 
-.event-block-content {
+	.event-block-container .name-label {
+		font-size: 2em;
+		line-height: 1;
+		padding-bottom: 4px;
+	}
+
+	.event-block-container .hour-label {
+		font-size: 1.4em;
+		color: rgb(192, 187, 172);
+	}
+
+.event-block-header {
+	width: 50%;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+.event-block-body {
 	color: #ECE7DF;
 }
 

@@ -619,7 +619,7 @@
 
 		$eventBlockContainer.closest( ".scrollable" ).scrollTop( offset );
 
-		var $content = $eventBlockContainer.find( ".event-block-content" );
+		var $content = $eventBlockContainer.find( ".event-block-body" );
 
 		var $eventBlockInfo = $eventBlockContainer.find( ".event-block-info-container" );
 
@@ -1197,7 +1197,7 @@
 					lobbyOrDetailsPageSelectedEvents.old( array2 );
 				}
 
-				if ( !$( "#lobby #lobbyEventsMenuContainer .menu-item-container" ).hasClass( "selected" ) )
+				if ( !$( "#lobby #lobbyTableOfEventsSection .menu-item-container" ).hasClass( "selected" ) )
 				{
 					$container = $( "#lobby #lobbyPageAllEventsListContainer" );
 					$container.hide();

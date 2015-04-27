@@ -1,5 +1,5 @@
 ﻿<div id="detailsPageAllEventsListContainer" class="display-events-overview-container">
-	<div style="padding: 5px; padding-left: 20px; color: rgb(231, 224, 202); border-bottom: 1px solid rgb(242, 242, 242); font-size: 1.4em; background: rgb(186, 176, 146); border-top-left-radius: 6px; border-top-right-radius: 6px;">
+	<div class="display-events-overview-header">
 		Mój kalendarz
 	</div>
 
@@ -10,39 +10,39 @@
 		</div>
 	</div>
 
-	<div style="text-align: center;font-weight: bold; color: rgb(118, 104, 75); margin: 0 auto; width: 90%;">
-		<div style="display: inline-block; width: 300px; margin-bottom: 2px; padding: 5px; vertical-align: top; text-align: left;">Tytuł:</div>
-		<div style="display: inline-block; padding: 5px; width: 110px; text-align: left;">Data:</div>
-		<div style="display: inline-block; padding: 5px; width: 110px; text-align: left;">Godzina:</div>
-		<div style="display: inline-block; padding: 5px; width: 100px; text-align: left;">Rodzaj:</div>
+	<div class="legend-container">
+		<div class="legend-title">Tytuł:</div>
+		<div class="legend-other">Data:</div>
+		<div class="legend-other">Godzina:</div>
+		<div class="legend-other">Rodzaj:</div>
 	</div>
 
-	<div data-bind="foreach: $root.detailsPageSelectedEvents.old" style="text-align: center;">
+	<div data-bind="foreach: $root.detailsPageSelectedEvents.old">
 		<!-- ko if: $index() == 0 -->
-		<div style="color:rgb(255, 250, 232);/*color: rgb(147, 139, 114); */ padding: 10px 0; font-size: 2em;">
+		<div class="legend-oldorupcoming">
 			stare
 		</div>
 		<!-- /ko -->
 
-		<div class="selected-event-info-div">
-			<div style="display: inline-block; width: 300px; margin-bottom: 2px; padding: 5px; vertical-align: top; color: rgb(118, 104, 75); text-align: left;" data-bind="text: name"></div>
-			<div style="display: inline-block; color: rgb(118, 104, 75); padding: 5px; width: 110px; text-align: left;" data-bind="text: startDate.displayFullDate()"></div>
-			<div style="display: inline-block; color: rgb(118, 104, 75); padding: 5px; width: 110px; text-align: left;" data-bind="text: startDate.displayFullTime()"></div>
+		<div class="display-events-overview-list">
+			<div class="list-item-title" data-bind="text: name"></div>
+			<div class="list-item-other" data-bind="text: startDate.displayFullDate()"></div>
+			<div class="list-item-other" data-bind="text: startDate.displayFullTime()"></div>
 			<div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
 		</div>
 	</div>
 
-	<div data-bind="foreach: $root.detailsPageSelectedEvents.upcoming" style="text-align: center;">
+	<div data-bind="foreach: $root.detailsPageSelectedEvents.upcoming">
 		<!-- ko if: $index() == 0 -->
-		<div style="color: rgb(255, 250, 232); padding: 10px 0; font-size: 2em;">
+		<div class="legend-oldorupcoming">
 			nadchodzące
 		</div>
 		<!-- /ko -->
 
-		<div class="selected-event-info-div">
-			<div style="display: inline-block; width: 300px; margin-bottom: 2px; padding: 5px; vertical-align: top; color: rgb(118, 104, 75); text-align: left;" data-bind="text: name"></div>
-			<div style="display: inline-block; color: rgb(118, 104, 75); padding: 5px; width: 110px; text-align: left;" data-bind="text: startDate.displayFullDate()"></div>
-			<div style="display: inline-block; color: rgb(118, 104, 75); padding: 5px; width: 110px; text-align: left;" data-bind="text: startDate.displayFullTime()"></div>
+		<div class="display-events-overview-list">
+			<div class="list-item-title" data-bind="text: name"></div>
+			<div class="list-item-other" data-bind="text: startDate.displayFullDate()"></div>
+			<div class="list-item-other" data-bind="text: startDate.displayFullTime()"></div>
 			<div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
 		</div>
 	</div>

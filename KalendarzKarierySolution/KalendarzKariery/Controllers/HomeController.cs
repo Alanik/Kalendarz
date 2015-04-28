@@ -62,6 +62,47 @@ namespace KalendarzKariery.Controllers
 			return View("Index", mainViewModel);
 		}
 
+		public ActionResult m(){
+		if (Request.IsAjaxRequest())
+			{
+				return View("Index", null);
+			}
+
+			var indexViewModel = new IndexViewModel();
+			indexViewModel.PublicEvents = _repository.GetAllPublicEvents();
+			indexViewModel.EventKinds = _repository.GetEventKindsBasedOnUserName(User.Identity.Name);
+			indexViewModel.PrivacyLevels = _repository.GetAllPrivacyLevels();
+			indexViewModel.PublicEventCountTree = _repository.GetPublicEventCountTree();
+			indexViewModel.News = _repository.GetAllNews();
+
+			indexViewModel.MyEvents = null;
+			indexViewModel.MyEventCountTree = null;
+
+			RegisterViewModel registerViewModel = new RegisterViewModel();
+
+			if (User.Identity.IsAuthenticated)
+			{
+				int? id = GetUserId(User.Identity.Name.ToLower(), _repository);
+
+				if (id.HasValue)
+				{
+					indexViewModel.MyEvents = _repository.GetAllEventsByUserId(id.Value);
+					indexViewModel.MyEventCountTree = _repository.GetMyEventCountTree(id.Value);
+					registerViewModel = this.GetRegisterViewModel(id.Value, _repository);
+				}
+				else
+				{
+					//TODO: throw exception
+				}
+			}
+
+			MainViewModel mainViewModel = new MainViewModel();
+			mainViewModel.IndexViewModel = indexViewModel;
+			mainViewModel.RegisterViewModel = registerViewModel;
+
+			return View("Index", "~/Views/Shared/_LayoutMobile.cshtml", mainViewModel);
+		}
+
 		private RegisterViewModel GetRegisterViewModel(int id, IKalendarzKarieryRepository repository)
 		{
 			RegisterViewModel registerViewModel = new RegisterViewModel();

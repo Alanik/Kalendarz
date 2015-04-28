@@ -369,6 +369,7 @@
     <Content Include="Views\Home\LobbyPage\_LobbyLoggedInBar.cshtml" />
     <Content Include="Views\Home\LobbyPage\_LobbyEventsDisplay.cshtml" />
     <Content Include="Views\Home\LobbyPage\_LobbyEventsMenuItems.cshtml" />
+    <Content Include="Views\Shared\_LayoutMobile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

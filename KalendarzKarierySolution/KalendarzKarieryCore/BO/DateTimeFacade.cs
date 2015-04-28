@@ -16,12 +16,5 @@ namespace KalendarzKarieryCore.BO
 			DateTime polishDateTime = TimeZoneInfo.ConvertTimeFromUtc( DateTime.UtcNow, zone );
 			return polishDateTime;
 		}
-
-		public static DateTime? GetEuropeanCentralStandardTimeFromUTC( DateTime? utcTime )
-		{
-			TimeZoneInfo zone = TimeZoneInfo.FindSystemTimeZoneById( CentralEuropeanStandardTime );
-			DateTime? polishDateTime = TimeZoneInfo.ConvertTimeFromUtc( utcTime.Value, zone );
-			return polishDateTime;
-		}
 	}
 }

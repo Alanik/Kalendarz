@@ -16,22 +16,21 @@
 				<fieldset class="add-event-fieldset">
 
 					<legend>Dodaj do kalendarza</legend>
-
 					<div data-bind="with: observableEvent">
 
 						<div class="div-separator">
-							<label>Kategoria: </label>
-							<select id="kindSelectBox" name="kindSelectBox" data-bind="options: $root.eventKinds, optionsText: 'name', optionsValue: 'value', selectedText: kind.name, value: kind.value "></select>
-						</div>
-
-						<div class="div-separator">
 							<div>
-								@Html.LabelFor( m => m.Event.Title, new { @class = "form-label" } )
+								@Html.LabelFor( m => m.Event.Title, new { @class = "form-label", style = "width:245px;" } )
 								<div>
 									@Html.ValidationMessageFor( m => m.Event.Title )
 								</div>
 								@Html.TextBoxFor( m => m.Event.Title, new { maxlength = 100, data_bind = "value: name" } )
 							</div>
+						</div>
+
+						<div class="div-separator">
+							<label>Kategoria: </label>
+							<select id="kindSelectBox" name="kindSelectBox" data-bind="options: $root.eventKinds, optionsText: 'name', optionsValue: 'value', selectedText: kind.name, value: kind.value "></select>
 						</div>
 
 						<div class="div-separator">
@@ -52,11 +51,10 @@
 		 }
 								</select>
 							</div>
-						</div>
 
-						<div class="div-separator">
-							<label>Godzina zakończenia: </label>
-							<div style="display: inline-block;">
+							<div style="display: inline-block; margin-left: 20px;">
+								<label>Godzina zakończenia: </label>
+
 								<div id="endDateValidationErrorMsg" class="field-validation-error"></div>
 								<select id="endHourSelectBox" class="time-select-box end-date-selectbox" data-bind="value: startDate.endHour">
 									@for (int i = 7; i < 21; i++)
@@ -74,11 +72,12 @@
 		 }
 								</select>
 							</div>
+
 						</div>
 
-						<div class="div-separator">
+						<div class="div-separator" style="margin-bottom: 40px;">
 							<div>
-								@Html.LabelFor( m => m.Event.StartDate, new { @class = "form-label" } )
+								@Html.LabelFor( m => m.Event.StartDate, new { @class = "form-label", style = "width:248px;" } )
 								<div>
 									<div>
 										@Html.ValidationMessageFor( m => m.StartDate.Day )
@@ -97,106 +96,113 @@
 							</div>
 						</div>
 
-						<div id="addNewEventAddressLink" class="div-separator hover-cursor-pointer" data-bind="click: function () { $root.showChosenFieldInAddNewEventPopupOnClick( $element ) }">
-							<p class="underline">Dodaj adres</p>
+						<div id="addNewEventShowMoreOptionsLink" style="display: inline-block;" class="hover-cursor-pointer" data-bind="click: $root.showMoreOptionsInAddNewEventPopupOnClick($element)">
+							<span>Pokaż więcej opcji +</span>
 						</div>
 
-						<div id="addNewEventAddressContainer" class="div-separator" style="display: none;">
-							<div>
-								@Html.LabelFor( m => m.Address.Street, new { @class = "form-label" } )
-								<div>
-									@Html.ValidationMessageFor( m => m.Address.Street )
-								</div>	
-								@Html.TextBoxFor( m => m.Address.Street, new { maxlength = 30, data_bind = "value: address.street" } )
+						<div id="btnAddNewEvent" class="btn-add hover-cursor-pointer 1px-hover" data-bind="click: $root.addEventOnClick">
+							<span class="save-text">dodaj</span>
+						</div>
 
+						<div style="display: none;" class="more-options-container">
+							<div id="addNewEventAddressLink" class="div-separator hover-cursor-pointer" data-bind="click: function () { $root.showChosenFieldInAddNewEventPopupOnClick( $element ) }">
+								<p class="underline">Dodaj adres</p>
 							</div>
-							<div>
-								@Html.LabelFor( m => m.Address.City, new { @class = "form-label" } )
-								<div>
-									@Html.ValidationMessageFor( m => m.Address.City )
-								</div>	
-								@Html.TextBoxFor( m => m.Address.City, new { maxlength = 30, data_bind = "value: address.city" } )
 
-							</div>
-							<div>
-								@Html.LabelFor( m => m.Address.ZipCode, new { @class = "form-label" } )
+							<div id="addNewEventAddressContainer" class="div-separator" style="display: none;">
 								<div>
-									@Html.ValidationMessageFor( m => m.Address.ZipCode )
+									@Html.LabelFor( m => m.Address.Street, new { @class = "form-label" } )
+									<div>
+										@Html.ValidationMessageFor( m => m.Address.Street )
+									</div>
+									@Html.TextBoxFor( m => m.Address.Street, new { maxlength = 30, data_bind = "value: address.street" } )
+
 								</div>
-								@Html.TextBoxFor( m => m.Address.ZipCode, new { maxlength = 6, placeholder = "00-000", style = "width:50px !important;" } )
-							</div>
-						</div>
-
-						<div id="addNewEventDescriptionLink" class="div-separator hover-cursor-pointer" data-bind="click: function () { $root.showChosenFieldInAddNewEventPopupOnClick( $element ) }">
-							<p class="underline">Dodaj krótki opis</p>
-						</div>
-
-						<div id="addNewEventDescriptionContainer" class="div-separator" style="display: none;">
-							<div>
-								@Html.LabelFor( m => m.Event.Description, new { @class = "form-label", @style = "vertical-align:top;" } )
 								<div>
-									@Html.ValidationMessageFor( m => m.Event.Description )
+									@Html.LabelFor( m => m.Address.City, new { @class = "form-label" } )
+									<div>
+										@Html.ValidationMessageFor( m => m.Address.City )
+									</div>
+									@Html.TextBoxFor( m => m.Address.City, new { maxlength = 30, data_bind = "value: address.city" } )
+
 								</div>
-								@Html.TextAreaFor( m => m.Event.Description, new { cols = 30, rows = 3, maxlength = 1000, data_bind = "value: description" } )
-							</div>
-						</div>
-
-						<div id="addNewEventDetailsLink" class="div-separator hover-cursor-pointer" data-bind="click: function () { $root.showChosenFieldInAddNewEventPopupOnClick( $element ) }">
-							<p class="underline">Dodaj szczegóły</p>
-						</div>
-
-						<div id="btnAddNewEventDetailsContainer" class="div-separator" style="display: none;">
-							@Html.LabelFor( m => m.Event.Details, new { @class = "form-label", @style = "vertical-align:top;" } )
-							<div>
-								@Html.ValidationMessageFor( m => m.Event.Details )
-							</div>
-							@Html.TextAreaFor( m => m.Event.Details, new { cols = 30, rows = 5, maxlength = 5000, data_bind = "value: details" } )
-
-						</div>
-
-						<div id="addNewEventUrlLink" class="div-separator hover-cursor-pointer" data-bind="click: function () { $root.showChosenFieldInAddNewEventPopupOnClick( $element ) }">
-							<p class="underline">Dodaj link do strony www</p>
-						</div>
-
-						<div id="btnAddNewEventUrlLinkContainer" class="div-separator" style="display: none;">
-							@Html.LabelFor( m => m.Event.UrlLink, new { @class = "form-label", @style = "vertical-align:top;" } )
-							<div>
-								@Html.ValidationMessageFor( m => m.Event.UrlLink )
-							</div>
-							@Html.TextBoxFor( m => m.Event.UrlLink, new { maxlength = 200, data_bind = "value: urlLink" } )
-
-						</div>
-
-						<div id="addNewEventPriceLink" class="div-separator hover-cursor-pointer" data-bind="click: function () { $root.showChosenFieldInAddNewEventPopupOnClick( $element ) }">
-							<p class="underline">Dodaj opłate za wstęp</p>
-						</div>
-
-						<div id="btnAddNewEventPriceLinkContainer" class="div-separator" style="display: none;">
-
-							<div>
-								@Html.LabelFor( m => m.Event.Price, new { @class = "form-label", @style = "vertical-align:top;" } )
 								<div>
-									@Html.ValidationMessageFor( m => m.Event.Price )
+									@Html.LabelFor( m => m.Address.ZipCode, new { @class = "form-label" } )
+									<div>
+										@Html.ValidationMessageFor( m => m.Address.ZipCode )
+									</div>
+									@Html.TextBoxFor( m => m.Address.ZipCode, new { maxlength = 6, placeholder = "00-000", style = "width:50px !important;" } )
 								</div>
-								@Html.TextBoxFor( m => m.Event.Price, new { style = "width:100px;", maxlength = 10, data_bind = "value: price" } )
+							</div>
+
+							<div id="addNewEventDescriptionLink" class="div-separator hover-cursor-pointer" data-bind="click: function () { $root.showChosenFieldInAddNewEventPopupOnClick( $element ) }">
+								<p class="underline">Dodaj krótki opis</p>
+							</div>
+
+							<div id="addNewEventDescriptionContainer" class="div-separator" style="display: none;">
+								<div>
+									@Html.LabelFor( m => m.Event.Description, new { @class = "form-label", @style = "vertical-align:top;" } )
+									<div>
+										@Html.ValidationMessageFor( m => m.Event.Description )
+									</div>
+									@Html.TextAreaFor( m => m.Event.Description, new { cols = 30, rows = 3, maxlength = 1000, data_bind = "value: description" } )
+								</div>
+							</div>
+
+							<div id="addNewEventDetailsLink" class="div-separator hover-cursor-pointer" data-bind="click: function () { $root.showChosenFieldInAddNewEventPopupOnClick( $element ) }">
+								<p class="underline">Dodaj szczegóły</p>
+							</div>
+
+							<div id="btnAddNewEventDetailsContainer" class="div-separator" style="display: none;">
+								@Html.LabelFor( m => m.Event.Details, new { @class = "form-label", @style = "vertical-align:top;" } )
+								<div>
+									@Html.ValidationMessageFor( m => m.Event.Details )
+								</div>
+								@Html.TextAreaFor( m => m.Event.Details, new { cols = 30, rows = 5, maxlength = 5000, data_bind = "value: details" } )
+
+							</div>
+
+							<div id="addNewEventUrlLink" class="div-separator hover-cursor-pointer" data-bind="click: function () { $root.showChosenFieldInAddNewEventPopupOnClick( $element ) }">
+								<p class="underline">Dodaj link do strony www</p>
+							</div>
+
+							<div id="btnAddNewEventUrlLinkContainer" class="div-separator" style="display: none;">
+								@Html.LabelFor( m => m.Event.UrlLink, new { @class = "form-label", @style = "vertical-align:top;" } )
+								<div>
+									@Html.ValidationMessageFor( m => m.Event.UrlLink )
+								</div>
+								@Html.TextBoxFor( m => m.Event.UrlLink, new { maxlength = 200, data_bind = "value: urlLink" } )
+
+							</div>
+
+							<div id="addNewEventPriceLink" class="div-separator hover-cursor-pointer" data-bind="click: function () { $root.showChosenFieldInAddNewEventPopupOnClick( $element ) }">
+								<p class="underline">Dodaj opłate za wstęp</p>
+							</div>
+
+							<div id="btnAddNewEventPriceLinkContainer" class="div-separator" style="display: none;">
+
+								<div>
+									@Html.LabelFor( m => m.Event.Price, new { @class = "form-label", @style = "vertical-align:top;" } )
+									<div>
+										@Html.ValidationMessageFor( m => m.Event.Price )
+									</div>
+									@Html.TextBoxFor( m => m.Event.Price, new { style = "width:100px;", maxlength = 10, data_bind = "value: price" } )
+								</div>
+							</div>
+
+							<div id="addNewEventOccupancyLimitLink" class="div-separator hover-cursor-pointer" data-bind="click: function () { $root.showChosenFieldInAddNewEventPopupOnClick( $element ) }">
+								<p class="underline">Dodaj dopuszczalną ilość uczestników</p>
+							</div>
+
+							<div id="btnAddNewEventOccupancyLimitLinkContainer" class="div-separator" style="display: none;">
+								@Html.LabelFor( m => m.Event.OccupancyLimit, new { @class = "form-label", @style = "vertical-align:top;" } )
+								<div>
+									@Html.ValidationMessageFor( m => m.Event.OccupancyLimit )
+								</div>
+								@Html.TextBoxFor( m => m.Event.OccupancyLimit, new { style = "width:50px;", maxlength = 7, data_bind = "value: occupancyLimit" } )
 							</div>
 						</div>
 
-						<div id="addNewEventOccupancyLimitLink" class="div-separator hover-cursor-pointer" data-bind="click: function () { $root.showChosenFieldInAddNewEventPopupOnClick( $element ) }">
-							<p class="underline">Dodaj dopuszczalną ilość uczestników</p>
-						</div>
-
-						<div id="btnAddNewEventOccupancyLimitLinkContainer" class="div-separator" style="display: none;">
-							@Html.LabelFor( m => m.Event.OccupancyLimit, new { @class = "form-label", @style = "vertical-align:top;" } )
-							<div>
-								@Html.ValidationMessageFor( m => m.Event.OccupancyLimit )
-							</div>
-							@Html.TextBoxFor( m => m.Event.OccupancyLimit, new { style = "width:50px;", maxlength = 7, data_bind = "value: occupancyLimit" } )
-						</div>
-					</div>
-
-					<div id="btnAddNewEvent" class="btn-add hover-cursor-pointer 1px-hover margin-left-285" data-bind="click: $root.addEventOnClick">
-						<span class="save-text">dodaj</span>
 					</div>
 
 				</fieldset>

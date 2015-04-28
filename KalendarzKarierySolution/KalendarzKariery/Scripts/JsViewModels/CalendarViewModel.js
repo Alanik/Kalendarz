@@ -62,7 +62,7 @@
 	//month starts from 1 to 12
 	self.calendarPageDisplayDate = {
 		"year": ko.observable( year ),
-		"month": ko.observable( month + 1)
+		"month": ko.observable( month + 1 )
 	};
 
 	self.addNewEvent_Day = ko.observable( 0 );
@@ -345,7 +345,7 @@
 
 						var dayEvents = self.addEventToMyEventTree( eventToPush );
 
-						console.log(eventToPush);
+						console.log( eventToPush );
 
 						self.setCalendarPlacementRow( dayEvents );
 						self.redrawCalendarCell( dayEvents, self.addNewEvent_Day() );
@@ -365,6 +365,24 @@
 
 		return false;
 	};
+
+	self.showMoreOptionsInAddNewEventPopupOnClick = function ( element )
+	{
+		var $element = $( element );
+
+		if ( $element.hasClass( "showing" ) )
+		{
+			$element.text( "Ukryj dodatkowe opcje -" );
+			$( element ).closest( ".add-event-fieldset" ).find( ".more-options-container" ).slideDown();
+		} else
+		{
+			$element.text( "Pokaż więcej opcji +" );
+			$( element ).closest( ".add-event-fieldset" ).find( ".more-options-container" ).slideUp();
+		}
+
+		$element.toggleClass( "showing" );
+
+	}
 
 	self.prepareDeleteEventDetailsPageOnDeleteLinkClick = function ( id, year, month, day )
 	{
@@ -464,7 +482,7 @@
 				} else
 				{
 					self.hideLoader( $loader );
-					var $container = $( "#details #detailsEventBlockList .event-block-container[data-eventid='" + id + "']");
+					var $container = $( "#details #detailsEventBlockList .event-block-container[data-eventid='" + id + "']" );
 
 					$container.fadeOut( 500, function ()
 					{
@@ -617,14 +635,14 @@
 	{
 		var $block = $( element ), offset;
 		var $eventBlockContainer = $block.closest( ".event-block-container" );
-		var $detailsEventBlockList = $eventBlockContainer.closest( "#detailsEventBlockList" );
+		var $calendarDayDetailsContainer = $eventBlockContainer.closest( "#detailsEventBlockList" ).prev();
 		var $content = $eventBlockContainer.find( ".event-block-body" );
 		var $eventBlockInfo = $eventBlockContainer.find( ".event-block-info-container" );
 
 		if ( $block.hasClass( "open" ) )
 		{
-			offset = $detailsEventBlockList.position().top - 20;
-			$detailsEventBlockList.scrollTo(500, offset);
+			offset = $calendarDayDetailsContainer.position().top - 20;
+			$calendarDayDetailsContainer.scrollTo( 500, offset );
 			$eventBlockInfo.slideUp();
 			$content.css( "color", "rgb(229, 211, 180)" );
 		}
@@ -641,8 +659,6 @@
 
 	self.toggleShowOldEventsOnCheckboxClick = function ( element, lobbyOrDetailsPageSelectedEvents )
 	{
-		debugger;
-
 		var $chkbox = $( element ).find( ".show-old-events-checkbox" );
 		var eventsArr;
 
@@ -669,7 +685,8 @@
 		}
 	};
 
-	self.showTodayInDetailsPageCalendarDetailsTable = function (){
+	self.showTodayInDetailsPageCalendarDetailsTable = function ()
+	{
 
 
 		self.detailsPageDisplayDate.day( self.todayDate.day );
@@ -1829,7 +1846,7 @@
 
 	self.showEventBlockInfoOnDetailsPageEventRectangleClick = function ( id )
 	{
-		var $container = $( "#details #detailsEventBlockList .event-block-container[data-eventid='" + id + "']");
+		var $container = $( "#details #detailsEventBlockList .event-block-container[data-eventid='" + id + "']" );
 		var block = $container.find( ".event-block" )[0];
 		self.showEventDetailsOnEventBlockClick( block );
 	};

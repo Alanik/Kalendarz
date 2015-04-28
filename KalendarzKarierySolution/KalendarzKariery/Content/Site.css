@@ -248,9 +248,9 @@ header, footer, nav, section, div {
 	}
 
 #btnAddNewEvent {
-	margin-top: 20px;
-	width: 90px;
 	position: relative;
+	display: inline-block;
+	margin-left: 152px;
 }
 
 .calendar-hours {
@@ -291,7 +291,7 @@ header, footer, nav, section, div {
 	border: 1px solid rgb(212, 202, 168);
 	display: none;
 	padding-bottom: 40px;
-	text-align:center;
+	text-align: center;
 }
 
 	.display-events-overview-container .legend-container {
@@ -317,8 +317,8 @@ header, footer, nav, section, div {
 
 	.display-events-overview-container .legend-oldorupcoming {
 		color: rgb(255, 250, 232);
-		padding: 10px 0;
-		font-size: 2em;
+		padding: 4px 0;
+		font-size: 1.6em;
 		text-align: center;
 	}
 
@@ -551,7 +551,7 @@ header, footer, nav, section, div {
 
 .today-cell {
 	background: white !important;
-	border: 2px solid rgb(182, 188, 128) !important;
+	border: 2px solid rgb(221, 212, 183) !important;
 }
 
 	.today-cell .event-rectangle {
@@ -763,7 +763,6 @@ header, footer, nav, section, div {
 #addNewEventContainer {
 	top: 25px;
 	position: absolute;
-	/*background: rgba(249, 255, 249, 1);*/
 	z-index: 101;
 	width: 80%;
 	margin-left: 10%;
@@ -805,10 +804,6 @@ header, footer, nav, section, div {
 	padding-bottom: 2px;
 	background: rgb(113, 225, 142);
 	border-radius: 3px;
-}
-
-.form-body {
-	margin-top: 20px;
 }
 
 .add-event-fieldset {
@@ -1456,22 +1451,25 @@ wydarzenia-tab {
 }
 
 	.slick-contact-form label {
-		color: #b3aba1;
-		/*text-transform: uppercase;*/
-		text-shadow: 0px 1px 0px #fff;
+		color: white;
+		padding: 10px;
+		margin-bottom: -5px;
+		padding-bottom: 5px;
+		text-transform: uppercase;
+		background: rgba(194, 175, 129, 0.4);
 	}
 
 	.slick-contact-form legend {
-		color: #7c7873;
-		text-shadow: 0 1px 0 #fff;
-		font-size: 2em;
+		color: #808080;
+		font-size: 1.6em;
 		position: relative;
 		bottom: 12px;
 	}
 
 	.slick-contact-form input[type=text], input[type=password], textarea, select {
-		color: #7c7873;
-		background: none;
+		color: #8B836B;
+		background: rgba(211, 203, 178, 0.4);
+		/*background: rgb(194, 185, 159);*/
 		width: 220px;
 		height: 36px;
 		padding: 0px 10px;
@@ -1499,7 +1497,26 @@ wydarzenia-tab {
 	.slick-contact-form textarea:focus, input[type=text]:focus, input[type=password]:focus select:focus {
 		background: rgba(255,255,255,.35);
 		border: 2px solid white;
+		color: gray;
 	}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+	color: rgb(239, 233, 222);
+}
+
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+	color: rgb(239, 233, 222);
+	opacity: 1;
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+	color: rgb(239, 233, 222);
+	opacity: 1;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+	color: rgb(239, 233, 222);
+}
 
 
 /*

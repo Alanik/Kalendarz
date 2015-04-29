@@ -337,6 +337,26 @@
 			$mainContainer.on( {
 				mouseenter: function ()
 				{
+					if ( !$(this).hasClass("main-page-link") )
+					{
+						$( this ).toggleClass( "selected-nav-link" );
+						$( this ).parent().children().first().toggleClass( "selected-nav-link" );
+					}				
+				},
+				mouseleave: function ()
+				{
+					if ( !$( this ).hasClass( "main-page-link" ) )
+					{
+						$( this ).toggleClass( "selected-nav-link" );
+						$( this ).parent().children().first().toggleClass( "selected-nav-link" );
+					}
+				}
+			}, '.lobby-nav-link-container' );
+
+
+			$mainContainer.on( {
+				mouseenter: function ()
+				{
 					$( this ).css( {
 						"border-bottom": "2px solid rgb(235,235,235)",
 						"border-top": "2px solid rgb(250,250,250)",

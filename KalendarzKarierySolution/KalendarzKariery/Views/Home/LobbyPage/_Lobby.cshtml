@@ -12,14 +12,15 @@
  }
 </header>
 
-<div class="lobby-body">
+<nav class="lobby-body">
 	<section id="lobbyQuoteAndNavSection">
 		<div id="lobbyQuoteContainer">
 			<span>Twój osobisty kalendarz stworzony na miare Twoich potrzeb.</span>
 		</div>
-		<nav id="lobbyNavContainer">
-			<div class="lobby-nav-link-container selected-nav-link">
+		<div id="lobbyNavContainer">
+			<div class="lobby-nav-link-container main-page-link selected-nav-link">
 				<a href="#0">Strona Główna</a>
+				
 			</div>
 			<div class="lobby-nav-link-container">
 				<a href="#1">Kalendarz</a>
@@ -27,7 +28,7 @@
 			<div class="lobby-nav-link-container">
 				<a href="#2">Dziennik</a>
 			</div>
-		</nav>
+		</div>
 	</section>
 
 	<div id="addPrivateEventBtn" class="add-btn hover-cursor-pointer" data-bind="click: function ( data, e ) { $root.showAddPrivateEventLobbyPopupOnClick( $element, data, e ) }">Dodaj do swojego kalendarza +</div>
@@ -43,7 +44,7 @@
 	</section>
 
 	@Html.Partial( "_LobbyNews" )
-</div>
+</nav>
 
 <footer class="lobby-footer">
 	<span>Kalendarz Kariery 2015, wszelkie prawa zastrzezone</span>

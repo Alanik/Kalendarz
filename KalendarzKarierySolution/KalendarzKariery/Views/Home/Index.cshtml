@@ -107,6 +107,7 @@
 		var indexViewModel = @Html.Raw( Json.Encode( @Model.IndexViewModel ) );
 		var userName = '@User.Identity.Name';
 
+		PROGRAM.initializeJQueryExtentionMethods();
 		PROGRAM.initializeAndStartSpinner();
 		PROGRAM.initialize(indexViewModel, userName);
 	});

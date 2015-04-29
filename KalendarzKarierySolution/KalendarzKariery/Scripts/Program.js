@@ -1,6 +1,21 @@
 ﻿var Program = {
 	indexViewModel: null,
 
+	initializeJQueryExtentionMethods: function ()
+	{
+		//scrollTo
+		jQuery.fn.extend( {
+			scrollTo: function ( speed, offset )
+			{
+				if ( !offset )
+				{
+					offset = this.offset().top - 20;
+				}
+
+				this.closest( ".scrollable" ).animate( { scrollTop: offset }, speed );
+			}
+		} );
+	},
 	initializeAndStartSpinner: function ()
 	{
 		//////////////////////////////////////////////////////////
@@ -181,11 +196,16 @@
 
 			$( window ).on( "hashchange", function ()
 			{
-
 				setTimeout( function ()
 				{
-					if ( location.hash === "#1" )
+					if ( location.hash === "#0" )
 					{
+						calendarViewModel.currentPage = 0;
+					}
+					else if ( location.hash === "#1" )
+					{
+						calendarViewModel.currentPage = 1;
+
 						if ( calendarViewModel.calendarDayEventsToUpdate.events !== null )
 						{
 							setTimeout( function ()
@@ -214,12 +234,17 @@
 						//}, 10)
 
 					}
+					else if ( location.hash === "#2" )
+					{
+						calendarViewModel.currentPage = 2;
+					}
 				}, 10 );
 			} );
 
 			$( ".slides-pagination a" ).on( "click", function ()
 			{
 				var hash = $( this ).attr( "href" );
+
 				if ( hash === "#2" )
 				{
 					var $scrollable = $( "#slide-item-details" ).parent();
@@ -592,20 +617,6 @@
 				} );
 			} );
 
-			var $pixHover = $( ".1px-hover" );
-
-			$pixHover.hover( function ()
-			{
-				$( this ).css( {
-					"bottom": "0"
-				} );
-			}, function ()
-			{
-				$( this ).css( {
-					"bottom": "1px"
-				} );
-			} );
-
 			$( "#btnAddNewEvent" ).hover( function ()
 			{
 				$( this ).css( {
@@ -709,27 +720,6 @@
 				$endDate.removeClass( "input-validation-error" );
 				$( "#addNewEventContainer #endDateValidationErrorMsg" ).hide();
 			} );
-
-		}();
-
-		this.initializeJQueryExtentionMethods = function ()
-		{
-			//scrollTo
-			jQuery.fn.extend( {
-				scrollTo: function ( speed, offset )
-				{
-					if ( !offset )
-					{
-						offset = this.offset().top - 20;
-					}
-					
-					console.log(offset);
-
-					this.closest( ".scrollable" ).animate( { scrollTop: offset }, speed );
-				}
-			} );
-
-
 
 		}();
 	}

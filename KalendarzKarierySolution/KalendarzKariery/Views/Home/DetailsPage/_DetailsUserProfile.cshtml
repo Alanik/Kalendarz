@@ -1,8 +1,8 @@
 ﻿@model KalendarzKarieryData.Models.ViewModels.RegisterViewModel
 
 <div id="updateProfileContainer" class="slick-contact-form">
-	<div id="expandBtnUpdateProfile" class="btn-expand hover-cursor-pointer 1px-hover" data-bind="click: function () { $root.expandUpdateProfileForm($element) }"><span class="save-text">rozwiń</span></div>
-	<div id="hideBtnUpdateProfile" class="btn-expand hover-cursor-pointer 1px-hover" style="display:none;" data-bind="click: function () { $root.hideUpdateProfileForm($element) }"><span class="close-text">zwiń</span></div>
+	<div id="expandBtnUpdateProfile" class="btn-expand hover-cursor-pointer" data-bind="click: function () { $root.expandUpdateProfileForm($element) }"><span class="save-text">rozwiń</span></div>
+	<div id="hideBtnUpdateProfile" class="btn-expand hover-cursor-pointer" style="display:none;" data-bind="click: function () { $root.hideUpdateProfileForm($element) }"><span class="close-text">zwiń</span></div>
 		<div class="form-body">
 			@using (Html.BeginForm("POST", "api/Account", FormMethod.Post, new { id = "updateProfileForm" }))
    {

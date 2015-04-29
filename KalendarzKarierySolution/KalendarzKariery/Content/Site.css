@@ -79,8 +79,7 @@ header, footer, nav, section, div {
 }
 
 #lobbyQuoteContainer {
-	font-family: Raleway;
-	font-weight: bold;
+	font-family: Raleway-Regular;
 	font-size: 2em;
 	color: rgb(253, 252, 251);
 	text-align: center;
@@ -89,7 +88,7 @@ header, footer, nav, section, div {
 
 #lobbyQuoteAndNavSection {
 	margin-top: 160px;
-	margin-bottom: 400px;
+	margin-bottom: 200px;
 }
 
 .dotted-page-overlay {
@@ -248,9 +247,14 @@ header, footer, nav, section, div {
 	}
 
 #btnAddNewEvent {
-	position: relative;
+	position: absolute;
 	display: inline-block;
 	margin-left: 152px;
+	bottom: 20px;
+}
+
+.more-options-container label {
+	width: 245px !important;
 }
 
 .calendar-hours {
@@ -412,6 +416,15 @@ header, footer, nav, section, div {
 		border: none;
 	}
 
+	#registerPageContainer li {
+		margin-bottom:10px;
+	}
+
+	#registerPageContainer label {
+		width:240px;
+	}
+
+
 .register-birthdate-txtbox {
 	width: 50px !important;
 }
@@ -428,7 +441,7 @@ header, footer, nav, section, div {
 }
 
 #loginPageContainer fieldset {
-	border: transparent;
+	border: none;
 }
 
 .weekday-container {
@@ -437,14 +450,9 @@ header, footer, nav, section, div {
 }
 
 .weekday {
-	/*border: 2px solid white;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;*/
 	display: table-cell;
 	text-align: center;
 	padding-top: 8px;
-	/*color:rgb(219, 219, 183);*/
 }
 
 
@@ -455,8 +463,6 @@ header, footer, nav, section, div {
 .calendar-cell {
 	height: 80px;
 	display: table-cell;
-	/*overflow: hidden;*/
-	/*position: relative;*/
 }
 
 .calendar-cell-placeholder {
@@ -1364,8 +1370,11 @@ wydarzenia-tab {
 }
 
 .form-label {
-	width: 200px;
 	display: block;
+}
+
+#loginPageContainer li {
+	margin-bottom: 10px;
 }
 
 .summary-validation-errors {
@@ -1422,8 +1431,8 @@ wydarzenia-tab {
 }
 
 #loginFormBtn {
-	margin-top: 30px;
-	margin-left: 136px;
+	float:right;
+	margin-top:20px;
 }
 
 #registerFormBtn {
@@ -1474,8 +1483,6 @@ wydarzenia-tab {
 		height: 36px;
 		padding: 0px 10px;
 		border: 2px solid #f8f5f1;
-		-moz-border-radius: 5px;
-		-webkit-border-radius: 5px;
 		border-radius: 5px;
 		box-shadow: inset 0px 0px 1px #b3a895;
 		outline: none;
@@ -1501,23 +1508,26 @@ wydarzenia-tab {
 	}
 
 ::-webkit-input-placeholder { /* WebKit browsers */
-	color: rgb(239, 233, 222);
+	color: #AEA68C;
 }
 
 :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-	color: rgb(239, 233, 222);
+	color: #AEA68C;
 	opacity: 1;
 }
 
 ::-moz-placeholder { /* Mozilla Firefox 19+ */
-	color: rgb(239, 233, 222);
+	color: #AEA68C;
 	opacity: 1;
 }
 
 :-ms-input-placeholder { /* Internet Explorer 10+ */
-	color: rgb(239, 233, 222);
+	color: #AEA68C;
 }
 
+#addNewEventShowMoreOptionsLink {
+	margin-bottom: 20px;
+}
 
 /*
 helpers

@@ -13,6 +13,10 @@
 	//ajax loader 
 	self.spinner = spinner;
 
+	//0 - lobby page
+	//1 - calendar page
+	//2 - details page
+	self.currentPage = 0;
 
 	self.todayDate = {
 		"day": date.getDate(),
@@ -345,8 +349,6 @@
 
 						var dayEvents = self.addEventToMyEventTree( eventToPush );
 
-						console.log( eventToPush );
-
 						self.setCalendarPlacementRow( dayEvents );
 						self.redrawCalendarCell( dayEvents, self.addNewEvent_Day() );
 
@@ -373,11 +375,13 @@
 		if ( $element.hasClass( "showing" ) )
 		{
 			$element.text( "Ukryj dodatkowe opcje -" );
-			$( element ).closest( ".add-event-fieldset" ).find( ".more-options-container" ).slideDown();
+			$element.closest( ".add-event-fieldset" ).find( ".more-options-container" ).slideDown();
+			$element.scrollTo(500);
 		} else
 		{
 			$element.text( "Pokaż więcej opcji +" );
-			$( element ).closest( ".add-event-fieldset" ).find( ".more-options-container" ).slideUp();
+			$element.closest( ".add-event-fieldset" ).find( ".more-options-container" ).slideUp();
+			$element.scrollTo( 500 );
 		}
 
 		$element.toggleClass( "showing" );
@@ -634,24 +638,55 @@
 	self.showEventDetailsOnEventBlockClick = function ( element )
 	{
 		var $block = $( element ), offset;
-		var $eventBlockContainer = $block.closest( ".event-block-container" );
-		var $calendarDayDetailsContainer = $eventBlockContainer.closest( "#detailsEventBlockList" ).prev();
-		var $content = $eventBlockContainer.find( ".event-block-body" );
-		var $eventBlockInfo = $eventBlockContainer.find( ".event-block-info-container" );
+		var $eventBlockContainer, $calendarDayDetailsContainer$content,  $eventBlockInfo;
 
-		if ( $block.hasClass( "open" ) )
+		$eventBlockContainer = $block.closest( ".event-block-container" );
+		$content = $eventBlockContainer.find( ".event-block-body" );
+		$eventBlockInfo = $eventBlockContainer.find( ".event-block-info-container" );
+
+		switch ( self.currentPage )
 		{
-			offset = $calendarDayDetailsContainer.position().top - 20;
-			$calendarDayDetailsContainer.scrollTo( 500, offset );
-			$eventBlockInfo.slideUp();
-			$content.css( "color", "rgb(229, 211, 180)" );
-		}
-		else
-		{
-			offset = $eventBlockContainer.position().top - 20;
-			$eventBlockContainer.scrollTo( 500, offset );
-			$eventBlockInfo.slideDown();
-			$content.css( "color", "rgb(161, 147, 123)" );
+			case 0:
+				if ( $block.hasClass( "open" ) )
+				{
+					offset = $eventBlockContainer.position().top - 20;
+					$eventBlockContainer.scrollTo( 500, offset );
+					$eventBlockInfo.slideUp();
+					$content.css( "color", "rgb(229, 211, 180)" );
+				}
+				else
+				{
+					offset = $eventBlockContainer.position().top - 20;
+					$eventBlockContainer.scrollTo( 500, offset );
+					$eventBlockInfo.slideDown();
+					$content.css( "color", "rgb(161, 147, 123)" );
+				}
+
+				break;
+			case 1:
+				break;
+			case 2:
+				 
+				 $calendarDayDetailsContainer = $eventBlockContainer.closest( "#detailsEventBlockList" ).prev();
+				 
+				 if ( $block.hasClass( "open" ) )
+				 {
+				 	offset = $calendarDayDetailsContainer.position().top - 20;
+				 	$calendarDayDetailsContainer.scrollTo( 500, offset );
+				 	$eventBlockInfo.slideUp();
+				 	$content.css( "color", "rgb(229, 211, 180)" );
+				 }
+				 else
+				 {
+				 	offset = $eventBlockContainer.position().top - 20;
+				 	$eventBlockContainer.scrollTo( 500, offset );
+				 	$eventBlockInfo.slideDown();
+				 	$content.css( "color", "rgb(161, 147, 123)" );
+				 }
+
+				break;
+			default:
+				return;
 		}
 
 		$block.toggleClass( "open" );
@@ -1384,6 +1419,9 @@
 
 	self.registerUserOnClick = function ()
 	{
+
+		//TODO: in _register page make sure we have labels corresponding to their form textboxes (basically check all pages with forms that their html is correct)
+
 		var $overlay = $( "#lobby" ).siblings( ".dotted-page-overlay" );
 		var $dateBirthValidationMsg;
 		var $registerForm = $( "#registerForm" );
@@ -1835,14 +1873,6 @@
 		self.calendarPageDisplayDate.year( year );
 		self.redisplayCalendarAtChosenMonth( self.calendarPageDisplayDate.month() - 1 );
 	}
-
-	self.showChosenFieldInAddNewEventPopupOnClick = function ( element )
-	{
-		var $element = $( element );
-		$element.next().show();
-		$element.next().find( "input, textarea" ).first().focus();
-		$element.hide();
-	};
 
 	self.showEventBlockInfoOnDetailsPageEventRectangleClick = function ( id )
 	{

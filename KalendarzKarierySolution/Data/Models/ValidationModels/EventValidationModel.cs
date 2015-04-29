@@ -36,7 +36,7 @@ namespace KalendarzKarieryData
 		[Display(Name = "Link:")]
 		public string UrlLink { get; set; }
 
-		[Display(Name = "Max ilość uczestników:")]
+		[Display(Name = "Limit miejsc:")]
 		public int OccupancyLimit { get; set; }
 	}
 }

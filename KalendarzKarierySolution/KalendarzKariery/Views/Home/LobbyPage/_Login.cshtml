@@ -2,7 +2,7 @@
 
 <div id="loginPageContainer" class="slick-contact-form">
 	<div class="form-header">
-		<div id="btnClose-loginPopup" data-bind="click: closeLoginPopupOnClick" class="btn-close hover-cursor-pointer 1px-hover"><span class="close-text">zamknij</span></div>
+		<div id="btnClose-loginPopup" data-bind="click: closeLoginPopupOnClick" class="btn-close hover-cursor-pointer"><span class="close-text">zamknij</span></div>
 	</div>
 	<div class="form-body">
 		@using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "loginForm" }))
@@ -27,7 +27,7 @@
 						</div>
 						@Html.PasswordFor(m => m.Password)
 					</li>
-					<li>
+					<li style="margin-top:20px;">
 						@Html.CheckBoxFor(m => m.RememberMe)
 						@Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
 					</li>

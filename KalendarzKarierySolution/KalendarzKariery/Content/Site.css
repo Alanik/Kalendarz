@@ -504,8 +504,8 @@ header, footer, nav, section, div {
 	top: 56px;
 	height: 25px;
 	z-index: 98;
-	border-bottom: 1px solid #E7E5DF;
-	color: rgb(253, 253, 253);
+	border-bottom: 2px solid rgb(228, 222, 202);
+	color: white;
 	background:#E4DECA;
 }
 

@@ -178,7 +178,8 @@
 		}
 
 		var $tableBody = $( "#calendarDayDetailsTable .table-details-body" );
-		var h = ( calendarViewModel.displayPageEventMostBottomRow + 1 ) * 46;
+		var h = ( calendarViewModel.displayPageEventMostBottomRow) * 46;
+		h = h + 20;
 		$tableBody.height( h + "px" );
 		///////////////////////////////////////////////////////////////////
 

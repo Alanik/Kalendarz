@@ -1,5 +1,5 @@
-﻿<section id="detailsEventBlockList">
-	<div style="text-align: center; padding-bottom: 20px; background: rgb(226, 221, 202); overflow: hidden;" data-bind="foreach: detailsPageDayEvents()">
+﻿<div id="detailsEventBlockList">
+	<div data-bind="foreach: detailsPageDayEvents()">
 		<div class="event-block-container" data-bind="attr: { 'data-eventid': id }">
 			<div class="event-block hover-cursor-pointer" data-bind="click: function () { $root.showEventDetailsOnEventBlockClick( $element ) }">
 				<div data-bind="style: { color: kind.headerColor, width: '50%', padding: '10px', marginBottom: '10px' }">
@@ -19,8 +19,7 @@
 			@Html.Partial("_EventInfo")
 		</div>
 	</div>
-
-</section>
+</div>
 
 
 

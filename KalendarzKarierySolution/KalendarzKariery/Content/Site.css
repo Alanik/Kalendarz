@@ -417,11 +417,11 @@ header, footer, nav, section, div {
 	}
 
 	#registerPageContainer li {
-		margin-bottom:10px;
+		margin-bottom: 10px;
 	}
 
 	#registerPageContainer label {
-		width:230px;
+		width: 230px;
 	}
 
 
@@ -506,7 +506,7 @@ header, footer, nav, section, div {
 	z-index: 98;
 	border-bottom: 2px solid rgb(228, 222, 202);
 	color: white;
-	background:#E4DECA;
+	background: #E4DECA;
 }
 
 	.other-month-cell .cell-span-container .cell-month-name-span {
@@ -664,7 +664,7 @@ header, footer, nav, section, div {
 }
 
 .menu-item {
-	border-top: 1px solid rgb(247, 247, 247);
+	border-top:2px solid rgb(190, 182, 155);
 	height: 30px;
 	color: rgb(133, 123, 100);
 	font-size: 0.9em;
@@ -731,18 +731,6 @@ header, footer, nav, section, div {
 	border-top: 10px solid #ddd;
 	float: right;
 	position: absolute;
-}
-
-.selected {
-	/*border-right: 10px solid transparent;
-	border-top: 10px solid rgb(112, 112, 112);*/
-}
-
-.border-item {
-	width: 95px;
-	/*
-		border-color: rgb(202, 255, 208);
-	*/
 }
 
 .show-old-events-checkbox {
@@ -867,15 +855,16 @@ background:rgb(115, 233, 162);
 	overflow: hidden;
 	position: absolute;
 	z-index: 2;
-	border: 2px solid;
+	border-top: 4px solid;
 	top: 0;
 	height: 23px;
 	background: white;
-	color: gray;
+	color: rgb(102, 102, 102);
 	font-size: 12px;
 	line-height: 1;
 	left: 0;
-	background: rgb(237, 234, 231);
+	background: none;
+	font-family:Raleway-Regular;
 }
 
 .small-minutes {
@@ -888,9 +877,9 @@ background:rgb(115, 233, 162);
 	overflow: hidden;
 	position: absolute;
 	z-index: 2;
-	border: 2px solid;
-	background: rgba(104, 94, 81, 0.7);
-	height: 41px;
+	border-top: 4px solid;
+	height: 40px;
+	line-height:1;
 }
 
 	.event-rectangle-details span {
@@ -1170,6 +1159,7 @@ background:rgb(115, 233, 162);
 	float: left;
 	position: relative;
 	height: 100px;
+	font-family:Raleway-Regular;
 }
 
 .event-list {
@@ -1208,50 +1198,32 @@ background:rgb(115, 233, 162);
 	font-size: .8em;
 }
 
-.szkolenia-tab {
-}
-
-.kursy-tab {
-}
-
-spotkania-tab {
-}
-
-wydarzenia-tab {
-}
-
-.inne-tab {
-}
-
-.zajecia {
-}
-
 .szkolenia-border-tab {
-	border-bottom: 10px solid rgb(87, 167, 221);
+	border-bottom: 10px solid rgb(185, 205, 255);
 }
 
 .lekcje-border-tab {
-	border-bottom: 10px solid rgb(255, 215, 141);
+	border-bottom: 10px solid rgb(255, 232, 189);
 }
 
 .kursy-border-tab {
-	border-bottom: 10px solid rgb(145, 145, 145);
+	border-bottom: 10px solid rgb(200, 200, 200);
 }
 
 .spotkania-border-tab {
-	border-bottom: 10px solid rgb(255, 182, 215);
+	border-bottom: 10px solid rgb(194, 255, 212);
 }
 
 .wydarzenia-border-tab {
-	border-bottom: 10px solid rgb(255, 255, 132);
+	border-bottom: 10px solid rgb(255, 255, 196);
 }
 
 .inne-border-tab {
-	border-bottom: 10px solid rgb(250, 84, 84);
+	border-bottom: 10px solid rgb(255, 204, 204);
 }
 
 .zajecia-border-tab {
-	border-bottom: 10px solid rgb(136, 245, 222);
+	border-bottom: 10px solid rgb(193, 241, 255);
 }
 
 #slide-item-details {
@@ -1271,8 +1243,16 @@ wydarzenia-tab {
 }
 
 #detailsEventBlockList {
-	width: 90%;
-	background: rgb(228, 223, 205);
+	text-align: center;
+	padding-bottom: 20px;
+	background: rgb(226, 221, 202);
+	overflow: hidden;
+	border-top: none;
+	border-left: 2px solid rgb(194, 189, 167);
+	border-right: 1px solid rgb(249, 249, 249);
+	border-bottom: 2px solid rgb(249, 249, 249);
+	border-bottom-left-radius: 6px;
+	border-bottom-right-radius: 6px;
 }
 
 #calendarDayDetailsTable {
@@ -1280,13 +1260,18 @@ wydarzenia-tab {
 	padding: 0px 2%;
 	background: rgb(226, 221, 202);
 	padding-bottom: 20px;
-	margin-left: 1px;
+	border-top: 2px solid rgb(194, 189, 167);
+	border-left: 2px solid rgb(194, 189, 167);
+	border-right: 1px solid rgb(249, 249, 249);
+	border-bottom: none;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
 }
 
 	#calendarDayDetailsTable .table-details-head {
 		overflow: hidden;
 		text-align: left;
-		color: rgb(165, 160, 147);
+		color: rgb(123, 118, 106);
 		padding-top: 20px;
 	}
 
@@ -1296,10 +1281,13 @@ wydarzenia-tab {
 		}
 
 	#calendarDayDetailsTable .table-details-body {
-		background: rgb(249, 248, 246);
+		/*background: rgb(249, 248, 246);*/
+		background:rgb(161, 154, 139);
 		padding-top: 4px;
 		padding-bottom: 4px;
 		padding-left: 1px;
+		border-radius:6px;
+		border:2px solid rgb(142, 135, 121);
 	}
 
 		#calendarDayDetailsTable .table-details-body .details-day-cell {
@@ -1353,14 +1341,14 @@ wydarzenia-tab {
 
 .details-hour-line {
 	position: absolute;
-	background: rgb(225, 225, 225);
+	background: rgb(187, 180, 164);
 	height: 100%;
 	width: 1px;
 }
 
 .details-hour-line-21 {
 	position: absolute;
-	background: rgb(225, 225, 225);
+	background: rgb(187, 180, 164);
 	height: 100%;
 	width: 1px;
 	right: 0px;
@@ -1432,9 +1420,9 @@ wydarzenia-tab {
 }
 
 #loginFormBtn {
-	float:right;
-	margin-right:7px;
-	margin-top:20px;
+	float: right;
+	margin-right: 7px;
+	margin-top: 20px;
 }
 
 #registerFormBtn {

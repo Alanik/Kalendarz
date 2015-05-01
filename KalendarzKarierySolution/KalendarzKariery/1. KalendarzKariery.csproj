@@ -382,7 +382,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Data\3. KalendarzKarieryData.csproj">
+    <ProjectReference Include="..\KalendarzKarieryData\3. KalendarzKarieryData.csproj">
       <Project>{556eca30-9acb-4557-abab-a1434957a871}</Project>
       <Name>3. KalendarzKarieryData</Name>
     </ProjectReference>

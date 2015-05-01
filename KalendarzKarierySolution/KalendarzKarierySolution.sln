@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1. KalendarzKariery", "Kale
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "5. KalendarzKariery.Tests", "KalendarzKariery.Tests\5. KalendarzKariery.Tests.csproj", "{8671DE6A-6498-4E1A-868F-DCBAD3036C17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3. KalendarzKarieryData", "Data\3. KalendarzKarieryData.csproj", "{556ECA30-9ACB-4557-ABAB-A1434957A871}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3. KalendarzKarieryData", "KalendarzKarieryData\3. KalendarzKarieryData.csproj", "{556ECA30-9ACB-4557-ABAB-A1434957A871}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4. KalendarzKarieryWebAPI", "KalendarzKarieryWebAPI\4. KalendarzKarieryWebAPI.csproj", "{B2D55052-26AE-49E4-8F7E-01A260A90DD0}"
 EndProject

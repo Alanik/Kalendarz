@@ -1035,7 +1035,7 @@
 		var width = ( ( event.startDate.endHour - event.startDate.startHour ) * 100 ) - startMinuteOffset + endMinuteOffset;
 
 		var $hourCell = $( ".hour-cell-" + event.startDate.startHour );
-		var eventRectangle = '<div data-bind="click: function(){ $root.showEventBlockInfoOnDetailsPageEventRectangleClick(' + event.id + ') }" class="event-rectangle-details" style="width:' + ( width - 6 ) + '%;top : ' + ( ( ( event.calendarPlacementRow - 1 ) * 46 ) + 12 ) + 'px;left:' + ( startMinuteOffset + 1 ) + '%;border-color:' + event.kind.detailsPageEventBorderColor + ';"><span>' + event.name + '</span></div>';
+		var eventRectangle = '<div data-bind="click: function(){ $root.showEventBlockInfoOnDetailsPageEventRectangleClick(' + event.id + ') }" class="event-rectangle-details" style="width:' + ( width - 2 ) + '%;top : ' + ( ( ( event.calendarPlacementRow - 1 ) * 46 ) + 12 ) + 'px;left:' + ( startMinuteOffset + 1) + '%;border-color:' + event.kind.detailsPageEventBorderColor + ';"><span>' + event.name + '</span></div>';
 		var $eventRectangle = $( eventRectangle );
 
 		$eventRectangle.appendTo( $hourCell );
@@ -1104,7 +1104,8 @@
 		}
 
 		var $tableBody = $( "#details #calendarDayDetailsTable .table-details-body" );
-		var h = ( self.displayPageEventMostBottomRow + 1 ) * 46;
+		var h = ( self.displayPageEventMostBottomRow ) * 46;
+		h = h + 20;
 		$tableBody.height( h + "px" );
 
 		var $scrollable = $( "#slide-item-details" ).parent();

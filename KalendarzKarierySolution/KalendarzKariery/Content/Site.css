@@ -81,7 +81,7 @@ header, footer, nav, section, div {
 #lobbyQuoteContainer {
 	font-family: Raleway-Regular;
 	font-size: 2em;
-	color: rgb(253, 252, 251);
+	color: white;
 	text-align: center;
 	text-shadow: 0px 1px 1px rgb(207, 200, 176);
 }
@@ -249,12 +249,12 @@ header, footer, nav, section, div {
 #btnAddNewEvent {
 	position: absolute;
 	display: inline-block;
-	margin-left: 152px;
+	margin-left: 137px;
 	bottom: 20px;
 }
 
 .more-options-container label {
-	width: 245px !important;
+	width: 230px !important;
 }
 
 .calendar-hours {
@@ -421,7 +421,7 @@ header, footer, nav, section, div {
 	}
 
 	#registerPageContainer label {
-		width:240px;
+		width:230px;
 	}
 
 
@@ -506,6 +506,7 @@ header, footer, nav, section, div {
 	z-index: 98;
 	border-bottom: 1px solid #E7E5DF;
 	color: rgb(253, 253, 253);
+	background:#E4DECA;
 }
 
 	.other-month-cell .cell-span-container .cell-month-name-span {
@@ -820,7 +821,7 @@ header, footer, nav, section, div {
 }
 
 	.add-event-fieldset label {
-		width: 150px;
+		width: 140px;
 		display: inline-block;
 	}
 
@@ -1432,12 +1433,13 @@ wydarzenia-tab {
 
 #loginFormBtn {
 	float:right;
+	margin-right:7px;
 	margin-top:20px;
 }
 
 #registerFormBtn {
 	margin-top: 30px;
-	margin-left: 118px;
+	margin-left: 140px;
 }
 
 #spinnerContainer {

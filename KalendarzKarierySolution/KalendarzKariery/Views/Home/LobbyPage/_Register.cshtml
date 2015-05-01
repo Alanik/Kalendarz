@@ -42,6 +42,14 @@
 
 					</li>
 					<li>
+						@Html.LabelFor(m => m.User.Email, new { @class = "form-label" })
+						<div>
+							@Html.ValidationMessageFor(m => m.User.Email)
+						</div>
+						@Html.TextBoxFor(m => m.User.Email, new { maxlength = 30 })
+
+					</li>
+					<li>
 
 						@Html.LabelFor(m => m.User.FirstName, new { @class = "form-label" })
 						<div>
@@ -70,7 +78,7 @@
             {"Kobieta", "k"},
         },
 		"Value", "Key")
-)
+, new { style="width:130px;"})
 					</li>
 					<li>
 
@@ -125,14 +133,7 @@
 						</div>
 						@Html.TextBoxFor(m => m.Address.Country, new { maxlength = 30 })
 					</li>
-					<li>
-						@Html.LabelFor(m => m.User.Email, new { @class = "form-label" })
-						<div>
-							@Html.ValidationMessageFor(m => m.User.Email)
-						</div>
-						@Html.TextBoxFor(m => m.User.Email, new { maxlength = 30 })
-
-					</li>
+				
 					<li>
 						@Html.LabelFor(m => m.User.Phone, new { @class = "form-label" })
 						<div>

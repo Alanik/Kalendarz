@@ -14,7 +14,6 @@ namespace KalendarzKarieryData
 
 	public class Event_Validation
 	{
-		[DataType( DataType.Date, ErrorMessage = "Podana data jest nieprawidłowa." )]
 		[Required( ErrorMessage = "Pole \"Data\" nie może być puste." )]
 		[Display( Name = "Data:" )]
 		public DateTime StartDate { get; set; }
@@ -30,13 +29,15 @@ namespace KalendarzKarieryData
 		public string Details { get; set; }
 
 		[Display(Name = "Opłata za wstęp:")]
-		[DataType(DataType.Currency, ErrorMessage="Podana kwota jest nieprawidłowa.")]
+		[DataType(DataType.Currency)]
+		[RegularExpression(@"\d+\.\d{2}")]
 		public string Price { get; set; }
 
 		[Display(Name = "Link:")]
 		public string UrlLink { get; set; }
 
 		[Display(Name = "Limit miejsc:")]
+		[RegularExpression("^[0-9]*$")]
 		public int OccupancyLimit { get; set; }
 	}
 }

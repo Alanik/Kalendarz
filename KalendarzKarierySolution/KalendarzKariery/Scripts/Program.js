@@ -72,7 +72,7 @@
 		} );
 
 		var currentWeekday = $calendar.find( ".today-cell" ).attr( "weekday" );
-		var calendarViewModel = new CalendarViewModel( date.getFullYear(), date.getMonth(), date.getDate(), currentWeekday, userName, this.spinner );
+		var calendarViewModel = new CalendarViewModel( date, currentWeekday, userName, this.spinner );
 
 		calendarViewModel.eventPrivacyLevels = indexViewModel.PrivacyLevels;
 		calendarViewModel.eventKinds = indexViewModel.EventKinds;
@@ -273,14 +273,12 @@
 
 		this.initializeHover = function ()
 		{
-
 			var $container = $( ".event-hover-container" );
 			var $mainContainer = $( "#mainContainer" );
 
 			$mainContainer.on( {
 				mouseenter: function ()
 				{
-
 					var name = $( this ).find( "input" ).attr( "name" );
 					var address = $( this ).find( "input" ).attr( "address" );
 					var startHour = $( this ).find( "input" ).attr( "starthour" );

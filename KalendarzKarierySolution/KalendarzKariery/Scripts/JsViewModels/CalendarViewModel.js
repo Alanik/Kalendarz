@@ -1,10 +1,8 @@
-﻿function CalendarViewModel( year, month, day, weekday, userName, spinner )
+﻿function CalendarViewModel(date, weekday, userName, spinner )
 {
 	var self = this;
 	var colorHelper = new EventColorHelper();
-
-	//TODO: inject today date from server
-	var date = new Date();
+	var year = date.getFullYear(), month = date.getMonth(), day = date.getDate();
 
 	//////////////////////////////////////////////////////////
 	//public properties
@@ -26,7 +24,7 @@
 		"weekday": date.getDay(),
 		"getMonthName": function ()
 		{
-			return self.monthNames[this.month];
+			return self.monthNames[(this.month - 1)];
 		},
 		"getDayName": function ()
 		{

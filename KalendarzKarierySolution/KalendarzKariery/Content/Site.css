@@ -176,7 +176,6 @@ header, footer, nav, section, div {
 	background-image: url(../Images/Logo/kkLogo.png);
 	position: absolute !important;
 	background-repeat: no-repeat;
-	top: -52px;
 	height: 140px;
 	width: 540px;
 }
@@ -184,7 +183,6 @@ header, footer, nav, section, div {
 #layoutLogo {
 	background-image: url(../Images/Logo/kkLogo.png);
 	position: absolute !important;
-	top: -1px;
 	background-repeat: no-repeat;
 	height: 140px;
 	width: 540px;

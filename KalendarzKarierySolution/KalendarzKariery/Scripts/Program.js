@@ -190,15 +190,15 @@
 			var $slides = $( '#slides' );
 
 			//for touch swipes (using hammer.js)
-			//Hammer( $slides[0] ).on( "swipeleft", function ( e )
-			//{
-			//	$slides.data( 'superslides' ).animate( 'next' );
-			//} );
+			Hammer( $slides[0] ).on( "swipeleft", function ( e )
+			{
+				$slides.data( 'superslides' ).animate( 'next' );
+			} );
 
-			//Hammer( $slides[0] ).on( "swiperight", function ( e )
-			//{
-			//	$slides.data( 'superslides' ).animate( 'prev' );
-			//} );
+			Hammer( $slides[0] ).on( "swiperight", function ( e )
+			{
+				$slides.data( 'superslides' ).animate( 'prev' );
+			} );
 
 			$slides.superslides( {
 				slide_easing: 'easeInOutCubic',
@@ -360,6 +360,23 @@
 					}
 				}, '.event-rectangle' );
 			}
+
+			$mainContainer.on( {
+				mouseenter: function ()
+				{
+					$( this ).css( {
+						"cursor": "pointer",
+						"color" : "white"
+					} );
+				},
+				mouseleave: function ()
+				{
+					$( this ).css( {
+						"cursor": "auto",
+						"color": "rgb(232,232,232)"
+					} );
+				}
+			}, '.event-rectangle-details' );
 
 			//TODO: since also using css : hover, maybe remove jquery code?
 			//$( ".hover-cursor-pointer" ).hover( function ()

@@ -542,7 +542,7 @@ header, footer, nav, section, div {
 	text-align: right;
 	color: gray;
 	position: relative;
-	top: 28px;
+	top: 80px;
 	margin-right: 40px;
 }
 
@@ -662,7 +662,7 @@ header, footer, nav, section, div {
 }
 
 .menu-item {
-	border-top:2px solid rgb(190, 182, 155);
+	border-top: 2px solid rgb(190, 182, 155);
 	height: 30px;
 	color: rgb(133, 123, 100);
 	font-size: 0.9em;
@@ -703,7 +703,7 @@ header, footer, nav, section, div {
 	display: inline-block;
 	position: relative;
 	top: 0px;
-	margin-bottom:20px;
+	margin-bottom: 20px;
 	/*background: rgb(245, 240, 223);*/
 	/*background: rgb(252, 251, 246);*/
 }
@@ -760,7 +760,6 @@ header, footer, nav, section, div {
 	width: 80%;
 	margin-left: 10%;
 	display: none;
-	margin-bottom: 200px;
 }
 
 .form-header {
@@ -859,8 +858,8 @@ background:rgb(115, 233, 162);
 	font-size: 12px;
 	line-height: 1;
 	background: none;
-	font-family:Raleway-Regular;
-	opacity:1;
+	font-family: Raleway-Regular;
+	opacity: 1;
 }
 
 .small-minutes {
@@ -875,16 +874,15 @@ background:rgb(115, 233, 162);
 	z-index: 2;
 	border-top: 4px solid;
 	height: 40px;
-	line-height:1;
+	line-height: 1;
 }
 
-	.event-rectangle-details span {
-		/*padding: 10px;*/
+.hover-cursor-pointer {
+}
+
+	.hover-cursor-pointer:hover {
+		cursor: pointer;
 	}
-
-.hover-cursor-pointer :hover {
-	cursor: pointer;
-}
 
 .event-hover-container {
 	display: none;
@@ -1155,7 +1153,7 @@ background:rgb(115, 233, 162);
 	float: left;
 	position: relative;
 	height: 100px;
-	font-family:Raleway-Regular;
+	font-family: Raleway-Regular;
 }
 
 .event-list {
@@ -1278,12 +1276,12 @@ background:rgb(115, 233, 162);
 
 	#calendarDayDetailsTable .table-details-body {
 		/*background: rgb(249, 248, 246);*/
-		background:rgb(161, 154, 139);
+		background: rgb(161, 154, 139);
 		padding-top: 4px;
 		padding-bottom: 4px;
 		padding-left: 1px;
-		border-radius:6px;
-		border:2px solid rgb(142, 135, 121);
+		border-radius: 6px;
+		border: 2px solid rgb(142, 135, 121);
 	}
 
 		#calendarDayDetailsTable .table-details-body .details-day-cell {

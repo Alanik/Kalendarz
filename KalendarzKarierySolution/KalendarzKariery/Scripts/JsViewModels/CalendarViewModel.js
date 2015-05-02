@@ -1700,11 +1700,10 @@
 		$addEventContainer.find( "#eventStartMonthTxtBox" ).val( monthNumber );
 		$addEventContainer.find( "#eventStartYearTxtBox" ).val( currYear );
 
+		var top = $( "#slide-item-calendar" ).parent().scrollTop();
+		$addEventContainer.css( "top", top + 10 );
 		$addEventContainer.show();
 		$eventTitle.focus();
-
-		var top = $addEventContainer.position().top;
-		$( "#slide-item-calendar" ).parent().scrollTop( top );
 
 		if ( e )
 		{
@@ -1734,15 +1733,16 @@
 		$addEventContainer.detach().prependTo( "#lobby" );
 
 		$addEventContainer.find( "legend" ).text( "Dodaj do tablicy wydarzeń" );
+		var top = $( "#slide-item-lobby" ).parent().scrollTop();
+		$addEventContainer.css( "top", top + 30 );
+
 		$addEventContainer.show();
 		var $eventTitle = $addEventContainer.find( "#Event_Title" ).focus();
-
-		var top = $addEventContainer.position().top;
-		$( "#slide-item-lobby" ).parent().scrollTop( top );
 	};
 
 	self.showAddPrivateEventLobbyPopupOnClick = function ( element, data, e )
 	{
+
 		//TODO: change into binding
 		self.observableEvent.privacyLevel.name = "private";
 		self.observableEvent.privacyLevel.value = 1;
@@ -1762,10 +1762,10 @@
 		var $addEventContainer = $( "#addNewEventContainer" );
 		$addEventContainer.detach().prependTo( $lobby );
 		$addEventContainer.find( "legend" ).text( "Dodaj do kalendarza" );
+		var top = $( "#slide-item-lobby" ).parent().scrollTop();
+		$addEventContainer.css( "top", top + 30 );
 		$addEventContainer.show();
-		$addEventContainer.find( "#Event_Title" ).focus();
-		var top = $addEventContainer.position().top + 30;
-		$( "#slide-item-lobby" ).parent().scrollTop( top );
+		$addEventContainer.find( "#Event_Title" ).focus();	
 	};
 
 	self.redisplayCalendarAtChosenMonth = function ( monthNum )

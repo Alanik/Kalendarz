@@ -190,15 +190,15 @@
 			var $slides = $( '#slides' );
 
 			//for touch swipes (using hammer.js)
-			Hammer( $slides[0] ).on( "swipeleft", function ( e )
-			{
-				$slides.data( 'superslides' ).animate( 'next' );
-			} );
+			//Hammer( $slides[0] ).on( "swipeleft", function ( e )
+			//{
+			//	$slides.data( 'superslides' ).animate( 'next' );
+			//} );
 
-			Hammer( $slides[0] ).on( "swiperight", function ( e )
-			{
-				$slides.data( 'superslides' ).animate( 'prev' );
-			} );
+			//Hammer( $slides[0] ).on( "swiperight", function ( e )
+			//{
+			//	$slides.data( 'superslides' ).animate( 'prev' );
+			//} );
 
 			$slides.superslides( {
 				slide_easing: 'easeInOutCubic',

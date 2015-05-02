@@ -187,7 +187,20 @@
 		{
 			location.hash = '#0';
 
-			$( '#slides' ).superslides( {
+			var $slides = $( '#slides' );
+
+			//for touch swipes (using hammer.js)
+			Hammer( $slides[0] ).on( "swipeleft", function ( e )
+			{
+				$slides.data( 'superslides' ).animate( 'next' );
+			} );
+
+			Hammer( $slides[0] ).on( "swiperight", function ( e )
+			{
+				$slides.data( 'superslides' ).animate( 'prev' );
+			} );
+
+			$slides.superslides( {
 				slide_easing: 'easeInOutCubic',
 				slide_speed: 600,
 				pagination: true,

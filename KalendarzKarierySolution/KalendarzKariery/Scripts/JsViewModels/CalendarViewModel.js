@@ -439,9 +439,9 @@
 
 		self.observableEvent.kind.value( event.kind.value );
 		self.observableEvent.kind.name( event.kind.name );
-		self.observableEvent.kind.color = colorHelper.calculatePrivateEventColor( self.observableEvent.kind.value );
-		self.observableEvent.kind.headerColor = colorHelper.calculateEventHeaderTxtColor( self.observableEvent.kind.value );
-		self.observableEvent.kind.detailsPageEventBorderColor = colorHelper.calculateEventDetailsBorderColor( self.observableEvent.kind.value );
+		self.observableEvent.kind.color = colorHelper.getEventColor(event.privacyLevel.value, self.observableEvent.kind.value );
+		self.observableEvent.kind.headerColor = colorHelper.getEventBoxHeaderColor( self.observableEvent.kind.value );
+		self.observableEvent.kind.detailsPageEventBorderColor = colorHelper.getEventDetailsBorderColor( self.observableEvent.kind.value );
 
 		self.observableEvent.id = event.id;
 
@@ -1015,8 +1015,6 @@
 		var addressStr = addressStreetStr + addressCityStr;
 
 		var $event = $( '<div class="event-rectangle" style="top:' + ( event.calendarPlacementRow - 1 ) * 28 + 'px; left:' + left + '%; width:' + width + '%; border-color:' + event.kind.color + ';">' + event.name + '<input type="hidden" name="' + event.name + '" address="' + addressStr + '" starthour="' + event.startDate.startHour + '" endhour="' + event.startDate.endHour + '" startminute="' + event.startDate.startMinute + '" endminute="' + event.startDate.endMinute + '" ></input></div>' );
-
-		$event.css( "opacity", .8 );
 
 		$cellPlaceholder.append( $event );
 	};

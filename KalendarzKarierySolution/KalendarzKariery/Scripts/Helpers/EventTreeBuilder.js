@@ -59,9 +59,9 @@
 		function setKind( event )
 		{
 			var colorHelper = new EventColorHelper();
-			event.kind.color = colorHelper.calculatePrivateEventColor( event.kind.value );
-			event.kind.headerColor = colorHelper.calculateEventHeaderTxtColor( event.kind.value );
-			event.kind.detailsPageEventBorderColor = colorHelper.calculateEventDetailsBorderColor( event.kind.value );
+			event.kind.color = colorHelper.getEventColor(event.privacyLevel.value, event.kind.value );
+			event.kind.headerColor = colorHelper.getEventBoxHeaderColor( event.kind.value );
+			event.kind.detailsPageEventBorderColor = colorHelper.getEventDetailsBorderColor( event.kind.value );
 		};
 		function setStartDate( event )
 		{

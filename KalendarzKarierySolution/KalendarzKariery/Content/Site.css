@@ -703,9 +703,9 @@ header, footer, nav, section, div {
 
 .menu-item-container {
 	display: inline-block;
-	margin-right: 0px;
 	position: relative;
 	top: 0px;
+	margin-bottom:20px;
 	/*background: rgb(245, 240, 223);*/
 	/*background: rgb(252, 251, 246);*/
 }
@@ -856,15 +856,13 @@ background:rgb(115, 233, 162);
 	position: absolute;
 	z-index: 2;
 	border-top: 4px solid;
-	top: 0;
 	height: 23px;
-	background: white;
 	color: rgb(102, 102, 102);
 	font-size: 12px;
 	line-height: 1;
-	left: 0;
 	background: none;
 	font-family:Raleway-Regular;
+	opacity:1;
 }
 
 .small-minutes {

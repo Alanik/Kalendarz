@@ -18,16 +18,9 @@
 		kkEventModel.eventLengthInMinutes = minutes;
 		kkEventModel.kind.value = kindValue;
 		kkEventModel.kind.name = kindName;
-
-		if (privacyLevelValue == 1) {
-			kkEventModel.kind.color = colorHelper.calculatePrivateEventColor( kkEventModel.kind.value );
-		}
-		else {
-			kkEventModel.kind.color = colorHelper.calculatePublicEventColor( kkEventModel.kind.value );
-		}
-
-		kkEventModel.kind.headerColor = colorHelper.calculateEventHeaderTxtColor( kkEventModel.kind.value );
-		kkEventModel.kind.detailsPageEventBorderColor = colorHelper.calculateEventDetailsBorderColor( kkEventModel.kind.value );
+		kkEventModel.kind.color = colorHelper.getEventColor(privacyLevelValue, kkEventModel.kind.value );
+		kkEventModel.kind.headerColor = colorHelper.getEventBoxHeaderColor( kkEventModel.kind.value );
+		kkEventModel.kind.detailsPageEventBorderColor = colorHelper.getEventDetailsBorderColor( kkEventModel.kind.value );
 		kkEventModel.id = eventId; 
 		kkEventModel.occupancyLimit = occupancyLimit;
 		kkEventModel.privacyLevel.name = privacyLevelName;

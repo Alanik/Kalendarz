@@ -178,7 +178,7 @@
 		}
 
 		var $tableBody = $( "#calendarDayDetailsTable .table-details-body" );
-		var h = ( calendarViewModel.displayPageEventMostBottomRow) * 46;
+		var h = ( calendarViewModel.displayPageEventMostBottomRow ) * 46;
 		h = h + 20;
 		$tableBody.height( h + "px" );
 		///////////////////////////////////////////////////////////////////
@@ -276,71 +276,112 @@
 		{
 			var $container = $( ".event-hover-container" );
 			var $mainContainer = $( "#mainContainer" );
+			var tap = ( "ontouchstart" in document.documentElement );
+
+			if ( !tap )
+			{
+				$mainContainer.on( {
+					mouseenter: function ()
+					{
+						$( this ).css( {
+							"border-bottom": "2px solid rgb(235,235,235)",
+							"border-top": "2px solid rgb(250,250,250)",
+							"cursor": "pointer",
+							"top": "3px"
+						} ).find( ".addNewEvent-cellIcon" ).fadeIn();
+					},
+					mouseleave: function ()
+					{
+						$( this ).css( {
+							"border": "2px solid white",
+							"cursor": "auto",
+							"top": "0"
+						} ).find( ".addNewEvent-cellIcon" ).hide();
+					}
+				}, '.current-month-cell' );
+
+				$mainContainer.on( {
+					mouseenter: function ()
+					{
+						$( this ).css( {
+							"cursor": "pointer",
+							"top": "3px"
+						} ).find( ".addNewEvent-cellIcon" ).fadeIn();
+					},
+					mouseleave: function ()
+					{
+						$( this ).css( {
+							"cursor": "auto",
+							"top": "0px"
+						} ).find( ".addNewEvent-cellIcon" ).fadeOut();
+					}
+				}, '.other-month-cell' );
+
+				$mainContainer.on( {
+					mouseenter: function ()
+					{
+						var name = $( this ).find( "input" ).attr( "name" );
+						var address = $( this ).find( "input" ).attr( "address" );
+						var startHour = $( this ).find( "input" ).attr( "starthour" );
+						var endHour = $( this ).find( "input" ).attr( "endhour" );
+						var startMinute = $( this ).find( "input" ).attr( "startminute" );
+						var endMinute = $( this ).find( "input" ).attr( "endminute" );
+
+						var width = $( this ).width();
+						var height = $( this ).height();
+						var offset = $( this ).offset();
+
+						$container.css( "left", offset.left - 100 + width );
+						$container.css( "top", offset.top - height );
+
+						$container.find( ".event-hover-name" ).text( name );
+						$container.find( ".event-hover-adress" ).text( address );
+						$container.find( ".event-hover-startHour" ).text( startHour + " : " + startMinute );
+						$container.find( ".event-hover-endHour" ).text( endHour + " : " + endMinute );
+
+						$container.show();
+					},
+					mouseleave: function ()
+					{
+						$container.hide();
+					}
+				}, '.event-rectangle' );
+			}
+
+			//TODO: since also using css : hover, maybe remove jquery code?
+			//$( ".hover-cursor-pointer" ).hover( function ()
+			//{
+			//	$( this ).css( {
+			//		"cursor": "pointer"
+			//	} );
+			//}, function ()
+			//{
+			//	$( this ).css( {
+			//		"cursor": "auto"
+			//	} );
+			//} );
+
+			//TODO: since also using css : hover, maybe remove jquery code?
+			//$( ".link" ).hover( function ()
+			//{
+			//	$( this ).css( {
+			//		"cursor": "pointer"
+			//	} );
+			//}, function ()
+			//{
+			//	$( this ).css( {
+			//		"cursor": "auto"
+			//	} );
+			//} );
 
 			$mainContainer.on( {
 				mouseenter: function ()
 				{
-					var name = $( this ).find( "input" ).attr( "name" );
-					var address = $( this ).find( "input" ).attr( "address" );
-					var startHour = $( this ).find( "input" ).attr( "starthour" );
-					var endHour = $( this ).find( "input" ).attr( "endhour" );
-					var startMinute = $( this ).find( "input" ).attr( "startminute" );
-					var endMinute = $( this ).find( "input" ).attr( "endminute" );
-
-					var width = $( this ).width();
-					var height = $( this ).height();
-					var offset = $( this ).offset();
-
-					$container.css( "left", offset.left - 100 + width );
-					$container.css( "top", offset.top - height );
-
-					$container.find( ".event-hover-name" ).text( name );
-					$container.find( ".event-hover-adress" ).text( address );
-					$container.find( ".event-hover-startHour" ).text( startHour + " : " + startMinute );
-					$container.find( ".event-hover-endHour" ).text( endHour + " : " + endMinute );
-
-					$container.show();
-				},
-				mouseleave: function ()
-				{
-					$container.hide();
-				}
-			}, '.event-rectangle' );
-
-			//TODO: since also using css : hover, maybe remove jquery code?
-			$( ".hover-cursor-pointer" ).hover( function ()
-			{
-				$( this ).css( {
-					"cursor": "pointer"
-				} );
-			}, function ()
-			{
-				$( this ).css( {
-					"cursor": "auto"
-				} );
-			} );
-
-			//TODO: since also using css : hover, maybe remove jquery code?
-			$( ".link" ).hover( function ()
-			{
-				$( this ).css( {
-					"cursor": "pointer"
-				} );
-			}, function ()
-			{
-				$( this ).css( {
-					"cursor": "auto"
-				} );
-			} );
-
-			$mainContainer.on( {
-				mouseenter: function ()
-				{
-					if ( !$(this).hasClass("main-page-link") )
+					if ( !$( this ).hasClass( "main-page-link" ) )
 					{
 						$( this ).toggleClass( "selected-nav-link" );
 						$( this ).parent().children().first().toggleClass( "selected-nav-link" );
-					}				
+					}
 				},
 				mouseleave: function ()
 				{
@@ -351,44 +392,6 @@
 					}
 				}
 			}, '.lobby-nav-link-container' );
-
-
-			$mainContainer.on( {
-				mouseenter: function ()
-				{
-					$( this ).css( {
-						"border-bottom": "2px solid rgb(235,235,235)",
-						"border-top": "2px solid rgb(250,250,250)",
-						"cursor": "pointer",
-						"top": "3px"
-					} ).find( ".addNewEvent-cellIcon" ).fadeIn();
-				},
-				mouseleave: function ()
-				{
-					$( this ).css( {
-						"border": "2px solid white",
-						"cursor": "auto",
-						"top": "0"
-					} ).find( ".addNewEvent-cellIcon" ).hide();
-				}
-			}, '.current-month-cell' );
-
-			$mainContainer.on( {
-				mouseenter: function ()
-				{
-					$( this ).css( {
-						"cursor": "pointer",
-						"top": "3px"
-					} ).find( ".addNewEvent-cellIcon" ).fadeIn();
-				},
-				mouseleave: function ()
-				{
-					$( this ).css( {
-						"cursor": "auto",
-						"top": "0px"
-					} ).find( ".addNewEvent-cellIcon" ).fadeOut();
-				}
-			}, '.other-month-cell' );
 
 			$mainContainer.on( {
 				mouseenter: function ()

@@ -278,6 +278,8 @@
     <Content Include="Content\Fonts\Raleway\Raleway-Thin-Italic.ttf" />
     <Content Include="Content\Fonts\Raleway\Raleway-Thin.ttf" />
     <None Include="Properties\PublishProfiles\Alan.pubxml" />
+    <Content Include="Scripts\Helpers\WebApiCaller.js" />
+    <Content Include="Scripts\Lib\HammerJS\hammer.min.map" />
     <None Include="Scripts\Lib\jquery-2.0.3.intellisense.js" />
     <Content Include="Images\TestBackgrounds\1600x900.jpg" />
     <Content Include="Images\TestBackgrounds\1600x900 %282%29.jpg" />
@@ -410,7 +412,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>63445</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

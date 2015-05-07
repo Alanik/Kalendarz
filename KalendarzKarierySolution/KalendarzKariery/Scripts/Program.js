@@ -157,7 +157,7 @@
 		calendarViewModel.detailsPageDisplayDate.day( date.getDate() );
 		calendarViewModel.detailsPageDisplayDate.weekday( currentWeekday );
 
-		var events = calendarViewModel.getEventsForGivenDay( date.getDate() )
+		var events = calendarViewModel.getEventsForGivenDay( calendarViewModel.detailsPageDisplayDate.year(), calendarViewModel.detailsPageDisplayDate.month(), calendarViewModel.detailsPageDisplayDate.day() )
 		calendarViewModel.detailsPageDayEvents( events );
 		///////////////////////////////////////////////////////////////////
 
@@ -190,15 +190,15 @@
 			var $slides = $( '#slides' );
 
 			//for touch swipes (using hammer.js)
-			Hammer( $slides[0] ).on( "swipeleft", function ( e )
-			{
-				$slides.data( 'superslides' ).animate( 'next' );
-			} );
+			//Hammer( $slides[0] ).on( "swipeleft", function ( e )
+			//{
+			//	$slides.data( 'superslides' ).animate( 'next' );
+			//} );
 
-			Hammer( $slides[0] ).on( "swiperight", function ( e )
-			{
-				$slides.data( 'superslides' ).animate( 'prev' );
-			} );
+			//Hammer( $slides[0] ).on( "swiperight", function ( e )
+			//{
+			//	$slides.data( 'superslides' ).animate( 'prev' );
+			//} );
 
 			$slides.superslides( {
 				slide_easing: 'easeInOutCubic',
@@ -212,6 +212,8 @@
 			{
 				setTimeout( function ()
 				{
+					var events = calendarViewModel.calendarDayEventsToUpdate.events;
+
 					if ( location.hash === "#0" )
 					{
 						calendarViewModel.currentPage = 0;
@@ -220,13 +222,12 @@
 					{
 						calendarViewModel.currentPage = 1;
 
-						if ( calendarViewModel.calendarDayEventsToUpdate.events !== null )
+						if ( events && $.isArray(events))
 						{
 							setTimeout( function ()
 							{
-								calendarViewModel.redrawCalendarCell( calendarViewModel.calendarDayEventsToUpdate.events, calendarViewModel.calendarDayEventsToUpdate.day );
+								calendarViewModel.redrawCalendarCell( events, calendarViewModel.calendarDayEventsToUpdate.day, calendarViewModel.calendarDayEventsToUpdate.month);
 								calendarViewModel.calendarDayEventsToUpdate.events = null;
-
 							}, 10 )
 						}
 

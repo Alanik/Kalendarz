@@ -24,10 +24,6 @@ namespace KalendarzKariery
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 			AuthConfig.RegisterAuth();
 
-			//BundleTable.EnableOptimizations = true;
-			InitializeMembership.SeedMembership();
-			Effort.Provider.EffortProviderConfiguration.RegisterProvider();
-
 			RazorViewEngine razorEngine = ViewEngines.Engines.OfType<RazorViewEngine>().FirstOrDefault();
 			if (razorEngine != null)
 			{
@@ -38,10 +34,14 @@ namespace KalendarzKariery
 					  "~/Views/Home/SharedPartials/{0}.cshtml"
 			};
 				razorEngine.PartialViewLocationFormats =
-					razorEngine.PartialViewLocationFormats.Union(newPartialViewFormats).Reverse().ToArray();
+					razorEngine.PartialViewLocationFormats.Union( newPartialViewFormats ).Reverse().ToArray();
 			}
 
 			AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.Email;
+
+			//BundleTable.EnableOptimizations = true;
+			InitializeMembership.SeedMembership();
+			Effort.Provider.EffortProviderConfiguration.RegisterProvider();
         }
 
 		protected void Application_Error( object sender, EventArgs e )

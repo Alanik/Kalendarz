@@ -25,18 +25,27 @@ namespace KalendarzKariery.BO.SeedMembership
 
 		public static void SeedMembership()
 		{
-			WebSecurity.InitializeDatabaseConnection("SimpleMembership_KalendarzKarieryConnection", "User", "Id", "UserName", autoCreateTables: false);
+			WebSecurity.InitializeDatabaseConnection( "SimpleMembership_KalendarzKarieryConnection", "User", "Id", "UserName", autoCreateTables: false );
 
-			if (!Roles.RoleExists(AdminRole))
+			if (!Roles.RoleExists( AdminRole ))
 			{
-				Roles.CreateRole(AdminRole);
+				Roles.CreateRole( AdminRole );
 			}
 
-			CreateAdminUser(AdminAlanikLogin);
-			CreateAdminUser(AdminLuqLogin);
+			if (!WebSecurity.UserExists( AdminAlanikLogin ))
+			{
+				CreateAdminUser( AdminAlanikLogin );
+			}
+
+			if (!WebSecurity.UserExists( AdminLuqLogin ))
+			{
+				CreateAdminUser( AdminLuqLogin );
+			}
+
+
 		}
 
-		private static User GetAlanikAdmin(string loginName)
+		private static User GetAlanikAdmin( string loginName )
 		{
 			User user = new User();
 			Address address = new Address();
@@ -45,9 +54,9 @@ namespace KalendarzKariery.BO.SeedMembership
 			address.Country = "Polska";
 			address.ZipCode = "54-239";
 
-			user.Addresses.Add(address);
+			user.Addresses.Add( address );
 			user.Bio = "Witam, nazywam sie Alanik i jestem adminem";
-			user.BirthDay = new DateTime(1987, 7, 30);
+			user.BirthDay = new DateTime( 1987, 7, 30 );
 			user.Email = "thealanik@aim.com";
 			user.FirstName = "Alan";
 			user.LastName = "Budzinski";
@@ -65,34 +74,31 @@ namespace KalendarzKariery.BO.SeedMembership
 			return user;
 		}
 
-		private static void CreateAdminUser(string loginName)
+		private static void CreateAdminUser( string loginName )
 		{
-			if (!WebSecurity.UserExists(loginName))
+			User user = GetAlanikAdmin( loginName );
+
+			WebSecurity.CreateUserAndAccount( loginName, AdminPassword, propertyValues: new
 			{
-				User user = GetAlanikAdmin(loginName);
+				Email = user.Email,
+				FirstName = user.FirstName,
+				LastName = user.LastName,
+				Bio = user.Bio,
+				BirthDay = user.BirthDay,
+				UserName = user.UserName,
+				Phone = user.Phone,
+				Gender = user.Gender
+			} );
 
-				WebSecurity.CreateUserAndAccount(loginName, AdminPassword, propertyValues: new
-				{
-					Email = user.Email,
-					FirstName = user.FirstName,
-					LastName = user.LastName,
-					Bio = user.Bio,
-					BirthDay = user.BirthDay,
-					UserName = user.UserName,
-					Phone = user.Phone,
-					Gender = user.Gender
-				});
-
-				if (!Roles.GetRolesForUser(loginName).Contains(AdminRole))
-				{
-					Roles.AddUserToRole(loginName, AdminRole);
-				}
-
-				var repository = RepositoryProvider.GetRepository();
-
-				int id = WebSecurity.GetUserId(loginName);
-				repository.UpdateUserOnRegister(id, user.Addresses.First()); 
+			if (!Roles.GetRolesForUser( loginName ).Contains( AdminRole ))
+			{
+				Roles.AddUserToRole( loginName, AdminRole );
 			}
+
+			var repository = RepositoryProvider.GetRepository();
+
+			int id = WebSecurity.GetUserId( loginName );
+			repository.UpdateUserOnRegister( id, user.Addresses.First() );
 		}
 	}
 }

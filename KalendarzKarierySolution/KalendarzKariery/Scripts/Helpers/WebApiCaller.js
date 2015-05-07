@@ -6,7 +6,7 @@
 		var $addEventContainer = $( "#addNewEventContainer" );
 
 		$.ajax( {
-			url: url + "/dupa/a",
+			url: url,
 			dataType: "JSON",
 			type: "POST",
 			data: data,

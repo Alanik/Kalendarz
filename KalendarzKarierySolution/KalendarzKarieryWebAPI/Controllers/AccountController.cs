@@ -16,7 +16,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 		private readonly IKalendarzKarieryRepository _repository = RepositoryProvider.GetRepository();
 
 		// POST api/events (add)
-		public IValidationResponse Post(RegisterViewModel model)
+		public IValidationResponse Post( RegisterViewModel model )
 		{
 			var errorResponse = this.ValidateUser();
 			if (!errorResponse.IsSuccess)
@@ -32,14 +32,14 @@ namespace KalendarzKarieryWebAPI.Controllers
 				return response;
 			}
 
-			var user = _repository.GetUserById(model.User.Id);
+			var user = _repository.GetUserById( model.User.Id );
 
 			if (user != null && User.Identity.Name.ToLower() == user.UserName.ToLower())
 			{
 				string birthDate = model.BirthDateModel.Year + "-" + model.BirthDateModel.Month + "-" + model.BirthDateModel.Day;
 				DateTime date;
 
-				if (DateTime.TryParse(birthDate, out date))
+				if (DateTime.TryParse( birthDate, out date ))
 				{
 					user.Bio = model.User.Bio;
 					user.BirthDay = date;
@@ -50,8 +50,18 @@ namespace KalendarzKarieryWebAPI.Controllers
 					user.WebSiteUrl = model.User.WebSiteUrl;
 					user.Gender = model.User.Gender;
 
-					user.Addresses.Clear();
-					user.Addresses.Add(model.Address);
+					if (user.Addresses.Count > 0)
+					{
+						var address = user.Addresses.FirstOrDefault();
+						address.Street = model.Address.Street;
+						address.City = model.Address.City;
+						address.ZipCode = model.Address.ZipCode;
+						address.Country = model.Address.Country;
+					}
+					else
+					{
+						user.Addresses.Add(model.Address);
+					}
 
 					_repository.Save();
 

@@ -64,7 +64,11 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 				throw new ArgumentNullException( "user", "UpdateUserOnRegister user is null" );
 			}
 
-			currentUser.Addresses.Add( address );
+			if (!string.IsNullOrWhiteSpace( address.Street ) && !string.IsNullOrWhiteSpace( address.City ) && !string.IsNullOrWhiteSpace( address.ZipCode ) &&
+			!string.IsNullOrWhiteSpace( address.Country ))
+			{
+				currentUser.Addresses.Add( address );
+			}
 
 			currentUser.UserAccountInfo = new UserAccountInfo
 			 {

@@ -90,8 +90,8 @@
 
 			//console.log(calendarViewModel.publicEvents);
 			//console.log(calendarViewModel.publicEventTree);
-			//console.log(calendarViewModel.publicEventTreeCountBasedOnEventKind);
 			//console.log( calendarViewModel.publicEventTreeCountBasedOnEventKind );
+			//console.log( calendarViewModel.myEventTreeCountBasedOnEventKind );
 
 			/////////////////////////////////////////////////////////////////////////
 			//draw events to the calendar

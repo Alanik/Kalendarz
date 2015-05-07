@@ -121,23 +121,19 @@
 
 		for ( var i = 0; i < defaultEventKinds.length; i++ )
 		{
-			element = eventTree[i] = {};
+			element = eventTree[i + 1] = {};
 			eventCountTreeElement = indexViewModelEventCountTree[i];
 
 			if ( eventCountTreeElement && eventCountTreeElement.value == ( i + 1 ) )
 			{
-				element.eventKindValue = eventCountTreeElement.value;
-				element.events = {};
-				element.events.upcoming = ko.observable( eventCountTreeElement.events.upcoming );
-				element.events.old = ko.observable( eventCountTreeElement.events.old );
+				element.upcoming = ko.observable( eventCountTreeElement.events.upcoming );
+				element.old = ko.observable( eventCountTreeElement.events.old );
 			} else
 			{
 				//events with given eventKind.value do not exist so we need to create an empty object
 
-				element.eventKindValue = i + 1;
-				element.events = {};
-				element.events.upcoming = ko.observable( 0 );
-				element.events.old = ko.observable( 0 );
+				element.upcoming = ko.observable( 0 );
+				element.old = ko.observable( 0 );
 
 				indexViewModelEventCountTree.splice( i, 0, element );
 			}

@@ -574,7 +574,6 @@
 							self.detailsPageSelectedEvents( array );
 
 							//remove from self.myEventTreeCountBasedOnEventKind
-							// TODO: make count a calculated observable so we don't have to update count value manually
 							eventCount = self.myEventTreeCountBasedOnEventKind[event.kind.value];
 							if ( eventCount )
 							{
@@ -754,22 +753,21 @@
 		dayEvents.push( newEvent );
 
 		//add to self.myEventTreeCountBasedOnEventKind
-		// TODO: make count a calculated observable so we don't have to update count value manually
-		var eventCount = self.myEventTreeCountBasedOnEventKind[newEvent.kind.value];
-		if ( eventCount )
+		var eventTreeCountNode = self.myEventTreeCountBasedOnEventKind[newEvent.kind.value];
+		if ( eventTreeCountNode )
 		{
-			old = eventCount.events.old();
-			upcoming = eventCount.events.upcoming();
+			old = eventTreeCountNode.old();
+			upcoming = eventTreeCountNode.upcoming();
 
 			today = new Date();
 			endDate = new Date( newEvent.startDate.year, newEvent.startDate.month - 1, newEvent.startDate.day, newEvent.startDate.endHour, newEvent.startDate.endMinute, 0, 0 );
 
 			if ( today > endDate )
 			{
-				eventCount.events.old( old + 1 );
+				eventTreeCountNode.old( old + 1 );
 			} else
 			{
-				eventCount.events.upcoming( upcoming + 1 );
+				eventTreeCountNode.upcoming( upcoming + 1 );
 			}
 		}
 

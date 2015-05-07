@@ -149,8 +149,14 @@ namespace KalendarzKariery.Controllers
 							Gender = model.User.Gender
 						});
 
+						if (!Roles.GetRolesForUser( model.RegisterModel.UserName ).Contains( "BasicUser" ))
+						{
+							Roles.AddUserToRole( model.RegisterModel.UserName, "BasicUser" );
+						}
+
 						int id = WebSecurity.GetUserId(model.RegisterModel.UserName);
 						_repository.UpdateUserOnRegister(id, model.Address);
+
 						WebSecurity.Login(model.RegisterModel.UserName, model.RegisterModel.Password);
 
 						return Json(new { isRegisterSuccess = true });

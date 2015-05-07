@@ -28,7 +28,7 @@ namespace KalendarzKarieryCore.Consts
 		#endregion
 
 		#region General
-		public const string GeneralOperationErrorMsg = "Operacja nie mogła zostać wykonana.";
+		public const string GeneralOperationErrorMsg = "Wystąpił nieoczekiwany błąd. Odświerz strone i spróbuj ponownie.";
 		public const string AdminRole = "Administrator";
 		#endregion
 

@@ -58,7 +58,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 
 			if (@event == null)
 			{
-				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralValidationErrorMsg };
+				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralOperationErrorMsg };
 			}
 
 			if (@event.StartDate.Hour < 7 || @event.EndDate.HasValue && @event.EndDate.Value.Hour >= 21)

@@ -387,20 +387,9 @@
 				{
 					$container.remove();
 
-					//appViewModel.detailsPageDayEvents.remove( function ( event )
-					//{
-					//	return event.id === id;
-					//} );
-
 					appViewModel.removeEventFromMyEventTree( id, year, month, day );
 
-					console.log( "------------ detailsPageDayEvents --------------" );
-
-					console.log( appViewModel.detailsPageDayEvents() );
-
-					var $scrollable = $( "#slide-item-details" ).parent();
-					var scroll = $( "#details #calendarDayDetailsContainer" ).position().top - 20;
-					$scrollable.scrollTop( scroll );
+					$( "#details #calendarDayDetailsContainer" ).scrollTo( 500 );
 
 					//redraw details page event rectangle table
 					appViewModel.removeEventRectanglesFromDetailsDay();
@@ -424,7 +413,6 @@
 					appViewModel.calendarDayEventsToUpdate.events = events;
 				} );
 			}
-
 		}
 
 		//////////////////////////////////////////////
@@ -462,14 +450,11 @@
 		self.observableEvent.address.city( event.address.city );
 		self.observableEvent.address.zipCode( event.address.zipCode );
 
-		var date = new Date();
 		self.observableEvent.dateAdded = event.dateAdded;
 
 		self.observableEvent.description( event.description );
 		self.observableEvent.details( event.details );
 		self.observableEvent.eventLengthInMinutes = event.eventLengthInMinutes;
-
-		var colorHelper = new EventColorHelper();
 
 		self.observableEvent.kind.value( event.kind.value );
 		self.observableEvent.kind.name( event.kind.name );
@@ -679,6 +664,8 @@
 
 	self.addEventToMyEventTree = function ( newEvent )
 	{
+		var today, endDay, oldOrUpcoming;
+
 		var year = newEvent.startDate.year;
 		var month = newEvent.startDate.month;
 		var day = newEvent.startDate.day;
@@ -690,9 +677,42 @@
 		//1. add event to eventTree
 		dayEventsArr.push( newEvent );
 
-		//2. add event to self.detailsPageEvents()
+		//2. update self.detailsPageEvents()
+		if ( newEvent.startDate.year == self.detailsPageDisplayDate.year() && newEvent.startDate.month == self.detailsPageDisplayDate.month() && newEvent.startDate.day == self.detailsPageDisplayDate.day())
+		{
+			self.detailsPageDayEvents( dayEventsArr );
+			
+			self.removeEventRectanglesFromDetailsDay();
+			self.setCalendarPlacementRow( dayEventsArr );
+			self.displayPageEventMostBottomRow = 1;
 
+			for ( var i in dayEventsArr )
+			{
+				self.drawEventToDetailsDayTable( dayEventsArr[i] );
+			}
+
+			var $tableBody = $( "#details #calendarDayDetailsTable .table-details-body" );
+			var h = ( self.displayPageEventMostBottomRow ) * 46;
+			h = h + 20;
+			$tableBody.height( h + "px" );
+		}
+		
 		//3. add event to self.detailsPageSelectedEvents
+		if ( self.detailsPageSelectedEvents.selectedKindValues.length > 0 )
+		{
+			today = new Date();
+			endDate = new Date( newEvent.startDate.year, newEvent.startDate.month - 1, newEvent.startDate.day, newEvent.startDate.endHour, newEvent.startDate.endMinute, 0, 0 );
+
+			if ( today > endDate )
+			{
+				oldOrUpcoming = self.detailsPageSelectedEvents.old;
+			} else
+			{
+				oldOrUpcoming = self.detailsPageSelectedEvents.upcoming;
+			}
+
+			oldOrUpcoming.push( newEvent );
+		}
 
 		//4. increment self.myEventTreeCountBasedOnEventKind value
 		self.changeEventCountTreeValueBasedOnEventKind( self.myEventTreeCountBasedOnEventKind, newEvent, 1 );
@@ -704,8 +724,7 @@
 	{
 		var eventTree = self.myEventTree;
 		var eventTreeYearProp, eventTreeMonthProp, dayEvents, event;
-		var old, upcoming, eventCount, today, endDate;
-		var array;
+		var today, endDate, oldOrUpcoming;
 
 		if ( self.myEventTree[year] )
 		{
@@ -717,30 +736,42 @@
 				{
 					dayEvents = eventTreeMonthProp[day];
 
-					for ( var i in dayEvents )
+					for ( var i = 0; i < dayEvents.length; i++ )
 					{
 						event = dayEvents[i];
 
 						if ( event.id === id )
 						{
-							dayEvents.pop( event );
+							//1. remove event from eventTree
+							dayEvents.splice( i, 1 );
 
 							if ( !dayEvents.length )
 							{
+								//if array node that contains daily events is empty then remove the node from eventTree
 								delete eventTreeMonthProp[day];
 							}
 
-							//remove from detailsPageSelectedEvents
-							//array = ko.utils.arrayFilter( self.detailsPageSelectedEvents(), function ( item )
-							//{
-							//	return item.id != event.id;
-							//} );
-							//self.detailsPageSelectedEvents( array );
+							//2. if selected events window is open and the deleted event is displayed on the list then remove it from detailsPageSelectedEvents{}
+							if ( self.detailsPageSelectedEvents.selectedKindValues.length > 0)
+							{
+								today = new Date();
+								endDate = new Date( event.startDate.year, event.startDate.month - 1, event.startDate.day, event.startDate.endHour, event.startDate.endMinute, 0, 0 );
 
-							console.log( "------------- self.detailsPageSelectedEvents.upcoming() ---------------- " );
-							console.log( self.detailsPageSelectedEvents.upcoming() );
+								if ( today > endDate )
+								{
+									oldOrUpcoming = self.detailsPageSelectedEvents.old;
+								} else
+								{
+									oldOrUpcoming = self.detailsPageSelectedEvents.upcoming;
+								}
 
-							//decrement self.myEventTreeCountBasedOnEventKind value
+								oldOrUpcoming.remove( function ( event )
+								{
+									return event.id === id;
+								} );
+							}
+
+							//3. decrement self.myEventTreeCountBasedOnEventKind value
 							self.changeEventCountTreeValueBasedOnEventKind( self.myEventTreeCountBasedOnEventKind, event, -1 );
 
 							return;
@@ -1105,7 +1136,7 @@
 
 		setTimeout( function ()
 		{
-			$( "#details #calendarDayDetailsContainer" ).scrollTo(100);
+			$( "#details #calendarDayDetailsContainer" ).scrollTo( 100 );
 		}, 10 )
 	};
 

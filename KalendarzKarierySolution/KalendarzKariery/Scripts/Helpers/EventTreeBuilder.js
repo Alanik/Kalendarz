@@ -2,7 +2,7 @@
 {
 	var self = this;
 
-	self.buildEventTree = function ( yearEventTreeModel, calendarViewModel, isPublicEventTree )
+	self.buildEventTree = function ( yearEventTreeModel, appViewModel, isPublicEventTree )
 	{
 		var eventTree = {}, largest, groups;
 		var dayGroup, day, dayGroupLength, event;
@@ -41,15 +41,15 @@
 						setDateAdded( event );
 						eventTreeDayGroupProp.push( event );
 
-						//push public event to calendarViewModel.publicEvents
+						//push public event to appViewModel.publicEvents
 						//TODO: maybe it's better to remove it from here and put it in a seperate method for example buildPublicEventTree, but it is just a suggestion
 						if ( isPublicEventTree )
 						{
-							calendarViewModel.publicEvents.push( event );
+							appViewModel.publicEvents.push( event );
 						}
 					}
 
-					calendarViewModel.setCalendarPlacementRow( eventTreeDayGroupProp );
+					appViewModel.setCalendarPlacementRow( eventTreeDayGroupProp );
 				}
 
 				eventTreeYearProp[yearProp.eventsGroupedByMonth[k].month] = eventTreeMonthProp;

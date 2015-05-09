@@ -422,7 +422,6 @@ namespace KalendarzKariery.Controllers
 		private void UpdateUser()
 		{
 
-
 		}
 
 		private ActionResult RedirectToLocal(string returnUrl)
@@ -499,8 +498,6 @@ namespace KalendarzKariery.Controllers
 					return "An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
 			}
 		}
-
-
 
 		#endregion
 	}

@@ -9,7 +9,7 @@
 			{
 				if ( !offset )
 				{
-					offset = this.offset().top - 20;
+					offset = this.position().top - 20;
 				}
 
 				this.closest( ".scrollable" ).animate( { scrollTop: offset }, speed );
@@ -60,7 +60,6 @@
 	},
 	initialize: function ( indexViewModel, userName )
 	{
-
 		var $calendar = $( "#calendar" );
 		var $details = $( "#details" );
 		var $lobby = $( "#lobby" );
@@ -72,32 +71,32 @@
 		} );
 
 		var currentWeekday = $calendar.find( ".today-cell" ).attr( "weekday" );
-		var calendarViewModel = new CalendarViewModel( date, currentWeekday, userName, this.spinner );
+		var appViewModel = new AppViewModel( date, currentWeekday, userName, this.spinner );
 
-		calendarViewModel.eventPrivacyLevels = indexViewModel.PrivacyLevels;
-		calendarViewModel.eventKinds = indexViewModel.EventKinds;
-		calendarViewModel.publicEventTree = eventTreeBuilder.buildEventTree( indexViewModel.PublicEvents, calendarViewModel, true );
-		calendarViewModel.publicEventTreeCountBasedOnEventKind = eventTreeBuilder.buildEventTreeCountBasedOnEventKind( indexViewModel.PublicEventCountTree, calendarViewModel.eventKinds );
-		calendarViewModel.newsEvents = eventTreeBuilder.transformNews( indexViewModel.News );
+		appViewModel.eventPrivacyLevels = indexViewModel.PrivacyLevels;
+		appViewModel.eventKinds = indexViewModel.EventKinds;
+		appViewModel.publicEventTree = eventTreeBuilder.buildEventTree( indexViewModel.PublicEvents, appViewModel, true );
+		appViewModel.publicEventTreeCountBasedOnEventKind = eventTreeBuilder.buildEventTreeCountBasedOnEventKind( indexViewModel.PublicEventCountTree, appViewModel.eventKinds );
+		appViewModel.newsEvents = eventTreeBuilder.transformNews( indexViewModel.News );
 
 		if ( indexViewModel.MyEvents )
 		{
-			calendarViewModel.myEventTree = eventTreeBuilder.buildEventTree( indexViewModel.MyEvents, calendarViewModel, false );
-			calendarViewModel.myEventTreeCountBasedOnEventKind = eventTreeBuilder.buildEventTreeCountBasedOnEventKind( indexViewModel.MyEventCountTree, calendarViewModel.eventKinds );
+			appViewModel.myEventTree = eventTreeBuilder.buildEventTree( indexViewModel.MyEvents, appViewModel, false );
+			appViewModel.myEventTreeCountBasedOnEventKind = eventTreeBuilder.buildEventTreeCountBasedOnEventKind( indexViewModel.MyEventCountTree, appViewModel.eventKinds );
 
-			//console.log(JSON.stringify(calendarViewModel.myEventTree));
-			//console.log(calendarViewModel.myEventTree);
+			//console.log(JSON.stringify(appViewModel.myEventTree));
+			//console.log(appViewModel.myEventTree);
 
-			//console.log(calendarViewModel.publicEvents);
-			//console.log(calendarViewModel.publicEventTree);
-			//console.log( calendarViewModel.publicEventTreeCountBasedOnEventKind );
-			//console.log( calendarViewModel.myEventTreeCountBasedOnEventKind );
+			//console.log(appViewModel.publicEvents);
+			//console.log(appViewModel.publicEventTree);
+			//console.log( appViewModel.publicEventTreeCountBasedOnEventKind );
+			//console.log( appViewModel.myEventTreeCountBasedOnEventKind );
 
 			/////////////////////////////////////////////////////////////////////////
 			//draw events to the calendar
 			/////////////////////////////////////////////////////////////////////////
-			var yearProp = calendarViewModel.myEventTree[calendarViewModel.calendarPageDisplayDate.year()];
-			var events, month, nextMonth, prevMonth, event, calendarPageMonth = calendarViewModel.calendarPageDisplayDate.month();
+			var yearProp = appViewModel.myEventTree[appViewModel.calendarPageDisplayDate.year()];
+			var events, month, nextMonth, prevMonth, event, calendarPageMonth = appViewModel.calendarPageDisplayDate.month();
 
 
 			//TODO: what about december of previous year and january of next year? are events drawn properly for those cases?
@@ -113,7 +112,7 @@
 						{
 							event = events[i];
 
-							calendarViewModel.drawEventToCalendar( event );
+							appViewModel.drawEventToCalendar( event );
 						}
 					}
 				}
@@ -127,7 +126,7 @@
 						{
 							event = events[i];
 
-							calendarViewModel.drawEventToCalendar( event );
+							appViewModel.drawEventToCalendar( event );
 						}
 					}
 				}
@@ -141,7 +140,7 @@
 						{
 							event = events[i];
 
-							calendarViewModel.drawEventToCalendar( event );
+							appViewModel.drawEventToCalendar( event );
 						}
 					}
 				}
@@ -151,34 +150,34 @@
 		//////////////////////////////////////////////////////////////////
 		//initialize details page
 		//////////////////////////////////////////////////////////////////
-		calendarViewModel.displayPageEventMostBottomRow = 1;
-		calendarViewModel.detailsPageDisplayDate.year( date.getFullYear() );
-		calendarViewModel.detailsPageDisplayDate.month( date.getMonth() + 1 );
-		calendarViewModel.detailsPageDisplayDate.day( date.getDate() );
-		calendarViewModel.detailsPageDisplayDate.weekday( currentWeekday );
+		appViewModel.displayPageEventMostBottomRow = 1;
+		appViewModel.detailsPageDisplayDate.year( date.getFullYear() );
+		appViewModel.detailsPageDisplayDate.month( date.getMonth() + 1 );
+		appViewModel.detailsPageDisplayDate.day( date.getDate() );
+		appViewModel.detailsPageDisplayDate.weekday( currentWeekday );
 
-		var events = calendarViewModel.getEventsForGivenDay( calendarViewModel.detailsPageDisplayDate.year(), calendarViewModel.detailsPageDisplayDate.month(), calendarViewModel.detailsPageDisplayDate.day() )
-		calendarViewModel.detailsPageDayEvents( events );
+		var events = appViewModel.getEventsForGivenDay( appViewModel.detailsPageDisplayDate.year(), appViewModel.detailsPageDisplayDate.month(), appViewModel.detailsPageDisplayDate.day() )
+		appViewModel.detailsPageDayEvents( events );
 		///////////////////////////////////////////////////////////////////
 
 		///////////////////////////////////////////////////////////////F///
 		//Knockout apply bindings
 		///////////////////////////////////////////////////////////////////
-		ko.applyBindings( calendarViewModel );
+		ko.applyBindings( appViewModel );
 		///////////////////////////////////////////////////////////////////
 
 		///////////////////////////////////////////////////////////////////
 		//draw to details page
 		//////////////////////////////////////////////////////////////////
 
-		//method drawEventToDetailsDayTable(events[i]) needs to be called after ko.applyBindings(calendarViewModel)!
+		//method drawEventToDetailsDayTable(events[i]) needs to be called after ko.applyBindings(appViewModel)!
 		for ( var i in events )
 		{
-			calendarViewModel.drawEventToDetailsDayTable( events[i] );
+			appViewModel.drawEventToDetailsDayTable( events[i] );
 		}
 
 		var $tableBody = $( "#calendarDayDetailsTable .table-details-body" );
-		var h = ( calendarViewModel.displayPageEventMostBottomRow ) * 46;
+		var h = ( appViewModel.displayPageEventMostBottomRow ) * 46;
 		h = h + 20;
 		$tableBody.height( h + "px" );
 		///////////////////////////////////////////////////////////////////
@@ -212,26 +211,26 @@
 			{
 				setTimeout( function ()
 				{
-					var events = calendarViewModel.calendarDayEventsToUpdate.events;
+					var events = appViewModel.calendarDayEventsToUpdate.events;
 
 					if ( location.hash === "#0" )
 					{
-						calendarViewModel.currentPage = 0;
+						appViewModel.currentPage = 0;
 					}
 					else if ( location.hash === "#1" )
 					{
-						calendarViewModel.currentPage = 1;
+						appViewModel.currentPage = 1;
 
-						if ( events && $.isArray(events))
+						if ( events && $.isArray( events ) )
 						{
 							setTimeout( function ()
 							{
-								calendarViewModel.redrawCalendarCell( events, calendarViewModel.calendarDayEventsToUpdate.day, calendarViewModel.calendarDayEventsToUpdate.month);
-								calendarViewModel.calendarDayEventsToUpdate.events = null;
+								appViewModel.redrawCalendarCell( events, appViewModel.calendarDayEventsToUpdate.day, appViewModel.calendarDayEventsToUpdate.month );
+								appViewModel.calendarDayEventsToUpdate.events = null;
 							}, 10 )
 						}
 
-						//TODO: not finished set dynamic height of calendar cells (calendar to be as height as browser window)
+						//TODO: not finished set dynamic height of calendar cells (calendar's height to be as browser window)
 						//setTimeout(function(){				
 
 						//	var height1 = $("#calendar #calendarMenuHeader").height();
@@ -251,7 +250,7 @@
 					}
 					else if ( location.hash === "#2" )
 					{
-						calendarViewModel.currentPage = 2;
+						appViewModel.currentPage = 2;
 					}
 				}, 10 );
 			} );
@@ -282,8 +281,8 @@
 
 		this.drawClocks = function ()
 		{
-			calendarViewModel.drawAnalogClock();
-			calendarViewModel.drawDigitalClock();
+			appViewModel.drawAnalogClock();
+			appViewModel.drawDigitalClock();
 		}();
 
 		this.initializeHover = function ()
@@ -367,7 +366,7 @@
 				{
 					$( this ).css( {
 						"cursor": "pointer",
-						"color" : "white"
+						"color": "white"
 					} );
 				},
 				mouseleave: function ()

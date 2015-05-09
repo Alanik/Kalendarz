@@ -1,35 +1,54 @@
-﻿var WebApiCaller = function (calendarViewModel){
+﻿var WebApiCaller = function (appViewModel){
 	var self = this;
-	self.calendarViewModel = calendarViewModel;
+	self.appViewModel = appViewModel;
 	
-	self.callAddEvent = function ( url, data, callback ){
+	self.callAddEvent = function ( data, callback ){
 		var $addEventContainer = $( "#addNewEventContainer" );
 
 		$.ajax( {
-			url: url,
+			url: "/api/Events",
 			dataType: "JSON",
 			type: "POST",
 			data: data,
 			beforeSend: function ()
 			{
-				self.calendarViewModel.showLoader( $addEventContainer.closest( ".main-section" ).siblings( ".dotted-page-overlay" ) );
+				self.appViewModel.showLoader( $addEventContainer.closest( ".main-section" ).siblings( ".dotted-page-overlay" ) );
 				$addEventContainer.hide();
 			},
 			success: function ( result )
 			{
-				callback( result, self.calendarViewModel);
+				callback( result, self.appViewModel);
 			},
 			error: function ()
 			{
 				alert( "Wystąpił nieoczekiwany błąd. Prosze sprobować jeszcze raz." );
-				self.calendarViewModel.hideLoader();
+				self.appViewModel.hideLoader();
 				$addEventContainer.show();
 			}
 		} );
 	};
 
+	self.callDeleteEvent = function ( id, element, callback )
+	{
+		var $loader = $( "#details" ).siblings( ".dotted-page-overlay" );
+		var events;
 
-	self.deleteEvent = function (){
-
+		$.ajax( {
+			url: "/api/Events/" + id,
+			dataType: "JSON",
+			type: "DELETE",
+			beforeSend: function () { self.appViewModel.hideConfirmationPopupBox( element ); self.appViewModel.showLoader( $loader ); },
+			data: id,
+			success: function ( result )
+			{
+				callback(result, $loader, self.appViewModel);
+			},
+			error: function ()
+			{
+				alert( "Wystąpił nieoczekiwany błąd. Prosze sprobować jeszcze raz." );
+				self.appViewModel.hideLoader( $loader );
+				self.appViewModel.hideConfirmationPopupBox( element );
+			}
+		} );
 	}
 }

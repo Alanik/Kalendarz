@@ -39,7 +39,7 @@ namespace KalendarzKariery
 			"~/Scripts/JSModels/KKEventModelObservable.js",
 			"~/Scripts/JSModels/KKDateModel.js",
 			"~/Scripts/JSModels/KKEventDateModel.js",
-			"~/Scripts/JSViewModels/CalendarViewModel.js",
+			"~/Scripts/JSViewModels/AppViewModel.js",
 			"~/Scripts/Helpers/EventColorHelper.js",
 			"~/Scripts/Helpers/EventTreeBuilder.js",
 			"~/Scripts/Helpers/EventFactory.js",

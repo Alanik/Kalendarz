@@ -1,7 +1,9 @@
-﻿function CalendarViewModel( date, weekday, userName, spinner )
+﻿function AppViewModel( date, weekday, userName, spinner )
 {
 	var self = this;
 	var colorHelper = new EventColorHelper();
+	var webApiCaller = new WebApiCaller( self );
+
 	var year = date.getFullYear(), month = date.getMonth(), day = date.getDate();
 
 	//////////////////////////////////////////////////////////
@@ -291,7 +293,6 @@
 			///////////////////////////////////////////
 			//prepare parameters to call WebAPI
 			///////////////////////////////////////////
-			var url = $addEventForm.attr( "action" );
 			var data = $addEventForm.serialize() +
 				"&Event.StartDate=" + startDateJson +
 				"&EventStartDate.Year=" + year +
@@ -306,86 +307,130 @@
 				"&EventEndDate.Minute=" + endMinute +
 				"&PrivacyLevel.Value=" + privacyLvlValue +
 				"&EventKind.Value=" + eventKindValue;
-			var callback = function ( result, calendarViewModel)
+			var callback = function ( result, appViewModel )
 			{
 				if ( result.IsSuccess === false )
 				{
-					calendarViewModel.hideLoader();
+					appViewModel.hideLoader();
 					$( "#addNewEventContainer" ).show();
 					alert( result.Message );
 				} else
 				{
 					var eventFactory = new EventFactory();
 					var eventToPush = eventFactory.getKKEventModel(
-					calendarViewModel.userName,
-					calendarViewModel.observableEvent.address.street(),
-					calendarViewModel.observableEvent.address.city(),
-					calendarViewModel.observableEvent.address.zipCode(),
-					calendarViewModel.observableEvent.description(),
-					calendarViewModel.observableEvent.details(),
+					appViewModel.userName,
+					appViewModel.observableEvent.address.street(),
+					appViewModel.observableEvent.address.city(),
+					appViewModel.observableEvent.address.zipCode(),
+					appViewModel.observableEvent.description(),
+					appViewModel.observableEvent.details(),
 					minutes,
-					calendarViewModel.observableEvent.kind.value(),
-					calendarViewModel.observableEvent.kind.name(),
+					appViewModel.observableEvent.kind.value(),
+					appViewModel.observableEvent.kind.name(),
 					result.EventId,
-					calendarViewModel.observableEvent.occupancyLimit(),
-					calendarViewModel.observableEvent.privacyLevel.name,
-					calendarViewModel.observableEvent.privacyLevel.value,
+					appViewModel.observableEvent.occupancyLimit(),
+					appViewModel.observableEvent.privacyLevel.name,
+					appViewModel.observableEvent.privacyLevel.value,
 					new KKEventDateModel( startEventDate, startMinute, endMinute, startHour, endHour, day, month - 1, year ),
-					calendarViewModel.observableEvent.name(),
-					calendarViewModel.observableEvent.urlLink(),
-					calendarViewModel.observableEvent.price()
+					appViewModel.observableEvent.name(),
+					appViewModel.observableEvent.urlLink(),
+					appViewModel.observableEvent.price()
 					);
 
-					var dayEvents = calendarViewModel.addEventToMyEventTree( eventToPush );
+					var dayEvents = appViewModel.addEventToMyEventTree( eventToPush );
 
-					calendarViewModel.setCalendarPlacementRow( dayEvents );
-					calendarViewModel.redrawCalendarCell( dayEvents, calendarViewModel.addNewEvent_Day(), eventToPush.startDate.month );
+					appViewModel.setCalendarPlacementRow( dayEvents );
+					appViewModel.redrawCalendarCell( dayEvents, appViewModel.addNewEvent_Day(), eventToPush.startDate.month );
 
 					//$addEventForm[0].reset();
 
-					calendarViewModel.hideLoader( $( "#addNewEventContainer" ).closest( ".main-section" ).siblings( ".dotted-page-overlay" ) );
+					appViewModel.hideLoader( $( "#addNewEventContainer" ).closest( ".main-section" ).siblings( ".dotted-page-overlay" ) );
 				}
 			};
 
 			//////////////////////////////////////////////
-			//call WebAPI - Add New Event
+			//call WebAPI - Add new event
 			//////////////////////////////////////////////
-			var webApiCaller = new WebApiCaller(self);
-			webApiCaller.callAddEvent( url, data, callback);
+			webApiCaller.callAddEvent( data, callback );
 		}
 	};
-
-	self.showMoreOptionsInAddNewEventPopupOnClick = function ( element )
-	{
-		var $element = $( element );
-
-		if ( $element.hasClass( "showing" ) )
-		{
-			$element.text( "Ukryj dodatkowe opcje -" );
-			$element.closest( ".add-event-fieldset" ).find( ".more-options-container" ).slideDown();
-			$element.scrollTo( 500 );
-		} else
-		{
-			$element.text( "Pokaż więcej opcji +" );
-			$element.closest( ".add-event-fieldset" ).find( ".more-options-container" ).slideUp();
-			$element.scrollTo( 500 );
-		}
-
-		$element.toggleClass( "showing" );
-
-	}
 
 	self.prepareDeleteEventDetailsPageOnDeleteLinkClick = function ( id, year, month, day )
 	{
 
 		var $popup = $( "#details" ).siblings( ".confirmation-popupbox-container" );
 		var $yesBtn = $popup.find( ".confirmation-popupbox-yesbtn" );
-		$yesBtn.attr( "data-bind", "click: function () { $root.deleteEventDetailsPageOnConfirmationYesBtnClick($element, " + id + "," + year + "," + month + "," + day + ") }" );
+		$yesBtn.attr( "data-bind", "click: function () { $root.deleteEventDetailsPageOnConfirmationYesBtnClick($element, " + id + "," + year + "," + month + "," + day + ")}" );
 
 		self.showConfirmationPopupBox( $popup, "Czy napewno chcesz usunąć wybrane wydarzenie?" );
 
 		ko.unapplyBindings( $yesBtn[0] );
 		ko.applyBindings( self, $yesBtn[0] );
+	};
+
+	self.deleteEventDetailsPageOnConfirmationYesBtnClick = function ( element, id, year, month, day )
+	{
+		var callback = function ( result, $loader, appViewModel )
+		{
+			if ( result.IsSuccess === false )
+			{
+				appViewModel.hideLoader( $loader );
+
+				//TODO: change alert to some error popop or error page...
+				alert( result.Message );
+			} else
+			{
+				appViewModel.hideLoader( $loader );
+				var $container = $( "#details #detailsEventBlockList .event-block-container[data-eventid='" + id + "']" );
+
+				$container.fadeOut( 500, function ()
+				{
+					$container.remove();
+
+					//appViewModel.detailsPageDayEvents.remove( function ( event )
+					//{
+					//	return event.id === id;
+					//} );
+
+					appViewModel.removeEventFromMyEventTree( id, year, month, day );
+
+					console.log( "------------ detailsPageDayEvents --------------" );
+
+					console.log( appViewModel.detailsPageDayEvents() );
+
+					var $scrollable = $( "#slide-item-details" ).parent();
+					var scroll = $( "#details #calendarDayDetailsContainer" ).position().top - 20;
+					$scrollable.scrollTop( scroll );
+
+					//redraw details page event rectangle table
+					appViewModel.removeEventRectanglesFromDetailsDay();
+					events = appViewModel.detailsPageDayEvents();
+
+					appViewModel.setCalendarPlacementRow( events );
+					appViewModel.displayPageEventMostBottomRow = 1;
+
+					for ( var i in events )
+					{
+						appViewModel.drawEventToDetailsDayTable( events[i] );
+					}
+
+					var $tableBody = $( "#calendarDayDetailsTable .table-details-body" );
+					var h = ( appViewModel.displayPageEventMostBottomRow + 1 ) * 46;
+					$tableBody.height( h + "px" );
+
+					//for calendar to redraw events in day cell
+					appViewModel.calendarDayEventsToUpdate.day = appViewModel.detailsPageDisplayDate.day();
+					appViewModel.calendarDayEventsToUpdate.month = appViewModel.detailsPageDisplayDate.month();
+					appViewModel.calendarDayEventsToUpdate.events = events;
+				} );
+			}
+
+		}
+
+		//////////////////////////////////////////////
+		//call WebAPI - Delete event with given id
+		//////////////////////////////////////////////
+		webApiCaller.callDeleteEvent( id, element, callback );
 	};
 
 	self.editEventDetailsPageOnEditLinkClick = function ( id, year, month, day )
@@ -450,74 +495,6 @@
 		$addEventContainer.find( "#Event_Title" ).focus();
 	};
 
-	self.deleteEventDetailsPageOnConfirmationYesBtnClick = function ( element, id, year, month, day )
-	{
-		var $loader = $( "#details" ).siblings( ".dotted-page-overlay" );
-		var events;
-
-		$.ajax( {
-			url: "/api/Events/" + id,
-			dataType: "JSON",
-			type: "DELETE",
-			beforeSend: function () { self.hideConfirmationPopupBox( element ); self.showLoader( $loader ); },
-			data: id,
-			success: function ( result )
-			{
-				if ( result.IsSuccess === false )
-				{
-					self.hideLoader( $loader );
-
-					//TODO: change alert to some error popop or error page...
-					alert( result.Message );
-				} else
-				{
-					self.hideLoader( $loader );
-					var $container = $( "#details #detailsEventBlockList .event-block-container[data-eventid='" + id + "']" );
-
-					$container.fadeOut( 500, function ()
-					{
-						$container.remove();
-						self.detailsPageDayEvents.remove( function ( event )
-						{
-							return event.id === id;
-						} );
-
-						var $scrollable = $( "#slide-item-details" ).parent();
-						var scroll = $( "#details #calendarDayDetailsContainer" ).position().top - 20;
-						$scrollable.scrollTop( scroll );
-
-						//redraw details page event rectangle table
-						self.removeEventRectanglesFromDetailsDay();
-						events = self.detailsPageDayEvents();
-
-						self.setCalendarPlacementRow( events );
-						self.displayPageEventMostBottomRow = 1;
-
-						for ( var i in events )
-						{
-							self.drawEventToDetailsDayTable( events[i] );
-						}
-
-						var $tableBody = $( "#calendarDayDetailsTable .table-details-body" );
-						var h = ( self.displayPageEventMostBottomRow + 1 ) * 46;
-						$tableBody.height( h + "px" );
-
-						//for calendar to redraw events in day cell
-						self.calendarDayEventsToUpdate.day = self.detailsPageDisplayDate.day();
-						self.calendarDayEventsToUpdate.month = self.detailsPageDisplayDate.month();
-						self.calendarDayEventsToUpdate.events = events;
-					} );
-				}
-			},
-			error: function ()
-			{
-				alert( "Wystąpił nieoczekiwany błąd. Prosze sprobować jeszcze raz." );
-				self.hideLoader( $loader );
-				self.hideConfirmationPopupBox( element );
-			}
-		} );
-	};
-
 	self.redrawCalendarCell = function ( dayEvents, day, month )
 	{
 		var cellDay;
@@ -540,66 +517,6 @@
 			self.drawEventToCalendar( dayEvents[i] );
 		}
 	}
-
-	self.removeEventFromMyEventTree = function ( id, year, month, day )
-	{
-		var eventTree = self.myEventTree;
-		var eventTreeYearProp, eventTreeMonthProp, dayEvents, event;
-		var old, upcoming, eventCount, today, endDate;
-		var array;
-
-		if ( self.myEventTree[year] )
-		{
-			eventTreeYearProp = self.myEventTree[year];
-			if ( eventTreeYearProp[month] )
-			{
-				eventTreeMonthProp = eventTreeYearProp[month];
-				if ( eventTreeMonthProp[day] )
-				{
-					dayEvents = eventTreeMonthProp[day];
-
-					for ( var i in dayEvents )
-					{
-						event = dayEvents[i];
-
-						if ( event.id === id )
-						{
-							dayEvents.pop( event );
-
-							//remove from detailsPageSelectedEvents
-							array = ko.utils.arrayFilter( self.detailsPageSelectedEvents(), function ( item )
-							{
-								return item.id != event.id;
-							} );
-							self.detailsPageSelectedEvents( array );
-
-							//remove from self.myEventTreeCountBasedOnEventKind
-							eventCount = self.myEventTreeCountBasedOnEventKind[event.kind.value];
-							if ( eventCount )
-							{
-								old = eventCount.events.old();
-								upcoming = eventCount.events.upcoming();
-
-								today = new Date();
-								endDate = new Date( event.startDate.year, event.startDate.month - 1, event.startDate.day, event.startDate.endHour, event.startDate.endMinute, 0, 0 );
-
-								if ( today > endDate )
-								{
-									eventCount.events.old( old - 1 );
-								} else
-								{
-									eventCount.events.upcoming( upcoming - 1 );
-								}
-							}
-
-							return;
-						}
-					}
-				}
-			}
-		}
-
-	};
 
 	self.showConfirmationPopupBox = function ( $popup, txt )
 	{
@@ -626,6 +543,26 @@
 		$popup.hide();
 
 	};
+
+	self.showMoreOptionsInAddNewEventPopupOnClick = function ( element )
+	{
+		var $element = $( element );
+
+		if ( $element.hasClass( "visible" ) )
+		{
+			$element.text( "Ukryj dodatkowe opcje -" );
+			$element.closest( ".add-event-fieldset" ).find( ".more-options-container" ).slideDown();
+			$element.scrollTo( 500 );
+		} else
+		{
+			$element.text( "Pokaż więcej opcji +" );
+			$element.closest( ".add-event-fieldset" ).find( ".more-options-container" ).slideUp();
+			$element.scrollTo( 500 );
+		}
+
+		$element.toggleClass( "visible" );
+
+	}
 
 	self.showEventDetailsOnEventBlockClick = function ( element )
 	{
@@ -748,31 +685,95 @@
 
 		var eventTreeYearProp = self.myEventTree[year] ? self.myEventTree[year] : self.myEventTree[year] = {};
 		var eventTreeMonthProp = eventTreeYearProp[month] ? eventTreeYearProp[month] : eventTreeYearProp[month] = {};
-		var dayEvents = eventTreeMonthProp[day] ? eventTreeMonthProp[day] : eventTreeMonthProp[day] = [];
+		var dayEventsArr = eventTreeMonthProp[day] ? eventTreeMonthProp[day] : eventTreeMonthProp[day] = [];
 
-		dayEvents.push( newEvent );
+		//1. add event to eventTree
+		dayEventsArr.push( newEvent );
 
-		//add to self.myEventTreeCountBasedOnEventKind
-		var eventTreeCountNode = self.myEventTreeCountBasedOnEventKind[newEvent.kind.value];
+		//2. add event to self.detailsPageEvents()
+
+		//3. add event to self.detailsPageSelectedEvents
+
+		//4. increment self.myEventTreeCountBasedOnEventKind value
+		self.changeEventCountTreeValueBasedOnEventKind( self.myEventTreeCountBasedOnEventKind, newEvent, 1 );
+
+		return dayEventsArr;
+	};
+
+	self.removeEventFromMyEventTree = function ( id, year, month, day )
+	{
+		var eventTree = self.myEventTree;
+		var eventTreeYearProp, eventTreeMonthProp, dayEvents, event;
+		var old, upcoming, eventCount, today, endDate;
+		var array;
+
+		if ( self.myEventTree[year] )
+		{
+			eventTreeYearProp = self.myEventTree[year];
+			if ( eventTreeYearProp[month] )
+			{
+				eventTreeMonthProp = eventTreeYearProp[month];
+				if ( eventTreeMonthProp[day] )
+				{
+					dayEvents = eventTreeMonthProp[day];
+
+					for ( var i in dayEvents )
+					{
+						event = dayEvents[i];
+
+						if ( event.id === id )
+						{
+							dayEvents.pop( event );
+
+							if ( !dayEvents.length )
+							{
+								delete eventTreeMonthProp[day];
+							}
+
+							//remove from detailsPageSelectedEvents
+							//array = ko.utils.arrayFilter( self.detailsPageSelectedEvents(), function ( item )
+							//{
+							//	return item.id != event.id;
+							//} );
+							//self.detailsPageSelectedEvents( array );
+
+							console.log( "------------- self.detailsPageSelectedEvents.upcoming() ---------------- " );
+							console.log( self.detailsPageSelectedEvents.upcoming() );
+
+							//decrement self.myEventTreeCountBasedOnEventKind value
+							self.changeEventCountTreeValueBasedOnEventKind( self.myEventTreeCountBasedOnEventKind, event, -1 );
+
+							return;
+						}
+					}
+				}
+			}
+		}
+
+	};
+
+	self.changeEventCountTreeValueBasedOnEventKind = function ( countTree, event, value )
+	{
+		var eventTreeCountNode = countTree[event.kind.value];
+
+		//TODO: is eventTreeCountNode always true?
 		if ( eventTreeCountNode )
 		{
 			old = eventTreeCountNode.old();
 			upcoming = eventTreeCountNode.upcoming();
 
 			today = new Date();
-			endDate = new Date( newEvent.startDate.year, newEvent.startDate.month - 1, newEvent.startDate.day, newEvent.startDate.endHour, newEvent.startDate.endMinute, 0, 0 );
+			endDate = new Date( event.startDate.year, event.startDate.month - 1, event.startDate.day, event.startDate.endHour, event.startDate.endMinute, 0, 0 );
 
 			if ( today > endDate )
 			{
-				eventTreeCountNode.old( old + 1 );
+				eventTreeCountNode.old( old + value );
 			} else
 			{
-				eventTreeCountNode.upcoming( upcoming + 1 );
+				eventTreeCountNode.upcoming( upcoming + value );
 			}
 		}
-
-		return dayEvents;
-	};
+	}
 
 	self.getFilteredEventsFromEventTree = function ( eventTree, eventPropNameArray, values, oldUpcomingOrAll )
 	{
@@ -1099,14 +1100,12 @@
 		$tableBody.height( h + "px" );
 
 		var $scrollable = $( "#slide-item-details" ).parent();
-		var scroll;
 
 		window.location = "#2";
 
 		setTimeout( function ()
 		{
-			scroll = $( "#details #calendarDayDetailsContainer" ).position().top - 20;
-			$scrollable.scrollTop( scroll );
+			$( "#details #calendarDayDetailsContainer" ).scrollTo(100);
 		}, 10 )
 	};
 
@@ -1943,6 +1942,14 @@
 				$overlay.show();
 			}
 		}
+
+		//Get the window height and width
+		var winH = $( window ).height();
+		var winW = $( window ).width();
+
+		//Set the popup window to center
+		$target.css( 'top', winH / 2 - $target.height() / 2 );
+		$target.css( 'left', winW / 2 - $target.width() / 2 );
 
 		self.spinner.spin( $target[0] );
 		$target.show();

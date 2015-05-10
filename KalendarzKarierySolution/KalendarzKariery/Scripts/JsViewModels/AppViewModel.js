@@ -532,17 +532,19 @@
 	self.showMoreOptionsInAddNewEventPopupOnClick = function ( element )
 	{
 		var $element = $( element );
+		var $addNewEventContainer = $element.closest( "#addNewEventContainer" );
+		var offset = $element.position().top + $addNewEventContainer.position().top;
 
 		if ( $element.hasClass( "visible" ) )
-		{
+		{			
 			$element.text( "Ukryj dodatkowe opcje -" );
 			$element.closest( ".add-event-fieldset" ).find( ".more-options-container" ).slideDown();
-			$element.scrollTo( 500 );
+			$element.scrollTo( 500, offset );
 		} else
-		{
+		{			
 			$element.text( "Pokaż więcej opcji +" );
 			$element.closest( ".add-event-fieldset" ).find( ".more-options-container" ).slideUp();
-			$element.scrollTo( 500 );
+			$addNewEventContainer.scrollTo( 500 );
 		}
 
 		$element.toggleClass( "visible" );
@@ -563,15 +565,15 @@
 			case 0:
 				if ( $block.hasClass( "open" ) )
 				{
-					offset = $eventBlockContainer.position().top - 20;
-					$eventBlockContainer.scrollTo( 500, offset );
+					//offset = $eventBlockContainer.position().top - 20;
+					$eventBlockContainer.scrollTo( 500 );
 					$eventBlockInfo.slideUp();
 					$content.css( "color", "rgb(229, 211, 180)" );
 				}
 				else
 				{
-					offset = $eventBlockContainer.position().top - 20;
-					$eventBlockContainer.scrollTo( 500, offset );
+					//offset = $eventBlockContainer.position().top - 20;
+					$eventBlockContainer.scrollTo( 500 );
 					$eventBlockInfo.slideDown();
 					$content.css( "color", "rgb(161, 147, 123)" );
 				}
@@ -585,15 +587,13 @@
 
 				if ( $block.hasClass( "open" ) )
 				{
-					offset = $calendarDayDetailsContainer.position().top - 20;
-					$calendarDayDetailsContainer.scrollTo( 500, offset );
+					$calendarDayDetailsContainer.scrollTo( 500 );
 					$eventBlockInfo.slideUp();
 					$content.css( "color", "rgb(229, 211, 180)" );
 				}
 				else
 				{
-					offset = $eventBlockContainer.position().top - 20;
-					$eventBlockContainer.scrollTo( 500, offset );
+					$eventBlockContainer.scrollTo( 500 );
 					$eventBlockInfo.slideDown();
 					$content.css( "color", "rgb(161, 147, 123)" );
 				}
@@ -678,10 +678,10 @@
 		dayEventsArr.push( newEvent );
 
 		//2. update self.detailsPageEvents()
-		if ( newEvent.startDate.year == self.detailsPageDisplayDate.year() && newEvent.startDate.month == self.detailsPageDisplayDate.month() && newEvent.startDate.day == self.detailsPageDisplayDate.day())
+		if ( newEvent.startDate.year == self.detailsPageDisplayDate.year() && newEvent.startDate.month == self.detailsPageDisplayDate.month() && newEvent.startDate.day == self.detailsPageDisplayDate.day() )
 		{
 			self.detailsPageDayEvents( dayEventsArr );
-			
+
 			self.removeEventRectanglesFromDetailsDay();
 			self.setCalendarPlacementRow( dayEventsArr );
 			self.displayPageEventMostBottomRow = 1;
@@ -696,7 +696,7 @@
 			h = h + 20;
 			$tableBody.height( h + "px" );
 		}
-		
+
 		//3. add event to self.detailsPageSelectedEvents
 		if ( self.detailsPageSelectedEvents.selectedKindValues.length > 0 )
 		{
@@ -752,7 +752,7 @@
 							}
 
 							//2. if selected events window is open and the deleted event is displayed on the list then remove it from detailsPageSelectedEvents{}
-							if ( self.detailsPageSelectedEvents.selectedKindValues.length > 0)
+							if ( self.detailsPageSelectedEvents.selectedKindValues.length > 0 )
 							{
 								today = new Date();
 								endDate = new Date( event.startDate.year, event.startDate.month - 1, event.startDate.day, event.startDate.endHour, event.startDate.endMinute, 0, 0 );

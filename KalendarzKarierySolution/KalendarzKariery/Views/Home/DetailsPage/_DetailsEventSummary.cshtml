@@ -1,22 +1,18 @@
 ﻿<div id="detailsEventBlockList">
-	<div data-bind="foreach: detailsPageDayEvents()">
-		<div class="event-block-container" data-bind="attr: { 'data-eventid': id }">
-			<div class="event-block hover-cursor-pointer" data-bind="click: function () { $root.showEventDetailsOnEventBlockClick( $element ) }">
-				<div data-bind="style: { color: kind.headerColor, width: '50%', padding: '10px', marginBottom: '10px' }">
+	<div data-bind="foreach: detailsPageDayEvents()" style="width: 47%; background: rgb(208, 202, 178); margin-left: 2%; border-radius: 6px; border: 1px solid rgb(234, 230, 215);">
+		<div class="details-event-block-container" data-bind="attr: { 'data-eventid': id }">
+			<div class="details-event-block hover-cursor-pointer" data-bind="click: function () { $root.showEventDetailsOnEventBlockClick( $element ) }">
+				<div class="event-kind-tag" style="float:right;text-align:center;" data-bind="style: { color: kind.headerColor }">
 					<span data-bind="text: kind.name"></span>
 				</div>
-				<div class="event-block-body">
-					<div><span data-bind="text: name, style: { fontSize: '2em', lineHeight: '1', paddingBottom: '4px' } "></span></div>
-					<div style="font-size: 1.4em; color: rgb(192, 187, 172);"><span>godzina: </span><span data-bind="text: startDate.formatZero(startDate.startHour)"></span><span>:</span><span data-bind="	text: startDate.formatZero(startDate.startMinute)"></span><span style="padding:0 4px;"> - </span>
-					<span data-bind="text: startDate.formatZero(startDate.endHour)"></span><span>:</span><span data-bind="	text: startDate.formatZero(startDate.endMinute)"></span></div>
-					<div data-bind="if: address.street">
-					<span>adres: </span><span data-bind="text: address.street"></span><span>, </span><span data-bind="	text: address.city"></span>
-					</div>
+				<div class="details-event-block-body">					
+					<div style="color:white;font-size:2em;position:relative;top:-6px;"><span data-bind="text: name"></span></div>
 				</div>
-				<div class="event-block-footer">
+				<div class="details-event-block-footer">
 				</div>
 			</div>
-			@Html.Partial("_EventInfo")
+
+			@Html.Partial( "_DetailsEventInfo" )
 		</div>
 	</div>
 </div>

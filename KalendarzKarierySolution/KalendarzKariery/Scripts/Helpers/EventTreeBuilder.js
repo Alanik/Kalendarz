@@ -1,4 +1,4 @@
-﻿var EventTreeBuilder = function ()
+﻿var EventTreeBuilder = function (colorHelper)
 {
 	var self = this;
 
@@ -35,6 +35,9 @@
 					{
 						event = dayGroup.events[j];
 
+
+
+
 						setAddress( event );
 						setKind( event );
 						setStartDate( event );
@@ -58,7 +61,6 @@
 
 		function setKind( event )
 		{
-			var colorHelper = new EventColorHelper();
 			event.kind.color = colorHelper.getEventColor(event.privacyLevel.value, event.kind.value );
 			event.kind.headerColor = colorHelper.getEventBoxHeaderColor( event.kind.value );
 			event.kind.detailsPageEventBorderColor = colorHelper.getEventDetailsBorderColor( event.kind.value );

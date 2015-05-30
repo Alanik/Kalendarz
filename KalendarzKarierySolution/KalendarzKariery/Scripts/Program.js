@@ -63,7 +63,6 @@
 		var $calendar = $( "#calendar" );
 		var $details = $( "#details" );
 		var $lobby = $( "#lobby" );
-		var eventTreeBuilder = new EventTreeBuilder();
 
 		var date = new Date();
 		$calendar.calendarWidget( {
@@ -75,14 +74,14 @@
 
 		appViewModel.eventPrivacyLevels = indexViewModel.PrivacyLevels;
 		appViewModel.eventKinds = indexViewModel.EventKinds;
-		appViewModel.publicEventTree = eventTreeBuilder.buildEventTree( indexViewModel.PublicEvents, appViewModel, true );
-		appViewModel.publicEventTreeCountBasedOnEventKind = eventTreeBuilder.buildEventTreeCountBasedOnEventKind( indexViewModel.PublicEventCountTree, appViewModel.eventKinds );
-		appViewModel.newsEvents = eventTreeBuilder.transformNews( indexViewModel.News );
+		appViewModel.publicEventTree = appViewModel.UTILS.eventTreeBuilder.buildEventTree( indexViewModel.PublicEvents, appViewModel, true );
+		appViewModel.publicEventTreeCountBasedOnEventKind = appViewModel.UTILS.eventTreeBuilder.buildEventTreeCountBasedOnEventKind( indexViewModel.PublicEventCountTree, appViewModel.eventKinds );
+		appViewModel.newsEvents = appViewModel.UTILS.eventTreeBuilder.transformNews( indexViewModel.News );
 
 		if ( indexViewModel.MyEvents )
 		{
-			appViewModel.myEventTree = eventTreeBuilder.buildEventTree( indexViewModel.MyEvents, appViewModel, false );
-			appViewModel.myEventTreeCountBasedOnEventKind = eventTreeBuilder.buildEventTreeCountBasedOnEventKind( indexViewModel.MyEventCountTree, appViewModel.eventKinds );
+			appViewModel.myEventTree = appViewModel.UTILS.eventTreeBuilder.buildEventTree( indexViewModel.MyEvents, appViewModel, false );
+			appViewModel.myEventTreeCountBasedOnEventKind = appViewModel.UTILS.eventTreeBuilder.buildEventTreeCountBasedOnEventKind( indexViewModel.MyEventCountTree, appViewModel.eventKinds );
 
 			//console.log(JSON.stringify(appViewModel.myEventTree));
 			//console.log(appViewModel.myEventTree);
@@ -156,7 +155,7 @@
 		appViewModel.detailsPageDisplayDate.day( date.getDate() );
 		appViewModel.detailsPageDisplayDate.weekday( currentWeekday );
 
-		var events = appViewModel.getEventsForGivenDay( appViewModel.detailsPageDisplayDate.year(), appViewModel.detailsPageDisplayDate.month(), appViewModel.detailsPageDisplayDate.day() )
+		var events = appViewModel.EVENT_MANAGER.getEventsForGivenDay( appViewModel.detailsPageDisplayDate.year(), appViewModel.detailsPageDisplayDate.month(), appViewModel.detailsPageDisplayDate.day() )
 		appViewModel.detailsPageDayEvents( events );
 		///////////////////////////////////////////////////////////////////
 

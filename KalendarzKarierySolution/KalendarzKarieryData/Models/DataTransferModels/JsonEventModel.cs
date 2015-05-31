@@ -14,7 +14,7 @@ namespace KalendarzKarieryData.Models.DataTransferModels
 		public string addedBy { get; set; }
 		public string description { get; set; }
 		public string details { get; set; }
-		public DateTime dateAdded { get; set; }
+		public JsonDateTimeModel dateAdded { get; set; }
 		public int? occupancyLimit { get; set; }
 		public string urlLink { get; set; }
 		public int calendarPlacementRow { get; set; }
@@ -34,10 +34,9 @@ namespace KalendarzKarieryData.Models.DataTransferModels
 				addedBy = m.User.UserName;
 				description = m.Description;
 				details = m.Details;
-				dateAdded = m.DateAdded;
+				dateAdded = new JsonDateTimeModel(m.DateAdded);
 				occupancyLimit = m.OccupancyLimit;
 				urlLink = m.UrlLink;
-				calendarPlacementRow = 1;
 				startDate = new JsonDateTimeModel(m.StartDate);
 				endDate = m.EndDate.HasValue ? new JsonDateTimeModel(m.EndDate.Value) : null;
 				numberOfPeopleAttending = m.NumberOfPeopleAttending ?? 0;

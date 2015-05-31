@@ -1,11 +1,11 @@
-﻿var EventTreeBuilder = function (colorHelper)
+﻿var EventTreeBuilder = function (appViewModel)
 {
 	var self = this;
 
-	self.buildEventTree = function ( yearEventTreeModel, appViewModel, isPublicEventTree )
+	self.buildEventTree = function ( yearEventTreeModel, isPublicEventTree )
 	{
 		var eventTree = {}, largest, groups;
-		var dayGroup, day, dayGroupLength, event;
+		var dayGroup, day, dayGroupLength, event, kkEvent, address, minutes, startDate;
 		var year, yearProp, eventTreeYearProp, eventTreeMonthProp, eventTreeDayGroupProp, eventTreeEventsProp;
 
 		for ( var y = 0; y < yearEventTreeModel.length; y++ )
@@ -35,20 +35,19 @@
 					{
 						event = dayGroup.events[j];
 
+						address = getAddress( event );
+						minutes = getMinutes( event );
+						startDate = getStartDate( event );
 
-
-
-						setAddress( event );
-						setKind( event );
-						setStartDate( event );
-						setDateAdded( event );
-						eventTreeDayGroupProp.push( event );
+						kkEvent = appViewModel.EVENT_MANAGER.getNewKKEventModel(event.addedBy, address.street, address.city, address.zipCode, event.description, event.details, minutes, event.kind.value, event.kind.name, event.id, event.occupancyLimit, event.privacyLevel.name, event.privacyLevel.value, startDate, event.name, event.urlLink, event.price, event.dateAdded);
+						
+						eventTreeDayGroupProp.push( kkEvent );
 
 						//push public event to appViewModel.publicEvents
 						//TODO: maybe it's better to remove it from here and put it in a seperate method for example buildPublicEventTree, but it is just a suggestion
 						if ( isPublicEventTree )
 						{
-							appViewModel.publicEvents.push( event );
+							appViewModel.publicEvents.push( kkEvent );
 						}
 					}
 
@@ -59,13 +58,7 @@
 			}
 		}
 
-		function setKind( event )
-		{
-			event.kind.color = colorHelper.getEventColor(event.privacyLevel.value, event.kind.value );
-			event.kind.headerColor = colorHelper.getEventBoxHeaderColor( event.kind.value );
-			event.kind.detailsPageEventBorderColor = colorHelper.getEventDetailsBorderColor( event.kind.value );
-		};
-		function setStartDate( event )
+		function getStartDate( event )
 		{
 			//TODO: create KKEventModel from the event returned from the server
 
@@ -85,34 +78,41 @@
 				////////////////////////////////////////////////////////////////
 
 				edate = new Date( event.endDate.year, event.endDate.month, event.endDate.day, event.endDate.hour, event.endDate.minute, 0, 0 );
-				event.startDate = new KKEventDateModel( sdate, sdate.getMinutes(), edate.getMinutes(), sdate.getHours(), edate.getHours(), sdate.getDate(), sdate.getMonth(), sdate.getFullYear() );
-				event.eventLengthInMinutes = ( ( parseInt( edate.getHours(), 10 ) - parseInt( sdate.getHours(), 10 ) ) * 60 ) + ( parseInt( edate.getMinutes(), 10 ) - parseInt( sdate.getMinutes(), 10 ) );
+				return new KKEventDateModel( sdate, sdate.getMinutes(), edate.getMinutes(), sdate.getHours(), edate.getHours(), sdate.getDate(), sdate.getMonth(), sdate.getFullYear() );
 			} else
 			{
-				event.startDate = new KKEventDateModel( sdate, sdate.getMinutes(), null, sdate.getHours(), null, sdate.getDate(), sdate.getMonth(), sdate.getFullYear() );
-				event.eventLengthInMinutes = 0;
+				return new KKEventDateModel( sdate, sdate.getMinutes(), null, sdate.getHours(), null, sdate.getDate(), sdate.getMonth(), sdate.getFullYear() );
 			}
 		};
-		function setDateAdded( event )
-		{
-			var sdate = new Date( parseInt( event.dateAdded.substr( 6 ) ) );
-			event.dateAdded = new KKDateModel( sdate, sdate.getMinutes(), sdate.getHours(), sdate.getDate(), sdate.getMonth(), sdate.getFullYear() );
-		}
-		function setAddress( event )
+		function getAddress( event )
 		{
 			if ( !event.addresses[0] )
 			{
-				event.address = {
+				return {
 					street: "",
 					city: "",
 					zipCode: ""
 				}
 			} else
 			{
-				event.address = event.addresses[0];
+				return event.addresses[0];
 			}
-			delete event.addresses;
 		};
+		function getMinutes( event ){
+
+			if (event.endDate == null) {
+				return 0;
+			}
+
+			var startH = event.startDate.hour;
+			var startM = event.startDate.minute;
+			var endH = event.endDate.hour;
+			var endM = event.endDate.minute;
+			
+			var minutes = ((endH - startH) * 60 ) + (endM - startM);
+
+			return minutes;
+		}
 
 		return eventTree;
 	};

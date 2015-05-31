@@ -29,8 +29,6 @@ namespace KalendarzKarieryData
 		public string Details { get; set; }
 
 		[Display(Name = "Opłata za wstęp:")]
-		[DataType(DataType.Currency)]
-		[RegularExpression(@"\d+\.\d{2}")]
 		public string Price { get; set; }
 
 		[Display(Name = "Link:")]

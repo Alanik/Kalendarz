@@ -12,7 +12,7 @@
 		{
 			var colorHelper = new EventColorHelper();
 			var webApiCaller = new WebApiCaller( self );
-			var eventTreeBuilder = new EventTreeBuilder( colorHelper );
+			var eventTreeBuilder = new EventTreeBuilder( self );
 
 			this.colorHelper = colorHelper;
 			this.webApiCaller = webApiCaller;
@@ -226,13 +226,13 @@
 			var startEventDate = new Date( year, month - 1, day, startHour, startMinute, 0, 0 );
 			var endEventDate = new Date( year, month - 1, day, endHour, endMinute, 0, 0 );
 
-			var startDateJson = startEventDate.toJSON();
-
 			//TODO: move this code to separate class and unit test it
 			////////////
 			var diff = Math.abs( startEventDate - endEventDate );
 			var minutes = Math.floor(( diff / 1000 ) / 60 );
 			////////////
+
+			var startDateJson = startEventDate.toJSON();
 
 			///////////////////////////////////////////
 			//prepare parameters to call WebAPI

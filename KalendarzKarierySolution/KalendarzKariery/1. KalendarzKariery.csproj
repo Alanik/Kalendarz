@@ -359,7 +359,7 @@
     <Content Include="Views\Home\LobbyPage\_Register.cshtml" />
     <Content Include="Views\Home\DetailsPage\_Details.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsEventSummary.cshtml" />
-    <Content Include="Views\Home\SharedPartials\_EventInfo.cshtml" />
+    <Content Include="Views\Home\LobbyPage\_LobbyEventInfo.cshtml" />
     <Content Include="Views\Home\SharedPartials\_ConfirmationPopupBox.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsAllSelectedEventsList.cshtml" />
     <Content Include="Views\Emails\_ViewStart.cshtml" />
@@ -373,6 +373,7 @@
     <Content Include="Views\Home\LobbyPage\_LobbyEventsDisplay.cshtml" />
     <Content Include="Views\Home\LobbyPage\_LobbyEventsMenuItems.cshtml" />
     <Content Include="Views\Shared\_LayoutMobile.cshtml" />
+    <Content Include="Views\Home\DetailsPage\_DetailsEventInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -3,7 +3,7 @@
 
 	// TODO: all methods used here use myEventTree so eventManager only works for events saved in myEventTree, we need to take into consideration public events which use publicEventTree.
 
-	self.getNewKKEventModel = function ( addedBy, street, city, zipCode, description, details, minutes, kindValue, kindName, eventId, occupancyLimit, privacyLevelName, privacyLevelValue, startDate, name, urlLink, price )
+	self.getNewKKEventModel = function ( addedBy, street, city, zipCode, description, details, minutes, kindValue, kindName, eventId, occupancyLimit, privacyLevelName, privacyLevelValue, startDate, name, urlLink, price, dateAdded )
 	{
 		var date = new Date();
 		var colorHelper = appViewModel.UTILS.colorHelper;
@@ -14,8 +14,14 @@
 		kkEventModel.address.street = street;
 		kkEventModel.address.city = city;
 		kkEventModel.address.zipCode = zipCode;
-		//TODO: Get dateAdded from server
-		kkEventModel.dateAdded = new KKDateModel( date, date.getMinutes(), date.getHours(), date.getDate(), parseInt( date.getMonth(), 10 ) + 1, date.getFullYear() );
+
+		//TODO: Get dateAdded from server when adding new event - now we create dateAdded on the client when adding new event
+		if ( dateAdded )
+		{
+			date = new Date( dateAdded.year, dateAdded.month - 1, dateAdded.day, dateAdded.hour, dateAdded.minute, 0, 0 );
+		}
+		kkEventModel.dateAdded = new KKDateModel( date, date.getMinutes(), date.getHours(), date.getDate(), date.getMonth(), date.getFullYear() );
+
 		kkEventModel.description = description;
 		kkEventModel.details = details;
 		kkEventModel.eventLengthInMinutes = minutes;
@@ -299,7 +305,7 @@
 
 	self.addEvent = function ( newKKEvent )
 		{
-			var today, endDay, oldOrUpcoming;
+			var today, endDay, oldOrUpcoming, event, didAddEvent = false;
 
 			var year = newKKEvent.startDate.year;
 			var month = newKKEvent.startDate.month;
@@ -309,8 +315,23 @@
 			var eventTreeMonthProp = eventTreeYearProp[month] ? eventTreeYearProp[month] : eventTreeYearProp[month] = {};
 			var dayEventsArr = eventTreeMonthProp[day] ? eventTreeMonthProp[day] : eventTreeMonthProp[day] = [];
 
-			//1. add event to eventTree
-			dayEventsArr.push( newKKEvent );
+			//1. add event to eventTree 
+			for ( var i = 0; i < dayEventsArr.length; i++ )
+			{
+				event = dayEventsArr[i];
+				if ( newKKEvent.startDate.startHour < event.startDate.startHour || ( newKKEvent.startDate.startHour == event.startDate.startHour && newKKEvent.startDate.startMinute < event.startDate.startMinute ))
+				{
+					dayEventsArr.splice( i, 0, newKKEvent );
+					didAddEvent = true;
+					break;
+				}
+			}
+
+			if ( !didAddEvent )
+			{
+				dayEventsArr.push( newKKEvent );
+			}
+			
 
 			//2. update appViewModel.detailsPageEvents()
 			if ( newKKEvent.startDate.year == appViewModel.detailsPageDisplayDate.year() && newKKEvent.startDate.month == appViewModel.detailsPageDisplayDate.month() && newKKEvent.startDate.day == appViewModel.detailsPageDisplayDate.day() )

@@ -12,20 +12,17 @@ namespace KalendarzKarieryData
     using System;
     using System.Collections.Generic;
     
-    public partial class PrivacyLevel
+    public partial class Note
     {
-        public PrivacyLevel()
-        {
-            this.Events = new HashSet<Event>();
-            this.Notes = new HashSet<Note>();
-        }
-    
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public int Value { get; set; }
+        public string Data { get; set; }
+        public System.DateTime DateAdded { get; set; }
+        public int OwnerUserId { get; set; }
+        public Nullable<int> NoteKindId { get; set; }
+        public int PrivacyLevelId { get; set; }
     
-        public virtual ICollection<Event> Events { get; set; }
-        public virtual ICollection<Note> Notes { get; set; }
+        public virtual NoteKind NoteKind { get; set; }
+        public virtual PrivacyLevel PrivacyLevel { get; set; }
+        public virtual User User { get; set; }
     }
 }

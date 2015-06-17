@@ -374,6 +374,7 @@
     <Content Include="Views\Home\LobbyPage\_LobbyEventsMenuItems.cshtml" />
     <Content Include="Views\Shared\_LayoutMobile.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsEventInfo.cshtml" />
+    <Content Include="Views\Home\DetailsPage\_DetailsNotesSummary.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

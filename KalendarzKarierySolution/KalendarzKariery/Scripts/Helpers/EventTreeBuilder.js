@@ -86,17 +86,11 @@
 		};
 		function getAddress( event )
 		{
-			if ( !event.addresses[0] )
-			{
 				return {
-					street: "",
-					city: "",
-					zipCode: ""
+					street: event.address.street,
+					city: event.address.city,
+					zipCode: event.address.zipCode
 				}
-			} else
-			{
-				return event.addresses[0];
-			}
 		};
 		function getMinutes( event ){
 
@@ -151,6 +145,8 @@
 		for ( var i = 0; i < eventsArray.length; i++ )
 		{
 			event = eventsArray[i];
+
+			debugger;
 
 			setDateAdded( event );
 			events.push( event );

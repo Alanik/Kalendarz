@@ -112,7 +112,7 @@
 	<div id="calendarDayDetailsTable">
 		<div style="font-size: 3em; font-family: Raleway-Regular;">
 			<span>
-				<span style="font-size: .5em; margin-left: 6px; color: rgb(171, 157, 138);">grafik z dnia: </span>
+				<span style="font-size: .5em; margin-left: 6px; color: rgb(171, 157, 138);">Grafik z dnia: </span>
 				<span data-bind="text: $root.detailsPageDisplayDate.day()" style="color: rgb(148, 147, 123);"></span>
 				<span data-bind="text: $root.detailsPageDisplayDate.getMonthName()" style="color: rgb(148, 147, 123);"></span>
 				<span data-bind="text: $root.detailsPageDisplayDate.year()" style="color: rgb(148, 147, 123); font-size: .8em;"></span>
@@ -197,7 +197,9 @@
 
 	</div>
 
+	<div id="detailsEventBlockList">
 	@Html.Partial( "_DetailsEventSummary" )
+	</div>
 
 </section>
 

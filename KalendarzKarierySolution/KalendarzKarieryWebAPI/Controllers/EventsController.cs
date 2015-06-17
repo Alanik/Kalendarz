@@ -179,7 +179,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 
 			if (!string.IsNullOrEmpty( viewModel.Address.Street ) || !string.IsNullOrEmpty( viewModel.Address.City ) || !string.IsNullOrEmpty( viewModel.Address.ZipCode ))
 			{
-				@event.Addresses.Add( viewModel.Address );
+				@event.Address = viewModel.Address;
 			}
 
 			return @event;

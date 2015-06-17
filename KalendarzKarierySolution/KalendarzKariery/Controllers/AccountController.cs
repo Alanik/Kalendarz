@@ -32,20 +32,20 @@ namespace KalendarzKariery.Controllers
 		[AllowAnonymous]
 		public ActionResult Login()
 		{
-			return RedirectToAction("Index", "Home");
+			return RedirectToAction( "Index", "Home" );
 		}
 
 		[HttpPost]
 		[AllowAnonymous]
 		[ValidateAntiForgeryToken]
-		public ActionResult Login(LoginModel model)
+		public ActionResult Login( LoginModel model )
 		{
-			if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+			if (ModelState.IsValid && WebSecurity.Login( model.UserName, model.Password, persistCookie: model.RememberMe ))
 			{
-				int? id = this.GetUserId(model.UserName.ToLower(), _repository);
+				int? id = this.GetUserId( model.UserName.ToLower(), _repository );
 				if (id.HasValue)
 				{
-					var user = _repository.GetUserById(id.Value);
+					var user = _repository.GetUserById( id.Value );
 					if (user != null && user.UserAccountInfo != null)
 					{
 						user.UserAccountInfo.LastLogin = DateTimeFacade.DateTimeNow();
@@ -62,11 +62,11 @@ namespace KalendarzKariery.Controllers
 					//TODO: throw exception
 				}
 
-				return Json(new { userName = model.UserName });
+				return Json( new { userName = model.UserName } );
 			}
 
-			ModelState.AddModelError(string.Empty, Consts.InvalidUserNameOrPasswordErrorMsg);
-			return Json(new { validationError = true });
+			ModelState.AddModelError( string.Empty, Consts.InvalidUserNameOrPasswordErrorMsg );
+			return Json( new { validationError = true } );
 		}
 
 		//
@@ -76,10 +76,10 @@ namespace KalendarzKariery.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult LogOff()
 		{
-			int? id = this.GetUserId(User.Identity.Name.ToLower(), _repository);
+			int? id = this.GetUserId( User.Identity.Name.ToLower(), _repository );
 			if (id.HasValue)
 			{
-				var user = _repository.GetUserById(id.Value);
+				var user = _repository.GetUserById( id.Value );
 				if (user != null && user.UserAccountInfo != null)
 				{
 					user.UserAccountInfo.LastLogout = DateTimeFacade.DateTimeNow();
@@ -96,7 +96,7 @@ namespace KalendarzKariery.Controllers
 			}
 
 			WebSecurity.Logout();
-			return RedirectToAction("Index", "Home");
+			return RedirectToAction( "Index", "Home" );
 		}
 
 		//
@@ -114,28 +114,28 @@ namespace KalendarzKariery.Controllers
 		[HttpPost]
 		[AllowAnonymous]
 		[ValidateAntiForgeryToken]
-		public ActionResult Register(RegisterViewModel model)
+		public ActionResult Register( RegisterViewModel model )
 		{
 			if (ModelState.IsValid)
 			{
-				if (_repository.GetUserByEmail(model.User.Email) == null)
+				if (_repository.GetUserByEmail( model.User.Email ) == null)
 				{
 					string birthDate = model.BirthDateModel.Year + "-" + model.BirthDateModel.Month + "-" + model.BirthDateModel.Day;
 					DateTime date;
 
-					if (!DateTime.TryParse(birthDate, out date))
+					if (!DateTime.TryParse( birthDate, out date ))
 					{
-						ModelState.AddModelError(string.Empty, Consts.InvalidBirthOfDateErrorMsg);
-						ModelState.AddModelError("BirthDateModel.Day", string.Empty);
-						ModelState.AddModelError("BirthDateModel.Month", string.Empty);
-						ModelState.AddModelError("BirthDateModel.Year", string.Empty);
+						ModelState.AddModelError( string.Empty, Consts.InvalidBirthOfDateErrorMsg );
+						ModelState.AddModelError( "BirthDateModel.Day", string.Empty );
+						ModelState.AddModelError( "BirthDateModel.Month", string.Empty );
+						ModelState.AddModelError( "BirthDateModel.Year", string.Empty );
 
-						return Json(new { isRegisterSuccess = false, errors = ModelState.Errors() });
+						return Json( new { isRegisterSuccess = false, errors = ModelState.Errors() } );
 					}
 
 					try
 					{
-						WebSecurity.CreateUserAndAccount(model.RegisterModel.UserName,
+						WebSecurity.CreateUserAndAccount( model.RegisterModel.UserName,
 														 model.RegisterModel.Password,
 														 propertyValues: new
 						{
@@ -146,40 +146,65 @@ namespace KalendarzKariery.Controllers
 							BirthDay = date,
 							UserName = model.User.UserName,
 							Phone = model.User.Phone,
-							Gender = model.User.Gender
-						});
+							Gender = model.User.Gender,
+						} );
 
 						if (!Roles.GetRolesForUser( model.RegisterModel.UserName ).Contains( "BasicUser" ))
 						{
 							Roles.AddUserToRole( model.RegisterModel.UserName, "BasicUser" );
 						}
 
-						int id = WebSecurity.GetUserId(model.RegisterModel.UserName);
-						_repository.UpdateUserOnRegister(id, model.Address);
+						int id = WebSecurity.GetUserId( model.RegisterModel.UserName );
+						var user = _repository.GetUserById( id );
 
-						WebSecurity.Login(model.RegisterModel.UserName, model.RegisterModel.Password);
+						if (user != null)
+						{
+							if (!string.IsNullOrWhiteSpace( model.User.Address.Street ) || !string.IsNullOrWhiteSpace( model.User.Address.City ) || !string.IsNullOrWhiteSpace( model.User.Address.ZipCode ))
+							{
+								user.Address = model.User.Address;
+							}
 
-						return Json(new { isRegisterSuccess = true });
+							user.UserAccountInfo = new UserAccountInfo
+							{
+								AverageLoginTime = 0,
+								CreationDate = DateTimeFacade.DateTimeNow(),
+								LastLogin = DateTimeFacade.DateTimeNow(),
+								LastLogout = null,
+								NumOfLogins = 1,
+								TotalLoginTime = 0
+							};
+
+							_repository.UpdateUser( user );
+							_repository.Save();
+						}
+						else
+						{
+							throw new NullReferenceException( "User from repository is null right after register user event" );
+						}
+
+						WebSecurity.Login( model.RegisterModel.UserName, model.RegisterModel.Password );
+
+						return Json( new { isRegisterSuccess = true } );
 					}
 					catch (MembershipCreateUserException e)
 					{
 						if (e.StatusCode == MembershipCreateStatus.DuplicateUserName)
 						{
-							ModelState.AddModelError("RegisterModel.UserName", ErrorCodeToString(e.StatusCode));
+							ModelState.AddModelError( "RegisterModel.UserName", ErrorCodeToString( e.StatusCode ) );
 						}
 						else
 						{
-							ModelState.AddModelError(string.Empty, ErrorCodeToString(e.StatusCode));
+							ModelState.AddModelError( string.Empty, ErrorCodeToString( e.StatusCode ) );
 						}
 					}
 				}
 				else
 				{
-					ModelState.AddModelError("User.Email", Consts.RegisterUserEmailExistsErrorMsg);
+					ModelState.AddModelError( "User.Email", Consts.RegisterUserEmailExistsErrorMsg );
 				}
 			}
 
-			return Json(new { isRegisterSuccess = false, errors = ModelState.Errors() });
+			return Json( new { isRegisterSuccess = false, errors = ModelState.Errors() } );
 		}
 
 		//
@@ -187,42 +212,42 @@ namespace KalendarzKariery.Controllers
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Disassociate(string provider, string providerUserId)
+		public ActionResult Disassociate( string provider, string providerUserId )
 		{
-			string ownerAccount = OAuthWebSecurity.GetUserName(provider, providerUserId);
+			string ownerAccount = OAuthWebSecurity.GetUserName( provider, providerUserId );
 			ManageMessageId? message = null;
 
 			// Only disassociate the account if the currently logged in user is the owner
 			if (ownerAccount == User.Identity.Name)
 			{
 				// Use a transaction to prevent the user from deleting their last login credential
-				using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.Serializable }))
+				using (var scope = new TransactionScope( TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.Serializable } ))
 				{
-					bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
-					if (hasLocalAccount || OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name).Count > 1)
+					bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount( WebSecurity.GetUserId( User.Identity.Name ) );
+					if (hasLocalAccount || OAuthWebSecurity.GetAccountsFromUserName( User.Identity.Name ).Count > 1)
 					{
-						OAuthWebSecurity.DeleteAccount(provider, providerUserId);
+						OAuthWebSecurity.DeleteAccount( provider, providerUserId );
 						scope.Complete();
 						message = ManageMessageId.RemoveLoginSuccess;
 					}
 				}
 			}
 
-			return RedirectToAction("Manage", new { Message = message });
+			return RedirectToAction( "Manage", new { Message = message } );
 		}
 
 		//
 		// GET: /Account/Manage
 
-		public ActionResult Manage(ManageMessageId? message)
+		public ActionResult Manage( ManageMessageId? message )
 		{
 			ViewBag.StatusMessage =
 				message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
 				: message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
 				: message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
 				: "";
-			ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
-			ViewBag.ReturnUrl = Url.Action("Manage");
+			ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount( WebSecurity.GetUserId( User.Identity.Name ) );
+			ViewBag.ReturnUrl = Url.Action( "Manage" );
 			return View();
 		}
 
@@ -231,11 +256,11 @@ namespace KalendarzKariery.Controllers
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Manage(LocalPasswordModel model)
+		public ActionResult Manage( LocalPasswordModel model )
 		{
-			bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
+			bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount( WebSecurity.GetUserId( User.Identity.Name ) );
 			ViewBag.HasLocalPassword = hasLocalAccount;
-			ViewBag.ReturnUrl = Url.Action("Manage");
+			ViewBag.ReturnUrl = Url.Action( "Manage" );
 			if (hasLocalAccount)
 			{
 				if (ModelState.IsValid)
@@ -244,7 +269,7 @@ namespace KalendarzKariery.Controllers
 					bool changePasswordSucceeded;
 					try
 					{
-						changePasswordSucceeded = WebSecurity.ChangePassword(User.Identity.Name, model.OldPassword, model.NewPassword);
+						changePasswordSucceeded = WebSecurity.ChangePassword( User.Identity.Name, model.OldPassword, model.NewPassword );
 					}
 					catch (Exception)
 					{
@@ -253,11 +278,11 @@ namespace KalendarzKariery.Controllers
 
 					if (changePasswordSucceeded)
 					{
-						return RedirectToAction("Manage", new { Message = ManageMessageId.ChangePasswordSuccess });
+						return RedirectToAction( "Manage", new { Message = ManageMessageId.ChangePasswordSuccess } );
 					}
 					else
 					{
-						ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
+						ModelState.AddModelError( "", "The current password is incorrect or the new password is invalid." );
 					}
 				}
 			}
@@ -275,18 +300,18 @@ namespace KalendarzKariery.Controllers
 				{
 					try
 					{
-						WebSecurity.CreateAccount(User.Identity.Name, model.NewPassword);
-						return RedirectToAction("Manage", new { Message = ManageMessageId.SetPasswordSuccess });
+						WebSecurity.CreateAccount( User.Identity.Name, model.NewPassword );
+						return RedirectToAction( "Manage", new { Message = ManageMessageId.SetPasswordSuccess } );
 					}
 					catch (Exception)
 					{
-						ModelState.AddModelError("", String.Format("Unable to create local account. An account with the name \"{0}\" may already exist.", User.Identity.Name));
+						ModelState.AddModelError( "", String.Format( "Unable to create local account. An account with the name \"{0}\" may already exist.", User.Identity.Name ) );
 					}
 				}
 			}
 
 			// If we got this far, something failed, redisplay form
-			return View(model);
+			return View( model );
 		}
 
 		//
@@ -295,41 +320,41 @@ namespace KalendarzKariery.Controllers
 		[HttpPost]
 		[AllowAnonymous]
 		[ValidateAntiForgeryToken]
-		public ActionResult ExternalLogin(string provider, string returnUrl)
+		public ActionResult ExternalLogin( string provider, string returnUrl )
 		{
-			return new ExternalLoginResult(provider, Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
+			return new ExternalLoginResult( provider, Url.Action( "ExternalLoginCallback", new { ReturnUrl = returnUrl } ) );
 		}
 
 		//
 		// GET: /Account/ExternalLoginCallback
 
 		[AllowAnonymous]
-		public ActionResult ExternalLoginCallback(string returnUrl)
+		public ActionResult ExternalLoginCallback( string returnUrl )
 		{
-			AuthenticationResult result = OAuthWebSecurity.VerifyAuthentication(Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
+			AuthenticationResult result = OAuthWebSecurity.VerifyAuthentication( Url.Action( "ExternalLoginCallback", new { ReturnUrl = returnUrl } ) );
 			if (!result.IsSuccessful)
 			{
-				return RedirectToAction("ExternalLoginFailure");
+				return RedirectToAction( "ExternalLoginFailure" );
 			}
 
-			if (OAuthWebSecurity.Login(result.Provider, result.ProviderUserId, createPersistentCookie: false))
+			if (OAuthWebSecurity.Login( result.Provider, result.ProviderUserId, createPersistentCookie: false ))
 			{
-				return RedirectToLocal(returnUrl);
+				return RedirectToLocal( returnUrl );
 			}
 
 			if (User.Identity.IsAuthenticated)
 			{
 				// If the current user is logged in add the new account
-				OAuthWebSecurity.CreateOrUpdateAccount(result.Provider, result.ProviderUserId, User.Identity.Name);
-				return RedirectToLocal(returnUrl);
+				OAuthWebSecurity.CreateOrUpdateAccount( result.Provider, result.ProviderUserId, User.Identity.Name );
+				return RedirectToLocal( returnUrl );
 			}
 			else
 			{
 				// User is new, ask for their desired membership name
-				string loginData = OAuthWebSecurity.SerializeProviderUserId(result.Provider, result.ProviderUserId);
-				ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
+				string loginData = OAuthWebSecurity.SerializeProviderUserId( result.Provider, result.ProviderUserId );
+				ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData( result.Provider ).DisplayName;
 				ViewBag.ReturnUrl = returnUrl;
-				return View("ExternalLoginConfirmation", new RegisterExternalLoginModel { UserName = result.UserName, ExternalLoginData = loginData });
+				return View( "ExternalLoginConfirmation", new RegisterExternalLoginModel { UserName = result.UserName, ExternalLoginData = loginData } );
 			}
 		}
 
@@ -339,14 +364,14 @@ namespace KalendarzKariery.Controllers
 		[HttpPost]
 		[AllowAnonymous]
 		[ValidateAntiForgeryToken]
-		public ActionResult ExternalLoginConfirmation(RegisterExternalLoginModel model, string returnUrl)
+		public ActionResult ExternalLoginConfirmation( RegisterExternalLoginModel model, string returnUrl )
 		{
 			string provider = null;
 			string providerUserId = null;
 
-			if (User.Identity.IsAuthenticated || !OAuthWebSecurity.TryDeserializeProviderUserId(model.ExternalLoginData, out provider, out providerUserId))
+			if (User.Identity.IsAuthenticated || !OAuthWebSecurity.TryDeserializeProviderUserId( model.ExternalLoginData, out provider, out providerUserId ))
 			{
-				return RedirectToAction("Manage");
+				return RedirectToAction( "Manage" );
 			}
 
 			if (ModelState.IsValid)
@@ -354,29 +379,29 @@ namespace KalendarzKariery.Controllers
 				// Insert a new user into the database
 				using (UsersContext db = new UsersContext())
 				{
-					UserProfile user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
+					UserProfile user = db.UserProfiles.FirstOrDefault( u => u.UserName.ToLower() == model.UserName.ToLower() );
 					// Check if user already exists
 					if (user == null)
 					{
 						// Insert name into the profile table
-						db.UserProfiles.Add(new UserProfile { UserName = model.UserName });
+						db.UserProfiles.Add( new UserProfile { UserName = model.UserName } );
 						db.SaveChanges();
 
-						OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
-						OAuthWebSecurity.Login(provider, providerUserId, createPersistentCookie: false);
+						OAuthWebSecurity.CreateOrUpdateAccount( provider, providerUserId, model.UserName );
+						OAuthWebSecurity.Login( provider, providerUserId, createPersistentCookie: false );
 
-						return RedirectToLocal(returnUrl);
+						return RedirectToLocal( returnUrl );
 					}
 					else
 					{
-						ModelState.AddModelError("UserName", "User name already exists. Please enter a different user name.");
+						ModelState.AddModelError( "UserName", "User name already exists. Please enter a different user name." );
 					}
 				}
 			}
 
-			ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(provider).DisplayName;
+			ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData( provider ).DisplayName;
 			ViewBag.ReturnUrl = returnUrl;
-			return View(model);
+			return View( model );
 		}
 
 		//
@@ -390,31 +415,31 @@ namespace KalendarzKariery.Controllers
 
 		[AllowAnonymous]
 		[ChildActionOnly]
-		public ActionResult ExternalLoginsList(string returnUrl)
+		public ActionResult ExternalLoginsList( string returnUrl )
 		{
 			ViewBag.ReturnUrl = returnUrl;
-			return PartialView("_ExternalLoginsListPartial", OAuthWebSecurity.RegisteredClientData);
+			return PartialView( "_ExternalLoginsListPartial", OAuthWebSecurity.RegisteredClientData );
 		}
 
 		[ChildActionOnly]
 		public ActionResult RemoveExternalLogins()
 		{
-			ICollection<OAuthAccount> accounts = OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name);
+			ICollection<OAuthAccount> accounts = OAuthWebSecurity.GetAccountsFromUserName( User.Identity.Name );
 			List<ExternalLogin> externalLogins = new List<ExternalLogin>();
 			foreach (OAuthAccount account in accounts)
 			{
-				AuthenticationClientData clientData = OAuthWebSecurity.GetOAuthClientData(account.Provider);
+				AuthenticationClientData clientData = OAuthWebSecurity.GetOAuthClientData( account.Provider );
 
-				externalLogins.Add(new ExternalLogin
+				externalLogins.Add( new ExternalLogin
 				{
 					Provider = account.Provider,
 					ProviderDisplayName = clientData.DisplayName,
 					ProviderUserId = account.ProviderUserId,
-				});
+				} );
 			}
 
-			ViewBag.ShowRemoveButton = externalLogins.Count > 1 || OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
-			return PartialView("_RemoveExternalLoginsPartial", externalLogins);
+			ViewBag.ShowRemoveButton = externalLogins.Count > 1 || OAuthWebSecurity.HasLocalAccount( WebSecurity.GetUserId( User.Identity.Name ) );
+			return PartialView( "_RemoveExternalLoginsPartial", externalLogins );
 		}
 
 		#region Helpers
@@ -424,15 +449,15 @@ namespace KalendarzKariery.Controllers
 
 		}
 
-		private ActionResult RedirectToLocal(string returnUrl)
+		private ActionResult RedirectToLocal( string returnUrl )
 		{
-			if (Url.IsLocalUrl(returnUrl))
+			if (Url.IsLocalUrl( returnUrl ))
 			{
-				return Redirect(returnUrl);
+				return Redirect( returnUrl );
 			}
 			else
 			{
-				return RedirectToAction("Index", "Home");
+				return RedirectToAction( "Index", "Home" );
 			}
 		}
 
@@ -445,7 +470,7 @@ namespace KalendarzKariery.Controllers
 
 		internal class ExternalLoginResult : ActionResult
 		{
-			public ExternalLoginResult(string provider, string returnUrl)
+			public ExternalLoginResult( string provider, string returnUrl )
 			{
 				Provider = provider;
 				ReturnUrl = returnUrl;
@@ -455,13 +480,13 @@ namespace KalendarzKariery.Controllers
 			public string ReturnUrl { get; private set; }
 
 
-			public override void ExecuteResult(ControllerContext context)
+			public override void ExecuteResult( ControllerContext context )
 			{
-				OAuthWebSecurity.RequestAuthentication(Provider, ReturnUrl);
+				OAuthWebSecurity.RequestAuthentication( Provider, ReturnUrl );
 			}
 		}
 
-		private static string ErrorCodeToString(MembershipCreateStatus createStatus)
+		private static string ErrorCodeToString( MembershipCreateStatus createStatus )
 		{
 			// See http://go.microsoft.com/fwlink/?LinkID=177550 for
 			// a full list of status codes.

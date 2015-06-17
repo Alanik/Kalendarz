@@ -41,8 +41,6 @@ namespace KalendarzKariery.BO.SeedMembership
 			{
 				CreateAdminUser( AdminLuqLogin );
 			}
-
-
 		}
 
 		private static User GetAlanikAdmin( string loginName )
@@ -54,7 +52,7 @@ namespace KalendarzKariery.BO.SeedMembership
 			address.Country = "Polska";
 			address.ZipCode = "54-239";
 
-			user.Addresses.Add( address );
+			user.Address = address;
 			user.Bio = "Witam, nazywam sie Alanik i jestem adminem";
 			user.BirthDay = new DateTime( 1987, 7, 30 );
 			user.Email = "thealanik@aim.com";
@@ -68,7 +66,7 @@ namespace KalendarzKariery.BO.SeedMembership
 			user.UserAccountInfo.CreationDate = DateTimeFacade.DateTimeNow();
 			user.UserAccountInfo.NumOfLogins = 1;
 			user.UserAccountInfo.LastLogin = DateTimeFacade.DateTimeNow();
-
+		
 			user.UserAccountInfoId = user.UserAccountInfo.Id;
 
 			return user;
@@ -87,18 +85,14 @@ namespace KalendarzKariery.BO.SeedMembership
 				BirthDay = user.BirthDay,
 				UserName = user.UserName,
 				Phone = user.Phone,
-				Gender = user.Gender
+				Gender = user.Gender,
+				Address = user.Address
 			} );
 
 			if (!Roles.GetRolesForUser( loginName ).Contains( AdminRole ))
 			{
 				Roles.AddUserToRole( loginName, AdminRole );
 			}
-
-			var repository = RepositoryProvider.GetRepository();
-
-			int id = WebSecurity.GetUserId( loginName );
-			repository.UpdateUserOnRegister( id, user.Addresses.First() );
 		}
 	}
 }

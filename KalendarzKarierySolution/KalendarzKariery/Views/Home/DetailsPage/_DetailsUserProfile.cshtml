@@ -89,37 +89,37 @@
 						</li>
 						<li>
 
-							@Html.LabelFor(m => m.Address.Street, new { @class = "form-label" })
+							@Html.LabelFor(m => m.User.Address.Street, new { @class = "form-label" })
 							<div>
-								@Html.ValidationMessageFor(m => m.Address.Street)
+								@Html.ValidationMessageFor(m => m.User.Address.Street)
 							</div>
-							@Html.TextBoxFor(m => m.Address.Street, new { maxlength = 50 })
+							@Html.TextBoxFor(m => m.User.Address.Street, new { maxlength = 50 })
 
 						</li>
 						<li>
 
-							@Html.LabelFor(m => m.Address.City, new { @class = "form-label" })
+							@Html.LabelFor(m => m.User.Address.City, new { @class = "form-label" })
 							<div>
-								@Html.ValidationMessageFor(m => m.Address.City)
+								@Html.ValidationMessageFor(m => m.User.Address.City)
 							</div>
-							@Html.TextBoxFor(m => m.Address.City, new { maxlength = 30 })
+							@Html.TextBoxFor(m => m.User.Address.City, new { maxlength = 30 })
 
 						</li>
 						<li>
 
-							@Html.LabelFor(m => m.Address.ZipCode, new { @class = "form-label" })
+							@Html.LabelFor(m => m.User.Address.ZipCode, new { @class = "form-label" })
 							<div>
-								@Html.ValidationMessageFor(m => m.Address.ZipCode)
+								@Html.ValidationMessageFor(m => m.User.Address.ZipCode)
 							</div>
-							@Html.TextBoxFor(m => m.Address.ZipCode, new { maxlength = 6, placeholder = "00-000", style = "width:50px !important;" })
+							@Html.TextBoxFor(m => m.User.Address.ZipCode, new { maxlength = 6, placeholder = "00-000", style = "width:50px !important;" })
 
 						</li>
 						<li>
-							@Html.LabelFor(m => m.Address.Country, new { @class = "form-label" })
+							@Html.LabelFor(m => m.User.Address.Country, new { @class = "form-label" })
 							<div>
-								@Html.ValidationMessageFor(m => m.Address.Country)
+								@Html.ValidationMessageFor(m => m.User.Address.Country)
 							</div>
-							@Html.TextBoxFor(m => m.Address.Country, new { maxlength = 30 })
+							@Html.TextBoxFor(m => m.User.Address.Country, new { maxlength = 30 })
 						</li>
 
 						<li>

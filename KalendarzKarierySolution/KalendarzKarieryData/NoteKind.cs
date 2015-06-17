@@ -10,13 +10,20 @@
 namespace KalendarzKarieryData
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class sp_helpdiagrams_Result
+    public partial class NoteKind
     {
-        public string Database { get; set; }
+        public NoteKind()
+        {
+            this.Notes = new HashSet<Note>();
+        }
+    
+        public int Id { get; set; }
         public string Name { get; set; }
-        public int ID { get; set; }
-        public string Owner { get; set; }
-        public int OwnerID { get; set; }
+        public int Value { get; set; }
+        public string Description { get; set; }
+    
+        public virtual ICollection<Note> Notes { get; set; }
     }
 }

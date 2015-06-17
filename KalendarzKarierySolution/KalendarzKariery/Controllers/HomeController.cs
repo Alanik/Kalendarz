@@ -110,13 +110,13 @@ namespace KalendarzKariery.Controllers
 			var user = repository.GetUserById(id);
 			registerViewModel.User = user;
 
-			if (user.Addresses.Any())
+			if (user.Address != null)
 			{
-				registerViewModel.Address = user.Addresses.First();
+				registerViewModel.User.Address = user.Address;
 			}
 			else
 			{
-				registerViewModel.Address = new Address();
+				registerViewModel.User.Address = new Address();
 			}
 
 			registerViewModel.BirthDateModel = new DateModel();

@@ -16,9 +16,9 @@ namespace KalendarzKarieryData
     {
         public User()
         {
-            this.Addresses = new HashSet<Address>();
             this.Comments = new HashSet<Comment>();
             this.Events = new HashSet<Event>();
+            this.Notes = new HashSet<Note>();
             this.Events1 = new HashSet<Event>();
             this.webpages_Roles = new HashSet<webpages_Roles>();
         }
@@ -34,10 +34,12 @@ namespace KalendarzKarieryData
         public string Gender { get; set; }
         public string Bio { get; set; }
         public Nullable<int> UserAccountInfoId { get; set; }
+        public Nullable<int> AddressId { get; set; }
     
-        public virtual ICollection<Address> Addresses { get; set; }
+        public virtual Address Address { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Event> Events { get; set; }
+        public virtual ICollection<Note> Notes { get; set; }
         public virtual UserAccountInfo UserAccountInfo { get; set; }
         public virtual ICollection<Event> Events1 { get; set; }
         public virtual ICollection<webpages_Roles> webpages_Roles { get; set; }

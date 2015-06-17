@@ -24,11 +24,10 @@ namespace KalendarzKarieryData.Models.DataTransferModels
 		public object kind { get; set; }
 		public decimal price { get; set; }
 		public object privacyLevel { get; set; }
-		public object addresses { get; set; }
+		public object address { get; set; }
 
 		public JsonEventModel( Event m )
-		{
-			{
+		{		
 				id = m.Id;
 				name = m.Title;
 				addedBy = m.User.UserName;
@@ -43,8 +42,7 @@ namespace KalendarzKarieryData.Models.DataTransferModels
 				kind = new { name = m.EventKind.Name, value = m.EventKind.Value };
 				price = m.Price ?? 0;
 				privacyLevel = new { name = m.PrivacyLevel.Name, value = m.PrivacyLevel.Value };
-				addresses = m.Addresses.Select( o => new { street = o.Street, city = o.City, zipCode = o.ZipCode } );
-			};
+				address = m.Address != null ? new { street = m.Address.Street, city = m.Address.City, zipCode = m.Address.ZipCode } : new { street = "", city = "", zipCode = "" };		
 		}
 	}
 }

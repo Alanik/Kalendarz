@@ -16,7 +16,6 @@ namespace KalendarzKarieryData
     {
         public Event()
         {
-            this.Addresses = new HashSet<Address>();
             this.Comments = new HashSet<Comment>();
             this.Users = new HashSet<User>();
         }
@@ -36,8 +35,9 @@ namespace KalendarzKarieryData
         public int EventStatusId { get; set; }
         public Nullable<decimal> Price { get; set; }
         public Nullable<System.DateTime> EndDate { get; set; }
+        public Nullable<int> AddressId { get; set; }
     
-        public virtual ICollection<Address> Addresses { get; set; }
+        public virtual Address Address { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual EventKind EventKind { get; set; }
         public virtual EventStatus EventStatus { get; set; }

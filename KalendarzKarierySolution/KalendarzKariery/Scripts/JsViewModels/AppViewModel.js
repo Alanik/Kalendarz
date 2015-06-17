@@ -1058,8 +1058,8 @@
 
 	self.registerUserOnClick = function ()
 	{
-
 		//TODO: in _register page make sure we have labels corresponding to their form textboxes (basically check all pages with forms that their html is correct)
+		//TODO: add ajax code to WebApiCaller.js class
 
 		var $overlay = $( "#lobby" ).siblings( ".dotted-page-overlay" );
 		var $dateBirthValidationMsg;

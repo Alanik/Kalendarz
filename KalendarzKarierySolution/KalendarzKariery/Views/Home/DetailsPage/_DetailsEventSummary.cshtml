@@ -1,12 +1,15 @@
-﻿<div id="detailsEventBlockList">
-	<div data-bind="foreach: detailsPageDayEvents()" style="width: 47%; background: rgb(208, 202, 178); margin-left: 2%; border-radius: 6px; border: 1px solid rgb(234, 230, 215);">
+﻿<div style="width: 47%; /*background: rgb(208, 202, 178); */ margin-left: 2%; display: inline-block; /*border-radius: 6px; border: 1px solid rgb(234, 230, 215); *">
+	<div style="font-size: 1.6em; color: rgb(171, 157, 138);">
+		Wydarzenia
+	</div>
+	<div data-bind="foreach: detailsPageDayEvents()">
 		<div class="details-event-block-container" data-bind="attr: { 'data-eventid': id }">
 			<div class="details-event-block hover-cursor-pointer" data-bind="click: function () { $root.showEventDetailsOnEventBlockClick( $element ) }">
-				<div class="event-kind-tag" style="float:right;text-align:center;" data-bind="style: { color: kind.headerColor }">
+				<div class="event-kind-tag" style="float: right; text-align: center;" data-bind="style: { color: kind.headerColor }">
 					<span data-bind="text: kind.name"></span>
 				</div>
-				<div class="details-event-block-body">					
-					<div style="color:white;font-size:2em;position:relative;top:-6px;"><span data-bind="text: name"></span></div>
+				<div class="details-event-block-body">
+					<div style="color: white; font-size: 2em; position: relative; top: -6px;"><span data-bind="text: name"></span></div>
 				</div>
 				<div class="details-event-block-footer">
 				</div>
@@ -16,6 +19,13 @@
 		</div>
 	</div>
 </div>
+
+
+@Html.Partial( "_DetailsNotesSummary" )
+
+
+
+
 
 
 

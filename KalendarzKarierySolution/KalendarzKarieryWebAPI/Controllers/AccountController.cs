@@ -15,7 +15,6 @@ namespace KalendarzKarieryWebAPI.Controllers
 	{
 		private readonly IKalendarzKarieryRepository _repository = RepositoryProvider.GetRepository();
 
-		// POST api/events (add)
 		public IValidationResponse Post( RegisterViewModel model )
 		{
 			var errorResponse = this.ValidateUser();
@@ -50,17 +49,17 @@ namespace KalendarzKarieryWebAPI.Controllers
 					user.WebSiteUrl = model.User.WebSiteUrl;
 					user.Gender = model.User.Gender;
 
-					if (user.Addresses.Count > 0)
+					if (!string.IsNullOrWhiteSpace( model.User.Address.Street ) || !string.IsNullOrWhiteSpace( model.User.Address.City ) || !string.IsNullOrWhiteSpace( model.User.Address.ZipCode ))
 					{
-						var address = user.Addresses.FirstOrDefault();
-						address.Street = model.Address.Street;
-						address.City = model.Address.City;
-						address.ZipCode = model.Address.ZipCode;
-						address.Country = model.Address.Country;
+						user.Address =  model.User.Address;
 					}
 					else
 					{
-						user.Addresses.Add(model.Address);
+						if (user.Address != null)
+						{
+							user.Address =  model.User.Address;	
+						}
+
 					}
 
 					_repository.Save();

@@ -14,6 +14,12 @@ namespace KalendarzKarieryData
     
     public partial class Address
     {
+        public Address()
+        {
+            this.Events = new HashSet<Event>();
+            this.Users = new HashSet<User>();
+        }
+    
         public int Id { get; set; }
         public string Street { get; set; }
         public string City { get; set; }
@@ -21,10 +27,8 @@ namespace KalendarzKarieryData
         public string Country { get; set; }
         public Nullable<decimal> Latidute { get; set; }
         public Nullable<decimal> Longitude { get; set; }
-        public Nullable<int> EventId { get; set; }
-        public Nullable<int> UserId { get; set; }
     
-        public virtual Event Event { get; set; }
-        public virtual User User { get; set; }
+        public virtual ICollection<Event> Events { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }

@@ -8,6 +8,5 @@ namespace KalendarzKarieryData.Models.ViewModels
 		public RegisterModel RegisterModel { get; set; }
 		public DateModel BirthDateModel { get; set; }
 		public User User { get; set; }
-		public Address Address {get; set;}
 	}
 }

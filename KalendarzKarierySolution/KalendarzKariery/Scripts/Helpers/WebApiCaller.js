@@ -21,7 +21,7 @@
 			},
 			error: function ()
 			{
-				alert( "Wystąpił nieoczekiwany błąd. Prosze sprobować jeszcze raz." );
+				alert( "Wystąpił nieoczekiwany błąd. Prosze spróbować jeszcze raz." );
 				self.appViewModel.hideLoader();
 				$addEventContainer.show();
 			}
@@ -31,7 +31,6 @@
 	self.callDeleteEvent = function ( id, element, callback )
 	{
 		var $loader = $( "#details" ).siblings( ".dotted-page-overlay" );
-		var events;
 
 		$.ajax( {
 			url: "/api/Events/" + id,
@@ -45,9 +44,74 @@
 			},
 			error: function ()
 			{
-				alert( "Wystąpił nieoczekiwany błąd. Prosze sprobować jeszcze raz." );
+				alert( "Wystąpił nieoczekiwany błąd. Prosze spróbować jeszcze raz." );
 				self.appViewModel.hideLoader( $loader );
 				self.appViewModel.hideConfirmationPopupBox( element );
+			}
+		} );
+	}
+
+	self.callAddNote = function (data, callback ){
+		var $loader = $( "#details" ).siblings( ".dotted-page-overlay" );
+
+		$.ajax( {
+			url: "/api/Notes/",
+			dataType: "JSON",
+			type: "POST",
+			beforeSend: function () { self.appViewModel.showLoader( $loader ); },
+			data: data,
+			success: function ( result )
+			{
+				callback( result, self.appViewModel, $loader );
+			},
+			error: function ()
+			{
+				alert( "Wystąpił nieoczekiwany błąd. Prosze spróbować jeszcze raz." );
+				self.appViewModel.hideLoader( $loader );
+			}
+		} );
+	}
+
+	self.callDeleteNote = function ( id, element, callback )
+	{
+		var $loader = $( "#details" ).siblings( ".dotted-page-overlay" );
+
+		$.ajax( {
+			url: "/api/Notes/" + id,
+			dataType: "JSON",
+			type: "DELETE",
+			beforeSend: function () { self.appViewModel.hideConfirmationPopupBox( element ); self.appViewModel.showLoader( $loader ); },
+			data: id,
+			success: function ( result )
+			{
+				callback( result, $loader, self.appViewModel );
+			},
+			error: function ()
+			{
+				alert( "Wystąpił nieoczekiwany błąd. Prosze spróbować jeszcze raz." );
+				self.appViewModel.hideLoader( $loader );
+				self.appViewModel.hideConfirmationPopupBox( element );
+			}
+		} );
+	}
+
+	self.callUpdateNote = function ( data, callback, $container, note, text ){
+		var $loader = $( "#details" ).siblings( ".dotted-page-overlay" );
+
+		$.ajax( {
+			url: "/api/Notes/",
+			dataType: "JSON",
+			type: "PUT",
+			beforeSend: function () { self.appViewModel.showLoader( $loader ); },
+			data: data,
+			success: function ( result )
+			{
+				callback( result, self.appViewModel, $loader, $container, note, text );
+			},
+			error: function ()
+			{
+				alert( "Wystąpił nieoczekiwany błąd. Prosze spróbować jeszcze raz." );
+				self.appViewModel.hideLoader( $loader );
 			}
 		} );
 	}

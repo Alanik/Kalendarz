@@ -1,4 +1,5 @@
-﻿using KalendarzKarieryData;
+﻿using KalendarzKarieryCore.Consts;
+using KalendarzKarieryData;
 using KalendarzKarieryData.Models.ViewModels;
 using KalendarzKarieryData.Repository;
 using KalendarzKarieryData.Repository.KalendarzKarieryRepository;
@@ -17,10 +18,12 @@ namespace KalendarzKarieryWebAPI.Controllers
 
 		public IValidationResponse Post( RegisterViewModel model )
 		{
-			var errorResponse = this.ValidateUser();
-			if (!errorResponse.IsSuccess)
+			if (!User.Identity.IsAuthenticated)
 			{
-				return errorResponse;
+				var response = new DefaultValidationResponseModel();
+				response.Message = Consts.NotAuthenticatedErrorMsg;
+				response.IsSuccess = false;
+				return response;
 			}
 
 			if (!ModelState.IsValid)

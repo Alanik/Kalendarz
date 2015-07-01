@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="KalendarzKarieryDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="KalendarzKarieryDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Address">
           <Key>
             <PropertyRef Name="Id" />
@@ -47,6 +47,7 @@
           <Property Name="Price" Type="money" />
           <Property Name="EndDate" Type="datetime" />
           <Property Name="AddressId" Type="int" />
+          <Property Name="EditDate" Type="datetime" />
         </EntityType>
         <EntityType Name="EventKind">
           <Key>
@@ -76,6 +77,9 @@
           <Property Name="OwnerUserId" Type="int" Nullable="false" />
           <Property Name="NoteKindId" Type="int" />
           <Property Name="PrivacyLevelId" Type="int" Nullable="false" />
+          <Property Name="DisplayDate" Type="datetime" Nullable="false" />
+          <Property Name="IsLineThrough" Type="bit" Nullable="false" />
+          <Property Name="EditDate" Type="datetime" />
         </EntityType>
         <EntityType Name="NoteKind">
           <Key>
@@ -456,8 +460,7 @@
             <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="KalendarzKarieryDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -514,6 +517,7 @@
           <NavigationProperty Name="User" Relationship="Self.FK_OwnerUser_Event" FromRole="Event" ToRole="User" />
           <NavigationProperty Name="PrivacyLevel" Relationship="Self.FK_PrivacyLevel_Event" FromRole="Event" ToRole="PrivacyLevel" />
           <NavigationProperty Name="Users" Relationship="Self.User_Event" FromRole="Event" ToRole="User" />
+          <Property Name="EditDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="EventKind">
           <Key>
@@ -548,6 +552,9 @@
           <NavigationProperty Name="NoteKind" Relationship="Self.FK_Note_NoteKind" FromRole="Note" ToRole="NoteKind" />
           <NavigationProperty Name="PrivacyLevel" Relationship="Self.FK_Note_PrivacyLevel" FromRole="Note" ToRole="PrivacyLevel" />
           <NavigationProperty Name="User" Relationship="Self.FK_Note_User" FromRole="Note" ToRole="User" />
+          <Property Name="DisplayDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsLineThrough" Type="Boolean" Nullable="false" />
+          <Property Name="EditDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="NoteKind">
           <Key>
@@ -907,6 +914,7 @@
           <EntitySetMapping Name="Events">
             <EntityTypeMapping TypeName="KalendarzKarieryDBModel.Event">
               <MappingFragment StoreEntitySet="Event">
+                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -949,6 +957,9 @@
           <EntitySetMapping Name="Notes">
             <EntityTypeMapping TypeName="KalendarzKarieryDBModel.Note">
               <MappingFragment StoreEntitySet="Note">
+                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+                <ScalarProperty Name="IsLineThrough" ColumnName="IsLineThrough" />
+                <ScalarProperty Name="DisplayDate" ColumnName="DisplayDate" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Data" ColumnName="Data" />
                 <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />

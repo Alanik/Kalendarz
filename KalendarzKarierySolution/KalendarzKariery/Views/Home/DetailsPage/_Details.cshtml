@@ -110,7 +110,7 @@
 
 <section id="calendarDayDetailsContainer">
 	<div id="calendarDayDetailsTable">
-		<div style="font-size: 3em; font-family: Raleway-Regular;">
+		<div style="font-size: 3em; font-family: Raleway-Regular; text-align: center; border-bottom: 1px solid white; width: 50%; margin: 0 auto;">
 			<span>
 				<span style="font-size: .5em; margin-left: 6px; color: rgb(171, 157, 138);">Grafik z dnia: </span>
 				<span data-bind="text: $root.detailsPageDisplayDate.day()" style="color: rgb(148, 147, 123);"></span>
@@ -197,8 +197,8 @@
 
 	</div>
 
-	<div id="detailsEventBlockList">
-	@Html.Partial( "_DetailsEventSummary" )
+	<div id="detailsEventsAndNotesContainer">
+	@Html.Partial( "_DetailsEventsAndNotesContainer" )
 	</div>
 
 </section>

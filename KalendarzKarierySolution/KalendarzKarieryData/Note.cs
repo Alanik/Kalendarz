@@ -20,6 +20,9 @@ namespace KalendarzKarieryData
         public int OwnerUserId { get; set; }
         public Nullable<int> NoteKindId { get; set; }
         public int PrivacyLevelId { get; set; }
+        public System.DateTime DisplayDate { get; set; }
+        public bool IsLineThrough { get; set; }
+        public Nullable<System.DateTime> EditDate { get; set; }
     
         public virtual NoteKind NoteKind { get; set; }
         public virtual PrivacyLevel PrivacyLevel { get; set; }

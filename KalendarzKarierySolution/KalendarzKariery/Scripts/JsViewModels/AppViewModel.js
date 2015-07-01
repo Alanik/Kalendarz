@@ -6,13 +6,13 @@
 	//utils, managers etc
 	//////////////////////////////////////////////////////////
 
-	self.UTILS = (function ()
+	self.UTILS = ( function ()
 	{
 		var Utils = function ()
 		{
 			var colorHelper = new EventColorHelper();
 			var webApiCaller = new WebApiCaller( self );
-			var eventTreeBuilder = new EventTreeBuilder( self );
+			var eventTreeBuilder = new TreeBuilder( self );
 
 			this.colorHelper = colorHelper;
 			this.webApiCaller = webApiCaller;
@@ -21,6 +21,7 @@
 		return new Utils();
 	} )();
 	self.EVENT_MANAGER = new EventManager( self );
+	self.NOTE_MANAGER = new NoteManager( self );
 
 	//////////////////////////////////////////////////////////
 	//public properties
@@ -48,8 +49,7 @@
 		"getDayName": function ()
 		{
 			return this.weekday == 0 ? self.dayNames[6] : self.dayNames[this.weekday - 1];
-		},
-		"javaScriptStartDate": date
+		}
 	}
 
 	self.monthNames = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'];
@@ -59,8 +59,11 @@
 	self.eventKinds = [];
 	self.eventPrivacyLevels = [];
 
-	//is used when adding or editing event
+	// is used when adding or editing event
 	self.observableEvent = new KKEventModelObservable();
+
+	// is used when adding note
+	self.observableNote = new KKNoteModelObservable();
 
 	// month starts from 1 to 12
 	self.detailsPageDisplayDate = {
@@ -78,6 +81,7 @@
 		}
 	};
 
+	// used to specify the most bottom row of events in details page in the daily plan table
 	self.detailsPageEventMostBottomRow = 1;
 
 	//month starts from 1 to 12
@@ -96,6 +100,7 @@
 
 	self.calendarPageMonthEvents = [];
 	self.detailsPageDayEvents = ko.observableArray( [] );
+	self.detailsPageDayNotes = ko.observableArray( [] );
 
 	//TODO: change into event tree with arrays grouped by event kind
 	self.detailsPageSelectedEvents = {
@@ -168,6 +173,18 @@
 		//	"2015": {
 		//		"8": [{ "3": [event, event] }, { "7": [event] }, { "9": [event, event, event, event] }],
 		//		"9": [{ "2": [event] }]	
+		//			}
+	};
+
+	self.myNoteTree = {
+		// example to remember the format of dailyNotesTree object
+		//	"2014": {
+		//		"8": [{ "3": [note, note] }, { "7": [note] }, { "9": [note, note, note, note] }],
+		//		"9": [{ "2": [note] }]	
+		//          },
+		//	"2015": {
+		//		"8": [{ "3": [note, note] }, { "7": [note] }, { "9": [note, note, note, note] }],
+		//		"9": [{ "2": [note] }]	
 		//			}
 	};
 
@@ -282,7 +299,7 @@
 					appViewModel.observableEvent.price()
 					);
 
-					var dayEvents = appViewModel.EVENT_MANAGER.addEvent(kkEvent);
+					var dayEvents = appViewModel.EVENT_MANAGER.addEvent( kkEvent );
 
 					appViewModel.setCalendarPlacementRow( dayEvents );
 					appViewModel.redrawCalendarCell( dayEvents, appViewModel.addNewEvent_Day(), kkEvent.startDate.month );
@@ -302,12 +319,23 @@
 
 	self.prepareDeleteEventDetailsPageOnDeleteLinkClick = function ( id, year, month, day )
 	{
-
 		var $popup = $( "#details" ).siblings( ".confirmation-popupbox-container" );
 		var $yesBtn = $popup.find( ".confirmation-popupbox-yesbtn" );
 		$yesBtn.attr( "data-bind", "click: function () { $root.deleteEventDetailsPageOnConfirmationYesBtnClick($element, " + id + "," + year + "," + month + "," + day + ")}" );
 
-		self.showConfirmationPopupBox( $popup, "Czy napewno chcesz usunąć wybrane wydarzenie?" );
+		self.showConfirmationPopupBox( $popup, "Czy napewno chcesz usunąć wskazane wydarzenie?" );
+
+		ko.unapplyBindings( $yesBtn[0] );
+		ko.applyBindings( self, $yesBtn[0] );
+	};
+
+	self.prepareDeleteNoteDetailsPageOnDeleteLinkClick = function ( id, year, month, day )
+	{
+		var $popup = $( "#details" ).siblings( ".confirmation-popupbox-container" );
+		var $yesBtn = $popup.find( ".confirmation-popupbox-yesbtn" );
+		$yesBtn.attr( "data-bind", "click: function () { $root.deleteNoteDetailsPageOnConfirmationYesBtnClick($element, " + id + "," + year + "," + month + "," + day + ")}" );
+
+		self.showConfirmationPopupBox( $popup, "Czy napewno chcesz usunąć wskazaną notatke?" );
 
 		ko.unapplyBindings( $yesBtn[0] );
 		ko.applyBindings( self, $yesBtn[0] );
@@ -326,7 +354,7 @@
 			} else
 			{
 				appViewModel.hideLoader( $loader );
-				var $container = $( "#details #detailsEventBlockList .details-event-block-container[data-eventid='" + id + "']" );
+				var $container = $( "#details #detailsEventsAndNotesContainer .details-event-block-container[data-eventid='" + id + "']" );
 
 				$container.fadeOut( 500, function ()
 				{
@@ -364,6 +392,35 @@
 		//call WebAPI - Delete event with given id
 		//////////////////////////////////////////////
 		self.UTILS.webApiCaller.callDeleteEvent( id, element, callback );
+	};
+
+	self.deleteNoteDetailsPageOnConfirmationYesBtnClick = function ( element, id, year, month, day )
+	{
+		var callback = function ( result, $loader, appViewModel )
+		{
+			if ( result.IsSuccess === false )
+			{
+				appViewModel.hideLoader( $loader );
+
+				//TODO: change alert to some error popop or error page...
+				alert( result.Message );
+			} else
+			{
+				appViewModel.hideLoader( $loader );
+				var $container = $( "#details #notesList .li-note-container[data-noteid='" + id + "']" );
+
+				$container.fadeOut( 500, function ()
+				{
+					$container.remove();
+					appViewModel.NOTE_MANAGER.removeNote( id, year, month, day );
+				} );
+			}
+		}
+
+		//////////////////////////////////////////////
+		//call WebAPI - Delete note with given id
+		//////////////////////////////////////////////
+		self.UTILS.webApiCaller.callDeleteNote( id, element, callback );
 	};
 
 	self.editEventDetailsPageOnEditLinkClick = function ( id, year, month, day )
@@ -425,6 +482,69 @@
 		$addEventContainer.find( "#Event_Title" ).focus();
 	};
 
+	self.editNoteDetailsPageOnEditLinkClick = function ( id )
+	{
+		var $editContainer = $( "<div class='edit-mode-note-container'></div>" );
+		var $btns = $( "<div style='text-align:center;font-size:14px;'><span class='link save-link' style='padding:4px;color: rgb(68, 192, 64);'  data-bind='click:$root.updateNoteDetailsPageOnSaveLinkClick.bind($root," + id + ")'>zapisz</span><span class='link cancel-link' style='padding:4px;color:red;' data-bind='click:$root.cancelEditNoteDetailsPageOnCancelLinkClick.bind($root," + id + ")'>anuluj</span></div>" );
+		var cancelLink = $btns.find( ".cancel-link" )[0];
+		var saveLink = $btns.find( ".save-link" )[0];
+
+		ko.unapplyBindings( cancelLink );
+		ko.unapplyBindings( saveLink );
+		ko.applyBindings( self, cancelLink );
+		ko.applyBindings( self, saveLink );
+
+		var $textbox = $( "<textarea style='width:90%;padding:10px;vertical-align:top;margin-top:20px;'/>" );
+		var $container = $( "#details #detailsEventsAndNotesContainer .li-note-container[data-noteid='" + id + "']" );
+		var noteText = $container.find( "pre" ).text();
+		$container.find( ".note-content" ).hide();
+		$textbox.val( noteText );
+		$editContainer.append( $textbox ).append( $btns );
+		$container.append( $editContainer ).find( "textarea" ).focus();
+	};
+
+	self.updateNoteDetailsPageOnSaveLinkClick = function ( id )
+	{
+		var $container = $( "#details #notesList .li-note-container[data-noteid='" + id + "']" );
+		var text = $container.find( "textarea" ).val();
+
+		var note = self.NOTE_MANAGER.getNoteByDateAndId( id, self.detailsPageDisplayDate.year(), self.detailsPageDisplayDate.month(), self.detailsPageDisplayDate.day() );
+
+		if ( !note )
+		{
+			return false;
+		}
+
+		var data = 'Data=' + text + '&Id=' + id;
+		var callback = function ( result, appViewModel, $loader, $container, note, text )
+		{
+			if ( result.IsSuccess === false )
+			{
+				appViewModel.hideLoader( $loader );
+				alert( result.Message );
+			} else
+			{
+				appViewModel.hideLoader( $loader );
+				note.data = text;
+				$container.find( "pre" ).text(text);
+				$container.find( ".edit-mode-note-container" ).remove();
+				$container.find( ".note-content" ).show();
+			}
+		}
+
+		//////////////////////////////////////////////
+		//call WebAPI - Update note with given id
+		//////////////////////////////////////////////
+		self.UTILS.webApiCaller.callUpdateNote( data, callback, $container, note, text );
+	};
+
+	self.cancelEditNoteDetailsPageOnCancelLinkClick = function ( id )
+	{
+		var $container = $( "#details #detailsEventsAndNotesContainer .li-note-container[data-noteid='" + id + "']" );
+		$container.find( ".edit-mode-note-container" ).remove();
+		$container.find( ".note-content" ).show();
+	};
+
 	self.redrawCalendarCell = function ( dayEvents, day, month )
 	{
 		var cellDay;
@@ -481,12 +601,12 @@
 		var offset = $element.position().top + $addNewEventContainer.position().top;
 
 		if ( $element.hasClass( "visible" ) )
-		{			
+		{
 			$element.text( "Ukryj dodatkowe opcje -" );
 			$element.closest( ".add-event-fieldset" ).find( ".more-options-container" ).slideDown();
 			$element.scrollTo( 500, offset );
 		} else
-		{			
+		{
 			$element.text( "Pokaż więcej opcji +" );
 			$element.closest( ".add-event-fieldset" ).find( ".more-options-container" ).slideUp();
 			$addNewEventContainer.scrollTo( 500 );
@@ -529,7 +649,7 @@
 			case 1:
 				break;
 			case 2:
-				$eventBlockContainer = $block.closest( ".details-event-block-container" );	
+				$eventBlockContainer = $block.closest( ".details-event-block-container" );
 				$eventBlockContainer.scrollTo( 500 );
 				break;
 			default:
@@ -571,11 +691,16 @@
 		self.detailsPageDisplayDate.month( self.todayDate.month );
 		self.detailsPageDisplayDate.year( self.todayDate.year );
 
+		//Events
 		self.removeEventRectanglesFromDetailsDay();
-
-		var events = self.EVENT_MANAGER.getEventsForGivenDay( self.detailsPageDisplayDate.year(), self.detailsPageDisplayDate.month(), self.detailsPageDisplayDate.day() )
+		var events = self.EVENT_MANAGER.getEventsForGivenDay( self.todayDate.year, self.todayDate.month, self.todayDate.day )
 		self.detailsPageDayEvents( events );
 
+		//Notes
+		var notes = self.NOTE_MANAGER.getNotesForGivenDay( self.todayDate.year, self.todayDate.month, self.todayDate.day )
+		self.detailsPageDayNotes( notes );
+
+		//Draw to detailsDayTable
 		for ( var i in events )
 		{
 			self.drawEventToDetailsDayTable( events[i] );
@@ -690,8 +815,7 @@
 
 	self.removeEventRectanglesFromDetailsDay = function ()
 	{
-		var $detailsTable = $( "#details #calendarDayDetailsTable" );
-		$detailsTable.find( ".event-rectangle-details" ).remove();
+		$( "#details #calendarDayDetailsTable .event-rectangle-details" ).remove();
 	};
 
 	self.moveToDetailsPageOnCalendarCellClick = function ( element )
@@ -736,10 +860,13 @@
 			self.detailsPageDisplayDate.month( self.calendarPageDisplayDate.month() );
 		}
 
-		self.removeEventRectanglesFromDetailsDay();
+		var notes = self.NOTE_MANAGER.getNotesForGivenDay( self.detailsPageDisplayDate.year(), self.detailsPageDisplayDate.month(), self.detailsPageDisplayDate.day() )
+		self.detailsPageDayNotes( notes );
 
 		var events = self.EVENT_MANAGER.getEventsForGivenDay( self.detailsPageDisplayDate.year(), self.detailsPageDisplayDate.month(), self.detailsPageDisplayDate.day() )
 		self.detailsPageDayEvents( events );
+
+		self.removeEventRectanglesFromDetailsDay();
 
 		for ( var i in events )
 		{
@@ -936,7 +1063,6 @@
 
 	self.expandUpdateProfileForm = function ( element )
 	{
-
 		var $cont = $( "#details #updateProfileContainer" );
 		$cont.find( "ol" ).slideDown();
 
@@ -944,7 +1070,6 @@
 
 		$( element ).hide();
 		$cont.find( "#hideBtnUpdateProfile" ).show();
-
 	}
 
 	self.hideUpdateProfileForm = function ( element )
@@ -1511,13 +1636,37 @@
 	{
 		self.calendarPageDisplayDate.year( year );
 		self.redisplayCalendarAtChosenMonth( self.calendarPageDisplayDate.month() - 1 );
-	}
+	};
 
 	self.showEventBlockInfoOnDetailsPageEventRectangleClick = function ( id )
 	{
-		var $container = $( "#details #detailsEventBlockList .details-event-block-container[data-eventid='" + id + "']" );
+		var $container = $( "#details #detailsEventsAndNotesContainer .details-event-block-container[data-eventid='" + id + "']" );
 		var block = $container.find( ".details-event-block" )[0];
 		self.showEventDetailsOnEventBlockClick( block );
+	};
+
+	self.closeAllSelectedEventsListContainerOnClick = function ()
+	{
+		$( "#details #detailsPageAllEventsListContainer" ).hide();
+		self.showDetailsPageClockContainer();
+
+		var $menuItemContainer;
+		var $eventsMenuContainer = $( "#details .events-menu-container" );
+		$eventsMenuContainer.find( ".menu-item-container" ).each( function ()
+		{
+			$menuItemContainer = $( this );
+
+			if ( $menuItemContainer.hasClass( "selected" ) )
+			{
+				$menuItemContainer.removeClass( "selected" );
+				$menuItemContainer.css( "top", "0px" );
+
+				self.detailsPageSelectedEvents.selectedKindValues = [];
+				self.detailsPageSelectedEvents.old( [] );
+				self.detailsPageSelectedEvents.upcoming( [] );
+				self.detailsPageSelectedEvents.settings.showOldEvents( false );
+			}
+		} );
 	};
 
 	self.setCalendarPlacementRow = function ( dayEvents )
@@ -1579,6 +1728,47 @@
 			} );
 
 		}
+	};
+
+	self.AddNoteOnClick = function ()
+	{
+		if ( self.observableNote.data() == "" )
+		{
+			return false;
+		}
+
+		data = 'Data=' + self.observableNote.data();
+		data += '&DisplayDate.Year=' + self.detailsPageDisplayDate.year();
+		data += '&DisplayDate.Month=' + self.detailsPageDisplayDate.month();
+		data += '&DisplayDate.day=' + self.detailsPageDisplayDate.day();
+
+		var callback = function ( result, appViewModel, $loader )
+		{
+			var displayDate, kkNote;
+
+			if ( result.IsSuccess === false )
+			{
+				appViewModel.hideLoader( $loader );
+				alert( result.Message );
+			} else
+			{
+				displayDate = new KKDateModel( null, null, null, self.detailsPageDisplayDate.day(), self.detailsPageDisplayDate.month() - 1, self.detailsPageDisplayDate.year() );
+
+				kkNote = self.NOTE_MANAGER.getNewKKNoteModel( result.NoteId, appViewModel.observableNote.data(), appViewModel.userName, appViewModel.observableNote.privacyLevel.name,
+					appViewModel.observableNote.privacyLevel.value, displayDate, result.DateAdded );
+
+				self.NOTE_MANAGER.addNote( kkNote );
+
+				appViewModel.observableNote.data( "" );
+
+				appViewModel.hideLoader( $loader );
+			}
+		}
+
+		//////////////////////////////////////////////
+		//call WebAPI - Add new note
+		//////////////////////////////////////////////
+		self.UTILS.webApiCaller.callAddNote( data, callback );
 	};
 
 	self.showLoader = function ( $overlay )
@@ -1657,7 +1847,7 @@
 			minute_hand.rotate( 6 * minutes, 100, 100 );
 			second_hand.rotate( 6 * seconds, 100, 100 );
 		}
-	}
+	};
 
 	self.drawDigitalClock = function ()
 	{
@@ -1690,17 +1880,17 @@
 			$( "#details #digitalClock" ).html( currentTimeString );
 
 		}
-	}
+	};
 
 	self.showDetailsPageClockContainer = function ()
 	{
 		$( "#details #clockCanvas" ).fadeIn();
-	}
+	};
 
 	self.hideDetailsPageClockContainer = function ()
 	{
 		$( "#details #clockCanvas" ).hide();
-	}
+	};
 
 	//////////////////////////////////////////////////////
 	// KO extention/helper methods
@@ -1716,4 +1906,4 @@
 		// Remove KO subscriptions and references
 		ko.cleanNode( node );
 	};
-}
+};

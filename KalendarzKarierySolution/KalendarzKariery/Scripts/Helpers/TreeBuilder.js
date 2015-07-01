@@ -1,10 +1,11 @@
-﻿var EventTreeBuilder = function (appViewModel)
+﻿var TreeBuilder = function (appViewModel)
 {
+
 	var self = this;
 
 	self.buildEventTree = function ( yearEventTreeModel, isPublicEventTree )
 	{
-		var eventTree = {}, largest, groups;
+		var eventTree = {}, groups;
 		var dayGroup, day, dayGroupLength, event, kkEvent, address, minutes, startDate;
 		var year, yearProp, eventTreeYearProp, eventTreeMonthProp, eventTreeDayGroupProp, eventTreeEventsProp;
 
@@ -39,6 +40,8 @@
 						minutes = getMinutes( event );
 						startDate = getStartDate( event );
 
+						//TODO: dateAdded and displayDate for events and notes is not new KKDateModel.js but anonymous json object from server
+
 						kkEvent = appViewModel.EVENT_MANAGER.getNewKKEventModel(event.addedBy, address.street, address.city, address.zipCode, event.description, event.details, minutes, event.kind.value, event.kind.name, event.id, event.occupancyLimit, event.privacyLevel.name, event.privacyLevel.value, startDate, event.name, event.urlLink, event.price, event.dateAdded);
 						
 						eventTreeDayGroupProp.push( kkEvent );
@@ -60,7 +63,7 @@
 
 		function getStartDate( event )
 		{
-			//TODO: create KKEventModel from the event returned from the server
+			//TODO: create KKEventModel from the event returned from the server (don't use new Date call - unnecessary)
 
 			////////////////////////////////////////////////////////////////
 			//in javascript months start from 0 to 11 so we need to adjust it
@@ -145,9 +148,6 @@
 		for ( var i = 0; i < eventsArray.length; i++ )
 		{
 			event = eventsArray[i];
-
-			debugger;
-
 			setDateAdded( event );
 			events.push( event );
 		}
@@ -159,5 +159,49 @@
 			var sdate = new Date( parseInt( event.dateAdded.substr( 6 ) ) );
 			event.dateAdded = new KKDateModel( sdate, sdate.getMinutes(), sdate.getHours(), sdate.getDate(), sdate.getMonth() + 1, sdate.getFullYear() );
 		}
+	}
+
+	self.buildNoteTree = function ( yearNoteTreeModel )
+	{
+		var noteTree = {}, groups;
+		var dayGroup, day, dayGroupLength, note, kkNote, dateAdded, displayDate;
+		var year, yearProp, noteTreeYearProp, noteTreeMonthProp, noteTreeDayGroupProp, noteTreeNotesProp;
+
+		for ( var y = 0; y < yearNoteTreeModel.length; y++ )
+		{
+			yearProp = yearNoteTreeModel[y];
+			year = yearProp.year
+			noteTreeYearProp = noteTree[year] ? noteTree[year] : noteTree[year] = {};
+
+			for ( var k = 0; k < yearProp.notesGroupedByMonth.length; k++ )
+			{
+				noteTreeMonthProp = noteTreeYearProp[yearProp.notesGroupedByMonth[k].month] = {};
+				groups = yearProp.notesGroupedByMonth[k].notesGroupedByDay;
+
+				//note day groups
+				for ( var i = 0; i < groups.length; i++ )
+				{
+					dayGroup = groups[i];
+					day = dayGroup.day;
+
+					dayGroupLength = dayGroup.notes.length;
+					noteTreeDayGroupProp = noteTreeMonthProp[day] = [];
+
+					// notes in the day group
+					for ( var j = 0; j < dayGroupLength; j++ )
+					{
+						note = dayGroup.notes[j];
+
+						kkNote = appViewModel.NOTE_MANAGER.getNewKKNoteModel(note.id, note.data, note.addedBy, note.privacyLevel.name, note.privacyLevel.value, note.displayDate, note.isLineThrough, note.dateAdded);
+
+						noteTreeDayGroupProp.push( kkNote );
+					}
+				}
+
+				noteTreeYearProp[yearProp.notesGroupedByMonth[k].month] = noteTreeMonthProp;
+			}
+		}
+
+		return noteTree;
 	}
 };

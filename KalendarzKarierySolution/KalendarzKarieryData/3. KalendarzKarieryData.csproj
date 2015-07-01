@@ -75,7 +75,7 @@
     <Compile Include="EventKind.cs">
       <DependentUpon>KalendarzKarieryDBEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="EventStatu.cs">
+    <Compile Include="EventStatus.cs">
       <DependentUpon>KalendarzKarieryDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="KalendarzKarieryDBEntities.Context.cs">
@@ -93,13 +93,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>KalendarzKarieryDBEntities.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataTransferModels\EventsGroupedByYearModel.cs" />
-    <Compile Include="Models\DataTransferModels\EventsGroupedByDayModel.cs" />
-    <Compile Include="Models\DataTransferModels\EventsGroupedByMonthModel.cs" />
+    <Compile Include="Models\DataTransferModels\Events\EventsGroupedByYearModel.cs" />
+    <Compile Include="Models\DataTransferModels\Events\EventsGroupedByDayModel.cs" />
+    <Compile Include="Models\DataTransferModels\Events\EventsGroupedByMonthModel.cs" />
     <Compile Include="Models\DataTransferModels\JsonDateTimeModel.cs" />
-    <Compile Include="Models\DataTransferModels\JsonEventModel.cs" />
+    <Compile Include="Models\DataTransferModels\Events\JsonEventModel.cs" />
+    <Compile Include="Models\DataTransferModels\Notes\JsonNoteModel.cs" />
+    <Compile Include="Models\DataTransferModels\Notes\NotesGroupedByDayModel.cs" />
+    <Compile Include="Models\DataTransferModels\Notes\NotesGroupedByMonthModel.cs" />
+    <Compile Include="Models\DataTransferModels\Notes\NotesGroupedByYearModel.cs" />
+    <Compile Include="Models\ViewModels\AddNoteViewModel.cs" />
     <Compile Include="Models\ViewModels\DateModel.cs" />
+    <Compile Include="Models\ViewModels\DateTimeModel.cs" />
     <Compile Include="Models\ViewModels\MainViewModel.cs" />
+    <Compile Include="Models\ViewModels\UpdateNoteViewModel.cs" />
     <Compile Include="Note.cs">
       <DependentUpon>KalendarzKarieryDBEntities.tt</DependentUpon>
     </Compile>

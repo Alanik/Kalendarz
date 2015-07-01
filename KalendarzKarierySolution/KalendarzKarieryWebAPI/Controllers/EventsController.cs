@@ -39,11 +39,12 @@ namespace KalendarzKarieryWebAPI.Controllers
 		// POST api/events (add)
 		public IValidationResponse Post( AddEventViewModel addEventViewModel )
 		{
-			var errorResponse = this.ValidateUser();
-
-			if (!errorResponse.IsSuccess)
+			if (!User.Identity.IsAuthenticated)
 			{
-				return errorResponse;
+				var response = new DefaultValidationResponseModel();
+				response.Message = Consts.NotAuthenticatedErrorMsg;
+				response.IsSuccess = false;
+				return response;
 			}
 
 			if (!ModelState.IsValid)
@@ -59,11 +60,6 @@ namespace KalendarzKarieryWebAPI.Controllers
 			if (@event == null)
 			{
 				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralOperationErrorMsg };
-			}
-
-			if (@event.StartDate.Hour < 7 || @event.EndDate.HasValue && @event.EndDate.Value.Hour >= 21)
-			{
-				//throw new ArgumentException( "godzina rozpoczecia jest wczesniejsza niz 7:00 lub pozniejsza niz 20:00 - drugie podejscie" );
 			}
 
 			_repository.AddEvent( @event );

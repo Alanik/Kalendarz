@@ -11,7 +11,7 @@
 
 	self.calendarPlacementRow = 1;
 
-	self.dateAdded = {} // = new KKDateModel()
+	self.dateAdded = {}; // = new KKDateModel()
 
 	self.description = "";
 
@@ -21,11 +21,11 @@
 
 	self.kind = {
 		value: "",
-		name: ko.observable(""),
+		name: ko.observable( "" ),
 		color: "",
 		headerColor: "",
 		detailsPageEventBorderColor: ""
-	}
+	};
 
 	self.id = 0;
 

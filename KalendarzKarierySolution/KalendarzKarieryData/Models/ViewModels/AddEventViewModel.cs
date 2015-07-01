@@ -15,20 +15,7 @@ namespace KalendarzKarieryData.Models.ViewModels
 		public EventKind EventKind { get; set; }
 		public PrivacyLevel PrivacyLevel { get; set; }
 		public EventStatus EventStatus { get; set; }
-		public DateTimeModel EventStartDate {get; set;}
-		public DateTimeModel EventEndDate {get; set;}
-	}
-
-	public class DateTimeModel
-	{
-		public int Day { get; set; }
-
-		public int Month { get; set; }
-
-		public int Year { get; set; }
-
-		public int Hour { get; set; }
-
-		public int Minute { get; set; }
+		public DateTimeModel EventStartDate { get; set; }
+		public DateTimeModel EventEndDate { get; set; }
 	}
 }

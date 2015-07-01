@@ -18,9 +18,14 @@ namespace KalendarzKarieryCore.Consts
 		public const string InvalidUserNameOrPasswordErrorMsg = "Nazwa użytkownika lub hasło jest nieprawidłowe";
 		#endregion
 
-		#region KalendarzKarieryEvents
+		#region Events
 		public const string EventDoesNotExistErrorMsg = "Błąd, nie ma takiego wydarzenia.";
-		public const string EventDeletedSuccesfullyMsg = "Wydarzenie zostało usunięte pomyślnie";
+		public const string EventDeletedSuccesfullyMsg = "Wydarzenie zostało usunięte.";
+		#endregion
+
+		#region Notes
+		public const string NoteDeletedSuccesfullyMsg = "Notatka została usunięta.";
+		public const string NoteDoesNotExistErrorMsg = "Błąd, taka notatka nie istnieje.";
 		#endregion
 
 		#region Cache

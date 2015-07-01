@@ -1,4 +1,5 @@
-﻿using KalendarzKarieryData.Models.DataTransferModels;
+﻿using KalendarzKarieryData.Models.DataTransferModels.Events;
+using KalendarzKarieryData.Models.DataTransferModels.Notes;
 using KalendarzKarieryData.Models.ViewModels;
 using System;
 using System.Collections;
@@ -17,7 +18,7 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 		User GetUserById( int id );
 		User GetUserByEmail( string email );
 		int? GetUserIdByName( string name );
-		void UpdateUser(User user);
+		void UpdateUser( User user );
 
 		#endregion
 
@@ -37,7 +38,21 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 		object GetMyEventCountTree( int userId );
 		object GetPublicEventCountTree();
 		IList<EventsGroupedByYearModel> GetAllEventsByUserId( int userId );
-		int? GetEventStatusIdByValue(int value);
+		int? GetEventStatusIdByValue( int value );
+
+		#endregion
+
+		#region Note
+
+		IList<NotesGroupedByYearModel> GetNotesByUserId( int id );
+
+		Note GetNoteById( int id );
+
+		void DeleteNote( Note note );
+
+		void AddNote( Note note );
+
+		void UpdateNote (Note note);
 
 		#endregion
 

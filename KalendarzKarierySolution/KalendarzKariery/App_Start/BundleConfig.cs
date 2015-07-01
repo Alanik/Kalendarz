@@ -41,7 +41,7 @@ namespace KalendarzKariery
 			"~/Scripts/JSModels/KKEventDateModel.js",
 			"~/Scripts/JSViewModels/AppViewModel.js",
 			"~/Scripts/Helpers/EventColorHelper.js",
-			"~/Scripts/Helpers/EventTreeBuilder.js",
+			"~/Scripts/Helpers/TreeBuilder.js",
 			"~/Scripts/Program.js"));
         }
     }

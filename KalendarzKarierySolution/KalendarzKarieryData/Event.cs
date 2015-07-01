@@ -36,6 +36,7 @@ namespace KalendarzKarieryData
         public Nullable<decimal> Price { get; set; }
         public Nullable<System.DateTime> EndDate { get; set; }
         public Nullable<int> AddressId { get; set; }
+        public Nullable<System.DateTime> EditDate { get; set; }
     
         public virtual Address Address { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }

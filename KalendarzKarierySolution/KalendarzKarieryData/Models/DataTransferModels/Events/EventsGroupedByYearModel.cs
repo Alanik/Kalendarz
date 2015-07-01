@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KalendarzKarieryData.Models.DataTransferModels
+namespace KalendarzKarieryData.Models.DataTransferModels.Events
 {
 	[Serializable]
 	public class EventsGroupedByYearModel

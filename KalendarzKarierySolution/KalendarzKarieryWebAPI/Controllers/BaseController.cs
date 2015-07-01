@@ -13,26 +13,6 @@ namespace KalendarzKarieryWebAPI.Controllers
 {
 	public class BaseController : ApiController
 	{
-		protected IValidationResponse ValidateUser()
-		{
-			var response = new DefaultValidationResponseModel();
-			response.IsSuccess = true;
-
-			if (!User.Identity.IsAuthenticated)
-			{
-				response.Message = Consts.NotAuthenticatedErrorMsg;
-				response.IsSuccess = false;
-				return response;
-			}
-
-			//if (!User.IsInRole(Consts.AdminRole))
-			//{
-			//	response.Message = Consts.NotAuthorizedErrorMsg;
-			//	response.IsSuccess = false;
-			//	return response;
-			//}
-
-			return response;
-		}
+		
 	}
 }

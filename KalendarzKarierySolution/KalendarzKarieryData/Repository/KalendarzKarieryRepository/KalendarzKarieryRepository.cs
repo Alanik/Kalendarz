@@ -7,10 +7,11 @@ using System.Web;
 using KalendarzKarieryData.Models.ViewModels;
 using System.Web.Hosting;
 using System.Data.Common;
-using KalendarzKarieryData.Models.DataTransferModels;
+using KalendarzKarieryData.Models.DataTransferModels.Events;
 using KalendarzKarieryData.BO.Cache;
 using System.Collections;
 using KalendarzKarieryCore.BO;
+using KalendarzKarieryData.Models.DataTransferModels.Notes;
 
 
 namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
@@ -31,15 +32,13 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 				DbConnection connection = Effort.EntityConnectionFactory.CreateTransient( ConnectionName, loader );
 				_entities = new KalendarzKarieryDBEntities( connection );
 
-				//nie kasowac tego komentarza
-				//		public KalendarzKarieryDBEntities(DbConnection connection)
-				//		: base(connection, true)
-				//		{
-
-				//TODO: use lazy or eager loading?
-				//this.Configuration.LazyLoadingEnabled = false;
-
-				//		}
+				// don't erase the comment!
+				// add this code inside KalendarzKarieryDBEntities
+				//
+				//	public KalendarzKarieryDBEntities(DbConnection connection)
+				//	: base(connection, true)
+				//	{
+				//	}
 
 			}
 			else
@@ -79,7 +78,7 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 
 		#endregion
 
-		#region Events
+		#region Event
 
 		public Event GetEventById( int id )
 		{
@@ -231,10 +230,60 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 
 		private int[] GetYearsWhenEventsStartByPrivacyLvl( int value )
 		{
-
 			var query = from e in _entities.Events
 						where e.PrivacyLevel.Value == value
 						group e by e.StartDate.Year into grp
+						select grp.Key;
+
+			return query.ToArray();
+		}
+
+		#endregion
+
+		#region Note
+
+		public IList<NotesGroupedByYearModel> GetNotesByUserId( int id )
+		{
+			var container = new List<NotesGroupedByYearModel>();
+			var years = GetYearsOfNotesDisplayDate();
+
+			foreach (int num in years)
+			{
+				var list = _entities.Notes.Where( m => m.DisplayDate.Year == num ).OrderBy( m => m.DateAdded ).AsEnumerable();
+				var transformedList = list.Select( m => new JsonNoteModel( m ) );
+
+				var groups = transformedList.ToLookup( m => m.displayDate.month ).Select( o => new NotesGroupedByMonthModel( o.Key, o.ToArray().ToLookup( t => t.displayDate.day ).Select( l => new NotesGroupedByDayModel( l.Key, l.ToArray() ) ) ) ).ToArray();
+
+				container.Add( new NotesGroupedByYearModel( num, groups ) );
+			}
+
+			return container;
+		}
+
+		public void AddNote( Note note )
+		{
+			_entities.Notes.Add( note );
+		}
+
+		public void DeleteNote( Note note )
+		{
+			_entities.Notes.Remove( note );
+		}
+
+		public void UpdateNote (Note note){
+			_entities.Notes.Attach( note );
+			_entities.Entry( note ).State = EntityState.Modified;
+		}
+
+		public Note GetNoteById( int id )
+		{
+			return _entities.Notes.FirstOrDefault( m => m.Id == id );
+		}
+
+		private int[] GetYearsOfNotesDisplayDate()
+		{
+			var query = from n in _entities.Notes
+						group n by n.DisplayDate.Year into grp
 						select grp.Key;
 
 			return query.ToArray();

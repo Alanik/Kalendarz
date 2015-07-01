@@ -76,20 +76,25 @@
 		appViewModel.eventKinds = indexViewModel.EventKinds;
 		appViewModel.publicEventTree = appViewModel.UTILS.eventTreeBuilder.buildEventTree( indexViewModel.PublicEvents, true );
 		appViewModel.publicEventTreeCountBasedOnEventKind = appViewModel.UTILS.eventTreeBuilder.buildEventTreeCountBasedOnEventKind( indexViewModel.PublicEventCountTree, appViewModel.eventKinds );
+
 		//appViewModel.newsEvents = appViewModel.UTILS.eventTreeBuilder.transformNews( indexViewModel.News );
 
+		//if is logged in
 		if ( indexViewModel.MyEvents )
 		{
 			appViewModel.myEventTree = appViewModel.UTILS.eventTreeBuilder.buildEventTree( indexViewModel.MyEvents, false );
 			appViewModel.myEventTreeCountBasedOnEventKind = appViewModel.UTILS.eventTreeBuilder.buildEventTreeCountBasedOnEventKind( indexViewModel.MyEventCountTree, appViewModel.eventKinds );
 
+			appViewModel.myNoteTree = appViewModel.UTILS.eventTreeBuilder.buildNoteTree( indexViewModel.MyNotes );
 			//console.log(JSON.stringify(appViewModel.myEventTree));
 			//console.log(appViewModel.myEventTree);
+			//console.log( appViewModel.myNoteTree );
 
 			//console.log(appViewModel.publicEvents);
 			//console.log(appViewModel.publicEventTree);
 			//console.log( appViewModel.publicEventTreeCountBasedOnEventKind );
 			//console.log( appViewModel.myEventTreeCountBasedOnEventKind );
+			
 
 			/////////////////////////////////////////////////////////////////////////
 			//draw events to the calendar
@@ -156,10 +161,12 @@
 		appViewModel.detailsPageDisplayDate.weekday( currentWeekday );
 
 		var events = appViewModel.EVENT_MANAGER.getEventsForGivenDay( appViewModel.detailsPageDisplayDate.year(), appViewModel.detailsPageDisplayDate.month(), appViewModel.detailsPageDisplayDate.day() )
+		var notes = appViewModel.NOTE_MANAGER.getNotesForGivenDay( appViewModel.detailsPageDisplayDate.year(), appViewModel.detailsPageDisplayDate.month(), appViewModel.detailsPageDisplayDate.day() )
 		appViewModel.detailsPageDayEvents( events );
+		appViewModel.detailsPageDayNotes( notes );
 		///////////////////////////////////////////////////////////////////
 
-		///////////////////////////////////////////////////////////////F///
+		///////////////////////////////////////////////////////////////////
 		//Knockout apply bindings
 		///////////////////////////////////////////////////////////////////
 		ko.applyBindings( appViewModel );
@@ -167,7 +174,7 @@
 
 		///////////////////////////////////////////////////////////////////
 		//draw to details page
-		//////////////////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////////
 
 		//method drawEventToDetailsDayTable(events[i]) needs to be called after ko.applyBindings(appViewModel)!
 		for ( var i in events )

@@ -12,8 +12,7 @@
 		kkNote.addedBy = addedBy;
 		kkNote.privacyLevel.name = privacyLevelName;
 		kkNote.privacyLevel.value = privacyLevelValue;
-		kkNote.isLineThrough = isLineThrough;
-
+		kkNote.isLineThrough = ko.observable( false );
 		//TODO: Get dateAdded from server when adding new event - now we create dateAdded on the client when adding new event
 		if ( dateAdded )
 		{

@@ -115,4 +115,26 @@
 			}
 		} );
 	}
+
+	self.callSetLineThroughNote = function ( data, callback, $container, note ){
+		var $loader = $( "#details" ).siblings( ".dotted-page-overlay" );
+
+		$.ajax( {
+			url: "/api/Notes/",
+			dataType: "JSON",
+			type: "PUT",
+			beforeSend: function () { self.appViewModel.showLoader( $loader ); },
+			data: data,
+			success: function ( result )
+			{
+				callback( result, self.appViewModel, $loader, $container, note);
+			},
+			error: function ()
+			{
+				alert( "Wystąpił nieoczekiwany błąd. Prosze spróbować jeszcze raz." );
+				self.appViewModel.hideLoader( $loader );
+			}
+		} );
+
+	};
 }

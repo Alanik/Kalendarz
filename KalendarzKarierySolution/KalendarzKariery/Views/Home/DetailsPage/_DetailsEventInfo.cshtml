@@ -33,9 +33,9 @@
 			<div class="details-event-block-info-addedby">
 				<span>dodane przez:</span><span data-bind="text: ' ' + addedBy"></span>
 			</div>
-			<div style="padding: 10px 0; text-align: right;">
+			<div style="text-align: right;font-size:18px;">
 				<div style="display: inline-block;" class="link details-edit-event-link" data-bind="if: $root.userName.toUpperCase() == addedBy.toUpperCase(), click: function () { $root.editEventDetailsPageOnEditLinkClick( id, startDate.year, startDate.month, startDate.day ) }"><span>edytuj</span></div>
-				<div style="display: inline-block; padding-left: 10px;" class="link details-delete-event-link" data-bind="if: $root.userName.toUpperCase() == addedBy.toUpperCase(), click: function () { $root.prepareDeleteEventDetailsPageOnDeleteLinkClick( id, startDate.year, startDate.month, startDate.day ) }"><span>usuń</span></div>
+				<div style="display: inline-block; color: rgb(175, 167, 167);" class="link details-delete-event-link" data-bind="if: $root.userName.toUpperCase() == addedBy.toUpperCase(), click: function () { $root.prepareDeleteEventDetailsPageOnDeleteLinkClick( id, startDate.year, startDate.month, startDate.day ) }"><span>usuń</span></div>
 			</div>
 		</div>
 

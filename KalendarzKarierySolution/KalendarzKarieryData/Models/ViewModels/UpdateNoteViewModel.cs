@@ -10,5 +10,6 @@ namespace KalendarzKarieryData.Models.ViewModels
 	{
 		public int Id { get; set; }
 		public string Data { get; set; }
+		public bool IsLineThrough { get; set; }
 	}
 }

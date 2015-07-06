@@ -88,6 +88,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 			if (note != null && note.User.UserName.ToLower() == this.User.Identity.Name.ToLower())
 			{
 				note.Data = model.Data;
+				note.IsLineThrough	 = model.IsLineThrough;
 				note.EditDate = DateTimeFacade.DateTimeNow();
 
 				_repository.UpdateNote( note );

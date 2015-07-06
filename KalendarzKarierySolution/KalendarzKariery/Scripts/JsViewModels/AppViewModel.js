@@ -317,6 +317,47 @@
 		}
 	};
 
+	self.AddNoteOnClick = function ()
+	{
+		if ( self.observableNote.data() == "" )
+		{
+			return false;
+		}
+
+		data = 'Data=' + self.observableNote.data();
+		data += '&DisplayDate.Year=' + self.detailsPageDisplayDate.year();
+		data += '&DisplayDate.Month=' + self.detailsPageDisplayDate.month();
+		data += '&DisplayDate.day=' + self.detailsPageDisplayDate.day();
+
+		var callback = function ( result, appViewModel, $loader )
+		{
+			var displayDate, kkNote;
+
+			if ( result.IsSuccess === false )
+			{
+				appViewModel.hideLoader( $loader );
+				alert( result.Message );
+			} else
+			{
+				displayDate = new KKDateModel( null, null, null, self.detailsPageDisplayDate.day(), self.detailsPageDisplayDate.month() - 1, self.detailsPageDisplayDate.year() );
+
+				kkNote = self.NOTE_MANAGER.getNewKKNoteModel( result.NoteId, appViewModel.observableNote.data(), appViewModel.userName, appViewModel.observableNote.privacyLevel.name,
+					appViewModel.observableNote.privacyLevel.value, displayDate, result.DateAdded );
+
+				self.NOTE_MANAGER.addNote( kkNote );
+
+				appViewModel.observableNote.data( "" );
+
+				appViewModel.hideLoader( $loader );
+			}
+		}
+
+		//////////////////////////////////////////////
+		//call WebAPI - Add new note
+		//////////////////////////////////////////////
+		self.UTILS.webApiCaller.callAddNote( data, callback );
+	};
+
 	self.prepareDeleteEventDetailsPageOnDeleteLinkClick = function ( id, year, month, day )
 	{
 		var $popup = $( "#details" ).siblings( ".confirmation-popupbox-container" );
@@ -482,10 +523,10 @@
 		$addEventContainer.find( "#Event_Title" ).focus();
 	};
 
-	self.editNoteDetailsPageOnEditLinkClick = function ( id )
+	self.editNoteDetailsPageOnEditLinkClick = function ( id, year, month, day )
 	{
 		var $editContainer = $( "<div class='edit-mode-note-container'></div>" );
-		var $btns = $( "<div style='text-align:center;font-size:14px;'><span class='link save-link' style='padding:4px;color: rgb(68, 192, 64);'  data-bind='click:$root.updateNoteDetailsPageOnSaveLinkClick.bind($root," + id + ")'>zapisz</span><span class='link cancel-link' style='padding:4px;color:red;' data-bind='click:$root.cancelEditNoteDetailsPageOnCancelLinkClick.bind($root," + id + ")'>anuluj</span></div>" );
+		var $btns = $( "<div style='text-align:center;font-size:18px;'><span class='link save-link' style='padding:4px;color: rgb(68, 192, 64);'  data-bind='click:$root.updateNoteDetailsPageOnSaveLinkClick.bind($root," + id + ',' + year + ',' + month  + ',' + day + ")'>zapisz</span><span class='link cancel-link' style='padding:4px;color:red;' data-bind='click:$root.cancelEditNoteDetailsPageOnCancelLinkClick.bind($root," + id + ")'>anuluj</span></div>" );
 		var cancelLink = $btns.find( ".cancel-link" )[0];
 		var saveLink = $btns.find( ".save-link" )[0];
 
@@ -503,19 +544,19 @@
 		$container.append( $editContainer ).find( "textarea" ).focus();
 	};
 
-	self.updateNoteDetailsPageOnSaveLinkClick = function ( id )
+	self.updateNoteDetailsPageOnSaveLinkClick = function ( id, year, month, day )
 	{
 		var $container = $( "#details #notesList .li-note-container[data-noteid='" + id + "']" );
 		var text = $container.find( "textarea" ).val();
 
-		var note = self.NOTE_MANAGER.getNoteByDateAndId( id, self.detailsPageDisplayDate.year(), self.detailsPageDisplayDate.month(), self.detailsPageDisplayDate.day() );
+		var note = self.NOTE_MANAGER.getNoteByDateAndId( id, year, month, day );
 
 		if ( !note )
 		{
 			return false;
 		}
 
-		var data = 'Data=' + text + '&Id=' + id;
+		var data = 'Data=' + text + '&Id=' + id + '&IsLineThrough=' + !note.isLineThrough;
 		var callback = function ( result, appViewModel, $loader, $container, note, text )
 		{
 			if ( result.IsSuccess === false )
@@ -536,6 +577,43 @@
 		//call WebAPI - Update note with given id
 		//////////////////////////////////////////////
 		self.UTILS.webApiCaller.callUpdateNote( data, callback, $container, note, text );
+	};
+
+	self.setLineThroughNoteDetailsPageOnLineThroughLinkClick = function ( id, year, month, day, isLineThrough ){
+	
+		var $container = $( "#details #notesList .li-note-container[data-noteid='" + id + "']" );
+		var text = $container.find( "pre" ).text();
+
+		var note = self.NOTE_MANAGER.getNoteByDateAndId( id, self.detailsPageDisplayDate.year(), self.detailsPageDisplayDate.month(), self.detailsPageDisplayDate.day() );
+
+		if ( !note )
+		{
+			return false;
+		}
+
+		var data = 'Data=' + text + '&Id=' + id + '&IsLineThrough=' + isLineThrough;
+		var callback = function ( result, appViewModel, $loader, $container, note )
+		{
+			var isLineThrough;
+
+			if ( result.IsSuccess === false )
+			{
+				appViewModel.hideLoader( $loader );
+				alert( result.Message );
+			} else
+			{
+			    isLineThrough = !note.isLineThrough();
+				appViewModel.hideLoader( $loader );
+				note.isLineThrough( isLineThrough );
+
+				console.log(appViewModel.detailsPageDayNotes());
+			}
+		}
+
+		//////////////////////////////////////////////
+		//call WebAPI - setLineThrough note with given id
+		//////////////////////////////////////////////
+		self.UTILS.webApiCaller.callSetLineThroughNote( data, callback, $container, note, isLineThrough );
 	};
 
 	self.cancelEditNoteDetailsPageOnCancelLinkClick = function ( id )
@@ -1728,47 +1806,6 @@
 			} );
 
 		}
-	};
-
-	self.AddNoteOnClick = function ()
-	{
-		if ( self.observableNote.data() == "" )
-		{
-			return false;
-		}
-
-		data = 'Data=' + self.observableNote.data();
-		data += '&DisplayDate.Year=' + self.detailsPageDisplayDate.year();
-		data += '&DisplayDate.Month=' + self.detailsPageDisplayDate.month();
-		data += '&DisplayDate.day=' + self.detailsPageDisplayDate.day();
-
-		var callback = function ( result, appViewModel, $loader )
-		{
-			var displayDate, kkNote;
-
-			if ( result.IsSuccess === false )
-			{
-				appViewModel.hideLoader( $loader );
-				alert( result.Message );
-			} else
-			{
-				displayDate = new KKDateModel( null, null, null, self.detailsPageDisplayDate.day(), self.detailsPageDisplayDate.month() - 1, self.detailsPageDisplayDate.year() );
-
-				kkNote = self.NOTE_MANAGER.getNewKKNoteModel( result.NoteId, appViewModel.observableNote.data(), appViewModel.userName, appViewModel.observableNote.privacyLevel.name,
-					appViewModel.observableNote.privacyLevel.value, displayDate, result.DateAdded );
-
-				self.NOTE_MANAGER.addNote( kkNote );
-
-				appViewModel.observableNote.data( "" );
-
-				appViewModel.hideLoader( $loader );
-			}
-		}
-
-		//////////////////////////////////////////////
-		//call WebAPI - Add new note
-		//////////////////////////////////////////////
-		self.UTILS.webApiCaller.callAddNote( data, callback );
 	};
 
 	self.showLoader = function ( $overlay )

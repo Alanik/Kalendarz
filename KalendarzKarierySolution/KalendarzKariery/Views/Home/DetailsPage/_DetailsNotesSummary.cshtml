@@ -1,5 +1,5 @@
 ﻿<div id="notesContainer">
-	<div style="font-size: 1.6em; color: rgb(171, 157, 138); border-bottom: 1px solid rgb(255, 255, 255); margin-bottom: 10px;">
+	<div style="font-size: 1.6em;padding:16px; color: rgb(171, 157, 138); border-bottom: 1px solid rgb(255, 255, 255); margin-bottom: 10px;">
 		Notatki
 	</div>
 	<div id="notes" class="notes-shadow-box" style="min-height: 200px;">
@@ -13,11 +13,18 @@
 			<ul id="notesList" data-bind="foreach: $root.detailsPageDayNotes">
 				<li class="li-note-container" data-bind="attr: { 'data-noteid': id }">
 					<div class="note-content">
-						<pre data-bind="text: data" style="white-space: pre-wrap;"></pre>
-						<div style="font-size: 14px; text-align: right;">
-							<span class="link" style="color: rgb(68, 192, 64);" data-bind="click: function () { $root.editNoteDetailsPageOnEditLinkClick( id, displayDate.year, displayDate.month, displayDate.day ) }">edytuj</span>
-							<span data-bind="click: function () { $root.prepareDeleteNoteDetailsPageOnDeleteLinkClick( id, displayDate.year, displayDate.month, displayDate.day ) }" class="link" style="color: red;">usuń</span>
+						<pre data-bind="text: data, css: { 'line-through-text': isLineThrough() }" style="white-space: pre-wrap;"></pre>
+						<div style="float: right;margin-top:16px;">
+						<div style="font-size: 16px; color: rgb(201, 189, 144);text-align:right;">
+						<span>dodano: </span><span data-bind="text: dateAdded.displayFullDate()"></span>
 						</div>
+							<div style="font-size: 18px; text-align: right; background: rgb(237, 237, 237);padding:0 10px;">
+								<span style="color: gray; padding-right: 10px;" class="link" data-bind="click: function () { $root.setLineThroughNoteDetailsPageOnLineThroughLinkClick( id, displayDate.year, displayDate.month, displayDate.day, !isLineThrough() ) }, text: isLineThrough() ? 'odkreśl' : 'skreśl' ">skreśl</span>
+								<span class="link" style="color: gray;" data-bind="click: function () { $root.editNoteDetailsPageOnEditLinkClick( id, displayDate.year, displayDate.month, displayDate.day ) }">edytuj</span>
+								<span data-bind="click: function () { $root.prepareDeleteNoteDetailsPageOnDeleteLinkClick( id, displayDate.year, displayDate.month, displayDate.day ) }" class="link" style="color: rgb(175, 167, 167);">usuń</span>
+							</div>
+						</div>
+
 					</div>
 				</li>
 			</ul>

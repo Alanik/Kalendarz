@@ -535,6 +535,7 @@ header, footer, nav, section, div {
 	min-height: 500px;
 	padding-top: 20px;
 	border-top: 2px solid rgb(250, 248, 240);
+	border-left: 3px solid rgb(215, 208, 184);
 }
 
 .login-bar-container {
@@ -918,11 +919,15 @@ background:rgb(115, 233, 162);
 }
 
 .details-delete-event-link {
-	color: red;
+	color: gray;
+}
+
+.line-through-text {
+	text-decoration: line-through;
 }
 
 .details-edit-event-link {
-	color: rgb(68, 192, 64);
+	color: gray;
 }
 
 #spinnerText {
@@ -935,7 +940,7 @@ background:rgb(115, 233, 162);
 }
 
 .title-header {
-	text-align: left;
+	text-align: center;
 	font-size: 1.6em;
 	color: rgb(245, 241, 224);
 	padding: 10px;
@@ -1053,12 +1058,22 @@ background:rgb(115, 233, 162);
 }
 
 .link {
-	text-decoration: underline;
+	/*text-decoration: underline;*/
 }
 
-	.link:hover {
-		cursor: pointer;
-	}
+.note-content {
+	overflow: hidden;
+	border-bottom: 1px solid rgb(237, 233, 217);
+	list-style-position:inside;
+}
+
+.li-note-container {
+list-style-position:inside;
+}
+
+.link:hover {
+	cursor: pointer;
+}
 
 .lobby-profile-menu {
 }
@@ -1273,6 +1288,8 @@ background:rgb(115, 233, 162);
 #detailsEventsAndNotesContainer {
 	overflow: hidden;
 	padding-bottom: 40px;
+	border-left:3px solid rgb(215, 208, 184);
+
 }
 
 .close-btn-x {
@@ -1286,6 +1303,7 @@ background:rgb(115, 233, 162);
 	padding: 0px 2%;
 	padding-bottom: 20px;
 	/*background:rgb(214, 210, 193);*/
+	border-left:3px solid rgb(215, 208, 184);
 }
 
 	#calendarDayDetailsTable .table-details-head {
@@ -1293,6 +1311,7 @@ background:rgb(115, 233, 162);
 		text-align: left;
 		color: rgb(123, 118, 106);
 		padding-top: 20px;
+		font-size:18px;
 	}
 
 		#calendarDayDetailsTable .table-details-head div {
@@ -1645,7 +1664,6 @@ legend {
 /*Settings*/
 
 #settingsContainer {
-	margin-top: 40px;
 	width: 90%;
 }
 

@@ -72,6 +72,7 @@
 		var currentWeekday = $calendar.find( ".today-cell" ).attr( "weekday" );
 
 		var appViewModel = new AppViewModel( date, currentWeekday, userName, this.spinner );
+
 		appViewModel.eventPrivacyLevels = indexViewModel.PrivacyLevels;
 		appViewModel.eventKinds = indexViewModel.EventKinds;
 		appViewModel.publicEventTree = appViewModel.UTILS.eventTreeBuilder.buildEventTree( indexViewModel.PublicEvents, true );

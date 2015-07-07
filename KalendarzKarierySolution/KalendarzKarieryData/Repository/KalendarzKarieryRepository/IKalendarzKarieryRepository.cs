@@ -27,7 +27,8 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 		Event GetEventById( int id );
 		void DeleteEvent( Event @event );
 		void AddEvent( Event @event );
-		IList<EventsGroupedByYearModel> GetAllPublicEvents();
+		void UpdateEvent (Event @event);
+	    IList<EventsGroupedByYearModel> GetAllPublicEvents();
 		EventsGroupedByYearModel GetAllEventsForGivenYearByUserId( int id, int year );
 		ICollection<object> GetAllPrivacyLevels();
 		ICollection<object> GetAllEventKinds();

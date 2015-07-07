@@ -36,7 +36,7 @@
 						<div class="div-separator">
 							<div style="display: inline-block;">
 								<label>Godzina rozpoczęcia: </label>
-								<select id="startHourSelectBox" class="time-select-box" data-bind="value: startDate.startHour">
+								<select id="startHourSelectBox" class="time-select-box" data-bind="optionsText: 'name', optionsValue: 'value', value: $root.observableEvent.startDate.startHour">
 									@for (int i = 7; i < 21; i++)
 		 {
 										<option value="@i">@i</option>
@@ -44,7 +44,7 @@
 								</select>
 
 								<span>: </span>
-								<select id="startMinuteSelectBox" class="time-select-box" data-bind="value: startDate.startMinute">
+								<select id="startMinuteSelectBox" class="time-select-box" data-bind="optionsText: 'name', optionsValue: 'value', value: $root.observableEvent.startDate.startMinute">
 									@for (int i = 0; i < 60; i++)
 		 {
 										<option value="@i">@i</option>
@@ -56,7 +56,7 @@
 								<label>Godzina zakończenia: </label>
 
 								<div id="endDateValidationErrorMsg" class="field-validation-error"></div>
-								<select id="endHourSelectBox" class="time-select-box end-date-selectbox" data-bind="value: startDate.endHour">
+								<select id="endHourSelectBox" class="time-select-box end-date-selectbox" data-bind="optionsText: 'name', optionsValue: 'value', value: $root.observableEvent.startDate.endHour">
 									@for (int i = 7; i < 21; i++)
 		 {
 										<option value="@i">@i</option>
@@ -65,7 +65,7 @@
 
 
 								<span>: </span>
-								<select id="endMinuteSelectBox" class="time-select-box end-date-selectbox" data-bind="value: startDate.endMinute">
+								<select id="endMinuteSelectBox" class="time-select-box end-date-selectbox" data-bind="optionsText: 'name', optionsValue: 'value', value: $root.observableEvent.startDate.endMinute">
 									@for (int i = 0; i < 60; i++)
 		 {
 										<option value="@i">@i</option>								
@@ -92,7 +92,7 @@
 										<span id="dateValidationErrorMsg" class="field-validation-error" style="display: none">Nieprawidłowa data.</span>
 									</div>
 								</div>
-								@Html.TextBoxFor( m => m.StartDate.Day, string.Empty, new { id = "eventStartDayTxtBox", @class = "event-startdate-txtbox", placeholder = "dzień", maxlength = 2 } ) <span style="color: #b3aba1;">/ </span>@Html.TextBoxFor( m => m.StartDate.Month, string.Empty, new { id = "eventStartMonthTxtBox", @class = "event-startdate-txtbox", placeholder = "miesiąc", maxlength = 2 } ) <span style="color: #b3aba1;">/ </span>@Html.TextBoxFor( m => m.StartDate.Year, string.Empty, new { id = "eventStartYearTxtBox", @class = "event-startdate-txtbox", placeholder = "rok", maxlength = 4 } )
+								@Html.TextBoxFor( m => m.StartDate.Day, string.Empty, new { id = "eventStartDayTxtBox", @class = "event-startdate-txtbox", placeholder = "dzień", maxlength = 2, data_bind = "value: $root.observableEvent.startDate.day" } ) <span style="color: #b3aba1;">/ </span>@Html.TextBoxFor( m => m.StartDate.Month, string.Empty, new { id = "eventStartMonthTxtBox", @class = "event-startdate-txtbox", placeholder = "miesiąc", maxlength = 2, data_bind = "value: $root.observableEvent.startDate.month" } ) <span style="color: #b3aba1;">/ </span>@Html.TextBoxFor( m => m.StartDate.Year, string.Empty, new { id = "eventStartYearTxtBox", @class = "event-startdate-txtbox", placeholder = "rok", maxlength = 4, data_bind = "value: $root.observableEvent.startDate.year" } )
 							</div>
 						</div>
 
@@ -126,7 +126,7 @@
 								<div>
 									@Html.ValidationMessageFor( m => m.Address.ZipCode )
 								</div>
-								@Html.TextBoxFor( m => m.Address.ZipCode, new { maxlength = 6, placeholder = "00-000", style = "width:50px !important;" } )
+								@Html.TextBoxFor( m => m.Address.ZipCode, new { maxlength = 6, placeholder = "00-000", style = "width:50px !important;", data_bind= "value:address.zipCode" } )
 							</div>
 
 							<div class="div-separator">

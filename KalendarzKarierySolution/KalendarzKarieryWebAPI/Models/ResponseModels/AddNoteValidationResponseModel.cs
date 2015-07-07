@@ -9,6 +9,5 @@ namespace KalendarzKarieryWebAPI.Models.ResponseModels
 	{
 		public int NoteId { get; set; }
 		public bool IsSuccess { get; set; }
-		public DateTime DateAdded { get; set; }
 	}
 }

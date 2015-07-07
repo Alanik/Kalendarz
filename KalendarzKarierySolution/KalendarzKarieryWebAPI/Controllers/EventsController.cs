@@ -55,7 +55,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 				return response;
 			}
 
-			var @event = this.GetEventModelFromAddEventViewModel( addEventViewModel );
+			var @event = this.GetEventModelFromAddEventViewModel( addEventViewModel, new Event() );
 
 			if (@event == null)
 			{
@@ -69,8 +69,43 @@ namespace KalendarzKarieryWebAPI.Controllers
 		}
 
 		// PUT api/events/5 (update)
-		public void Put( int id, [FromBody] string value )
+		public IValidationResponse Put( AddEventViewModel addEventViewModel )
 		{
+			if (!User.Identity.IsAuthenticated)
+			{
+				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.NotAuthenticatedErrorMsg };
+			}
+
+			if (!ModelState.IsValid)
+			{
+				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralValidationErrorMsg };
+			}
+
+			var @event = _repository.GetEventById( addEventViewModel.Event.Id );
+
+			if (@event != null)
+			{
+				if (@event.User.UserName.ToLower() != User.Identity.Name.ToLower())
+				{
+					return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralOperationErrorMsg };
+				}
+
+				@event = this.GetEventModelFromAddEventViewModel( addEventViewModel, @event);
+
+				if (@event == null)
+				{
+					return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralOperationErrorMsg };
+				}
+
+				_repository.UpdateEvent(@event);
+				_repository.Save();
+
+				return new AddEventValidationResponseModel { IsSuccess = true, EventId = @event.Id };
+			}
+			else
+			{
+				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.EventDoesNotExistErrorMsg };
+			}
 		}
 
 		// DELETE api/events/5
@@ -111,10 +146,8 @@ namespace KalendarzKarieryWebAPI.Controllers
 			return r;
 		}
 
-		private Event GetEventModelFromAddEventViewModel( AddEventViewModel viewModel )
+		private Event GetEventModelFromAddEventViewModel( AddEventViewModel viewModel, Event @event )
 		{
-			var @event = new Event();
-
 			var statusId = _repository.GetEventStatusIdByValue( 3 );
 			@event.EventStatusId = statusId.Value;
 
@@ -139,13 +172,22 @@ namespace KalendarzKarieryWebAPI.Controllers
 
 			@event.Title = viewModel.Event.Title;
 			@event.NumberOfPeopleAttending = 0;
-			@event.DateAdded = DateTimeFacade.DateTimeNow();
+
+			if (@event.Id == 0)
+			{
+				@event.DateAdded = DateTimeFacade.DateTimeNow();
+			}
+			else
+			{
+				@event.EditDate = DateTimeFacade.DateTimeNow();
+			}
+			
 			@event.Description = viewModel.Event.Description;
 			@event.Details = viewModel.Event.Details;
 			@event.UrlLink = viewModel.Event.UrlLink;
 			@event.OccupancyLimit = viewModel.Event.OccupancyLimit;
 
-			DateTime startDate = new DateTime(viewModel.EventStartDate.Year, viewModel.EventStartDate.Month, viewModel.EventStartDate.Day, viewModel.EventStartDate.Hour, viewModel.EventStartDate.Minute, 0);
+			DateTime startDate = new DateTime( viewModel.EventStartDate.Year, viewModel.EventStartDate.Month, viewModel.EventStartDate.Day, viewModel.EventStartDate.Hour, viewModel.EventStartDate.Minute, 0 );
 
 			DateTime endDate = new DateTime( viewModel.EventEndDate.Year, viewModel.EventEndDate.Month, viewModel.EventEndDate.Day, viewModel.EventEndDate.Hour, viewModel.EventEndDate.Minute, 0 );
 

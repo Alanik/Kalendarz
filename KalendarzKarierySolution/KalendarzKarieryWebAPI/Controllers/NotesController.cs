@@ -60,8 +60,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 			_repository.AddNote( note );
 			_repository.Save();
 
-			return new AddNoteValidationResponseModel { IsSuccess = true, NoteId = note.Id, DateAdded = note.DateAdded };
-
+			return new AddNoteValidationResponseModel { IsSuccess = true, NoteId = note.Id};
 		}
 
 		// PUT api/notes/5
@@ -69,42 +68,35 @@ namespace KalendarzKarieryWebAPI.Controllers
 		{
 			if (!User.Identity.IsAuthenticated)
 			{
-				var response = new DefaultValidationResponseModel();
-				response.Message = Consts.NotAuthenticatedErrorMsg;
-				response.IsSuccess = false;
-				return response;
+				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.NotAuthenticatedErrorMsg };
 			}
 
 			if (string.IsNullOrWhiteSpace( model.Data ))
 			{
-				var response = new DefaultValidationResponseModel();
-				response.IsSuccess = false;
-				response.Message = Consts.GeneralValidationErrorMsg;
-				return response;
+				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralValidationErrorMsg };
 			}
 
 			var note = _repository.GetNoteById( model.Id );
 
-			if (note != null && note.User.UserName.ToLower() == this.User.Identity.Name.ToLower())
+			if ( note != null )
 			{
-				note.Data = model.Data;
-				note.IsLineThrough	 = model.IsLineThrough;
-				note.EditDate = DateTimeFacade.DateTimeNow();
+				if (note.User.UserName.ToLower() == this.User.Identity.Name.ToLower())
+				{
+					note.Data = model.Data;
+					note.IsLineThrough = model.IsLineThrough;
+					note.EditDate = DateTimeFacade.DateTimeNow();
 
-				_repository.UpdateNote( note );
-				_repository.Save();
+					_repository.UpdateNote( note );
+					_repository.Save();
 
-				var response = new UpdateNoteValidationResponseModel();
-				response.IsSuccess = true;
-				response.NoteId = note.Id;
-				return response;
+					return new DefaultValidationResponseModel { IsSuccess = true };	
+				}
+
+				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralOperationErrorMsg };
 			}
 			else
 			{
-				var response = new DefaultValidationResponseModel();
-				response.IsSuccess = false;
-				response.Message = Consts.GeneralValidationErrorMsg;
-				return response;
+				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.NoteDoesNotExistErrorMsg };
 			}
 		}
 

@@ -21,12 +21,20 @@
 				<span data-bind="text: address.zipCode"></span><span data-bind="text: ' ' + address.city"></span>
 			</div>
 		</div>
-
+		<div data-bind="visible:price != 0" style="font-size: 1.4em; color: rgb(87, 80, 64);">
+				<div style="display: inline-block; width: 200px; font-size: .8em;">opłata za wstęp:</div>
+				<a data-bind="text:price + 'zł.'"></a>		
+		</div>
+		<div data-bind="visible:occupancyLimit != null" style="font-size: 1.4em; color: rgb(87, 80, 64);">
+				<div style="display: inline-block; width: 200px; font-size: .8em;">limit miejsc:</div>
+				<a data-bind="text: occupancyLimit"></a>
+		</div>
 		<div class="event-block-info-link">
 			<p>
 				<a data-bind="attr: { href: 'http://' + urlLink, title: name }, text: urlLink" target="_blank"></a>
 			</p>
 		</div>
+
 	</div>
 	<div class="details-event-block-info-footer">
 		<div style="float: right;">
@@ -38,6 +46,5 @@
 				<div style="display: inline-block; color: rgb(175, 167, 167);" class="link details-delete-event-link" data-bind="if: $root.userName.toUpperCase() == addedBy.toUpperCase(), click: function () { $root.prepareDeleteEventDetailsPageOnDeleteLinkClick( id, startDate.year, startDate.month, startDate.day ) }"><span>usuń</span></div>
 			</div>
 		</div>
-
 	</div>
 </div>

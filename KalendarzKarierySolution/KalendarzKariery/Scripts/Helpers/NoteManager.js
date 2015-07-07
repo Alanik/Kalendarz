@@ -2,7 +2,7 @@
 {
 	var self = this;
 
-	self.getNewKKNoteModel = function ( id, data, addedBy, privacyLevelName, privacyLevelValue, displayDate, isLineThrough, dateAdded )
+	self.getNewKKNoteModel = function ( id, data, addedBy, privacyLevelName, privacyLevelValue, displayDate, isLineThrough, dateAdded)
 	{
 		var kkNote = new KKNoteModel();
 		var date = new Date();
@@ -12,11 +12,11 @@
 		kkNote.addedBy = addedBy;
 		kkNote.privacyLevel.name = privacyLevelName;
 		kkNote.privacyLevel.value = privacyLevelValue;
-		kkNote.isLineThrough = ko.observable( false );
-		//TODO: Get dateAdded from server when adding new event - now we create dateAdded on the client when adding new event
+		kkNote.isLineThrough = ko.observable( isLineThrough );
+
 		if ( dateAdded )
 		{
-			date = new Date( dateAdded.year, dateAdded.month - 1, dateAdded.day, dateAdded.hour, dateAdded.minute, 0, 0 );
+			date = new Date( dateAdded.year, dateAdded.month, dateAdded.day, dateAdded.hour, dateAdded.minute );
 		}
 
 		kkNote.dateAdded = new KKDateModel( date, date.getMinutes(), date.getHours(), date.getDate(), date.getMonth(), date.getFullYear() );
@@ -86,21 +86,7 @@
 		var dayNotesArr = noteTreeMonthProp[day] ? noteTreeMonthProp[day] : noteTreeMonthProp[day] = [];
 
 		//1. add note to noteTree 
-		for ( var i = 0; i < dayNotesArr.length; i++ )
-		{
-			note = dayNotesArr[i];
-			if ( newKKNote.dateAdded.hour < note.dateAdded.hour || ( newKKNote.dateAdded.hour == note.dateAdded.hour && newKKNote.dateAdded.minute < note.dateAdded.minute ) )
-			{
-				dayNotesArr.splice( i, 0, newKKNote );
-				didAddNote = true;
-				break;
-			}
-		}
-
-		if ( !didAddNote )
-		{
-			dayNotesArr.push( newKKNote );
-		}
+		dayNotesArr.splice( 0, 0, newKKNote );
 
 		//2. add note to detailsPageDayNotes
 		appViewModel.detailsPageDayNotes( dayNotesArr );

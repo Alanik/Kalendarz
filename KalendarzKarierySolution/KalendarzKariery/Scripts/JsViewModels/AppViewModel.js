@@ -37,6 +37,7 @@
 	self.currentPage = 0;
 
 	self.todayDate = {
+		"javaScriptDate" : date,
 		"day": day,
 		//month starts from 1 to 12
 		"month": month + 1,
@@ -62,7 +63,7 @@
 	// is used when adding or editing event
 	self.observableEvent = new KKEventModelObservable();
 
-	// is used when adding note
+	// is used when adding note-
 	self.observableNote = new KKNoteModelObservable();
 
 	// month starts from 1 to 12
@@ -198,9 +199,9 @@
 		var privacyLvlValue = self.observableEvent.privacyLevel.value;
 		var eventKindValue = self.observableEvent.kind.value();
 
-		var day = $( "#eventStartDayTxtBox" ).val();
-		var month = $( "#eventStartMonthTxtBox" ).val();
-		var year = $( "#eventStartYearTxtBox" ).val();
+		var day = self.observableEvent.startDate.day();
+		var month = self.observableEvent.startDate.month();
+		var year = self.observableEvent.startDate.year();
 
 		day = parseInt( day, 10 );
 		month = parseInt( month, 10 );
@@ -218,10 +219,10 @@
 
 		if ( $addEventForm.valid() )
 		{
-			var startHour = $( "#startHourSelectBox" ).val();
-			var endHour = $( "#endHourSelectBox" ).val();
-			var startMinute = $( "#startMinuteSelectBox" ).val();
-			var endMinute = $( "#endMinuteSelectBox" ).val();
+			var startHour = self.observableEvent.startDate.startHour();
+			var endHour = self.observableEvent.startDate.endHour();
+			var startMinute = self.observableEvent.startDate.startMinute();
+			var endMinute = self.observableEvent.startDate.endMinute();
 
 			startHour = parseInt( startHour, 10 );
 			endHour = parseInt( endHour, 10 );
@@ -304,8 +305,6 @@
 					appViewModel.setCalendarPlacementRow( dayEvents );
 					appViewModel.redrawCalendarCell( dayEvents, appViewModel.addNewEvent_Day(), kkEvent.startDate.month );
 
-					//$addEventForm[0].reset();
-
 					appViewModel.hideLoader( $( "#addNewEventContainer" ).closest( ".main-section" ).siblings( ".dotted-page-overlay" ) );
 				}
 			};
@@ -316,6 +315,131 @@
 			self.UTILS.webApiCaller.callAddEvent( data, callback );
 		}
 	};
+
+	self.updateEventOnClick = function (){
+		var $addEventForm = $( "#addEventForm" );
+		var privacyLvlValue = self.observableEvent.privacyLevel.value;
+		var eventKindValue = self.observableEvent.kind.value();
+
+		var day = self.observableEvent.startDate.day();
+		var month = self.observableEvent.startDate.month();
+		var year = self.observableEvent.startDate.year();
+
+		day = parseInt( day, 10 );
+		month = parseInt( month, 10 );
+		year = parseInt( year, 10 );
+
+		if ( !self.validateDate( day, month, year ) )
+		{
+			$dateValidationMsg = $( "#addNewEventContainer #dateValidationErrorMsg" );
+			$( "#addNewEventContainer .event-startdate-txtbox" ).addClass( "input-validation-error" );
+			$dateValidationMsg.removeClass( "field-validation-valid" ).addClass( "field-validation-error" ).show();
+			return false;
+		}
+
+		$addEventForm.validate().form();
+
+		if ( $addEventForm.valid() )
+		{
+			var startHour = self.observableEvent.startDate.startHour();
+			var endHour = self.observableEvent.startDate.endHour();
+			var startMinute = self.observableEvent.startDate.startMinute();
+			var endMinute = self.observableEvent.startDate.endMinute();
+
+			startHour = parseInt( startHour, 10 );
+			endHour = parseInt( endHour, 10 );
+			startMinute = parseInt( startMinute, 10 );
+			endMinute = parseInt( endMinute, 10 );
+
+			var dateDiffAtLeast10Mins = self.validateAddEventFormDates( startHour, endHour, startMinute, endMinute );
+			if ( !dateDiffAtLeast10Mins )
+			{
+				$( "#endHourSelectBox" ).addClass( "input-validation-error" );
+				$( "#endMinuteSelectBox" ).addClass( "input-validation-error" );
+
+				//TODO: validation message hard coded - needs to be moved to consts
+				$( "#endDateValidationErrorMsg" ).text( "Wydarzenie powinno trwać przynajmniej 10 minut." ).show();
+
+				return false;
+			}
+
+			var startEventDate = new Date( year, month - 1, day, startHour, startMinute, 0, 0 );
+			var endEventDate = new Date( year, month - 1, day, endHour, endMinute, 0, 0 );
+
+			//TODO: move this code to separate class and unit test it
+			////////////
+			var diff = Math.abs( startEventDate - endEventDate );
+			var minutes = Math.floor(( diff / 1000 ) / 60 );
+			////////////
+
+			var startDateJson = startEventDate.toJSON();
+
+			///////////////////////////////////////////
+			//prepare parameters to call WebAPI
+			///////////////////////////////////////////
+			var data = $addEventForm.serialize() +
+				"&Event.Id=" + self.observableEvent.id + 
+				"&Event.StartDate=" + startDateJson +
+				"&EventStartDate.Year=" + year +
+				"&EventStartDate.Month=" + month +
+				"&EventStartDate.Day=" + day +
+				"&EventStartDate.Hour=" + startHour +
+				"&EventStartDate.Minute=" + startMinute +
+				"&EventEndDate.Year=" + year +
+				"&EventEndDate.Month=" + month +
+				"&EventEndDate.Day=" + day +
+				"&EventEndDate.Hour=" + endHour +
+				"&EventEndDate.Minute=" + endMinute +
+				"&PrivacyLevel.Value=" + privacyLvlValue +
+				"&EventKind.Value=" + eventKindValue;
+			var callback = function ( result, appViewModel )
+			{
+				var kkEvent;
+
+				if ( result.IsSuccess === false )
+				{
+					appViewModel.hideLoader();
+					$( "#addNewEventContainer" ).show();
+					alert( result.Message );
+				} else
+				{
+					kkEvent = self.EVENT_MANAGER.getNewKKEventModel(
+					appViewModel.userName,
+					appViewModel.observableEvent.address.street(),
+					appViewModel.observableEvent.address.city(),
+					appViewModel.observableEvent.address.zipCode(),
+					appViewModel.observableEvent.description(),
+					appViewModel.observableEvent.details(),
+					minutes,
+					appViewModel.observableEvent.kind.value(),
+					appViewModel.observableEvent.kind.name(),
+					result.EventId,
+					appViewModel.observableEvent.occupancyLimit(),
+					appViewModel.observableEvent.privacyLevel.name,
+					appViewModel.observableEvent.privacyLevel.value,
+					new KKEventDateModel( startEventDate, startMinute, endMinute, startHour, endHour, day, month - 1, year ),
+					appViewModel.observableEvent.name(),
+					appViewModel.observableEvent.urlLink(),
+					appViewModel.observableEvent.price()
+					);
+
+					appViewModel.EVENT_MANAGER.removeEvent( result.EventId, year, month, day );
+
+					var dayEvents = appViewModel.EVENT_MANAGER.addEvent( kkEvent );
+
+					appViewModel.setCalendarPlacementRow( dayEvents );
+					appViewModel.redrawCalendarCell( dayEvents, kkEvent.startDate.day, kkEvent.startDate.month );
+
+					appViewModel.hideLoader( $( "#addNewEventContainer" ).closest( ".main-section" ).siblings( ".dotted-page-overlay" ) );
+				}
+			};
+
+			//////////////////////////////////////////////
+			//call WebAPI - Add new event
+			//////////////////////////////////////////////
+			self.UTILS.webApiCaller.callUpdateEvent( data, callback );
+		}
+	}
 
 	self.AddNoteOnClick = function ()
 	{
@@ -342,12 +466,10 @@
 				displayDate = new KKDateModel( null, null, null, self.detailsPageDisplayDate.day(), self.detailsPageDisplayDate.month() - 1, self.detailsPageDisplayDate.year() );
 
 				kkNote = self.NOTE_MANAGER.getNewKKNoteModel( result.NoteId, appViewModel.observableNote.data(), appViewModel.userName, appViewModel.observableNote.privacyLevel.name,
-					appViewModel.observableNote.privacyLevel.value, displayDate, result.DateAdded );
-
+					appViewModel.observableNote.privacyLevel.value, displayDate, false);
 				self.NOTE_MANAGER.addNote( kkNote );
 
 				appViewModel.observableNote.data( "" );
-
 				appViewModel.hideLoader( $loader );
 			}
 		}
@@ -480,10 +602,18 @@
 
 		var $addEventContainer = $( "#addNewEventContainer" );
 		$addEventContainer.detach().prependTo( $details );
-		$addEventContainer.find( "legend" ).text( "Edytuj" );
-		$addEventContainer.find( "#btnAddNewEvent" ).attr( "data-privacylvl", 1 );
+		$addEventContainer.find( "legend" ).text( "Edycja wydarzenia" );
+
+		var $addBtn = $addEventContainer.find( "#btnAddNewEvent" );
+		$addBtn.attr( "data-bind", "click: $root.updateEventOnClick" )
+		$addBtn.find( "span" ).text("Zapisz zmiany");
+
+		ko.unapplyBindings( $addBtn[0] );
+		ko.applyBindings( self, $addBtn[0] );
 
 		var event = self.EVENT_MANAGER.getEventByDateAndId( id, year, month, day );
+
+		//TODO: create Factory Method to fillout observebleEvent
 
 		self.observableEvent.name( event.name );
 
@@ -512,10 +642,17 @@
 		self.observableEvent.privacyLevel.name = event.privacyLevel.name;
 		self.observableEvent.privacyLevel.value = event.privacyLevel.value;
 
-		self.observableEvent.startDate = event.startDate;
-
 		self.observableEvent.urlLink( event.urlLink );
 		self.observableEvent.price( event.price );
+
+		self.observableEvent.startDate.javaScriptStartDate = event.startDate.javaScriptStartDate;
+		self.observableEvent.startDate.startMinute( event.startDate.startMinute );
+		self.observableEvent.startDate.startHour( event.startDate.startHour );
+		self.observableEvent.startDate.endMinute( event.startDate.endMinute );
+		self.observableEvent.startDate.endHour( event.startDate.endHour );
+		self.observableEvent.startDate.day( event.startDate.formatZero( event.startDate.day ) );
+		self.observableEvent.startDate.month( event.startDate.formatZero( event.startDate.month ) );
+		self.observableEvent.startDate.year( event.startDate.formatZero( event.startDate.year ) );
 
 		var docScroll = $( "#slide-item-details" ).parent().scrollTop();
 		$addEventContainer.css( "top", docScroll + 30 );
@@ -535,7 +672,7 @@
 		ko.applyBindings( self, cancelLink );
 		ko.applyBindings( self, saveLink );
 
-		var $textbox = $( "<textarea style='width:90%;padding:10px;vertical-align:top;margin-top:20px;'/>" );
+		var $textbox = $( "<textarea style='width:80%;padding:10px;vertical-align:top;margin-top:20px;'/>" );
 		var $container = $( "#details #detailsEventsAndNotesContainer .li-note-container[data-noteid='" + id + "']" );
 		var noteText = $container.find( "pre" ).text();
 		$container.find( ".note-content" ).hide();
@@ -1484,10 +1621,6 @@
 
 	self.showAddPrivateCalendarEventPopupOnClick = function ( element, data, e )
 	{
-		//TODO: change into binding
-		self.observableEvent.privacyLevel.name = "private";
-		self.observableEvent.privacyLevel.value = 1;
-
 		var $lobby = $( "#lobby" );
 		var $calendar = $( "#calendar" );
 		var $details = $( "#details" );
@@ -1505,6 +1638,13 @@
 		var $addEventContainer = $( "#addNewEventContainer" );
 		$addEventContainer.detach().prependTo( $calendar );
 		$addEventContainer.find( "legend" ).text( "Dodaj do kalendarza" );
+		var $addBtn = $addEventContainer.find( "#btnAddNewEvent" );
+		$addBtn.find( "span" ).text( "Dodaj" );
+		$addBtn.attr( "data-bind", "click: $root.addEventOnClick" )
+
+		ko.unapplyBindings( $addBtn[0] );
+		ko.applyBindings( self, $addBtn[0] );
+
 		var $eventTitle = $addEventContainer.find( "#Event_Title" );
 
 		var dayNumber = $( element ).siblings( ".day" ).text();
@@ -1541,9 +1681,13 @@
 
 		var monthNumber = ( currMonth ) < 10 ? '0' + ( currMonth ) : currMonth;
 
-		$addEventContainer.find( "#eventStartDayTxtBox" ).val( dayNumber );
-		$addEventContainer.find( "#eventStartMonthTxtBox" ).val( monthNumber );
-		$addEventContainer.find( "#eventStartYearTxtBox" ).val( currYear );
+		self.EVENT_MANAGER.resetKKEventModelObservable( self.observableEvent, dayNumber, monthNumber, currYear );
+		self.observableEvent.privacyLevel.name = "private";
+		self.observableEvent.privacyLevel.value = 1;
+
+		//$addEventContainer.find( "#eventStartDayTxtBox" ).val( dayNumber );
+		//$addEventContainer.find( "#eventStartMonthTxtBox" ).val( monthNumber );
+		//$addEventContainer.find( "#eventStartYearTxtBox" ).val( currYear );
 
 		var top = $( "#slide-item-calendar" ).parent().scrollTop();
 		$addEventContainer.css( "top", top + 10 );

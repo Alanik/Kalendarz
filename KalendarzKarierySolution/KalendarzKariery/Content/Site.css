@@ -745,7 +745,6 @@ header, footer, nav, section, div {
 #detailsPageAllEventsListContainer {
 	margin-left: 1.8%;
 	margin-top: 50px;
-	margin-bottom: 40px;
 }
 
 #lobbyPageAllEventsListContainer {
@@ -757,9 +756,10 @@ header, footer, nav, section, div {
 	top: 25px;
 	position: absolute;
 	z-index: 101;
-	width: 80%;
-	margin-left: 10%;
+	width: 99%;
 	display: none;
+	border:1px solid #5E5757;
+	left:1px;
 }
 
 .form-header {
@@ -1302,6 +1302,7 @@ list-style-position:inside;
 	position: relative;
 	padding: 0px 2%;
 	padding-bottom: 20px;
+	padding-top:40px;
 	/*background:rgb(214, 210, 193);*/
 	border-left:3px solid rgb(215, 208, 184);
 }

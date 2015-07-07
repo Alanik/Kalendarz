@@ -90,6 +90,11 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 			_entities.Events.Add( @event );
 		}
 
+		public  void UpdateEvent (Event @event){
+			_entities.Events.Attach( @event );
+			_entities.Entry( @event ).State = EntityState.Modified;
+		}
+
 		public void DeleteEvent( Event @event )
 		{
 			_entities.Events.Remove( @event );
@@ -249,7 +254,7 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 
 			foreach (int num in years)
 			{
-				var list = _entities.Notes.Where( m => m.DisplayDate.Year == num ).OrderBy( m => m.DateAdded ).AsEnumerable();
+				var list = _entities.Notes.Where( m => m.DisplayDate.Year == num ).OrderByDescending( m => m.DateAdded ).AsEnumerable();
 				var transformedList = list.Select( m => new JsonNoteModel( m ) );
 
 				var groups = transformedList.ToLookup( m => m.displayDate.month ).Select( o => new NotesGroupedByMonthModel( o.Key, o.ToArray().ToLookup( t => t.displayDate.day ).Select( l => new NotesGroupedByDayModel( l.Key, l.ToArray() ) ) ) ).ToArray();

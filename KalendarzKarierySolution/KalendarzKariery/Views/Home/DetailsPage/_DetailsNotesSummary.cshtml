@@ -11,12 +11,12 @@
 		</div>
 		<div style="margin-top: 40px;">
 			<ul id="notesList" data-bind="foreach: $root.detailsPageDayNotes">
-				<li class="li-note-container" data-bind="attr: { 'data-noteid': id }">
+				<li class="li-note-container" data-bind="attr: { 'data-noteid': id, 'type': isLineThrough() ? 'disc' : 'circle' }">
 					<div class="note-content">
 						<pre data-bind="text: data, css: { 'line-through-text': isLineThrough() }" style="white-space: pre-wrap;"></pre>
 						<div style="float: right;margin-top:16px;">
 						<div style="font-size: 16px; color: rgb(201, 189, 144);text-align:right;">
-						<span>dodano: </span><span data-bind="text: dateAdded.displayFullDate()"></span>
+						<span>dodano: </span><span data-bind="text: dateAdded.displayFullTime()"></span><span>  </span><span data-bind="	text: dateAdded.displayFullDate()"></span>
 						</div>
 							<div style="font-size: 18px; text-align: right; background: rgb(237, 237, 237);padding:0 10px;">
 								<span style="color: gray; padding-right: 10px;" class="link" data-bind="click: function () { $root.setLineThroughNoteDetailsPageOnLineThroughLinkClick( id, displayDate.year, displayDate.month, displayDate.day, !isLineThrough() ) }, text: isLineThrough() ? 'odkreśl' : 'skreśl' ">skreśl</span>

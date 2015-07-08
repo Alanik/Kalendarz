@@ -1,25 +1,28 @@
 ﻿<header class="title-header">Nadchodzące wydarzenia</header>
-<div id="lobbyEventsDisplayListContainer" data-bind="foreach: publicEvents">
-	<div class="event-block-container" data-bind="attr: {'data-eventid': id}">
-		<div class="event-block hover-cursor-pointer" data-bind="click: function () { $root.showEventDetailsOnEventBlockClick( $element ) }">
-			<div class="event-block-header" data-bind="style: { color: kind.headerColor }">
-				<span data-bind="text: kind.name"></span>
+<div id="lobbyEventsDisplayListContainer">
+	<div style="width: 90%;" data-bind="foreach: publicEvents">
+		<div class="event-block-container" data-bind="attr: { 'data-eventid': id }">
+			<div class="event-block hover-cursor-pointer" data-bind="click: function () { $root.showEventDetailsOnEventBlockClick( $element ) }">
+				<div class="event-block-header" data-bind="style: { color: kind.headerColor }">
+					<span data-bind="text: kind.name"></span>
+				</div>
+				<div class="event-block-body">
+					<div class="name-label">
+						<span data-bind="text: name"></span>
+					</div>
+					<div class="hour-label">
+						<span>godzina: </span><span data-bind="text: startDate.formatZero( startDate.startHour )"></span><span>:</span><span data-bind="	text: startDate.formatZero( startDate.startMinute )"></span><span style="padding: 0 4px;"> - </span>
+						<span data-bind="text: startDate.formatZero( startDate.endHour )"></span><span>:</span><span data-bind="	text: startDate.formatZero( startDate.endMinute )"></span>
+					</div>
+					<div data-bind="if: address.street">
+						<span>adres: </span><span data-bind="text: address.street"></span><span>, </span><span data-bind="	text: address.city"></span>
+					</div>
+				</div>
 			</div>
-			<div class="event-block-body">
-				<div class="name-label">
-					<span data-bind="text: name"></span>
-				</div>
-				<div class="hour-label">
-					<span>godzina: </span><span data-bind="text: startDate.formatZero( startDate.startHour )"></span><span>:</span><span data-bind="	text: startDate.formatZero( startDate.startMinute )"></span><span style="padding: 0 4px;"> - </span>
-					<span data-bind="text: startDate.formatZero( startDate.endHour )"></span><span>:</span><span data-bind="	text: startDate.formatZero( startDate.endMinute )"></span>
-				</div>
-				<div data-bind="if: address.street">
-					<span>adres: </span><span data-bind="text: address.street"></span><span>, </span><span data-bind="	text: address.city"></span>
-				</div>
-			</div>
+			@Html.Partial( "_LobbyEventInfo" )
 		</div>
-		@Html.Partial( "_LobbyEventInfo" )
 	</div>
+
 </div>
 
 

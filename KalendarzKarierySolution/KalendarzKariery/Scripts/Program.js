@@ -9,7 +9,7 @@
 			{
 				if ( !offset )
 				{
-					offset = this.position().top - 20;
+					offset = this.position().top - 50;
 				}
 
 				this.closest( ".scrollable" ).animate( { scrollTop: offset }, speed );

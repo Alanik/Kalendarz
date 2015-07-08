@@ -1619,8 +1619,7 @@
 		return true;
 	};
 
-	self.showAddPrivateCalendarEventPopupOnClick = function ( element, data, e )
-	{
+	self.showAddPrivateCalendarEventPopupOnClick = function ( element, data, e ){
 		var $lobby = $( "#lobby" );
 		var $calendar = $( "#calendar" );
 		var $details = $( "#details" );
@@ -1681,13 +1680,7 @@
 
 		var monthNumber = ( currMonth ) < 10 ? '0' + ( currMonth ) : currMonth;
 
-		self.EVENT_MANAGER.resetKKEventModelObservable( self.observableEvent, dayNumber, monthNumber, currYear );
-		self.observableEvent.privacyLevel.name = "private";
-		self.observableEvent.privacyLevel.value = 1;
-
-		//$addEventContainer.find( "#eventStartDayTxtBox" ).val( dayNumber );
-		//$addEventContainer.find( "#eventStartMonthTxtBox" ).val( monthNumber );
-		//$addEventContainer.find( "#eventStartYearTxtBox" ).val( currYear );
+		self.resetAndSetPrivacyLvlToObservableEvent(dayNumber, monthNumber, currYear, "private", 1);
 
 		var top = $( "#slide-item-calendar" ).parent().scrollTop();
 		$addEventContainer.css( "top", top + 10 );
@@ -1702,10 +1695,11 @@
 
 	self.showAddPublicEventPopupOnClick = function ( element, data, e )
 	{
-		//TODO: change into binding
-		self.observableEvent.privacyLevel.name = "public";
-		self.observableEvent.privacyLevel.value = 2;
+		var day = self.todayDate.day < 10 ? '0' + self.todayDate.day : self.todayDate.day;
+		var month = self.todayDate.month < 10 ? '0' + self.todayDate.month : self.todayDate.month;
 
+		self.resetAndSetPrivacyLvlToObservableEvent(day, month, self.todayDate.year, "public", 2);
+		
 		var $lobby = $( "#lobby" );
 		var $calendar = $( "#calendar" );
 		var $details = $( "#details" );
@@ -1731,10 +1725,10 @@
 
 	self.showAddPrivateEventLobbyPopupOnClick = function ( element, data, e )
 	{
+		var day = self.todayDate.day < 10 ? '0' + self.todayDate.day : self.todayDate.day;
+		var month = self.todayDate.month < 10 ? '0' + self.todayDate.month : self.todayDate.month;
 
-		//TODO: change into binding
-		self.observableEvent.privacyLevel.name = "private";
-		self.observableEvent.privacyLevel.value = 1;
+		self.resetAndSetPrivacyLvlToObservableEvent( day, month, self.todayDate.year, "private", 1 );
 
 		var $lobby = $( "#lobby" );
 		var $calendar = $( "#calendar" );
@@ -1756,6 +1750,12 @@
 		$addEventContainer.show();
 		$addEventContainer.find( "#Event_Title" ).focus();
 	};
+
+	self.resetAndSetPrivacyLvlToObservableEvent = function (day, month, year, privacyName, privacyValue){
+		self.EVENT_MANAGER.resetKKEventModelObservable( self.observableEvent, day, month, year );
+		self.observableEvent.privacyLevel.name = privacyName;
+		self.observableEvent.privacyLevel.value = privacyValue;
+	}
 
 	self.redisplayCalendarAtChosenMonth = function ( monthNum )
 	{

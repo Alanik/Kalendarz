@@ -1,6 +1,6 @@
 ﻿<header class="title-header">Nadchodzące wydarzenia</header>
 <div id="lobbyEventsDisplayListContainer">
-	<div style="width: 90%;" data-bind="foreach: publicEvents">
+	<div style="width: 90%;margin-left:1%;" data-bind="foreach: publicEvents">
 		<div class="event-block-container" data-bind="attr: { 'data-eventid': id }">
 			<div class="event-block hover-cursor-pointer" data-bind="click: function () { $root.showEventDetailsOnEventBlockClick( $element ) }">
 				<div class="event-block-header" data-bind="style: { color: kind.headerColor }">

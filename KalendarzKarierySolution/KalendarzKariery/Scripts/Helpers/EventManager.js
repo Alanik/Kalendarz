@@ -41,8 +41,9 @@
 
 		ev.price( 0 );
 
-		var startM = appViewModel.todayDate.javaScriptDate.getMinutes(), endM;
-		var startH = appViewModel.todayDate.javaScriptDate.getHours(), endH;
+		var now = appViewModel.todayDate.now();
+		var startM = now.getMinutes(), endM;
+		var startH = now.getHours(), endH;
 
 		if ( startM < 49 && startH < 20 || startM < 49 && startH == 20 )
 		{

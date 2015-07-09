@@ -14,18 +14,18 @@
 			<div style="display: inline-block; width: 100px; font-size: .8em;">data:</div>
 			<span data-bind="text: startDate.displayFullDate()"></span>
 		</div>
-		<div data-bind="visible: address.street != '' || address.city != '' " class="details-event-block-info-address">
+		<div data-bind="visible: address.street != '' || address.street != null || address.city != '' || address.city != null" class="details-event-block-info-address">
 			<div style="display: inline-block; width: 100px; font-size: .8em; vertical-align: top;">adres:</div>
 			<div style="display: inline-block;">
 				<div data-bind="text: address.street"></div>
 				<span data-bind="text: address.zipCode"></span><span data-bind="text: ' ' + address.city"></span>
 			</div>
 		</div>
-		<div data-bind="visible:price != 0" style="font-size: 1.4em; color: rgb(87, 80, 64);">
+		<div data-bind="		visible: price != 0 || price != ''" style="font-size: 1.4em; color: rgb(87, 80, 64);">
 				<div style="display: inline-block; width: 200px; font-size: .8em;">opłata za wstęp:</div>
 				<a data-bind="text:price + 'zł.'"></a>		
 		</div>
-		<div data-bind="visible:occupancyLimit != null" style="font-size: 1.4em; color: rgb(87, 80, 64);">
+		<div data-bind="visible: occupancyLimit != null || occupancyLimit != ''" style="font-size: 1.4em; color: rgb(87, 80, 64);">
 				<div style="display: inline-block; width: 200px; font-size: .8em;">limit miejsc:</div>
 				<a data-bind="text: occupancyLimit"></a>
 		</div>

@@ -37,6 +37,7 @@
 	self.currentPage = 0;
 
 	self.todayDate = {
+		"now" : function(){return new Date()},
 		"javaScriptDate" : date,
 		"day": day,
 		//month starts from 1 to 12
@@ -1128,6 +1129,8 @@
 			removeSelectedEvents( lobbyOrDetailsPageSelectedEvents.settings.pageName );
 		}
 
+		$menuItemContainer.scrollTo(500);
+
 		function showSelectedEvents( lobbyOrDetails )
 		{
 			var combinedArray = [], combinedArray2 = [], arr, arr2, shownEvents;
@@ -1869,26 +1872,54 @@
 
 	self.closeAllSelectedEventsListContainerOnClick = function ()
 	{
-		$( "#details #detailsPageAllEventsListContainer" ).hide();
-		self.showDetailsPageClockContainer();
+		var $menuItemContainer, $eventsMenuContainer;
 
-		var $menuItemContainer;
-		var $eventsMenuContainer = $( "#details .events-menu-container" );
-		$eventsMenuContainer.find( ".menu-item-container" ).each( function ()
-		{
-			$menuItemContainer = $( this );
+		switch(self.currentPage){
+			case 0:
+				$( "#lobby #lobbyPageAllEventsListContainer" ).hide();
 
-			if ( $menuItemContainer.hasClass( "selected" ) )
-			{
-				$menuItemContainer.removeClass( "selected" );
-				$menuItemContainer.css( "top", "0px" );
+				$eventsMenuContainer = $( "#lobby .events-menu-container" );
+				$eventsMenuContainer.find( ".menu-item-container" ).each( function ()
+				{
+					$menuItemContainer = $( this );
 
-				self.detailsPageSelectedEvents.selectedKindValues = [];
-				self.detailsPageSelectedEvents.old( [] );
-				self.detailsPageSelectedEvents.upcoming( [] );
-				self.detailsPageSelectedEvents.settings.showOldEvents( false );
-			}
-		} );
+					if ( $menuItemContainer.hasClass( "selected" ) )
+					{
+						$menuItemContainer.removeClass( "selected" );
+						$menuItemContainer.css( "top", "0px" );
+
+						self.lobbyPageSelectedEvents.selectedKindValues = [];
+						self.lobbyPageSelectedEvents.old( [] );
+						self.lobbyPageSelectedEvents.upcoming( [] );
+						self.lobbyPageSelectedEvents.settings.showOldEvents( false );
+					}
+				} );
+
+				break;
+			case 2:
+				$( "#details #detailsPageAllEventsListContainer" ).hide();
+				self.showDetailsPageClockContainer();
+
+				
+				$eventsMenuContainer = $( "#details .events-menu-container" );
+				$eventsMenuContainer.find( ".menu-item-container" ).each( function ()
+				{
+					$menuItemContainer = $( this );
+
+					if ( $menuItemContainer.hasClass( "selected" ) )
+					{
+						$menuItemContainer.removeClass( "selected" );
+						$menuItemContainer.css( "top", "0px" );
+
+						self.detailsPageSelectedEvents.selectedKindValues = [];
+						self.detailsPageSelectedEvents.old( [] );
+						self.detailsPageSelectedEvents.upcoming( [] );
+						self.detailsPageSelectedEvents.settings.showOldEvents( false );
+					}
+				} );
+				break;
+			default: return false;
+		}
 	};
 
 	self.setCalendarPlacementRow = function ( dayEvents )

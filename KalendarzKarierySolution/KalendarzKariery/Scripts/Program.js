@@ -87,6 +87,7 @@
 			appViewModel.myEventTreeCountBasedOnEventKind = appViewModel.UTILS.eventTreeBuilder.buildEventTreeCountBasedOnEventKind( indexViewModel.MyEventCountTree, appViewModel.eventKinds );
 
 			appViewModel.myNoteTree = appViewModel.UTILS.eventTreeBuilder.buildNoteTree( indexViewModel.MyNotes );
+
 			//console.log(JSON.stringify(appViewModel.myEventTree));
 			//console.log(appViewModel.myEventTree);
 			//console.log( appViewModel.myNoteTree );
@@ -96,7 +97,6 @@
 			//console.log( appViewModel.publicEventTreeCountBasedOnEventKind );
 			//console.log( appViewModel.myEventTreeCountBasedOnEventKind );
 			
-
 			/////////////////////////////////////////////////////////////////////////
 			//draw events to the calendar
 			/////////////////////////////////////////////////////////////////////////

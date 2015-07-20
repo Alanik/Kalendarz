@@ -17,16 +17,24 @@
 			<div style="display: inline-block; width: 100px; font-size: .8em;">data:</div>
 			<span data-bind="text: startDate.displayFullDate()"></span>
 		</div>
-		<div class="event-block-info-address">
+		<div data-bind="visible: ( address.street != '' && address.street != null ) || ( address.city != '' && address.city != null )" class="event-block-info-address">
 			<div style="display: inline-block; width: 100px; font-size: .8em; vertical-align: top;">adres:</div>
 			<div style="display: inline-block;">
 				<div data-bind="text: address.street"></div>
-				<span data-bind="text: address.zipCode"></span><span data-bind="	text: ' ' + address.city"></span>
+				<span data-bind="text: address.zipCode"></span><span data-bind="text: ' ' + address.city"></span>
 			</div>
+		</div>
+		<div data-bind="visible: price != 0 && price != ''" class="event-block-info-price">
+			<div style="display: inline-block; width: 100px; font-size: .8em;">opłata za wstęp:</div>
+			<span data-bind="text: price + 'zł.'"></span>
+		</div>
+		<div data-bind="visible: occupancyLimit != null && occupancyLimit != ''" class="event-block-info-occupancyLimit">
+			<div style="display: inline-block; width: 100px; font-size: .8em;">limit miejsc:</div>
+			<span data-bind="text: occupancyLimit"></span>
 		</div>
 		<div class="event-block-info-link">
 			<p>
-				<a data-bind="attr: { href: urlLink, title: name}, text: urlLink" target= "_blank"></a>
+				<a data-bind="attr: { href: urlLink, title: name}, text: urlLink" target="_blank"></a>
 			</p>
 
 		</div>

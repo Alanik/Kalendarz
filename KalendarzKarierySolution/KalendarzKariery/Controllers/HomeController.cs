@@ -81,6 +81,7 @@ namespace KalendarzKariery.Controllers
 			indexViewModel.MyEvents = null;
 			indexViewModel.MyEventCountTree = null;
 
+
 			RegisterViewModel registerViewModel = new RegisterViewModel();
 
 			if (User.Identity.IsAuthenticated)
@@ -91,6 +92,7 @@ namespace KalendarzKariery.Controllers
 				{
 					indexViewModel.MyEvents = _repository.GetAllEventsByUserId( id.Value );
 					indexViewModel.MyEventCountTree = _repository.GetMyEventCountTree( id.Value );
+					indexViewModel.MyNotes = _repository.GetNotesByUserId( id.Value );
 					registerViewModel = this.GetRegisterViewModel( id.Value, _repository );
 				}
 				else

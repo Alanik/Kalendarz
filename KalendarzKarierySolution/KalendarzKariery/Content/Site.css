@@ -496,7 +496,7 @@ header, footer, nav, section, div {
 	z-index: 98;
 	border-bottom: 2px solid rgb(228, 222, 202);
 	color: white;
-	background:#D3CCB8;
+	background: #D3CCB8;
 }
 
 	.other-month-cell .cell-span-container .cell-month-name-span {
@@ -1283,7 +1283,7 @@ background:rgb(115, 233, 162);
 #detailsEventsAndNotesContainer {
 	overflow: hidden;
 	padding-bottom: 40px;
-	width:90%;
+	width: 90%;
 }
 
 .close-btn-x {
@@ -1297,7 +1297,7 @@ background:rgb(115, 233, 162);
 	padding: 0px 2%;
 	padding-bottom: 20px;
 	padding-top: 10px;
-	width:88%;
+	width: 88%;
 	/*background:rgb(214, 210, 193);*/
 }
 
@@ -1736,21 +1736,41 @@ legend {
 }
 
 	.event-block-container .name-label {
-		font-size: 2em;
+		font-size: 1.8em;
+		height: 52px;
 		line-height: 1;
 		padding-bottom: 4px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space:nowrap;
+	}
+
+	.event-block-container .address-label {
+		color:rgb(192, 187, 172);
+		font-size:1.2em;
 	}
 
 	.event-block-container .hour-label {
-		font-size: 1.4em;
+	}
+
+	.event-block-container .date-label {
+	}
+
+	.event-block-container .hour-date-label-container {
+		float: right;
+		display: inline-block;
+		text-align: right;
 		color: rgb(192, 187, 172);
+		position: relative;
+		bottom: 6px;
+		font-size: 1.4em;
 	}
 
 .event-block-header {
-	width: 50%;
 	padding: 10px;
-	padding-left:0px;
-	margin-bottom: 10px;
+	padding-left: 0px;
+	padding-bottom: 0px;
+	overflow: hidden;
 }
 
 .event-block-body {
@@ -1844,7 +1864,6 @@ legend {
 .event-block-info-name {
 	font-size: 1.6em;
 	color: white;
-	padding: 4px;
 }
 
 .event-block-info-description {
@@ -1858,7 +1877,7 @@ legend {
 }
 
 .event-block-info-time {
-	font-size: 1.4em;
+	font-size: 1.6em;
 	line-height: 1;
 	color: rgb(106, 106, 106);
 	margin-bottom: 10px;
@@ -1874,6 +1893,30 @@ legend {
 }
 
 .event-block-info-date {
+	font-size: 1.6em;
+	line-height: 1;
+	color: rgb(106, 106, 106);
+	margin-bottom: 10px;
+	padding: 4px 4px;
+}
+
+.event-block-info-address {
+	font-size: 1.4em;
+	line-height: 1;
+	color: rgb(106, 106, 106);
+	margin-bottom: 10px;
+	padding: 4px 4px;
+}
+
+.event-block-info-price {
+	font-size: 1.4em;
+	line-height: 1;
+	color: rgb(106, 106, 106);
+	margin-bottom: 10px;
+	padding: 4px 4px;
+}
+
+.event-block-info-occupancyLimit {
 	font-size: 1.4em;
 	line-height: 1;
 	color: rgb(106, 106, 106);
@@ -1889,12 +1932,19 @@ legend {
 	padding: 4px 4px;
 }
 
-.event-block-info-address {
+.details-event-block-info-price {
+	font-size: 1.4em;
+	color: rgb(87, 80, 64);
+	margin-bottom: 10px;
+	padding: 4px 4px;
+}
+
+
+.details-event-block-info-occupancyLimit {
 	font-size: 1.4em;
 	line-height: 1;
-	/*background: rgb(198, 183, 183);*/
-	/*color: white;*/
-	color: rgb(106, 106, 106);
+	color: rgb(87, 80, 64);
+	margin-bottom: 10px;
 	padding: 4px 4px;
 }
 

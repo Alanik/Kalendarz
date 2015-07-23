@@ -227,6 +227,7 @@
     <Content Include="Images\Logo\blackAndWhiteSmallKKLogo.png" />
     <Content Include="Images\Logo\kkLogo.png" />
     <Content Include="Images\Logo\kkLogo_small.png" />
+    <Content Include="Images\Logo\kkLogo_verysmall.png" />
     <Content Include="Images\Logo\lightSmallKKLogo.png" />
     <Content Include="Images\Logo\sephiaLogo.png" />
     <Content Include="Images\Logo\sephiaSmallKKLogo.png" />

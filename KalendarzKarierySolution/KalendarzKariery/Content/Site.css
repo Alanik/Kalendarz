@@ -166,13 +166,13 @@ header, footer, nav, section, div {
 }
 
 #lobbyLogo {
-	background-image: url(../Images/Logo/kkLogo_verysmall.png);
+	background-image: url(../Images/Logo/kkLogo_smaller.png);
 	position: absolute !important;
 	background-repeat: no-repeat;
 	/*height: 140px;
 	width: 540px;*/
-	height: 41px;
-	width: 179px;
+	height: 82px;
+	width: 356px;
 }
 
 #layoutLogo {

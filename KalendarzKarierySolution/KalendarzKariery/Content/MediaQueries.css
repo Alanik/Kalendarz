@@ -44,6 +44,16 @@ MEDIA QUERIES
 	}
 
 	.event-block-container {
-	width:45%;
+		width: 45%;
+	}
+
+	@media (max-width: 600px) {
+		#lobbyLogo {
+			background-image: url(../Images/Logo/kkLogo_small.png);
+			position: absolute !important;
+			background-repeat: no-repeat;
+			/*height: 140px;*/
+			width: 100%;
+		}
 	}
 }

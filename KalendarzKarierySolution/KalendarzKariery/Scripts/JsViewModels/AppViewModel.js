@@ -493,6 +493,14 @@
 		ko.applyBindings( self, $yesBtn[0] );
 	};
 
+	self.prepareDeleteEventLobbyPageOnDeleteLinkClick = function (){
+
+	};
+
+	self.deleteEventLobbyPageOnConfirmationYesBtnClick = function (){
+
+	};
+
 	self.prepareDeleteNoteDetailsPageOnDeleteLinkClick = function ( id, year, month, day )
 	{
 		var $popup = $( "#details" ).siblings( ".confirmation-popupbox-container" );
@@ -659,6 +667,10 @@
 		$addEventContainer.css( "top", docScroll + 30 );
 		$addEventContainer.show();
 		$addEventContainer.find( "#Event_Title" ).focus();
+	};
+
+	self.editEventLobbyPageOnEditLinkClick = function (){
+
 	};
 
 	self.editNoteDetailsPageOnEditLinkClick = function ( id, year, month, day )

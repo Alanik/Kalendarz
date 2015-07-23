@@ -88,7 +88,7 @@ header, footer, nav, section, div {
 
 #lobbyQuoteAndNavSection {
 	margin-top: 160px;
-	margin-bottom: 200px;
+	margin-bottom: 150px;
 }
 
 .dotted-page-overlay {
@@ -981,7 +981,12 @@ background:rgb(115, 233, 162);
 
 #addPrivateEventBtn {
 	display: block;
-	padding-bottom: 20px;
+	margin: 0 auto;
+	width: 200px;
+}
+
+#addPublicEventBtn {
+	margin-left: 10px;
 }
 
 #lobbyTableOfEventsSection {
@@ -1003,6 +1008,8 @@ background:rgb(115, 233, 162);
 	text-align: center;
 	display: inline-block;
 	margin-bottom: 10px;
+	background: rgb(250, 248, 240);
+	border-radius: 6px;
 }
 
 .year-name-container {
@@ -1704,9 +1711,15 @@ legend {
 	top: -45px;
 }
 
+.event-block-user-options {
+	position: absolute;
+	right: 0;
+	text-align: center;
+}
+
 .event-block-info-body {
 	padding: 10px;
-	background: rgb(200, 194, 172);
+	background: rgba(200, 194, 172, .8);
 	overflow: hidden;
 	text-align: left;
 }
@@ -1721,6 +1734,7 @@ legend {
 	border-top: 1px solid rgb(250, 250, 250);
 	overflow: hidden;
 	color: gray;
+	background: rgb(248, 245, 235);
 }
 
 .details-event-block-info-footer {
@@ -1742,12 +1756,12 @@ legend {
 		padding-bottom: 4px;
 		overflow: hidden;
 		text-overflow: ellipsis;
-		white-space:nowrap;
+		white-space: nowrap;
 	}
 
 	.event-block-container .address-label {
-		color:rgb(192, 187, 172);
-		font-size:1.2em;
+		color: rgb(192, 187, 172);
+		font-size: 1.2em;
 	}
 
 	.event-block-container .hour-label {
@@ -1964,7 +1978,7 @@ legend {
 }
 
 .event-block-info-addedby {
-	text-align: left;
+	text-align: right;
 }
 
 .details-event-block-info-addedby {

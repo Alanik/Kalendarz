@@ -52,8 +52,8 @@ MEDIA QUERIES
 			background-image: url(../Images/Logo/kkLogo_small.png);
 			position: absolute !important;
 			background-repeat: no-repeat;
-			/*height: 140px;*/
-			width:80%;
+			height: 59px;
+			width: 255px;
 		}
 	}
 }

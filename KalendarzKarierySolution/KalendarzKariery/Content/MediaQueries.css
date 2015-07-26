@@ -74,17 +74,26 @@ MEDIA QUERIES
 	.login-bar-container {
 		text-align: center;
 		top: 90px;
-		margin:0;
+		margin: 0;
 	}
 
 	#loginPageContainer {
 		width: 100%;
-		margin-left:0;
+		margin-left: 0;
 	}
 
 	#registerPageContainer {
 		width: 100%;
-		margin-left:0;
+		margin-left: 0;
+	}
+
+	#lobbyQuoteContainer {
+		font-size: 1.6em;
+	}
+
+	#lobbyQuoteAndNavSection {
+		margin-top: 120px;
+		margin-bottom: 40px;
 	}
 }
 

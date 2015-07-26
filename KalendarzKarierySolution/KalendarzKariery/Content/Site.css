@@ -657,10 +657,10 @@ header, footer, nav, section, div {
 
 .menu-item {
 	border-top: 2px solid rgb(190, 182, 155);
-	height: 30px;
+	height: 5px;
 	color: rgb(133, 123, 100);
 	font-size: 0.9em;
-	width: 95px;
+	width:80px;
 	text-align: center;
 }
 
@@ -1846,7 +1846,7 @@ legend {
 }
 
 .event-block {
-	height: 150px;
+	height: 120px;
 	background: rgb(129, 127, 112);
 	color: rgb(192, 180, 153);
 	box-shadow: 2px 2px 10px rgb(166, 158, 146);

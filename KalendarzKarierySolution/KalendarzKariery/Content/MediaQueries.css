@@ -49,11 +49,23 @@ MEDIA QUERIES
 }
 
 @media (max-width: 800px) {
-		.event-block-container {
-			width: 98%;
-		}
-
-		.menu-item {
-			width: 80px;
-		}
+	.event-block-container {
+		width: 98%;
 	}
+
+	#lobbyLogo {
+		background-image: url(../Images/Logo/kkLogo_mobile.png);
+		position: absolute !important;
+		background-repeat: no-repeat;
+		height: 59px;
+		width: 255px;
+	}
+
+	#layoutLogo {
+		background-image: url(../Images/Logo/kkLogo_mobile.png);
+		position: absolute !important;
+		background-repeat: no-repeat;
+		height: 59px;
+		width: 255px;
+	}
+}

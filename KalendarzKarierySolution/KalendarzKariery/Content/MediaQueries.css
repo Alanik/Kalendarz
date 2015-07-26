@@ -47,13 +47,13 @@ MEDIA QUERIES
 		width: 45%;
 	}
 
-	@media (max-width: 800px) {
+	@media (max-width: 48em) {
 		.event-block-container {
 			width: 98%;
 		}
 
 		.menu-item {
-			width: 80%;
+			width: 80px;
 		}
 	}
 }

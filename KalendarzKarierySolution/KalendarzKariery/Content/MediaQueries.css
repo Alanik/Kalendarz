@@ -74,35 +74,32 @@ MEDIA QUERIES
 	.login-bar-container {
 		text-align: center;
 		top: 90px;
+		margin:0;
 	}
 
 	#loginPageContainer {
-		width: 99%;
+		width: 100%;
+		margin-left:0;
+	}
+
+	#registerPageContainer {
+		width: 100%;
 		margin-left:0;
 	}
 }
 
 @media (max-width: 320px) {
 	#lobbyLogo {
-		background-image: url(../Images/Logo/kkLogo.png);
-		background-size: contain;
-		position: absolute !important;
-		background-repeat: no-repeat;
 		width: 250px;
 		top: 14px;
 	}
 
 	#layoutLogo {
-		background-image: url(../Images/Logo/kkLogo.png);
-		background-size: contain;
-		position: absolute !important;
-		background-repeat: no-repeat;
 		width: 250px;
 		top: 14px;
 	}
 
 	.login-bar-container {
-		text-align: center;
 		top: 80px;
 	}
 }

@@ -14,15 +14,17 @@
 		kkNote.privacyLevel.value = privacyLevelValue;
 		kkNote.isLineThrough = ko.observable( isLineThrough );
 
-		if ( dateAdded )
+		if ( dateAdded instanceof KKDateModel )
 		{
-			date = new Date( dateAdded.year, dateAdded.month, dateAdded.day, dateAdded.hour, dateAdded.minute );
+			kkNote.dateAdded = dateAdded;
+		}
+		else
+		{
+			kkNote.dateAdded = new KKDateModel( dateAdded.minute, dateAdded.hour, dateAdded.day, dateAdded.month, dateAdded.year );
 		}
 
-		kkNote.dateAdded = new KKDateModel( date, date.getMinutes(), date.getHours(), date.getDate(), date.getMonth(), date.getFullYear() );
-
 		date = new Date( displayDate.year, displayDate.month - 1, displayDate.day, 0, 0, 0, 0 );
-		kkNote.displayDate = new KKDateModel( date, date.getMinutes(), date.getHours(), date.getDate(), date.getMonth(), date.getFullYear() );
+		kkNote.displayDate = new KKDateModel( date.getMinutes(), date.getHours(), date.getDate(), date.getMonth() + 1, date.getFullYear() );
 
 		return kkNote;
 	}

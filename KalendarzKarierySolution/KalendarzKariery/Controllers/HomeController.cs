@@ -46,7 +46,7 @@ namespace KalendarzKariery.Controllers
 
 				if (id.HasValue)
 				{
-					indexViewModel.MyEvents = _repository.GetAllEventsByUserId( id.Value );
+					indexViewModel.MyEvents = _repository.GetAllEventsConnectedToUserId( id.Value );
 					indexViewModel.MyEventCountTree = _repository.GetMyEventCountTree( id.Value );
 					indexViewModel.MyNotes = _repository.GetNotesByUserId(id.Value);
 					registerViewModel = this.GetRegisterViewModel( id.Value, _repository );
@@ -90,7 +90,7 @@ namespace KalendarzKariery.Controllers
 
 				if (id.HasValue)
 				{
-					indexViewModel.MyEvents = _repository.GetAllEventsByUserId( id.Value );
+					indexViewModel.MyEvents = _repository.GetAllEventsCreatedByUserId( id.Value );
 					indexViewModel.MyEventCountTree = _repository.GetMyEventCountTree( id.Value );
 					indexViewModel.MyNotes = _repository.GetNotesByUserId( id.Value );
 					registerViewModel = this.GetRegisterViewModel( id.Value, _repository );

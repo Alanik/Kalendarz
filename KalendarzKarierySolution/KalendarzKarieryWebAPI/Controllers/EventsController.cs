@@ -81,6 +81,11 @@ namespace KalendarzKarieryWebAPI.Controllers
 				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralValidationErrorMsg };
 			}
 
+			if (addEventViewModel.Event == null)
+			{
+				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralValidationErrorMsg };
+			}
+
 			var @event = _repository.GetEventById( addEventViewModel.Event.Id );
 
 			if (@event != null)
@@ -90,14 +95,14 @@ namespace KalendarzKarieryWebAPI.Controllers
 					return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralOperationErrorMsg };
 				}
 
-				@event = this.GetEventModelFromAddEventViewModel( addEventViewModel, @event);
+				@event = this.GetEventModelFromAddEventViewModel( addEventViewModel, @event );
 
 				if (@event == null)
 				{
 					return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralOperationErrorMsg };
 				}
 
-				_repository.UpdateEvent(@event);
+				_repository.UpdateEvent( @event );
 				_repository.Save();
 
 				return new AddEventValidationResponseModel { IsSuccess = true, EventId = @event.Id };
@@ -105,6 +110,30 @@ namespace KalendarzKarieryWebAPI.Controllers
 			else
 			{
 				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.EventDoesNotExistErrorMsg };
+			}
+		}
+
+		[HttpPut]
+		public IValidationResponse AddExistingEventToUser( int eventId, string username )
+		{
+			if (!User.Identity.IsAuthenticated)
+			{
+				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.NotAuthenticatedErrorMsg };
+			}
+
+			var @event = _repository.GetEventById( eventId );
+			var user = _repository.GetUserByName(username);
+
+			if (@event != null && user != null && string.Compare(user.UserName, User.Identity.Name, true) == 0)
+			{
+				_repository.AddExistingEventToUser( @event, @user );
+				_repository.Save();
+
+				return new AddEventValidationResponseModel { IsSuccess = true, EventId = @event.Id };
+			}
+			else
+			{
+				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralOperationErrorMsg };
 			}
 		}
 
@@ -181,7 +210,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 			{
 				@event.EditDate = DateTimeFacade.DateTimeNow();
 			}
-			
+
 			@event.Description = viewModel.Event.Description;
 			@event.Details = viewModel.Event.Details;
 			@event.UrlLink = viewModel.Event.UrlLink;

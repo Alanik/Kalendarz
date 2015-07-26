@@ -608,7 +608,7 @@
           <NavigationProperty Name="Events" Relationship="Self.FK_OwnerUser_Event" FromRole="User" ToRole="Event" />
           <NavigationProperty Name="Notes" Relationship="Self.FK_Note_User" FromRole="User" ToRole="Note" />
           <NavigationProperty Name="UserAccountInfo" Relationship="Self.FK_User_UserAccountInfo" FromRole="User" ToRole="UserAccountInfo" />
-          <NavigationProperty Name="Events1" Relationship="Self.User_Event" FromRole="User" ToRole="Event" />
+          <NavigationProperty Name="ConnectedEvents" Relationship="Self.User_Event" FromRole="User" ToRole="Event" />
           <NavigationProperty Name="webpages_Roles" Relationship="Self.webpages_UsersInRoles" FromRole="User" ToRole="webpages_Roles" />
         </EntityType>
         <EntityType Name="UserAccountInfo">

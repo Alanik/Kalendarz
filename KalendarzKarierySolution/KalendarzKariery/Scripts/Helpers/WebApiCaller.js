@@ -78,6 +78,29 @@
 		} );
 	}
 
+	self.callAddExistingEventToUser = function ( data, callback )
+	{
+		var $loader = $( "#lobby" ).siblings( ".dotted-page-overlay" );
+
+		$.ajax( {
+			url: "/api/Events/AddExistingEventToUser/" + data,
+			dataType: "JSON",
+			type: "Put",
+			beforeSend: function () { self.appViewModel.showLoader( $loader ); },
+			data: data,
+			success: function ( result )
+			{
+				callback( result, self.appViewModel, $loader );
+			},
+			error: function ()
+			{
+				alert( "Wystąpił nieoczekiwany błąd. Prosze spróbować jeszcze raz." );
+				self.appViewModel.hideLoader( $loader );
+				self.appViewModel.hideConfirmationPopupBox( element );
+			}
+		} );
+	}
+
 	self.callAddNote = function (data, callback ){
 		var $loader = $( "#details" ).siblings( ".dotted-page-overlay" );
 

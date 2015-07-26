@@ -1,9 +1,7 @@
-﻿var KKEventDateModelObservable = function ( javaScriptStartDate, startMinute, endMinute, startHour, endHour, day, month, year )
+﻿var KKEventDateModelObservable = function ( startMinute, endMinute, startHour, endHour, day, month, year )
 {
 	var self = this;
 
-	//month value starts from 0 - 11
-	self.javaScriptStartDate = javaScriptStartDate;
 	self.startMinute = ko.observable( startMinute );
 	self.endMinute = ko.observable( endMinute );
 	self.startHour = ko.observable( startHour );

@@ -19,7 +19,7 @@ namespace KalendarzKarieryData
             this.Comments = new HashSet<Comment>();
             this.Events = new HashSet<Event>();
             this.Notes = new HashSet<Note>();
-            this.Events1 = new HashSet<Event>();
+            this.ConnectedEvents = new HashSet<Event>();
             this.webpages_Roles = new HashSet<webpages_Roles>();
         }
     
@@ -41,7 +41,7 @@ namespace KalendarzKarieryData
         public virtual ICollection<Event> Events { get; set; }
         public virtual ICollection<Note> Notes { get; set; }
         public virtual UserAccountInfo UserAccountInfo { get; set; }
-        public virtual ICollection<Event> Events1 { get; set; }
+        public virtual ICollection<Event> ConnectedEvents { get; set; }
         public virtual ICollection<webpages_Roles> webpages_Roles { get; set; }
     }
 }

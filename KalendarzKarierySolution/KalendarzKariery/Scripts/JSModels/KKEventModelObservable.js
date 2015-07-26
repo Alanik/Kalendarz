@@ -10,7 +10,7 @@
 		zipCode: ko.observable( "" )
 	};
 
-	self.dateAdded = new KKDateModel( null, 0, 0, 0, 0, 0 );
+	self.dateAdded = new KKDateModel( 0, 0, 0, 0, 0 );
 
 	self.description = ko.observable( "" );
 
@@ -39,7 +39,7 @@
 
 	self.price = ko.observable( null );
 
-	self.startDate = new KKEventDateModelObservable( null, 0, 0, 0, 0, 0, 0, 0 ); // new KKEventDateModelObservable();
+	self.startDate = new KKEventDateModelObservable( 0, 0, 0, 0, 0, 0, 0 ); // new KKEventDateModelObservable();
 
 	self.urlLink = ko.observable( "" );
 };

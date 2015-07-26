@@ -6,16 +6,16 @@
     <edmx:Diagrams>
       <Diagram DiagramId="a7420973ceeb48f98bef1d6f5d91cf46" Name="Diagram1" ZoomLevel="80">
         <EntityTypeShape EntityType="KalendarzKarieryDBModel.Address" Width="1.5" PointX="6" PointY="10.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="KalendarzKarieryDBModel.Comment" Width="1.5" PointX="5.875" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="KalendarzKarieryDBModel.Event" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="KalendarzKarieryDBModel.Comment" Width="1.5" PointX="0.875" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="KalendarzKarieryDBModel.Event" Width="1.5" PointX="3.625" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="KalendarzKarieryDBModel.EventKind" Width="1.5" PointX="0.75" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="KalendarzKarieryDBModel.EventStatus" Width="1.5" PointX="0.75" PointY="16.5" IsExpanded="true" />
         <EntityTypeShape EntityType="KalendarzKarieryDBModel.Note" Width="1.5" PointX="10.5" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="KalendarzKarieryDBModel.NoteKind" Width="1.5" PointX="12.75" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="KalendarzKarieryDBModel.PrivacyLevel" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="KalendarzKarieryDBModel.sysdiagram" Width="1.5" PointX="2.75" PointY="10.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="KalendarzKarieryDBModel.User" Width="1.5" PointX="8.25" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="KalendarzKarieryDBModel.UserAccountInfo" Width="1.5" PointX="6" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KalendarzKarieryDBModel.User" Width="1.5" PointX="6.875" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="KalendarzKarieryDBModel.UserAccountInfo" Width="1.5" PointX="6.875" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="KalendarzKarieryDBModel.webpages_Membership" Width="1.5" PointX="8.75" PointY="10.375" IsExpanded="true" />
         <EntityTypeShape EntityType="KalendarzKarieryDBModel.webpages_OAuthMembership" Width="1.5" PointX="10.875" PointY="3.125" IsExpanded="true" />
         <EntityTypeShape EntityType="KalendarzKarieryDBModel.webpages_Roles" Width="1.5" PointX="12.75" PointY="9.5" IsExpanded="true" />

@@ -1,16 +1,14 @@
-﻿var KKEventDateModel = function ( javaScriptStartDate, startMinute, endMinute, startHour, endHour, day, month, year )
+﻿var KKEventDateModel = function ( startMinute, endMinute, startHour, endHour, day, month, year )
 {
 	var self = this;
 
-	//month value starts from 0 - 11
-	self.javaScriptStartDate = javaScriptStartDate;
 	self.startMinute = startMinute;
 	self.endMinute = endMinute
 	self.startHour = startHour;
 	self.endHour = endHour;
 	self.day = day;
 	//month value starts from 1 - 12
-	self.month = month + 1;
+	self.month = month;
 	self.year = year;
 }
 

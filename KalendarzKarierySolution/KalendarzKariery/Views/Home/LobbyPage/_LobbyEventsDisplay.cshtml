@@ -13,15 +13,16 @@
 						<div class="date-label">
 							<span data-bind="text: startDate.displayFullDate()"></span>
 						</div>
+						<div class="address-label" data-bind="if: ( address.city != '' && address.city != null )">
+							<span data-bind="	text: address.city"></span>
+						</div>
 					</div>
 				</div>
 				<div class="event-block-body">
 					<div class="name-label">
 						<span data-bind="text: name"></span>
 					</div>
-					<div class="address-label" data-bind="if: (address.street != '' && address.street != null) || (address.city != '' && address.city != null)">
-						<span data-bind="text: address.street"></span><span>, </span><span data-bind="	text: address.city"></span>
-					</div>
+
 				</div>
 			</div>
 			@Html.Partial( "_LobbyEventInfo" )

@@ -1,11 +1,6 @@
-﻿<div class="event-block-info-container" style="display: none;">
+﻿
+<div class="event-block-info-container" style="display: none;">
 	<div class="event-block-info-body">
-		<div class="event-block-user-options">
-			<div style="position: absolute; height: 40px; width: 60px; top: 0; background: rgb(175, 170, 124);">dodaj +</div>
-			<div style="position: absolute; height: 40px; width: 60px; top: 60px; background: rgb(175, 170, 124);">ide +</div>
-			<div></div>
-		</div>
-
 		<div class="event-block-info-name">
 			<span data-bind="text: name"></span>
 		</div>
@@ -27,7 +22,7 @@
 			<div style="display: inline-block; width: 100px; font-size: .8em; vertical-align: top;">adres:</div>
 			<div style="display: inline-block;">
 				<div data-bind="text: address.street"></div>
-				<span data-bind="text: address.zipCode"></span><span data-bind="	text: ' ' + address.city"></span>
+				<span data-bind="text: address.zipCode"></span><span data-bind="text: ' ' + address.city"></span>
 			</div>
 		</div>
 		<div data-bind="visible: price != 0 && price != ''" class="event-block-info-price">
@@ -42,17 +37,15 @@
 			<p>
 				<a data-bind="attr: { href: 'http://' + urlLink, title: name }, text: urlLink" target="_blank"></a>
 			</p>
-
+		</div>
+		<div class="event-block-info-addedby">
+			<div><span data-bind="text: addedBy"></span></div>
+			<span data-bind="text: dateAdded.displayFullTime()"></span><span>&nbsp;&nbsp;</span><span data-bind="text: dateAdded.displayFullDate()"></span>
 		</div>
 	</div>
 	<div class="event-block-info-footer">
-		<div class="event-block-info-addedby">
-			<span style="font-size: 12px;">dodane przez:</span><span data-bind="text: ' ' + addedBy"></span>
-		</div>
-		<div style="float: right; font-size: 18px;">
-			<div style="display: inline-block; color: gray;" class="link" data-bind="if: $root.userName.toUpperCase() == addedBy.toUpperCase(), click: function () { $root.editEventLobbyPageOnEditLinkClick( id, startDate.year, startDate.month, startDate.day ) }"><span>edytuj</span></div>
-			<div style="display: inline-block; color: rgb(175, 167, 167);" class="link" data-bind="if: $root.userName.toUpperCase() == addedBy.toUpperCase(), click: function () { $root.prepareDeleteEventLobbyPageOnDeleteLinkClick( id, startDate.year, startDate.month, startDate.day ) }"><span>usuń</span></div>
-		</div>
+			<div data-bind="if: addedBy.toUpperCase() != $root.userName.toUpperCase()"><span data-bind="click: function () { $root.addPublicEventToMyCalendarOnClick(id, startDate.year, startDate.month, startDate.day) }" class="hover-cursor-pointer event-block-user-option">dodaj do mojego kalendarza +</span></div>
+			<div><span class="hover-cursor-pointer event-block-user-option">zgłaszam chęć uczestnictwa</span></div>
 	</div>
 </div>
 

@@ -27,9 +27,11 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 		Event GetEventById( int id );
 		void DeleteEvent( Event @event );
 		void AddEvent( Event @event );
+		void AddExistingEventToUser( Event @event, User user );
+		User GetUserByName(string name);
 		void UpdateEvent (Event @event);
 	    IList<EventsGroupedByYearModel> GetAllPublicEvents();
-		EventsGroupedByYearModel GetAllEventsForGivenYearByUserId( int id, int year );
+		EventsGroupedByYearModel GetAllEventsConnectedToUserIdForGivenYear( int id, int year );
 		ICollection<object> GetAllPrivacyLevels();
 		ICollection<object> GetAllEventKinds();
 		ICollection<object> GetEventKindsBasedOnUserName( string name );
@@ -38,7 +40,8 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 		ICollection<JsonEventModel> GetAllNews();
 		object GetMyEventCountTree( int userId );
 		object GetPublicEventCountTree();
-		IList<EventsGroupedByYearModel> GetAllEventsByUserId( int userId );
+		IList<EventsGroupedByYearModel> GetAllEventsConnectedToUserId( int userId );
+		IList<EventsGroupedByYearModel> GetAllEventsCreatedByUserId( int userId );
 		int? GetEventStatusIdByValue( int value );
 
 		#endregion

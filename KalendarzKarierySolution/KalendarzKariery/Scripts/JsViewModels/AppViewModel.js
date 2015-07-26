@@ -38,7 +38,6 @@
 
 	self.todayDate = {
 		"now" : function(){return new Date()},
-		"javaScriptDate" : date,
 		"day": day,
 		//month starts from 1 to 12
 		"month": month + 1,
@@ -59,7 +58,7 @@
 	self.userName = userName;
 
 	self.eventKinds = [];
-	self.eventPrivacyLevels = [];
+	self.eventPrivacyLevels = {};
 
 	// is used when adding or editing event
 	self.observableEvent = new KKEventModelObservable();
@@ -129,7 +128,7 @@
 	self.newsEvents = [];
 
 	//it is filled with public events when building publicEventTree
-	self.publicEvents = [];
+	self.publicEvents = ko.observableArray([]);
 	self.publicEventTree = {
 		// example to remember the format of publicEventTree object
 		//	"2014": {
@@ -270,9 +269,10 @@
 				"&EventEndDate.Minute=" + endMinute +
 				"&PrivacyLevel.Value=" + privacyLvlValue +
 				"&EventKind.Value=" + eventKindValue;
+
 			var callback = function ( result, appViewModel )
 			{
-				var kkEvent;
+				var kkEvent, date = new Date();
 
 				if ( result.IsSuccess === false )
 				{
@@ -295,10 +295,11 @@
 					appViewModel.observableEvent.occupancyLimit(),
 					appViewModel.observableEvent.privacyLevel.name,
 					appViewModel.observableEvent.privacyLevel.value,
-					new KKEventDateModel( startEventDate, startMinute, endMinute, startHour, endHour, day, month - 1, year ),
+					new KKEventDateModel( startMinute, endMinute, startHour, endHour, day, month, year ),
 					appViewModel.observableEvent.name(),
 					appViewModel.observableEvent.urlLink(),
-					appViewModel.observableEvent.price()
+					appViewModel.observableEvent.price(),
+					new KKDateModel(date.getMinutes(), date.getHours(), date.getDate(), date.getMonth() + 1, date.getFullYear())
 					);
 
 					var dayEvents = appViewModel.EVENT_MANAGER.addEvent( kkEvent );
@@ -418,7 +419,7 @@
 					appViewModel.observableEvent.occupancyLimit(),
 					appViewModel.observableEvent.privacyLevel.name,
 					appViewModel.observableEvent.privacyLevel.value,
-					new KKEventDateModel( startEventDate, startMinute, endMinute, startHour, endHour, day, month - 1, year ),
+					new KKEventDateModel( startMinute, endMinute, startHour, endHour, day, month, year ),
 					appViewModel.observableEvent.name(),
 					appViewModel.observableEvent.urlLink(),
 					appViewModel.observableEvent.price()
@@ -456,7 +457,7 @@
 
 		var callback = function ( result, appViewModel, $loader )
 		{
-			var displayDate, kkNote;
+			var displayDate, kkNote, date = new Date();
 
 			if ( result.IsSuccess === false )
 			{
@@ -464,10 +465,10 @@
 				alert( result.Message );
 			} else
 			{
-				displayDate = new KKDateModel( null, null, null, self.detailsPageDisplayDate.day(), self.detailsPageDisplayDate.month() - 1, self.detailsPageDisplayDate.year() );
+				displayDate = new KKDateModel( null, null, self.detailsPageDisplayDate.day(), self.detailsPageDisplayDate.month(), self.detailsPageDisplayDate.year() );
 
 				kkNote = self.NOTE_MANAGER.getNewKKNoteModel( result.NoteId, appViewModel.observableNote.data(), appViewModel.userName, appViewModel.observableNote.privacyLevel.name,
-					appViewModel.observableNote.privacyLevel.value, displayDate, false);
+					appViewModel.observableNote.privacyLevel.value, displayDate, false, new KKDateModel(date.getMinutes(), date.getHours(), date.getDate(), date.getMonth() + 1, date.getFullYear()));
 				self.NOTE_MANAGER.addNote( kkNote );
 
 				appViewModel.observableNote.data( "" );
@@ -491,14 +492,6 @@
 
 		ko.unapplyBindings( $yesBtn[0] );
 		ko.applyBindings( self, $yesBtn[0] );
-	};
-
-	self.prepareDeleteEventLobbyPageOnDeleteLinkClick = function (){
-
-	};
-
-	self.deleteEventLobbyPageOnConfirmationYesBtnClick = function (){
-
 	};
 
 	self.prepareDeleteNoteDetailsPageOnDeleteLinkClick = function ( id, year, month, day )
@@ -620,7 +613,7 @@
 		ko.unapplyBindings( $addBtn[0] );
 		ko.applyBindings( self, $addBtn[0] );
 
-		var event = self.EVENT_MANAGER.getEventByDateAndId( id, year, month, day );
+		var event = self.EVENT_MANAGER.getEventByDateAndId( id, year, month, day, self.myEventTree );
 
 		//TODO: create Factory Method to fillout observebleEvent
 
@@ -667,10 +660,6 @@
 		$addEventContainer.css( "top", docScroll + 30 );
 		$addEventContainer.show();
 		$addEventContainer.find( "#Event_Title" ).focus();
-	};
-
-	self.editEventLobbyPageOnEditLinkClick = function (){
-
 	};
 
 	self.editNoteDetailsPageOnEditLinkClick = function ( id, year, month, day )
@@ -858,15 +847,15 @@
 
 				if ( $block.hasClass( "open" ) )
 				{
-					//offset = $eventBlockContainer.position().top - 20;
-					$eventBlockContainer.scrollTo( 500 );
+					offset = $eventBlockContainer.position().top + 120;
+					$eventBlockContainer.scrollTo( 500, offset);
 					$eventBlockInfo.slideUp();
 					$content.css( "color", "rgb(229, 211, 180)" );
 				}
 				else
 				{
-					//offset = $eventBlockContainer.position().top - 20;
-					$eventBlockContainer.scrollTo( 500 );
+					offset = $eventBlockContainer.position().top + 120;
+					$eventBlockContainer.scrollTo( 500, offset );
 					$eventBlockInfo.slideDown();
 					$content.css( "color", "rgb(161, 147, 123)" );
 				}
@@ -1115,6 +1104,36 @@
 			$( "#details #calendarDayDetailsContainer" ).scrollTo( 100 );
 		}, 10 )
 	};
+
+	self.addPublicEventToMyCalendarOnClick = function ( id, year, month, day )
+	{
+		var data = '?username=' + self.userName + '&eventId=' + id;
+		var callback = function ( result, appViewModel, $loader )
+		{
+			var displayDate, kkNote, date = new Date();
+
+			if ( result.IsSuccess === false )
+			{
+				appViewModel.hideLoader( $loader );
+				alert( result.Message );
+			} else
+			{
+				displayDate = new KKDateModel( null, null, self.detailsPageDisplayDate.day(), self.detailsPageDisplayDate.month(), self.detailsPageDisplayDate.year() );
+
+				kkNote = self.NOTE_MANAGER.getNewKKNoteModel( result.NoteId, appViewModel.observableNote.data(), appViewModel.userName, appViewModel.observableNote.privacyLevel.name,
+					appViewModel.observableNote.privacyLevel.value, displayDate, false, new KKDateModel( date.getMinutes(), date.getHours(), date.getDate(), date.getMonth() + 1, date.getFullYear() ) );
+				self.NOTE_MANAGER.addNote( kkNote );
+
+				appViewModel.observableNote.data( "" );
+				appViewModel.hideLoader( $loader );
+			}
+		}
+
+		self.UTILS.webApiCaller.callAddExistingEventToUser( data, callback );
+
+		var event = self.EVENT_MANAGER.getEventByDateAndId( id, year, month, day, self.publicEventTree );
+		self.EVENT_MANAGER.addEvent(event);
+	}
 
 	self.showSelectedEventsOnMenuItemClick = function ( element, lobbyOrDetailsPageSelectedEvents )
 	{

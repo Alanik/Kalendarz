@@ -12,7 +12,6 @@
 		ev.address.city( "" );
 		ev.address.zipCode( "" );
 
-		ev.dateAdded.javaScriptDate = null;
 		ev.dateAdded.minute = 0;
 		ev.dateAdded.hour = 0;
 		ev.dateAdded.day = 0;
@@ -80,7 +79,6 @@
 
 	self.getNewKKEventModel = function ( addedBy, street, city, zipCode, description, details, minutes, kindValue, kindName, eventId, occupancyLimit, privacyLevelName, privacyLevelValue, startDate, name, urlLink, price, dateAdded )
 	{
-		var date = new Date();
 		var colorHelper = appViewModel.UTILS.colorHelper;
 
 		var kkEventModel = new KKEventModel();
@@ -90,12 +88,14 @@
 		kkEventModel.address.city = city;
 		kkEventModel.address.zipCode = zipCode;
 
-		if ( dateAdded )
+		if ( dateAdded instanceof KKDateModel )
 		{
-			date = new Date( dateAdded );
+			kkEventModel.dateAdded = dateAdded;
 		}
-
-		kkEventModel.dateAdded = new KKDateModel( date, date.getMinutes(), date.getHours(), date.getDate(), date.getMonth(), date.getFullYear() );
+		else
+		{
+			kkEventModel.dateAdded = new KKDateModel( dateAdded.minute, dateAdded.hour, dateAdded.day, dateAdded.month, dateAdded.year );
+		}
 
 		kkEventModel.description = description;
 		kkEventModel.details = details;
@@ -117,9 +117,9 @@
 		return kkEventModel;
 	}
 
-	self.getEventByDateAndId = function ( id, year, month, day )
+	self.getEventByDateAndId = function ( id, year, month, day, eventTree )
 	{
-		var yearProp = appViewModel.myEventTree[year], monthProp, daysProp, event;
+		var yearProp = eventTree[year], monthProp, daysProp, event;
 		if ( yearProp )
 		{
 			monthProp = yearProp[month];
@@ -407,7 +407,6 @@
 			dayEventsArr.push( newKKEvent );
 		}
 
-
 		//2. update appViewModel.detailsPageEvents()
 		if ( newKKEvent.startDate.year == appViewModel.detailsPageDisplayDate.year() && newKKEvent.startDate.month == appViewModel.detailsPageDisplayDate.month() && newKKEvent.startDate.day == appViewModel.detailsPageDisplayDate.day() )
 		{
@@ -447,6 +446,65 @@
 
 		//4. increment appViewModel.myEventTreeCountBasedOnEventKind value
 		appViewModel.changeEventCountTreeValueBasedOnEventKind( appViewModel.myEventTreeCountBasedOnEventKind, newKKEvent, 1 );
+
+		/////////////////////////////////
+		// Public events
+		/////////////////////////////////
+		if ( newKKEvent.privacyLevel.value == appViewModel.eventPrivacyLevels["public"] )
+		{
+			//1. add event to public event tree
+			eventTreeYearProp = appViewModel.publicEventTree[year] ? appViewModel.publicEventTree[year] : appViewModel.publicEventTree[year] = {};
+			eventTreeMonthProp = eventTreeYearProp[month] ? eventTreeYearProp[month] : eventTreeYearProp[month] = {};
+			dayEventsArr = eventTreeMonthProp[day] ? eventTreeMonthProp[day] : eventTreeMonthProp[day] = [];
+			didAddEvent = false;
+
+			for ( var i = 0; i < dayEventsArr.length; i++ )
+			{
+				event = dayEventsArr[i];
+
+				if ( event.id == newKKEvent.id )
+				{
+					//this check is for when adding public event to user's calendar - the public event already exists so do not add it again to public event tree etc.
+					return false;
+				}
+
+				if ( newKKEvent.startDate.startHour < event.startDate.startHour || ( newKKEvent.startDate.startHour == event.startDate.startHour && newKKEvent.startDate.startMinute < event.startDate.startMinute ) )
+				{
+					dayEventsArr.splice( i, 0, newKKEvent );
+					didAddEvent = true;
+					break;
+				}
+			}
+
+			if ( !didAddEvent )
+			{
+				dayEventsArr.push( newKKEvent );
+			}
+
+			//2. add event to publicEvents observable array
+			appViewModel.publicEvents.push( newKKEvent );
+
+			//3. add event to appViewModel.detailsPageSelectedEvents
+			if ( appViewModel.lobbyPageSelectedEvents.selectedKindValues.length > 0 )
+			{
+				today = new Date();
+				endDate = new Date( newKKEvent.startDate.year, newKKEvent.startDate.month - 1, newKKEvent.startDate.day, newKKEvent.startDate.endHour, newKKEvent.startDate.endMinute, 0, 0 );
+
+				if ( today > endDate )
+				{
+					oldOrUpcoming = appViewModel.lobbyPageSelectedEvents.old;
+				} else
+				{
+					oldOrUpcoming = appViewModel.lobbyPageSelectedEvents.upcoming;
+				}
+
+				oldOrUpcoming.push( newKKEvent );
+			}
+
+			//4. increment appViewModel.myEventTreeCountBasedOnEventKind value
+			appViewModel.changeEventCountTreeValueBasedOnEventKind( appViewModel.publicEventTreeCountBasedOnEventKind, newKKEvent, 1 );
+
+		}
 
 		return dayEventsArr;
 	};

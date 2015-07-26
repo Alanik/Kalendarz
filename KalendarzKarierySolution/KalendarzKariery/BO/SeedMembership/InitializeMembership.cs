@@ -22,6 +22,8 @@ namespace KalendarzKariery.BO.SeedMembership
 		const string AdminAlanikLogin = "AdminAlanik";
 		const string AdminLuqLogin = "AdminLuq";
 		const string AdminPassword = "admin123admin";
+		const string AlanikEmail = "thealanik@aim.com";
+		const string LuqEmail = "test@email.com";
 
 		public static void SeedMembership()
 		{
@@ -34,28 +36,22 @@ namespace KalendarzKariery.BO.SeedMembership
 
 			if (!WebSecurity.UserExists( AdminAlanikLogin ))
 			{
-				CreateAdminUser( AdminAlanikLogin );
+				CreateAdminUser( AdminAlanikLogin, AlanikEmail );
 			}
 
 			if (!WebSecurity.UserExists( AdminLuqLogin ))
 			{
-				CreateAdminUser( AdminLuqLogin );
+				CreateAdminUser( AdminLuqLogin, LuqEmail );
 			}
 		}
 
-		private static User GetAlanikAdmin( string loginName )
+		private static User GetAdminUser( string loginName, string email )
 		{
 			User user = new User();
-			Address address = new Address();
-			address.Street = "Wejherowska 152/30";
-			address.City = "Wroclaw";
-			address.Country = "Polska";
-			address.ZipCode = "54-239";
 
-			user.Address = address;
-			user.Bio = "Witam, nazywam sie Alanik i jestem adminem";
+			user.Bio = "Witam, jestem adminem!";
 			user.BirthDay = new DateTime( 1987, 7, 30 );
-			user.Email = "thealanik@aim.com";
+			user.Email = email;
 			user.FirstName = "Alan";
 			user.LastName = "Budzinski";
 			user.Phone = "530176411";
@@ -72,9 +68,9 @@ namespace KalendarzKariery.BO.SeedMembership
 			return user;
 		}
 
-		private static void CreateAdminUser( string loginName )
+		private static void CreateAdminUser( string loginName, string email )
 		{
-			User user = GetAlanikAdmin( loginName );
+			User user = GetAdminUser( loginName, email );
 
 			WebSecurity.CreateUserAndAccount( loginName, AdminPassword, propertyValues: new
 			{
@@ -85,8 +81,7 @@ namespace KalendarzKariery.BO.SeedMembership
 				BirthDay = user.BirthDay,
 				UserName = user.UserName,
 				Phone = user.Phone,
-				Gender = user.Gender,
-				Address = user.Address
+				Gender = user.Gender
 			} );
 
 			if (!Roles.GetRolesForUser( loginName ).Contains( AdminRole ))

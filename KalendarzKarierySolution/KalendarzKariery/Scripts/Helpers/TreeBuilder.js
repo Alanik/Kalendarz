@@ -1,6 +1,5 @@
 ﻿var TreeBuilder = function (appViewModel)
 {
-
 	var self = this;
 
 	self.buildEventTree = function ( yearEventTreeModel, isPublicEventTree )
@@ -40,14 +39,11 @@
 						minutes = getMinutes( event );
 						startDate = getStartDate( event );
 
-						//TODO: dateAdded and displayDate for events and notes is not new KKDateModel.js but anonymous json object from server
-
 						kkEvent = appViewModel.EVENT_MANAGER.getNewKKEventModel(event.addedBy, address.street, address.city, address.zipCode, event.description, event.details, minutes, event.kind.value, event.kind.name, event.id, event.occupancyLimit, event.privacyLevel.name, event.privacyLevel.value, startDate, event.name, event.urlLink, event.price, event.dateAdded);
 						
 						eventTreeDayGroupProp.push( kkEvent );
 
 						//push public event to appViewModel.publicEvents
-						//TODO: maybe it's better to remove it from here and put it in a seperate method for example buildPublicEventTree, but it is just a suggestion
 						if ( isPublicEventTree )
 						{
 							appViewModel.publicEvents.push( kkEvent );
@@ -81,10 +77,10 @@
 				////////////////////////////////////////////////////////////////
 
 				edate = new Date( event.endDate.year, event.endDate.month, event.endDate.day, event.endDate.hour, event.endDate.minute, 0, 0 );
-				return new KKEventDateModel( sdate, sdate.getMinutes(), edate.getMinutes(), sdate.getHours(), edate.getHours(), sdate.getDate(), sdate.getMonth(), sdate.getFullYear() );
+				return new KKEventDateModel( sdate.getMinutes(), edate.getMinutes(), sdate.getHours(), edate.getHours(), sdate.getDate(), sdate.getMonth() + 1, sdate.getFullYear() );
 			} else
 			{
-				return new KKEventDateModel( sdate, sdate.getMinutes(), null, sdate.getHours(), null, sdate.getDate(), sdate.getMonth(), sdate.getFullYear() );
+				return new KKEventDateModel( sdate.getMinutes(), null, sdate.getHours(), null, sdate.getDate(), sdate.getMonth(), sdate.getFullYear() );
 			}
 		};
 		function getAddress( event )
@@ -157,8 +153,21 @@
 		function setDateAdded( event )
 		{
 			var sdate = new Date( parseInt( event.dateAdded.substr( 6 ) ) );
-			event.dateAdded = new KKDateModel( sdate, sdate.getMinutes(), sdate.getHours(), sdate.getDate(), sdate.getMonth() + 1, sdate.getFullYear() );
+			event.dateAdded = new KKDateModel( sdate.getMinutes(), sdate.getHours(), sdate.getDate(), sdate.getMonth() + 1, sdate.getFullYear() );
 		}
+	}
+
+	self.transformPrivacyLevels = function (plArray){
+		var obj = {}, privacyLevel;
+
+		for ( var i = 0; i < plArray.length; i++ )
+		{
+			privacyLevel = plArray[i];
+			obj[privacyLevel.name] = privacyLevel.value;
+		}
+
+		return obj;
+
 	}
 
 	self.buildNoteTree = function ( yearNoteTreeModel )

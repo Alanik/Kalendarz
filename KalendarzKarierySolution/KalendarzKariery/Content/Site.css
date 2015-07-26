@@ -1502,6 +1502,7 @@ background:rgb(115, 233, 162);
 		padding-bottom: 5px;
 		text-transform: uppercase;
 		background: rgba(194, 175, 129, 0.4);
+		width:230px;
 	}
 
 	.slick-contact-form legend {

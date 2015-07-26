@@ -1112,7 +1112,7 @@
 		var data = '?username=' + self.userName + '&eventId=' + id;
 		var callback = function ( result, appViewModel, $loader )
 		{
-			var displayDate, kkNote, date = new Date();
+			var displayDate, event;
 
 			if ( result.IsSuccess === false )
 			{
@@ -1120,21 +1120,13 @@
 				alert( result.Message );
 			} else
 			{
-				displayDate = new KKDateModel( null, null, self.detailsPageDisplayDate.day(), self.detailsPageDisplayDate.month(), self.detailsPageDisplayDate.year() );
-
-				kkNote = self.NOTE_MANAGER.getNewKKNoteModel( result.NoteId, appViewModel.observableNote.data(), appViewModel.userName, appViewModel.observableNote.privacyLevel.name,
-					appViewModel.observableNote.privacyLevel.value, displayDate, false, new KKDateModel( date.getMinutes(), date.getHours(), date.getDate(), date.getMonth() + 1, date.getFullYear() ) );
-				self.NOTE_MANAGER.addNote( kkNote );
-
-				appViewModel.observableNote.data( "" );
+				event = self.EVENT_MANAGER.getEventByDateAndId( id, year, month, day, self.publicEventTree );
+				self.EVENT_MANAGER.addEvent( event );
 				appViewModel.hideLoader( $loader );
 			}
 		}
 
 		self.UTILS.webApiCaller.callAddExistingEventToUser( data, callback );
-
-		var event = self.EVENT_MANAGER.getEventByDateAndId( id, year, month, day, self.publicEventTree );
-		self.EVENT_MANAGER.addEvent(event);
 	}
 
 	self.showSelectedEventsOnMenuItemClick = function ( element, lobbyOrDetailsPageSelectedEvents )

@@ -47,7 +47,7 @@ MEDIA QUERIES
 		width: 45%;
 	}
 
-	@media (max-width: 600px) {
+	@media (max-width: 800px) {
 		.event-block-container {
 			width: 98%;
 		}

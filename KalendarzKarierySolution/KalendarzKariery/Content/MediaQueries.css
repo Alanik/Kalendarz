@@ -58,7 +58,8 @@ MEDIA QUERIES
 		background-size:contain;
 		position: absolute !important;
 		background-repeat: no-repeat;
-		width: 70%;
+		width: 60%;
+		top:20px;
 	}
 
 	#layoutLogo {
@@ -67,5 +68,6 @@ MEDIA QUERIES
 		position: absolute !important;
 		background-repeat: no-repeat;
 		width: 60%;
+		top:20px;
 	}
 }

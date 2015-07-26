@@ -70,8 +70,9 @@ MEDIA QUERIES
 		width: 320px;
 		top: 14px;
 	}
+}
 
-	@media (max-width: 400px) {
+@media (max-width: 320px) {
 		#lobbyLogo {
 			background-image: url(../Images/Logo/kkLogo.png);
 			background-size: contain;
@@ -90,4 +91,3 @@ MEDIA QUERIES
 			top: 14px;
 		}
 	}
-}

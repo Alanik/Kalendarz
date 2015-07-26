@@ -47,13 +47,13 @@ MEDIA QUERIES
 		width: 45%;
 	}
 
-	/*@media (max-width: 600px) {
-		#lobbyLogo {
-			background-image: url(../Images/Logo/kkLogo_verysmall.png);
-			position: absolute !important;
-			background-repeat: no-repeat;
-			height: 41px;
-			width: 179px;
-		}*/
+	@media (max-width: 600px) {
+		.event-block-container {
+			width: 98%;
+		}
+
+		.menu-item {
+			width: 80%;
+		}
 	}
 }

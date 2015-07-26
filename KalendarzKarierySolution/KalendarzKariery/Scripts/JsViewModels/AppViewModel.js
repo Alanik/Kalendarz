@@ -394,9 +394,10 @@
 				"&EventEndDate.Minute=" + endMinute +
 				"&PrivacyLevel.Value=" + privacyLvlValue +
 				"&EventKind.Value=" + eventKindValue;
-			var callback = function ( result, appViewModel )
+			var callback = function ( result, appViewModel)
 			{
-				var kkEvent;
+				var kkEvent, oldEvent;
+				 
 
 				if ( result.IsSuccess === false )
 				{
@@ -404,7 +405,8 @@
 					$( "#addNewEventContainer" ).show();
 					alert( result.Message );
 				} else
-				{
+			{
+					oldEvent = self.EVENT_MANAGER.getEventByDateAndId(result.EventId, year, month, day, self.myEventTree);
 					kkEvent = self.EVENT_MANAGER.getNewKKEventModel(
 					appViewModel.userName,
 					appViewModel.observableEvent.address.street(),
@@ -422,11 +424,11 @@
 					new KKEventDateModel( startMinute, endMinute, startHour, endHour, day, month, year ),
 					appViewModel.observableEvent.name(),
 					appViewModel.observableEvent.urlLink(),
-					appViewModel.observableEvent.price()
+					appViewModel.observableEvent.price(),
+					oldEvent.dateAdded
 					);
 
 					appViewModel.EVENT_MANAGER.removeEvent( result.EventId, year, month, day );
-
 					var dayEvents = appViewModel.EVENT_MANAGER.addEvent( kkEvent );
 
 					appViewModel.setCalendarPlacementRow( dayEvents );

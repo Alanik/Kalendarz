@@ -383,6 +383,7 @@ header, footer, nav, section, div {
 	background: rgb(184, 168, 137);
 	width: 100px;
 	box-shadow: rgb(143, 125, 107) 2px 2px 10px -1px inset;
+	line-height:1.5;
 }
 
 #registerPageContainer {
@@ -768,27 +769,25 @@ header, footer, nav, section, div {
 }
 
 .close-text {
-	color: rgb(117, 117, 117);
-	font-size: 1.4em;
-	color: rgb(255, 255, 255);
-	border: 1px solid rgb(238, 238, 238);
-	padding-left: 30px;
-	padding-right: 10px;
-	padding-bottom: 2px;
-	background: rgb(245, 132, 132);
-	border-radius: 3px;
+    font-size: 2em;
+    color: rgb(245, 132, 132);
+    border: 1px solid rgb(197, 191, 172);
+    border-right: none;
+    padding-left: 10px;
+    padding-right: 30px;
+    padding-bottom: 2px;
+    border-radius: 3px;
 }
 
 .save-text {
-	color: rgb(117, 117, 117);
-	font-size: 1.4em;
-	color: rgb(255, 255, 255);
-	border: 1px solid rgb(238, 238, 238);
-	padding-left: 30px;
-	padding-right: 10px;
-	padding-bottom: 2px;
-	background: rgb(113, 225, 142);
-	border-radius: 3px;
+    font-size: 2em;
+    color: rgb(137, 197, 155);
+    border: 1px solid rgb(197, 191, 172);
+    border-left: none;
+    padding-left: 30px;
+    padding-right: 10px;
+    padding-bottom: 2px;
+    border-radius: 3px;
 }
 
 .add-event-fieldset {

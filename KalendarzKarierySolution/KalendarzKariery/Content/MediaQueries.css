@@ -58,7 +58,7 @@ MEDIA QUERIES
 		background-size:contain;
 		position: absolute !important;
 		background-repeat: no-repeat;
-		width: 60%;
+		width: 250px;
 		top:14px;
 	}
 
@@ -67,7 +67,7 @@ MEDIA QUERIES
 		background-size:contain;
 		position: absolute !important;
 		background-repeat: no-repeat;
-		width: 60%;
+		width: 250px;
 		top:14px;
 	}
 }

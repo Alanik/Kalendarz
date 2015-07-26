@@ -54,18 +54,18 @@ MEDIA QUERIES
 	}
 
 	#lobbyLogo {
-		background-image: url(../Images/Logo/kkLogo_mobile.png);
+		background-image: url(../Images/Logo/kkLogo.png);
+		background-size:contain;
 		position: absolute !important;
 		background-repeat: no-repeat;
-		height: 59px;
-		width: 255px;
+		width: 80%;
 	}
 
 	#layoutLogo {
-		background-image: url(../Images/Logo/kkLogo_mobile.png);
+	background-image: url(../Images/Logo/kkLogo.png);
+		background-size:contain;
 		position: absolute !important;
 		background-repeat: no-repeat;
-		height: 59px;
-		width: 255px;
+		width: 80%;
 	}
 }

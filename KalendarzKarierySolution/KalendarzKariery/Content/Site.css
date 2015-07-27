@@ -1698,8 +1698,7 @@ legend {
 	height: 30px;
 }
 
-/*event block*/
-.event-block-info-container {
+.event-block {
 	color: rgb(250, 250, 250);
 	line-height: 1;
 	background: rgba(200, 194, 172, .8);
@@ -1723,7 +1722,8 @@ legend {
 	text-align: left;
 	background: rgb(248, 245, 235);
 	line-height: 2;
-	border-top: 12px solid rgb(246, 255, 213);
+	border-bottom: 2px solid rgb(225, 222, 210);
+	border-right: 2px solid rgb(225, 222, 210);
 }
 
 .details-event-block-info-footer {
@@ -1748,7 +1748,7 @@ legend {
 
 	.event-block-container .address-label {
 		font-size: .85em;
-		margin-top:10px;
+		margin-top: 10px;
 	}
 
 	.event-block-container .hour-label {
@@ -1760,15 +1760,10 @@ legend {
 	.event-block-container .hour-date-label-container {
 		max-height: 60%;
 		float: right;
-		padding: 10px;
-		display: inline-block;
 		text-align: right;
-		color: rgb(127, 122, 109);
-		position: relative;
+		color: rgb(84, 77, 61);
 		font-size: 1.4em;
 		line-height: 1;
-		border: 2px solid #EFECE0;
-		background-color: #F8F5EB;
 	}
 
 .event-block-info-header {
@@ -1911,7 +1906,6 @@ legend {
 	font-size: 1.4em;
 	line-height: 1;
 	color: rgb(106, 106, 106);
-	margin-bottom: 10px;
 	padding: 4px 4px;
 }
 
@@ -1919,7 +1913,6 @@ legend {
 	font-size: 1.4em;
 	line-height: 1;
 	color: rgb(106, 106, 106);
-	margin-bottom: 10px;
 	padding: 4px 4px;
 }
 

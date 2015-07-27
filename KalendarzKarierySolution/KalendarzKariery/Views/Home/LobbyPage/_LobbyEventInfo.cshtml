@@ -1,20 +1,22 @@
 ﻿
-<div class="event-block-info-container">
 	<div class="event-block-info-header" data-bind="style: { color: kind.headerColor }">
-		<div style="position: absolute; left: 0px; top: 0px; padding: 10px; background: #BAB39D; border-left: 2px solid #9D9784; border-top: 2px solid #9D9784;"><span data-bind="text: kind.name"></span></div>
-		<div class="hour-date-label-container">
-			<div class="hour-label">
-				<span data-bind="text: startDate.formatZero( startDate.startHour )"></span><span>:</span><span data-bind="	text: startDate.formatZero( startDate.startMinute )"></span><span style="padding: 0 4px;"> - </span>
-				<span data-bind="text: startDate.formatZero( startDate.endHour )"></span><span>:</span><span data-bind="	text: startDate.formatZero( startDate.endMinute )"></span>
-			</div>
-			<div class="date-label">
-				<span data-bind="text: startDate.displayFullDate()"></span>
-			</div>
-			<div class="address-label" data-bind="if: ( address.city != '' && address.city != null )">
-				<div data-bind="text: address.street"></div>
-				<span data-bind="text: address.zipCode"></span><span data-bind="	text: ' ' + address.city"></span>
+		<div style="overflow:hidden; position: relative; left: 0px; top: 0px; padding: 10px; background: #BAB39D; border-left: 2px solid #9D9784; border-top: 2px solid #9D9784;">
+		<span data-bind="text: kind.name"></span>
+			<div class="hour-date-label-container">
+				<div class="hour-label">
+					<span data-bind="text: startDate.formatZero( startDate.startHour )"></span><span>:</span><span data-bind="	text: startDate.formatZero( startDate.startMinute )"></span><span style="padding: 0 4px;"> - </span>
+					<span data-bind="text: startDate.formatZero( startDate.endHour )"></span><span>:</span><span data-bind="	text: startDate.formatZero( startDate.endMinute )"></span>
+				</div>
+				<div class="date-label">
+					<span data-bind="text: startDate.displayFullDate()"></span>
+				</div>
+				<div class="address-label" data-bind="if: ( address.city != '' && address.city != null )">
+					<div data-bind="text: address.street"></div>
+					<span data-bind="text: address.zipCode"></span><span data-bind="	text: ' ' + address.city"></span>
+				</div>
 			</div>
 		</div>
+		
 	</div>
 	<div class="event-block-info-body">
 		<div class="event-block-info-name">
@@ -43,11 +45,11 @@
 			<div><span data-bind="text: addedBy"></span></div>
 			<span data-bind="text: dateAdded.displayFullTime()"></span><span>&nbsp;&nbsp;</span><span data-bind="text: dateAdded.displayFullDate()"></span>
 		</div>
+
 	</div>
 	<div class="event-block-info-footer">
 			<div data-bind="if: addedBy.toUpperCase() != $root.userName.toUpperCase()"><span data-bind="click: function () { $root.addPublicEventToMyCalendarOnClick(id, startDate.year, startDate.month, startDate.day) }" class="hover-cursor-pointer event-block-user-option">dodaj do mojego kalendarza +</span></div>
-			<div style="border: 1px solid #D3C8A8; border-right: none; border-radius: 3px; padding: 2px; padding-left: 10px;max-width:250px;"><span class="hover-cursor-pointer event-block-user-option">zgłaszam chęć uczestnictwa</span></div>
+			<div style="border: 2px solid #E1DECF; border-right: none; border-radius: 3px; padding: 2px; padding-left: 10px; max-width: 250px;"><span class="hover-cursor-pointer event-block-user-option">zgłaszam chęć uczestnictwa</span></div>
 	</div>
-</div>
 
 

@@ -58,6 +58,13 @@
 		this.spinner.spin( $target[0] );
 		$target.show();
 	},
+	initializeEventGrid: function ()
+	{
+		$( '#lobby .grid' ).masonry( {
+			columnWidth: 320,
+			itemSelector: '.event-block-container'
+		} );
+	},
 	initialize: function ( indexViewModel, userName )
 	{
 		var $calendar = $( "#calendar" );

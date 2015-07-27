@@ -331,6 +331,7 @@
     <Content Include="Scripts\Lib\jquery-ui-1.8.20.custom.min.js" />
     <Content Include="Scripts\Lib\jquery-ui-1.8.20.js" />
     <Content Include="Scripts\Lib\jquery-ui-1.8.20.min.js" />
+    <Content Include="Scripts\Lib\Masonry\masonry-docs.min.js" />
     <Content Include="Scripts\Lib\raphael-min.js" />
     <Content Include="Scripts\Lib\HammerJS\hammer.min.js" />
     <Content Include="Scripts\Lib\SpinJS\spin.min.js" />

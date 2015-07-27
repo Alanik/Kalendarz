@@ -1,13 +1,12 @@
 ﻿<header class="title-header">Nadchodzące wydarzenia</header>
 <div id="lobbyEventsDisplayListContainer">
-	<div style="width: 90%; margin-left: 1%;" data-bind="foreach: publicEvents">
+	<div class="grid js-masonry" style="width: 90%; margin-left: 1%;" data-bind="foreach: publicEvents">
 		<div class="event-block-container" data-bind="attr: { 'data-eventid': id }">
 			<div class="event-block">
 					@Html.Partial( "_LobbyEventInfo" )
 			</div>
 		</div>
 	</div>
-
 </div>
 
 

@@ -101,9 +101,12 @@
 		var userName = '@User.Identity.Name';
 
 		var PROGRAM = Program;
+
+		//used in jquery.superslides to initialize Masonry grid plugin when superslides fades in.
+		window.initializeEventGrid = PROGRAM.initializeEventGrid;	
+
 		PROGRAM.initializeJQueryExtentionMethods();
 		PROGRAM.initializeAndStartSpinner();
-		PROGRAM.initializeEventGrid();
 		PROGRAM.initialize(indexViewModel, userName);
 	});
 

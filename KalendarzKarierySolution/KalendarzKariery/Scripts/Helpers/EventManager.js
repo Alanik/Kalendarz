@@ -380,6 +380,7 @@
 
 	self.addEvent = function ( newKKEvent )
 	{
+		debugger;
 		var today, endDay, oldOrUpcoming, event, didAddEvent = false;
 
 		var year = newKKEvent.startDate.year;
@@ -388,7 +389,7 @@
 
 		var eventTreeYearProp = appViewModel.myEventTree[year] ? appViewModel.myEventTree[year] : appViewModel.myEventTree[year] = {};
 		var eventTreeMonthProp = eventTreeYearProp[month] ? eventTreeYearProp[month] : eventTreeYearProp[month] = {};
-		var dayEventsArr = eventTreeMonthProp[day] ? eventTreeMonthProp[day] : eventTreeMonthProp[day] = [];
+		var dayEventsArr = eventTreeMonthProp[day] ? eventTreeMonthProp[day] : eventTreeMonthProp[day] = [], publicDayEventsArr;
 
 		//1. add event to eventTree 
 		for ( var i = 0; i < dayEventsArr.length; i++ )
@@ -455,12 +456,12 @@
 			//1. add event to public event tree
 			eventTreeYearProp = appViewModel.publicEventTree[year] ? appViewModel.publicEventTree[year] : appViewModel.publicEventTree[year] = {};
 			eventTreeMonthProp = eventTreeYearProp[month] ? eventTreeYearProp[month] : eventTreeYearProp[month] = {};
-			dayEventsArr = eventTreeMonthProp[day] ? eventTreeMonthProp[day] : eventTreeMonthProp[day] = [];
+			publicDayEventsArr = eventTreeMonthProp[day] ? eventTreeMonthProp[day] : eventTreeMonthProp[day] = [];
 			didAddEvent = false;
 
-			for ( var i = 0; i < dayEventsArr.length; i++ )
+			for ( var i = 0; i < publicDayEventsArr.length; i++ )
 			{
-				event = dayEventsArr[i];
+				event = publicDayEventsArr[i];
 
 				if ( event.id == newKKEvent.id )
 				{
@@ -470,7 +471,7 @@
 
 				if ( newKKEvent.startDate.startHour < event.startDate.startHour || ( newKKEvent.startDate.startHour == event.startDate.startHour && newKKEvent.startDate.startMinute < event.startDate.startMinute ) )
 				{
-					dayEventsArr.splice( i, 0, newKKEvent );
+					publicDayEventsArr.splice( i, 0, newKKEvent );
 					didAddEvent = true;
 					break;
 				}
@@ -478,8 +479,10 @@
 
 			if ( !didAddEvent )
 			{
-				dayEventsArr.push( newKKEvent );
+				publicDayEventsArr.push( newKKEvent );
 			}
+
+			debugger;
 
 			//2. add event to publicEvents observable array
 			appViewModel.publicEvents.push( newKKEvent );

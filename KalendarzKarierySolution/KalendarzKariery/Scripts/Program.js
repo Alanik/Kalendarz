@@ -1,6 +1,5 @@
 ﻿var Program = {
 	indexViewModel: null,
-
 	initializeJQueryExtentionMethods: function ()
 	{
 		//scrollTo
@@ -822,8 +821,13 @@
 	},
 	initializeEventGrid: function ()
 	{
-		$( '#lobby .grid' ).masonry( {
-			itemSelector: '.event-block-container'
+		var $container = $( '#lobby .grid' );
+		//layout Masonry again after all images have loaded
+		$container.imagesLoaded( function ()
+		{
+			$container.masonry( {
+				itemSelector: '.event-block-container'
+			} );
 		} );
 	}
 };

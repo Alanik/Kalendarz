@@ -157,12 +157,15 @@
 		}
 	}
 
-	self.transformPrivacyLevels = function (plArray){
+	self.transformPrivacyLevels = function ( plArray )
+	{
 		var obj = {}, privacyLevel;
 
 		for ( var i = 0; i < plArray.length; i++ )
 		{
 			privacyLevel = plArray[i];
+			privacyLevel.name = privacyLevel.name.toLowerCase();
+
 			obj[privacyLevel.name] = privacyLevel.value;
 		}
 

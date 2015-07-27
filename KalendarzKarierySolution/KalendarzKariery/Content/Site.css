@@ -627,9 +627,10 @@ header, footer, nav, section, div {
 	/*background-image: url("../Images/BackgroundParts/RightSidePixelDark.png");
 	background-repeat: repeat-y;*/
 	right: 0px;
-	/*background-position: left;*/
-	border-left: 1px solid #EFEEEC;
-	background: #D7D0B8;
+	/* background-position: left; */
+	border-left: 2px solid #4A4A4A;
+	background: #747068;
+	z-index: 3;
 }
 
 #rightSideLobbyTopPart {
@@ -766,7 +767,7 @@ header, footer, nav, section, div {
 .close-text {
 	font-size: 2em;
 	color: rgb(245, 132, 132);
-	border: 1px solid rgb(197, 191, 172);
+	border: 2px solid rgb(197, 191, 172);
 	border-right: none;
 	padding-left: 10px;
 	padding-right: 30px;
@@ -777,7 +778,7 @@ header, footer, nav, section, div {
 .save-text {
 	font-size: 2em;
 	color: rgb(137, 197, 155);
-	border: 1px solid rgb(197, 191, 172);
+	border: 2px solid rgb(197, 191, 172);
 	border-left: none;
 	padding-left: 30px;
 	padding-right: 10px;
@@ -980,7 +981,7 @@ background:rgb(115, 233, 162);
 
 #addPrivateEventBtn {
 	display: block;
-	margin: 0 auto;
+	margin-left: 10px;
 	width: 200px;
 }
 
@@ -1007,7 +1008,9 @@ background:rgb(115, 233, 162);
 	text-align: center;
 	display: inline-block;
 	margin-bottom: 10px;
-	background: rgb(250, 248, 240);
+	border: 2px solid #CBC7B7;
+	border-right: none;
+	/*background: rgb(250, 248, 240);*/
 	border-radius: 6px;
 }
 
@@ -1352,10 +1355,9 @@ background:rgb(115, 233, 162);
 #lobbyEventsDisplayListContainer {
 	overflow: hidden;
 	padding-bottom: 40px;
-	background:rgb(116, 112, 104);
-	z-index:2;
-	position:relative;
-	border-right:2px solid #585652;
+	background: rgb(116, 112, 104);
+	position: relative;
+	border-right: 3px solid #929292;
 }
 
 .current-month-name-calendar {
@@ -1493,7 +1495,6 @@ background:rgb(115, 233, 162);
 		padding-bottom: 5px;
 		text-transform: uppercase;
 		background: rgba(194, 175, 129, 0.4);
-		width: 230px;
 	}
 
 	.slick-contact-form legend {
@@ -1720,7 +1721,7 @@ legend {
 
 .event-block-info-footer {
 	padding: 10px;
-	padding-bottom:0;
+	padding-bottom: 0;
 	text-align: left;
 	background: rgb(248, 245, 235);
 	line-height: 2;

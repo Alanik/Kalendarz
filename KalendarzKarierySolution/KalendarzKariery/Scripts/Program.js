@@ -89,7 +89,7 @@
 			appViewModel.myNoteTree = appViewModel.UTILS.eventTreeBuilder.buildNoteTree( indexViewModel.MyNotes );
 
 			//console.log( JSON.stringify(appViewModel.myEventTree));
-			console.log( appViewModel.myEventTree);
+			//console.log( appViewModel.myEventTree );
 			//console.log( appViewModel.myNoteTree );
 
 			//console.log( appViewModel.publicEvents);
@@ -97,7 +97,7 @@
 			//console.log( appViewModel.publicEventTreeCountBasedOnEventKind );
 			//console.log( appViewModel.myEventTreeCountBasedOnEventKind );
 			//console.log( appViewModel.eventPrivacyLevels);
-			
+
 			/////////////////////////////////////////////////////////////////////////
 			//draw events to the calendar
 			/////////////////////////////////////////////////////////////////////////
@@ -470,19 +470,41 @@
 
 			$( ".menu-item-container" ).hover( function ()
 			{
-				$( this ).css( {
-					"cursor": "pointer",
-					"box-shadow": "4px 2px 8px rgb(196, 194, 184)",
-					"border": "1px solid white"
-				} );
+				var $this = $( this );
+				if ( !$this.hasClass( "selected" ) )
+				{
+					$( this ).css( {
+						"cursor": "pointer",
+						"border": "2px solid white",
+						"border-left": "none",
+						"border-right": "none"
+					} );
+				}
+				else
+				{
+					$( this ).css( {
+						"border-top": "2px solid white"
+					} );
+				}
+
 			}, function ()
 			{
 				var $this = $( this );
-				$this.css( {
-					"cursor": "auto",
-					"box-shadow": "none",
-					"border": "none"
-				} );
+
+				if ( !$this.hasClass( "selected" ) )
+				{
+					$this.css( {
+						"cursor": "auto",
+						"box-shadow": "none",
+						"border": "none",
+						"border-top": "none"
+					} );
+				} else
+				{
+					$( this ).css( {
+						"border-top": "none"
+					} );
+				}
 
 				//if (!$this.hasClass("selected")) {
 				//	$this.css({						

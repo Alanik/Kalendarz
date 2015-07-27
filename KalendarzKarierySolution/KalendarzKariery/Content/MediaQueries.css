@@ -95,6 +95,10 @@ MEDIA QUERIES
 		margin-top: 120px;
 		margin-bottom: 40px;
 	}
+
+		#calendarDayDetailsTable .table-details-head {
+		padding-top: 0;
+	}
 }
 
 @media (max-width: 320px) {

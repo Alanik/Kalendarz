@@ -37,7 +37,7 @@
 	self.currentPage = 0;
 
 	self.todayDate = {
-		"now" : function(){return new Date()},
+		"now": function () { return new Date() },
 		"day": day,
 		//month starts from 1 to 12
 		"month": month + 1,
@@ -128,7 +128,7 @@
 	self.newsEvents = [];
 
 	//it is filled with public events when building publicEventTree
-	self.publicEvents = ko.observableArray([]);
+	self.publicEvents = ko.observableArray( [] );
 	self.publicEventTree = {
 		// example to remember the format of publicEventTree object
 		//	"2014": {
@@ -299,7 +299,7 @@
 					appViewModel.observableEvent.name(),
 					appViewModel.observableEvent.urlLink(),
 					appViewModel.observableEvent.price(),
-					new KKDateModel(date.getMinutes(), date.getHours(), date.getDate(), date.getMonth() + 1, date.getFullYear())
+					new KKDateModel( date.getMinutes(), date.getHours(), date.getDate(), date.getMonth() + 1, date.getFullYear() )
 					);
 
 					var dayEvents = appViewModel.EVENT_MANAGER.addEvent( kkEvent );
@@ -318,7 +318,8 @@
 		}
 	};
 
-	self.updateEventOnClick = function (){
+	self.updateEventOnClick = function ()
+	{
 		var $addEventForm = $( "#addEventForm" );
 		var privacyLvlValue = self.observableEvent.privacyLevel.value;
 		var eventKindValue = self.observableEvent.kind.value();
@@ -380,7 +381,7 @@
 			//prepare parameters to call WebAPI
 			///////////////////////////////////////////
 			var data = $addEventForm.serialize() +
-				"&Event.Id=" + self.observableEvent.id + 
+				"&Event.Id=" + self.observableEvent.id +
 				"&Event.StartDate=" + startDateJson +
 				"&EventStartDate.Year=" + year +
 				"&EventStartDate.Month=" + month +
@@ -394,10 +395,10 @@
 				"&EventEndDate.Minute=" + endMinute +
 				"&PrivacyLevel.Value=" + privacyLvlValue +
 				"&EventKind.Value=" + eventKindValue;
-			var callback = function ( result, appViewModel)
+			var callback = function ( result, appViewModel )
 			{
 				var kkEvent, oldEvent;
-				 
+
 
 				if ( result.IsSuccess === false )
 				{
@@ -405,8 +406,8 @@
 					$( "#addNewEventContainer" ).show();
 					alert( result.Message );
 				} else
-			{
-					oldEvent = self.EVENT_MANAGER.getEventByDateAndId(result.EventId, year, month, day, self.myEventTree);
+				{
+					oldEvent = self.EVENT_MANAGER.getEventByDateAndId( result.EventId, year, month, day, self.myEventTree );
 					kkEvent = self.EVENT_MANAGER.getNewKKEventModel(
 					appViewModel.userName,
 					appViewModel.observableEvent.address.street(),
@@ -470,7 +471,7 @@
 				displayDate = new KKDateModel( null, null, self.detailsPageDisplayDate.day(), self.detailsPageDisplayDate.month(), self.detailsPageDisplayDate.year() );
 
 				kkNote = self.NOTE_MANAGER.getNewKKNoteModel( result.NoteId, appViewModel.observableNote.data(), appViewModel.userName, appViewModel.observableNote.privacyLevel.name,
-					appViewModel.observableNote.privacyLevel.value, displayDate, false, new KKDateModel(date.getMinutes(), date.getHours(), date.getDate(), date.getMonth() + 1, date.getFullYear()));
+					appViewModel.observableNote.privacyLevel.value, displayDate, false, new KKDateModel( date.getMinutes(), date.getHours(), date.getDate(), date.getMonth() + 1, date.getFullYear() ) );
 				self.NOTE_MANAGER.addNote( kkNote );
 
 				appViewModel.observableNote.data( "" );
@@ -610,7 +611,7 @@
 
 		var $addBtn = $addEventContainer.find( "#btnAddNewEvent" );
 		$addBtn.attr( "data-bind", "click: $root.updateEventOnClick" )
-		$addBtn.find( "span" ).text("Zapisz zmiany");
+		$addBtn.find( "span" ).text( "Zapisz zmiany" );
 
 		ko.unapplyBindings( $addBtn[0] );
 		ko.applyBindings( self, $addBtn[0] );
@@ -667,7 +668,7 @@
 	self.editNoteDetailsPageOnEditLinkClick = function ( id, year, month, day )
 	{
 		var $editContainer = $( "<div class='edit-mode-note-container'></div>" );
-		var $btns = $( "<div style='text-align:center;font-size:18px;'><span class='link save-link' style='padding:4px;color: rgb(68, 192, 64);'  data-bind='click:$root.updateNoteDetailsPageOnSaveLinkClick.bind($root," + id + ',' + year + ',' + month  + ',' + day + ")'>zapisz</span><span class='link cancel-link' style='padding:4px;color:red;' data-bind='click:$root.cancelEditNoteDetailsPageOnCancelLinkClick.bind($root," + id + ")'>anuluj</span></div>" );
+		var $btns = $( "<div style='text-align:center;font-size:18px;'><span class='link save-link' style='padding:4px;color: rgb(68, 192, 64);'  data-bind='click:$root.updateNoteDetailsPageOnSaveLinkClick.bind($root," + id + ',' + year + ',' + month + ',' + day + ")'>zapisz</span><span class='link cancel-link' style='padding:4px;color:red;' data-bind='click:$root.cancelEditNoteDetailsPageOnCancelLinkClick.bind($root," + id + ")'>anuluj</span></div>" );
 		var cancelLink = $btns.find( ".cancel-link" )[0];
 		var saveLink = $btns.find( ".save-link" )[0];
 
@@ -708,7 +709,7 @@
 			{
 				appViewModel.hideLoader( $loader );
 				note.data = text;
-				$container.find( "pre" ).text(text);
+				$container.find( "pre" ).text( text );
 				$container.find( ".edit-mode-note-container" ).remove();
 				$container.find( ".note-content" ).show();
 			}
@@ -720,8 +721,9 @@
 		self.UTILS.webApiCaller.callUpdateNote( data, callback, $container, note, text );
 	};
 
-	self.setLineThroughNoteDetailsPageOnLineThroughLinkClick = function ( id, year, month, day, isLineThrough ){
-	
+	self.setLineThroughNoteDetailsPageOnLineThroughLinkClick = function ( id, year, month, day, isLineThrough )
+	{
+
 		var $container = $( "#details #notesList .li-note-container[data-noteid='" + id + "']" );
 		var text = $container.find( "pre" ).text();
 
@@ -743,11 +745,9 @@
 				alert( result.Message );
 			} else
 			{
-			    isLineThrough = !note.isLineThrough();
+				isLineThrough = !note.isLineThrough();
 				appViewModel.hideLoader( $loader );
 				note.isLineThrough( isLineThrough );
-
-				console.log(appViewModel.detailsPageDayNotes());
 			}
 		}
 
@@ -837,43 +837,11 @@
 
 	self.showEventDetailsOnEventBlockClick = function ( element )
 	{
-		var $block = $( element ), offset;
-		var $eventBlockContainer, $calendarDayDetailsContainer$content, $eventBlockInfo;
+		var $block = $( element );
+		var $eventBlockContainer;
 
-		switch ( self.currentPage )
-		{
-			case 0:
-				$eventBlockContainer = $block.closest( ".event-block-container" );
-				$content = $eventBlockContainer.find( ".event-block-body" );
-				$eventBlockInfo = $eventBlockContainer.find( ".event-block-info-container" );
-
-				if ( $block.hasClass( "open" ) )
-				{
-					offset = $eventBlockContainer.position().top + 120;
-					$eventBlockContainer.scrollTo( 500, offset);
-					$eventBlockInfo.slideUp();
-					$content.css( "color", "rgb(229, 211, 180)" );
-				}
-				else
-				{
-					offset = $eventBlockContainer.position().top + 120;
-					$eventBlockContainer.scrollTo( 500, offset );
-					$eventBlockInfo.slideDown();
-					$content.css( "color", "rgb(161, 147, 123)" );
-				}
-
-				$block.toggleClass( "open" );
-
-				break;
-			case 1:
-				break;
-			case 2:
-				$eventBlockContainer = $block.closest( ".details-event-block-container" );
-				$eventBlockContainer.scrollTo( 500 );
-				break;
-			default:
-				return;
-		}
+		$eventBlockContainer = $block.closest( ".details-event-block-container" );
+		$eventBlockContainer.scrollTo( 500 );
 	};
 
 	self.toggleShowOldEventsOnCheckboxClick = function ( element, lobbyOrDetailsPageSelectedEvents )
@@ -1141,6 +1109,8 @@
 		if ( $menuItemContainer.hasClass( "selected" ) )
 		{
 			$menuItemContainer.css( "top", "20px" );
+			$menuItemContainer.css( "border-bottom", "2px solid white" );
+			$menuItemContainer.css( "border-top", "none" );
 
 			lobbyOrDetailsPageSelectedEvents.selectedKindValues.push( eventKindValue );
 			showSelectedEvents( lobbyOrDetailsPageSelectedEvents.settings.pageName );
@@ -1148,13 +1118,14 @@
 		} else
 		{
 			$menuItemContainer.css( "top", "0px" );
+			$menuItemContainer.css( "border", "none" );
 
 			filteredArray = lobbyOrDetailsPageSelectedEvents.selectedKindValues.filter( function ( e ) { return e !== eventKindValue } )
 			lobbyOrDetailsPageSelectedEvents.selectedKindValues = filteredArray;
 			removeSelectedEvents( lobbyOrDetailsPageSelectedEvents.settings.pageName );
 		}
 
-		$menuItemContainer.scrollTo(500);
+		$menuItemContainer.scrollTo( 500 );
 
 		function showSelectedEvents( lobbyOrDetails )
 		{
@@ -1647,7 +1618,8 @@
 		return true;
 	};
 
-	self.showAddPrivateCalendarEventPopupOnClick = function ( element, data, e ){
+	self.showAddPrivateCalendarEventPopupOnClick = function ( element, data, e )
+	{
 		var $lobby = $( "#lobby" );
 		var $calendar = $( "#calendar" );
 		var $details = $( "#details" );
@@ -1708,7 +1680,7 @@
 
 		var monthNumber = ( currMonth ) < 10 ? '0' + ( currMonth ) : currMonth;
 
-		self.resetAndSetPrivacyLvlToObservableEvent(dayNumber, monthNumber, currYear, "private", 1);
+		self.resetAndSetPrivacyLvlToObservableEvent( dayNumber, monthNumber, currYear, "private", 1 );
 
 		var top = $( "#slide-item-calendar" ).parent().scrollTop();
 		$addEventContainer.css( "top", top + 10 );
@@ -1726,8 +1698,8 @@
 		var day = self.todayDate.day < 10 ? '0' + self.todayDate.day : self.todayDate.day;
 		var month = self.todayDate.month < 10 ? '0' + self.todayDate.month : self.todayDate.month;
 
-		self.resetAndSetPrivacyLvlToObservableEvent(day, month, self.todayDate.year, "public", 2);
-		
+		self.resetAndSetPrivacyLvlToObservableEvent( day, month, self.todayDate.year, "public", 2 );
+
 		var $lobby = $( "#lobby" );
 		var $calendar = $( "#calendar" );
 		var $details = $( "#details" );
@@ -1779,7 +1751,8 @@
 		$addEventContainer.find( "#Event_Title" ).focus();
 	};
 
-	self.resetAndSetPrivacyLvlToObservableEvent = function (day, month, year, privacyName, privacyValue){
+	self.resetAndSetPrivacyLvlToObservableEvent = function ( day, month, year, privacyName, privacyValue )
+	{
 		self.EVENT_MANAGER.resetKKEventModelObservable( self.observableEvent, day, month, year );
 		self.observableEvent.privacyLevel.name = privacyName;
 		self.observableEvent.privacyLevel.value = privacyValue;
@@ -1899,7 +1872,8 @@
 	{
 		var $menuItemContainer, $eventsMenuContainer;
 
-		switch(self.currentPage){
+		switch ( self.currentPage )
+		{
 			case 0:
 				$( "#lobby #lobbyPageAllEventsListContainer" ).hide();
 
@@ -1925,7 +1899,7 @@
 				$( "#details #detailsPageAllEventsListContainer" ).hide();
 				self.showDetailsPageClockContainer();
 
-				
+
 				$eventsMenuContainer = $( "#details .events-menu-container" );
 				$eventsMenuContainer.find( ".menu-item-container" ).each( function ()
 				{

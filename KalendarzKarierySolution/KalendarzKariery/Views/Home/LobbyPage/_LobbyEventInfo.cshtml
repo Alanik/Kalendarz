@@ -1,5 +1,21 @@
 ﻿
-<div class="event-block-info-container" style="display: none;">
+<div class="event-block-info-container">
+	<div class="event-block-info-header" data-bind="style: { color: kind.headerColor }">
+		<div style="position: absolute; left: 0px; top: 0px; padding: 10px; background: #BAB39D; border-left: 2px solid #9D9784; border-top: 2px solid #9D9784;"><span data-bind="text: kind.name"></span></div>
+		<div class="hour-date-label-container">
+			<div class="hour-label">
+				<span data-bind="text: startDate.formatZero( startDate.startHour )"></span><span>:</span><span data-bind="	text: startDate.formatZero( startDate.startMinute )"></span><span style="padding: 0 4px;"> - </span>
+				<span data-bind="text: startDate.formatZero( startDate.endHour )"></span><span>:</span><span data-bind="	text: startDate.formatZero( startDate.endMinute )"></span>
+			</div>
+			<div class="date-label">
+				<span data-bind="text: startDate.displayFullDate()"></span>
+			</div>
+			<div class="address-label" data-bind="if: ( address.city != '' && address.city != null )">
+				<div data-bind="text: address.street"></div>
+				<span data-bind="text: address.zipCode"></span><span data-bind="	text: ' ' + address.city"></span>
+			</div>
+		</div>
+	</div>
 	<div class="event-block-info-body">
 		<div class="event-block-info-name">
 			<span data-bind="text: name"></span>
@@ -9,21 +25,6 @@
 		</div>
 		<div class="event-block-info-details">
 			<p data-bind="text: details"></p>
-		</div>
-		<div class="event-block-info-time">
-			<div style="display: inline-block; width: 100px; font-size: .8em;">godzina:</div>
-			<span data-bind="text: startDate.displayFullTime()"></span>
-		</div>
-		<div class="event-block-info-date">
-			<div style="display: inline-block; width: 100px; font-size: .8em;">data:</div>
-			<span data-bind="text: startDate.displayFullDate()"></span>
-		</div>
-		<div data-bind="visible: ( address.street != '' && address.street != null ) || ( address.city != '' && address.city != null )" class="event-block-info-address">
-			<div style="display: inline-block; width: 100px; font-size: .8em; vertical-align: top;">adres:</div>
-			<div style="display: inline-block;">
-				<div data-bind="text: address.street"></div>
-				<span data-bind="text: address.zipCode"></span><span data-bind="text: ' ' + address.city"></span>
-			</div>
 		</div>
 		<div data-bind="visible: price != 0 && price != ''" class="event-block-info-price">
 			<div style="display: inline-block; width: 100px; font-size: .8em;">opłata za wstęp:</div>

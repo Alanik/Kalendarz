@@ -24,7 +24,6 @@
 		var m = 0;
 		var calendar = '';
 		calendar += ('<div id="calendarMenuHeader">');
-		calendar += ('<div style="width:100%;z-index:2;position:absolute;top:2px;border-top:1px solid rgb(221,221,221);border-bottom:1px solid rgb(247,247,247);"></div>');
 		calendar += ('<div class="year-header-container"></div>');
 		calendar += ('<div class="month-name-header-container">');
 		calendar += ( '<div class="today-day-header-calendar">' + today + '</div>' );

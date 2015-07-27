@@ -1353,6 +1353,9 @@ background:rgb(115, 233, 162);
 	overflow: hidden;
 	padding-bottom: 40px;
 	background:rgb(116, 112, 104);
+	z-index:2;
+	position:relative;
+	border-right:2px solid #585652;
 }
 
 .current-month-name-calendar {

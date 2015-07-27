@@ -23,14 +23,14 @@
 		//////////////////////////////////////////////////////////
 		var opts = {
 			lines: 17, // The number of lines to draw
-			length: 17, // The length of each line
+			length: 6, // The length of each line
 			width: 4, // The line thickness
 			radius: 20, // The radius of the inner circle
 			corners: 1, // Corner roundness (0..1)
 			rotate: 0, // The rotation offset
 			direction: 1, // 1: clockwise, -1: counterclockwise
 			color: '#FFF', // #rgb or #rrggbb or array of colors
-			speed: 1, // Rounds per second
+			speed: 2, // Rounds per second
 			trail: 80, // Afterglow percentage
 			shadow: false, // Whether to render a shadow
 			hwaccel: false, // Whether to use hardware acceleration
@@ -57,13 +57,6 @@
 
 		this.spinner.spin( $target[0] );
 		$target.show();
-	},
-	initializeEventGrid: function ()
-	{
-		$( '#lobby .grid' ).masonry( {
-			columnWidth: 320,
-			itemSelector: '.event-block-container'
-		} );
 	},
 	initialize: function ( indexViewModel, userName )
 	{
@@ -826,5 +819,11 @@
 			} );
 
 		}();
+	},
+	initializeEventGrid: function ()
+	{
+		$( '#lobby .grid' ).masonry( {
+			itemSelector: '.event-block-container'
+		} );
 	}
 };

@@ -52,7 +52,7 @@
 
 		//Set the popup window to center
 		$target.css( 'top', winH / 2 - $target.height() / 2 );
-		$target.css( 'left', winW / 2 - $target.width() / 2 );
+		$target.css( 'left', winW / 2 - $target.width() / 2 - 20);
 
 		this.spinner.spin( $target[0] );
 		$target.show();

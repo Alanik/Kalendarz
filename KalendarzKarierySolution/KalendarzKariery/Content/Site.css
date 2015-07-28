@@ -75,7 +75,8 @@ header, footer, nav, section, div {
 }
 
 .selected-nav-link {
-	text-shadow: 0px 1px 1px #BDB8A4;
+	text-shadow: 0px 1px 1px #B3AC95;
+	border-bottom:2px solid #F6FFF4;
 }
 
 #lobbyQuoteContainer {
@@ -522,6 +523,10 @@ header, footer, nav, section, div {
 
 #loginSpanLink {
 	font-size: 1.4em;
+	padding: 10px;
+	border: 2px solid #CBC7B5;
+	border-right: 0;
+	border-radius: 3px;
 }
 
 #detailsPanel {
@@ -553,8 +558,7 @@ header, footer, nav, section, div {
 }
 
 	.today-cell .event-rectangle {
-		opacity: 1 !important;
-		font-size: 1.1em;
+		font-size: .9em;
 	}
 
 .current-month-cell {
@@ -626,10 +630,10 @@ header, footer, nav, section, div {
 #rightSideLobby {
 	/*background-image: url("../Images/BackgroundParts/RightSidePixelDark.png");
 	background-repeat: repeat-y;*/
-	right: 0px;
 	/* background-position: left; */
-	border-left: 2px solid #4A4A4A;
-	background: #747068;
+	right: 0;
+	border-left: 1px solid #efeeec;
+	background: #D7D0B8;
 	z-index: 3;
 }
 
@@ -804,8 +808,9 @@ header, footer, nav, section, div {
 }
 
 .event-block-user-option {
-	color: rgb(175, 170, 124);
+	/*color: rgb(175, 170, 124);*/
 	font-size: 1.2em;
+	color: rgb(116, 112, 104);
 }
 
 .light-icon {
@@ -987,6 +992,7 @@ background:rgb(115, 233, 162);
 
 #addPublicEventBtn {
 	margin-left: 10px;
+	margin-top: 8px;
 }
 
 #lobbyTableOfEventsSection {
@@ -1011,7 +1017,7 @@ background:rgb(115, 233, 162);
 	border: 2px solid #CBC7B7;
 	border-right: none;
 	/*background: rgb(250, 248, 240);*/
-	border-radius: 6px;
+	border-radius: 3px;
 }
 
 .year-name-container {
@@ -1186,7 +1192,6 @@ background:rgb(115, 233, 162);
 }
 
 .lobby-user-nickname {
-	margin-right: 15px;
 	font-size: 2em;
 	vertical-align: baseline;
 	position: relative;
@@ -1355,9 +1360,9 @@ background:rgb(115, 233, 162);
 #lobbyEventsDisplayListContainer {
 	overflow: hidden;
 	padding-bottom: 40px;
-	background: rgb(116, 112, 104);
+	background: rgb(164, 156, 137);
 	position: relative;
-	border-right: 3px solid #807F7F;
+	border-right: 3px solid #EDE9D9;
 }
 
 .current-month-name-calendar {
@@ -1403,6 +1408,10 @@ background:rgb(115, 233, 162);
 
 #loginPageContainer li {
 	margin-bottom: 10px;
+}
+
+#loginPageContainer label {
+	width: 230px;
 }
 
 .summary-validation-errors {
@@ -1465,8 +1474,7 @@ background:rgb(115, 233, 162);
 }
 
 #registerFormBtn {
-	margin-top: 30px;
-	margin-left: 140px;
+	float: right;
 }
 
 #spinnerContainer {
@@ -1767,12 +1775,18 @@ legend {
 		color: rgb(84, 77, 61);
 		font-size: 1.4em;
 		line-height: 1;
+		top: 4px;
+		position: relative;
 	}
 
 .event-block-info-header {
 	overflow: hidden;
-	text-align: left;
 	position: relative;
+	padding: 10px;
+	padding-left: 0;
+	padding-top: 0;
+	/*background: #BAB39D;*/
+	border-top: 2px solid #9D9784;
 }
 
 .details-event-block-container {
@@ -1848,10 +1862,9 @@ legend {
 .today-day-header-calendar {
 	color: #918D80;
 	display: inline-block;
-	font-size: 2em;
+	font-size: 2.2em;
 	letter-spacing: 1px;
 	padding-top: 5px;
-	padding-bottom: 4px;
 	padding-right: 14px;
 	padding-left: 14px;
 }

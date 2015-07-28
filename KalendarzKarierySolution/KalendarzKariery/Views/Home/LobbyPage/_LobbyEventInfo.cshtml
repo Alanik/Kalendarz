@@ -1,7 +1,9 @@
 ﻿
 	<div class="event-block-info-header" data-bind="style: { color: kind.headerColor }">
-		<div style="overflow:hidden; position: relative; left: 0px; top: 0px; padding: 10px; background: #BAB39D; border-left: 2px solid #9D9784; border-top: 2px solid #9D9784;">
+	<div style="float: left; padding: 10px; background: #BAB39D; border-left: 2px solid #9D9784;">
 		<span data-bind="text: kind.name"></span>
+	</div>
+		
 			<div class="hour-date-label-container">
 				<div class="hour-label">
 					<span data-bind="text: startDate.formatZero( startDate.startHour )"></span><span>:</span><span data-bind="	text: startDate.formatZero( startDate.startMinute )"></span><span style="padding: 0 4px;"> - </span>
@@ -15,8 +17,6 @@
 					<span data-bind="text: address.zipCode"></span><span data-bind="	text: ' ' + address.city"></span>
 				</div>
 			</div>
-		</div>
-		
 	</div>
 	<div class="event-block-info-body">
 		<div class="event-block-info-name">

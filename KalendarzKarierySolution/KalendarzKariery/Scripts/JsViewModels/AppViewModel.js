@@ -399,7 +399,6 @@
 			{
 				var kkEvent, oldEvent;
 
-
 				if ( result.IsSuccess === false )
 				{
 					appViewModel.hideLoader();
@@ -650,7 +649,6 @@
 		self.observableEvent.urlLink( event.urlLink );
 		self.observableEvent.price( event.price );
 
-		self.observableEvent.startDate.javaScriptStartDate = event.startDate.javaScriptStartDate;
 		self.observableEvent.startDate.startMinute( event.startDate.startMinute );
 		self.observableEvent.startDate.startHour( event.startDate.startHour );
 		self.observableEvent.startDate.endMinute( event.startDate.endMinute );
@@ -862,8 +860,7 @@
 			if ( lobbyOrDetailsPageSelectedEvents.settings.pageName == "details" )
 			{
 				eventsArr = self.EVENT_MANAGER.getFilteredEventsFromEventTree( self.myEventTree, ["kind", "value"], lobbyOrDetailsPageSelectedEvents.selectedKindValues, "old" );
-			} else
-			{
+			} else{
 				eventsArr = self.EVENT_MANAGER.getFilteredEventsFromEventTree( self.publicEventTree, ["kind", "value"], lobbyOrDetailsPageSelectedEvents.selectedKindValues, "old" );
 			}
 
@@ -1634,15 +1631,18 @@
 		$overlay.css( "opacity", 1 );
 		$overlay.show();
 
+		//////////////////////////////////////////////////
 		var $addEventContainer = $( "#addNewEventContainer" );
 		$addEventContainer.detach().prependTo( $calendar );
 		$addEventContainer.find( "legend" ).text( "Dodaj do kalendarza" );
+
 		var $addBtn = $addEventContainer.find( "#btnAddNewEvent" );
 		$addBtn.find( "span" ).text( "Dodaj" );
 		$addBtn.attr( "data-bind", "click: $root.addEventOnClick" )
 
 		ko.unapplyBindings( $addBtn[0] );
 		ko.applyBindings( self, $addBtn[0] );
+		///////////////////////////////////////////////////
 
 		var $eventTitle = $addEventContainer.find( "#Event_Title" );
 
@@ -1712,12 +1712,21 @@
 		$overlay.css( "opacity", 1 );
 		$overlay.show();
 
+		///////////////////////////////////////////////////
 		var $addEventContainer = $( "#addNewEventContainer" );
 		$addEventContainer.detach().prependTo( "#lobby" );
-
 		$addEventContainer.find( "legend" ).text( "Dodaj do tablicy wydarzeń" );
+
 		var top = $( "#slide-item-lobby" ).parent().scrollTop();
 		$addEventContainer.css( "top", top + 30 );
+
+		var $addBtn = $addEventContainer.find( "#btnAddNewEvent" );
+		$addBtn.find( "span" ).text( "Dodaj" );
+		$addBtn.attr( "data-bind", "click: $root.addEventOnClick" )
+
+		ko.unapplyBindings( $addBtn[0] );
+		ko.applyBindings( self, $addBtn[0] );
+		///////////////////////////////////////////////////
 
 		$addEventContainer.show();
 		var $eventTitle = $addEventContainer.find( "#Event_Title" ).focus();
@@ -1742,9 +1751,20 @@
 		$overlay.css( "opacity", 1 );
 		$overlay.show();
 
+		//////////////////////////////////////////////////
 		var $addEventContainer = $( "#addNewEventContainer" );
-		$addEventContainer.detach().prependTo( $lobby );
+		$addEventContainer.detach().prependTo( $calendar );
 		$addEventContainer.find( "legend" ).text( "Dodaj do kalendarza" );
+
+		var $addBtn = $addEventContainer.find( "#btnAddNewEvent" );
+		$addBtn.find( "span" ).text( "Dodaj" );
+		$addBtn.attr( "data-bind", "click: $root.addEventOnClick" )
+
+		ko.unapplyBindings( $addBtn[0] );
+		ko.applyBindings( self, $addBtn[0] );
+		///////////////////////////////////////////////////
+
+
 		var top = $( "#slide-item-lobby" ).parent().scrollTop();
 		$addEventContainer.css( "top", top + 30 );
 		$addEventContainer.show();

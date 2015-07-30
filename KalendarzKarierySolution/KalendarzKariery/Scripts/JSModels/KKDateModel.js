@@ -1,7 +1,6 @@
 ﻿var KKDateModel = function ( minute, hour, day, month, year ){
 	var self = this;
 
-	//month is from 0 - 11
 	self.minute = minute;
 	self.hour = hour;
 	self.day = day;

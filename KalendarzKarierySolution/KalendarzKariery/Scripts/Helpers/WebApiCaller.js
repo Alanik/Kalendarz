@@ -2,6 +2,8 @@
 	var self = this;
 	self.appViewModel = appViewModel;
 	
+	//event
+
 	self.callAddEvent = function ( data, callback ){
 		var $addEventContainer = $( "#addNewEventContainer" );
 
@@ -100,6 +102,8 @@
 			}
 		} );
 	}
+
+	//Note
 
 	self.callAddNote = function (data, callback ){
 		var $loader = $( "#details" ).siblings( ".dotted-page-overlay" );

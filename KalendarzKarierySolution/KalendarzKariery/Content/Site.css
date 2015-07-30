@@ -518,7 +518,6 @@ header, footer, nav, section, div {
 
 .login-link {
 	padding: 0 10px;
-	text-decoration: underline;
 }
 
 #loginSpanLink {
@@ -698,6 +697,7 @@ header, footer, nav, section, div {
 	position: relative;
 	top: 0px;
 	margin-bottom: 20px;
+	margin-top: 20px;
 	/*background: rgb(245, 240, 223);*/
 	/*background: rgb(252, 251, 246);*/
 }
@@ -1213,31 +1213,31 @@ background:rgb(115, 233, 162);
 }
 
 .szkolenia-border-tab {
-	border-bottom: 10px solid rgb(185, 205, 255);
+	border-bottom: 4px solid rgb(185, 205, 255);
 }
 
 .lekcje-border-tab {
-	border-bottom: 10px solid rgb(255, 232, 189);
+	border-bottom: 4px solid rgb(255, 232, 189);
 }
 
 .kursy-border-tab {
-	border-bottom: 10px solid rgb(200, 200, 200);
+	border-bottom: 4px solid rgb(200, 200, 200);
 }
 
 .spotkania-border-tab {
-	border-bottom: 10px solid rgb(194, 255, 212);
+	border-bottom: 4px solid rgb(194, 255, 212);
 }
 
 .wydarzenia-border-tab {
-	border-bottom: 10px solid rgb(255, 255, 196);
+	border-bottom: 4px solid rgb(255, 255, 196);
 }
 
 .inne-border-tab {
-	border-bottom: 10px solid rgb(255, 204, 204);
+	border-bottom: 4px solid rgb(255, 204, 204);
 }
 
 .zajecia-border-tab {
-	border-bottom: 10px solid rgb(193, 241, 255);
+	border-bottom: 4px solid rgb(193, 241, 255);
 }
 
 #slide-item-details {

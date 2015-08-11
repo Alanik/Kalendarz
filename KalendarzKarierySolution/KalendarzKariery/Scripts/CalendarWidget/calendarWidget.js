@@ -32,15 +32,15 @@
 
 			if (j > 8) {
 				if (j == calendarDate.month) {
-					calendar += ( '<div class="month-name-container current-month-name-calendar"><span data-bind="click: function(){ $root.redisplayCalendarAtChosenMonth(' + j + ') }">' + monthNames[j] + '</span></div>' );
+					calendar += ( '<div class="month-name-container current-month-name-calendar"><span data-bind="click: function(){ $root.redisplayCalendarAtChosenMonth(' + (j + 1) + ') }">' + monthNames[j] + '</span></div>' );
 				} else {
-					calendar += ( '<div class="month-name-container"><span class="month-name-calendar" data-bind="click: function(){ $root.redisplayCalendarAtChosenMonth(' + j + ') }">' + monthNames[j] + '</span></div>' );
+					calendar += ( '<div class="month-name-container"><span class="month-name-calendar" data-bind="click: function(){ $root.redisplayCalendarAtChosenMonth(' + (j + 1) + ') }">' + monthNames[j] + '</span></div>' );
 				}
 			} else {
 				if (j == calendarDate.month) {
-					calendar += ( '<div class="month-name-container current-month-name-calendar"><span data-bind="click: function(){ $root.redisplayCalendarAtChosenMonth(' + j  + ') }">' + monthNames[j] + '</span></div>' );
+					calendar += ( '<div class="month-name-container current-month-name-calendar"><span data-bind="click: function(){ $root.redisplayCalendarAtChosenMonth(' + (j + 1) + ') }">' + monthNames[j] + '</span></div>' );
 				} else {
-					calendar += ( '<div class="month-name-container"><span class="month-name-calendar" data-bind="click: function(){ $root.redisplayCalendarAtChosenMonth(' + j + ') }">' + monthNames[j] + '</span></div>' );
+					calendar += ( '<div class="month-name-container"><span class="month-name-calendar" data-bind="click: function(){ $root.redisplayCalendarAtChosenMonth(' + (j + 1) + ') }">' + monthNames[j] + '</span></div>' );
 				}
 			}
 		}

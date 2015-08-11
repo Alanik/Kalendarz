@@ -2,6 +2,8 @@
 {
 	var self = this;
 
+	//Events
+
 	self.buildEventTree = function ( yearEventTreeModel, isPublicEventTree )
 	{
 		var eventTree = {}, groups;
@@ -39,7 +41,7 @@
 						minutes = getMinutes( event );
 						startDate = getStartDate( event );
 
-						kkEvent = appViewModel.EVENT_MANAGER.getNewKKEventModel(event.addedBy, address.street, address.city, address.zipCode, event.description, event.details, minutes, event.kind.value, event.kind.name, event.id, event.occupancyLimit, event.privacyLevel.name, event.privacyLevel.value, startDate, event.name, event.urlLink, event.price, event.dateAdded);
+						kkEvent = appViewModel.EVENT_MANAGER.getNewKKEventModel( event.addedBy, address.street, address.city, address.zipCode, event.description, event.details, minutes, event.kind.value, event.kind.name, event.id, event.occupancyLimit, event.privacyLevel.name, event.privacyLevel.value, startDate, event.name, event.urlLink, event.price, event.dateAdded, event.isEventAddedToCurrentUserCalendar, event.isCurrentUserSignedUpForEvent );
 						
 						eventTreeDayGroupProp.push( kkEvent );
 
@@ -172,6 +174,8 @@
 		return obj;
 
 	}
+
+	//Notes
 
 	self.buildNoteTree = function ( yearNoteTreeModel )
 	{

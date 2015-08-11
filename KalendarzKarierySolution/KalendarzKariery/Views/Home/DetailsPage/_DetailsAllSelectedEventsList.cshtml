@@ -11,6 +11,7 @@
 	</div>
 
 	<div class="legend-container">
+		<div class="legend-ispublic">Publiczne:</div>
 		<div class="legend-title">Tytuł:</div>
 		<div class="legend-other">Data:</div>
 		<div class="legend-other">Godzina:</div>
@@ -25,6 +26,12 @@
 		<!-- /ko -->
 
 		<div class="display-events-overview-list">
+			<div data-bind="if: privacyLevel.value == 2" class="list-item-star">
+				<img src="~/Images/Icons/star.png" alt="public event star" />
+			</div>
+			<div data-bind="if: privacyLevel.value != 2" class="list-item-star">
+				<div style="width:30px;"></div>
+			</div>
 			<div class="list-item-title" data-bind="text: name"></div>
 			<div class="list-item-other" data-bind="text: startDate.displayFullDate()"></div>
 			<div class="list-item-other" data-bind="text: startDate.displayFullTime()"></div>
@@ -40,6 +47,12 @@
 		<!-- /ko -->
 
 		<div class="display-events-overview-list">
+			<div data-bind="if: privacyLevel.value == 2" class="list-item-star">
+				<img src="~/Images/Icons/star.png" alt="public event star" />
+			</div>
+			<div data-bind="if: privacyLevel.value != 2" class="list-item-star">
+				<div style="width: 30px;"></div>
+			</div>
 			<div class="list-item-title" data-bind="text: name"></div>
 			<div class="list-item-other" data-bind="text: startDate.displayFullDate()"></div>
 			<div class="list-item-other" data-bind="text: startDate.displayFullTime()"></div>

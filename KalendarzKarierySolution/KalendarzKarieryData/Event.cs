@@ -17,7 +17,8 @@ namespace KalendarzKarieryData
         public Event()
         {
             this.Comments = new HashSet<Comment>();
-            this.Users = new HashSet<User>();
+            this.CalendarUsers = new HashSet<User>();
+            this.SignedUpUsers = new HashSet<User>();
         }
     
         public int Id { get; set; }
@@ -44,6 +45,7 @@ namespace KalendarzKarieryData
         public virtual EventStatus EventStatus { get; set; }
         public virtual User User { get; set; }
         public virtual PrivacyLevel PrivacyLevel { get; set; }
-        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<User> CalendarUsers { get; set; }
+        public virtual ICollection<User> SignedUpUsers { get; set; }
     }
 }

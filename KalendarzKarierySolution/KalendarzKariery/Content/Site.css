@@ -76,7 +76,7 @@ header, footer, nav, section, div {
 
 .selected-nav-link {
 	text-shadow: 0px 1px 1px #B3AC95;
-	border-bottom:2px solid #F6FFF4;
+	border-bottom: 2px solid #F6FFF4;
 }
 
 #lobbyQuoteContainer {
@@ -270,21 +270,23 @@ header, footer, nav, section, div {
 	text-align: left;
 	padding: 5px;
 	padding-left: 20px;
-	color: rgb(231, 224, 202);
-	border-bottom: 1px solid rgb(242, 242, 242);
+	/*color: rgb(231, 224, 202);*/
+	color: rgb(144, 138, 119);
+	/*border-bottom: 1px solid rgb(242, 242, 242);*/
+	border-bottom: 1px solid rgb(250, 248, 240);
 	font-size: 1.4em;
-	background: rgb(186, 176, 146);
+	/*background: rgb(186, 176, 146);
 	border-top-left-radius: 6px;
-	border-top-right-radius: 6px;
+	border-top-right-radius: 6px;*/
 }
 
 
 .display-events-overview-container {
 	font-size: 1.2em;
-	background: rgb(223, 215, 188);
-	width: 88%;
+	/*background: rgb(223, 215, 188);*/
+	/*width: 88%;
 	border-radius: 6px;
-	border: 1px solid rgb(212, 202, 168);
+	border: 1px solid rgb(212, 202, 168);*/
 	display: none;
 	padding-bottom: 40px;
 	text-align: center;
@@ -304,6 +306,13 @@ header, footer, nav, section, div {
 		text-align: left;
 	}
 
+	.display-events-overview-container .legend-ispublic {
+		display: inline-block;
+		padding: 5px;
+		margin-left:-55px;
+		text-align: left;
+	}
+
 	.display-events-overview-container .legend-other {
 		display: inline-block;
 		padding: 5px;
@@ -312,7 +321,7 @@ header, footer, nav, section, div {
 	}
 
 	.display-events-overview-container .legend-oldorupcoming {
-		color: rgb(255, 250, 232);
+		color: white;
 		padding: 4px 0;
 		font-size: 1.6em;
 		text-align: center;
@@ -383,7 +392,7 @@ header, footer, nav, section, div {
 	padding: 5px;
 	background: rgb(184, 168, 137);
 	width: 100px;
-	box-shadow: rgb(143, 125, 107) 2px 2px 10px -1px inset;
+	/*box-shadow: rgb(143, 125, 107) 2px 2px 10px -1px inset;*/
 	line-height: 1.5;
 }
 
@@ -531,7 +540,6 @@ header, footer, nav, section, div {
 #detailsPanel {
 	min-height: 500px;
 	padding-top: 20px;
-	border-top: 2px solid rgb(245, 242, 231);
 	border-left: 3px solid rgb(215, 208, 184);
 }
 
@@ -655,11 +663,11 @@ header, footer, nav, section, div {
 }
 
 .menu-item {
-	border-top: 2px solid rgb(190, 182, 155);
-	height: 5px;
+	height: 0px;
 	color: rgb(133, 123, 100);
-	font-size: 0.9em;
-	width: 80px;
+	font-size: 1em;
+	margin-bottom:20px;
+	width: 100px;
 	text-align: center;
 }
 
@@ -698,13 +706,14 @@ header, footer, nav, section, div {
 	top: 0px;
 	margin-bottom: 20px;
 	margin-top: 20px;
-	/*background: rgb(245, 240, 223);*/
-	/*background: rgb(252, 251, 246);*/
+	background:#FDFCF8;
+	border:2px solid #E4E0D1;
+	border-top:none;
 }
 
 .menu-item-number-container {
 	color: rgb(202, 197, 197);
-	font-size: 2em;
+	font-size: 3em;
 }
 
 .menu-item-number-old {
@@ -736,8 +745,18 @@ header, footer, nav, section, div {
 	display: inline-block;
 }
 
+.list-item-star {
+display: inline-block;
+}
+
+.list-item-star img {
+	width: 30px !important;
+	vertical-align:middle;
+}
+
 #detailsPageAllEventsListContainer {
 	margin-left: 1.8%;
+	margin-right: 10%;
 	margin-top: 50px;
 }
 
@@ -944,12 +963,7 @@ background:rgb(115, 233, 162);
 	font-size: 2em;
 	color: rgb(167, 164, 154);
 	padding: 10px;
-	top: 20px;
-	padding-bottom: 20px;
-	position: relative;
-	/*background: rgb(190, 182, 155);
-	border-bottom: 2px solid rgb(174, 168, 144);
-	border-top: 2px solid rgb(174, 168, 144);*/
+	background: rgb(250, 248, 240);
 }
 
 .selected-content-container {
@@ -997,11 +1011,8 @@ background:rgb(115, 233, 162);
 
 #lobbyTableOfEventsSection {
 	display: block;
-	text-align: center;
-	border-top: 2px solid rgb(250, 248, 240);
-	padding-top: 4px;
-	padding-bottom: 10px;
 	border-right: 3px solid rgb(215, 208, 184);
+	text-align: center;
 }
 
 #endDateValidationErrorMsg {
@@ -1213,31 +1224,31 @@ background:rgb(115, 233, 162);
 }
 
 .szkolenia-border-tab {
-	border-bottom: 4px solid rgb(185, 205, 255);
+	border-bottom: 8px solid rgb(185, 205, 255);
 }
 
 .lekcje-border-tab {
-	border-bottom: 4px solid rgb(255, 232, 189);
+	border-bottom: 8px solid rgb(255, 232, 189);
 }
 
 .kursy-border-tab {
-	border-bottom: 4px solid rgb(200, 200, 200);
+	border-bottom: 8px solid rgb(200, 200, 200);
 }
 
 .spotkania-border-tab {
-	border-bottom: 4px solid rgb(194, 255, 212);
+	border-bottom: 8px solid rgb(194, 255, 212);
 }
 
 .wydarzenia-border-tab {
-	border-bottom: 4px solid rgb(255, 255, 196);
+	border-bottom: 8px solid rgb(255, 255, 196);
 }
 
 .inne-border-tab {
-	border-bottom: 4px solid rgb(255, 204, 204);
+	border-bottom: 8px solid rgb(255, 204, 204);
 }
 
 .zajecia-border-tab {
-	border-bottom: 4px solid rgb(193, 241, 255);
+	border-bottom: 8px solid rgb(193, 241, 255);
 }
 
 #slide-item-details {
@@ -1254,7 +1265,6 @@ background:rgb(115, 233, 162);
 
 #calendarDayDetailsContainer {
 	border-left: 3px solid rgb(215, 208, 184);
-	border-top: 2px solid rgb(245, 242, 231);
 }
 
 #notesContainer {
@@ -1300,7 +1310,7 @@ background:rgb(115, 233, 162);
 
 .close-btn-x {
 	float: right;
-	color: rgb(223, 215, 188);
+	/*color: rgb(223, 215, 188);*/
 	padding: 0 10px;
 }
 
@@ -1362,7 +1372,7 @@ background:rgb(115, 233, 162);
 	padding-bottom: 40px;
 	background: rgb(164, 156, 137);
 	position: relative;
-	border-right: 3px solid #EDE9D9;
+	border-right: 3px solid rgb(138, 131, 108);
 }
 
 .current-month-name-calendar {

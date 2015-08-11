@@ -80,7 +80,7 @@
 		} );
 	}
 
-	self.callAddExistingEventToUser = function ( data, callback )
+	self.callAddExistingEventToUser = function ( data, callback, $element )
 	{
 		var $loader = $( "#lobby" ).siblings( ".dotted-page-overlay" );
 
@@ -92,13 +92,12 @@
 			data: data,
 			success: function ( result )
 			{
-				callback( result, self.appViewModel, $loader );
+				callback( result, self.appViewModel, $element, $loader );
 			},
 			error: function ()
 			{
 				alert( "Wystąpił nieoczekiwany błąd. Prosze spróbować jeszcze raz." );
 				self.appViewModel.hideLoader( $loader );
-				self.appViewModel.hideConfirmationPopupBox( element );
 			}
 		} );
 	}

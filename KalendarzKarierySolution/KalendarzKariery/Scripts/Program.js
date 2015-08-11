@@ -474,15 +474,15 @@
 				{
 					$( this ).css( {
 						"cursor": "pointer",
-						"border": "2px solid white",
-						"border-left": "none",
-						"border-right": "none"
+						"border": "2px solid gray",
+						"border-left": "2px solid #E4E0D1",
+						"border-right": "2px solid #E4E0D1"
 					} );
 				}
 				else
 				{
 					$( this ).css( {
-						"border-top": "2px solid white"
+						"border-top": "2px solid gray"
 					} );
 				}
 
@@ -494,22 +494,18 @@
 				{
 					$this.css( {
 						"cursor": "auto",
-						"box-shadow": "none",
-						"border": "none",
-						"border-top": "none"
+						"border": "2px solid #E4E0D1",
+						"border-top": "2px solid #E4E0D1"
 					} );
 				} else
 				{
 					$( this ).css( {
-						"border-top": "none"
+						"border": "2px solid gray",
+						"border-left": "2px solid #E4E0D1",
+						"border-right": "2px solid #E4E0D1",
+						"border-top": "2px solid #E4E0D1"
 					} );
 				}
-
-				//if (!$this.hasClass("selected")) {
-				//	$this.css({						
-				//		"background": "rgb(245, 240, 223)"
-				//	});
-				//}
 			} );
 
 			var $leftSideCalendar = $( "#leftSideCalendar" );

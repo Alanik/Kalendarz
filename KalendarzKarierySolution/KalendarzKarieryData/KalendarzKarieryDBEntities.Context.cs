@@ -13,37 +13,37 @@ namespace KalendarzKarieryData
 	using System.Data.Common;
 	using System.Data.Entity;
 	using System.Data.Entity.Infrastructure;
-    
-    public partial class KalendarzKarieryDBEntities : DbContext
-    {
-        public KalendarzKarieryDBEntities()
-            : base("name=KalendarzKarieryDBEntities")
-        {
-        }
 
-		public KalendarzKarieryDBEntities(DbConnection connection)
-					: base(connection, true)
-					{
-					}
-    
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            throw new UnintentionalCodeFirstException();
-        }
-    
-        public virtual DbSet<Address> Addresses { get; set; }
-        public virtual DbSet<Comment> Comments { get; set; }
-        public virtual DbSet<Event> Events { get; set; }
-        public virtual DbSet<EventKind> EventKinds { get; set; }
-        public virtual DbSet<EventStatus> EventStatus { get; set; }
-        public virtual DbSet<Note> Notes { get; set; }
-        public virtual DbSet<NoteKind> NoteKinds { get; set; }
-        public virtual DbSet<PrivacyLevel> PrivacyLevels { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<UserAccountInfo> UserAccountInfoes { get; set; }
-        public virtual DbSet<webpages_Membership> webpages_Membership { get; set; }
-        public virtual DbSet<webpages_OAuthMembership> webpages_OAuthMembership { get; set; }
-        public virtual DbSet<webpages_Roles> webpages_Roles { get; set; }
-    }
+	public partial class KalendarzKarieryDBEntities : DbContext
+	{
+		public KalendarzKarieryDBEntities( DbConnection connection )
+			: base( connection, true )
+		{
+		}
+
+		public KalendarzKarieryDBEntities()
+			: base( "name=KalendarzKarieryDBEntities" )
+		{
+		}
+
+		protected override void OnModelCreating( DbModelBuilder modelBuilder )
+		{
+			throw new UnintentionalCodeFirstException();
+		}
+
+		public virtual DbSet<Address> Addresses { get; set; }
+		public virtual DbSet<Comment> Comments { get; set; }
+		public virtual DbSet<Event> Events { get; set; }
+		public virtual DbSet<EventKind> EventKinds { get; set; }
+		public virtual DbSet<EventStatus> EventStatus { get; set; }
+		public virtual DbSet<Note> Notes { get; set; }
+		public virtual DbSet<NoteKind> NoteKinds { get; set; }
+		public virtual DbSet<PrivacyLevel> PrivacyLevels { get; set; }
+		public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+		public virtual DbSet<User> Users { get; set; }
+		public virtual DbSet<UserAccountInfo> UserAccountInfoes { get; set; }
+		public virtual DbSet<webpages_Membership> webpages_Membership { get; set; }
+		public virtual DbSet<webpages_OAuthMembership> webpages_OAuthMembership { get; set; }
+		public virtual DbSet<webpages_Roles> webpages_Roles { get; set; }
+	}
 }

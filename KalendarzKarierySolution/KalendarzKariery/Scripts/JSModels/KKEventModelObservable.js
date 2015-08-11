@@ -26,6 +26,10 @@
 
 	self.id = 0;
 
+	self.isCurrentUserSignedUpForEvent = false;
+
+	self.isEventAddedToCurrentUserCalendar = false;
+
 	self.name = ko.observable( "" );
 
 	self.numberOfPeopleAttending = ko.observable( 0 );

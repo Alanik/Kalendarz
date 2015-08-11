@@ -29,6 +29,9 @@
 
 		ev.id = 0;
 
+		ev.isEventAddedToCurrentUserCalendar = false;
+		ev.isCurrentUserSignedUpForEvent = false;
+
 		ev.name( "" );
 
 		ev.numberOfPeopleAttending( 0 );
@@ -77,7 +80,7 @@
 		ev.urlLink( "" );
 	};
 
-	self.getNewKKEventModel = function ( addedBy, street, city, zipCode, description, details, minutes, kindValue, kindName, eventId, occupancyLimit, privacyLevelName, privacyLevelValue, startDate, name, urlLink, price, dateAdded )
+	self.getNewKKEventModel = function ( addedBy, street, city, zipCode, description, details, minutes, kindValue, kindName, eventId, occupancyLimit, privacyLevelName, privacyLevelValue, startDate, name, urlLink, price, dateAdded, isEventAddedToCurrentUserCalendar, isCurrentUserSignedUpForEvent )
 	{
 		var colorHelper = appViewModel.UTILS.colorHelper;
 
@@ -113,6 +116,8 @@
 		kkEventModel.name = name;
 		kkEventModel.urlLink = urlLink;
 		kkEventModel.price = price;
+		kkEventModel.isEventAddedToCurrentUserCalendar = isEventAddedToCurrentUserCalendar;
+		kkEventModel.isCurrentUserSignedUpForEvent = isCurrentUserSignedUpForEvent;
 
 		return kkEventModel;
 	}
@@ -380,7 +385,6 @@
 
 	self.addEvent = function ( newKKEvent )
 	{
-		debugger;
 		var today, endDay, oldOrUpcoming, event, didAddEvent = false;
 
 		var year = newKKEvent.startDate.year;
@@ -466,7 +470,7 @@
 				if ( event.id == newKKEvent.id )
 				{
 					//this check is for when adding public event to user's calendar - the public event already exists so do not add it again to public event tree etc.
-					return false;
+					return dayEventsArr;
 				}
 
 				if ( newKKEvent.startDate.startHour < event.startDate.startHour || ( newKKEvent.startDate.startHour == event.startDate.startHour && newKKEvent.startDate.startMinute < event.startDate.startMinute ) )
@@ -481,8 +485,6 @@
 			{
 				publicDayEventsArr.push( newKKEvent );
 			}
-
-			debugger;
 
 			//2. add event to publicEvents observable array
 			appViewModel.publicEvents.push( newKKEvent );

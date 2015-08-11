@@ -27,8 +27,10 @@ namespace KalendarzKariery.Controllers
 				return View( "Index", null );
 			}
 
+			var currentUserId = this.GetUserId(User.Identity.Name.ToLower(), _repository);
+
 			var indexViewModel = new IndexViewModel();
-			indexViewModel.PublicEvents = _repository.GetAllPublicEvents();
+			indexViewModel.PublicEvents = _repository.GetAllPublicEvents(currentUserId);
 			indexViewModel.EventKinds = _repository.GetEventKindsBasedOnUserName( User.Identity.Name );
 			indexViewModel.PrivacyLevels = _repository.GetAllPrivacyLevels();
 			indexViewModel.PublicEventCountTree = _repository.GetPublicEventCountTree();
@@ -37,19 +39,16 @@ namespace KalendarzKariery.Controllers
 			indexViewModel.MyEvents = null;
 			indexViewModel.MyEventCountTree = null;
 
-
 			RegisterViewModel registerViewModel = new RegisterViewModel();
 
 			if (User.Identity.IsAuthenticated)
 			{
-				int? id = GetUserId( User.Identity.Name.ToLower(), _repository );
-
-				if (id.HasValue)
+				if (currentUserId.HasValue)
 				{
-					indexViewModel.MyEvents = _repository.GetAllEventsConnectedToUserId( id.Value );
-					indexViewModel.MyEventCountTree = _repository.GetMyEventCountTree( id.Value );
-					indexViewModel.MyNotes = _repository.GetNotesByUserId(id.Value);
-					registerViewModel = this.GetRegisterViewModel( id.Value, _repository );
+					indexViewModel.MyEvents = _repository.GetAllEventsConnectedToUserId( currentUserId.Value );
+					indexViewModel.MyEventCountTree = _repository.GetMyEventCountTree( currentUserId.Value );
+					indexViewModel.MyNotes = _repository.GetNotesByUserId(currentUserId.Value);
+					registerViewModel = this.GetRegisterViewModel( currentUserId.Value, _repository );
 				}
 				else
 				{
@@ -71,8 +70,10 @@ namespace KalendarzKariery.Controllers
 				return View( "Index", null );
 			}
 
+			var currentUserId = this.GetUserId( User.Identity.Name.ToLower(), _repository );
+
 			var indexViewModel = new IndexViewModel();
-			indexViewModel.PublicEvents = _repository.GetAllPublicEvents();
+			indexViewModel.PublicEvents = _repository.GetAllPublicEvents(currentUserId);
 			indexViewModel.EventKinds = _repository.GetEventKindsBasedOnUserName( User.Identity.Name );
 			indexViewModel.PrivacyLevels = _repository.GetAllPrivacyLevels();
 			indexViewModel.PublicEventCountTree = _repository.GetPublicEventCountTree();
@@ -81,19 +82,16 @@ namespace KalendarzKariery.Controllers
 			indexViewModel.MyEvents = null;
 			indexViewModel.MyEventCountTree = null;
 
-
 			RegisterViewModel registerViewModel = new RegisterViewModel();
 
 			if (User.Identity.IsAuthenticated)
 			{
-				int? id = GetUserId( User.Identity.Name.ToLower(), _repository );
-
-				if (id.HasValue)
+				if (currentUserId.HasValue)
 				{
-					indexViewModel.MyEvents = _repository.GetAllEventsCreatedByUserId( id.Value );
-					indexViewModel.MyEventCountTree = _repository.GetMyEventCountTree( id.Value );
-					indexViewModel.MyNotes = _repository.GetNotesByUserId( id.Value );
-					registerViewModel = this.GetRegisterViewModel( id.Value, _repository );
+					indexViewModel.MyEvents = _repository.GetAllEventsCreatedByUserId( currentUserId.Value );
+					indexViewModel.MyEventCountTree = _repository.GetMyEventCountTree( currentUserId.Value );
+					indexViewModel.MyNotes = _repository.GetNotesByUserId( currentUserId.Value );
+					registerViewModel = this.GetRegisterViewModel( currentUserId.Value, _repository );
 				}
 				else
 				{

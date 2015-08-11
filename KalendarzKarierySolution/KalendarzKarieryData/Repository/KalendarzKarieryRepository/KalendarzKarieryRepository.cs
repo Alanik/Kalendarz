@@ -70,12 +70,12 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 			return null;
 		}
 
-		public User GetUserByName(string name)
+		public User GetUserByName( string name )
 		{
-			return _entities.Users.Include( "Address" ).Include( "UserAccountInfo" ).FirstOrDefault( m => m.UserName.ToLower() == name.ToLower() );	
+			return _entities.Users.Include( "Address" ).Include( "UserAccountInfo" ).FirstOrDefault( m => m.UserName.ToLower() == name.ToLower() );
 
 		}
-		
+
 		public void UpdateUser( User user )
 		{
 			_entities.Users.Attach( user );
@@ -109,20 +109,20 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 
 		public ICollection<JsonEventModel> GetAllNews()
 		{
-			return _entities.Events.Include( "User" ).Include( "Address" ).Include( "EventKind" ).Include( "PrivacyLevel" ).Where( m => m.EventKind.Value == 8 ).OrderBy( m => m.StartDate ).AsEnumerable().Select( m => new JsonEventModel( m ) ).ToArray();
+			return _entities.Events.Include( "User" ).Include( "Address" ).Include( "EventKind" ).Include( "PrivacyLevel" ).Where( m => m.EventKind.Value == 8 ).OrderBy( m => m.StartDate ).AsEnumerable().Select( m => new JsonEventModel( m, null ) ).ToArray();
 		}
 
-		public void AddExistingEventToUser( Event @event, User user )
+		public void AddExistingEventToUserCalendar( Event @event, User user )
 		{
-			user.ConnectedEvents.Add( @event );
+			user.ForeignEventsInCalendar.Add( @event );
 		}
 
 		//TODO: check if OrderBY is done in SQL or .NET (for var = list)
 		public EventsGroupedByYearModel GetAllEventsConnectedToUserIdForGivenYear( int id, int year )
 		{
-			var list = _entities.Events.Include( "User" ).Include( "Address" ).Include( "EventKind" ).Include( "PrivacyLevel" ).Where(m => (m.OwnerUserId == id || m.Users.Any( o => o.Id == id )) && m.StartDate.Year == year ).OrderBy( m => m.StartDate ).AsEnumerable();
+			var list = _entities.Events.Include( "User" ).Include( "Address" ).Include( "EventKind" ).Include( "PrivacyLevel" ).Where( m => (m.OwnerUserId == id || m.CalendarUsers.Any( o => o.Id == id )) && m.StartDate.Year == year ).OrderBy( m => m.StartDate ).AsEnumerable();
 
-			var transformedList = list.Select( m => new JsonEventModel( m ) );
+			var transformedList = list.Select( m => new JsonEventModel( m, id ) );
 
 			var groups = transformedList.ToLookup( m => m.startDate.month ).Select( o => new EventsGroupedByMonthModel( o.Key, o.ToArray().ToLookup( t => t.startDate.day ).Select( l => new EventsGroupedByDayModel( l.Key, l.ToArray() ) ) ) ).ToArray();
 
@@ -136,9 +136,9 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 
 			foreach (int num in years)
 			{
-				var list = _entities.Events.Include( "User" ).Include( "Address" ).Include( "EventKind" ).Include( "PrivacyLevel" ).Where(m => (m.OwnerUserId == id || m.Users.Any( o => o.Id == id )) && m.StartDate.Year == num ).OrderBy( m => m.StartDate ).AsEnumerable();
+				var list = _entities.Events.Include( "User" ).Include( "Address" ).Include( "EventKind" ).Include( "PrivacyLevel" ).Where( m => (m.OwnerUserId == id || m.CalendarUsers.Any( o => o.Id == id )) && m.StartDate.Year == num ).OrderBy( m => m.StartDate ).AsEnumerable();
 
-				var transformedList = list.Select( m => new JsonEventModel( m ) );
+				var transformedList = list.Select( m => new JsonEventModel( m, id ) );
 
 				var groups = transformedList.ToLookup( m => m.startDate.month ).Select( o => new EventsGroupedByMonthModel( o.Key, o.ToArray().ToLookup( t => t.startDate.day ).Select( l => new EventsGroupedByDayModel( l.Key, l.ToArray() ) ) ) ).ToArray();
 				container.Add( new EventsGroupedByYearModel( num, groups ) );
@@ -156,7 +156,7 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 			{
 				var list = _entities.Events.Include( "User" ).Include( "Address" ).Include( "EventKind" ).Include( "PrivacyLevel" ).Where( m => m.OwnerUserId == id && m.StartDate.Year == num ).OrderBy( m => m.StartDate ).AsEnumerable();
 
-				var transformedList = list.Select( m => new JsonEventModel( m ) );
+				var transformedList = list.Select( m => new JsonEventModel( m, id ) );
 
 				var groups = transformedList.ToLookup( m => m.startDate.month ).Select( o => new EventsGroupedByMonthModel( o.Key, o.ToArray().ToLookup( t => t.startDate.day ).Select( l => new EventsGroupedByDayModel( l.Key, l.ToArray() ) ) ) ).ToArray();
 				container.Add( new EventsGroupedByYearModel( num, groups ) );
@@ -165,7 +165,7 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 			return container;
 		}
 
-		public IList<EventsGroupedByYearModel> GetAllPublicEvents()
+		public IList<EventsGroupedByYearModel> GetAllPublicEvents( int? userId )
 		{
 			var container = new List<EventsGroupedByYearModel>();
 			var years = GetYearsWhenEventsStartByPrivacyLvl( 2 );
@@ -173,7 +173,7 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 			foreach (int num in years)
 			{
 				var list = _entities.Events.Include( "User" ).Include( "Address" ).Include( "EventKind" ).Include( "PrivacyLevel" ).Where( m => m.StartDate.Year == num && m.PrivacyLevel.Value == 2 ).OrderBy( m => m.StartDate ).AsEnumerable();
-				var transformedList = list.Select( m => new JsonEventModel( m ) );
+				var transformedList = list.Select( m => new JsonEventModel( m, userId ) );
 
 				var groups = transformedList.ToLookup( m => m.startDate.month ).Select( o => new EventsGroupedByMonthModel( o.Key, o.ToArray().ToLookup( t => t.startDate.day ).Select( l => new EventsGroupedByDayModel( l.Key, l.ToArray() ) ) ) ).ToArray();
 
@@ -207,8 +207,8 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 		{
 			if (!string.IsNullOrEmpty( name ))
 			{
-				var user = _entities.Users.Include( "webpages_Roles" ).Where( m => string.Compare( m.UserName, name, true ) == 0).FirstOrDefault();
-				if (user != null && user.webpages_Roles.Where(m => m.RoleId == 1).FirstOrDefault() != null)
+				var user = _entities.Users.Include( "webpages_Roles" ).Where( m => string.Compare( m.UserName, name, true ) == 0 ).FirstOrDefault();
+				if (user != null && user.webpages_Roles.Where( m => m.RoleId == 1 ).FirstOrDefault() != null)
 				{
 					return _entities.EventKinds.Select( m => new { name = m.Name, value = m.Value } ).OrderBy( m => m.value ).ToArray();
 				}
@@ -221,7 +221,7 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 		{
 			var now = DateTimeFacade.DateTimeNow();
 
-			var query = from e in _entities.Events.Where( m => m.OwnerUserId == userId || m.Users.Any( o => o.Id == userId ))
+			var query = from e in _entities.Events.Where( m => m.OwnerUserId == userId || m.CalendarUsers.Any( o => o.Id == userId ) )
 						group e by e.EventKind.Value into grp
 						select new { value = grp.Key, events = new { upcoming = grp.Where( m => m.EndDate.HasValue && m.EndDate > now ).Count(), old = grp.Where( m => m.EndDate.HasValue && m.EndDate <= now ).Count() } };
 
@@ -255,7 +255,7 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 		private int[] GetYearsWhenEventsStartByUserId( int id )
 		{
 			var query = from e in _entities.Events
-						where e.OwnerUserId == id || e.Users.Any( o => o.Id == id )
+						where e.OwnerUserId == id || e.CalendarUsers.Any( o => o.Id == id )
 						group e by e.StartDate.Year into grp
 						select grp.Key;
 
@@ -279,11 +279,11 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 		public IList<NotesGroupedByYearModel> GetNotesByUserId( int id )
 		{
 			var container = new List<NotesGroupedByYearModel>();
-			var years = GetYearsOfNotesDisplayDate();
+			var years = this.GetYearsOfNotesDisplayDateByUserId( id );
 
 			foreach (int num in years)
 			{
-				var list = _entities.Notes.Where( m => m.DisplayDate.Year == num ).OrderByDescending( m => m.DateAdded ).AsEnumerable();
+				var list = _entities.Notes.Where( m => m.DisplayDate.Year == num && m.OwnerUserId == id ).OrderByDescending( m => m.DateAdded ).AsEnumerable();
 				var transformedList = list.Select( m => new JsonNoteModel( m ) );
 
 				var groups = transformedList.ToLookup( m => m.displayDate.month ).Select( o => new NotesGroupedByMonthModel( o.Key, o.ToArray().ToLookup( t => t.displayDate.day ).Select( l => new NotesGroupedByDayModel( l.Key, l.ToArray() ) ) ) ).ToArray();
@@ -315,9 +315,10 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 			return _entities.Notes.FirstOrDefault( m => m.Id == id );
 		}
 
-		private int[] GetYearsOfNotesDisplayDate()
+		private int[] GetYearsOfNotesDisplayDateByUserId( int id )
 		{
 			var query = from n in _entities.Notes
+						where n.OwnerUserId == id
 						group n by n.DisplayDate.Year into grp
 						select grp.Key;
 
@@ -328,7 +329,17 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 
 		public void Save()
 		{
-			_entities.SaveChanges();
+			try
+			{
+				_entities.SaveChanges();
+			}
+			catch (Exception e)
+			{
+
+				//TODO: log exception
+
+				throw;
+			}
 		}
 	}
 }

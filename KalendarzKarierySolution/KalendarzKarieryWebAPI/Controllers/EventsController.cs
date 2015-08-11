@@ -126,7 +126,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 
 			if (@event != null && user != null && string.Compare(user.UserName, User.Identity.Name, true) == 0)
 			{
-				_repository.AddExistingEventToUser( @event, @user );
+				_repository.AddExistingEventToUserCalendar( @event, @user );
 				_repository.Save();
 
 				return new AddEventValidationResponseModel { IsSuccess = true, EventId = @event.Id };

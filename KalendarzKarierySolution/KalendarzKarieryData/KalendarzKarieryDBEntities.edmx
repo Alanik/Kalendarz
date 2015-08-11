@@ -126,7 +126,15 @@
           <Property Name="UserAccountInfoId" Type="int" />
           <Property Name="AddressId" Type="int" />
         </EntityType>
-        <EntityType Name="User_Event">
+        <EntityType Name="User_Event_EventsAddedToUserCalendar">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="EventId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="EventId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User_Event_UsersGoingToEvent">
           <Key>
             <PropertyRef Name="UserId" />
             <PropertyRef Name="EventId" />
@@ -187,7 +195,9 @@
           <Property Name="RoleId" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Comment_Event">
-          <End Role="Event" Type="Self.Event" Multiplicity="1" />
+          <End Role="Event" Type="Self.Event" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Event">
@@ -211,7 +221,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Event_Address">
-          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Event" Type="Self.Event" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Address">
@@ -318,26 +330,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_User_Event_Event">
-          <End Role="Event" Type="Self.Event" Multiplicity="1" />
-          <End Role="User_Event" Type="Self.User_Event" Multiplicity="*" />
+        <Association Name="FK_User_Event_CalendarUsers">
+          <End Role="Event" Type="Self.Event" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="User_Event_UsersGoingToEvent" Type="Self.User_Event_UsersGoingToEvent" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Event">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="User_Event">
+            <Dependent Role="User_Event_UsersGoingToEvent">
+              <PropertyRef Name="EventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Event_SignedUpUsers">
+          <End Role="Event" Type="Self.Event" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="User_Event_EventsAddedToUserCalendar" Type="Self.User_Event_EventsAddedToUserCalendar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Event">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User_Event_EventsAddedToUserCalendar">
               <PropertyRef Name="EventId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_User_Event_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="User_Event" Type="Self.User_Event" Multiplicity="*" />
+          <End Role="User_Event_EventsAddedToUserCalendar" Type="Self.User_Event_EventsAddedToUserCalendar" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="User_Event">
+            <Dependent Role="User_Event_EventsAddedToUserCalendar">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Event_UsersGoingToEvent_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="User_Event_UsersGoingToEvent" Type="Self.User_Event_UsersGoingToEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User_Event_UsersGoingToEvent">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -389,7 +429,8 @@
           <EntitySet Name="PrivacyLevel" EntityType="Self.PrivacyLevel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="User_Event" EntityType="Self.User_Event" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User_Event_EventsAddedToUserCalendar" EntityType="Self.User_Event_EventsAddedToUserCalendar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User_Event_UsersGoingToEvent" EntityType="Self.User_Event_UsersGoingToEvent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserAccountInfo" EntityType="Self.UserAccountInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="webpages_Membership" EntityType="Self.webpages_Membership" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="webpages_OAuthMembership" EntityType="Self.webpages_OAuthMembership" Schema="dbo" store:Type="Tables" />
@@ -439,13 +480,21 @@
             <End Role="Address" EntitySet="Address" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
-          <AssociationSet Name="FK_User_Event_Event" Association="Self.FK_User_Event_Event">
+          <AssociationSet Name="FK_User_Event_CalendarUsers" Association="Self.FK_User_Event_CalendarUsers">
             <End Role="Event" EntitySet="Event" />
-            <End Role="User_Event" EntitySet="User_Event" />
+            <End Role="User_Event_UsersGoingToEvent" EntitySet="User_Event_UsersGoingToEvent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Event_SignedUpUsers" Association="Self.FK_User_Event_SignedUpUsers">
+            <End Role="Event" EntitySet="Event" />
+            <End Role="User_Event_EventsAddedToUserCalendar" EntitySet="User_Event_EventsAddedToUserCalendar" />
           </AssociationSet>
           <AssociationSet Name="FK_User_Event_User" Association="Self.FK_User_Event_User">
             <End Role="User" EntitySet="User" />
-            <End Role="User_Event" EntitySet="User_Event" />
+            <End Role="User_Event_EventsAddedToUserCalendar" EntitySet="User_Event_EventsAddedToUserCalendar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Event_UsersGoingToEvent_User" Association="Self.FK_User_Event_UsersGoingToEvent_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="User_Event_UsersGoingToEvent" EntitySet="User_Event_UsersGoingToEvent" />
           </AssociationSet>
           <AssociationSet Name="FK_User_UserAccountInfo" Association="Self.FK_User_UserAccountInfo">
             <End Role="UserAccountInfo" EntitySet="UserAccountInfo" />
@@ -510,14 +559,15 @@
           <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="EndDate" Type="DateTime" Precision="3" />
           <Property Name="AddressId" Type="Int32" />
+          <Property Name="EditDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Address" Relationship="Self.FK_Event_Address" FromRole="Event" ToRole="Address" />
           <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_Event" FromRole="Event" ToRole="Comment" />
           <NavigationProperty Name="EventKind" Relationship="Self.FK_EventKind_Event" FromRole="Event" ToRole="EventKind" />
           <NavigationProperty Name="EventStatus" Relationship="Self.FK_EventStatus_Event" FromRole="Event" ToRole="EventStatus" />
           <NavigationProperty Name="User" Relationship="Self.FK_OwnerUser_Event" FromRole="Event" ToRole="User" />
           <NavigationProperty Name="PrivacyLevel" Relationship="Self.FK_PrivacyLevel_Event" FromRole="Event" ToRole="PrivacyLevel" />
-          <NavigationProperty Name="Users" Relationship="Self.User_Event" FromRole="Event" ToRole="User" />
-          <Property Name="EditDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CalendarUsers" Relationship="Self.User_Event_EventsAddedToUserCalendar" FromRole="Event" ToRole="User" />
+          <NavigationProperty Name="SignedUpUsers" Relationship="Self.User_Event_UsersGoingToEvent" FromRole="Event" ToRole="User" />
         </EntityType>
         <EntityType Name="EventKind">
           <Key>
@@ -549,12 +599,12 @@
           <Property Name="OwnerUserId" Type="Int32" Nullable="false" />
           <Property Name="NoteKindId" Type="Int32" />
           <Property Name="PrivacyLevelId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="NoteKind" Relationship="Self.FK_Note_NoteKind" FromRole="Note" ToRole="NoteKind" />
-          <NavigationProperty Name="PrivacyLevel" Relationship="Self.FK_Note_PrivacyLevel" FromRole="Note" ToRole="PrivacyLevel" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Note_User" FromRole="Note" ToRole="User" />
           <Property Name="DisplayDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsLineThrough" Type="Boolean" Nullable="false" />
           <Property Name="EditDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="NoteKind" Relationship="Self.FK_Note_NoteKind" FromRole="Note" ToRole="NoteKind" />
+          <NavigationProperty Name="PrivacyLevel" Relationship="Self.FK_Note_PrivacyLevel" FromRole="Note" ToRole="PrivacyLevel" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Note_User" FromRole="Note" ToRole="User" />
         </EntityType>
         <EntityType Name="NoteKind">
           <Key>
@@ -608,7 +658,8 @@
           <NavigationProperty Name="Events" Relationship="Self.FK_OwnerUser_Event" FromRole="User" ToRole="Event" />
           <NavigationProperty Name="Notes" Relationship="Self.FK_Note_User" FromRole="User" ToRole="Note" />
           <NavigationProperty Name="UserAccountInfo" Relationship="Self.FK_User_UserAccountInfo" FromRole="User" ToRole="UserAccountInfo" />
-          <NavigationProperty Name="ConnectedEvents" Relationship="Self.User_Event" FromRole="User" ToRole="Event" />
+          <NavigationProperty Name="ForeignEventsInCalendar" Relationship="Self.User_Event_EventsAddedToUserCalendar" FromRole="User" ToRole="Event" />
+          <NavigationProperty Name="SignedUpEvents" Relationship="Self.User_Event_UsersGoingToEvent" FromRole="User" ToRole="Event" />
           <NavigationProperty Name="webpages_Roles" Relationship="Self.webpages_UsersInRoles" FromRole="User" ToRole="webpages_Roles" />
         </EntityType>
         <EntityType Name="UserAccountInfo">
@@ -718,7 +769,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_EventStatus_Event">
-          <End Role="EventStatus" Type="Self.EventStatus" Multiplicity="1" />
+          <End Role="EventStatus" Type="KalendarzKarieryDBModel.EventStatus" Multiplicity="1" />
           <End Role="Event" Type="Self.Event" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="EventStatus">
@@ -801,7 +852,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="User_Event">
+        <Association Name="User_Event_EventsAddedToUserCalendar">
+          <End Role="Event" Type="Self.Event" Multiplicity="*" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+        </Association>
+        <Association Name="User_Event_UsersGoingToEvent">
           <End Role="Event" Type="Self.Event" Multiplicity="*" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
         </Association>
@@ -814,7 +869,7 @@
           <EntitySet Name="Comments" EntityType="Self.Comment" />
           <EntitySet Name="Events" EntityType="Self.Event" />
           <EntitySet Name="EventKinds" EntityType="Self.EventKind" />
-          <EntitySet Name="EventStatus" EntityType="Self.EventStatus" />
+          <EntitySet Name="EventStatus" EntityType="KalendarzKarieryDBModel.EventStatus" />
           <EntitySet Name="Notes" EntityType="Self.Note" />
           <EntitySet Name="NoteKinds" EntityType="Self.NoteKind" />
           <EntitySet Name="PrivacyLevels" EntityType="Self.PrivacyLevel" />
@@ -872,7 +927,11 @@
             <End Role="UserAccountInfo" EntitySet="UserAccountInfoes" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
-          <AssociationSet Name="User_Event" Association="Self.User_Event">
+          <AssociationSet Name="User_Event_EventsAddedToUserCalendar" Association="Self.User_Event_EventsAddedToUserCalendar">
+            <End Role="Event" EntitySet="Events" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="User_Event_UsersGoingToEvent" Association="Self.User_Event_UsersGoingToEvent">
             <End Role="Event" EntitySet="Events" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
@@ -914,7 +973,6 @@
           <EntitySetMapping Name="Events">
             <EntityTypeMapping TypeName="KalendarzKarieryDBModel.Event">
               <MappingFragment StoreEntitySet="Event">
-                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -931,6 +989,7 @@
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="EndDate" ColumnName="EndDate" />
                 <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -957,15 +1016,15 @@
           <EntitySetMapping Name="Notes">
             <EntityTypeMapping TypeName="KalendarzKarieryDBModel.Note">
               <MappingFragment StoreEntitySet="Note">
-                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
-                <ScalarProperty Name="IsLineThrough" ColumnName="IsLineThrough" />
-                <ScalarProperty Name="DisplayDate" ColumnName="DisplayDate" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Data" ColumnName="Data" />
                 <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
                 <ScalarProperty Name="OwnerUserId" ColumnName="OwnerUserId" />
                 <ScalarProperty Name="NoteKindId" ColumnName="NoteKindId" />
                 <ScalarProperty Name="PrivacyLevelId" ColumnName="PrivacyLevelId" />
+                <ScalarProperty Name="DisplayDate" ColumnName="DisplayDate" />
+                <ScalarProperty Name="IsLineThrough" ColumnName="IsLineThrough" />
+                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1065,7 +1124,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="User_Event" TypeName="KalendarzKarieryDBModel.User_Event" StoreEntitySet="User_Event">
+          <AssociationSetMapping Name="User_Event_EventsAddedToUserCalendar" TypeName="KalendarzKarieryDBModel.User_Event_EventsAddedToUserCalendar" StoreEntitySet="User_Event_EventsAddedToUserCalendar">
+            <EndProperty Name="Event">
+              <ScalarProperty Name="Id" ColumnName="EventId" />
+            </EndProperty>
+            <EndProperty Name="User">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="User_Event_UsersGoingToEvent" TypeName="KalendarzKarieryDBModel.User_Event_UsersGoingToEvent" StoreEntitySet="User_Event_UsersGoingToEvent">
             <EndProperty Name="Event">
               <ScalarProperty Name="Id" ColumnName="EventId" />
             </EndProperty>

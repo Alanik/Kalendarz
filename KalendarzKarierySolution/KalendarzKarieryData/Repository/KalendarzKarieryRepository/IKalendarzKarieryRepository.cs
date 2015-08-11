@@ -27,10 +27,10 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 		Event GetEventById( int id );
 		void DeleteEvent( Event @event );
 		void AddEvent( Event @event );
-		void AddExistingEventToUser( Event @event, User user );
+		void AddExistingEventToUserCalendar( Event @event, User user );
 		User GetUserByName(string name);
 		void UpdateEvent (Event @event);
-	    IList<EventsGroupedByYearModel> GetAllPublicEvents();
+	    IList<EventsGroupedByYearModel> GetAllPublicEvents( int? userId);
 		EventsGroupedByYearModel GetAllEventsConnectedToUserIdForGivenYear( int id, int year );
 		ICollection<object> GetAllPrivacyLevels();
 		ICollection<object> GetAllEventKinds();

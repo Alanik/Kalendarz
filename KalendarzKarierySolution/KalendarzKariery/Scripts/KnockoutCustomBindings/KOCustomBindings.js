@@ -63,8 +63,6 @@ ko.bindingHandlers.selectedText = {
 		},
 		'init': function ( element, valueAccessor, allBindingsAccessor, viewModel, bindingContext )
 		{
-			console.log( { msg: 'Initializing binding' } );
-
 			itemClass = ko.bindingHandlers.masonry.defaultItemClass;
 			masonryOptions = {};
 			haveInitialized = false;
@@ -121,12 +119,10 @@ ko.bindingHandlers.selectedText = {
 			if ( !haveInitialized )
 			{
 				masonryOptions.itemSelector = '.' + itemClass;
-				console.log( { msg: 'Binding update called for 1st time, initializing Masonry', options: masonryOptions } );
 				$container.masonry( masonryOptions );
 			}
 			else
 			{
-				console.log( { msg: 'Binding update called again, appending to Masonry', elements: newNodes } );
 				var newElements = $( newNodes );
 				$container.masonry( 'appended', newElements );
 				$container.masonry( 'layout' );

@@ -8,26 +8,26 @@
 		</div>
 		<div class="details-event-block-info-time">
 			<div style="display: inline-block; width: 100px; font-size: .8em;">godzina:</div>
-			<span style="font-size:1.2em;" data-bind="text: startDate.displayFullTime()"></span>
+			<span style="font-size: 1.2em;" data-bind="text: startDate.displayFullTime()"></span>
 		</div>
 		<div class="details-event-block-info-date">
 			<div style="display: inline-block; width: 100px; font-size: .8em;">data:</div>
 			<span data-bind="text: startDate.displayFullDate()"></span>
 		</div>
-		<div data-bind="visible: (address.street != '' && address.street != null) || (address.city != '' && address.city != null)" class="details-event-block-info-address">
+		<div data-bind="visible: ( address.street != '' && address.street != null ) || ( address.city != '' && address.city != null )" class="details-event-block-info-address">
 			<div style="display: inline-block; width: 100px; font-size: .8em; vertical-align: top;">adres:</div>
 			<div style="display: inline-block;">
 				<div data-bind="text: address.street"></div>
-				<span data-bind="text: address.zipCode"></span><span data-bind="text: ' ' + address.city"></span>
+				<span data-bind="text: address.zipCode"></span><span data-bind="	text: ' ' + address.city"></span>
 			</div>
 		</div>
 		<div class="details-event-block-info-price" data-bind="visible: price != 0 && price != ''" style="font-size: 1.4em; color: rgb(87, 80, 64);">
-				<div style="display: inline-block; width: 100px; font-size: .8em;">opłata za wstęp:</div>
-				<a data-bind="text:price + 'zł.'"></a>		
+			<div style="display: inline-block; width: 100px; font-size: .8em;">opłata za wstęp:</div>
+			<a data-bind="text: price + 'zł.'"></a>
 		</div>
 		<div class="details-event-block-info-occupancyLimit" data-bind="visible: occupancyLimit != null && occupancyLimit != ''">
-				<div style="display: inline-block; width: 100px; font-size: .8em;">limit miejsc:</div>
-				<a data-bind="text: occupancyLimit"></a>
+			<div style="display: inline-block; width: 100px; font-size: .8em;">limit miejsc:</div>
+			<a data-bind="text: occupancyLimit"></a>
 		</div>
 		<div class="event-block-info-link">
 			<p>
@@ -40,11 +40,13 @@
 		<div style="float: right;">
 			<div class="details-event-block-info-addedby">
 				<div><span data-bind="text: addedBy"></span></div>
-				<span data-bind="text: dateAdded.displayFullTime()"></span><span>&nbsp;&nbsp;</span><span data-bind="text: dateAdded.displayFullDate()"></span>
+				<span data-bind="text: dateAdded.displayFullTime()"></span><span>&nbsp;&nbsp;</span><span data-bind="	text: dateAdded.displayFullDate()"></span>
 			</div>
-			<div style="text-align: right;font-size:18px;">
-				<div style="display: inline-block;" class="link details-edit-event-link" data-bind="if: $root.userName.toUpperCase() == addedBy.toUpperCase(), click: function () { $root.editEventDetailsPageOnEditLinkClick( id, startDate.year, startDate.month, startDate.day ) }"><span>edytuj</span></div>
-				<div style="display: inline-block; color: rgb(175, 167, 167);" class="link details-delete-event-link" data-bind="if: $root.userName.toUpperCase() == addedBy.toUpperCase(), click: function () { $root.prepareDeleteEventDetailsPageOnDeleteLinkClick( id, startDate.year, startDate.month, startDate.day ) }"><span>usuń</span></div>
+			<div data-bind="if: $root.userName.toUpperCase() == addedBy.toUpperCase()">
+				<div style="text-align: right; font-size: 18px;">
+					<div style="display: inline-block;" class="link details-edit-event-link" data-bind="click: function () { $root.editEventDetailsPageOnEditLinkClick( id, startDate.year, startDate.month, startDate.day ) }"><span>edytuj</span></div>
+					<div style="display: inline-block; color: rgb(175, 167, 167);" class="link details-delete-event-link" data-bind="click: function () { $root.prepareDeleteEventDetailsPageOnDeleteLinkClick( id, startDate.year, startDate.month, startDate.day ) }"><span>usuń</span></div>
+				</div>
 			</div>
 		</div>
 	</div>

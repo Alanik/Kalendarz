@@ -63,7 +63,7 @@
 	// is used when adding or editing event
 	self.observableEvent = new KKEventModelObservable();
 
-	// is used when adding note-
+	// is used when adding note
 	self.observableNote = new KKNoteModelObservable();
 
 	// month starts from 1 to 12
@@ -305,7 +305,7 @@
 					var dayEvents = appViewModel.EVENT_MANAGER.addEvent( kkEvent );
 
 					appViewModel.setCalendarPlacementRow( dayEvents );
-					appViewModel.redrawCalendarCell( dayEvents, appViewModel.addNewEvent_Day(), kkEvent.startDate.month );
+					appViewModel.redrawCalendarCell( dayEvents, kkEvent.startDate.day, kkEvent.startDate.month, kkEvent.startDate.year );
 
 					appViewModel.hideLoader( $( "#addNewEventContainer" ).closest( ".main-section" ).siblings( ".dotted-page-overlay" ) );
 				}
@@ -432,7 +432,7 @@
 					var dayEvents = appViewModel.EVENT_MANAGER.addEvent( kkEvent );
 
 					appViewModel.setCalendarPlacementRow( dayEvents );
-					appViewModel.redrawCalendarCell( dayEvents, kkEvent.startDate.day, kkEvent.startDate.month );
+					appViewModel.redrawCalendarCell( dayEvents, kkEvent.startDate.day, kkEvent.startDate.month, kkEvent.startDate.year );
 
 					appViewModel.hideLoader( $( "#addNewEventContainer" ).closest( ".main-section" ).siblings( ".dotted-page-overlay" ) );
 				}
@@ -762,26 +762,49 @@
 		$container.find( ".note-content" ).show();
 	};
 
-	self.redrawCalendarCell = function ( dayEvents, day, month )
+	self.redrawCalendarCell = function ( dayEvents, day, month, year )
 	{
-		var cellDay;
+		var cellDay, $cellPlaceholder, $eventsToRemove;
+		var calendarYear = self.calendarPageDisplayDate.year(), calendarMonth = self.calendarPageDisplayDate.month();
 
-		if ( month === self.calendarPageDisplayDate.month() )
+		if ( year === calendarYear )
 		{
-			cellDay = ".day" + day;
+			if ( month === calendarMonth )
+			{
+				cellDay = ".day" + day;
+				$cellPlaceholder = $( "#calendar" ).find( cellDay ).find( ".calendar-cell-placeholder" );
+				$eventsToRemove = $cellPlaceholder.find( ".event-rectangle" );
+				$eventsToRemove.remove();
+
+				for ( var i in dayEvents )
+				{
+					self.drawEventToCalendar( dayEvents[i] );
+				}
+			}
+			else if ( month === ( calendarMonth - 1 || calendarMonth + 1 ) )
+			{
+				cellDay = ".other-month-day" + day;
+				$cellPlaceholder = $( "#calendar" ).find( cellDay ).find( ".calendar-cell-placeholder" );
+				$eventsToRemove = $cellPlaceholder.find( ".event-rectangle" );
+				$eventsToRemove.remove();
+
+				for ( var i in dayEvents )
+				{
+					self.drawEventToCalendar( dayEvents[i] );
+				}
+			}
 		}
-		else
+		else if ( ( year === ( calendarYear - 1 ) && month == 12 ) || ( year === ( calendarYear + 1 ) && month == 1 ) )
 		{
 			cellDay = ".other-month-day" + day;
-		}
+			$cellPlaceholder = $( "#calendar" ).find( cellDay ).find( ".calendar-cell-placeholder" );
+			$eventsToRemove = $cellPlaceholder.find( ".event-rectangle" );
+			$eventsToRemove.remove();
 
-		var $cellPlaceholder = $( "#calendar" ).find( cellDay ).find( ".calendar-cell-placeholder" );
-		var $eventsToRemove = $cellPlaceholder.find( ".event-rectangle" );
-		$eventsToRemove.remove();
-
-		for ( var i in dayEvents )
-		{
-			self.drawEventToCalendar( dayEvents[i] );
+			for ( var i in dayEvents )
+			{
+				self.drawEventToCalendar( dayEvents[i] );
+			}
 		}
 	}
 
@@ -860,7 +883,8 @@
 			if ( lobbyOrDetailsPageSelectedEvents.settings.pageName == "details" )
 			{
 				eventsArr = self.EVENT_MANAGER.getFilteredEventsFromEventTree( self.myEventTree, ["kind", "value"], lobbyOrDetailsPageSelectedEvents.selectedKindValues, "old" );
-			} else{
+			} else
+			{
 				eventsArr = self.EVENT_MANAGER.getFilteredEventsFromEventTree( self.publicEventTree, ["kind", "value"], lobbyOrDetailsPageSelectedEvents.selectedKindValues, "old" );
 			}
 
@@ -929,19 +953,32 @@
 	{
 		var cellDay, $cellPlaceholder;
 
-		if ( event.startDate.month === self.calendarPageDisplayDate.month() )
+		if ( event.startDate.year == self.calendarPageDisplayDate.year() )
 		{
-			cellDay = ".day" + parseInt( event.startDate.day, 10 );
-			$cellPlaceholder = $( "#calendar" ).find( cellDay ).find( ".calendar-cell-placeholder" );
+			if ( event.startDate.month === self.calendarPageDisplayDate.month() )
+			{
+				cellDay = ".day" + parseInt( event.startDate.day, 10 );
+				$cellPlaceholder = $( "#calendar" ).find( cellDay ).find( ".calendar-cell-placeholder" );
+			}
+			else if ( event.startDate.month < self.calendarPageDisplayDate.month() )
+			{
+				cellDay = ".prev-month-cell.other-month-day" + parseInt( event.startDate.day, 10 );
+				$cellPlaceholder = $( "#calendar" ).find( cellDay ).find( ".calendar-cell-placeholder" );
+			}
+			else if ( event.startDate.month > self.calendarPageDisplayDate.month() )
+			{
+				cellDay = ".next-month-cell.other-month-day" + parseInt( event.startDate.day, 10 );
+				$cellPlaceholder = $( "#calendar" ).find( cellDay ).find( ".calendar-cell-placeholder" );
+			}
 		}
-		else if ( event.startDate.month < self.calendarPageDisplayDate.month() )
-		{
-			cellDay = ".prev-month-cell.other-month-day" + parseInt( event.startDate.day, 10 );
-			$cellPlaceholder = $( "#calendar" ).find( cellDay ).find( ".calendar-cell-placeholder" );
-		}
-		else if ( event.startDate.month > self.calendarPageDisplayDate.month() )
+		else if ( event.startDate.year > self.calendarPageDisplayDate.year() )
 		{
 			cellDay = ".next-month-cell.other-month-day" + parseInt( event.startDate.day, 10 );
+			$cellPlaceholder = $( "#calendar" ).find( cellDay ).find( ".calendar-cell-placeholder" );
+		}
+		else if ( event.startDate.year < self.calendarPageDisplayDate.year() )
+		{
+			cellDay = ".prev-month-cell.other-month-day" + parseInt( event.startDate.day, 10 );
 			$cellPlaceholder = $( "#calendar" ).find( cellDay ).find( ".calendar-cell-placeholder" );
 		}
 
@@ -967,7 +1004,7 @@
 		var addressCityStr = event.address.city ? ", " + event.address.city : "";
 		var addressStr = addressStreetStr + addressCityStr;
 
-		var $event = $( '<div class="event-rectangle" style="top:' + ( event.calendarPlacementRow - 1 ) * 28 + 'px; left:' + left + '%; width:' + width + '%; border-color:' + event.kind.color + ';">' + event.name + '<input type="hidden" name="' + event.name + '" address="' + addressStr + '" starthour="' + event.startDate.startHour + '" endhour="' + event.startDate.endHour + '" startminute="' + event.startDate.startMinute + '" endminute="' + event.startDate.endMinute + '" ></input></div>' );
+		var $event = $( '<div class="event-rectangle" style="top:' + ( event.calendarPlacementRow - 1 ) * 28 + 'px; left:' + left + '%; width:' + width + '%;' + ( event.privacyLevel.value == 1 ? 'border-color:' : 'background:' ) + event.kind.color + ';">' + event.name + '<input type="hidden" name="' + event.name + '" address="' + addressStr + '" starthour="' + event.startDate.startHour + '" endhour="' + event.startDate.endHour + '" startminute="' + event.startDate.startMinute + '" endminute="' + event.startDate.endMinute + '" ></input></div>' );
 
 		$cellPlaceholder.append( $event );
 	};
@@ -1072,12 +1109,14 @@
 		}, 10 )
 	};
 
-	self.addPublicEventToMyCalendarOnClick = function ( id, year, month, day )
+	self.addPublicEventToMyCalendarOnClick = function ( element, id, year, month, day )
 	{
+		var $element = $( element );
 		var data = '?username=' + self.userName + '&eventId=' + id;
-		var callback = function ( result, appViewModel, $loader )
+
+		var callback = function ( result, appViewModel, $element, $loader )
 		{
-			var displayDate, event;
+			var displayDate, kkEvent, dayEvents, $parent;
 
 			if ( result.IsSuccess === false )
 			{
@@ -1085,13 +1124,20 @@
 				alert( result.Message );
 			} else
 			{
-				event = self.EVENT_MANAGER.getEventByDateAndId( id, year, month, day, self.publicEventTree );
-				self.EVENT_MANAGER.addEvent( event );
+				kkEvent = self.EVENT_MANAGER.getEventByDateAndId( id, year, month, day, self.publicEventTree );
+				dayEvents = appViewModel.EVENT_MANAGER.addEvent( kkEvent );
+
+				appViewModel.setCalendarPlacementRow( dayEvents );
+				appViewModel.redrawCalendarCell( dayEvents, kkEvent.startDate.day, kkEvent.startDate.month, kkEvent.startDate.year );
+
+				$parent = $element.parent();
+				$parent.empty().append( '<div style="color: #67C767; padding-bottom: 10px; padding-left: 10px;"><span>dodane do mojego kalendarza ✓</span></div>' );
+
 				appViewModel.hideLoader( $loader );
 			}
 		}
 
-		self.UTILS.webApiCaller.callAddExistingEventToUser( data, callback );
+		self.UTILS.webApiCaller.callAddExistingEventToUser( data, callback, $element );
 	}
 
 	self.showSelectedEventsOnMenuItemClick = function ( element, lobbyOrDetailsPageSelectedEvents )
@@ -1106,8 +1152,7 @@
 		if ( $menuItemContainer.hasClass( "selected" ) )
 		{
 			$menuItemContainer.css( "top", "20px" );
-			$menuItemContainer.css( "border-bottom", "2px solid white" );
-			$menuItemContainer.css( "border-top", "none" );
+			$menuItemContainer.css( "border-bottom", "2px solid gray" );
 
 			lobbyOrDetailsPageSelectedEvents.selectedKindValues.push( eventKindValue );
 			showSelectedEvents( lobbyOrDetailsPageSelectedEvents.settings.pageName );
@@ -1115,7 +1160,7 @@
 		} else
 		{
 			$menuItemContainer.css( "top", "0px" );
-			$menuItemContainer.css( "border", "none" );
+			$menuItemContainer.css( "border", "2px solid #E4E0D1" );
 
 			filteredArray = lobbyOrDetailsPageSelectedEvents.selectedKindValues.filter( function ( e ) { return e !== eventKindValue } )
 			lobbyOrDetailsPageSelectedEvents.selectedKindValues = filteredArray;
@@ -1680,7 +1725,7 @@
 
 		var monthNumber = ( currMonth ) < 10 ? '0' + ( currMonth ) : currMonth;
 
-		self.resetAndSetPrivacyLvlToObservableEvent( dayNumber, monthNumber, currYear, "private", 1 );
+		self.resetAndSetPrivacyLvlToObservableEvent( dayNumber, monthNumber, currYear, "private", self.eventPrivacyLevels["private"] );
 
 		var top = $( "#slide-item-calendar" ).parent().scrollTop();
 		$addEventContainer.css( "top", top + 10 );
@@ -1698,7 +1743,7 @@
 		var day = self.todayDate.day < 10 ? '0' + self.todayDate.day : self.todayDate.day;
 		var month = self.todayDate.month < 10 ? '0' + self.todayDate.month : self.todayDate.month;
 
-		self.resetAndSetPrivacyLvlToObservableEvent( day, month, self.todayDate.year, "public", 2 );
+		self.resetAndSetPrivacyLvlToObservableEvent( day, month, self.todayDate.year, "public", self.eventPrivacyLevels["public"] );
 
 		var $lobby = $( "#lobby" );
 		var $calendar = $( "#calendar" );
@@ -1737,7 +1782,7 @@
 		var day = self.todayDate.day < 10 ? '0' + self.todayDate.day : self.todayDate.day;
 		var month = self.todayDate.month < 10 ? '0' + self.todayDate.month : self.todayDate.month;
 
-		self.resetAndSetPrivacyLvlToObservableEvent( day, month, self.todayDate.year, "private", 1 );
+		self.resetAndSetPrivacyLvlToObservableEvent( day, month, self.todayDate.year, "private", self.eventPrivacyLevels["private"] );
 
 		var $lobby = $( "#lobby" );
 		var $calendar = $( "#calendar" );
@@ -1753,7 +1798,7 @@
 
 		//////////////////////////////////////////////////
 		var $addEventContainer = $( "#addNewEventContainer" );
-		$addEventContainer.detach().prependTo( $calendar );
+		$addEventContainer.detach().prependTo( $lobby );
 		$addEventContainer.find( "legend" ).text( "Dodaj do kalendarza" );
 
 		var $addBtn = $addEventContainer.find( "#btnAddNewEvent" );
@@ -1780,10 +1825,6 @@
 
 	self.redisplayCalendarAtChosenMonth = function ( monthNum )
 	{
-		//TODO: change so monthNum is from 1 - 12 (to make consistent throughout the app - lets agree that month values will be passed as values from 1 to 12).
-
-		//monthNum is between 0 - 11
-
 		var $calendar = $( "#calendar" );
 		var $addNewEvent = $( "#addNewEventContainer" );
 		var $loader = $calendar.siblings( ".dotted-page-overlay" );
@@ -1793,9 +1834,10 @@
 		$addNewEvent.detach();
 
 		$calendar.find( ".month-name-header-container .current-month-name-calendar" ).removeClass( "current-month-name-calendar" );
-		$calendar.find( ".month-name-header-container:eq( '" + monthNum + "' )" ).addClass( "current-month-name-calendar" );
+		$calendar.find( ".month-name-header-container:eq( '" + ( monthNum - 1 ) + "' )" ).addClass( "current-month-name-calendar" );
 
-		$calendar.calendarWidget( { month: monthNum, year: self.calendarPageDisplayDate.year() } );
+		//calendar widget accepts months as 0 - 11 format
+		$calendar.calendarWidget( { month: monthNum - 1, year: self.calendarPageDisplayDate.year() } );
 		ko.unapplyBindings( $calendar[0] );
 		ko.applyBindings( self, $calendar[0] );
 
@@ -1859,11 +1901,25 @@
 
 		} );
 
-		self.calendarPageDisplayDate.month( monthNum + 1 );
+		self.calendarPageDisplayDate.month( monthNum );
 
 		for ( var i = -1; i < 2; i++ )
 		{
-			self.calendarPageMonthEvents = self.EVENT_MANAGER.getEventsForGivenMonth( self.calendarPageDisplayDate.year(), self.calendarPageDisplayDate.month() + i );
+			//December previous year
+			if ( self.calendarPageDisplayDate.month() + i == 0 )
+			{
+				self.calendarPageMonthEvents = self.EVENT_MANAGER.getEventsForGivenMonth( self.calendarPageDisplayDate.year() - 1, 12 );
+			}
+				//January next year
+			else if ( self.calendarPageDisplayDate.month() + i == 13 )
+			{
+				self.calendarPageMonthEvents = self.EVENT_MANAGER.getEventsForGivenMonth( self.calendarPageDisplayDate.year() + 1, 1 );
+			}
+				//all other months
+			else
+			{
+				self.calendarPageMonthEvents = self.EVENT_MANAGER.getEventsForGivenMonth( self.calendarPageDisplayDate.year(), self.calendarPageDisplayDate.month() + i );
+			}
 
 			//draw to calendar
 			ko.utils.arrayForEach( self.calendarPageMonthEvents, function ( event )
@@ -1878,7 +1934,7 @@
 	self.redisplayCalendarAtChosenYear = function ( year )
 	{
 		self.calendarPageDisplayDate.year( year );
-		self.redisplayCalendarAtChosenMonth( self.calendarPageDisplayDate.month() - 1 );
+		self.redisplayCalendarAtChosenMonth( self.calendarPageDisplayDate.month() );
 	};
 
 	self.showEventBlockInfoOnDetailsPageEventRectangleClick = function ( id )
@@ -1906,6 +1962,7 @@
 					{
 						$menuItemContainer.removeClass( "selected" );
 						$menuItemContainer.css( "top", "0px" );
+						$menuItemContainer.css( "border", "none" );
 
 						self.lobbyPageSelectedEvents.selectedKindValues = [];
 						self.lobbyPageSelectedEvents.old( [] );
@@ -1929,6 +1986,7 @@
 					{
 						$menuItemContainer.removeClass( "selected" );
 						$menuItemContainer.css( "top", "0px" );
+						$menuItemContainer.css( "border", "none" );
 
 						self.detailsPageSelectedEvents.selectedKindValues = [];
 						self.detailsPageSelectedEvents.old( [] );

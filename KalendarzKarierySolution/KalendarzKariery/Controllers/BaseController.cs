@@ -11,22 +11,25 @@ namespace KalendarzKariery.Controllers
 {
 	public class BaseController : Controller
 	{
-		protected int? GetUserId(string username, IKalendarzKarieryRepository repository)
+		protected int? GetUserId( string username, IKalendarzKarieryRepository repository )
 		{
-			int? id;
-			var objectId = AppCache.Get(Consts.UserIdCacheString + username);
+			if (string.IsNullOrEmpty( username ))
+			{
+				return null;
+			}
+
+			var objectId = AppCache.Get( Consts.UserIdCacheString + username );
 			if (objectId != null)
 			{
-				id = (int?)objectId;
-				return id;
+				return (int?)objectId;
 			}
 			else
 			{
-				id = repository.GetUserIdByName(username);
+				int? id = repository.GetUserIdByName( username );
 
 				if (id.HasValue)
 				{
-					AppCache.Set(Consts.UserIdCacheString + username, id.Value);
+					AppCache.Set( Consts.UserIdCacheString + username, id.Value );
 					return id.Value;
 				}
 
@@ -34,21 +37,21 @@ namespace KalendarzKariery.Controllers
 			}
 		}
 
-		protected void CacheUserId(string username, IKalendarzKarieryRepository repository)
+		protected void CacheUserId( string username, IKalendarzKarieryRepository repository )
 		{
-			var objectId = AppCache.Get(Consts.UserIdCacheString + username);
+			var objectId = AppCache.Get( Consts.UserIdCacheString + username );
 
 			if (objectId != null)
 			{
-				AppCache.Set(Consts.UserIdCacheString + username, (int)objectId);
+				AppCache.Set( Consts.UserIdCacheString + username, (int)objectId );
 				return;
 			}
 
-			int? id = repository.GetUserIdByName(username);
+			int? id = repository.GetUserIdByName( username );
 
 			if (id.HasValue)
 			{
-				AppCache.Set(Consts.UserIdCacheString + username, id.Value);
+				AppCache.Set( Consts.UserIdCacheString + username, id.Value );
 			}
 		}
 	}

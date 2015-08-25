@@ -1004,7 +1004,7 @@
 		var addressCityStr = event.address.city ? ", " + event.address.city : "";
 		var addressStr = addressStreetStr + addressCityStr;
 
-		var $event = $( '<div class="event-rectangle" style="top:' + ( event.calendarPlacementRow - 1 ) * 28 + 'px; left:' + left + '%; width:' + width + '%;' + ( event.privacyLevel.value == 1 ? 'border-color:' : 'background:' ) + event.kind.color + ';">' + event.name + '<input type="hidden" name="' + event.name + '" address="' + addressStr + '" starthour="' + event.startDate.startHour + '" endhour="' + event.startDate.endHour + '" startminute="' + event.startDate.startMinute + '" endminute="' + event.startDate.endMinute + '" ></input></div>' );
+		var $event = $( '<div class="event-rectangle" style="top:' + ( event.calendarPlacementRow - 1 ) * 28 + 'px; left:' + left + '%; width:' + width + '%;border-color:' + event.kind.color + ( event.privacyLevel.value == 1 ? ';' : ';border:2px solid ' + event.kind.color + ';') + '">' + event.name + '<input type="hidden" name="' + event.name + '" address="' + addressStr + '" starthour="' + event.startDate.startHour + '" endhour="' + event.startDate.endHour + '" startminute="' + event.startDate.startMinute + '" endminute="' + event.startDate.endMinute + '" ></input></div>' );
 
 		$cellPlaceholder.append( $event );
 	};
@@ -1024,7 +1024,7 @@
 		var width = ( ( event.startDate.endHour - event.startDate.startHour ) * 100 ) - startMinuteOffset + endMinuteOffset;
 
 		var $hourCell = $( ".hour-cell-" + event.startDate.startHour );
-		var eventRectangle = '<div data-bind="click: function(){ $root.showEventBlockInfoOnDetailsPageEventRectangleClick(' + event.id + ') }" class="event-rectangle-details" style="width:' + ( width - 2 ) + '%;top : ' + ( ( ( event.calendarPlacementRow - 1 ) * 46 ) + 12 ) + 'px;left:' + ( startMinuteOffset + 1 ) + '%;border-color:' + event.kind.detailsPageEventBorderColor + ';"><span>' + event.name + '</span></div>';
+		var eventRectangle = '<div data-bind="click: function(){ $root.showEventBlockInfoOnDetailsPageEventRectangleClick(' + event.id + ') }" class="event-rectangle-details" style="width:' + ( width - 2 ) + '%;top : ' + ( ( ( event.calendarPlacementRow - 1 ) * 46 ) + 12 ) + 'px;left:' + ( startMinuteOffset + 1 ) + '%;border-color:' + event.kind.detailsPageEventBorderColor + ( event.privacyLevel.value == 1 ? ';' : ';border:2px solid ' + event.kind.detailsPageEventBorderColor + ';' ) + '"><span>' + event.name + '</span></div>';
 		var $eventRectangle = $( eventRectangle );
 
 		$eventRectangle.appendTo( $hourCell );

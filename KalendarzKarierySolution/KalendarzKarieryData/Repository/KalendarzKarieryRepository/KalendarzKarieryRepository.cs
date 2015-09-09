@@ -18,7 +18,7 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 {
 	public class KalendarzKarieryRepository : IKalendarzKarieryRepository
 	{
-		private readonly KalendarzKarieryDBEntities _entities;
+		public KalendarzKarieryDBEntities _entities;
 
 		public KalendarzKarieryRepository( bool useFakeRepository = false )
 		{
@@ -45,6 +45,11 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 			{
 				_entities = new KalendarzKarieryDBEntities();
 			}
+		}
+
+		public KalendarzKarieryDBEntities GetContext()
+		{
+			return _entities;
 		}
 
 		#region User
@@ -115,6 +120,11 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 		public void AddExistingEventToUserCalendar( Event @event, User user )
 		{
 			user.ForeignEventsInCalendar.Add( @event );
+		}
+
+		public void SignUpUserForEvent( Event @event, User user )
+		{
+			@event.SignedUpUsers.Add( user );
 		}
 
 		//TODO: check if OrderBY is done in SQL or .NET (for var = list)

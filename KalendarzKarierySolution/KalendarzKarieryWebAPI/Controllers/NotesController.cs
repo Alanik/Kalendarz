@@ -26,13 +26,15 @@ namespace KalendarzKarieryWebAPI.Controllers
 		}
 
 		// GET api/notes/5
-		public string Get( int id )
+		[HttpGet]
+		public string GetNote( int id )
 		{
 			return "value";
 		}
 
 		// POST api/notes
-		public IValidationResponse Post( AddNoteViewModel model )
+		[HttpPost]
+		public IValidationResponse AddNote( AddNoteViewModel model )
 		{
 			if (!User.Identity.IsAuthenticated)
 			{
@@ -64,7 +66,8 @@ namespace KalendarzKarieryWebAPI.Controllers
 		}
 
 		// PUT api/notes/5
-		public IValidationResponse Put( UpdateNoteViewModel model )
+		[HttpPut]
+		public IValidationResponse UpdateNote( UpdateNoteViewModel model )
 		{
 			if (!User.Identity.IsAuthenticated)
 			{
@@ -101,7 +104,8 @@ namespace KalendarzKarieryWebAPI.Controllers
 		}
 
 		// DELETE api/notes/5
-		public IValidationResponse Delete( int id )
+		[HttpDelete]
+		public IValidationResponse DeleteNote( int id )
 		{
 			if (!User.Identity.IsAuthenticated)
 			{
@@ -137,7 +141,6 @@ namespace KalendarzKarieryWebAPI.Controllers
 			r.Message = Consts.NoteDoesNotExistErrorMsg;
 			return r;
 		}
-
 
 		private Note GetNoteModelFromAddNoteViewModel( AddNoteViewModel viewModel )
 		{

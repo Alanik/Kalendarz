@@ -6,19 +6,11 @@
 	<div style="padding: 10px; border-top: 2px solid #DEDEDE">
 		<div class="hover-cursor-pointer" style="color: rgb(147, 139, 114); width: 240px;" data-bind="click: function () { $root.toggleShowOldEventsOnCheckboxClick( $element, $root.detailsPageSelectedEvents ) }">
 			<div class="show-old-events-checkbox"></div>
-			<span style="padding: 4px; color: #C0CEB1;">Pokaż stare wpisy</span>
+			<span style="padding: 4px;">Pokaż stare wpisy</span>
 		</div>
 	</div>
 
-	<div class="legend-container">
-		<div class="legend-ispublic">Publiczne:</div>
-		<div class="legend-title">Tytuł:</div>
-		<div class="legend-other">Data:</div>
-		<div class="legend-other">Godzina:</div>
-		<div class="legend-other">Rodzaj:</div>
-	</div>
-
-	<div data-bind="foreach: $root.detailsPageSelectedEvents.old">
+	<div data-bind="foreach: $root.detailsPageSelectedEvents.old" style="padding-left:100px;">
 		<!-- ko if: $index() == 0 -->
 		<div class="legend-oldorupcoming">
 			stare
@@ -39,7 +31,7 @@
 		</div>
 	</div>
 
-	<div data-bind="foreach: $root.detailsPageSelectedEvents.upcoming">
+	<div data-bind="foreach: $root.detailsPageSelectedEvents.upcoming" style="padding-left: 100px;">
 		<!-- ko if: $index() == 0 -->
 		<div class="legend-oldorupcoming">
 			nadchodzące

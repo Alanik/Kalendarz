@@ -8,11 +8,14 @@ using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 {
 	public interface IKalendarzKarieryRepository
 	{
+		KalendarzKarieryDBEntities GetContext();
+
 		#region User
 
 		User GetUserById( int id );
@@ -23,11 +26,11 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 		#endregion
 
 		#region Event
-
 		Event GetEventById( int id );
 		void DeleteEvent( Event @event );
 		void AddEvent( Event @event );
 		void AddExistingEventToUserCalendar( Event @event, User user );
+		void SignUpUserForEvent( Event @event, User user );
 		User GetUserByName(string name);
 		void UpdateEvent (Event @event);
 	    IList<EventsGroupedByYearModel> GetAllPublicEvents( int? userId);

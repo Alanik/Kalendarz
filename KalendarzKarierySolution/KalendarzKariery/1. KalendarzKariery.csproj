@@ -202,6 +202,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\kalkulator.css" />
     <Content Include="Content\Fonts\Oxygen\OFL.txt" />
     <Content Include="Content\Fonts\Raleway\FONTLOG.txt" />
     <Content Include="Content\Fonts\Raleway\images\raleway-1.jpeg" />
@@ -225,6 +226,16 @@
     <Content Include="Images\Ico\favicon.ico" />
     <Content Include="Images\kalendarzTloClear.png" />
     <Content Include="Images\Icons\list-icon.png" />
+    <Content Include="Images\Kalkulator\autoforma.png" />
+    <Content Include="Images\Kalkulator\autoforma2.png" />
+    <Content Include="Images\Kalkulator\carbon-logo.png" />
+    <Content Include="Images\Kalkulator\cbs_background.jpg" />
+    <Content Include="Images\Kalkulator\CBS_niebieskie.png" />
+    <Content Include="Images\Kalkulator\CBS_niebieskie2.png" />
+    <Content Include="Images\Kalkulator\miracle-logo.png" />
+    <Content Include="Images\Kalkulator\tlo.png" />
+    <Content Include="Images\Kalkulator\wozek.jpg" />
+    <Content Include="Images\Kalkulator\wozek.png" />
     <Content Include="Images\Logo\blackAndWhiteSmallKKLogo.png" />
     <Content Include="Images\Logo\kkLogo.png" />
     <Content Include="Images\Logo\kkLogo_mobile.png" />
@@ -383,6 +394,7 @@
     <Content Include="Views\Home\DetailsPage\_DetailsEventInfo.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsNotesSummary.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsEventsAndNotesContainer.cshtml" />
+    <Content Include="Views\Home\Kalkulator.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

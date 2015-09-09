@@ -99,16 +99,6 @@
           <Property Name="Description" Type="nvarchar" MaxLength="500" />
           <Property Name="Value" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
@@ -427,7 +417,6 @@
           <EntitySet Name="Note" EntityType="Self.Note" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NoteKind" EntityType="Self.NoteKind" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PrivacyLevel" EntityType="Self.PrivacyLevel" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Event_EventsAddedToUserCalendar" EntityType="Self.User_Event_EventsAddedToUserCalendar" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Event_UsersGoingToEvent" EntityType="Self.User_Event_UsersGoingToEvent" Schema="dbo" store:Type="Tables" />
@@ -626,16 +615,6 @@
           <Property Name="Value" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Events" Relationship="Self.FK_PrivacyLevel_Event" FromRole="PrivacyLevel" ToRole="Event" />
           <NavigationProperty Name="Notes" Relationship="Self.FK_Note_PrivacyLevel" FromRole="PrivacyLevel" ToRole="Note" />
-        </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -873,7 +852,6 @@
           <EntitySet Name="Notes" EntityType="Self.Note" />
           <EntitySet Name="NoteKinds" EntityType="Self.NoteKind" />
           <EntitySet Name="PrivacyLevels" EntityType="Self.PrivacyLevel" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="UserAccountInfoes" EntityType="Self.UserAccountInfo" />
           <EntitySet Name="webpages_Membership" EntityType="Self.webpages_Membership" />
@@ -1045,17 +1023,6 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="KalendarzKarieryDBModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

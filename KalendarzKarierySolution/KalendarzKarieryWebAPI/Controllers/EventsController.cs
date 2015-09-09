@@ -15,7 +15,7 @@ using KalendarzKarieryCore.Consts;
 using KalendarzKarieryData.BO.Cache;
 using System.Text.RegularExpressions;
 using KalendarzKarieryCore.BO;
-
+using KalendarzKarieryWebAPI.Models;
 
 namespace KalendarzKarieryWebAPI.Controllers
 {
@@ -31,13 +31,15 @@ namespace KalendarzKarieryWebAPI.Controllers
 		}
 
 		// GET api/events/5
-		public string Get( int id )
+		[HttpGet]
+		public string GetEvent( int id )
 		{
 			return "value";
 		}
 
 		// POST api/events (add)
-		public IValidationResponse Post( AddEventViewModel addEventViewModel )
+		[HttpPost]
+		public IValidationResponse AddEvent( AddEventViewModel addEventViewModel )
 		{
 			if (!User.Identity.IsAuthenticated)
 			{
@@ -69,7 +71,8 @@ namespace KalendarzKarieryWebAPI.Controllers
 		}
 
 		// PUT api/events/5 (update)
-		public IValidationResponse Put( AddEventViewModel addEventViewModel )
+		[HttpPut]
+		public IValidationResponse UpdateEvent( AddEventViewModel addEventViewModel )
 		{
 			if (!User.Identity.IsAuthenticated)
 			{
@@ -113,7 +116,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 			}
 		}
 
-		[HttpPut]
+		[HttpPost]
 		public IValidationResponse AddExistingEventToUser( int eventId, string username )
 		{
 			if (!User.Identity.IsAuthenticated)
@@ -122,9 +125,9 @@ namespace KalendarzKarieryWebAPI.Controllers
 			}
 
 			var @event = _repository.GetEventById( eventId );
-			var user = _repository.GetUserByName(username);
+			var user = _repository.GetUserByName( username );
 
-			if (@event != null && user != null && string.Compare(user.UserName, User.Identity.Name, true) == 0)
+			if (@event != null && user != null && string.Compare( user.UserName, User.Identity.Name, true ) == 0)
 			{
 				_repository.AddExistingEventToUserCalendar( @event, @user );
 				_repository.Save();
@@ -137,8 +140,43 @@ namespace KalendarzKarieryWebAPI.Controllers
 			}
 		}
 
+		[HttpPost]
+		public IValidationResponse SignUpUserForEvent( SignUpUserForEventModel model )
+		{
+			if (!User.Identity.IsAuthenticated)
+			{
+				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.NotAuthenticatedErrorMsg };
+			}
+
+			var @event = _repository.GetEventById( model.EventId );
+			var user = _repository.GetUserByName( model.Username );
+
+			if (@event != null && user != null && string.Compare( user.UserName, User.Identity.Name, true ) == 0)
+			{
+			//TODO: fix transaction
+				//using (_repository.GetContext().Database.BeginTransaction())
+				//{
+					_repository.SignUpUserForEvent( @event, @user );
+					_repository.Save();
+
+					if (user.Id != @event.OwnerUserId && !@event.CalendarUsers.Contains(user))
+					{
+						_repository.AddExistingEventToUserCalendar( @event, @user );
+						_repository.Save();
+					}				
+				//}
+
+				return new AddEventValidationResponseModel { IsSuccess = true, EventId = @event.Id };
+			}
+			else
+			{
+				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralOperationErrorMsg };
+			}
+		}
+
 		// DELETE api/events/5
-		public IValidationResponse Delete( int id )
+		[HttpDelete]
+		public IValidationResponse DeleteEvent( int id )
 		{
 			if (!User.Identity.IsAuthenticated)
 			{
@@ -251,6 +289,5 @@ namespace KalendarzKarieryWebAPI.Controllers
 
 			return @event;
 		}
-
 	}
 }

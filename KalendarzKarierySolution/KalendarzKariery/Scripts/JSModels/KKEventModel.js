@@ -46,6 +46,8 @@
 
 	self.price = null;
 
+	self.signedUpUsersForEvent = [];
+
 	self.startDate = {} // new KKEventDateModel();
 
 	self.urlLink = "";

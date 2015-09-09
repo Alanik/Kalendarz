@@ -13,7 +13,6 @@
         <EntityTypeShape EntityType="KalendarzKarieryDBModel.Note" Width="1.5" PointX="10.5" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="KalendarzKarieryDBModel.NoteKind" Width="1.5" PointX="8.25" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="KalendarzKarieryDBModel.PrivacyLevel" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="KalendarzKarieryDBModel.sysdiagram" Width="1.5" PointX="8.75" PointY="10.25" IsExpanded="true" />
         <EntityTypeShape EntityType="KalendarzKarieryDBModel.User" Width="1.5" PointX="8.25" PointY="4.25" IsExpanded="true" />
         <EntityTypeShape EntityType="KalendarzKarieryDBModel.UserAccountInfo" Width="1.5" PointX="6" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="KalendarzKarieryDBModel.webpages_Membership" Width="1.5" PointX="2.75" PointY="11.25" IsExpanded="true" />

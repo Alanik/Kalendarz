@@ -17,6 +17,7 @@
 		</div>
 	</div>
 </div>
+
 <div class="event-block-info-body">
 	<div class="event-block-info-name">
 		<span data-bind="text: name"></span>
@@ -58,12 +59,12 @@
 		</div>
 	</div>
 	<div data-bind="if: isCurrentUserSignedUpForEvent">
-		<div style="margin-bottom: 10px; border: 2px solid #E1DECF; border-right: none; border-radius: 3px; padding: 2px; padding-left: 10px; max-width: 250px;">
-			<span>zgłoszono chęć uczestnictwa w wydarzeniu ✓</span>
+		<div style="color: #67C767; padding-bottom: 10px; padding-left: 10px;">
+			<span>zgłoszono chęć uczestnictwa ✓</span>
 		</div>
 	</div>
-	<div data-bind="if: !isCurrentUserSignedUpForEvent">
-		<div class="hover-cursor-pointer event-block-user-option" style="margin-bottom: 10px; border: 2px solid #E1DECF; border-right: none; border-radius: 3px; padding: 2px; padding-left: 10px; max-width: 250px;">
+	<div  data-bind="if: !isCurrentUserSignedUpForEvent">
+		<div data-bind="click: function () { $root.signUpUserForEventOnClick( $element, id, startDate.year, startDate.month, startDate.day ) }" class="hover-cursor-pointer event-block-user-option" style="margin-bottom: 10px; border: 2px solid #E1DECF; border-right: none; border-radius: 3px; padding: 2px; padding-left: 10px; max-width: 250px;">
 			<span>zgłaszam chęć uczestnictwa</span>
 		</div>
 	</div>

@@ -1,0 +1,454 @@
+﻿@{
+	Layout = null;
+}
+
+<html>
+<head>
+	<title>CBS calculator</title>
+	<meta charset="utf-8">
+	<link href="~/Content/kalkulator.css" rel="stylesheet" />
+	<script src="~/Scripts/Lib/jquery-2.0.3.js"></script>
+</head>
+<body>
+
+	<div id="mainContainer">
+		<img src="/Images/Kalkulator/autoforma2.png" width="130" style="position: absolute; right: 100; top: 16px; z-index: 10;"
+			alt="cbs logo" />
+		<div id="bgContainer">
+			<div id="calculatorContainer">
+				<h2 style="border-bottom: 1px solid #DAEBF3">
+					<div style="position: relative; bottom: 10px;">
+						<img src="/Images/Kalkulator/CBS_niebieskie2.png" width="160" alt="cbs logo" /><span style="position: relative; bottom: 30px; font-size: 40px; font-style: italic;">SYSTEM</span>
+					</div>
+				</h2>
+				<span style="position: absolute; color: #E4F5FF; font-size: 20px; top: 100; font-style: normal;">System kalkulacyjny napraw panelowych</span>
+				<div id="leftContainer">
+					<div class="row">
+						<div class="txt-container">
+							<div class="label">nr. Kosztorysu</div>
+							<div>
+								<input type="text" id="nrKosztorysuTxt" style="width: 274px;" />
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="txt-container">
+							<div class="label">Szerokość</div>
+							<div>
+								<input type="text" id="szerokoscTxt" /><span class="prefix">cm</span>
+							</div>
+						</div>
+						<div class="txt-container">
+							<div class="label">Wysokość</div>
+							<div>
+								<input type="text" id="wysokoscTxt" /><span class="prefix">cm</span>
+							</div>
+						</div>
+						<div class="txt-container">
+							<div class="label">Głębokość</div>
+							<div>
+								<input type="text" id="glebokoscTxt" /><span class="prefix">cm</span>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="txt-container">
+							<div class="label">Stawka RBG</div>
+							<div>
+								<input type="text" id="stawkaRBGTxt" /><span class="prefix">zł</span>
+							</div>
+						</div>
+						<div class="txt-container">
+							<div class="label">Czas wymiany</div>
+							<div>
+								<input type="text" id="czasWymianyTxt" /><span class="prefix">rbg</span>
+							</div>
+						</div>
+						<div class="txt-container">
+							<div class="label">Cena części</div>
+							<div>
+								<input type="text" id="cenaCzesciTxt" /><span class="prefix">zł</span>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="txt-container">
+							<div class="label">Stal</div>
+							<div>
+								<input type="radio" checked="checked" name="group" value="Stal" id="stalRbtn" />
+							</div>
+						</div>
+						<div class="txt-container">
+							<div class="label">Aluminium</div>
+							<div>
+								<input type="radio" name="group" value="Aluminium" id="aluminiumRbtn" />
+							</div>
+						</div>
+						<div class="txt-container">
+							<div class="label">Stal nierdzewna</div>
+							<div>
+								<input type="radio" name="group" value="Stal nierdzewna" id="stalNierdzewnaRbtn" />
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="txt-container">
+							<div class="label">Profil</div>
+							<div>
+								<input type="radio" checked="checked" name="group2" value="Profil" id="profilRbtn" />
+							</div>
+						</div>
+						<div class="txt-container">
+							<div class="label">Panel</div>
+							<div>
+								<input type="radio" name="group2" value="Panel" id="panelRbtn" />
+							</div>
+						</div>
+					</div>
+					<div class="row" id="panelStuffRow" style="visibility: hidden;">
+						<div class="txt-container-chk">
+							<div class="label-chk">Krawędź</div>
+							<div>
+								<input type="checkbox" value="Krawedz" id="krawedzChkBox" />
+							</div>
+						</div>
+						<div class="txt-container-chk">
+							<div class="label-chk">Przetłoczenie</div>
+							<div>
+								<input type="checkbox" value="Przetłoczenie" id="przetloczenieChkBox" />
+							</div>
+						</div>
+						<div class="txt-container-chk">
+							<div class="label-chk">Załamanie</div>
+							<div>
+								<input type="checkbox" value="Załamanie" id="zalamanieChkBox" />
+							</div>
+						</div>
+						<div class="txt-container-chk">
+							<div class="label-chk">Wzmocnienie</div>
+							<div>
+								<input type="checkbox" value="Wzmocnienie" id="wzmocnienieChkBox" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="rightContainer">
+					<div class="results-container">
+						<div>KOMPLETNY KOSZT WYMIANY:</div>
+						<div class="result" id="kosztWymiany"><span class="result-span"></span></div>
+					</div>
+					<div class="results-container">
+						<div>KOSZT ODBUDOWY:</div>
+						<div class="result" id="kosztBudowy"><span class="result-span"></span></div>
+					</div>
+					<div style="text-align: center; background-color: #56798A; padding: 20px; margin-left: 20px;">
+						<input type="button" id="enterBtn" value="oblicz" />
+					</div>
+				</div>
+				<div id="powierzchniaMsgContainer">
+					Naprawy panelowe obejmują powierzchnie od 1 dm ^2. Kalkulacja anulowana.
+				</div>
+				<div id="msgContainer">
+					Naprawa nieopłacalna (>82% lub <60%)
+				</div>
+
+
+			</div>
+			<div style="width: 100%; height: 224px; background: rgba(255, 255, 255, 0.4);">
+				<div style="position: absolute; bottom: 90; font-size: 18px; left: 20; color: white;">Opracowane przez firmę CBS sp z o.o na podstawie technologii napraw:</div>
+			</div>
+			<img src="/Images/Kalkulator/miracle-logo.png" width="160" style="position: absolute; bottom: 20px; left: 20px;" alt="cbs logo" />
+			<img src="/Images/Kalkulator/carbon-logo.png" width="160" style="position: absolute; bottom: 20px; left: 200px;" alt="cbs logo" />
+		</div>
+	</div>
+</body>
+</html>
+
+<script type="text/javascript">
+	$( function ()
+	{
+		$( "#enterBtn" ).click( function ()
+		{
+			$( "#msgContainer" ).hide();
+			$( "#powierzchniaMsgContainer" ).hide();
+
+			var stawkaRBG = $( "#stawkaRBGTxt" ).val();
+			var czasWymiany = $( "#czasWymianyTxt" ).val();
+			var cenaCzesci = $( "#cenaCzesciTxt" ).val();
+
+			var szerokosc = $( "#szerokoscTxt" ).val();
+			var wysokosc = $( "#wysokoscTxt" ).val();
+			var glebokosc = $( "#glebokoscTxt" ).val();
+			var stal_isChecked = $( "#stalRbtn" ).is( ":checked" );
+			var aluminium_isChecked = $( "#aluminiumRbtn" ).is( ":checked" );
+			var stalNierdzewna_isChecked = $( "#stalNierdzewnaRbtn" ).is( ":checked" );
+			var profil_isChecked = $( "#profilRbtn" ).is( ":checked" );
+			var panel_isChecked = $( "#panelRbtn" ).is( ":checked" );
+			var krawedz_isChecked = $( "#krawedzChkBox" ).is( ":checked" );
+			var przetloczenie_isChecked = $( "#przetloczenieChkBox" ).is( ":checked" );
+			var zalamanie_isChecked = $( "#zalamanieChkBox" ).is( ":checked" );
+			var wzmocnienie_isChecked = $( "#wzmocnienieChkBox" ).is( ":checked" );
+
+			var data =
+			'stawkaRBG=' + stawkaRBG +
+			'&czasWymiany=' + czasWymiany +
+			'&cenaCzesci=' + cenaCzesci +
+			'&szerokosc=' + szerokosc +
+			'&wysokosc=' + wysokosc +
+			'&glebokosc=' + glebokosc +
+			'&stal_isChecked=' + stal_isChecked +
+			'&aluminium_isChecked=' + aluminium_isChecked +
+			'&stalNierdzewna_isChecked=' + stalNierdzewna_isChecked +
+			'&profil_isChecked=' + profil_isChecked +
+			'&panel_isChecked=' + panel_isChecked +
+			'&krawedz_isChecked=' + krawedz_isChecked +
+			'&przetloczenie_isChecked=' + przetloczenie_isChecked +
+			'&zalamanie_isChecked=' + zalamanie_isChecked +
+			'&wzmocnienie_isChecked=' + wzmocnienie_isChecked;
+
+			$.ajax( {
+				url: "/api/Kalkulator",
+				dataType: "JSON",
+				type: "POST",
+				beforeSend: function () {  },
+				data: data,
+				success: function ( result )
+				{
+					alert( result.kosztWymiany + ", " + result.kosztOdbudowy );
+				},
+				error: function ()
+				{
+					alert( "Wystąpił nieoczekiwany błąd. Prosze spróbować jeszcze raz." );
+					
+				}
+			} )
+			//////////////////////////////////////////////////////////////////
+
+			var kosztWymiany = calculateKompletnyKosztWymiany();
+			$( "#kosztWymiany .result-span" ).text( kosztWymiany );
+
+			var kosztBudowy = calculateKosztBudowy();
+
+			if ( kosztBudowy === false )
+			{
+				return;
+			}
+
+			//opłacalność odbudowy
+			if ( ( parseFloat( kosztBudowy ) > ( parseFloat( kosztWymiany ) * .82 ) ) || ( parseFloat( kosztBudowy ) < ( parseFloat( kosztWymiany ) * .60 ) ) )
+			{
+				$( "#msgContainer" ).show();
+				$( "#kosztBudowy .result-span" ).text( '' );
+			}
+			else
+			{
+				$( "#kosztBudowy .result-span" ).text( kosztBudowy );
+			}
+
+		} );
+
+		$( '#panelRbtn' ).click( function ()
+		{
+			if ( $( this ).is( ':checked' ) )
+			{
+				$( "#panelStuffRow" ).css( "visibility", "visible" );
+			}
+		} );
+
+		$( '#profilRbtn' ).click( function ()
+		{
+			if ( $( this ).is( ':checked' ) )
+			{
+				$( "#panelStuffRow" ).css( "visibility", "hidden" );
+
+				$( "#krawedzChkBox" ).attr( 'checked', false );
+				$( "#przetloczenieChkBox" ).attr( 'checked', false );
+				$( "#zalamanieChkBox" ).attr( 'checked', false );
+				$( "#wzmocnienieChkBox" ).attr( 'checked', false );
+			}
+		} );
+
+		function calculateKompletnyKosztWymiany()
+		{
+			var stawkaRBG = $( "#stawkaRBGTxt" ).val();
+			var czasWymiany = $( "#czasWymianyTxt" ).val();
+			var cenaCzesci = $( "#cenaCzesciTxt" ).val();
+			var result = 0;
+
+			stawkaRBG = parseFloat( stawkaRBG );
+			czasWymiany = parseFloat( czasWymiany );
+			cenaCzesci = parseFloat( cenaCzesci );
+
+			///////////////////////////////////////////////////
+			//formula
+			///////////////////////////////////////////////////
+			result = ( stawkaRBG * czasWymiany ) + cenaCzesci;
+			///////////////////////////////////////////////////
+
+
+			if ( isNaN( result ) || result == null )
+			{
+				result = 0;
+			}
+
+			return result.toFixed( 2 );
+		}
+		function calculateKosztBudowy()
+		{
+			var szerokosc = $( "#szerokoscTxt" ).val();
+			var wysokosc = $( "#wysokoscTxt" ).val();
+			var glebokosc = $( "#glebokoscTxt" ).val();
+			var stal_isChecked = $( "#stalRbtn" ).is( ":checked" );
+			var aluminium_isChecked = $( "#aluminiumRbtn" ).is( ":checked" );
+			var stalNierdzewna_isChecked = $( "#stalNierdzewnaRbtn" ).is( ":checked" );
+			var profil_isChecked = $( "#profilRbtn" ).is( ":checked" );
+			var panel_isChecked = $( "#panelRbtn" ).is( ":checked" );
+			var krawedz_isChecked = $( "#krawedzChkBox" ).is( ":checked" );
+			var przetloczenie_isChecked = $( "#przetloczenieChkBox" ).is( ":checked" );
+			var zalamanie_isChecked = $( "#zalamanieChkBox" ).is( ":checked" );
+			var wzmocnienie_isChecked = $( "#wzmocnienieChkBox" ).is( ":checked" );
+
+			var stal = 1;
+			var aluminium = 1.4;
+			var stalNierdzewna = 2;
+
+			var profil = 1.35;
+			var panel = 1;
+
+			var krawedz = 1.22;
+			var przetloczenie = 1.5;
+			var zalamanie = 1.3;
+			var wzmocnienie = 1.15;
+
+			var wsplWymiany = 0;
+			var powierzchnia = 0;
+			var wsplGlebokosci = 0;
+			var wartoscPoczatkowaKosztuNaprawy = 0;
+			var wartoscKosztuNaprawyStalAlu = 0;
+			var wartoscUwzgledniajacaRodzajPowierzchni = 0;
+			var wynikBezWspUszkodzenia = 0;
+			var wspolczynnikUmiejscowieniaUszkodzeniaPanel = 0;
+			var wspolczynnikUmiejscowieniaUszkodzeniaProfil = 0;
+			var wynikKoncowy = 0;
+
+			//1. współczynnik wymiany
+			var kosztWymiany = calculateKompletnyKosztWymiany();
+			wsplWymiany = parseFloat( kosztWymiany ) / 1500;
+
+			//1.1 współczynnik umiejscowienia uszkodzenia - Panel
+			if ( krawedz_isChecked )
+			{
+				wspolczynnikUmiejscowieniaUszkodzeniaPanel = krawedz;
+			}
+			else
+			{
+				wspolczynnikUmiejscowieniaUszkodzeniaPanel = 1;
+			}
+
+			if ( przetloczenie_isChecked )
+			{
+				wspolczynnikUmiejscowieniaUszkodzeniaPanel *= przetloczenie;
+			}
+			else
+			{
+				wspolczynnikUmiejscowieniaUszkodzeniaPanel *= 1;
+			}
+
+			if ( zalamanie_isChecked )
+			{
+				wspolczynnikUmiejscowieniaUszkodzeniaPanel *= zalamanie;
+			}
+			else
+			{
+				wspolczynnikUmiejscowieniaUszkodzeniaPanel *= 1;
+			}
+
+			if ( wzmocnienie_isChecked )
+			{
+				wspolczynnikUmiejscowieniaUszkodzeniaPanel *= wzmocnienie;
+			}
+			else
+			{
+				wspolczynnikUmiejscowieniaUszkodzeniaPanel *= 1;
+			}
+
+
+			//1.2 współczynnik umiejscowienia uszkodzenia - Profil
+			if ( krawedz_isChecked )
+			{
+				wspolczynnikUmiejscowieniaUszkodzeniaProfil = krawedz;
+			}
+			else
+			{
+				wspolczynnikUmiejscowieniaUszkodzeniaProfil = 1;
+			}
+
+
+			//2. powierzchnia
+			szerokosc = parseFloat( szerokosc );
+			wysokosc = parseFloat( wysokosc );
+			powierzchnia = szerokosc * wysokosc;
+
+
+			if ( powierzchnia < 100 )
+			{
+				$( "#powierzchniaMsgContainer" ).show();
+				return false;
+			}
+
+			//3. współczynnik Głębokości 
+			glebokosc = parseFloat( glebokosc );
+			wsplGlebokosci = ( glebokosc - .1 ) * 2.1;
+
+			//4. wartość początkowa kosztu naprawy
+			wartoscPoczatkowaKosztuNaprawy = ( ( ( powierzchnia - 25 ) / 2.5 ) + 350 ) + wsplGlebokosci;
+
+			//5. wartość kosztu naprawy Stal/Aluminium
+			if ( stal_isChecked )
+			{
+				wartoscKosztuNaprawyStalAlu = wartoscPoczatkowaKosztuNaprawy * stal;
+			}
+			else if ( aluminium_isChecked )
+			{
+				wartoscKosztuNaprawyStalAlu = wartoscPoczatkowaKosztuNaprawy * aluminium;
+			}
+			else
+			{
+				wartoscKosztuNaprawyStalAlu = wartoscPoczatkowaKosztuNaprawy * stalNierdzewna;
+			}
+
+			//6. wartość uwzględniająca rodzaj powierzchni
+			if ( profil_isChecked )
+			{
+				wartoscUwzgledniajacaRodzajPowierzchni = wartoscKosztuNaprawyStalAlu * profil;
+			}
+			else
+			{
+				wartoscUwzgledniajacaRodzajPowierzchni = wartoscKosztuNaprawyStalAlu * panel;
+			}
+
+			//7. wynik bez wsp. uszkodzenia
+			wynikBezWspUszkodzenia = wsplWymiany * wartoscUwzgledniajacaRodzajPowierzchni;
+
+
+			//8. wynik końcowy: koszt odbudowy z uwzględnieniem rodzaju i umiejscowienia uszkodzenia
+			if ( profil_isChecked )
+			{
+				wynikKoncowy = wynikBezWspUszkodzenia * wspolczynnikUmiejscowieniaUszkodzeniaProfil * krawedz;
+			}
+			else
+			{
+				wynikKoncowy = wynikBezWspUszkodzenia * wspolczynnikUmiejscowieniaUszkodzeniaPanel;
+			}
+
+			if ( isNaN( wynikKoncowy ) || wynikKoncowy == null )
+			{
+				wynikKoncowy = 0;
+			}
+
+			return wynikKoncowy.toFixed( 2 );
+		}
+	} );
+
+
+</script>

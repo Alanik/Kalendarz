@@ -1112,7 +1112,7 @@
 	self.addPublicEventToMyCalendarOnClick = function ( element, id, year, month, day )
 	{
 		var $element = $( element );
-		var data = '?username=' + self.userName + '&eventId=' + id;
+		var data = 'username=' + self.userName + '&eventId=' + id;
 
 		var callback = function ( result, appViewModel, $element, $loader )
 		{
@@ -1138,6 +1138,33 @@
 		}
 
 		self.UTILS.webApiCaller.callAddExistingEventToUser( data, callback, $element );
+	}
+
+	self.signUpUserForEventOnClick = function ( element, id, year, month, day )
+	{
+		var $element = $( element );
+		var data = 'Username=' + self.userName + '&EventId=' + id;
+
+		var callback = function (result, appViewModel, $element, $loader ){
+			//var displayDate, kkEvent, dayEvents, $parent;
+
+			if ( result.IsSuccess === false )
+			{
+				appViewModel.hideLoader( $loader );
+				alert( result.Message );
+			} else
+			{
+				kkEvent = self.EVENT_MANAGER.getEventByDateAndId( id, year, month, day, self.publicEventTree );
+				kkEvent.signedUpUsersForEvent.push( self.userName );
+
+				$parent = $element.parent();
+				$parent.empty().append( '<div style="color: #67C767; padding-bottom: 10px; padding-left: 10px;"><span>Zgłoszono chęć uczestnictwa ✓</span></div>' );
+
+				appViewModel.hideLoader( $loader );
+			}
+		}
+
+		self.UTILS.webApiCaller.callSignUpUserForEvent( data, callback, $element );
 	}
 
 	self.showSelectedEventsOnMenuItemClick = function ( element, lobbyOrDetailsPageSelectedEvents )
@@ -1975,7 +2002,6 @@
 			case 2:
 				$( "#details #detailsPageAllEventsListContainer" ).hide();
 				self.showDetailsPageClockContainer();
-
 
 				$eventsMenuContainer = $( "#details .events-menu-container" );
 				$eventsMenuContainer.find( ".menu-item-container" ).each( function ()

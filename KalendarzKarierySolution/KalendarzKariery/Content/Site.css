@@ -284,19 +284,17 @@ header, footer, nav, section, div {
 
 
 .display-events-overview-container {
-	font-size: 1.2em;
 	background: rgb(253, 252, 248);
 	display: none;
 	padding-bottom: 40px;
-	text-align: center;
-	border: 2px solid #F7F5EF;
+	text-align: left;
 }
 
 	.display-events-overview-container .legend-container {
 		font-weight: bold;
 		color: rgb(171, 166, 152);
 		margin: 0 auto;
-		background-color: #EDE9D9;
+		/*background-color: #EDE9D9;*/
 	}
 
 	.display-events-overview-container .legend-title {
@@ -323,8 +321,7 @@ header, footer, nav, section, div {
 	.display-events-overview-container .legend-oldorupcoming {
 		color: #C0CEB1;
 		padding: 4px 0;
-		font-size: 1.6em;
-		text-align: center;
+		font-size: 2em;
 	}
 
 	.display-events-overview-container .list-item-title {
@@ -1020,6 +1017,7 @@ background:rgb(115, 233, 162);
 	display: block;
 	border-right: 3px solid rgb(215, 208, 184);
 	text-align: center;
+	padding-bottom: 100px;
 }
 
 #endDateValidationErrorMsg {

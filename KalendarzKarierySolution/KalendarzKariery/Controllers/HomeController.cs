@@ -106,6 +106,11 @@ namespace KalendarzKariery.Controllers
 			return View( "Index", "~/Views/Shared/_LayoutMobile.cshtml", mainViewModel );
 		}
 
+		public ActionResult Kalkulator()
+		{
+			return View();
+		}
+
 		private RegisterViewModel GetRegisterViewModel( int id, IKalendarzKarieryRepository repository )
 		{
 			RegisterViewModel registerViewModel = new RegisterViewModel();

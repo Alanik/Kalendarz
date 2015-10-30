@@ -117,15 +117,15 @@ namespace KalendarzKarieryWebAPI.Controllers
 		}
 
 		[HttpPost]
-		public IValidationResponse AddExistingEventToUser( int eventId, string username )
+		public IValidationResponse AddExistingEventToUser( AddExistingEventToUserModel model )
 		{
 			if (!User.Identity.IsAuthenticated)
 			{
 				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.NotAuthenticatedErrorMsg };
 			}
 
-			var @event = _repository.GetEventById( eventId );
-			var user = _repository.GetUserByName( username );
+			var @event = _repository.GetEventById( model.EventId );
+			var user = _repository.GetUserByName( model.Username );
 
 			if (@event != null && user != null && string.Compare( user.UserName, User.Identity.Name, true ) == 0)
 			{

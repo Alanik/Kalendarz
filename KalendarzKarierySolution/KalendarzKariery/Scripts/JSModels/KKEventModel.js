@@ -29,9 +29,9 @@
 
 	self.id = 0;
 
-	self.isCurrentUserSignedUpForEvent = false;
+	self.isCurrentUserSignedUpForEvent = ko.observable(false);
 
-	self.isEventAddedToCurrentUserCalendar = false;
+	self.isEventAddedToCurrentUserCalendar = ko.observable(false);
 
 	self.name = ko.observable("");
 

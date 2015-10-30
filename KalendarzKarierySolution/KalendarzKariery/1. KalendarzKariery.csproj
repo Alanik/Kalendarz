@@ -222,6 +222,7 @@
     <Content Include="Images\Form\letter_bg.png" />
     <Content Include="Images\Icons\arrow_down.png" />
     <Content Include="Images\Icons\arrow_up.png" />
+    <Content Include="Images\Icons\calendar.png" />
     <Content Include="Images\Icons\star.png" />
     <Content Include="Images\Ico\favicon.ico" />
     <Content Include="Images\kalendarzTloClear.png" />

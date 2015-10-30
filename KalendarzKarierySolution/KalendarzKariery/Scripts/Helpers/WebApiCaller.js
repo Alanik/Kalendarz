@@ -1,212 +1,92 @@
-﻿var WebApiCaller = function (appViewModel){
+﻿var WebApiCaller = function (){
 	var self = this;
-	self.appViewModel = appViewModel;
 	
 	//event
 
-	self.callAddEvent = function ( data, callback ){
-		var $addEventContainer = $( "#addNewEventContainer" );
-
-		$.ajax( {
+	self.callAddEvent = function ( data )
+	{
+	  return $.ajax( {
 			url: "/api/Events/AddEvent",
 			dataType: "JSON",
 			type: "POST",
-			data: data,
-			beforeSend: function ()
-			{
-				self.appViewModel.showLoader( $addEventContainer.closest( ".main-section" ).siblings( ".dotted-page-overlay" ) );
-				$addEventContainer.hide();
-			},
-			success: function ( result )
-			{
-				callback( result, self.appViewModel);
-			},
-			error: function ()
-			{
-				alert( "Wystąpił nieoczekiwany błąd. Prosze spróbować jeszcze raz." );
-				self.appViewModel.hideLoader();
-				$addEventContainer.show();
-			}
+			data: data
 		} );
 	};
 
-	self.callUpdateEvent = function ( data, callback )
+	self.callUpdateEvent = function ( data )
 	{
-		var $addEventContainer = $( "#addNewEventContainer" );
-
-		$.ajax( {
+		return $.ajax( {
 			url: "/api/Events/UpdateEvent",
 			dataType: "JSON",
 			type: "PUT",
-			data: data,
-			beforeSend: function ()
-			{
-				self.appViewModel.showLoader( $addEventContainer.closest( ".main-section" ).siblings( ".dotted-page-overlay" ) );
-				$addEventContainer.hide();
-			},
-			success: function ( result )
-			{
-				callback( result, self.appViewModel );
-			},
-			error: function ()
-			{
-				alert( "Wystąpił nieoczekiwany błąd. Prosze spróbować jeszcze raz." );
-				self.appViewModel.hideLoader();
-				$addEventContainer.show();
-			}
+			data: data
 		} );
 	};
 
-	self.callDeleteEvent = function ( id, element, callback )
+	self.callDeleteEvent = function ( id )
 	{
-		var $loader = $( "#details" ).siblings( ".dotted-page-overlay" );
-
-		$.ajax( {
+		return $.ajax( {
 			url: "/api/Events/DeleteEvent/" + id,
 			dataType: "JSON",
-			type: "DELETE",
-			beforeSend: function () { self.appViewModel.hideConfirmationPopupBox( element ); self.appViewModel.showLoader( $loader ); },
-			success: function ( result )
-			{
-				callback(result, $loader, self.appViewModel);
-			},
-			error: function ()
-			{
-				alert( "Wystąpił nieoczekiwany błąd. Prosze spróbować jeszcze raz." );
-				self.appViewModel.hideLoader( $loader );
-				self.appViewModel.hideConfirmationPopupBox( element );
-			}
+			type: "DELETE"
 		} );
 	}
 
-	self.callAddExistingEventToUser = function ( data, callback, $element )
+	self.callAddExistingEventToUser = function ( data )
 	{
-		var $loader = $( "#lobby" ).siblings( ".dotted-page-overlay" );
-
-		$.ajax( {
+		return $.ajax( {
 			url: "/api/Events/AddExistingEventToUser",
 			dataType: "JSON",
 			type: "Post",
-			beforeSend: function () { self.appViewModel.showLoader( $loader ); },
-			data: data,
-			success: function ( result )
-			{
-				callback( result, self.appViewModel, $element, $loader );
-			},
-			error: function ()
-			{
-				alert( "Wystąpił nieoczekiwany błąd. Prosze spróbować jeszcze raz." );
-				self.appViewModel.hideLoader( $loader );
-			}
+			data: data
 		} );
 	}
 
-	self.callSignUpUserForEvent = function ( data, callback, $element )
+	self.callSignUpUserForEvent = function ( data )
 	{
-		var $loader = $( "#lobby" ).siblings( ".dotted-page-overlay" );
-
-		$.ajax( {
+		return $.ajax( {
 			url: "/api/Events/SignUpUserForEvent",
 			dataType: "JSON",
 			type: "Post",
-			beforeSend: function () { self.appViewModel.showLoader( $loader ); },
-			data: data,
-			success: function ( result )
-			{
-				callback( result, self.appViewModel, $element, $loader );
-			},
-			error: function ()
-			{
-				alert( "Wystąpił nieoczekiwany błąd. Prosze spróbować jeszcze raz." );
-				self.appViewModel.hideLoader( $loader );
-			}
+			data: data
 		} );
 	}
 
 	//Note
 
-	self.callAddNote = function ( data, callback ){
-		var $loader = $( "#details" ).siblings( ".dotted-page-overlay" );
-
-		$.ajax( {
+	self.callAddNote = function ( data ){	
+		return $.ajax( {
 			url: "/api/Notes/AddNote",
 			dataType: "JSON",
 			type: "POST",
-			beforeSend: function () { self.appViewModel.showLoader( $loader ); },
-			data: data,
-			success: function ( result )
-			{
-				callback( result, self.appViewModel, $loader );
-			},
-			error: function ()
-			{
-				alert( "Wystąpił nieoczekiwany błąd. Prosze spróbować jeszcze raz." );
-				self.appViewModel.hideLoader( $loader );
-			}
+			data: data
 		} );
 	}
 
-	self.callDeleteNote = function ( id, element, callback )
+	self.callDeleteNote = function ( id )
 	{
-		var $loader = $( "#details" ).siblings( ".dotted-page-overlay" );
-
-		$.ajax( {
+		return $.ajax( {
 			url: "/api/Notes/DeleteNote/" + id,
 			dataType: "JSON",
-			type: "DELETE",
-			beforeSend: function () { self.appViewModel.hideConfirmationPopupBox( element ); self.appViewModel.showLoader( $loader ); },
-			success: function ( result )
-			{
-				callback( result, $loader, self.appViewModel );
-			},
-			error: function ()
-			{
-				alert( "Wystąpił nieoczekiwany błąd. Prosze spróbować jeszcze raz." );
-				self.appViewModel.hideLoader( $loader );
-				self.appViewModel.hideConfirmationPopupBox( element );
-			}
+			type: "DELETE"
 		} );
 	}
 
-	self.callUpdateNote = function ( data, callback, $container, note, text ){
-		var $loader = $( "#details" ).siblings( ".dotted-page-overlay" );
-
-		$.ajax( {
+	self.callUpdateNote = function ( data ){
+		return $.ajax( {
 			url: "/api/Notes/UpdateNote",
 			dataType: "JSON",
 			type: "PUT",
-			beforeSend: function () { self.appViewModel.showLoader( $loader ); },
-			data: data,
-			success: function ( result )
-			{
-				callback( result, self.appViewModel, $loader, $container, note, text );
-			},
-			error: function ()
-			{
-				alert( "Wystąpił nieoczekiwany błąd. Prosze spróbować jeszcze raz." );
-				self.appViewModel.hideLoader( $loader );
-			}
+			data: data
 		} );
 	}
 
-	self.callSetLineThroughNote = function ( data, callback, $container, note ){
-		var $loader = $( "#details" ).siblings( ".dotted-page-overlay" );
-
-		$.ajax( {
+	self.callSetLineThroughNote = function ( data ){
+		return $.ajax( {
 			url: "/api/Notes/UpdateNote",
 			dataType: "JSON",
 			type: "PUT",
-			beforeSend: function () { self.appViewModel.showLoader( $loader ); },
-			data: data,
-			success: function ( result )
-			{
-				callback( result, self.appViewModel, $loader, $container, note);
-			},
-			error: function ()
-			{
-				alert( "Wystąpił nieoczekiwany błąd. Prosze spróbować jeszcze raz." );
-				self.appViewModel.hideLoader( $loader );
-			}
+			data: data
 		} );
 
 	};

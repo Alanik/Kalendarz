@@ -116,8 +116,8 @@
 		kkEventModel.name = name;
 		kkEventModel.urlLink = urlLink;
 		kkEventModel.price = price;
-		kkEventModel.isEventAddedToCurrentUserCalendar = isEventAddedToCurrentUserCalendar;
-		kkEventModel.isCurrentUserSignedUpForEvent = isCurrentUserSignedUpForEvent;
+		kkEventModel.isEventAddedToCurrentUserCalendar = ko.observable(isEventAddedToCurrentUserCalendar);
+		kkEventModel.isCurrentUserSignedUpForEvent = ko.observable(isCurrentUserSignedUpForEvent);
 
 		return kkEventModel;
 	}

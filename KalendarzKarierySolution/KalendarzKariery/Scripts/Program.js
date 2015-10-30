@@ -70,7 +70,7 @@
 
 		var currentWeekday = $calendar.find( ".today-cell" ).attr( "weekday" );
 
-		var appViewModel = new AppViewModel( date, currentWeekday, userName, this.spinner );
+		var appViewModel = new AppViewModel( date, userName, this.spinner );
 
 		appViewModel.eventPrivacyLevels = appViewModel.UTILS.eventTreeBuilder.transformPrivacyLevels( indexViewModel.PrivacyLevels );
 		appViewModel.eventKinds = indexViewModel.EventKinds;
@@ -159,7 +159,6 @@
 		appViewModel.detailsPageDisplayDate.year( date.getFullYear() );
 		appViewModel.detailsPageDisplayDate.month( date.getMonth() + 1 );
 		appViewModel.detailsPageDisplayDate.day( date.getDate() );
-		appViewModel.detailsPageDisplayDate.weekday( currentWeekday );
 
 		var events = appViewModel.EVENT_MANAGER.getEventsForGivenDay( appViewModel.detailsPageDisplayDate.year(), appViewModel.detailsPageDisplayDate.month(), appViewModel.detailsPageDisplayDate.day() )
 		var notes = appViewModel.NOTE_MANAGER.getNotesForGivenDay( appViewModel.detailsPageDisplayDate.year(), appViewModel.detailsPageDisplayDate.month(), appViewModel.detailsPageDisplayDate.day() )
@@ -230,11 +229,12 @@
 
 						if ( events && $.isArray( events ) )
 						{
-							setTimeout( function ()
-							{
-								appViewModel.redrawCalendarCell( events, appViewModel.calendarDayEventsToUpdate.day, appViewModel.calendarDayEventsToUpdate.month );
+
+							//setTimeout( function ()
+							//{
+								appViewModel.redrawCalendarCell( events, appViewModel.calendarDayEventsToUpdate.day, appViewModel.calendarDayEventsToUpdate.month, appViewModel.calendarDayEventsToUpdate.year );
 								appViewModel.calendarDayEventsToUpdate.events = null;
-							}, 10 )
+							//}, 10 )
 						}
 
 						//TODO: not finished set dynamic height of calendar cells (calendar's height to be as browser window)

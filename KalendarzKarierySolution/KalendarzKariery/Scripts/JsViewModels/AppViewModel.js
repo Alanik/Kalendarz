@@ -1,4 +1,4 @@
-﻿function AppViewModel( date, weekday, userName, spinner )
+﻿function AppViewModel( date, userName, spinner )
 {
 	var self = this;
 
@@ -71,7 +71,6 @@
 		"year": ko.observable( year ),
 		"month": ko.observable( month + 1 ),
 		"day": ko.observable( day ),
-		"weekday": ko.observable( weekday ),
 		"getMonthName": function ()
 		{
 			return self.monthNames[this.month() - 1];
@@ -96,6 +95,7 @@
 	self.calendarDayEventsToUpdate = {
 		"day": 0,
 		"month": 0,
+		"year": 0,
 		"events": null
 	}
 
@@ -108,7 +108,6 @@
 		"old": ko.observableArray( [] ),
 		"upcoming": ko.observableArray( [] ),
 		"settings": {
-			"pageName": "details",
 			"showOldEvents": ko.observable( false )
 		},
 		"selectedKindValues": []
@@ -119,7 +118,6 @@
 		"old": ko.observableArray( [] ),
 		"upcoming": ko.observableArray( [] ),
 		"settings": {
-			"pageName": "lobby",
 			"showOldEvents": ko.observable( false )
 		},
 		"selectedKindValues": []
@@ -196,6 +194,7 @@
 	self.addEventOnClick = function ()
 	{
 		var $addEventForm = $( "#addEventForm" );
+		var $addEventContainer = $( "#addNewEventContainer" );
 		var privacyLvlValue = self.observableEvent.privacyLevel.value;
 		var eventKindValue = self.observableEvent.kind.value();
 
@@ -270,57 +269,75 @@
 				"&PrivacyLevel.Value=" + privacyLvlValue +
 				"&EventKind.Value=" + eventKindValue;
 
-			var callback = function ( result, appViewModel )
-			{
-				var kkEvent, date = new Date();
-
-				if ( result.IsSuccess === false )
-				{
-					appViewModel.hideLoader();
-					$( "#addNewEventContainer" ).show();
-					alert( result.Message );
-				} else
-				{
-					kkEvent = self.EVENT_MANAGER.getNewKKEventModel(
-					appViewModel.userName,
-					appViewModel.observableEvent.address.street(),
-					appViewModel.observableEvent.address.city(),
-					appViewModel.observableEvent.address.zipCode(),
-					appViewModel.observableEvent.description(),
-					appViewModel.observableEvent.details(),
-					minutes,
-					appViewModel.observableEvent.kind.value(),
-					appViewModel.observableEvent.kind.name(),
-					result.EventId,
-					appViewModel.observableEvent.occupancyLimit(),
-					appViewModel.observableEvent.privacyLevel.name,
-					appViewModel.observableEvent.privacyLevel.value,
-					new KKEventDateModel( startMinute, endMinute, startHour, endHour, day, month, year ),
-					appViewModel.observableEvent.name(),
-					appViewModel.observableEvent.urlLink(),
-					appViewModel.observableEvent.price(),
-					new KKDateModel( date.getMinutes(), date.getHours(), date.getDate(), date.getMonth() + 1, date.getFullYear() )
-					);
-
-					var dayEvents = appViewModel.EVENT_MANAGER.addEvent( kkEvent );
-
-					appViewModel.setCalendarPlacementRow( dayEvents );
-					appViewModel.redrawCalendarCell( dayEvents, kkEvent.startDate.day, kkEvent.startDate.month, kkEvent.startDate.year );
-
-					appViewModel.hideLoader( $( "#addNewEventContainer" ).closest( ".main-section" ).siblings( ".dotted-page-overlay" ) );
-				}
-			};
-
 			//////////////////////////////////////////////
 			//call WebAPI - Add new event
 			//////////////////////////////////////////////
-			self.UTILS.webApiCaller.callAddEvent( data, callback );
+			self.showLoader( $addEventContainer.closest( ".main-section" ).siblings( ".dotted-page-overlay" ) );
+			$addEventContainer.hide();
+
+			var promise = self.UTILS.webApiCaller.callAddEvent( data );
+			promise.then(
+			function ( result ) { success( result ); },
+			function ( result ) { error( result ); } )
 		}
+
+		function success( result )
+		{
+			var kkEvent, date = new Date();
+			var isCurrentUserSignedUpForEvent = false, isEventAddedToCurrentUserCalendar = true;
+
+			if ( result.IsSuccess === false )
+			{
+				self.hideLoader();
+				$( "#addNewEventContainer" ).show();
+				alert( result.Message );
+			} else
+			{
+
+				kkEvent = self.EVENT_MANAGER.getNewKKEventModel(
+				self.userName,
+				self.observableEvent.address.street(),
+				self.observableEvent.address.city(),
+				self.observableEvent.address.zipCode(),
+				self.observableEvent.description(),
+				self.observableEvent.details(),
+				minutes,
+				self.observableEvent.kind.value(),
+				self.observableEvent.kind.name(),
+				result.EventId,
+				self.observableEvent.occupancyLimit(),
+				self.observableEvent.privacyLevel.name,
+				self.observableEvent.privacyLevel.value,
+				new KKEventDateModel( startMinute, endMinute, startHour, endHour, day, month, year ),
+				self.observableEvent.name(),
+				self.observableEvent.urlLink(),
+				self.observableEvent.price(),
+				new KKDateModel( date.getMinutes(), date.getHours(), date.getDate(), date.getMonth() + 1, date.getFullYear() ),
+				isEventAddedToCurrentUserCalendar,
+				isCurrentUserSignedUpForEvent
+				);
+
+				var dayEvents = self.EVENT_MANAGER.addEvent( kkEvent );
+
+				self.setCalendarPlacementRow( dayEvents );
+				self.redrawCalendarCell( dayEvents, kkEvent.startDate.day, kkEvent.startDate.month, kkEvent.startDate.year );
+
+				self.hideLoader( $( "#addNewEventContainer" ).closest( ".main-section" ).siblings( ".dotted-page-overlay" ) );
+			}
+
+		};
+		function error( result )
+		{
+			alert( "Wystąpił nieoczekiwany błąd. Prosze spróbować jeszcze raz." );
+			self.hideLoader();
+			$addEventContainer.show();
+		};
 	};
 
 	self.updateEventOnClick = function ()
 	{
 		var $addEventForm = $( "#addEventForm" );
+		var $addEventContainer = $( "#addNewEventContainer" );
 		var privacyLvlValue = self.observableEvent.privacyLevel.value;
 		var eventKindValue = self.observableEvent.kind.value();
 
@@ -395,93 +412,123 @@
 				"&EventEndDate.Minute=" + endMinute +
 				"&PrivacyLevel.Value=" + privacyLvlValue +
 				"&EventKind.Value=" + eventKindValue;
-			var callback = function ( result, appViewModel )
-			{
-				var kkEvent, oldEvent;
-
-				if ( result.IsSuccess === false )
-				{
-					appViewModel.hideLoader();
-					$( "#addNewEventContainer" ).show();
-					alert( result.Message );
-				} else
-				{
-					oldEvent = self.EVENT_MANAGER.getEventByDateAndId( result.EventId, year, month, day, self.myEventTree );
-					kkEvent = self.EVENT_MANAGER.getNewKKEventModel(
-					appViewModel.userName,
-					appViewModel.observableEvent.address.street(),
-					appViewModel.observableEvent.address.city(),
-					appViewModel.observableEvent.address.zipCode(),
-					appViewModel.observableEvent.description(),
-					appViewModel.observableEvent.details(),
-					minutes,
-					appViewModel.observableEvent.kind.value(),
-					appViewModel.observableEvent.kind.name(),
-					result.EventId,
-					appViewModel.observableEvent.occupancyLimit(),
-					appViewModel.observableEvent.privacyLevel.name,
-					appViewModel.observableEvent.privacyLevel.value,
-					new KKEventDateModel( startMinute, endMinute, startHour, endHour, day, month, year ),
-					appViewModel.observableEvent.name(),
-					appViewModel.observableEvent.urlLink(),
-					appViewModel.observableEvent.price(),
-					oldEvent.dateAdded
-					);
-
-					appViewModel.EVENT_MANAGER.removeEvent( result.EventId, year, month, day );
-					var dayEvents = appViewModel.EVENT_MANAGER.addEvent( kkEvent );
-
-					appViewModel.setCalendarPlacementRow( dayEvents );
-					appViewModel.redrawCalendarCell( dayEvents, kkEvent.startDate.day, kkEvent.startDate.month, kkEvent.startDate.year );
-
-					appViewModel.hideLoader( $( "#addNewEventContainer" ).closest( ".main-section" ).siblings( ".dotted-page-overlay" ) );
-				}
-			};
 
 			//////////////////////////////////////////////
-			//call WebAPI - Add new event
+			//call WebAPI - update event
 			//////////////////////////////////////////////
-			self.UTILS.webApiCaller.callUpdateEvent( data, callback );
+			self.showLoader( $addEventContainer.closest( ".main-section" ).siblings( ".dotted-page-overlay" ) );
+			$addEventContainer.hide();
+
+			var promise = self.UTILS.webApiCaller.callUpdateEvent( data );
+			promise.then(
+			function ( result ) { success( result ); },
+			function ( result ) { error( result ); } )
 		}
+
+		function success( result )
+		{
+			var kkEvent, oldEvent;
+
+			if ( result.IsSuccess === false )
+			{
+				self.hideLoader();
+				$addEventContainer.show();
+				alert( result.Message );
+			} else
+			{
+				oldEvent = self.EVENT_MANAGER.getEventByDateAndId( result.EventId, year, month, day, self.myEventTree );
+				kkEvent = self.EVENT_MANAGER.getNewKKEventModel(
+				self.userName,
+				self.observableEvent.address.street(),
+				self.observableEvent.address.city(),
+				self.observableEvent.address.zipCode(),
+				self.observableEvent.description(),
+				self.observableEvent.details(),
+				minutes,
+				self.observableEvent.kind.value(),
+				self.observableEvent.kind.name(),
+				result.EventId,
+				self.observableEvent.occupancyLimit(),
+				self.observableEvent.privacyLevel.name,
+				self.observableEvent.privacyLevel.value,
+				new KKEventDateModel( startMinute, endMinute, startHour, endHour, day, month, year ),
+				self.observableEvent.name(),
+				self.observableEvent.urlLink(),
+				self.observableEvent.price(),
+				oldEvent.dateAdded,
+				oldEvent.isEventAddedToCurrentUserCalendar(),
+				oldEvent.isCurrentUserSignedUpForEvent()
+				);
+
+				self.EVENT_MANAGER.removeEvent( result.EventId, year, month, day );
+				var dayEvents = self.EVENT_MANAGER.addEvent( kkEvent );
+
+				self.setCalendarPlacementRow( dayEvents );
+				self.redrawCalendarCell( dayEvents, kkEvent.startDate.day, kkEvent.startDate.month, kkEvent.startDate.year );
+
+				self.hideLoader( $addEventContainer.closest( ".main-section" ).siblings( ".dotted-page-overlay" ) );
+			}
+		};
+		function error( result )
+		{
+			alert( "Wystąpił nieoczekiwany błąd. Prosze spróbować jeszcze raz." );
+			self.hideLoader();
+			$addEventContainer.show();
+		};
 	}
 
 	self.AddNoteOnClick = function ()
 	{
-		if ( self.observableNote.data() == "" )
+
+		var $loader, promise;
+		var text = self.observableNote.data().trim();
+		if ( text == "" )
 		{
 			return false;
 		}
 
-		data = 'Data=' + self.observableNote.data();
+		$loader = $( "#details" ).siblings( ".dotted-page-overlay" );
+
+		data = 'Data=' + text;
 		data += '&DisplayDate.Year=' + self.detailsPageDisplayDate.year();
 		data += '&DisplayDate.Month=' + self.detailsPageDisplayDate.month();
 		data += '&DisplayDate.day=' + self.detailsPageDisplayDate.day();
 
-		var callback = function ( result, appViewModel, $loader )
+		//////////////////////////////////////////////
+		//call WebAPI - Add new note
+		//////////////////////////////////////////////
+		self.showLoader( $loader );
+
+		promise = self.UTILS.webApiCaller.callAddNote( data );
+		promise.then(
+			function ( result ) { success( result ); },
+			function () { error(); } )
+
+		function success( result )
 		{
 			var displayDate, kkNote, date = new Date();
 
 			if ( result.IsSuccess === false )
 			{
-				appViewModel.hideLoader( $loader );
+				self.hideLoader( $loader );
 				alert( result.Message );
 			} else
 			{
 				displayDate = new KKDateModel( null, null, self.detailsPageDisplayDate.day(), self.detailsPageDisplayDate.month(), self.detailsPageDisplayDate.year() );
 
-				kkNote = self.NOTE_MANAGER.getNewKKNoteModel( result.NoteId, appViewModel.observableNote.data(), appViewModel.userName, appViewModel.observableNote.privacyLevel.name,
-					appViewModel.observableNote.privacyLevel.value, displayDate, false, new KKDateModel( date.getMinutes(), date.getHours(), date.getDate(), date.getMonth() + 1, date.getFullYear() ) );
+				kkNote = self.NOTE_MANAGER.getNewKKNoteModel( result.NoteId, self.observableNote.data(), self.userName, self.observableNote.privacyLevel.name,
+					self.observableNote.privacyLevel.value, displayDate, false, new KKDateModel( date.getMinutes(), date.getHours(), date.getDate(), date.getMonth() + 1, date.getFullYear() ) );
 				self.NOTE_MANAGER.addNote( kkNote );
 
-				appViewModel.observableNote.data( "" );
-				appViewModel.hideLoader( $loader );
+				self.observableNote.data( "" );
+				self.hideLoader( $loader );
 			}
 		}
-
-		//////////////////////////////////////////////
-		//call WebAPI - Add new note
-		//////////////////////////////////////////////
-		self.UTILS.webApiCaller.callAddNote( data, callback );
+		function error()
+		{
+			alert( "Wystąpił nieoczekiwany błąd. Prosze spróbować jeszcze raz." );
+			self.hideLoader( $loader );
+		}
 	};
 
 	self.prepareDeleteEventDetailsPageOnDeleteLinkClick = function ( id, year, month, day )
@@ -510,84 +557,115 @@
 
 	self.deleteEventDetailsPageOnConfirmationYesBtnClick = function ( element, id, year, month, day )
 	{
-		var callback = function ( result, $loader, appViewModel )
-		{
-			if ( result.IsSuccess === false )
-			{
-				appViewModel.hideLoader( $loader );
-
-				//TODO: change alert to some error popop or error page...
-				alert( result.Message );
-			} else
-			{
-				appViewModel.hideLoader( $loader );
-				var $container = $( "#details #detailsEventsAndNotesContainer .details-event-block-container[data-eventid='" + id + "']" );
-
-				$container.fadeOut( 500, function ()
-				{
-					$container.remove();
-
-					appViewModel.EVENT_MANAGER.removeEvent( id, year, month, day );
-
-					$( "#details #calendarDayDetailsContainer" ).scrollTo( 500 );
-
-					//redraw details page event rectangle table
-					appViewModel.removeEventRectanglesFromDetailsDay();
-					events = appViewModel.detailsPageDayEvents();
-
-					appViewModel.setCalendarPlacementRow( events );
-					appViewModel.displayPageEventMostBottomRow = 1;
-
-					for ( var i in events )
-					{
-						appViewModel.drawEventToDetailsDayTable( events[i] );
-					}
-
-					var $tableBody = $( "#calendarDayDetailsTable .table-details-body" );
-					var h = ( appViewModel.displayPageEventMostBottomRow + 1 ) * 46;
-					$tableBody.height( h + "px" );
-
-					//for calendar to redraw events in day cell
-					appViewModel.calendarDayEventsToUpdate.day = appViewModel.detailsPageDisplayDate.day();
-					appViewModel.calendarDayEventsToUpdate.month = appViewModel.detailsPageDisplayDate.month();
-					appViewModel.calendarDayEventsToUpdate.events = events;
-				} );
-			}
-		}
+		var $loader = $( "#details" ).siblings( ".dotted-page-overlay" );
 
 		//////////////////////////////////////////////
 		//call WebAPI - Delete event with given id
 		//////////////////////////////////////////////
-		self.UTILS.webApiCaller.callDeleteEvent( id, element, callback );
-	};
+		self.hideConfirmationPopupBox( element );
+		self.showLoader( $loader );
 
-	self.deleteNoteDetailsPageOnConfirmationYesBtnClick = function ( element, id, year, month, day )
-	{
-		var callback = function ( result, $loader, appViewModel )
+		var promise = self.UTILS.webApiCaller.callDeleteEvent( id );
+		promise.then(
+			function ( result ) { success( result ); },
+			function () { error(); } )
+
+		function success( result )
 		{
+			var $container, events, $tableBody, h;
+
 			if ( result.IsSuccess === false )
 			{
-				appViewModel.hideLoader( $loader );
-
+				self.hideLoader( $loader );
 				//TODO: change alert to some error popop or error page...
 				alert( result.Message );
 			} else
 			{
-				appViewModel.hideLoader( $loader );
-				var $container = $( "#details #notesList .li-note-container[data-noteid='" + id + "']" );
+				self.hideLoader( $loader );
+				$container = $( "#details #detailsEventsAndNotesContainer .details-event-block-container[data-eventid='" + id + "']" );
 
 				$container.fadeOut( 500, function ()
 				{
 					$container.remove();
-					appViewModel.NOTE_MANAGER.removeNote( id, year, month, day );
+
+					self.EVENT_MANAGER.removeEvent( id, year, month, day );
+
+					$( "#details #calendarDayDetailsContainer" ).scrollTo( 500 );
+
+					//redraw details page event rectangle table
+					self.removeEventRectanglesFromDetailsDay();
+					events = self.detailsPageDayEvents();
+
+					self.setCalendarPlacementRow( events );
+					self.displayPageEventMostBottomRow = 1;
+
+					for ( var i in events )
+					{
+						self.drawEventToDetailsDayTable( events[i] );
+					}
+
+					$tableBody = $( "#calendarDayDetailsTable .table-details-body" );
+					h = ( self.displayPageEventMostBottomRow + 1 ) * 46;
+					$tableBody.height( h + "px" );
+
+					//for calendar to redraw events in day cell
+					self.calendarDayEventsToUpdate.day = self.detailsPageDisplayDate.day();
+					self.calendarDayEventsToUpdate.month = self.detailsPageDisplayDate.month();
+					self.calendarDayEventsToUpdate.year = self.detailsPageDisplayDate.year();
+					self.calendarDayEventsToUpdate.events = events;
 				} );
 			}
+
 		}
+		function error()
+		{
+			alert( "Wystąpił nieoczekiwany błąd. Prosze spróbować jeszcze raz." );
+			self.hideLoader( $loader );
+			self.hideConfirmationPopupBox( element );
+		}
+	};
+
+	self.deleteNoteDetailsPageOnConfirmationYesBtnClick = function ( element, id, year, month, day )
+	{
+		var $loader = $( "#details" ).siblings( ".dotted-page-overlay" );
+		var promise;
 
 		//////////////////////////////////////////////
 		//call WebAPI - Delete note with given id
 		//////////////////////////////////////////////
-		self.UTILS.webApiCaller.callDeleteNote( id, element, callback );
+		self.hideConfirmationPopupBox( element );
+		self.showLoader( $loader );
+
+		promise = self.UTILS.webApiCaller.callDeleteNote( id );
+		promise.then(
+			function ( result ) { success( result ); },
+			function () { error(); } )
+
+		function success( result )
+		{
+			var $container;
+			if ( result.IsSuccess === false )
+			{
+				self.hideLoader( $loader );
+				//TODO: change alert to some error popop or error page...
+				alert( result.Message );
+			} else
+			{
+				self.hideLoader( $loader );
+				$container = $( "#details #notesList .li-note-container[data-noteid='" + id + "']" );
+				$container.fadeOut( 500, function ()
+				{
+					$container.remove();
+					self.NOTE_MANAGER.removeNote( id, year, month, day );
+				} );
+			}
+		}
+		function error()
+		{
+			alert( "Wystąpił nieoczekiwany błąd. Prosze spróbować jeszcze raz." );
+			self.hideLoader( $loader );
+			self.hideConfirmationPopupBox( element );
+		}
 	};
 
 	self.editEventDetailsPageOnEditLinkClick = function ( id, year, month, day )
@@ -687,43 +765,61 @@
 	self.updateNoteDetailsPageOnSaveLinkClick = function ( id, year, month, day )
 	{
 		var $container = $( "#details #notesList .li-note-container[data-noteid='" + id + "']" );
-		var text = $container.find( "textarea" ).val();
+		var $loader = $( "#details" ).siblings( ".dotted-page-overlay" );
+		var text = $container.find( "textarea" ).val().trim();
+		var promise, note, data;
 
-		var note = self.NOTE_MANAGER.getNoteByDateAndId( id, year, month, day );
+		if ( text == "" )
+		{
+			return false;
+		}
+
+		note = self.NOTE_MANAGER.getNoteByDateAndId( id, year, month, day );
 
 		if ( !note )
 		{
 			return false;
 		}
 
-		var data = 'Data=' + text + '&Id=' + id + '&IsLineThrough=' + !note.isLineThrough;
-		var callback = function ( result, appViewModel, $loader, $container, note, text )
-		{
-			if ( result.IsSuccess === false )
-			{
-				appViewModel.hideLoader( $loader );
-				alert( result.Message );
-			} else
-			{
-				appViewModel.hideLoader( $loader );
-				note.data = text;
-				$container.find( "pre" ).text( text );
-				$container.find( ".edit-mode-note-container" ).remove();
-				$container.find( ".note-content" ).show();
-			}
-		}
+		data = 'Data=' + text + '&Id=' + id + '&IsLineThrough=' + !note.isLineThrough;
 
 		//////////////////////////////////////////////
 		//call WebAPI - Update note with given id
 		//////////////////////////////////////////////
-		self.UTILS.webApiCaller.callUpdateNote( data, callback, $container, note, text );
+		self.showLoader( $loader );
+
+		var promise = self.UTILS.webApiCaller.callUpdateNote( data );
+		promise.then(
+				function ( result ) { success( result ); },
+				function () { error(); } )
+
+		function success( result )
+		{
+			if ( result.IsSuccess === false )
+			{
+				self.hideLoader( $loader );
+				alert( result.Message );
+			} else
+			{
+				note.data = text;
+				$container.find( "pre" ).text( text );
+				$container.find( ".edit-mode-note-container" ).remove();
+				$container.find( ".note-content" ).show();
+				self.hideLoader( $loader );
+			}
+		}
+		function error()
+		{
+			alert( "Wystąpił nieoczekiwany błąd. Prosze spróbować jeszcze raz." );
+			self.hideLoader( $loader );
+		}
 	};
 
 	self.setLineThroughNoteDetailsPageOnLineThroughLinkClick = function ( id, year, month, day, isLineThrough )
 	{
-
+		var $loader = $( "#details" ).siblings( ".dotted-page-overlay" );
 		var $container = $( "#details #notesList .li-note-container[data-noteid='" + id + "']" );
-		var text = $container.find( "pre" ).text();
+		var text, promise;
 
 		var note = self.NOTE_MANAGER.getNoteByDateAndId( id, self.detailsPageDisplayDate.year(), self.detailsPageDisplayDate.month(), self.detailsPageDisplayDate.day() );
 
@@ -732,27 +828,39 @@
 			return false;
 		}
 
+		text = note.data;
+
 		var data = 'Data=' + text + '&Id=' + id + '&IsLineThrough=' + isLineThrough;
-		var callback = function ( result, appViewModel, $loader, $container, note )
+
+		//////////////////////////////////////////////
+		//call WebAPI - setLineThrough note with given id
+		//////////////////////////////////////////////
+		self.showLoader( $loader );
+
+		promise = self.UTILS.webApiCaller.callSetLineThroughNote( data );
+		promise.then(
+				function ( result ) { success( result ); },
+				function () { error(); } )
+
+		function success(result)
 		{
 			var isLineThrough;
 
 			if ( result.IsSuccess === false )
 			{
-				appViewModel.hideLoader( $loader );
+				self.hideLoader( $loader );
 				alert( result.Message );
 			} else
 			{
 				isLineThrough = !note.isLineThrough();
-				appViewModel.hideLoader( $loader );
+				self.hideLoader( $loader );
 				note.isLineThrough( isLineThrough );
 			}
 		}
-
-		//////////////////////////////////////////////
-		//call WebAPI - setLineThrough note with given id
-		//////////////////////////////////////////////
-		self.UTILS.webApiCaller.callSetLineThroughNote( data, callback, $container, note, isLineThrough );
+		function error(){
+			alert( "Wystąpił nieoczekiwany błąd. Prosze spróbować jeszcze raz." );
+			self.hideLoader( $loader );
+		}
 	};
 
 	self.cancelEditNoteDetailsPageOnCancelLinkClick = function ( id )
@@ -874,13 +982,12 @@
 		{
 			lobbyOrDetailsPageSelectedEvents.settings.showOldEvents( false );
 			lobbyOrDetailsPageSelectedEvents.old( [] );
-			$chkbox.empty();
 		}
 		else
 		{
 			lobbyOrDetailsPageSelectedEvents.settings.showOldEvents( true );
 
-			if ( lobbyOrDetailsPageSelectedEvents.settings.pageName == "details" )
+			if ( self.currentPage == 2 )
 			{
 				eventsArr = self.EVENT_MANAGER.getFilteredEventsFromEventTree( self.myEventTree, ["kind", "value"], lobbyOrDetailsPageSelectedEvents.selectedKindValues, "old" );
 			} else
@@ -889,7 +996,6 @@
 			}
 
 			lobbyOrDetailsPageSelectedEvents.old( eventsArr );
-			$chkbox.text( "✓" );
 		}
 	};
 
@@ -1004,7 +1110,7 @@
 		var addressCityStr = event.address.city ? ", " + event.address.city : "";
 		var addressStr = addressStreetStr + addressCityStr;
 
-		var $event = $( '<div class="event-rectangle" style="top:' + ( event.calendarPlacementRow - 1 ) * 28 + 'px; left:' + left + '%; width:' + width + '%;border-color:' + event.kind.color + ( event.privacyLevel.value == 1 ? ';' : ';border:2px solid ' + event.kind.color + ';') + '">' + event.name + '<input type="hidden" name="' + event.name + '" address="' + addressStr + '" starthour="' + event.startDate.startHour + '" endhour="' + event.startDate.endHour + '" startminute="' + event.startDate.startMinute + '" endminute="' + event.startDate.endMinute + '" ></input></div>' );
+		var $event = $( '<div class="event-rectangle" style="top:' + ( event.calendarPlacementRow - 1 ) * 28 + 'px; left:' + left + '%; width:' + width + '%;border-color:' + event.kind.color + ( event.privacyLevel.value == 1 ? ';' : ';border:2px solid ' + event.kind.color + ';' ) + '">' + event.name + '<input type="hidden" name="' + event.name + '" address="' + addressStr + '" starthour="' + event.startDate.startHour + '" endhour="' + event.startDate.endHour + '" startminute="' + event.startDate.startMinute + '" endminute="' + event.startDate.endMinute + '" ></input></div>' );
 
 		$cellPlaceholder.append( $event );
 	};
@@ -1037,6 +1143,7 @@
 	self.removeEventRectanglesFromDetailsDay = function ()
 	{
 		$( "#details #calendarDayDetailsTable .event-rectangle-details" ).remove();
+		self.displayPageEventMostBottomRow = 1;
 	};
 
 	self.moveToDetailsPageOnCalendarCellClick = function ( element )
@@ -1045,9 +1152,6 @@
 		var day = $( element ).attr( "dayNumber" );
 		var dayInt = parseInt( day, 10 );
 		self.detailsPageDisplayDate.day( dayInt );
-
-		var weekday = $( element ).attr( "weekday" );
-		self.detailsPageDisplayDate.weekday( weekday );
 
 		var $cell = $( element ).closest( ".calendar-cell" );
 
@@ -1111,60 +1215,96 @@
 
 	self.addPublicEventToMyCalendarOnClick = function ( element, id, year, month, day )
 	{
-		var $element = $( element );
-		var data = 'username=' + self.userName + '&eventId=' + id;
+		var $loader = $( "#lobby" ).siblings( ".dotted-page-overlay" );
+		var data = 'Username=' + self.userName + '&EventId=' + id;
+		var promise;
 
-		var callback = function ( result, appViewModel, $element, $loader )
+		//////////////////////////////////////////////
+		//call WebAPI - add existing event to user
+		//////////////////////////////////////////////
+		self.showLoader( $loader );
+
+		promise = self.UTILS.webApiCaller.callAddExistingEventToUser( data );
+		promise.then(
+			function ( result ) { success( result ); },
+			function () { error(); } )
+
+		function success( result )
 		{
-			var displayDate, kkEvent, dayEvents, $parent;
+			var displayDate, kkEvent, dayEvents;
 
 			if ( result.IsSuccess === false )
 			{
-				appViewModel.hideLoader( $loader );
+				self.hideLoader( $loader );
 				alert( result.Message );
 			} else
 			{
 				kkEvent = self.EVENT_MANAGER.getEventByDateAndId( id, year, month, day, self.publicEventTree );
-				dayEvents = appViewModel.EVENT_MANAGER.addEvent( kkEvent );
+				kkEvent.isEventAddedToCurrentUserCalendar( true );
 
-				appViewModel.setCalendarPlacementRow( dayEvents );
-				appViewModel.redrawCalendarCell( dayEvents, kkEvent.startDate.day, kkEvent.startDate.month, kkEvent.startDate.year );
+				dayEvents = self.EVENT_MANAGER.addEvent( kkEvent );
 
-				$parent = $element.parent();
-				$parent.empty().append( '<div style="color: #67C767; padding-bottom: 10px; padding-left: 10px;"><span>dodane do mojego kalendarza ✓</span></div>' );
+				self.setCalendarPlacementRow( dayEvents );
+				self.redrawCalendarCell( dayEvents, kkEvent.startDate.day, kkEvent.startDate.month, kkEvent.startDate.year );
 
-				appViewModel.hideLoader( $loader );
+				self.hideLoader( $loader );
 			}
 		}
-
-		self.UTILS.webApiCaller.callAddExistingEventToUser( data, callback, $element );
+		function error()
+		{
+			alert( "Wystąpił nieoczekiwany błąd. Prosze spróbować jeszcze raz." );
+			self.hideLoader( $loader );
+		}
 	}
 
 	self.signUpUserForEventOnClick = function ( element, id, year, month, day )
 	{
-		var $element = $( element );
+		var $loader = $( "#lobby" ).siblings( ".dotted-page-overlay" );
 		var data = 'Username=' + self.userName + '&EventId=' + id;
+		var promise;
 
-		var callback = function (result, appViewModel, $element, $loader ){
-			//var displayDate, kkEvent, dayEvents, $parent;
+		//////////////////////////////////////////////
+		//call WebAPI - sign up user for event
+		//////////////////////////////////////////////
+		self.showLoader( $loader );
+
+		promise = self.UTILS.webApiCaller.callSignUpUserForEvent( data );
+		promise.then(
+			function ( result ) { success( result ); },
+			function () { error(); } )
+
+		function success( result )
+		{
+			var dayEvents, kkEvent;
 
 			if ( result.IsSuccess === false )
 			{
-				appViewModel.hideLoader( $loader );
+				self.hideLoader( $loader );
 				alert( result.Message );
 			} else
 			{
 				kkEvent = self.EVENT_MANAGER.getEventByDateAndId( id, year, month, day, self.publicEventTree );
 				kkEvent.signedUpUsersForEvent.push( self.userName );
+				kkEvent.isCurrentUserSignedUpForEvent( true );
 
-				$parent = $element.parent();
-				$parent.empty().append( '<div style="color: #67C767; padding-bottom: 10px; padding-left: 10px;"><span>Zgłoszono chęć uczestnictwa ✓</span></div>' );
+				if ( !kkEvent.isEventAddedToCurrentUserCalendar() )
+				{
+					kkEvent.isEventAddedToCurrentUserCalendar( true );
+					dayEvents = self.EVENT_MANAGER.addEvent( kkEvent );
 
-				appViewModel.hideLoader( $loader );
+					self.setCalendarPlacementRow( dayEvents );
+					self.redrawCalendarCell( dayEvents, kkEvent.startDate.day, kkEvent.startDate.month, kkEvent.startDate.year );
+				}
+
+				self.hideLoader( $loader );
 			}
-		}
 
-		self.UTILS.webApiCaller.callSignUpUserForEvent( data, callback, $element );
+		}
+		function error()
+		{
+			alert( "Wystąpił nieoczekiwany błąd. Prosze spróbować jeszcze raz." );
+			self.hideLoader( $loader );
+		}
 	}
 
 	self.showSelectedEventsOnMenuItemClick = function ( element, lobbyOrDetailsPageSelectedEvents )
@@ -1182,7 +1322,7 @@
 			$menuItemContainer.css( "border-bottom", "2px solid gray" );
 
 			lobbyOrDetailsPageSelectedEvents.selectedKindValues.push( eventKindValue );
-			showSelectedEvents( lobbyOrDetailsPageSelectedEvents.settings.pageName );
+			showSelectedEvents();
 
 		} else
 		{
@@ -1191,16 +1331,16 @@
 
 			filteredArray = lobbyOrDetailsPageSelectedEvents.selectedKindValues.filter( function ( e ) { return e !== eventKindValue } )
 			lobbyOrDetailsPageSelectedEvents.selectedKindValues = filteredArray;
-			removeSelectedEvents( lobbyOrDetailsPageSelectedEvents.settings.pageName );
+			removeSelectedEvents();
 		}
 
 		$menuItemContainer.scrollTo( 500 );
 
-		function showSelectedEvents( lobbyOrDetails )
+		function showSelectedEvents()
 		{
 			var combinedArray = [], combinedArray2 = [], arr, arr2, shownEvents;
 
-			if ( lobbyOrDetails == "details" )
+			if ( self.currentPage == 2 )
 			{
 				arr = self.EVENT_MANAGER.getFilteredEventsFromEventTree( self.myEventTree, ["kind", "value"], [eventKindValue], "upcoming" );
 				shownEvents = lobbyOrDetailsPageSelectedEvents.upcoming();
@@ -1273,11 +1413,11 @@
 				}
 			}
 		}
-		function removeSelectedEvents( lobbyOrDetails )
+		function removeSelectedEvents()
 		{
 			var array, array2, $container;
 
-			if ( lobbyOrDetails == "details" )
+			if ( self.currentPage == 2 )
 			{
 				array = ko.utils.arrayFilter( lobbyOrDetailsPageSelectedEvents.upcoming(), function ( item )
 				{
@@ -1344,6 +1484,42 @@
 		}
 	};
 
+	self.moveToDetailsPageEventOnLobbyPageEventClick = function ( id, year, month, day )
+	{
+		self.displayPageEventMostBottomRow = 1;
+
+		self.detailsPageDisplayDate.day( day );
+		self.detailsPageDisplayDate.year( year );
+		self.detailsPageDisplayDate.month( month );
+
+		var notes = self.NOTE_MANAGER.getNotesForGivenDay( year, month, day )
+		self.detailsPageDayNotes( notes );
+
+		var events = self.EVENT_MANAGER.getEventsForGivenDay( year, month, day )
+		self.detailsPageDayEvents( events );
+
+		self.removeEventRectanglesFromDetailsDay();
+
+		for ( var i in events )
+		{
+			self.drawEventToDetailsDayTable( events[i] );
+		}
+
+		var $tableBody = $( "#details #calendarDayDetailsTable .table-details-body" );
+		var h = ( self.displayPageEventMostBottomRow ) * 46;
+		h = h + 20;
+		$tableBody.height( h + "px" );
+
+		var $scrollable = $( "#slide-item-details" ).parent();
+
+		window.location = "#2";
+
+		setTimeout( function ()
+		{
+			$( "#details #detailsEventBlockList .details-event-block-container[data-eventid='" + id + "']" ).scrollTo( 100 );
+		}, 10 )
+	};
+
 	self.expandUpdateProfileForm = function ( element )
 	{
 		var $cont = $( "#details #updateProfileContainer" );
@@ -1357,7 +1533,6 @@
 
 	self.hideUpdateProfileForm = function ( element )
 	{
-
 		var $cont = $( "#details #updateProfileContainer" );
 		$cont.find( "#updateUserFormBtn" ).hide();
 		$cont.find( "ol" ).slideUp();
@@ -1369,11 +1544,10 @@
 
 	self.closeAddNewEventPopupOnClick = function ()
 	{
-
 		var $cont = $( "#addNewEventContainer" );
 		//$cont.find( "#addEventForm" )[0].reset();
 
-		$cont.closest( ".main-section" ).siblings( ".dotted-page-overlay" ).fadeOut();
+		$cont.closest( ".main-section" ).siblings( ".dotted-page-overlay" ).hide();
 		$cont.hide();
 		$cont.css( "top", 30 );
 		//TODO:add scroll to top 
@@ -1756,7 +1930,7 @@
 
 		var top = $( "#slide-item-calendar" ).parent().scrollTop();
 		$addEventContainer.css( "top", top + 10 );
-		$addEventContainer.show();
+		$addEventContainer.fadeIn();
 		$eventTitle.focus();
 
 		if ( e )
@@ -1800,7 +1974,7 @@
 		ko.applyBindings( self, $addBtn[0] );
 		///////////////////////////////////////////////////
 
-		$addEventContainer.show();
+		$addEventContainer.fadeIn();
 		var $eventTitle = $addEventContainer.find( "#Event_Title" ).focus();
 	};
 
@@ -1839,7 +2013,7 @@
 
 		var top = $( "#slide-item-lobby" ).parent().scrollTop();
 		$addEventContainer.css( "top", top + 30 );
-		$addEventContainer.show();
+		$addEventContainer.fadeIn();
 		$addEventContainer.find( "#Event_Title" ).focus();
 	};
 
@@ -1989,7 +2163,9 @@
 					{
 						$menuItemContainer.removeClass( "selected" );
 						$menuItemContainer.css( "top", "0px" );
-						$menuItemContainer.css( "border", "none" );
+
+						$menuItemContainer.css( "border-color", "" );
+						$menuItemContainer.css( "border", "2px solid #E4E0D1;" );
 
 						self.lobbyPageSelectedEvents.selectedKindValues = [];
 						self.lobbyPageSelectedEvents.old( [] );
@@ -2012,7 +2188,9 @@
 					{
 						$menuItemContainer.removeClass( "selected" );
 						$menuItemContainer.css( "top", "0px" );
-						$menuItemContainer.css( "border", "none" );
+
+						$menuItemContainer.css( "border-color", "" );
+						$menuItemContainer.css( "border", "2px solid #E4E0D1;" );
 
 						self.detailsPageSelectedEvents.selectedKindValues = [];
 						self.detailsPageSelectedEvents.old( [] );
@@ -2035,7 +2213,6 @@
 
 		for ( var i in dayEvents )
 		{
-
 			event = dayEvents[i];
 			event.calendarPlacementRow = 1;
 			eStartH = event.startDate.startHour;

@@ -102,6 +102,7 @@
     <Compile Include="Models\DataTransferModels\Notes\NotesGroupedByDayModel.cs" />
     <Compile Include="Models\DataTransferModels\Notes\NotesGroupedByMonthModel.cs" />
     <Compile Include="Models\DataTransferModels\Notes\NotesGroupedByYearModel.cs" />
+    <Compile Include="Models\ViewModels\AddExistingEventToUserModel.cs" />
     <Compile Include="Models\ViewModels\AddNoteViewModel.cs" />
     <Compile Include="Models\ViewModels\DateModel.cs" />
     <Compile Include="Models\ViewModels\DateTimeModel.cs" />

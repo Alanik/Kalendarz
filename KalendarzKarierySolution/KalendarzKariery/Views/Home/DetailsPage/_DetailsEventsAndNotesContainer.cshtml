@@ -2,7 +2,7 @@
 	<div style="font-size: 1.6em; padding: 16px; padding-bottom: 6px; color: rgb(171, 157, 138); border-bottom: 2px solid rgb(245, 242, 231); margin-bottom: 20px;">
 		Wydarzenia
 	</div>
-	<div data-bind="foreach: detailsPageDayEvents()">
+	<div id="detailsEventBlockList" data-bind="foreach: detailsPageDayEvents()">
 		@Html.Partial( "_DetailsEventInfo" )
 	</div>
 </div>

@@ -19,14 +19,12 @@ using System.Web.Caching;
 using KalendarzKarieryData.BO.Cache;
 using KalendarzKarieryCore.BO;
 
-
 namespace KalendarzKariery.Controllers
 {
 	[Authorize]
 	public class
 	AccountController : BaseController
 	{
-
 		private readonly IKalendarzKarieryRepository _repository = RepositoryProvider.GetRepository();
 
 		[AllowAnonymous]
@@ -48,9 +46,10 @@ namespace KalendarzKariery.Controllers
 					var user = _repository.GetUserById( id.Value );
 					if (user != null && user.UserAccountInfo != null)
 					{
-						user.UserAccountInfo.LastLogin = DateTimeFacade.DateTimeNow();
-						user.UserAccountInfo.NumOfLogins++;
-						_repository.Save();
+						var accountInfo = user.UserAccountInfo;
+						accountInfo.LastLogin = DateTimeFacade.DateTimeNow();
+						accountInfo.NumOfLogins++;
+						_repository.UpdateUserAccountInfo( accountInfo );
 					}
 					else
 					{
@@ -82,8 +81,9 @@ namespace KalendarzKariery.Controllers
 				var user = _repository.GetUserById( id.Value );
 				if (user != null && user.UserAccountInfo != null)
 				{
-					user.UserAccountInfo.LastLogout = DateTimeFacade.DateTimeNow();
-					_repository.Save();
+					var accountInfo = user.UserAccountInfo;
+					accountInfo.LastLogout = DateTimeFacade.DateTimeNow();
+					_repository.UpdateUserAccountInfo( accountInfo );
 				}
 				else
 				{
@@ -100,15 +100,6 @@ namespace KalendarzKariery.Controllers
 		}
 
 		//
-		// GET: /Account/Register
-
-		[AllowAnonymous]
-		public ActionResult Register()
-		{
-			return View();
-		}
-
-		//
 		// POST: /Account/Register
 
 		[HttpPost]
@@ -116,95 +107,88 @@ namespace KalendarzKariery.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult Register( RegisterViewModel model )
 		{
-			if (ModelState.IsValid)
+			if (_repository.GetUserByEmail( model.User.Email ) != null)
 			{
-				if (_repository.GetUserByEmail( model.User.Email ) == null)
+				ModelState.AddModelError( "User.Email", Consts.RegisterUserEmailExistsErrorMsg );
+				return Json( new { isRegisterSuccess = false, errors = ModelState.Errors() } );
+			}
+
+			if (!ModelState.IsValid)
+			{
+				return Json( new { isRegisterSuccess = false, errors = ModelState.Errors() } );
+			}
+
+			string birthDate = model.BirthDateModel.Year + "-" + model.BirthDateModel.Month + "-" + model.BirthDateModel.Day;
+			DateTime date;
+
+			if (!DateTime.TryParse( birthDate, out date ))
+			{
+				ModelState.AddModelError( string.Empty, Consts.InvalidBirthOfDateErrorMsg );
+				ModelState.AddModelError( "BirthDateModel.Day", string.Empty );
+				ModelState.AddModelError( "BirthDateModel.Month", string.Empty );
+				ModelState.AddModelError( "BirthDateModel.Year", string.Empty );
+
+				return Json( new { isRegisterSuccess = false, errors = ModelState.Errors() } );
+			}
+
+			try
+			{
+				WebSecurity.CreateUserAndAccount( model.RegisterModel.UserName,
+												 model.RegisterModel.Password,
+												 propertyValues: new
 				{
-					string birthDate = model.BirthDateModel.Year + "-" + model.BirthDateModel.Month + "-" + model.BirthDateModel.Day;
-					DateTime date;
+					Email = model.User.Email,
+					FirstName = model.User.FirstName,
+					LastName = model.User.LastName,
+					Bio = model.User.Bio,
+					BirthDay = date,
+					UserName = model.User.UserName,
+					Phone = model.User.Phone,
+					Gender = model.User.Gender,
+				} );
 
-					if (!DateTime.TryParse( birthDate, out date ))
+				if (!Roles.GetRolesForUser( model.RegisterModel.UserName ).Contains( "BasicUser" ))
+				{
+					Roles.AddUserToRole( model.RegisterModel.UserName, "BasicUser" );
+				}
+
+				int id = WebSecurity.GetUserId( model.RegisterModel.UserName );
+				var user = _repository.GetUserById( id );
+
+				if (user != null)
+				{
+
+					Address address = null;
+
+					if (!string.IsNullOrWhiteSpace( model.User.Address.Street ) || !string.IsNullOrWhiteSpace( model.User.Address.City ) || !string.IsNullOrWhiteSpace( model.User.Address.ZipCode) || !string.IsNullOrWhiteSpace(model.User.Address.Country))
 					{
-						ModelState.AddModelError( string.Empty, Consts.InvalidBirthOfDateErrorMsg );
-						ModelState.AddModelError( "BirthDateModel.Day", string.Empty );
-						ModelState.AddModelError( "BirthDateModel.Month", string.Empty );
-						ModelState.AddModelError( "BirthDateModel.Year", string.Empty );
-
-						return Json( new { isRegisterSuccess = false, errors = ModelState.Errors() } );
+						address = model.User.Address;
 					}
 
-					try
-					{
-						WebSecurity.CreateUserAndAccount( model.RegisterModel.UserName,
-														 model.RegisterModel.Password,
-														 propertyValues: new
-						{
-							Email = model.User.Email,
-							FirstName = model.User.FirstName,
-							LastName = model.User.LastName,
-							Bio = model.User.Bio,
-							BirthDay = date,
-							UserName = model.User.UserName,
-							Phone = model.User.Phone,
-							Gender = model.User.Gender,
-						} );
-
-						if (!Roles.GetRolesForUser( model.RegisterModel.UserName ).Contains( "BasicUser" ))
-						{
-							Roles.AddUserToRole( model.RegisterModel.UserName, "BasicUser" );
-						}
-
-						int id = WebSecurity.GetUserId( model.RegisterModel.UserName );
-						var user = _repository.GetUserById( id );
-
-						if (user != null)
-						{
-							if (!string.IsNullOrWhiteSpace( model.User.Address.Street ) || !string.IsNullOrWhiteSpace( model.User.Address.City ) || !string.IsNullOrWhiteSpace( model.User.Address.ZipCode ))
-							{
-								user.Address = model.User.Address;
-							}
-
-							user.UserAccountInfo = new UserAccountInfo
-							{
-								AverageLoginTime = 0,
-								CreationDate = DateTimeFacade.DateTimeNow(),
-								LastLogin = DateTimeFacade.DateTimeNow(),
-								LastLogout = null,
-								NumOfLogins = 1,
-								TotalLoginTime = 0
-							};
-
-							_repository.UpdateUser( user );
-							_repository.Save();
-						}
-						else
-						{
-							throw new NullReferenceException( "User from repository is null right after register user event" );
-						}
-
-						WebSecurity.Login( model.RegisterModel.UserName, model.RegisterModel.Password );
-
-						return Json( new { isRegisterSuccess = true } );
-					}
-					catch (MembershipCreateUserException e)
-					{
-						if (e.StatusCode == MembershipCreateStatus.DuplicateUserName)
-						{
-							ModelState.AddModelError( "RegisterModel.UserName", ErrorCodeToString( e.StatusCode ) );
-						}
-						else
-						{
-							ModelState.AddModelError( string.Empty, ErrorCodeToString( e.StatusCode ) );
-						}
-					}
+					_repository.UpdateUserAfterRegistration( user, address );
 				}
 				else
 				{
-					ModelState.AddModelError( "User.Email", Consts.RegisterUserEmailExistsErrorMsg );
+					throw new NullReferenceException( "User from repository is null right after WebSecurity.CreateUserAndAccount call" );
 				}
-			}
 
-			return Json( new { isRegisterSuccess = false, errors = ModelState.Errors() } );
+				WebSecurity.Login( model.RegisterModel.UserName, model.RegisterModel.Password );
+
+				return Json( new { isRegisterSuccess = true } );
+			}
+			catch (MembershipCreateUserException e)
+			{
+				if (e.StatusCode == MembershipCreateStatus.DuplicateUserName)
+				{
+					ModelState.AddModelError( "RegisterModel.UserName", ErrorCodeToString( e.StatusCode ) );
+				}
+				else
+				{
+					ModelState.AddModelError( string.Empty, ErrorCodeToString( e.StatusCode ) );
+				}
+
+				return Json( new { isRegisterSuccess = false, errors = ModelState.Errors() } );
+			}
 		}
 
 		//
@@ -443,11 +427,6 @@ namespace KalendarzKariery.Controllers
 		}
 
 		#region Helpers
-
-		private void UpdateUser()
-		{
-
-		}
 
 		private ActionResult RedirectToLocal( string returnUrl )
 		{

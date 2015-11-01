@@ -9,10 +9,9 @@
 
 namespace KalendarzKarieryData
 {
-	using System;
-	using System.Data.Common;
-	using System.Data.Entity;
-	using System.Data.Entity.Infrastructure;
+    using System;
+    using System.Data.Entity;
+    using System.Data.Entity.Infrastructure;
     
     public partial class KalendarzKarieryDBEntities : DbContext
     {
@@ -20,11 +19,6 @@ namespace KalendarzKarieryData
             : base("name=KalendarzKarieryDBEntities")
         {
         }
-
-		public KalendarzKarieryDBEntities(DbConnection connection)
-					: base(connection, true)
-					{
-					}
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

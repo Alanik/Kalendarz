@@ -41,7 +41,6 @@ namespace KalendarzKariery
 
 			//BundleTable.EnableOptimizations = true;
 			InitializeMembership.SeedMembership();
-			Effort.Provider.EffortProviderConfiguration.RegisterProvider();
         }
 
 		protected void Application_Error( object sender, EventArgs e )

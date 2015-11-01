@@ -36,7 +36,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 
 			var user = _repository.GetUserById( model.User.Id );
 
-			if (user != null && User.Identity.Name.ToLower() == user.UserName.ToLower())
+			if (user != null && User.Identity.Name.Equals(user.UserName, StringComparison.InvariantCultureIgnoreCase))
 			{
 				string birthDate = model.BirthDateModel.Year + "-" + model.BirthDateModel.Month + "-" + model.BirthDateModel.Day;
 				DateTime date;
@@ -52,20 +52,14 @@ namespace KalendarzKarieryWebAPI.Controllers
 					user.WebSiteUrl = model.User.WebSiteUrl;
 					user.Gender = model.User.Gender;
 
-					if (!string.IsNullOrWhiteSpace( model.User.Address.Street ) || !string.IsNullOrWhiteSpace( model.User.Address.City ) || !string.IsNullOrWhiteSpace( model.User.Address.ZipCode ))
-					{
-						user.Address =  model.User.Address;
-					}
-					else
-					{
-						if (user.Address != null)
-						{
-							user.Address =  model.User.Address;	
-						}
+					Address address = null;
 
+					if (!string.IsNullOrWhiteSpace( model.User.Address.Street ) || !string.IsNullOrWhiteSpace( model.User.Address.City ) || !string.IsNullOrWhiteSpace( model.User.Address.ZipCode) || !string.IsNullOrWhiteSpace(model.User.Address.Country))
+					{
+					    address = model.User.Address;
 					}
 
-					_repository.Save();
+					_repository.UpdateUser(user, address);
 
 					var response = new DefaultValidationResponseModel();
 					response.IsSuccess = true;

@@ -43,29 +43,22 @@ namespace KalendarzKarieryWebAPI.Controllers
 		{
 			if (!User.Identity.IsAuthenticated)
 			{
-				var response = new DefaultValidationResponseModel();
-				response.Message = Consts.NotAuthenticatedErrorMsg;
-				response.IsSuccess = false;
-				return response;
+				return new DefaultValidationResponseModel { Message = Consts.NotAuthenticatedErrorMsg, IsSuccess = false };
 			}
 
 			if (!ModelState.IsValid)
 			{
-				var response = new DefaultValidationResponseModel();
-				response.IsSuccess = false;
-				response.Message = KalendarzKarieryCore.Consts.Consts.GeneralValidationErrorMsg;
-				return response;
+				return new DefaultValidationResponseModel { Message = Consts.GeneralValidationErrorMsg, IsSuccess = false };
 			}
 
-			var @event = this.GetEventModelFromAddEventViewModel( addEventViewModel, new Event() );
+			var @event = this.GetEventModelFromAddEventViewModel( addEventViewModel, new Event());
 
 			if (@event == null)
 			{
 				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralOperationErrorMsg };
 			}
 
-			_repository.AddEvent( @event );
-			_repository.Save();
+			_repository.AddEvent( @event, @event.Address );
 
 			return new AddEventValidationResponseModel { IsSuccess = true, EventId = @event.Id, DateAdded = @event.DateAdded };
 		}
@@ -106,7 +99,6 @@ namespace KalendarzKarieryWebAPI.Controllers
 				}
 
 				_repository.UpdateEvent( @event );
-				_repository.Save();
 
 				return new AddEventValidationResponseModel { IsSuccess = true, EventId = @event.Id };
 			}
@@ -124,15 +116,11 @@ namespace KalendarzKarieryWebAPI.Controllers
 				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.NotAuthenticatedErrorMsg };
 			}
 
-			var @event = _repository.GetEventById( model.EventId );
-			var user = _repository.GetUserByName( model.Username );
+			var result = _repository.AddExistingEventToUserCalendar( model.EventId, User.Identity.Name );
 
-			if (@event != null && user != null && string.Compare( user.UserName, User.Identity.Name, true ) == 0)
+			if (result == true)
 			{
-				_repository.AddExistingEventToUserCalendar( @event, @user );
-				_repository.Save();
-
-				return new AddEventValidationResponseModel { IsSuccess = true, EventId = @event.Id };
+				return new AddEventValidationResponseModel { IsSuccess = true, EventId = model.EventId };
 			}
 			else
 			{
@@ -148,25 +136,11 @@ namespace KalendarzKarieryWebAPI.Controllers
 				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.NotAuthenticatedErrorMsg };
 			}
 
-			var @event = _repository.GetEventById( model.EventId );
-			var user = _repository.GetUserByName( model.Username );
+			var result = _repository.SignUpUserForEvent( model.EventId, User.Identity.Name );
 
-			if (@event != null && user != null && string.Compare( user.UserName, User.Identity.Name, true ) == 0)
+			if (result == true)
 			{
-			//TODO: fix transaction
-				//using (_repository.GetContext().Database.BeginTransaction())
-				//{
-					_repository.SignUpUserForEvent( @event, @user );
-					_repository.Save();
-
-					if (user.Id != @event.OwnerUserId && !@event.CalendarUsers.Contains(user))
-					{
-						_repository.AddExistingEventToUserCalendar( @event, @user );
-						_repository.Save();
-					}				
-				//}
-
-				return new AddEventValidationResponseModel { IsSuccess = true, EventId = @event.Id };
+				return new AddEventValidationResponseModel { IsSuccess = true, EventId = model.EventId };
 			}
 			else
 			{
@@ -180,37 +154,24 @@ namespace KalendarzKarieryWebAPI.Controllers
 		{
 			if (!User.Identity.IsAuthenticated)
 			{
-				var response = new DefaultValidationResponseModel();
-				response.IsSuccess = false;
-				response.Message = Consts.NotAuthenticatedErrorMsg;
-				return response;
+				return new DefaultValidationResponseModel{ IsSuccess = false, Message = Consts.NotAuthenticatedErrorMsg };
 			}
 
 			var @event = _repository.GetEventById( id );
 
 			if (@event != null)
 			{
-				var response = new DefaultValidationResponseModel();
-
-				if (@event.User.UserName.ToLower() == User.Identity.Name.ToLower())
+				if (@event.User.UserName.Equals(User.Identity.Name, StringComparison.InvariantCultureIgnoreCase))
 				{
 					_repository.DeleteEvent( @event );
-					_repository.Save();
 
-					response.IsSuccess = true;
-					response.Message = Consts.EventDeletedSuccesfullyMsg;
-					return response;
+					return new DefaultValidationResponseModel { IsSuccess = true, Message = Consts.EventDeletedSuccesfullyMsg };
 				}
 
-				response.IsSuccess = false;
-				response.Message = Consts.GeneralOperationErrorMsg;
-				return response;
+				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralOperationErrorMsg };
 			}
 
-			var r = new DefaultValidationResponseModel();
-			r.IsSuccess = false;
-			r.Message = Consts.EventDoesNotExistErrorMsg;
-			return r;
+			return new DefaultValidationResponseModel{ IsSuccess = false, Message = Consts.EventDoesNotExistErrorMsg };
 		}
 
 		private Event GetEventModelFromAddEventViewModel( AddEventViewModel viewModel, Event @event )
@@ -265,7 +226,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 			var eventKind = _repository.GetEventKindByValue( viewModel.EventKind.Value );
 			if (eventKind != null)
 			{
-				@event.EventKind = eventKind;
+				@event.EventKindId = eventKind.Id;
 			}
 			else
 			{
@@ -275,14 +236,14 @@ namespace KalendarzKarieryWebAPI.Controllers
 			var privacyLevel = _repository.GetPrivacyLevelByValue( viewModel.PrivacyLevel.Value );
 			if (privacyLevel != null)
 			{
-				@event.PrivacyLevel = privacyLevel;
+				@event.PrivacyLevelId = privacyLevel.Id;
 			}
 			else
 			{
 				return null;
 			}
 
-			if (!string.IsNullOrEmpty( viewModel.Address.Street ) || !string.IsNullOrEmpty( viewModel.Address.City ) || !string.IsNullOrEmpty( viewModel.Address.ZipCode ))
+			if (!string.IsNullOrWhiteSpace( viewModel.Address.Street ) || !string.IsNullOrWhiteSpace( viewModel.Address.City ) || !string.IsNullOrWhiteSpace( viewModel.Address.ZipCode ))
 			{
 				@event.Address = viewModel.Address;
 			}

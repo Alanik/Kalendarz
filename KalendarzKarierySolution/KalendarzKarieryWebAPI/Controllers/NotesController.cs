@@ -38,18 +38,12 @@ namespace KalendarzKarieryWebAPI.Controllers
 		{
 			if (!User.Identity.IsAuthenticated)
 			{
-				var response = new DefaultValidationResponseModel();
-				response.Message = Consts.NotAuthenticatedErrorMsg;
-				response.IsSuccess = false;
-				return response;
+				return new DefaultValidationResponseModel(){ Message = Consts.NotAuthenticatedErrorMsg, IsSuccess = false };
 			}
 
 			if (string.IsNullOrWhiteSpace( model.Data ))
 			{
-				var response = new DefaultValidationResponseModel();
-				response.IsSuccess = false;
-				response.Message = KalendarzKarieryCore.Consts.Consts.GeneralValidationErrorMsg;
-				return response;
+				return new DefaultValidationResponseModel(){ Message = Consts.GeneralValidationErrorMsg, IsSuccess = false };
 			}
 
 			var note = this.GetNoteModelFromAddNoteViewModel( model );
@@ -60,7 +54,6 @@ namespace KalendarzKarieryWebAPI.Controllers
 			}
 
 			_repository.AddNote( note );
-			_repository.Save();
 
 			return new AddNoteValidationResponseModel { IsSuccess = true, NoteId = note.Id};
 		}
@@ -83,14 +76,13 @@ namespace KalendarzKarieryWebAPI.Controllers
 
 			if ( note != null )
 			{
-				if (note.User.UserName.ToLower() == this.User.Identity.Name.ToLower())
+				if (note.User.UserName.Equals( User.Identity.Name, StringComparison.InvariantCultureIgnoreCase ))
 				{
 					note.Data = model.Data;
 					note.IsLineThrough = model.IsLineThrough;
 					note.EditDate = DateTimeFacade.DateTimeNow();
 
 					_repository.UpdateNote( note );
-					_repository.Save();
 
 					return new DefaultValidationResponseModel { IsSuccess = true };	
 				}
@@ -109,37 +101,23 @@ namespace KalendarzKarieryWebAPI.Controllers
 		{
 			if (!User.Identity.IsAuthenticated)
 			{
-				var response = new DefaultValidationResponseModel();
-				response.IsSuccess = false;
-				response.Message = Consts.NotAuthenticatedErrorMsg;
-				return response;
+				return new DefaultValidationResponseModel(){IsSuccess = false, Message = Consts.NotAuthenticatedErrorMsg};
 			}
 
 			var note = _repository.GetNoteById( id );
 
 			if (note != null)
 			{
-				var response = new DefaultValidationResponseModel();
-
-				if (note.User.UserName.ToLower() == User.Identity.Name.ToLower())
+				if (note.User.UserName.Equals(User.Identity.Name, StringComparison.InvariantCultureIgnoreCase))
 				{
 					_repository.DeleteNote( note );
-					_repository.Save();
-
-					response.IsSuccess = true;
-					response.Message = Consts.NoteDeletedSuccesfullyMsg;
-					return response;
+					return  new DefaultValidationResponseModel(){ IsSuccess = true, Message = Consts.NoteDeletedSuccesfullyMsg };
 				}
 
-				response.IsSuccess = false;
-				response.Message = Consts.GeneralOperationErrorMsg;
-				return response;
+				return new DefaultValidationResponseModel() { IsSuccess = false, Message = Consts.GeneralOperationErrorMsg };
 			}
 
-			var r = new DefaultValidationResponseModel();
-			r.IsSuccess = false;
-			r.Message = Consts.NoteDoesNotExistErrorMsg;
-			return r;
+			return new DefaultValidationResponseModel(){IsSuccess = false, Message = Consts.NoteDoesNotExistErrorMsg};
 		}
 
 		private Note GetNoteModelFromAddNoteViewModel( AddNoteViewModel viewModel )
@@ -176,7 +154,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 			var privacyLevel = _repository.GetPrivacyLevelByValue( (int)KalendarzKarieryData.Enums.PrivacyLevel.@private );
 			if (privacyLevel != null)
 			{
-				note.PrivacyLevel = privacyLevel;
+				note.PrivacyLevelId = privacyLevel.Id;
 			}
 			else
 			{
@@ -184,7 +162,6 @@ namespace KalendarzKarieryWebAPI.Controllers
 			}
 
 			return note;
-
 		}
 	}
 }

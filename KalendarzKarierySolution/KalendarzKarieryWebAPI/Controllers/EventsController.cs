@@ -86,7 +86,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 
 			if (@event != null)
 			{
-				if (@event.User.UserName.ToLower() != User.Identity.Name.ToLower())
+				if (!@event.User.UserName.Equals(User.Identity.Name, StringComparison.InvariantCultureIgnoreCase))
 				{
 					return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralOperationErrorMsg };
 				}
@@ -98,7 +98,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 					return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralOperationErrorMsg };
 				}
 
-				_repository.UpdateEvent( @event );
+				_repository.UpdateEvent( @event, @event.Address );
 
 				return new AddEventValidationResponseModel { IsSuccess = true, EventId = @event.Id };
 			}
@@ -163,7 +163,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 			{
 				if (@event.User.UserName.Equals(User.Identity.Name, StringComparison.InvariantCultureIgnoreCase))
 				{
-					_repository.DeleteEvent( @event );
+					_repository.DeleteEvent( @event, @event.Address );
 
 					return new DefaultValidationResponseModel { IsSuccess = true, Message = Consts.EventDeletedSuccesfullyMsg };
 				}
@@ -244,7 +244,8 @@ namespace KalendarzKarieryWebAPI.Controllers
 			}
 
 			if (!string.IsNullOrWhiteSpace( viewModel.Address.Street ) || !string.IsNullOrWhiteSpace( viewModel.Address.City ) || !string.IsNullOrWhiteSpace( viewModel.Address.ZipCode ))
-			{
+			{	
+				viewModel.Address.Id = @event.Address.Id;
 				@event.Address = viewModel.Address;
 			}
 

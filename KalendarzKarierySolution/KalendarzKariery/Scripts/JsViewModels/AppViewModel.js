@@ -1026,10 +1026,9 @@
 		var h = ( self.displayPageEventMostBottomRow + 1 ) * 46;
 		$tableBody.height( h + "px" );
 
-		var offset = $calendarDayDetailsTable.position().top;
+		var offset = $calendarDayDetailsTable.position().top - 83;
 
-		var $scrollable = $calendarDayDetailsTable.closest( ".scrollable" );
-		$calendarDayDetailsTable.scrollTo( 500 );
+		$calendarDayDetailsTable.scrollTo( 500, offset );
 	}
 
 	self.changeEventCountTreeValueBasedOnEventKind = function ( countTree, event, value )
@@ -1209,7 +1208,10 @@
 
 		setTimeout( function ()
 		{
-			$( "#details #calendarDayDetailsContainer" ).scrollTo( 100 );
+			var $container = $( "#details #calendarDayDetailsContainer" );
+			var offset = $container.position().top - 83;
+			$container.scrollTo( 100, offset );
+
 		}, 10 )
 	};
 
@@ -1445,7 +1447,6 @@
 
 					$container = $( "#details #detailsPanel #detailsPageAllEventsListContainer" );
 					$container.hide();
-					$container.find( ".show-old-events-checkbox" ).text( "" );
 					lobbyOrDetailsPageSelectedEvents.settings.showOldEvents( false );
 
 					self.showDetailsPageClockContainer();
@@ -1477,7 +1478,6 @@
 				{
 					$container = $( "#lobby #lobbyPageAllEventsListContainer" );
 					$container.hide();
-					$container.find( ".show-old-events-checkbox" ).text( "" );
 					lobbyOrDetailsPageSelectedEvents.settings.showOldEvents( false );
 				}
 			}

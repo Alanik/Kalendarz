@@ -267,21 +267,14 @@ header, footer, nav, section, div {
 	padding: 5px;
 	padding-left: 20px;
 	background: #D7D0B8;
-	/*color: rgb(231, 224, 202);*/
 	color: rgb(255, 251, 239);
-	/*border-bottom: 1px solid rgb(242, 242, 242);*/
 	border-bottom: 2px solid rgb(177, 177, 119);
 	font-size: 1.4em;
-	/*background: rgb(186, 176, 146);
-	border-top-left-radius: 6px;
-	border-top-right-radius: 6px;*/
 }
-
 
 .display-events-overview-container {
 	background: rgb(253, 252, 248);
 	display: none;
-	padding-bottom: 40px;
 	text-align: left;
 }
 
@@ -314,9 +307,10 @@ header, footer, nav, section, div {
 	}
 
 	.display-events-overview-container .legend-oldorupcoming {
-		color: #C0CEB1;
+		color: #555653;
 		padding: 4px 0;
 		font-size: 2em;
+		border-bottom:2px solid #DEDEDE;
 	}
 
 	.display-events-overview-container .list-item-title {
@@ -325,20 +319,23 @@ header, footer, nav, section, div {
 		margin-bottom: 2px;
 		padding: 5px;
 		vertical-align: top;
-		color: rgb(118, 104, 75);
+		color: rgb(147, 139, 114);
 		text-align: left;
+		font-size:1.4em;
 	}
 
 	.display-events-overview-container .list-item-other {
 		display: inline-block;
 		color: rgb(118, 104, 75);
 		padding: 5px;
-		width: 110px;
+		width: 130px;
 		text-align: left;
+		font-size:1.4em;
 	}
 
-.display-events-overview-list:nth-child(odd) {
-	/*background: rgb(231, 224, 201);*/
+
+.display-events-overview-item:nth-child(odd) {
+	background: rgb(247, 244, 235);
 }
 
 .hour {
@@ -768,6 +765,11 @@ header, footer, nav, section, div {
 #lobbyPageAllEventsListContainer {
 	margin: 1.8%;
 	margin-top: 30px;
+}
+
+.display-events-overview-body {
+	border: 2px solid #DEDEDE;
+	padding-bottom: 40px;
 }
 
 #addNewEventContainer {

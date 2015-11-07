@@ -230,7 +230,7 @@
 							continue;
 						}
 
-						isCurrentMonth = ( parsedMonth == date.getMonth() + 1 );
+						isCurrentMonth = ( parsedMonth == ( date.getMonth() + 1) );
 						monthNode = yearNode[month];
 
 						for ( day in monthNode )
@@ -262,13 +262,11 @@
 
 								for ( var n = 0; n < values.length; n++ )
 								{
-
 									if ( prop === values[n] )
 									{
 										arr.push( event );
 										break;
 									}
-
 								}
 							}
 						}
@@ -318,7 +316,7 @@
 								event = daysArr[i];
 								prop = event;
 
-								if ( isCurrentYear && isCurrentMonth && isCurrentDay && ( event.startDate.endHour <= date.getHours() || ( event.startDate.endHour == date.getHours() && event.startDate.endMinute <= date.getMinutes() ) ) )
+								if ( isCurrentYear && isCurrentMonth && isCurrentDay && ( event.startDate.endHour < date.getHours() || ( event.startDate.endHour == date.getHours() && event.startDate.endMinute <= date.getMinutes() ) ) )
 								{
 									continue;
 								}
@@ -330,13 +328,11 @@
 
 								for ( var n = 0; n < values.length; n++ )
 								{
-
 									if ( prop === values[n] )
 									{
 										arr.push( event );
 										break;
 									}
-
 								}
 							}
 						}
@@ -366,13 +362,11 @@
 
 								for ( var n = 0; n < values.length; n++ )
 								{
-
 									if ( prop === values[n] )
 									{
 										arr.push( event );
 										break;
 									}
-
 								}
 							}
 						}

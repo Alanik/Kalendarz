@@ -25,12 +25,12 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 
 		#region Event
 		Event GetEventById( int id );
-		void DeleteEvent( Event @event );
+		void DeleteEvent( Event @event, Address address );
 		void AddEvent( Event @event, Address address );
 		bool AddExistingEventToUserCalendar( int eventId, string username );
 		bool SignUpUserForEvent( int eventId, string username );
 		User GetUserByName(string name);
-		void UpdateEvent (Event @event);
+		void UpdateEvent (Event @event, Address address);
 	    IList<EventsGroupedByYearModel> GetAllPublicEvents( int? userId);
 		EventsGroupedByYearModel GetAllEventsConnectedToUserIdForGivenYear( int id, int year );
 		ICollection<object> GetAllPrivacyLevels();

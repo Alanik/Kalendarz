@@ -1,47 +1,45 @@
 ﻿<div id="lobbyPageAllEventsListContainer" class="display-events-overview-container">
-<header class="display-events-overview-header">
-	<span>
-		Publiczne wydarzenia
-	</span>
-	<div class="close-btn-x hover-cursor-pointer" data-bind="click: $root.closeAllSelectedEventsListContainerOnClick">x</div>
-</header>	
-	<div style="padding: 10px; border-top: 2px solid #DEDEDE;">
-		<div class="hover-cursor-pointer" style="color: rgb(147, 139, 114); width: 240px;" data-bind="click: function () { $root.toggleShowOldEventsOnCheckboxClick( $element, $root.lobbyPageSelectedEvents ) }">
-			<div class="show-old-events-checkbox">
-				<span data-bind="visible: $root.lobbyPageSelectedEvents.settings.showOldEvents">✓</span>
+	<header class="display-events-overview-header">
+		<span>Publiczne wydarzenia
+		</span>
+		<div class="close-btn-x hover-cursor-pointer" data-bind="click: $root.closeAllSelectedEventsListContainerOnClick">x</div>
+	</header>
+	<div class="display-events-overview-body">
+		<div style="padding: 10px;">
+			<div class="hover-cursor-pointer" style="color: rgb(147, 139, 114); width: 240px;" data-bind="click: function () { $root.toggleShowOldEventsOnCheckboxClick( $element, $root.lobbyPageSelectedEvents ) }">
+				<div class="show-old-events-checkbox">
+					<span data-bind="visible: $root.lobbyPageSelectedEvents.settings.showOldEvents">✓</span>
+				</div>
+				<span style="padding: 4px;">Pokaż stare wpisy</span>
 			</div>
-			<span style="padding: 4px;">Pokaż stare wpisy</span>
+		</div>
+		<div data-bind="foreach: $root.lobbyPageSelectedEvents.old" style="padding-left: 100px;">
+			<!-- ko if: $index() == 0 -->
+			<div class="legend-oldorupcoming">
+				stare:
+			</div>
+			<!-- /ko -->
+
+			<div class="display-events-overview-item">
+				<div class="list-item-title" data-bind="text: name"></div>
+				<div class="list-item-other" data-bind="text: startDate.displayFullDate()"></div>
+				<div class="list-item-other" data-bind="text: startDate.displayFullTime()"></div>
+				<div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
+			</div>
+		</div>
+		<div data-bind="foreach: $root.lobbyPageSelectedEvents.upcoming" style="padding-left: 100px;">
+			<!-- ko if: $index() == 0 -->
+			<div class="legend-oldorupcoming">
+				nadchodzące:
+			</div>
+			<!-- /ko -->
+
+			<div class="display-events-overview-item">
+				<div class="list-item-title" data-bind="text: name"></div>
+				<div class="list-item-other" data-bind="text: startDate.displayFullDate()"></div>
+				<div class="list-item-other" data-bind="text: startDate.displayFullTime()"></div>
+				<div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
+			</div>
 		</div>
 	</div>
-
-	<div data-bind="foreach: $root.lobbyPageSelectedEvents.old" style="padding-left: 100px;">
-		<!-- ko if: $index() == 0 -->
-		<div class="legend-oldorupcoming">
-			stare
-		</div>
-		<!-- /ko -->
-
-		<div class="display-events-overview-list">
-			<div class="list-item-title" data-bind="text: name"></div>
-			<div class="list-item-other" data-bind="text: startDate.displayFullDate()"></div>
-			<div class="list-item-other" data-bind="text: startDate.displayFullTime()"></div>
-			<div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
-		</div>
-	</div>
-
-	<div data-bind="foreach: $root.lobbyPageSelectedEvents.upcoming" style="padding-left: 100px;">
-		<!-- ko if: $index() == 0 -->
-		<div class="legend-oldorupcoming">
-			nadchodzące
-		</div>
-		<!-- /ko -->
-
-		<div class="display-events-overview-list">
-			<div class="list-item-title" data-bind="text: name"></div>
-			<div class="list-item-other" data-bind="text: startDate.displayFullDate()"></div>
-			<div class="list-item-other" data-bind="text: startDate.displayFullTime()"></div>
-			<div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
-		</div>
-	</div>
-
 </div>

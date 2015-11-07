@@ -18,17 +18,6 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 {
 	public class KalendarzKarieryRepository : IKalendarzKarieryRepository
 	{
-		public KalendarzKarieryRepository()
-		{
-			// don't erase the comment!
-			// add this code inside KalendarzKarieryDBEntities
-			//
-			//	public KalendarzKarieryDBEntities(DbConnection connection)
-			//	: base(connection, true)
-			//	{
-			//	}
-		}
-
 		#region User
 
 		public User GetUserById( int id )
@@ -147,7 +136,7 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 
 		#endregion
 
-		#region Event
+	#region Event
 
 		public Event GetEventById( int id )
 		{
@@ -175,26 +164,52 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 			}
 		}
 
-		public void UpdateEvent( Event @event )
+		public void UpdateEvent( Event @event, Address address)
 		{
 			using (var context = new KalendarzKarieryDBEntities())
 			{
+				if (@event.AddressId.HasValue)
+				{
+					if (address == null)
+					{
+						context.Addresses.Attach( address );
+						context.Entry( address ).State = EntityState.Deleted;
+					}
+					else
+					{
+						context.Addresses.Attach( address );
+						context.Entry( address ).State = EntityState.Modified;
+					}
+				}
+				else
+				{
+					if (address != null)
+					{
+						@event.Address = address;
+						context.Addresses.Attach( address );
+						context.Entry( address ).State = EntityState.Added;
+					}
+				}
+
 				context.Events.Attach( @event );
 				context.Entry( @event ).State = EntityState.Modified;
 				context.SaveChanges();
 			}
 		}
 
-		public void DeleteEvent( Event @event )
+		public void DeleteEvent( Event @event, Address address )
 		{
 			using (var context = new KalendarzKarieryDBEntities())
 			{
-				//context.Events.Attach( @event );
-				//context.Addresses.Attach(@event.Address);
-				//context.Entry(@event).State = EntityState.Deleted;
-				//context.Events.Remove(@event);
-				context.Events.Remove(context.Events.SingleOrDefault(m => m.Id == @event.Id));
+				context.Events.Attach( @event );
+				context.Entry( @event ).State = EntityState.Deleted;
 
+				if (address != null)
+				{
+					context.Addresses.Attach(address);
+				    context.Entry( address ).State = EntityState.Deleted;
+				}
+				
 				context.SaveChanges();
 			}
 		}
@@ -446,7 +461,7 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 			}
 		}
 
-		#endregion
+		#endregion	
 
 		#region Note
 

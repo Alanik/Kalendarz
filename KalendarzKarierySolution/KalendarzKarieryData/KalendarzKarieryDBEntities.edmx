@@ -211,9 +211,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Event_Address">
-          <End Role="Address" Type="Self.Address" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
           <End Role="Event" Type="Self.Event" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Address">
@@ -233,6 +231,32 @@
             </Principal>
             <Dependent Role="Event">
               <PropertyRef Name="EventKindId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventsAddedToUserCalendar_Event">
+          <End Role="Event" Type="Self.Event" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="User_Event_EventsAddedToUserCalendar" Type="Self.User_Event_EventsAddedToUserCalendar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Event">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User_Event_EventsAddedToUserCalendar">
+              <PropertyRef Name="EventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventsAddedToUserCalendar_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="User_Event_EventsAddedToUserCalendar" Type="Self.User_Event_EventsAddedToUserCalendar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User_Event_EventsAddedToUserCalendar">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -320,58 +344,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_User_Event_CalendarUsers">
-          <End Role="Event" Type="Self.Event" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="User_Event_UsersGoingToEvent" Type="Self.User_Event_UsersGoingToEvent" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Event">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="User_Event_UsersGoingToEvent">
-              <PropertyRef Name="EventId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_User_Event_SignedUpUsers">
-          <End Role="Event" Type="Self.Event" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="User_Event_EventsAddedToUserCalendar" Type="Self.User_Event_EventsAddedToUserCalendar" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Event">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="User_Event_EventsAddedToUserCalendar">
-              <PropertyRef Name="EventId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_User_Event_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="User_Event_EventsAddedToUserCalendar" Type="Self.User_Event_EventsAddedToUserCalendar" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="User_Event_EventsAddedToUserCalendar">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_User_Event_UsersGoingToEvent_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="User_Event_UsersGoingToEvent" Type="Self.User_Event_UsersGoingToEvent" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="User_Event_UsersGoingToEvent">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_User_UserAccountInfo">
           <End Role="UserAccountInfo" Type="Self.UserAccountInfo" Multiplicity="0..1" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
@@ -381,6 +353,32 @@
             </Principal>
             <Dependent Role="User">
               <PropertyRef Name="UserAccountInfoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsersGoingToEvent_Event">
+          <End Role="Event" Type="Self.Event" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="User_Event_UsersGoingToEvent" Type="Self.User_Event_UsersGoingToEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Event">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User_Event_UsersGoingToEvent">
+              <PropertyRef Name="EventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsersGoingToEvent_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="User_Event_UsersGoingToEvent" Type="Self.User_Event_UsersGoingToEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User_Event_UsersGoingToEvent">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -441,6 +439,14 @@
             <End Role="EventKind" EntitySet="EventKind" />
             <End Role="Event" EntitySet="Event" />
           </AssociationSet>
+          <AssociationSet Name="FK_EventsAddedToUserCalendar_Event" Association="Self.FK_EventsAddedToUserCalendar_Event">
+            <End Role="Event" EntitySet="Event" />
+            <End Role="User_Event_EventsAddedToUserCalendar" EntitySet="User_Event_EventsAddedToUserCalendar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventsAddedToUserCalendar_User" Association="Self.FK_EventsAddedToUserCalendar_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="User_Event_EventsAddedToUserCalendar" EntitySet="User_Event_EventsAddedToUserCalendar" />
+          </AssociationSet>
           <AssociationSet Name="FK_EventStatus_Event" Association="Self.FK_EventStatus_Event">
             <End Role="EventStatus" EntitySet="EventStatus" />
             <End Role="Event" EntitySet="Event" />
@@ -469,25 +475,17 @@
             <End Role="Address" EntitySet="Address" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
-          <AssociationSet Name="FK_User_Event_CalendarUsers" Association="Self.FK_User_Event_CalendarUsers">
-            <End Role="Event" EntitySet="Event" />
-            <End Role="User_Event_UsersGoingToEvent" EntitySet="User_Event_UsersGoingToEvent" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_Event_SignedUpUsers" Association="Self.FK_User_Event_SignedUpUsers">
-            <End Role="Event" EntitySet="Event" />
-            <End Role="User_Event_EventsAddedToUserCalendar" EntitySet="User_Event_EventsAddedToUserCalendar" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_Event_User" Association="Self.FK_User_Event_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="User_Event_EventsAddedToUserCalendar" EntitySet="User_Event_EventsAddedToUserCalendar" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_Event_UsersGoingToEvent_User" Association="Self.FK_User_Event_UsersGoingToEvent_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="User_Event_UsersGoingToEvent" EntitySet="User_Event_UsersGoingToEvent" />
-          </AssociationSet>
           <AssociationSet Name="FK_User_UserAccountInfo" Association="Self.FK_User_UserAccountInfo">
             <End Role="UserAccountInfo" EntitySet="UserAccountInfo" />
             <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsersGoingToEvent_Event" Association="Self.FK_UsersGoingToEvent_Event">
+            <End Role="Event" EntitySet="Event" />
+            <End Role="User_Event_UsersGoingToEvent" EntitySet="User_Event_UsersGoingToEvent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsersGoingToEvent_User" Association="Self.FK_UsersGoingToEvent_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="User_Event_UsersGoingToEvent" EntitySet="User_Event_UsersGoingToEvent" />
           </AssociationSet>
           <AssociationSet Name="FK_webpages_UsersInRoles_Roles" Association="Self.FK_webpages_UsersInRoles_Roles">
             <End Role="webpages_Roles" EntitySet="webpages_Roles" />
@@ -689,9 +687,9 @@
         </EntityType>
         <Association Name="FK_Event_Address">
           <End Role="Address" Type="Self.Address" Multiplicity="0..1" >
-            <OnDelete Action="Cascade" />
           </End>
-          <End Role="Event" Type="Self.Event" Multiplicity="*" />
+          <End Role="Event" Type="Self.Event" Multiplicity="*" >
+          </End>
           <ReferentialConstraint>
             <Principal Role="Address">
               <PropertyRef Name="Id" />

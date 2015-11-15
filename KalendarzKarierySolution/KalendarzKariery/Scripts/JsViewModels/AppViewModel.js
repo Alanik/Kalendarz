@@ -1637,6 +1637,7 @@
 		{
 			$eventBlockContainer.slideDown();
 			$element.scrollTo();
+			//blah bla
 		}
 	}
 

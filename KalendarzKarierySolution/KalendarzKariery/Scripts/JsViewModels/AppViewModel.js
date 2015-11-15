@@ -37,19 +37,18 @@
 	self.currentPage = 0;
 
 	self.todayDate = {
-		"now": function () { return new Date() },
 		"day": day,
 		//month starts from 1 to 12
 		"month": month + 1,
 		"year": year,
-		"weekday": date.getDay(),
 		"getMonthName": function ()
 		{
 			return self.monthNames[( this.month - 1 )];
 		},
 		"getDayName": function ()
 		{
-			return this.weekday == 0 ? self.dayNames[6] : self.dayNames[this.weekday - 1];
+			var weekday = new Date().getDay();
+			return weekday == 0 ? self.dayNames[6] : self.dayNames[weekday - 1];
 		}
 	}
 
@@ -66,9 +65,9 @@
 	// is used when adding note
 	self.observableNote = new KKNoteModelObservable();
 
-	// month starts from 1 to 12
 	self.detailsPageDisplayDate = {
 		"year": ko.observable( year ),
+		//month starts from 1 to 12
 		"month": ko.observable( month + 1 ),
 		"day": ko.observable( day ),
 		"getMonthName": function ()
@@ -77,7 +76,8 @@
 		},
 		"getDayName": function ()
 		{
-			return self.dayNames[this.weekday()];
+			var weekday = new Date( this.year(), this.month() - 1, this.day()).getDay();
+			return weekday == 0 ? self.dayNames[6] : self.dayNames[weekday - 1];
 		}
 	};
 
@@ -138,6 +138,7 @@
 		//		"9": [{ "2": [event] }]	
 		//			}
 	};
+
 	self.publicEventTreeCountBasedOnEventKind = null;
 	// example
 	//
@@ -150,7 +151,7 @@
 	//	"old" : ko.observable(20)
 	//}
 
-	self.myEventTreeCountBasedOnEventKind = null
+	self.myEventTreeCountBasedOnEventKind = null;
 	// example
 	//
 	//"1": {
@@ -436,7 +437,7 @@
 				alert( result.Message );
 			} else
 			{
-				oldEvent = self.EVENT_MANAGER.getEventByDateAndId( result.EventId, year, month, day, self.myEventTree );
+				oldEvent = self.EVENT_MANAGER.getEventByDateAndId( result.EventId, result.Year, result.Month, result.Day, self.myEventTree );
 				kkEvent = self.EVENT_MANAGER.getNewKKEventModel(
 				self.userName,
 				self.observableEvent.address.street(),
@@ -460,7 +461,7 @@
 				oldEvent.isCurrentUserSignedUpForEvent()
 				);
 
-				self.EVENT_MANAGER.removeEvent( result.EventId, year, month, day );
+				self.EVENT_MANAGER.removeEvent( result.EventId, result.Year, result.Month, result.Day );
 				var dayEvents = self.EVENT_MANAGER.addEvent( kkEvent );
 
 				self.setCalendarPlacementRow( dayEvents );
@@ -479,7 +480,6 @@
 
 	self.AddNoteOnClick = function ()
 	{
-
 		var $loader, promise;
 		var text = self.observableNote.data().trim();
 		if ( text == "" )
@@ -572,7 +572,7 @@
 
 		function success( result )
 		{
-			var $container, events, $tableBody, h;
+			var $container, events, $tableBody, h, offset, $calendarDayDetailsTable;
 
 			if ( result.IsSuccess === false )
 			{
@@ -590,8 +590,6 @@
 
 					self.EVENT_MANAGER.removeEvent( id, year, month, day );
 
-					$( "#details #calendarDayDetailsContainer" ).scrollTo( 500 );
-
 					//redraw details page event rectangle table
 					self.removeEventRectanglesFromDetailsDay();
 					events = self.detailsPageDayEvents();
@@ -603,10 +601,13 @@
 					{
 						self.drawEventToDetailsDayTable( events[i] );
 					}
-
-					$tableBody = $( "#calendarDayDetailsTable .table-details-body" );
+					var $calendarDayDetailsTable = $( "#details #calendarDayDetailsTable" );
+					$tableBody = $calendarDayDetailsTable.find( ".table-details-body" );
 					h = ( self.displayPageEventMostBottomRow + 1 ) * 46;
 					$tableBody.height( h + "px" );
+
+					offset = $calendarDayDetailsTable.position().top - 83;
+					$calendarDayDetailsTable.scrollTo( 500, offset );
 
 					//for calendar to redraw events in day cell
 					self.calendarDayEventsToUpdate.day = self.detailsPageDisplayDate.day();
@@ -842,7 +843,7 @@
 				function ( result ) { success( result ); },
 				function () { error(); } )
 
-		function success(result)
+		function success( result )
 		{
 			var isLineThrough;
 
@@ -857,7 +858,8 @@
 				note.isLineThrough( isLineThrough );
 			}
 		}
-		function error(){
+		function error()
+		{
 			alert( "Wystąpił nieoczekiwany błąd. Prosze spróbować jeszcze raz." );
 			self.hideLoader( $loader );
 		}
@@ -1109,7 +1111,8 @@
 		var addressCityStr = event.address.city ? ", " + event.address.city : "";
 		var addressStr = addressStreetStr + addressCityStr;
 
-		var $event = $( '<div class="event-rectangle" style="top:' + ( event.calendarPlacementRow - 1 ) * 28 + 'px; left:' + left + '%; width:' + width + '%;border-color:' + event.kind.color + ( event.privacyLevel.value == 1 ? ';' : ';border:2px solid ' + event.kind.color + ';' ) + '">' + event.name + '<input type="hidden" name="' + event.name + '" address="' + addressStr + '" starthour="' + event.startDate.startHour + '" endhour="' + event.startDate.endHour + '" startminute="' + event.startDate.startMinute + '" endminute="' + event.startDate.endMinute + '" ></input></div>' );
+		var name = event.privacyLevel.value == 1 ? event.name : ( "*** " + event.name );
+		var $event = $( '<div class="event-rectangle" style="top:' + ( event.calendarPlacementRow - 1 ) * 28 + 'px; left:' + left + '%; width:' + width + '%;border-color:' + event.kind.color + ';">' + name + '<input type="hidden" name="' + event.name + '" address="' + addressStr + '" starthour="' + event.startDate.startHour + '" endhour="' + event.startDate.endHour + '" startminute="' + event.startDate.startMinute + '" endminute="' + event.startDate.endMinute + '" ></input></div>' );
 
 		$cellPlaceholder.append( $event );
 	};
@@ -1129,7 +1132,8 @@
 		var width = ( ( event.startDate.endHour - event.startDate.startHour ) * 100 ) - startMinuteOffset + endMinuteOffset;
 
 		var $hourCell = $( ".hour-cell-" + event.startDate.startHour );
-		var eventRectangle = '<div data-bind="click: function(){ $root.showEventBlockInfoOnDetailsPageEventRectangleClick(' + event.id + ') }" class="event-rectangle-details" style="width:' + ( width - 2 ) + '%;top : ' + ( ( ( event.calendarPlacementRow - 1 ) * 46 ) + 12 ) + 'px;left:' + ( startMinuteOffset + 1 ) + '%;border-color:' + event.kind.detailsPageEventBorderColor + ( event.privacyLevel.value == 1 ? ';' : ';border:2px solid ' + event.kind.detailsPageEventBorderColor + ';' ) + '"><span>' + event.name + '</span></div>';
+		var name = event.privacyLevel.value == 1 ? event.name : "*** " + event.name;
+		var eventRectangle = '<div data-bind="click: function(){ $root.showEventBlockInfoOnDetailsPageEventRectangleClick(' + event.id + ') }" class="event-rectangle-details" style="width:' + ( width - 2 ) + '%;top : ' + ( ( ( event.calendarPlacementRow - 1 ) * 46 ) + 12 ) + 'px;left:' + ( startMinuteOffset + 1 ) + '%;border-color:' + event.kind.detailsPageEventBorderColor + ';"><span>' + name + '</span></div>';
 		var $eventRectangle = $( eventRectangle );
 
 		$eventRectangle.appendTo( $hourCell );
@@ -1350,6 +1354,8 @@
 				if ( shownEvents.length )
 				{
 					combinedArray = arr.concat( shownEvents );
+
+					//TODO: instead of concating arrays and then sorting, insert each new event at correct index;
 					combinedArray.sort( function ( a, b )
 					{
 						return ( a.startDate.javaScriptStartDate - b.startDate.javaScriptStartDate );
@@ -1370,13 +1376,14 @@
 				}
 			} else
 			{
-				$( "#lobby #lobbyPageAllEventsListContainer" ).show();
 				arr = self.EVENT_MANAGER.getFilteredEventsFromEventTree( self.publicEventTree, ["kind", "value"], [eventKindValue], "upcoming" );
 				shownEvents = lobbyOrDetailsPageSelectedEvents.upcoming();
 
 				if ( shownEvents.length )
 				{
 					combinedArray = arr.concat( shownEvents );
+
+					//TODO: instead of concating arrays and then sorting, insert each new event at correct index;
 					combinedArray.sort( function ( a, b )
 					{
 						return ( a.startDate.javaScriptStartDate - b.startDate.javaScriptStartDate );
@@ -1386,6 +1393,7 @@
 				} else
 				{
 					lobbyOrDetailsPageSelectedEvents.upcoming( arr );
+					$( "#lobby #lobbyPageAllEventsListContainer" ).show();
 				}
 
 				if ( lobbyOrDetailsPageSelectedEvents.settings.showOldEvents() )
@@ -1393,7 +1401,6 @@
 					showOldEvents( self.publicEventTree )
 				}
 			}
-
 
 			function showOldEvents( eventTree )
 			{
@@ -1403,6 +1410,8 @@
 				if ( shownEvents.length )
 				{
 					combinedArray2 = arr2.concat( shownEvents );
+
+					//TODO: instead of concating arrays and then sorting, insert each new event at correct index;
 					combinedArray2.sort( function ( a, b )
 					{
 						return ( a.startDate.javaScriptStartDate - b.startDate.javaScriptStartDate );
@@ -1425,10 +1434,6 @@
 				{
 					return item.kind.value != eventKindValue;
 				} );
-
-				//array.sort(function (a, b) {
-				//	return (a.startDate.javaScriptStartDate - b.startDate.javaScriptStartDate);
-				//});
 
 				lobbyOrDetailsPageSelectedEvents.upcoming( array );
 
@@ -1458,10 +1463,6 @@
 					return item.kind.value != eventKindValue;
 				} );
 
-				//array.sort(function (a, b) {
-				//	return (a.startDate.javaScriptStartDate - b.startDate.javaScriptStartDate);
-				//});
-
 				lobbyOrDetailsPageSelectedEvents.upcoming( array );
 
 				if ( lobbyOrDetailsPageSelectedEvents.settings.showOldEvents() )
@@ -1484,7 +1485,7 @@
 		}
 	};
 
-	self.moveToDetailsPageEventOnLobbyPageEventClick = function ( id, year, month, day )
+	self.moveToDetailsDayOnEventCalendarIconClick = function ( id, year, month, day )
 	{
 		self.displayPageEventMostBottomRow = 1;
 
@@ -1511,12 +1512,16 @@
 		$tableBody.height( h + "px" );
 
 		var $scrollable = $( "#slide-item-details" ).parent();
-
-		window.location = "#2";
+		var speed = 800;
+		if ( self.currentPage == 0 )
+		{
+			window.location = "#2";
+			speed = 100;
+		}
 
 		setTimeout( function ()
 		{
-			$( "#details #detailsEventBlockList .details-event-block-container[data-eventid='" + id + "']" ).scrollTo( 100 );
+			$( "#details #detailsEventBlockList .details-event-block-container[data-eventid='" + id + "']" ).scrollTo( speed );
 		}, 10 )
 	};
 
@@ -1618,6 +1623,22 @@
 
 		return false;
 	};
+
+	self.expandEventOverviewItemOnClick = function ( element )
+	{
+		var $element = $( element );
+		var $eventBlockContainer = $element.next();
+		$element.toggleClass( "selected" );
+		if ( !$element.hasClass( "selected" ) )
+		{
+			$eventBlockContainer.hide();
+		}
+		else
+		{
+			$eventBlockContainer.slideDown();
+			$element.scrollTo();
+		}
+	}
 
 	self.closeLoginPopupOnClick = function ()
 	{
@@ -2234,7 +2255,7 @@
 				var secondCheck = ( eStartH == aeStartH && ( eStartM > aeStartM && ( ( eStartH < aeEndH ) || ( eStartM < aeEndM ) ) ) );
 				var thirdCheck = ( aeStartH == eStartH && ( aeStartM > eStartM && ( ( aeStartH < eEndH ) || ( aeStartM < eEndM ) ) ) );
 				var fourthCheck = ( eStartH == aeStartH && eStartM == aeStartM ) || ( eEndH == aeEndH && eEndM == aeEndM );
-				var fifthCheck = ( eEndH == aeStartH && eEndM > aeStartM ) || ( aeEndH == eStartH && ( aeStartM > eEndM || aeEndM > eStartM ) );
+				var fifthCheck = ( eEndH == aeStartH && eEndM > aeStartM ) || ( aeEndH == eStartH && aeEndM > eStartM );
 
 				if ( firstCheck || secondCheck || thirdCheck || fourthCheck || fifthCheck )
 				{

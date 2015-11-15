@@ -10,6 +10,7 @@
 	//month value starts from 1 - 12
 	self.month = month;
 	self.year = year;
+	self.javaScriptStartDate = new Date(year, month, day, startHour, startMinute, 0, 0);
 }
 
 KKEventDateModel.prototype.formatZero = function ( time ){

@@ -121,6 +121,7 @@
     <Compile Include="Models\ResponseModels\AddEventValidationResponseModel.cs" />
     <Compile Include="Models\ResponseModels\AddNoteValidationResponseModel.cs" />
     <Compile Include="Models\ResponseModels\IValidationResponse.cs" />
+    <Compile Include="Models\ResponseModels\UpdateEventValidationResponseModel.cs" />
     <Compile Include="Models\ResponseModels\UpdateNoteValidationResponseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\ResponseModels\DefaultValidationResponseModel.cs" />

@@ -467,6 +467,24 @@
 				}
 			}, ".month-name-calendar" );
 
+			//$mainContainer.on( {
+			//	mouseenter: function ()
+			//	{
+			//		$( this ).css( {
+			//			"cursor": "pointer",
+			//			"border-left": "2px solid gray"
+			//		} );
+			//	},
+			//	mouseleave: function ()
+			//	{
+			//		$( this ).css( {
+			//			"cursor": "auto",
+			//			"border-left": "none"
+			//		} );
+			//	}
+			//}, ".display-events-overview-item" );
+
+
 			$( ".menu-item-container" ).hover( function ()
 			{
 				var $this = $( this );

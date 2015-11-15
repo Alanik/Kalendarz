@@ -43,7 +43,7 @@
 
 		ev.price( 0 );
 
-		var now = appViewModel.todayDate.now();
+		var now = new Date();
 		var startM = now.getMinutes(), endM;
 		var startH = now.getHours(), endH;
 
@@ -66,8 +66,6 @@
 			endH = 7;
 			endM = 10;
 		}
-
-		ev.javaScriptStartDate = null;
 
 		ev.startDate.startMinute( startM );
 		ev.startDate.endMinute( endM );
@@ -513,6 +511,8 @@
 		var eventTree = appViewModel.myEventTree;
 		var eventTreeYearProp, eventTreeMonthProp, dayEvents, event;
 		var today, endDate, oldOrUpcoming;
+		var $container, $tableBody;
+		var h;
 
 		if ( eventTree[year] )
 		{
@@ -561,6 +561,38 @@
 
 							//3. decrement appViewModel.myEventTreeCountBasedOnEventKind value
 							appViewModel.changeEventCountTreeValueBasedOnEventKind( appViewModel.myEventTreeCountBasedOnEventKind, event, -1 );
+							
+							//4. update appViewModel.detailsPageEvents()
+							if ( year == appViewModel.detailsPageDisplayDate.year() && month == appViewModel.detailsPageDisplayDate.month() && day == appViewModel.detailsPageDisplayDate.day() )
+							{
+								$container = $( "#details #detailsEventsAndNotesContainer .details-event-block-container[data-eventid='" + id + "']" );
+								$tableBody = $( "#calendarDayDetailsTable .table-details-body" );
+								$container.fadeOut( 500, function ()
+								{
+									$container.remove();
+
+									//redraw details page event rectangle table
+									appViewModel.removeEventRectanglesFromDetailsDay();
+									dayEvents = appViewModel.detailsPageDayEvents();
+
+									appViewModel.setCalendarPlacementRow( dayEvents );
+									appViewModel.displayPageEventMostBottomRow = 1;
+
+									for ( var i in dayEvents )
+									{
+										appViewModel.drawEventToDetailsDayTable( dayEvents[i] );
+									}
+					
+									h = ( appViewModel.displayPageEventMostBottomRow + 1 ) * 46;
+									$tableBody.height( h + "px" );
+
+									//for calendar to redraw events in day cell
+									appViewModel.calendarDayEventsToUpdate.day = appViewModel.detailsPageDisplayDate.day();
+									appViewModel.calendarDayEventsToUpdate.month = appViewModel.detailsPageDisplayDate.month();
+									appViewModel.calendarDayEventsToUpdate.year = appViewModel.detailsPageDisplayDate.year();
+									appViewModel.calendarDayEventsToUpdate.events = dayEvents;
+								} );		
+							}
 
 							return;
 						}

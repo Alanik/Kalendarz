@@ -17,7 +17,6 @@ namespace KalendarzKarieryData
 
 		//[Required(ErrorMessage = "Pole \"Miasto\" nie może być puste.")]
 		[Display(Name = "Miasto")]
-		[RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Pole \"Miasto\" powinno zawierać same litery.")]
 		public string City { get; set; }
 
 		//[Required(ErrorMessage = "Pole \"Kod Pocztowy\" nie może być puste.")]
@@ -26,7 +25,6 @@ namespace KalendarzKarieryData
 		public string ZipCode { get; set; }
 
 		//[Required(ErrorMessage = "Pole \"Kraj\" nie może być puste.")]
-		[RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Pole \"Kraj\" powinno zawierać same litery.")]
 		[Display(Name = "Kraj")]
 		public string Country { get; set; }
 	}

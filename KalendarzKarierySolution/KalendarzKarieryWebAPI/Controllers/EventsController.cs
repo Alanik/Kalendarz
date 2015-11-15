@@ -83,6 +83,9 @@ namespace KalendarzKarieryWebAPI.Controllers
 			}
 
 			var @event = _repository.GetEventById( addEventViewModel.Event.Id );
+			var year = @event.StartDate.Year;
+			var month = @event.StartDate.Month;
+			var day = @event.StartDate.Day;
 
 			if (@event != null)
 			{
@@ -100,7 +103,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 
 				_repository.UpdateEvent( @event, @event.Address );
 
-				return new AddEventValidationResponseModel { IsSuccess = true, EventId = @event.Id };
+				return new UpdateEventValidationResponseModel { IsSuccess = true, EventId = @event.Id, Year = year, Month = month, Day = day };
 			}
 			else
 			{
@@ -244,8 +247,12 @@ namespace KalendarzKarieryWebAPI.Controllers
 			}
 
 			if (!string.IsNullOrWhiteSpace( viewModel.Address.Street ) || !string.IsNullOrWhiteSpace( viewModel.Address.City ) || !string.IsNullOrWhiteSpace( viewModel.Address.ZipCode ))
-			{	
-				viewModel.Address.Id = @event.Address.Id;
+			{
+				if (@event.AddressId.HasValue)
+				{
+					viewModel.Address.Id = @event.AddressId.Value;
+				}
+
 				@event.Address = viewModel.Address;
 			}
 

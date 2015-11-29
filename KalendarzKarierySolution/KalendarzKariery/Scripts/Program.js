@@ -79,7 +79,7 @@
 
 		//appViewModel.newsEvents = appViewModel.UTILS.eventTreeBuilder.transformNews( indexViewModel.News );
 
-		//if is logged in
+		//if user is logged in
 		if ( indexViewModel.MyEvents )
 		{
 			appViewModel.myEventTree = appViewModel.UTILS.eventTreeBuilder.buildEventTree( indexViewModel.MyEvents, false );
@@ -102,7 +102,6 @@
 			/////////////////////////////////////////////////////////////////////////
 			var yearProp = appViewModel.myEventTree[appViewModel.calendarPageDisplayDate.year()];
 			var events, month, nextMonth, prevMonth, event, calendarPageMonth = appViewModel.calendarPageDisplayDate.month();
-
 
 			//TODO: what about december of previous year and january of next year? are events drawn properly for those cases?
 			if ( yearProp )
@@ -155,7 +154,7 @@
 		//////////////////////////////////////////////////////////////////
 		//initialize details page
 		//////////////////////////////////////////////////////////////////
-		appViewModel.displayPageEventMostBottomRow = 1;
+		appViewModel.detailsPageEventMostBottomRow = 1;
 		appViewModel.detailsPageDisplayDate.year( date.getFullYear() );
 		appViewModel.detailsPageDisplayDate.month( date.getMonth() + 1 );
 		appViewModel.detailsPageDisplayDate.day( date.getDate() );
@@ -183,7 +182,7 @@
 		}
 
 		var $tableBody = $( "#calendarDayDetailsTable .table-details-body" );
-		var h = ( appViewModel.displayPageEventMostBottomRow ) * 46;
+		var h = ( appViewModel.detailsPageEventMostBottomRow ) * 46;
 		h = h + 20;
 		$tableBody.height( h + "px" );
 		///////////////////////////////////////////////////////////////////
@@ -229,7 +228,6 @@
 
 						if ( events && $.isArray( events ) )
 						{
-
 							//setTimeout( function ()
 							//{
 								appViewModel.redrawCalendarCell( events, appViewModel.calendarDayEventsToUpdate.day, appViewModel.calendarDayEventsToUpdate.month, appViewModel.calendarDayEventsToUpdate.year );

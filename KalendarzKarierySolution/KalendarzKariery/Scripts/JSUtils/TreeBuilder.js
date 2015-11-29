@@ -9,6 +9,7 @@
 		var eventTree = {}, groups;
 		var dayGroup, day, dayGroupLength, event, kkEvent, address, minutes, startDate;
 		var year, yearProp, eventTreeYearProp, eventTreeMonthProp, eventTreeDayGroupProp, eventTreeEventsProp;
+		var nowDate = appViewModel.todayDate.javaScriptDate;
 
 		for ( var y = 0; y < yearEventTreeModel.length; y++ )
 		{
@@ -41,14 +42,27 @@
 						minutes = getMinutes( event );
 						startDate = getStartDate( event );
 
-						kkEvent = appViewModel.EVENT_MANAGER.getNewKKEventModel( event.addedBy, address.street, address.city, address.zipCode, event.description, event.details, minutes, event.kind.value, event.kind.name, event.id, event.occupancyLimit, event.privacyLevel.name, event.privacyLevel.value, startDate, event.name, event.urlLink, event.price, event.dateAdded, event.isEventAddedToCurrentUserCalendar, event.isCurrentUserSignedUpForEvent );
+						kkEvent = appViewModel.EVENT_MANAGER.getNewKKEventModel( event.addedBy, address.street, address.city, address.zipCode, event.description, event.details, minutes, event.kind.value, event.kind.name, event.id, event.occupancyLimit, event.privacyLevel.name, event.privacyLevel.value, startDate, event.name, event.urlLink, event.price, event.dateAdded, event.isEventAddedToCurrentUserCalendar, event.isCurrentUserSignedUpForEvent, event.status );
 						
 						eventTreeDayGroupProp.push( kkEvent );
 
-						//push public event to appViewModel.publicEvents
 						if ( isPublicEventTree )
 						{
+							//push public event to appViewModel.publicEvents
 							appViewModel.publicEvents.push( kkEvent );
+
+							//push user's public event to appViewModel.detailsPageJournalMenu.menuItems.publicEvents
+							if ( appViewModel.userName !== ''
+							&& kkEvent.addedBy.toLowerCase() === appViewModel.userName.toLowerCase()
+							&& kkEvent.privacyLevel.value === appViewModel.eventPrivacyLevels["public"] ){
+								
+								if ( kkEvent.startDate.javaScriptEndDate > nowDate )
+								{
+									appViewModel.detailsPageJournalMenu.menuItems.managePublicEvents.selectedEvents.upcomingTemp.push( kkEvent );
+								} else{
+									appViewModel.detailsPageJournalMenu.menuItems.managePublicEvents.selectedEvents.oldTemp.push( kkEvent );
+								}
+							}
 						}
 					}
 

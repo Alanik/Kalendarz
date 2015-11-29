@@ -11,7 +11,7 @@
 
 	self.calendarPlacementRow = 1;
 
-	self.dateAdded = {}; // = new KKDateModel()
+	self.dateAdded = null; // = new KKDateModel()
 
 	self.description = "";
 
@@ -30,7 +30,7 @@
 	self.id = 0;
 
 	self.isCurrentUserSignedUpForEvent = ko.observable(false);
-
+	
 	self.isEventAddedToCurrentUserCalendar = ko.observable(false);
 
 	self.name = ko.observable("");
@@ -48,7 +48,12 @@
 
 	self.signedUpUsersForEvent = [];
 
-	self.startDate = {} // new KKEventDateModel();
+	self.startDate = null; // new KKEventDateModel();
+
+	self.status = {
+		name: "",
+		value: ""
+	}
 
 	self.urlLink = "";
 };

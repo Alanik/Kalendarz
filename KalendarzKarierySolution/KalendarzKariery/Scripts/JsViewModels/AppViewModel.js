@@ -37,6 +37,7 @@
 	self.currentPage = 0;
 
 	self.todayDate = {
+		"javaScriptDate" : date,
 		"day": day,
 		//month starts from 1 to 12
 		"month": month + 1,
@@ -103,30 +104,66 @@
 	self.detailsPageDayEvents = ko.observableArray( [] );
 	self.detailsPageDayNotes = ko.observableArray( [] );
 
-	//TODO: change into event tree with arrays grouped by event kind
-	self.detailsPageSelectedEvents = {
-		"old": ko.observableArray( [] ),
-		"upcoming": ko.observableArray( [] ),
-		"settings": {
-			"showOldEvents": ko.observable( false )
+	self.detailsPageJournalMenu = {
+		"menuItems" : {
+			myCalendar : {
+				"index": 1,
+				//TODO: maybe change into event tree with arrays grouped by event kind
+				"selectedEvents": {
+					old: ko.observableArray( [] ),
+					upcoming : ko.observableArray( [] ),
+					settings : {
+						"showOldEvents" : ko.observable( false )
+					},
+					selectedKindValues : []
+				}
+			},
+			managePublicEvents : {
+				"index": 2,
+				//TODO: maybe change into event tree with arrays grouped by event kind
+				"selectedEvents": {
+					// are filled when building publicEventTree and then those arrays are put into old/upcoming observale array on showSelectedJournalMenuItem
+					oldTemp : [],
+					upcomingTemp: [],
+
+					old: ko.observableArray( [] ),
+					upcoming: ko.observableArray( [] ),
+					settings: {
+						"showOldEvents" : ko.observable( false )
+					},
+					selectedKindValues : []
+				}
+			}
 		},
-		"selectedKindValues": []
+		"selectedMenuItem": ko.observable( 1 ),
+		"isOpen": ko.observable( false )
 	}
 
-	//TODO: change into event tree with arrays grouped by event kind
-	self.lobbyPageSelectedEvents = {
-		"old": ko.observableArray( [] ),
-		"upcoming": ko.observableArray( [] ),
-		"settings": {
-			"showOldEvents": ko.observable( false )
+	self.lobbyPagePublicEventListMenu = {
+		"menuItems": {
+			publicEvents: {
+				"index": 1,
+				//TODO: maybe change into event tree with arrays grouped by event kind
+				"selectedEvents": {
+					//it is filled with public events when building publicEventTree
+					old: ko.observableArray( [] ),
+					upcoming: ko.observableArray( [] ),
+					settings: {
+						"showOldEvents" : ko.observable( false )
+					},
+					selectedKindValues: []
+				}
+			}
 		},
-		"selectedKindValues": []
+		"selectedMenuItem": ko.observable( 1 ),
+		"isOpen": ko.observable( false )
 	}
 
 	self.newsEvents = [];
 
 	//it is filled with public events when building publicEventTree
 	self.publicEvents = ko.observableArray( [] );
+
 	self.publicEventTree = {
 		// example to remember the format of publicEventTree object
 		//	"2014": {
@@ -285,6 +322,7 @@
 		function success( result )
 		{
 			var kkEvent, date = new Date();
+			var status = { name : "Accepted", value : 1 };
 			var isCurrentUserSignedUpForEvent = false, isEventAddedToCurrentUserCalendar = true;
 
 			if ( result.IsSuccess === false )
@@ -294,7 +332,6 @@
 				alert( result.Message );
 			} else
 			{
-
 				kkEvent = self.EVENT_MANAGER.getNewKKEventModel(
 				self.userName,
 				self.observableEvent.address.street(),
@@ -315,7 +352,9 @@
 				self.observableEvent.price(),
 				new KKDateModel( date.getMinutes(), date.getHours(), date.getDate(), date.getMonth() + 1, date.getFullYear() ),
 				isEventAddedToCurrentUserCalendar,
-				isCurrentUserSignedUpForEvent
+				isCurrentUserSignedUpForEvent,
+				//TODO: refactor event status code
+				status
 				);
 
 				var dayEvents = self.EVENT_MANAGER.addEvent( kkEvent );
@@ -458,7 +497,8 @@
 				self.observableEvent.price(),
 				oldEvent.dateAdded,
 				oldEvent.isEventAddedToCurrentUserCalendar(),
-				oldEvent.isCurrentUserSignedUpForEvent()
+				oldEvent.isCurrentUserSignedUpForEvent(),
+				oldEvent.status
 				);
 
 				self.EVENT_MANAGER.removeEvent( result.EventId, result.Year, result.Month, result.Day );
@@ -531,14 +571,17 @@
 		}
 	};
 
-	self.prepareDeleteEventDetailsPageOnDeleteLinkClick = function ( id, year, month, day )
+	self.prepareDeleteEventDetailsPageOnDeleteLinkClick = function ( id, year, month, day, privacyLevelName )
 	{
 		var $popup = $( "#details" ).siblings( ".confirmation-popupbox-container" );
+
+		var selectedKKEventModel = self.EVENT_MANAGER.getEventByDateAndId( id, year, month, day, self.myEventTree );
+
 		var $yesBtn = $popup.find( ".confirmation-popupbox-yesbtn" );
 		$yesBtn.attr( "data-bind", "click: function () { $root.deleteEventDetailsPageOnConfirmationYesBtnClick($element, " + id + "," + year + "," + month + "," + day + ")}" );
 
 		self.showConfirmationPopupBox( $popup, "Czy napewno chcesz usunąć wskazane wydarzenie?" );
-
+		
 		ko.unapplyBindings( $yesBtn[0] );
 		ko.applyBindings( self, $yesBtn[0] );
 	};
@@ -586,6 +629,8 @@
 
 				$container.fadeOut( 500, function ()
 				{
+					var $calendarDayDetailsTable = $( "#details #calendarDayDetailsTable" );
+
 					$container.remove();
 
 					self.EVENT_MANAGER.removeEvent( id, year, month, day );
@@ -595,16 +640,14 @@
 					events = self.detailsPageDayEvents();
 
 					self.setCalendarPlacementRow( events );
-					self.displayPageEventMostBottomRow = 1;
+					self.detailsPageEventMostBottomRow = 1;
 
 					for ( var i in events )
 					{
 						self.drawEventToDetailsDayTable( events[i] );
 					}
-					var $calendarDayDetailsTable = $( "#details #calendarDayDetailsTable" );
-					$tableBody = $calendarDayDetailsTable.find( ".table-details-body" );
-					h = ( self.displayPageEventMostBottomRow + 1 ) * 46;
-					$tableBody.height( h + "px" );
+
+					self.resizeCalendarDayDetailsTable( self.detailsPageEventMostBottomRow );
 
 					offset = $calendarDayDetailsTable.position().top - 83;
 					$calendarDayDetailsTable.scrollTo( 500, offset );
@@ -622,7 +665,6 @@
 		{
 			alert( "Wystąpił nieoczekiwany błąd. Prosze spróbować jeszcze raz." );
 			self.hideLoader( $loader );
-			self.hideConfirmationPopupBox( element );
 		}
 	};
 
@@ -934,14 +976,31 @@
 
 	self.hideConfirmationPopupBox = function ( element )
 	{
-		$btn = $( element );
-		$popup = $btn.closest( ".confirmation-popupbox-container" );
-
-		$yesBtn = $popup.find( ".confirmation-popupbox-yesbtn" );
+		var $btn = $( element );
+		var $popup = $btn.closest( ".confirmation-popupbox-container" );
+		var $yesBtn = $popup.find( ".confirmation-popupbox-yesbtn" );
 		$yesBtn.attr( "data-bind", '' );
+
 		$popup.siblings( ".dotted-page-overlay" ).hide();
 		$popup.hide();
 
+	};
+
+	self.showSelectedJournalMenuItem = function ( menuItemIndex )
+	{
+		if ( menuItemIndex == 2 && self.detailsPageJournalMenu.menuItems.managePublicEvents.selectedEvents.upcoming().length < 1)
+		{
+			var upcomingTempArr = self.detailsPageJournalMenu.menuItems.managePublicEvents.selectedEvents.upcomingTemp;
+			self.detailsPageJournalMenu.menuItems.managePublicEvents.selectedEvents.upcoming( upcomingTempArr );
+		}
+
+		self.detailsPageJournalMenu.selectedMenuItem( menuItemIndex );
+
+		if ( !self.detailsPageJournalMenu.isOpen() )
+		{
+			self.hideDetailsPageClockContainer()
+			self.detailsPageJournalMenu.isOpen( true );
+		}
 	};
 
 	self.showMoreOptionsInAddNewEventPopupOnClick = function ( element )
@@ -1003,12 +1062,13 @@
 
 	self.showTodayInDetailsPageCalendarDetailsTable = function ()
 	{
+		self.detailsPageEventMostBottomRow = 1;
+
 		self.detailsPageDisplayDate.day( self.todayDate.day );
 		self.detailsPageDisplayDate.month( self.todayDate.month );
 		self.detailsPageDisplayDate.year( self.todayDate.year );
 
 		//Events
-		self.removeEventRectanglesFromDetailsDay();
 		var events = self.EVENT_MANAGER.getEventsForGivenDay( self.todayDate.year, self.todayDate.month, self.todayDate.day )
 		self.detailsPageDayEvents( events );
 
@@ -1016,18 +1076,17 @@
 		var notes = self.NOTE_MANAGER.getNotesForGivenDay( self.todayDate.year, self.todayDate.month, self.todayDate.day )
 		self.detailsPageDayNotes( notes );
 
+		self.removeEventRectanglesFromDetailsDay();
+
 		//Draw to detailsDayTable
 		for ( var i in events )
 		{
 			self.drawEventToDetailsDayTable( events[i] );
 		}
 
+		self.resizeCalendarDayDetailsTable( self.detailsPageEventMostBottomRow );
+
 		var $calendarDayDetailsTable = $( "#details #calendarDayDetailsTable" );
-
-		var $tableBody = $calendarDayDetailsTable.find( ".table-details-body" );
-		var h = ( self.displayPageEventMostBottomRow + 1 ) * 46;
-		$tableBody.height( h + "px" );
-
 		var offset = $calendarDayDetailsTable.position().top - 83;
 
 		$calendarDayDetailsTable.scrollTo( 500, offset );
@@ -1119,12 +1178,12 @@
 
 	self.drawEventToDetailsDayTable = function ( event, onAppInit )
 	{
-		//TODO: inject self.displayPageEventMostBottomRow into the method
+		//TODO: inject self.detailsPageEventMostBottomRow into the method
 
 		//set detailsPageBottomRow to calculate detailsPageEventsTable height based on the most bottom event.calendarPlacementRow 
-		if ( event.calendarPlacementRow > self.displayPageEventMostBottomRow )
+		if ( event.calendarPlacementRow > self.detailsPageEventMostBottomRow )
 		{
-			self.displayPageEventMostBottomRow = event.calendarPlacementRow;
+			self.detailsPageEventMostBottomRow = event.calendarPlacementRow;
 		}
 
 		var startMinuteOffset = event.startDate.startMinute / 60 * 100;
@@ -1146,12 +1205,12 @@
 	self.removeEventRectanglesFromDetailsDay = function ()
 	{
 		$( "#details #calendarDayDetailsTable .event-rectangle-details" ).remove();
-		self.displayPageEventMostBottomRow = 1;
+		self.detailsPageEventMostBottomRow = 1;
 	};
 
 	self.moveToDetailsPageOnCalendarCellClick = function ( element )
 	{
-		self.displayPageEventMostBottomRow = 1;
+		self.detailsPageEventMostBottomRow = 1;
 		var day = $( element ).attr( "dayNumber" );
 		var dayInt = parseInt( day, 10 );
 		self.detailsPageDisplayDate.day( dayInt );
@@ -1201,10 +1260,7 @@
 			self.drawEventToDetailsDayTable( events[i] );
 		}
 
-		var $tableBody = $( "#details #calendarDayDetailsTable .table-details-body" );
-		var h = ( self.displayPageEventMostBottomRow ) * 46;
-		h = h + 20;
-		$tableBody.height( h + "px" );
+		self.resizeCalendarDayDetailsTable( self.detailsPageEventMostBottomRow )
 
 		var $scrollable = $( "#slide-item-details" ).parent();
 
@@ -1218,6 +1274,13 @@
 
 		}, 10 )
 	};
+
+	self.resizeCalendarDayDetailsTable = function ( detailsPageEventMostBottomRow )
+	{
+		var $tableBody = $( "#details #calendarDayDetailsTable .table-details-body" );
+		var h = ( detailsPageEventMostBottomRow * 46 ) + 20;
+		$tableBody.height( h + "px" );
+	}
 
 	self.addPublicEventToMyCalendarOnClick = function ( element, id, year, month, day )
 	{
@@ -1348,6 +1411,11 @@
 
 			if ( self.currentPage == 2 )
 			{
+				if ( self.detailsPageJournalMenu.selectedMenuItem() != 1 )
+				{
+					self.detailsPageJournalMenu.selectedMenuItem( 1 );
+				}
+
 				arr = self.EVENT_MANAGER.getFilteredEventsFromEventTree( self.myEventTree, ["kind", "value"], [eventKindValue], "upcoming" );
 				shownEvents = lobbyOrDetailsPageSelectedEvents.upcoming();
 
@@ -1365,9 +1433,8 @@
 				} else
 				{
 					lobbyOrDetailsPageSelectedEvents.upcoming( arr );
-
-					$( "#details #detailsPageAllEventsListContainer" ).show();
 					self.hideDetailsPageClockContainer();
+					self.detailsPageJournalMenu.isOpen( true );
 				}
 
 				if ( lobbyOrDetailsPageSelectedEvents.settings.showOldEvents() )
@@ -1393,7 +1460,7 @@
 				} else
 				{
 					lobbyOrDetailsPageSelectedEvents.upcoming( arr );
-					$( "#lobby #lobbyPageAllEventsListContainer" ).show();
+					self.lobbyPagePublicEventListMenu.isOpen( true );
 				}
 
 				if ( lobbyOrDetailsPageSelectedEvents.settings.showOldEvents() )
@@ -1426,10 +1493,15 @@
 		}
 		function removeSelectedEvents()
 		{
-			var array, array2, $container;
+			var array, array2
 
 			if ( self.currentPage == 2 )
 			{
+				if ( self.detailsPageJournalMenu.selectedMenuItem() != 1 )
+				{
+					self.detailsPageJournalMenu.selectedMenuItem( 1 );
+				}
+
 				array = ko.utils.arrayFilter( lobbyOrDetailsPageSelectedEvents.upcoming(), function ( item )
 				{
 					return item.kind.value != eventKindValue;
@@ -1450,8 +1522,7 @@
 				if ( !$( "#details #detailsPanel .menu-item-container" ).hasClass( "selected" ) )
 				{
 
-					$container = $( "#details #detailsPanel #detailsPageAllEventsListContainer" );
-					$container.hide();
+					self.detailsPageJournalMenu.isOpen( false );
 					lobbyOrDetailsPageSelectedEvents.settings.showOldEvents( false );
 
 					self.showDetailsPageClockContainer();
@@ -1477,8 +1548,7 @@
 
 				if ( !$( "#lobby #lobbyTableOfEventsSection .menu-item-container" ).hasClass( "selected" ) )
 				{
-					$container = $( "#lobby #lobbyPageAllEventsListContainer" );
-					$container.hide();
+					self.lobbyPagePublicEventListMenu.isOpen( false );
 					lobbyOrDetailsPageSelectedEvents.settings.showOldEvents( false );
 				}
 			}
@@ -1487,7 +1557,7 @@
 
 	self.moveToDetailsDayOnEventCalendarIconClick = function ( id, year, month, day )
 	{
-		self.displayPageEventMostBottomRow = 1;
+		self.detailsPageEventMostBottomRow = 1;
 
 		self.detailsPageDisplayDate.day( day );
 		self.detailsPageDisplayDate.year( year );
@@ -1506,10 +1576,7 @@
 			self.drawEventToDetailsDayTable( events[i] );
 		}
 
-		var $tableBody = $( "#details #calendarDayDetailsTable .table-details-body" );
-		var h = ( self.displayPageEventMostBottomRow ) * 46;
-		h = h + 20;
-		$tableBody.height( h + "px" );
+		self.resizeCalendarDayDetailsTable( self.detailsPageEventMostBottomRow );
 
 		var $scrollable = $( "#slide-item-details" ).parent();
 		var speed = 800;
@@ -2174,7 +2241,7 @@
 		switch ( self.currentPage )
 		{
 			case 0:
-				$( "#lobby #lobbyPageAllEventsListContainer" ).hide();
+				self.lobbyPagePublicEventListMenu.isOpen( false );
 
 				$eventsMenuContainer = $( "#lobby .events-menu-container" );
 				$eventsMenuContainer.find( ".menu-item-container" ).each( function ()
@@ -2189,16 +2256,16 @@
 						$menuItemContainer.css( "border-color", "" );
 						$menuItemContainer.css( "border", "2px solid #E4E0D1;" );
 
-						self.lobbyPageSelectedEvents.selectedKindValues = [];
-						self.lobbyPageSelectedEvents.old( [] );
-						self.lobbyPageSelectedEvents.upcoming( [] );
-						self.lobbyPageSelectedEvents.settings.showOldEvents( false );
+						self.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.selectedKindValues = [];
+						self.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.old( [] );
+						self.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.upcoming( [] );
+						self.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.settings.showOldEvents( false );
 					}
 				} );
 
 				break;
 			case 2:
-				$( "#details #detailsPageAllEventsListContainer" ).hide();
+				self.detailsPageJournalMenu.isOpen( false );
 				self.showDetailsPageClockContainer();
 
 				$eventsMenuContainer = $( "#details .events-menu-container" );
@@ -2214,10 +2281,10 @@
 						$menuItemContainer.css( "border-color", "" );
 						$menuItemContainer.css( "border", "2px solid #E4E0D1;" );
 
-						self.detailsPageSelectedEvents.selectedKindValues = [];
-						self.detailsPageSelectedEvents.old( [] );
-						self.detailsPageSelectedEvents.upcoming( [] );
-						self.detailsPageSelectedEvents.settings.showOldEvents( false );
+						self.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.selectedKindValues = [];
+						self.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.old( [] );
+						self.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.upcoming( [] );
+						self.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.settings.showOldEvents( false );
 					}
 				} );
 				break;

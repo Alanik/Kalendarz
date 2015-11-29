@@ -1,18 +1,78 @@
-﻿<div id="detailsPageAllEventsListContainer" class="display-events-overview-container">
+﻿<div id="detailsPageAllEventsListContainer" class="display-events-overview-container" data-bind="visible: $root.detailsPageJournalMenu.isOpen()">
 	<header class="display-events-overview-header">
-		<span>Mój kalendarz</span><div class="close-btn-x hover-cursor-pointer" data-bind="click: $root.closeAllSelectedEventsListContainerOnClick">x</div>
+		<span class="display-events-header-menu-title hover-cursor-pointer" data-bind="click: function () { $root.showSelectedJournalMenuItem( 1 ) }, css: { selected: $root.detailsPageJournalMenu.selectedMenuItem() == 1 }">Mój kalendarz</span>
+		<span class="display-events-header-menu-title hover-cursor-pointer" data-bind="click: function () { $root.showSelectedJournalMenuItem( 2 ) }, css: { selected: $root.detailsPageJournalMenu.selectedMenuItem() == 2 }">Moje publiczne wydarzenia</span>
+		<div class="close-btn-x hover-cursor-pointer" data-bind="click: $root.closeAllSelectedEventsListContainerOnClick">x</div>
 	</header>
 
-	<div class="display-events-overview-body">
+	<div class="display-events-overview-body" data-bind="visible: $root.detailsPageJournalMenu.selectedMenuItem() == 1">
 		<div style="padding: 10px;">
-			<div class="hover-cursor-pointer" style="color: rgb(147, 139, 114); width: 240px;" data-bind="click: function () { $root.toggleShowOldEventsOnCheckboxClick( $element, $root.detailsPageSelectedEvents ) }">
+			<div class="hover-cursor-pointer" style="color: rgb(147, 139, 114); width: 240px;" data-bind="click: function () { $root.toggleShowOldEventsOnCheckboxClick( $element, $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents ) }">
 				<div class="show-old-events-checkbox">
-					<span data-bind="visible: $root.detailsPageSelectedEvents.settings.showOldEvents">✓</span>
+					<span data-bind="visible: $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.settings.showOldEvents">✓</span>
 				</div>
-				<span style="padding: 4px;">Pokaż stare wpisy</span>
+				<span style="padding: 4px;">Pokaż stare wydarzenia</span>
 			</div>
 		</div>
-		<div data-bind="foreach: $root.detailsPageSelectedEvents.old" style="padding-left: 100px;">
+		<div data-bind="foreach: $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.old" style="padding-left: 100px;">
+			<!-- ko if: $index() == 0 -->
+			<div class="legend-oldorupcoming">
+				stare
+			</div>
+			<!-- /ko -->
+
+			<div class="display-events-overview-item">
+				<div data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
+					<div class="list-item-star" data-bind="if: privacyLevel.value === $root.eventPrivacyLevels['public']">
+						<img src="~/Images/Icons/star.png" alt="public event star" />
+					</div>
+					<div class="list-item-title" data-bind="text: name"></div>
+					<div class="list-item-other" data-bind="text: startDate.displayFullDate()"></div>
+					<div class="list-item-other" data-bind="text: startDate.displayFullTime()"></div>
+					<div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
+				</div>
+				<div style="display: none;" class="event-block-container" data-bind="attr: { 'data-eventid': id }">
+					<div class="event-block">
+						@Html.Partial( "_LobbyEventInfo" )
+					</div>
+				</div>
+			</div>
+		</div>
+		<div data-bind="foreach: $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.upcoming" style="padding-left: 100px;">
+			<!-- ko if: $index() == 0 -->
+			<div class="legend-oldorupcoming">
+				nadchodzące
+			</div>
+			<!-- /ko -->
+
+			<div class="display-events-overview-item">
+				<div data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
+					<div class="list-item-star" data-bind="if: privacyLevel.value === $root.eventPrivacyLevels['public']">
+						<img src="~/Images/Icons/star.png" alt="public event star" />
+					</div>
+					<div class="list-item-title" data-bind="text: name"></div>
+					<div class="list-item-other" data-bind="text: startDate.displayFullDate()"></div>
+					<div class="list-item-other" data-bind="text: startDate.displayFullTime()"></div>
+					<div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
+				</div>
+				<div style="display: none;" class="event-block-container" data-bind="attr: { 'data-eventid': id }">
+					<div class="event-block">
+						@Html.Partial( "_LobbyEventInfo" )
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="display-events-overview-body" data-bind="visible: $root.detailsPageJournalMenu.selectedMenuItem() == 2">
+		<div style="padding: 10px;">
+			<div class="hover-cursor-pointer" style="color: rgb(147, 139, 114); width: 240px;" data-bind="click: function () { $root.toggleShowOldEventsOnCheckboxClick( $element, $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents ) }">
+				<div class="show-old-events-checkbox">
+					<span data-bind="visible: $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.settings.showOldEvents">✓</span>
+				</div>
+				<span style="padding: 4px;">Pokaż stare wydarzenia</span>
+			</div>
+		</div>
+		<div data-bind="foreach: $root.detailsPageJournalMenu.menuItems.managePublicEvents.selectedEvents.old" style="padding-left: 100px;">
 			<!-- ko if: $index() == 0 -->
 			<div class="legend-oldorupcoming">
 				stare
@@ -36,7 +96,7 @@
 				</div>
 			</div>
 		</div>
-		<div data-bind="foreach: $root.detailsPageSelectedEvents.upcoming" style="padding-left: 100px;">
+		<div data-bind="foreach: $root.detailsPageJournalMenu.menuItems.managePublicEvents.selectedEvents.upcoming" style="padding-left: 100px;">
 			<!-- ko if: $index() == 0 -->
 			<div class="legend-oldorupcoming">
 				nadchodzące
@@ -61,4 +121,5 @@
 			</div>
 		</div>
 	</div>
+
 </div>

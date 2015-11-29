@@ -27,6 +27,7 @@ namespace KalendarzKarieryData.Models.DataTransferModels.Events
 		public object address { get; set; }
 		public bool isEventAddedToCurrentUserCalendar { get; set; }
 		public bool isCurrentUserSignedUpForEvent { get; set; }
+		public object status { get; set; }
 
 		public JsonEventModel( Event m, int? userId )
 		{
@@ -47,6 +48,7 @@ namespace KalendarzKarieryData.Models.DataTransferModels.Events
 			address = m.Address != null ? new { street = m.Address.Street, city = m.Address.City, zipCode = m.Address.ZipCode } : new { street = "", city = "", zipCode = "" };
 			isEventAddedToCurrentUserCalendar = userId.HasValue && ( m.OwnerUserId == userId || m.CalendarUsers.Any(n => n.Id == userId)) ? true : false;
 			isCurrentUserSignedUpForEvent = userId.HasValue && ( m.SignedUpUsers.Any(n => n.Id == userId)) ? true : false;
+			status = new { name = "Accepted", value = 1 };
 		}
 	}
 }

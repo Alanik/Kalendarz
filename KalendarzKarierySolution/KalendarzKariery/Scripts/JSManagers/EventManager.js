@@ -78,7 +78,7 @@
 		ev.urlLink( "" );
 	};
 
-	self.getNewKKEventModel = function ( addedBy, street, city, zipCode, description, details, minutes, kindValue, kindName, eventId, occupancyLimit, privacyLevelName, privacyLevelValue, startDate, name, urlLink, price, dateAdded, isEventAddedToCurrentUserCalendar, isCurrentUserSignedUpForEvent )
+	self.getNewKKEventModel = function ( addedBy, street, city, zipCode, description, details, minutes, kindValue, kindName, eventId, occupancyLimit, privacyLevelName, privacyLevelValue, startDate, name, urlLink, price, dateAdded, isEventAddedToCurrentUserCalendar, isCurrentUserSignedUpForEvent, eventStatus )
 	{
 		var colorHelper = appViewModel.UTILS.colorHelper;
 
@@ -114,8 +114,9 @@
 		kkEventModel.name = name;
 		kkEventModel.urlLink = urlLink;
 		kkEventModel.price = price;
-		kkEventModel.isEventAddedToCurrentUserCalendar = ko.observable(isEventAddedToCurrentUserCalendar);
-		kkEventModel.isCurrentUserSignedUpForEvent = ko.observable(isCurrentUserSignedUpForEvent);
+		kkEventModel.isEventAddedToCurrentUserCalendar = ko.observable( isEventAddedToCurrentUserCalendar );
+		kkEventModel.isCurrentUserSignedUpForEvent = ko.observable( isCurrentUserSignedUpForEvent );
+		kkEventModel.status = eventStatus;
 
 		return kkEventModel;
 	}
@@ -228,7 +229,7 @@
 							continue;
 						}
 
-						isCurrentMonth = ( parsedMonth == ( date.getMonth() + 1) );
+						isCurrentMonth = ( parsedMonth == ( date.getMonth() + 1 ) );
 						monthNode = yearNode[month];
 
 						for ( day in monthNode )
@@ -411,31 +412,28 @@
 
 			appViewModel.removeEventRectanglesFromDetailsDay();
 			appViewModel.setCalendarPlacementRow( dayEventsArr );
-			appViewModel.displayPageEventMostBottomRow = 1;
+			appViewModel.detailsPageEventMostBottomRow = 1;
 
 			for ( var i in dayEventsArr )
 			{
 				appViewModel.drawEventToDetailsDayTable( dayEventsArr[i] );
 			}
 
-			var $tableBody = $( "#details #calendarDayDetailsTable .table-details-body" );
-			var h = ( appViewModel.displayPageEventMostBottomRow ) * 46;
-			h = h + 20;
-			$tableBody.height( h + "px" );
+			appViewModel.resizeCalendarDayDetailsTable( appViewModel.detailsPageEventMostBottomRow );
 		}
 
-		//3. add event to appViewModel.detailsPageSelectedEvents
-		if ( appViewModel.detailsPageSelectedEvents.selectedKindValues.length > 0 )
+		//3. add event to appViewModel.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents
+		if ( appViewModel.detailsPageJournalMenu.isOpen() && appViewModel.detailsPageJournalMenu.selectedMenuItem() == 1 && $.inArray( newKKEvent.kind.value , appViewModel.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.selectedKindValues ) > -1 )
 		{
 			today = new Date();
 			endDate = new Date( newKKEvent.startDate.year, newKKEvent.startDate.month - 1, newKKEvent.startDate.day, newKKEvent.startDate.endHour, newKKEvent.startDate.endMinute, 0, 0 );
 
 			if ( today > endDate )
 			{
-				oldOrUpcoming = appViewModel.detailsPageSelectedEvents.old;
+				oldOrUpcoming = appViewModel.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.old;
 			} else
 			{
-				oldOrUpcoming = appViewModel.detailsPageSelectedEvents.upcoming;
+				oldOrUpcoming = appViewModel.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.upcoming;
 			}
 
 			oldOrUpcoming.push( newKKEvent );
@@ -447,7 +445,7 @@
 		/////////////////////////////////
 		// Public events
 		/////////////////////////////////
-		if ( newKKEvent.privacyLevel.value == appViewModel.eventPrivacyLevels["public"] )
+		if ( newKKEvent.privacyLevel.value === appViewModel.eventPrivacyLevels["public"] )
 		{
 			//1. add event to public event tree
 			eventTreeYearProp = appViewModel.publicEventTree[year] ? appViewModel.publicEventTree[year] : appViewModel.publicEventTree[year] = {};
@@ -481,18 +479,34 @@
 			//2. add event to publicEvents observable array
 			appViewModel.publicEvents.push( newKKEvent );
 
-			//3. add event to appViewModel.detailsPageSelectedEvents
-			if ( appViewModel.lobbyPageSelectedEvents.selectedKindValues.length > 0 )
+			//3. add event to menuItems.selectedEvents
+			if ( appViewModel.lobbyPagePublicEventListMenu.isOpen() )
 			{
 				today = new Date();
 				endDate = new Date( newKKEvent.startDate.year, newKKEvent.startDate.month - 1, newKKEvent.startDate.day, newKKEvent.startDate.endHour, newKKEvent.startDate.endMinute, 0, 0 );
 
 				if ( today > endDate )
 				{
-					oldOrUpcoming = appViewModel.lobbyPageSelectedEvents.old;
+					oldOrUpcoming = appViewModel.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.old;
 				} else
 				{
-					oldOrUpcoming = appViewModel.lobbyPageSelectedEvents.upcoming;
+					oldOrUpcoming = appViewModel.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.upcoming;
+				}
+					
+				oldOrUpcoming.push( newKKEvent );
+			}
+
+			if ( appViewModel.detailsPageJournalMenu.isOpen() && appViewModel.detailsPageJournalMenu.selectedMenuItem() === 2 )
+			{
+				today = new Date();
+				endDate = new Date( newKKEvent.startDate.year, newKKEvent.startDate.month - 1, newKKEvent.startDate.day, newKKEvent.startDate.endHour, newKKEvent.startDate.endMinute, 0, 0 );
+
+				if ( today > endDate )
+				{
+					oldOrUpcoming = appViewModel.detailsPageJournalMenu.menuItems.managePublicEvents.selectedEvents.old;
+				} else
+				{
+					oldOrUpcoming = appViewModel.detailsPageJournalMenu.menuItems.managePublicEvents.selectedEvents.upcoming;
 				}
 
 				oldOrUpcoming.push( newKKEvent );
@@ -500,7 +514,6 @@
 
 			//4. increment appViewModel.myEventTreeCountBasedOnEventKind value
 			appViewModel.changeEventCountTreeValueBasedOnEventKind( appViewModel.publicEventTreeCountBasedOnEventKind, newKKEvent, 1 );
-
 		}
 
 		return dayEventsArr;
@@ -511,8 +524,7 @@
 		var eventTree = appViewModel.myEventTree;
 		var eventTreeYearProp, eventTreeMonthProp, dayEvents, event;
 		var today, endDate, oldOrUpcoming;
-		var $container, $tableBody;
-		var h;
+		var $container, h;
 
 		if ( eventTree[year] )
 		{
@@ -539,18 +551,18 @@
 								delete eventTreeMonthProp[day];
 							}
 
-							//2. if selected events window is open and the deleted event is displayed on the list then remove it from detailsPageSelectedEvents{}
-							if ( appViewModel.detailsPageSelectedEvents.selectedKindValues.length > 0 )
+							//2. if selected events window is open and the deleted event is displayed on the list then remove it from  menuItems.myCalendar.selectedEvents
+							if ( appViewModel.detailsPageJournalMenu.isOpen() && appViewModel.detailsPageJournalMenu.selectedMenuItem() === 1 )
 							{
 								today = new Date();
 								endDate = new Date( event.startDate.year, event.startDate.month - 1, event.startDate.day, event.startDate.endHour, event.startDate.endMinute, 0, 0 );
 
 								if ( today > endDate )
 								{
-									oldOrUpcoming = appViewModel.detailsPageSelectedEvents.old;
+									oldOrUpcoming = appViewModel.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.old;
 								} else
 								{
-									oldOrUpcoming = appViewModel.detailsPageSelectedEvents.upcoming;
+									oldOrUpcoming = appViewModel.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.upcoming;
 								}
 
 								oldOrUpcoming.remove( function ( event )
@@ -561,12 +573,11 @@
 
 							//3. decrement appViewModel.myEventTreeCountBasedOnEventKind value
 							appViewModel.changeEventCountTreeValueBasedOnEventKind( appViewModel.myEventTreeCountBasedOnEventKind, event, -1 );
-							
+
 							//4. update appViewModel.detailsPageEvents()
 							if ( year == appViewModel.detailsPageDisplayDate.year() && month == appViewModel.detailsPageDisplayDate.month() && day == appViewModel.detailsPageDisplayDate.day() )
 							{
 								$container = $( "#details #detailsEventsAndNotesContainer .details-event-block-container[data-eventid='" + id + "']" );
-								$tableBody = $( "#calendarDayDetailsTable .table-details-body" );
 								$container.fadeOut( 500, function ()
 								{
 									$container.remove();
@@ -576,22 +587,21 @@
 									dayEvents = appViewModel.detailsPageDayEvents();
 
 									appViewModel.setCalendarPlacementRow( dayEvents );
-									appViewModel.displayPageEventMostBottomRow = 1;
+									appViewModel.detailsPageEventMostBottomRow = 1;
 
 									for ( var i in dayEvents )
 									{
 										appViewModel.drawEventToDetailsDayTable( dayEvents[i] );
 									}
-					
-									h = ( appViewModel.displayPageEventMostBottomRow + 1 ) * 46;
-									$tableBody.height( h + "px" );
+
+									appViewModel.resizeCalendarDayDetailsTable( appViewModel.detailsPageEventMostBottomRow );
 
 									//for calendar to redraw events in day cell
 									appViewModel.calendarDayEventsToUpdate.day = appViewModel.detailsPageDisplayDate.day();
 									appViewModel.calendarDayEventsToUpdate.month = appViewModel.detailsPageDisplayDate.month();
 									appViewModel.calendarDayEventsToUpdate.year = appViewModel.detailsPageDisplayDate.year();
 									appViewModel.calendarDayEventsToUpdate.events = dayEvents;
-								} );		
+								} );
 							}
 
 							return;
@@ -600,7 +610,6 @@
 				}
 			}
 		}
-
 	};
 
 }

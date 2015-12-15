@@ -102,7 +102,7 @@
 		kkEventModel.details = details;
 		kkEventModel.eventLengthInMinutes = minutes;
 		kkEventModel.kind.value = kindValue;
-		kkEventModel.kind.name = kindName;
+		kkEventModel.kind.name = kindName.toUpperCase();
 		kkEventModel.kind.color = colorHelper.getEventColor( privacyLevelValue, kkEventModel.kind.value );
 		kkEventModel.kind.headerColor = colorHelper.getEventBoxHeaderColor( kkEventModel.kind.value );
 		kkEventModel.kind.detailsPageEventBorderColor = colorHelper.getEventDetailsBorderColor( kkEventModel.kind.value );

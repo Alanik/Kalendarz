@@ -112,11 +112,10 @@
 				"selectedEvents": {
 					old: ko.observableArray( [] ),
 					upcoming : ko.observableArray( [] ),
-					settings : {
-						"showOldEvents" : ko.observable( false )
-					},
 					selectedKindValues : []
-				}
+				},
+				"showOld" : ko.observable(false),
+				"showUpcoming" : ko.observable(true)
 			},
 			managePublicEvents : {
 				"index": 2,
@@ -128,11 +127,10 @@
 
 					old: ko.observableArray( [] ),
 					upcoming: ko.observableArray( [] ),
-					settings: {
-						"showOldEvents" : ko.observable( false )
-					},
 					selectedKindValues : []
-				}
+				},
+				"showOld": ko.observable( false ),
+				"showUpcoming": ko.observable( true )
 			}
 		},
 		"selectedMenuItem": ko.observable( 1 ),
@@ -148,9 +146,6 @@
 					//it is filled with public events when building publicEventTree
 					old: ko.observableArray( [] ),
 					upcoming: ko.observableArray( [] ),
-					settings: {
-						"showOldEvents" : ko.observable( false )
-					},
 					selectedKindValues: []
 				}
 			}
@@ -1034,32 +1029,6 @@
 		$eventBlockContainer.scrollTo( 500 );
 	};
 
-	self.toggleShowOldEventsOnCheckboxClick = function ( element, lobbyOrDetailsPageSelectedEvents )
-	{
-		var $chkbox = $( element ).find( ".show-old-events-checkbox" );
-		var eventsArr;
-
-		if ( lobbyOrDetailsPageSelectedEvents.settings.showOldEvents() )
-		{
-			lobbyOrDetailsPageSelectedEvents.settings.showOldEvents( false );
-			lobbyOrDetailsPageSelectedEvents.old( [] );
-		}
-		else
-		{
-			lobbyOrDetailsPageSelectedEvents.settings.showOldEvents( true );
-
-			if ( self.currentPage == 2 )
-			{
-				eventsArr = self.EVENT_MANAGER.getFilteredEventsFromEventTree( self.myEventTree, ["kind", "value"], lobbyOrDetailsPageSelectedEvents.selectedKindValues, "old" );
-			} else
-			{
-				eventsArr = self.EVENT_MANAGER.getFilteredEventsFromEventTree( self.publicEventTree, ["kind", "value"], lobbyOrDetailsPageSelectedEvents.selectedKindValues, "old" );
-			}
-
-			lobbyOrDetailsPageSelectedEvents.old( eventsArr );
-		}
-	};
-
 	self.showTodayInDetailsPageCalendarDetailsTable = function ()
 	{
 		self.detailsPageEventMostBottomRow = 1;
@@ -1437,10 +1406,10 @@
 					self.detailsPageJournalMenu.isOpen( true );
 				}
 
-				if ( lobbyOrDetailsPageSelectedEvents.settings.showOldEvents() )
-				{
-					showOldEvents( self.myEventTree );
-				}
+				//if ( lobbyOrDetailsPageSelectedEvents.settings.showOldEvents() )
+				//{
+				//	showOldEvents( self.myEventTree );
+				//}
 			} else
 			{
 				arr = self.EVENT_MANAGER.getFilteredEventsFromEventTree( self.publicEventTree, ["kind", "value"], [eventKindValue], "upcoming" );
@@ -1463,10 +1432,10 @@
 					self.lobbyPagePublicEventListMenu.isOpen( true );
 				}
 
-				if ( lobbyOrDetailsPageSelectedEvents.settings.showOldEvents() )
-				{
-					showOldEvents( self.publicEventTree )
-				}
+				//if ( lobbyOrDetailsPageSelectedEvents.settings.showOldEvents() )
+				//{
+				//	showOldEvents( self.publicEventTree )
+				//}
 			}
 
 			function showOldEvents( eventTree )
@@ -1509,21 +1478,21 @@
 
 				lobbyOrDetailsPageSelectedEvents.upcoming( array );
 
-				if ( lobbyOrDetailsPageSelectedEvents.settings.showOldEvents() )
-				{
-					array2 = ko.utils.arrayFilter( lobbyOrDetailsPageSelectedEvents.old(), function ( item )
-					{
-						return item.kind.value != eventKindValue;
-					} );
+				//if ( lobbyOrDetailsPageSelectedEvents.settings.showOldEvents() )
+				//{
+				//	array2 = ko.utils.arrayFilter( lobbyOrDetailsPageSelectedEvents.old(), function ( item )
+				//	{
+				//		return item.kind.value != eventKindValue;
+				//	} );
 
-					lobbyOrDetailsPageSelectedEvents.old( array2 );
-				}
+				//	lobbyOrDetailsPageSelectedEvents.old( array2 );
+				//}
 
 				if ( !$( "#details #detailsPanel .menu-item-container" ).hasClass( "selected" ) )
 				{
 
 					self.detailsPageJournalMenu.isOpen( false );
-					lobbyOrDetailsPageSelectedEvents.settings.showOldEvents( false );
+					//lobbyOrDetailsPageSelectedEvents.settings.showOldEvents( false );
 
 					self.showDetailsPageClockContainer();
 				}
@@ -1536,20 +1505,20 @@
 
 				lobbyOrDetailsPageSelectedEvents.upcoming( array );
 
-				if ( lobbyOrDetailsPageSelectedEvents.settings.showOldEvents() )
-				{
-					array2 = ko.utils.arrayFilter( lobbyOrDetailsPageSelectedEvents.old(), function ( item )
-					{
-						return item.kind.value != eventKindValue;
-					} );
+				//if ( lobbyOrDetailsPageSelectedEvents.settings.showOldEvents() )
+				//{
+				//	array2 = ko.utils.arrayFilter( lobbyOrDetailsPageSelectedEvents.old(), function ( item )
+				//	{
+				//		return item.kind.value != eventKindValue;
+				//	} );
 
-					lobbyOrDetailsPageSelectedEvents.old( array2 );
-				}
+				//	lobbyOrDetailsPageSelectedEvents.old( array2 );
+				//}
 
 				if ( !$( "#lobby #lobbyTableOfEventsSection .menu-item-container" ).hasClass( "selected" ) )
 				{
 					self.lobbyPagePublicEventListMenu.isOpen( false );
-					lobbyOrDetailsPageSelectedEvents.settings.showOldEvents( false );
+					//lobbyOrDetailsPageSelectedEvents.settings.showOldEvents( false );
 				}
 			}
 		}
@@ -2259,7 +2228,7 @@
 						self.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.selectedKindValues = [];
 						self.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.old( [] );
 						self.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.upcoming( [] );
-						self.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.settings.showOldEvents( false );
+						//self.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.settings.showOldEvents( false );
 					}
 				} );
 
@@ -2284,7 +2253,7 @@
 						self.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.selectedKindValues = [];
 						self.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.old( [] );
 						self.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.upcoming( [] );
-						self.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.settings.showOldEvents( false );
+						//self.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.settings.showOldEvents( false );
 					}
 				} );
 				break;

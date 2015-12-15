@@ -5,12 +5,7 @@
 	</header>
 	<div class="display-events-overview-body">
 		<div style="padding: 10px;">
-			<div class="hover-cursor-pointer" style="color: rgb(147, 139, 114); width: 240px;" data-bind="click: function () { $root.toggleShowOldEventsOnCheckboxClick( $element, $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents ) }">
-				<div class="show-old-events-checkbox">
-					<span data-bind="visible: $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.settings.showOldEvents">✓</span>
-				</div>
-				<span style="padding: 4px;">Pokaż stare wydarzenia</span>
-			</div>
+			
 		</div>
 		<div data-bind="foreach: $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.old" style="padding-left: 100px;">
 			<!-- ko if: $index() == 0 -->

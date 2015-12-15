@@ -376,14 +376,14 @@ header, footer, nav, section, div {
 .lobby-event-kind-tag {
 	float: left;
 	padding: 10px;
-	background: #B8A889;
+	background: #A29C8F;
 	border-left: 2px solid #9D9784;
 }
 
 .event-kind-tag {
 	display: inline-block;
 	padding: 5px;
-	background: #B8A889;
+	background: #A29C8F;
 	width: 100px;
 	line-height: 1.5;
 	text-align: center;
@@ -1837,7 +1837,7 @@ legend {
 		max-height: 60%;
 		float: right;
 		text-align: right;
-		color: rgb(84, 77, 61);
+		color: rgb(121, 119, 110);
 		font-size: 1.4em;
 		line-height: 1;
 		top: 4px;
@@ -1943,13 +1943,8 @@ legend {
 }
 
 .details-event-block-info-time {
-	padding: 6px;
-	font-size: 2em;
-	color: white;
-	position: relative;
-	right: 22px;
-	display: inline-block;
-	background: #979486;
+	font-size: 2.2em;
+	color:rgb(121, 119, 110);
 }
 
 .event-block-info-date {
@@ -1985,8 +1980,6 @@ legend {
 .details-event-block-info-date {
 	font-size: 1.4em;
 	color: #8E8A75;
-	display: inline-block;
-	margin-left: -20px;
 }
 
 .details-event-block-info-price {

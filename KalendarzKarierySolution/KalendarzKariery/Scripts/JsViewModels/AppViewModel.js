@@ -37,7 +37,7 @@
 	self.currentPage = 0;
 
 	self.todayDate = {
-		"javaScriptDate" : date,
+		"javaScriptDate": date,
 		"day": day,
 		//month starts from 1 to 12
 		"month": month + 1,
@@ -77,7 +77,7 @@
 		},
 		"getDayName": function ()
 		{
-			var weekday = new Date( this.year(), this.month() - 1, this.day()).getDay();
+			var weekday = new Date( this.year(), this.month() - 1, this.day() ).getDay();
 			return weekday == 0 ? self.dayNames[6] : self.dayNames[weekday - 1];
 		}
 	};
@@ -105,29 +105,29 @@
 	self.detailsPageDayNotes = ko.observableArray( [] );
 
 	self.detailsPageJournalMenu = {
-		"menuItems" : {
-			myCalendar : {
+		"menuItems": {
+			myCalendar: {
 				"index": 1,
 				//TODO: maybe change into event tree with arrays grouped by event kind
 				"selectedEvents": {
 					old: ko.observableArray( [] ),
-					upcoming : ko.observableArray( [] ),
-					selectedKindValues : []
+					upcoming: ko.observableArray( [] ),
+					selectedKindValues: []
 				},
-				"showOld" : ko.observable(false),
-				"showUpcoming" : ko.observable(true)
+				"showOld": ko.observable( false ),
+				"showUpcoming": ko.observable( true )
 			},
-			managePublicEvents : {
+			managePublicEvents: {
 				"index": 2,
 				//TODO: maybe change into event tree with arrays grouped by event kind
 				"selectedEvents": {
 					// are filled when building publicEventTree and then those arrays are put into old/upcoming observale array on showSelectedJournalMenuItem
-					oldTemp : [],
+					oldTemp: [],
 					upcomingTemp: [],
 
 					old: ko.observableArray( [] ),
 					upcoming: ko.observableArray( [] ),
-					selectedKindValues : []
+					selectedKindValues: []
 				},
 				"showOld": ko.observable( false ),
 				"showUpcoming": ko.observable( true )
@@ -147,7 +147,9 @@
 					old: ko.observableArray( [] ),
 					upcoming: ko.observableArray( [] ),
 					selectedKindValues: []
-				}
+				},
+				"showOld": ko.observable( false ),
+				"showUpcoming": ko.observable( true )
 			}
 		},
 		"selectedMenuItem": ko.observable( 1 ),
@@ -317,7 +319,7 @@
 		function success( result )
 		{
 			var kkEvent, date = new Date();
-			var status = { name : "Accepted", value : 1 };
+			var status = { name: "Accepted", value: 1 };
 			var isCurrentUserSignedUpForEvent = false, isEventAddedToCurrentUserCalendar = true;
 
 			if ( result.IsSuccess === false )
@@ -576,7 +578,7 @@
 		$yesBtn.attr( "data-bind", "click: function () { $root.deleteEventDetailsPageOnConfirmationYesBtnClick($element, " + id + "," + year + "," + month + "," + day + ")}" );
 
 		self.showConfirmationPopupBox( $popup, "Czy napewno chcesz usunąć wskazane wydarzenie?" );
-		
+
 		ko.unapplyBindings( $yesBtn[0] );
 		ko.applyBindings( self, $yesBtn[0] );
 	};
@@ -981,9 +983,9 @@
 
 	};
 
-	self.showSelectedJournalMenuItem = function ( menuItemIndex )
+	self.showSelectedJournalMenuItem = function ( element, menuItemIndex )
 	{
-		if ( menuItemIndex == 2 && self.detailsPageJournalMenu.menuItems.managePublicEvents.selectedEvents.upcoming().length < 1)
+		if ( menuItemIndex == 2 && self.detailsPageJournalMenu.menuItems.managePublicEvents.selectedEvents.upcoming().length < 1 )
 		{
 			var upcomingTempArr = self.detailsPageJournalMenu.menuItems.managePublicEvents.selectedEvents.upcomingTemp;
 			self.detailsPageJournalMenu.menuItems.managePublicEvents.selectedEvents.upcoming( upcomingTempArr );
@@ -1360,7 +1362,7 @@
 			$menuItemContainer.css( "border-bottom", "2px solid gray" );
 
 			lobbyOrDetailsPageSelectedEvents.selectedKindValues.push( eventKindValue );
-			showSelectedEvents();
+			self.showSelectedEvents( lobbyOrDetailsPageSelectedEvents, 'all', eventKindValue );
 
 		} else
 		{
@@ -1369,160 +1371,190 @@
 
 			filteredArray = lobbyOrDetailsPageSelectedEvents.selectedKindValues.filter( function ( e ) { return e !== eventKindValue } )
 			lobbyOrDetailsPageSelectedEvents.selectedKindValues = filteredArray;
-			removeSelectedEvents();
+			self.removeSelectedEvents( lobbyOrDetailsPageSelectedEvents, eventKindValue );
 		}
 
 		$menuItemContainer.scrollTo( 500 );
-
-		function showSelectedEvents()
-		{
-			var combinedArray = [], combinedArray2 = [], arr, arr2, shownEvents;
-
-			if ( self.currentPage == 2 )
-			{
-				if ( self.detailsPageJournalMenu.selectedMenuItem() != 1 )
-				{
-					self.detailsPageJournalMenu.selectedMenuItem( 1 );
-				}
-
-				arr = self.EVENT_MANAGER.getFilteredEventsFromEventTree( self.myEventTree, ["kind", "value"], [eventKindValue], "upcoming" );
-				shownEvents = lobbyOrDetailsPageSelectedEvents.upcoming();
-
-				if ( shownEvents.length )
-				{
-					combinedArray = arr.concat( shownEvents );
-
-					//TODO: instead of concating arrays and then sorting, insert each new event at correct index;
-					combinedArray.sort( function ( a, b )
-					{
-						return ( a.startDate.javaScriptStartDate - b.startDate.javaScriptStartDate );
-					} );
-
-					lobbyOrDetailsPageSelectedEvents.upcoming( combinedArray );
-				} else
-				{
-					lobbyOrDetailsPageSelectedEvents.upcoming( arr );
-					self.hideDetailsPageClockContainer();
-					self.detailsPageJournalMenu.isOpen( true );
-				}
-
-				//if ( lobbyOrDetailsPageSelectedEvents.settings.showOldEvents() )
-				//{
-				//	showOldEvents( self.myEventTree );
-				//}
-			} else
-			{
-				arr = self.EVENT_MANAGER.getFilteredEventsFromEventTree( self.publicEventTree, ["kind", "value"], [eventKindValue], "upcoming" );
-				shownEvents = lobbyOrDetailsPageSelectedEvents.upcoming();
-
-				if ( shownEvents.length )
-				{
-					combinedArray = arr.concat( shownEvents );
-
-					//TODO: instead of concating arrays and then sorting, insert each new event at correct index;
-					combinedArray.sort( function ( a, b )
-					{
-						return ( a.startDate.javaScriptStartDate - b.startDate.javaScriptStartDate );
-					} );
-
-					lobbyOrDetailsPageSelectedEvents.upcoming( combinedArray );
-				} else
-				{
-					lobbyOrDetailsPageSelectedEvents.upcoming( arr );
-					self.lobbyPagePublicEventListMenu.isOpen( true );
-				}
-
-				//if ( lobbyOrDetailsPageSelectedEvents.settings.showOldEvents() )
-				//{
-				//	showOldEvents( self.publicEventTree )
-				//}
-			}
-
-			function showOldEvents( eventTree )
-			{
-				arr2 = self.EVENT_MANAGER.getFilteredEventsFromEventTree( eventTree, ["kind", "value"], [eventKindValue], "old" );
-				shownEvents = lobbyOrDetailsPageSelectedEvents.old();
-
-				if ( shownEvents.length )
-				{
-					combinedArray2 = arr2.concat( shownEvents );
-
-					//TODO: instead of concating arrays and then sorting, insert each new event at correct index;
-					combinedArray2.sort( function ( a, b )
-					{
-						return ( a.startDate.javaScriptStartDate - b.startDate.javaScriptStartDate );
-					} );
-
-					lobbyOrDetailsPageSelectedEvents.old( combinedArray2 );
-				} else
-				{
-					lobbyOrDetailsPageSelectedEvents.old( arr2 );
-				}
-			}
-		}
-		function removeSelectedEvents()
-		{
-			var array, array2
-
-			if ( self.currentPage == 2 )
-			{
-				if ( self.detailsPageJournalMenu.selectedMenuItem() != 1 )
-				{
-					self.detailsPageJournalMenu.selectedMenuItem( 1 );
-				}
-
-				array = ko.utils.arrayFilter( lobbyOrDetailsPageSelectedEvents.upcoming(), function ( item )
-				{
-					return item.kind.value != eventKindValue;
-				} );
-
-				lobbyOrDetailsPageSelectedEvents.upcoming( array );
-
-				//if ( lobbyOrDetailsPageSelectedEvents.settings.showOldEvents() )
-				//{
-				//	array2 = ko.utils.arrayFilter( lobbyOrDetailsPageSelectedEvents.old(), function ( item )
-				//	{
-				//		return item.kind.value != eventKindValue;
-				//	} );
-
-				//	lobbyOrDetailsPageSelectedEvents.old( array2 );
-				//}
-
-				if ( !$( "#details #detailsPanel .menu-item-container" ).hasClass( "selected" ) )
-				{
-
-					self.detailsPageJournalMenu.isOpen( false );
-					//lobbyOrDetailsPageSelectedEvents.settings.showOldEvents( false );
-
-					self.showDetailsPageClockContainer();
-				}
-			} else
-			{
-				array = ko.utils.arrayFilter( lobbyOrDetailsPageSelectedEvents.upcoming(), function ( item )
-				{
-					return item.kind.value != eventKindValue;
-				} );
-
-				lobbyOrDetailsPageSelectedEvents.upcoming( array );
-
-				//if ( lobbyOrDetailsPageSelectedEvents.settings.showOldEvents() )
-				//{
-				//	array2 = ko.utils.arrayFilter( lobbyOrDetailsPageSelectedEvents.old(), function ( item )
-				//	{
-				//		return item.kind.value != eventKindValue;
-				//	} );
-
-				//	lobbyOrDetailsPageSelectedEvents.old( array2 );
-				//}
-
-				if ( !$( "#lobby #lobbyTableOfEventsSection .menu-item-container" ).hasClass( "selected" ) )
-				{
-					self.lobbyPagePublicEventListMenu.isOpen( false );
-					//lobbyOrDetailsPageSelectedEvents.settings.showOldEvents( false );
-				}
-			}
-		}
 	};
+
+	self.showSelectedEvents = function ( selectedEventsProp, oldOrUpcoming, eventKindValue )
+	{
+		// details page
+		if ( self.currentPage == 2 )
+		{
+			if ( !self.detailsPageJournalMenu.isOpen() )
+			{
+				self.hideDetailsPageClockContainer();
+				self.detailsPageJournalMenu.isOpen( true );
+			}
+
+			if ( self.detailsPageJournalMenu.selectedMenuItem() != 1 )
+			{
+				self.detailsPageJournalMenu.selectedMenuItem( 1 );
+			}
+
+			//////////////////////////////////////////////////////////
+			//old
+			//////////////////////////////////////////////////////////
+			if ( ( oldOrUpcoming == 'old' || oldOrUpcoming == 'all' ) )
+			{
+				if ( self.detailsPageJournalMenu.menuItems.myCalendar.showOld() )
+				{
+					show( eventKindValue, 'old', selectedEventsProp.old );
+				} else
+				{
+					selectedEventsProp.old( [] );
+				}
+			}
+
+			//////////////////////////////////////////////////////////
+			//upcoming
+			//////////////////////////////////////////////////////////
+			if ( ( oldOrUpcoming == 'upcoming' || oldOrUpcoming == 'all' ) )
+			{
+				if ( self.detailsPageJournalMenu.menuItems.myCalendar.showUpcoming() )
+				{
+					show( eventKindValue, 'upcoming', selectedEventsProp.upcoming );
+				} else
+				{
+					selectedEventsProp.upcoming( [] );
+				}
+			}
+		} else
+		{
+			if ( !self.lobbyPagePublicEventListMenu.isOpen() )
+			{
+				self.lobbyPagePublicEventListMenu.isOpen( true );
+			}
+
+			//////////////////////////////////////////////////////////
+			//old
+			//////////////////////////////////////////////////////////
+			if ( ( oldOrUpcoming == 'old' || oldOrUpcoming == 'all' ) )
+			{
+				if ( self.lobbyPagePublicEventListMenu.menuItems.publicEvents.showOld() )
+				{
+					show( eventKindValue, 'old', selectedEventsProp.old );
+				} else
+				{
+					selectedEventsProp.old( [] );
+				}
+			}
+
+			//////////////////////////////////////////////////////////
+			//upcoming
+			//////////////////////////////////////////////////////////
+			if ( ( oldOrUpcoming == 'upcoming' || oldOrUpcoming == 'all' ) )
+			{
+				if ( self.lobbyPagePublicEventListMenu.menuItems.publicEvents.showUpcoming() )
+				{
+					show( eventKindValue, 'upcoming', selectedEventsProp.upcoming );
+				} else
+				{
+					selectedEventsProp.upcoming( [] );
+				}
+			}
+		}
+
+		function show( eventKindValue, oldOrUpcoming, selectedEventsOldOrUpcoming )
+		{
+			var arr, shownEvents, combinedArray;
+
+			if ( $.isArray( eventKindValue ) )
+			{
+				arr = self.EVENT_MANAGER.getFilteredEventsFromEventTree( self.myEventTree, ["kind", "value"], eventKindValue, oldOrUpcoming );
+			} else
+			{
+				arr = self.EVENT_MANAGER.getFilteredEventsFromEventTree( self.myEventTree, ["kind", "value"], [eventKindValue], oldOrUpcoming );
+			}
+
+			shownEvents = selectedEventsOldOrUpcoming();
+
+			if ( shownEvents.length )
+			{
+				combinedArray = arr.concat( shownEvents );
+
+				//TODO: instead of concating arrays and then sorting, insert each new event at correct index;
+				combinedArray.sort( function ( a, b )
+				{
+					return ( a.startDate.javaScriptStartDate - b.startDate.javaScriptStartDate );
+				} );
+
+				selectedEventsOldOrUpcoming( combinedArray );
+			} else
+			{
+				selectedEventsOldOrUpcoming( arr );
+			}
+		}
+	}
+
+	self.removeSelectedEvents = function ( selectedEvents, eventKindValue )
+	{
+		var array, array2
+
+		if ( self.currentPage == 2 )
+		{
+			if ( self.detailsPageJournalMenu.selectedMenuItem() != 1 )
+			{
+				self.detailsPageJournalMenu.selectedMenuItem( 1 );
+			}
+
+			//////////////////////////////////////////////////////////
+			//old
+			//////////////////////////////////////////////////////////
+			if ( self.detailsPageJournalMenu.menuItems.myCalendar.showOld() )
+			{
+				array = ko.utils.arrayFilter( selectedEvents.old(), function ( item )
+				{
+					return item.kind.value != eventKindValue;
+				} );
+
+				selectedEvents.old( array );
+			}
+
+			if ( self.detailsPageJournalMenu.menuItems.myCalendar.showUpcoming() )
+			{
+				array = ko.utils.arrayFilter( selectedEvents.upcoming(), function ( item )
+				{
+					return item.kind.value != eventKindValue;
+				} );
+
+				selectedEvents.upcoming( array );
+			}
+
+			if ( !$( "#details #detailsPanel .menu-item-container" ).hasClass( "selected" ) )
+			{
+				self.detailsPageJournalMenu.isOpen( false );
+				self.showDetailsPageClockContainer();
+			}
+
+		} //else
+		//{
+		//	array = ko.utils.arrayFilter( lobbyOrDetailsPageSelectedEvents.upcoming(), function ( item )
+		//	{
+		//		return item.kind.value != eventKindValue;
+		//	} );
+
+		//	lobbyOrDetailsPageSelectedEvents.upcoming( array );
+
+		//	//if ( lobbyOrDetailsPageSelectedEvents.settings.showOldEvents() )
+		//	//{
+		//	//	array2 = ko.utils.arrayFilter( lobbyOrDetailsPageSelectedEvents.old(), function ( item )
+		//	//	{
+		//	//		return item.kind.value != eventKindValue;
+		//	//	} );
+
+		//	//	lobbyOrDetailsPageSelectedEvents.old( array2 );
+		//	//}
+
+		//	if ( !$( "#lobby #lobbyTableOfEventsSection .menu-item-container" ).hasClass( "selected" ) )
+		//	{
+		//		self.lobbyPagePublicEventListMenu.isOpen( false );
+		//		//lobbyOrDetailsPageSelectedEvents.settings.showOldEvents( false );
+		//	}
+		//}
+
+	}
 
 	self.moveToDetailsDayOnEventCalendarIconClick = function ( id, year, month, day )
 	{
@@ -1668,12 +1700,16 @@
 		if ( !$element.hasClass( "selected" ) )
 		{
 			$eventBlockContainer.hide();
+			$element.css( "border-bottom", "none" );
+			$element.parent().css( "border-left", "none" );
 		}
 		else
 		{
+			$element.css( "border-bottom", "2px solid gray" );
+			$element.parent().css( "border-left", "2px solid gray" );
 			$eventBlockContainer.slideDown();
 			$element.scrollTo();
-			//blah bla
+
 		}
 	}
 

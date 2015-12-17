@@ -1,16 +1,16 @@
 ﻿<div id="detailsPageAllEventsListContainer" class="display-events-overview-container" data-bind="visible: $root.detailsPageJournalMenu.isOpen()">
 	<header class="display-events-overview-header">
-		<span class="display-events-header-menu-title hover-cursor-pointer" data-bind="click: function () { $root.showSelectedJournalMenuItem( 1 ) }, css: { selected: $root.detailsPageJournalMenu.selectedMenuItem() == 1 }">Mój kalendarz</span>
-		<span class="display-events-header-menu-title hover-cursor-pointer" data-bind="click: function () { $root.showSelectedJournalMenuItem( 2 ) }, css: { selected: $root.detailsPageJournalMenu.selectedMenuItem() == 2 }">Moje publiczne wydarzenia</span>
+		<span class="display-events-header-menu-title hover-cursor-pointer" data-bind="click: function () { $root.showSelectedJournalMenuItem( $element, 1 ) }, css: { selected : $root.detailsPageJournalMenu.selectedMenuItem() === 1 }">Mój kalendarz</span>
+		<span class="display-events-header-menu-title hover-cursor-pointer" data-bind="click: function () { $root.showSelectedJournalMenuItem( $element, 2 ) }, css: { selected : $root.detailsPageJournalMenu.selectedMenuItem() === 2 }">Moje publiczne wydarzenia</span>
 		<div class="close-btn-x hover-cursor-pointer" data-bind="click: $root.closeAllSelectedEventsListContainerOnClick">x</div>
 	</header>
-
 	<div class="display-events-overview-body" data-bind="visible: $root.detailsPageJournalMenu.selectedMenuItem() == 1">
-		<div class="legend-oldorupcoming" style="margin-left: 100px;" data-bind="$root.toggleSelectedEventsVisibilityOnClick()">
-			<span style="color: #99B799;">+</span>
+		<div class="legend-oldorupcoming" style="margin-left: 100px;" data-bind="click: function () { $root.detailsPageJournalMenu.menuItems.myCalendar.showOld( !$root.detailsPageJournalMenu.menuItems.myCalendar.showOld() ), $root.showSelectedEvents( $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents, 'old', $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.selectedKindValues ) }">
+			<span data-bind="text:$root.detailsPageJournalMenu.menuItems.myCalendar.showOld() == true ? '-' : '+'" style="color: #99B799;">+</span>
 			<span>stare</span>
+			<span class="display-events-count" data-bind="text: $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.old().length > 0 ? $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.old().length : ''"></span>
 		</div>
-		<div data-bind="visible:$root.detailsPageJournalMenu.menuItems.myCalendar.showOld(), foreach: $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.old" style="padding-left: 100px;">
+		<div data-bind="visible: $root.detailsPageJournalMenu.menuItems.myCalendar.showOld, foreach: $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.old" style="padding-left: 100px;padding-right:6px;">
 			<div class="display-events-overview-item">
 				<div data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
 					<div class="list-item-star" data-bind="if: privacyLevel.value === $root.eventPrivacyLevels['public']">
@@ -28,11 +28,12 @@
 				</div>
 			</div>
 		</div>
-		<div class="legend-oldorupcoming" style="margin-left: 100px;">
-			<span style="color: #99B799;">-</span>
+		<div class="legend-oldorupcoming" style="margin-left: 100px;" data-bind="click: function () { $root.detailsPageJournalMenu.menuItems.myCalendar.showUpcoming( !$root.detailsPageJournalMenu.menuItems.myCalendar.showUpcoming() ), $root.showSelectedEvents( $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents, 'upcoming', $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.selectedKindValues ) }">
+			<span data-bind="text: $root.detailsPageJournalMenu.menuItems.myCalendar.showUpcoming() == true ? '-' : '+'" style="color: #99B799;">-</span>
 			<span>nadchodzące</span>
+			<span class="display-events-count" data-bind="text: $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.upcoming().length > 0 ? $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.upcoming().length : ''"></span>
 		</div>
-		<div data-bind="visible: $root.detailsPageJournalMenu.menuItems.myCalendar.showUpcoming(), foreach: $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.upcoming" style="padding-left: 100px;">
+		<div data-bind="visible: $root.detailsPageJournalMenu.menuItems.myCalendar.showUpcoming, foreach: $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.upcoming" style="padding-left: 100px; padding-right:6px;">
 			<div class="display-events-overview-item">
 				<div data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
 					<div class="list-item-star" data-bind="if: privacyLevel.value === $root.eventPrivacyLevels['public']">
@@ -52,9 +53,6 @@
 		</div>
 	</div>
 	<div class="display-events-overview-body" data-bind="visible: $root.detailsPageJournalMenu.selectedMenuItem() == 2">
-		<div style="padding: 10px;">
-			
-		</div>
 		<div data-bind="foreach: $root.detailsPageJournalMenu.menuItems.managePublicEvents.selectedEvents.old" style="padding-left: 100px;">
 			<!-- ko if: $index() == 0 -->
 			<div class="legend-oldorupcoming">
@@ -104,5 +102,4 @@
 			</div>
 		</div>
 	</div>
-
 </div>

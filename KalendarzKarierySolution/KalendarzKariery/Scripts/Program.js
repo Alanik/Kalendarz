@@ -53,14 +53,15 @@
         this.spinner.spin($target[0]);
         $target.show();
     },
-    initializeEventGrid: function () {
+    initializeEventGrid: function ()
+    {
         var $container = $('#lobby .grid');
         //layout Masonry again after all images have loaded
         $container.imagesLoaded(function () {
             $container.masonry({
                 itemSelector: '.event-block-container'
             });
-        });
+        } );
     },
     initialize: function (indexViewModel, userName) {
         var $calendar = $("#calendar");

@@ -307,7 +307,6 @@ header, footer, nav, section, div {
 		color: #555653;
 		padding: 4px 0;
 		font-size: 2em;
-		border-bottom: 2px solid #DEDEDE;
 	}
 
 	.display-events-overview-container .list-item-title {
@@ -332,6 +331,10 @@ header, footer, nav, section, div {
 
 
 .display-events-overview-item:nth-child(odd) {
+	/*border-left:2px solid gray;*/
+}
+
+.display-events-overview-item {
 	background: rgb(247, 244, 235);
 }
 
@@ -547,7 +550,7 @@ header, footer, nav, section, div {
 	padding-top: 20px;
 	border-left: 3px solid rgb(215, 208, 184);
 	padding-bottom: 40px;
-	overflow:hidden;
+	overflow: hidden;
 }
 
 .login-bar-container {
@@ -756,7 +759,7 @@ header, footer, nav, section, div {
 
 .list-item-star {
 	display: inline-block;
-	width:30px;
+	width: 30px;
 }
 
 	.list-item-star img {
@@ -776,13 +779,12 @@ header, footer, nav, section, div {
 
 .display-events-header-menu-title {
 	border-top: 4px solid #A7A292;
-	padding:10px;
+	padding: 10px;
 }
 
 .display-events-overview-header {
 	color: #928C77;
-	border-top:1px solid #EDE9D9;
-
+	border-top: 1px solid #EDE9D9;
 }
 
 .dziennik-menu-container {
@@ -797,9 +799,16 @@ header, footer, nav, section, div {
 	margin-top: 30px;
 }
 
+.display-events-count {
+	padding-right: 10px;
+	float: right;
+	color: #D7D0B8;
+}
+
 .display-events-overview-body {
 	border: 2px solid #DEDEDE;
 	padding-bottom: 40px;
+	padding-top: 20px;
 }
 
 .display-events-overview-item .event-block-container {
@@ -831,31 +840,25 @@ header, footer, nav, section, div {
 .close-text {
 	font-size: 2em;
 	color: rgb(245, 132, 132);
-	border: 2px solid rgb(197, 191, 172);
-	border-right: none;
 	padding-left: 10px;
 	padding-right: 30px;
 	padding-bottom: 2px;
-	border-radius: 3px;
 }
 
 .save-text {
 	font-size: 2em;
 	color: rgb(137, 197, 155);
-	border: 2px solid rgb(197, 191, 172);
 	border-left: none;
 	padding-left: 30px;
 	padding-right: 10px;
 	padding-bottom: 2px;
-	border-radius: 3px;
 }
 
 .add-event-fieldset {
 	color: rgb(155, 155, 155);
 	border: none;
-	margin: 0 auto;
-	width: 400px;
 	padding-bottom: 20px;
+	padding-left: 40px;
 }
 
 	.add-event-fieldset label {
@@ -1354,7 +1357,7 @@ background:rgb(115, 233, 162);
 .close-btn-x {
 	float: right;
 	padding: 0 10px;
-	color:rgb(255, 251, 239);
+	color: rgb(255, 251, 239);
 }
 
 #calendarDayDetailsTable {
@@ -1892,7 +1895,6 @@ legend {
 	line-height: 1;
 	background: #D7D0B8;
 	box-shadow: rgb(169, 162, 139) 2px 2px 10px -1px inset;
-	border: 2px solid rgb(189, 180, 153);
 }
 
 .details-event-block-body {
@@ -1940,7 +1942,7 @@ legend {
 
 .details-event-block-info-time {
 	font-size: 2.2em;
-	color:rgb(121, 119, 110);
+	color: rgb(121, 119, 110);
 }
 
 .event-block-info-date {
@@ -1997,7 +1999,7 @@ legend {
 .details-event-block-info-address {
 	font-size: 1.2em;
 	color: rgb(132, 126, 114);
-	padding: 10px;
+	padding-top: 10px;
 }
 
 .event-block-info-link {

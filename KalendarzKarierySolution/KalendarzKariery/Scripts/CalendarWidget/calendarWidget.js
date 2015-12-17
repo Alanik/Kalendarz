@@ -120,16 +120,19 @@
         calendar += ('</div>');
         // END calendar
 
-        $calendar.html(calendar);
-
+        $calendar.html( calendar );
+     
         // draw lines
         $calendar.find('.calendar-cell').each(function (index) {
-            var $placeholder = $(this).find(".calendar-cell-placeholder");
+        	var $placeholder = $( this ).find( ".calendar-cell-placeholder" );
+        	var cellLines = '';
             for (var i = 0.3; i < 15; i++) {
-                var left = i * 6.8;
-                $placeholder.append('<div style="left:' + left + '%;" class="cell-line' + (parseInt(i, 10) + 7) + ' cell-line-style"></div>');
+            	var left = i * 6.8;  	
+            	cellLines += '<div style="left:' + left + '%;" class="cell-line' + ( parseInt( i, 10 ) + 7 ) + ' cell-line-style"></div>'
             }
-        });
+
+            $placeholder.append( cellLines );
+        } );
 
         // add today-cell class to today's calendar cell
         $calendar.find('.day' + today).addClass("today-cell");

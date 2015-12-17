@@ -4,16 +4,13 @@
 		<div class="close-btn-x hover-cursor-pointer" data-bind="click: $root.closeAllSelectedEventsListContainerOnClick">x</div>
 	</header>
 	<div class="display-events-overview-body">
-		<div style="padding: 10px;">
-			
+		<div class="legend-oldorupcoming" style="margin-left: 100px;" data-bind="click: function () { $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.showOld( !$root.lobbyPagePublicEventListMenu.menuItems.publicEvents.showOld() ), $root.showSelectedEvents( $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents, 'old', $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.selectedKindValues ) }">
+			<span data-bind="text: $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.showOld() == true ? '-' : '+'" style="color: #99B799;">+</span>
+			<span>stare</span>
+			<span class="display-events-count" data-bind="text: $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.old().length > 0 ? $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.old().length : ''"></span>
 		</div>
-		<div data-bind="foreach: $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.old" style="padding-left: 100px;">
-			<!-- ko if: $index() == 0 -->
-			<div class="legend-oldorupcoming">
-				stare:
-			</div>
-			<!-- /ko -->
 
+		<div data-bind="foreach: $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.old" style="padding-left: 100px;">
 			<div class="display-events-overview-item">
 				<div data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
 					<div class="list-item-star">
@@ -31,13 +28,12 @@
 				</div>
 			</div>
 		</div>
+		<div class="legend-oldorupcoming" style="margin-left: 100px;" data-bind="click: function () { $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.showUpcoming( !$root.lobbyPagePublicEventListMenu.menuItems.publicEvents.showUpcoming() ), $root.showSelectedEvents( $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents, 'upcoming', $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.selectedKindValues ) }">
+			<span data-bind="text: $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.showUpcoming() == true ? '-' : '+'" style="color: #99B799;">+</span>
+			<span>nadchodzące</span>
+			<span class="display-events-count" data-bind="text: $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.upcoming().length > 0 ? $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.upcoming().length : ''"></span>
+		</div>
 		<div data-bind="foreach: $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.upcoming" style="padding-left: 100px;">
-			<!-- ko if: $index() == 0 -->
-			<div class="legend-oldorupcoming">
-				nadchodzące:
-			</div>
-			<!-- /ko -->
-
 			<div class="display-events-overview-item">
 				<div data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
 					<div class="list-item-star">

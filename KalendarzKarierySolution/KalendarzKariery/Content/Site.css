@@ -307,6 +307,7 @@ header, footer, nav, section, div {
 		color: #555653;
 		padding: 4px 0;
 		font-size: 2em;
+        text-align:center;
 	}
 
 	.display-events-overview-container .list-item-title {
@@ -801,8 +802,8 @@ header, footer, nav, section, div {
 
 .display-events-count {
 	padding-right: 10px;
-	float: right;
-	color: #D7D0B8;
+	position:absolute;
+    right:0;
 }
 
 .display-events-overview-body {

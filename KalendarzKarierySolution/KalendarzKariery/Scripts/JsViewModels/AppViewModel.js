@@ -190,7 +190,6 @@
     //	"old" : ko.observable(20)
     //}
 
-
     self.myEventTree = {
         // example to remember the format of myEventTree object
         //	"2014": {

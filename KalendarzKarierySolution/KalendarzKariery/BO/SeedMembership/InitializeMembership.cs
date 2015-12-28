@@ -27,7 +27,8 @@ namespace KalendarzKariery.BO.SeedMembership
 
 		public static void SeedMembership()
 		{
-			WebSecurity.InitializeDatabaseConnection( "SimpleMembership_KalendarzKarieryConnection", "User", "Id", "UserName", autoCreateTables: false );
+				WebSecurity.InitializeDatabaseConnection( "SimpleMembership_KalendarzKarieryConnection", "User", "Id", "UserName", autoCreateTables: false );
+
 
 			if (!Roles.RoleExists( AdminRole ))
 			{

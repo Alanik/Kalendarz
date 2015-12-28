@@ -19,7 +19,7 @@
 		</div>
 
 		<div style="float:right;" class="events-menu-container">
-			<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element, $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents ) }">
+			<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element ) }">
 				<div class="border-item inne-border-tab"></div>
 				<div class="menu-item" data-eventkind="7">
 					<span>Inne</span>
@@ -31,7 +31,7 @@
 				</div>
 			</div>
 
-			<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element, $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents ) }">
+			<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element ) }">
 				<div class="border-item lekcje-border-tab"></div>
 				<div class="menu-item" data-eventkind="2">
 					<span>Lekcje</span>
@@ -43,7 +43,7 @@
 				</div>
 			</div>
 
-			<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element, $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents ) }">
+			<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element ) }">
 				<div class="border-item wydarzenia-border-tab"></div>
 				<div class="menu-item" data-eventkind="1">
 					<span>Wydarzenia</span>
@@ -54,7 +54,7 @@
 				</div>
 			</div>
 
-			<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element, $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents ) }">
+			<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element ) }">
 				<div class="border-item spotkania-border-tab"></div>
 				<div class="menu-item" data-eventkind="6">
 					<span>Spotkania</span>
@@ -66,7 +66,7 @@
 				</div>
 			</div>
 
-			<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element, $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents ) }">
+			<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element ) }">
 				<div class="border-item zajecia-border-tab"></div>
 				<div class="menu-item" data-eventkind="3">
 					<span>Zajęcia</span>
@@ -77,7 +77,7 @@
 				</div>
 			</div>
 
-			<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element, $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents ) }">
+			<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element ) }">
 				<div class="border-item szkolenia-border-tab"></div>
 				<div class="menu-item" data-eventkind="4">
 					<span>Szkolenia</span>
@@ -89,7 +89,7 @@
 				</div>
 			</div>
 
-			<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element, $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents ) }">
+			<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element ) }">
 				<div class="border-item kursy-border-tab"></div>
 				<div class="menu-item" data-eventkind="5">
 					<span>Kursy</span>
@@ -102,17 +102,25 @@
 			</div>
 		</div>
 
-		@Html.Partial( "_DetailsAllSelectedEventsList" )
+		<div id="detailsPageAllEventsListContainer" class="display-events-overview-container" data-bind="visible: $root.detailsPageJournalMenu.isOpen()">
+			<header class="display-events-overview-header">
+				<span class="display-events-header-menu-title hover-cursor-pointer" data-bind="click: function () { $root.showSelectedJournalMenuItem( 1 ) }, css: { selected: $root.detailsPageJournalMenu.selectedMenuItem() === 1 }">Mój kalendarz</span>
+				<span class="display-events-header-menu-title hover-cursor-pointer" data-bind="click: function () { $root.showSelectedJournalMenuItem( 2 ) }, css: { selected: $root.detailsPageJournalMenu.selectedMenuItem() === 2 }">Moje publiczne wydarzenia</span>
+				<div class="close-btn-x hover-cursor-pointer" data-bind="click: $root.closeAllSelectedEventsListContainerOnClick">x</div>
+			</header>
+
+			@Html.Partial( "_DetailsMyCalendarMenuItem" )
+			@Html.Partial( "_DetailsManageOwnPublicEventsMenuItem" )
+		</div>
+
 
 		<div class="dziennik-menu-container">
-			<div class="manage-pubic-events-menu-link hover-cursor-pointer" data-bind="click: function () { $root.showSelectedJournalMenuItem( $element, 2 ) }">
+			<div class="manage-pubic-events-menu-link hover-cursor-pointer" data-bind="click: function () { $root.showSelectedJournalMenuItem( 2 ) }">
 				Zarządzaj swoimi publicznymi wydarzeniami
 			</div>
 		</div>
 
 	</div>
-
-
 </section>
 
 <div class="title-header">

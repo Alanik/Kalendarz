@@ -26,7 +26,6 @@
 				//event day groups
 				for ( var i = 0; i < groups.length; i++ )
 				{
-
 					dayGroup = groups[i];
 					day = dayGroup.day;
 
@@ -50,19 +49,6 @@
 						{
 							//push public event to appViewModel.publicEvents
 							appViewModel.publicEvents.push( kkEvent );
-
-							//push user's public event to appViewModel.detailsPageJournalMenu.menuItems.publicEvents
-							if ( appViewModel.userName !== ''
-							&& kkEvent.addedBy.toLowerCase() === appViewModel.userName.toLowerCase()
-							&& kkEvent.privacyLevel.value === appViewModel.eventPrivacyLevels["public"] ){
-								
-								if ( kkEvent.startDate.javaScriptEndDate > nowDate )
-								{
-									appViewModel.detailsPageJournalMenu.menuItems.managePublicEvents.selectedEvents.upcomingTemp.push( kkEvent );
-								} else{
-									appViewModel.detailsPageJournalMenu.menuItems.managePublicEvents.selectedEvents.oldTemp.push( kkEvent );
-								}
-							}
 						}
 					}
 

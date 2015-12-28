@@ -36,7 +36,14 @@
 
 	<section id="lobbyTableOfEventsSection">
 		@Html.Partial( "_LobbyEventsMenuItems" )
-		@Html.Partial( "_LobbyAllSelectedEventsList" )
+
+		<div id="lobbyPageAllEventsListContainer" class="display-events-overview-container" data-bind="visible: $root.lobbyPagePublicEventListMenu.isOpen()">
+			<header class="display-events-overview-header">
+				<span class="display-events-header-menu-title selected hover-cursor-pointer">Publiczne wydarzenia</span>
+				<div class="close-btn-x hover-cursor-pointer" data-bind="click: $root.closeAllSelectedEventsListContainerOnClick">x</div>
+			</header>
+			@Html.Partial( "_LobbyPublicEventList" )
+		</div>
 	</section>
 
 	<section id="lobbyEventsDisplaySection">

@@ -2,8 +2,6 @@
 {
 	var self = this;
 
-	// TODO: all methods used here use myEventTree so eventManager only works for events saved in myEventTree, we need to take into consideration public events which use publicEventTree.
-
 	self.resetKKEventModelObservable = function ( ev, day, month, year )
 	{
 		ev.addedBy( "" );
@@ -148,9 +146,9 @@
 		return null;
 	}
 
-	self.getEventsForGivenDay = function ( year, month, day )
+	self.getEventsForGivenDay = function ( year, month, day, eventTree )
 	{
-		var yearProp = appViewModel.myEventTree[year], monthProp, daysProp;
+		var yearProp = eventTree[year], monthProp, daysProp;
 		if ( yearProp )
 		{
 			monthProp = yearProp[month];
@@ -167,9 +165,9 @@
 		return [];
 	};
 
-	self.getEventsForGivenMonth = function ( year, month )
+	self.getEventsForGivenMonth = function ( year, month, eventTree )
 	{
-		var yearProp = appViewModel.myEventTree[year], monthProp, daysProp, events = [];
+		var yearProp = eventTree[year], monthProp, daysProp, events = [];
 		if ( yearProp )
 		{
 			monthProp = yearProp[month];
@@ -193,7 +191,7 @@
 		//});
 	};
 
-	self.getFilteredEventsFromEventTree = function ( eventTree, eventPropNameArray, values, oldUpcomingOrAll )
+	self.getEventsByPropertyValue = function ( eventTree, propValueInputsArr, oldUpcomingOrAll )
 	{
 		var arr = [], daysArr, event, yearNode, monthNode, dayNode, prop;
 		var parsedYear, parsedMonth, parsedDay;
@@ -204,6 +202,8 @@
 		{
 			oldUpcomingOrAll = "all";
 		}
+
+		debugger;
 
 		switch ( oldUpcomingOrAll )
 		{
@@ -254,18 +254,41 @@
 									continue;
 								}
 
-								for ( var j = 0; j < eventPropNameArray.length; j++ )
-								{
-									prop = prop[eventPropNameArray[j]];
-								}
+								var result = false;
+								//var propValueInputsArr = [{ "prop": ["kind", "value"], "values": valueArr }, { "prop": ["addedBy"], "values" : [ self.userName ] }];
 
-								for ( var n = 0; n < values.length; n++ )
+								for ( var j = 0; j < propValueInputsArr.length; j++ )
 								{
-									if ( prop === values[n] )
+									var paramObj = propValueInputsArr[j];
+									for ( var k = 0; k < paramObj.prop.length; k++ )
 									{
-										arr.push( event );
+										prop = prop[paramObj.prop[k]];
+									}
+
+									for ( var l = 0; l < paramObj.values.length; l++ )
+									{
+										if ( prop === paramObj.values[l] )
+										{
+											result = true;
+										}
+										else
+										{
+											result = false;
+											break;
+										}
+									}
+
+									if ( result === false )
+									{
 										break;
 									}
+
+									prop = event;
+								}
+
+								if ( result )
+								{
+									arr.push( event );
 								}
 							}
 						}
@@ -423,7 +446,7 @@
 		}
 
 		//3. add event to appViewModel.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents
-		if ( appViewModel.detailsPageJournalMenu.isOpen() && appViewModel.detailsPageJournalMenu.selectedMenuItem() == 1 && $.inArray( newKKEvent.kind.value , appViewModel.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.selectedKindValues ) > -1 )
+		if ( appViewModel.detailsPageJournalMenu.isOpen() && appViewModel.detailsPageJournalMenu.selectedMenuItem() == 1 && $.inArray( newKKEvent.kind.value, appViewModel.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.selectedKindValues ) > -1 )
 		{
 			today = new Date();
 			endDate = new Date( newKKEvent.startDate.year, newKKEvent.startDate.month - 1, newKKEvent.startDate.day, newKKEvent.startDate.endHour, newKKEvent.startDate.endMinute, 0, 0 );
@@ -459,7 +482,7 @@
 
 				if ( event.id == newKKEvent.id )
 				{
-					//this check is for when adding public event to user's calendar - the public event already exists so do not add it again to public event tree etc.
+					// this check is for when adding public event to user's calendar - the public event already exists so do not add it again to public event tree.
 					return dayEventsArr;
 				}
 
@@ -480,7 +503,9 @@
 			appViewModel.publicEvents.push( newKKEvent );
 
 			//3. add event to menuItems.selectedEvents
-			if ( appViewModel.lobbyPagePublicEventListMenu.isOpen() )
+
+			// lobby page
+			if ( appViewModel.lobbyPagePublicEventListMenu.isOpen() && $.inArray( newKKEvent.kind.value, appViewModel.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.selectedKindValues ) > -1 )
 			{
 				today = new Date();
 				endDate = new Date( newKKEvent.startDate.year, newKKEvent.startDate.month - 1, newKKEvent.startDate.day, newKKEvent.startDate.endHour, newKKEvent.startDate.endMinute, 0, 0 );
@@ -492,10 +517,11 @@
 				{
 					oldOrUpcoming = appViewModel.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.upcoming;
 				}
-					
+
 				oldOrUpcoming.push( newKKEvent );
 			}
 
+			//details page
 			if ( appViewModel.detailsPageJournalMenu.isOpen() && appViewModel.detailsPageJournalMenu.selectedMenuItem() === 2 )
 			{
 				today = new Date();
@@ -503,10 +529,10 @@
 
 				if ( today > endDate )
 				{
-					oldOrUpcoming = appViewModel.detailsPageJournalMenu.menuItems.managePublicEvents.selectedEvents.old;
+					oldOrUpcoming = appViewModel.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.old;
 				} else
 				{
-					oldOrUpcoming = appViewModel.detailsPageJournalMenu.menuItems.managePublicEvents.selectedEvents.upcoming;
+					oldOrUpcoming = appViewModel.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.upcoming;
 				}
 
 				oldOrUpcoming.push( newKKEvent );
@@ -551,7 +577,7 @@
 								delete eventTreeMonthProp[day];
 							}
 
-							//2. if selected events window is open and the deleted event is displayed on the list then remove it from  menuItems.myCalendar.selectedEvents
+							//2. if selected events panel is open and the deleted event is displayed on the list then remove it from  menuItems.myCalendar.selectedEvents
 							if ( appViewModel.detailsPageJournalMenu.isOpen() && appViewModel.detailsPageJournalMenu.selectedMenuItem() === 1 )
 							{
 								today = new Date();

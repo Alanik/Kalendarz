@@ -1,7 +1,7 @@
 ﻿var WebApiCaller = function (){
 	var self = this;
 	
-	//event
+	//Event
 
 	self.callAddEvent = function ( data )
 	{

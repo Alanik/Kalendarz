@@ -191,7 +191,7 @@
 		//});
 	};
 
-	self.getEventsByPropertyValue = function (eventTree, checkArgs, oldUpcomingOrAll)
+	self.getEventsByPropertyValue = function ( eventTree, checkArgs, oldUpcomingOrAll )
 	{
 		var arr = [], daysArr, event, yearNode, monthNode, dayNode, prop;
 		var parsedYear, parsedMonth, parsedDay;
@@ -251,7 +251,7 @@
 									continue;
 								}
 
-								if ($.checkByPropertyAndOrPredicate(checkArgs(event, appViewModel.userName)))
+								if ( $.simpleFilt.checkByPropertyAndOrPredicate( checkArgs( event, appViewModel.userName ) ) )
 								{
 									arr.push( event );
 								}
@@ -307,8 +307,9 @@
 									continue;
 								}
 
-								if ($.checkByPropertyAndOrPredicate(checkArgs(event, appViewModel.userName))) {
-								    arr.push(event);
+								if ( $.simpleFilt.checkByPropertyAndOrPredicate( checkArgs( event, appViewModel.userName ) ) )
+								{
+									arr.push( event );
 								}
 							}
 						}
@@ -328,10 +329,11 @@
 
 							for ( var i = 0; i < daysArr.length; i++ )
 							{
-							    event = daysArr[i];
+								event = daysArr[i];
 
-								if ($.checkByPropertyAndOrPredicate(checkArgs(event, appViewModel.userName))) {
-								    arr.push(event);
+								if ( $.simpleFilt.checkByPropertyAndOrPredicate( checkArgs( event, appViewModel.userName ) ) )
+								{
+									arr.push( event );
 								}
 							}
 						}

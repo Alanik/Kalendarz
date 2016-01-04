@@ -33,7 +33,7 @@ namespace KalendarzKarieryData.Models.DataTransferModels.Events
 		{
 			id = m.Id;
 			name = m.Title;
-			addedBy = m.User.UserName;
+			addedBy = m.User.UserName.ToLower();
 			description = m.Description;
 			details = m.Details;
 			dateAdded = new JsonDateTimeModel( m.DateAdded );

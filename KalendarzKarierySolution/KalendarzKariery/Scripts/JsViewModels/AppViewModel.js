@@ -161,18 +161,18 @@
 	self.newsEvents = [];
 
 	//it is filled with public events when building publicEventTree
-	self.publicEvents = ko.observableArray( [] );
+	self.publicEvents = ko.observableArray([]);
 
 	self.publicEventTree = {
-		// example to remember the format of publicEventTree object
-		//	"2014": {
-		//		"8": [{ "3": [event, event] }, { "7": [event] }, { "9": [event, event, event, event] }],
-		//		"9": [{ "2": [event] }]	
-		//          },
-		//	"2015": {
-		//		"8": [{ "3": [event, event] }, { "7": [event] }, { "9": [event, event, event, event] }],
-		//		"9": [{ "2": [event] }]	
-		//			}
+	    // example to remember the format of publicEventTree object
+	    //	"2014": {
+	    //		"8": [{ "3": [event, event] }, { "7": [event] }, { "9": [event, event, event, event] }],
+	    //		"9": [{ "2": [event] }]	
+	    //          },
+	    //	"2015": {
+	    //		"8": [{ "3": [event, event] }, { "7": [event] }, { "9": [event, event, event, event] }],
+	    //		"9": [{ "2": [event] }]	
+	    //			}
 	};
 
 	self.publicEventTreeCountBasedOnEventKind = null;
@@ -623,7 +623,7 @@
 			} else
 			{
 				self.hideLoader( $loader );
-				$container = $( "#details #detailsEventsAndNotesContainer .details-event-block-container[data-eventid='" + id + "']" );
+				$container = $( "#details .details-event-block-container[data-eventid='" + id + "']" );
 
 				$container.fadeOut( 500, function ()
 				{
@@ -795,7 +795,7 @@
 		ko.applyBindings( self, saveLink );
 
 		var $textbox = $( "<textarea style='width:80%;padding:10px;vertical-align:top;margin-top:20px;'/>" );
-		var $container = $( "#details #detailsEventsAndNotesContainer .li-note-container[data-noteid='" + id + "']" );
+		var $container = $( "#details .li-note-container[data-noteid='" + id + "']" );
 		var noteText = $container.find( "pre" ).text();
 		$container.find( ".note-content" ).hide();
 		$textbox.val( noteText );
@@ -907,7 +907,7 @@
 
 	self.cancelEditNoteDetailsPageOnCancelLinkClick = function ( id )
 	{
-		var $container = $( "#details #detailsEventsAndNotesContainer .li-note-container[data-noteid='" + id + "']" );
+		var $container = $( "#details .li-note-container[data-noteid='" + id + "']" );
 		$container.find( ".edit-mode-note-container" ).remove();
 		$container.find( ".note-content" ).show();
 	};
@@ -1406,6 +1406,8 @@
 
 	self.showSelectedEvents = function ( selectedEventsProp, oldOrUpcoming, valueArr )
 	{
+	    var checkArgs;
+
 		// details page
 		if ( self.currentPage == 2 )
 		{
@@ -1417,7 +1419,12 @@
 
 			switch ( self.detailsPageJournalMenu.selectedMenuItem() )
 			{
-				case 1:
+			    case 1:
+			        // parameter for checkByPropertyAndOrPredicate method
+			        checkArgs = function (actualObj, username) {
+			            return [{ "prop": actualObj.kind.value, "values": valueArr }]
+			        }
+
 					//////////////////////////////////////////////////////////
 					//old
 					//////////////////////////////////////////////////////////
@@ -1425,9 +1432,7 @@
 					{
 						if ( self.detailsPageJournalMenu.menuItems.myCalendar.showOld() )
 						{
-							//var propValueInputsArr = [{ "prop": ["kind", "value"], "values": valueArr }];
-
-							//show( 'old', selectedEventsProp.old, propValueInputArr, self.myEventTree );
+						    show('old', selectedEventsProp.old, checkArgs, self.myEventTree);
 						} else
 						{
 							selectedEventsProp.old( [] );
@@ -1441,24 +1446,27 @@
 					{
 						if ( self.detailsPageJournalMenu.menuItems.myCalendar.showUpcoming() )
 						{
-							//show( valueArr, 'upcoming', selectedEventsProp.upcoming, ["kind", "value"], self.myEventTree );
+						    show('upcoming', selectedEventsProp.upcoming, checkArgs, self.myEventTree);
 						} else
 						{
 							selectedEventsProp.upcoming( [] );
 						}
 					}
 					break;
-				case 2:
+			    case 2:
+			        // parameter for checkByPropertyAndOrPredicate method
+			        checkArgs = function (actualObj, username) {
+			            return [{ "prop": actualObj.kind.value, "values": valueArr }, { "boolSpecifier": 'and', "prop": actualObj.addedBy, "values": [username] }]
+			        }
+
 					//////////////////////////////////////////////////////////
 					//old
 					//////////////////////////////////////////////////////////
 					if ( ( oldOrUpcoming == 'old' || oldOrUpcoming == 'all' ) )
 					{
 						if ( self.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.showOld() )
-						{
-							//var propValueInputsArr = [{ "prop": ["kind", "value"], "values": valueArr }, { "prop": ["addedBy"], "values": [self.userName] }];
-
-							show( 'old', selectedEventsProp.old, valueArr, self.publicEventTree );
+						{					    
+						    show('old', selectedEventsProp.old, checkArgs, self.publicEventTree);
 						} else
 						{
 							selectedEventsProp.old( [] );
@@ -1472,7 +1480,7 @@
 					{
 						if ( self.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.showUpcoming() )
 						{
-							//show( valueArr, 'upcoming', selectedEventsProp.upcoming, ["kind", "value"], self.myEventTree );
+						    show('upcoming', selectedEventsProp.upcoming, checkArgs, self.publicEventTree);
 						} else
 						{
 							selectedEventsProp.upcoming( [] );
@@ -1522,11 +1530,10 @@
 			}
 		}
 
-		function show( oldOrUpcomingFlag, selectedEventsProp, valueArr, eventTree )
+		function show(oldOrUpcomingFlag, selectedEventsProp, checkArgs, eventTree)
 		{
-			var arr, shownEvents, combinedArray;
-
-			arr = self.EVENT_MANAGER.getEventsByPropertyValue(eventTree, valueArr, oldOrUpcomingFlag);
+            var shownEvents, combinedArray;
+            var arr = self.EVENT_MANAGER.getEventsByPropertyValue(eventTree, checkArgs, oldOrUpcomingFlag);
 
 			shownEvents = selectedEventsProp();
 
@@ -1581,7 +1588,7 @@
 					selectedEvents.upcoming( array );
 				}
 
-				if ( !$( "#lobby #lobbyTableOfEventsSection .menu-item-container" ).hasClass( "selected" ) )
+				if ( !$( "#lobby .menu-item-container" ).hasClass( "selected" ) )
 				{
 					self.lobbyPagePublicEventListMenu.isOpen( false );
 				}
@@ -1648,7 +1655,7 @@
 						return;
 				}
 
-				if ( !$( "#details #detailsPanel .menu-item-container" ).hasClass( "selected" ) )
+				if ( !$( "#details .menu-item-container" ).hasClass( "selected" ) )
 				{
 					self.detailsPageJournalMenu.isOpen( false );
 					self.showDetailsPageClockContainer();
@@ -1694,7 +1701,7 @@
 
 		setTimeout( function ()
 		{
-			$( "#details #detailsEventBlockList .details-event-block-container[data-eventid='" + id + "']" ).scrollTo( speed );
+			$( "#details .details-event-block-container[data-eventid='" + id + "']" ).scrollTo( speed );
 		}, 10 )
 	};
 
@@ -1932,8 +1939,8 @@
 
 		if ( !self.validateDate( day, month, year ) )
 		{
-			$dateBirthValidationMsg = $( "#details #updateProfileContainer #birthDateValidationErrorMsgUpdateProfile" );
-			$( "#details #updateProfileContainer .register-birthdate-txtbox" ).addClass( "input-validation-error" );
+			$dateBirthValidationMsg = $( "#details #birthDateValidationErrorMsgUpdateProfile" );
+			$( "#details .register-birthdate-txtbox" ).addClass( "input-validation-error" );
 			$dateBirthValidationMsg.show();
 			return false;
 		}
@@ -2339,7 +2346,7 @@
 
 	self.showEventBlockInfoOnDetailsPageEventRectangleClick = function ( id )
 	{
-		var $container = $( "#details #detailsEventsAndNotesContainer .details-event-block-container[data-eventid='" + id + "']" );
+		var $container = $( "#details .details-event-block-container[data-eventid='" + id + "']" );
 		var block = $container.find( ".details-event-block" )[0];
 		self.showEventDetailsOnEventBlockClick( block );
 	};

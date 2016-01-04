@@ -191,7 +191,7 @@
 		//});
 	};
 
-	self.getEventsByPropertyValue = function ( eventTree, propValueInputsArr, oldUpcomingOrAll )
+	self.getEventsByPropertyValue = function (eventTree, checkArgs, oldUpcomingOrAll)
 	{
 		var arr = [], daysArr, event, yearNode, monthNode, dayNode, prop;
 		var parsedYear, parsedMonth, parsedDay;
@@ -245,55 +245,13 @@
 							for ( var i = 0; i < daysArr.length; i++ )
 							{
 								event = daysArr[i];
-								//prop = event;
 
 								if ( isCurrentYear && isCurrentMonth && isCurrentDay && ( event.startDate.endHour > date.getHours() || ( event.startDate.endHour == date.getHours() && event.startDate.endMinute > date.getMinutes() ) ) )
 								{
 									continue;
 								}
 
-
-
-								//var result = false;
-								//var propValueInputsArr = [{ "prop": ["kind", "value"], "values": valueArr }, { "prop": ["addedBy"], "values" : [ self.userName ] }];
-
-								//for ( var j = 0; j < propValueInputsArr.length; j++ )
-								//{
-								//	var paramObj = propValueInputsArr[j];
-								//	for ( var k = 0; k < paramObj.prop.length; k++ )
-								//	{
-								//		prop = prop[paramObj.prop[k]];
-								//	}
-
-								//	for ( var l = 0; l < paramObj.values.length; l++ )
-								//	{
-								//		if ( prop === paramObj.values[l] )
-								//		{
-								//			result = true;
-								//		}
-								//		else
-								//		{
-								//			result = false;
-								//			break;
-								//		}
-								//	}
-
-								//	if ( result === false )
-								//	{
-								//		break;
-								//	}
-
-								//	prop = event;
-								//}
-
-								//if ( result )
-								//{
-								//	arr.push( event );
-								//}
-								debugger;
-								var propValueInputsArr = [{ "prop": event.kind.value, "values": valueArr }, { "boolSpecifier" : 'and', "prop": event.addedBy, "values": [appViewModel.userName] }];
-
-								if ( $.checkByPropertyAndOrPredicate( propValueInputsArr ) )
+								if ($.checkByPropertyAndOrPredicate(checkArgs(event, appViewModel.userName)))
 								{
 									arr.push( event );
 								}
@@ -343,25 +301,14 @@
 							for ( var i = 0; i < daysArr.length; i++ )
 							{
 								event = daysArr[i];
-								prop = event;
 
 								if ( isCurrentYear && isCurrentMonth && isCurrentDay && ( event.startDate.endHour < date.getHours() || ( event.startDate.endHour == date.getHours() && event.startDate.endMinute <= date.getMinutes() ) ) )
 								{
 									continue;
 								}
 
-								for ( var j = 0; j < eventPropNameArray.length; j++ )
-								{
-									prop = prop[eventPropNameArray[j]];
-								}
-
-								for ( var n = 0; n < values.length; n++ )
-								{
-									if ( prop === values[n] )
-									{
-										arr.push( event );
-										break;
-									}
+								if ($.checkByPropertyAndOrPredicate(checkArgs(event, appViewModel.userName))) {
+								    arr.push(event);
 								}
 							}
 						}
@@ -381,21 +328,10 @@
 
 							for ( var i = 0; i < daysArr.length; i++ )
 							{
-								event = daysArr[i];
-								prop = event;
+							    event = daysArr[i];
 
-								for ( var j = 0; j < eventPropNameArray.length; j++ )
-								{
-									prop = prop[eventPropNameArray[j]];
-								}
-
-								for ( var n = 0; n < values.length; n++ )
-								{
-									if ( prop === values[n] )
-									{
-										arr.push( event );
-										break;
-									}
+								if ($.checkByPropertyAndOrPredicate(checkArgs(event, appViewModel.userName))) {
+								    arr.push(event);
 								}
 							}
 						}
@@ -610,7 +546,7 @@
 							//4. update appViewModel.detailsPageEvents()
 							if ( year == appViewModel.detailsPageDisplayDate.year() && month == appViewModel.detailsPageDisplayDate.month() && day == appViewModel.detailsPageDisplayDate.day() )
 							{
-								$container = $( "#details #detailsEventsAndNotesContainer .details-event-block-container[data-eventid='" + id + "']" );
+								$container = $( "#details .details-event-block-container[data-eventid='" + id + "']" );
 								$container.fadeOut( 500, function ()
 								{
 									$container.remove();

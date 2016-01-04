@@ -271,6 +271,7 @@
     <None Include="Properties\PublishProfiles\Alan.pubxml" />
     <Content Include="Scripts\JSManagers\EventManager.js" />
     <Content Include="Scripts\JSManagers\NoteManager.js" />
+    <Content Include="Scripts\JSUtils\SimpleFilt.js" />
     <Content Include="Scripts\JSUtils\WebApiCaller.js" />
     <Content Include="Scripts\JSModels\KKEventDateModelObservable.js" />
     <Content Include="Scripts\JSModels\KKNoteModelObservable.js" />
@@ -282,7 +283,7 @@
     <Content Include="Images\TestBackgrounds\1600x900purple-white.jpg" />
     <Content Include="Images\TestBackgrounds\kalendarzTlo4.png" />
     <Content Include="Images\TestBackgrounds\tapetaBrx.png" />
-    <Content Include="Scripts\JSUnitTests\Jasmine-2.1.3\spec\EventTreeBuilderSpec.js" />
+    <Content Include="Scripts\JSUnitTests\Jasmine-2.1.3\spec\SimpleFiltSpec.js" />
     <Content Include="Scripts\CalendarWidget\Slider\jquery.superslides.js" />
     <Content Include="Scripts\JSUtils\TreeBuilder.js" />
     <Content Include="Scripts\JSUtils\EventColorHelper.js" />

@@ -14,6 +14,106 @@
 				this.closest( ".scrollable" ).animate( { scrollTop: offset }, speed );
 			}
 		} );
+
+		//filterByPropertyAndOrPredicate
+		jQuery.extend( {
+			checkByPropertyAndOrPredicate: function ( checkArgs )
+			{
+				var currentArg, finalResult = false, localResult = false;
+
+				for ( var i = 0; i < checkArgs.length; i++ )
+				{
+					currentArg = checkArgs[i];
+
+					localResult = passesCheckByValues( currentArg ) && passesCheckByPredicate( currentArg );
+
+					if ( i < 1 )
+					{
+						finalResult = localResult;
+					} else
+					{
+						switch ( currentArg.boolSpecifier )
+						{
+							case 'or':
+								finalResult = finalResult || localResult;
+								break;
+							case 'and':
+								finalResult = finalResult && localResult;
+								break;
+							default:
+								throw new Error( "Incorrect input value. Accepted input values: 'or', 'and' " );
+						}
+					}
+				}
+
+				return finalResult;
+
+				function passesCheckByValues( argObject )
+				{
+					//var prop, values, i, result;
+
+					//for ( i = 0; i < argObj.prop.length; i++ )
+					//{
+					//	prop = prop[argObj.prop[i]];
+					//}
+
+					//for ( i = 0; i < argObj.values.length; i++ )
+					//{
+					//	if ( prop === argObject.values[i] )
+					//	{
+					//		result = true;
+					//	}
+					//	else
+					//	{
+					//		result = false;
+					//		return result;
+					//	}
+					//}
+
+					for ( var i = 0; i < argObject.values.length; i++ )
+					{
+						if ( argObject.prop === argObject.values[i] )
+						{
+							return true;
+						}
+					}
+
+					return false;
+				};
+				function passesCheckByPredicate( argObject )
+				{
+					var result;
+					//var prop, values, i, result;
+
+					//for ( i = 0; i < argObj.prop.length; i++ )
+					//{
+					//	prop = prop[argObj.prop[i]];
+					//}
+					if (!argObject.predicate)
+					{
+						return true;
+
+					} else if ( Object.prototype.toString.call( argObject.predicate ) != '[object Function]' )
+					{
+						throw new TypeError( "Supplied predicate parameter is not a function." );
+					}
+					else
+					{
+						result = argObject.predicate( argObject.prop );
+
+						if ( typeof result === "boolean" )
+						{
+							return result;
+						}
+						else
+						{
+							throw new TypeError( "Returned type from supplied predicate function is not a primitive boolean value such as 'true' or 'false'. " );
+						}
+					}
+				}
+			}
+		} )
+
 	},
 	initializeAndStartSpinner: function ()
 	{
@@ -68,7 +168,8 @@
 			} );
 		} );
 	},
-	initialize: function ( indexViewModel, userName ){
+	initialize: function ( indexViewModel, userName )
+	{
 		"use strict";
 
 		var $calendar = $( "#calendar" );
@@ -223,7 +324,7 @@
 		//		appViewModel.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.oldTemp.push( kkEvent );
 		//	}
 		//}
-		
+
 		//var ownPublicEventsOld = appViewModel.EVENT_MANAGER.getEventsByPropertyValue( appViewModel.publicEventTree, ["addedBy"], [appViewModel.userName], "old" );
 		//var ownPublicEventsUpcoming = appViewModel.EVENT_MANAGER.getEventsByPropertyValue( appViewModel.publicEventTree, ["addedBy"], appViewModel.userName, "upcoming" );
 
@@ -415,7 +516,7 @@
 						// if is sunday hover box should be presented to the left of the event
 						if ( weekday == 6 )
 						{
-							$eventHoverContainer.css( "left", offset.left - 400);
+							$eventHoverContainer.css( "left", offset.left - 400 );
 						}
 						else
 						{

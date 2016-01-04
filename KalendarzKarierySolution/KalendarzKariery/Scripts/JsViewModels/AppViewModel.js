@@ -1456,9 +1456,9 @@
 					{
 						if ( self.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.showOld() )
 						{
-							var propValueInputsArr = [{ "prop": ["kind", "value"], "values": valueArr }, { "prop": ["addedBy"], "values": [self.userName] }];
+							//var propValueInputsArr = [{ "prop": ["kind", "value"], "values": valueArr }, { "prop": ["addedBy"], "values": [self.userName] }];
 
-							show( 'old', selectedEventsProp.old, propValueInputsArr, self.publicEventTree );
+							show( 'old', selectedEventsProp.old, valueArr, self.publicEventTree );
 						} else
 						{
 							selectedEventsProp.old( [] );
@@ -1522,11 +1522,11 @@
 			}
 		}
 
-		function show( oldOrUpcomingFlag, selectedEventsProp, propValueInputArr, eventTree )
+		function show( oldOrUpcomingFlag, selectedEventsProp, valueArr, eventTree )
 		{
 			var arr, shownEvents, combinedArray;
 
-			arr = self.EVENT_MANAGER.getEventsByPropertyValue(eventTree, propValueInputArr, oldOrUpcomingFlag);
+			arr = self.EVENT_MANAGER.getEventsByPropertyValue(eventTree, valueArr, oldOrUpcomingFlag);
 
 			shownEvents = selectedEventsProp();
 

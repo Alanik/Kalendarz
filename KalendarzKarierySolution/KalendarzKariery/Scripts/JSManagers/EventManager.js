@@ -203,8 +203,6 @@
 			oldUpcomingOrAll = "all";
 		}
 
-		debugger;
-
 		switch ( oldUpcomingOrAll )
 		{
 			case "old":
@@ -247,46 +245,55 @@
 							for ( var i = 0; i < daysArr.length; i++ )
 							{
 								event = daysArr[i];
-								prop = event;
+								//prop = event;
 
 								if ( isCurrentYear && isCurrentMonth && isCurrentDay && ( event.startDate.endHour > date.getHours() || ( event.startDate.endHour == date.getHours() && event.startDate.endMinute > date.getMinutes() ) ) )
 								{
 									continue;
 								}
 
-								var result = false;
+
+
+								//var result = false;
 								//var propValueInputsArr = [{ "prop": ["kind", "value"], "values": valueArr }, { "prop": ["addedBy"], "values" : [ self.userName ] }];
 
-								for ( var j = 0; j < propValueInputsArr.length; j++ )
-								{
-									var paramObj = propValueInputsArr[j];
-									for ( var k = 0; k < paramObj.prop.length; k++ )
-									{
-										prop = prop[paramObj.prop[k]];
-									}
+								//for ( var j = 0; j < propValueInputsArr.length; j++ )
+								//{
+								//	var paramObj = propValueInputsArr[j];
+								//	for ( var k = 0; k < paramObj.prop.length; k++ )
+								//	{
+								//		prop = prop[paramObj.prop[k]];
+								//	}
 
-									for ( var l = 0; l < paramObj.values.length; l++ )
-									{
-										if ( prop === paramObj.values[l] )
-										{
-											result = true;
-										}
-										else
-										{
-											result = false;
-											break;
-										}
-									}
+								//	for ( var l = 0; l < paramObj.values.length; l++ )
+								//	{
+								//		if ( prop === paramObj.values[l] )
+								//		{
+								//			result = true;
+								//		}
+								//		else
+								//		{
+								//			result = false;
+								//			break;
+								//		}
+								//	}
 
-									if ( result === false )
-									{
-										break;
-									}
+								//	if ( result === false )
+								//	{
+								//		break;
+								//	}
 
-									prop = event;
-								}
+								//	prop = event;
+								//}
 
-								if ( result )
+								//if ( result )
+								//{
+								//	arr.push( event );
+								//}
+								debugger;
+								var propValueInputsArr = [{ "prop": event.kind.value, "values": valueArr }, { "boolSpecifier" : 'and', "prop": event.addedBy, "values": [appViewModel.userName] }];
+
+								if ( $.checkByPropertyAndOrPredicate( propValueInputsArr ) )
 								{
 									arr.push( event );
 								}

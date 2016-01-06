@@ -251,7 +251,7 @@
 									continue;
 								}
 
-								if ( $.simpleFilt.checkByPropertyAndOrPredicate( checkArgs( event, appViewModel.userName ) ) )
+								if ( $.simpleFilt.checkIf( checkArgs( event, appViewModel.userName ) ) )
 								{
 									arr.push( event );
 								}
@@ -307,7 +307,7 @@
 									continue;
 								}
 
-								if ( $.simpleFilt.checkByPropertyAndOrPredicate( checkArgs( event, appViewModel.userName ) ) )
+								if ( $.simpleFilt.checkIf( checkArgs( event, appViewModel.userName ) ) )
 								{
 									arr.push( event );
 								}
@@ -331,7 +331,7 @@
 							{
 								event = daysArr[i];
 
-								if ( $.simpleFilt.checkByPropertyAndOrPredicate( checkArgs( event, appViewModel.userName ) ) )
+								if ( $.simpleFilt.checkIf( checkArgs( event, appViewModel.userName ) ) )
 								{
 									arr.push( event );
 								}

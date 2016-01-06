@@ -8,12 +8,12 @@
         /// input params:
         ///
         /// 1. checkArgs - An array of checkArg objects. 
-        /// example - [{ "prop": actualObj.kind.value, "values": [1,2] },
-        ///            { "boolSpecifier" : 'and', "prop": actualObj.addedBy, "values": [appViewModel.userName] },
-        ///            { "boolSpecifier" : 'or', "prop": actualObj.startDate, "predicate": predicateFunction }]
+        /// example - [{ "prop": someObject.someProperty.value, "values": [1,2] },
+    	///            { "boolSpecifier" : 'and', "prop": someObject.addedBy, "values": [appViewModel.userName] },
+    	///            { "boolSpecifier" : 'or', "prop": someObject.startDate, "predicate": predicateFunction }]
 
         /// returns true or false
-        checkByPropertyAndOrPredicate: function (checkArgs) {
+        checkIf: function (checkArgs) {
             var currentArg, finalResult = false, localResult = false, hasValuesProp = false, hasPredicateProp = false;
 
             for (var i = 0; i < checkArgs.length; i++) {
@@ -32,7 +32,7 @@
                             finalResult = finalResult && localResult;
                             break;
                         default:
-                            throw new Error("'boolSpecifier' property missing or is incorrect. Accepted boolSpecifier values: 'or', 'and' ");
+                            throw new Error("'boolSpecifier' property missing or is incorrect. Accepted boolSpecifier values: or, and.");
                     }
                 }
             }
@@ -67,13 +67,14 @@
                 }
                 return false;
             };
-            function passesCheckByPredicate(checkArg) {
-                var result = checkArg.predicate(checkArg.prop);
+            function passesCheckByPredicate( checkArg )
+            {
+            	var result = checkArg.predicate( checkArg.prop );
                 if (typeof result === "boolean") {
                     return result;
                 }
                 else {
-                    throw new TypeError("Returned type from provided predicate function is not a primitive boolean value such as 'true' or 'false'. ");
+                    throw new TypeError("Returned type from provided predicate function is not a primitive boolean value such as true or false.");
                 }
             };
         },
@@ -85,28 +86,28 @@
         /// 1. inputArray - An array from which to filter out elements.
         /// example - ["foo", "buzz", 1, null, {"name" : "john"}]
         ///
-        /// 2. checkArgsFunc - Anonymous function that returns an array of checkArgs objects. Its arguments are passed to the checkArgs to be checked against provided values/predicate function.
-        /// example - function (actualObj, somePropertyValue) {
-        /// return  [{ "prop": actualObj.kind.value, "values": valueArr },
-        ///          { "boolSpecifier": 'and', "prop": actualObj.addedBy, "values": [somePropertyValue] }] 
+        /// 2. checkArgsFunc - Anonymous function that returns an array of checkArgs objects. Function's arguments are passed to the checkArgs to be checked against provided values/predicate function.
+        /// example - function (actualObj, someOtherPassedValue) {
+        /// return  [{ "prop": actualObj.kind.value, "values": [1, 2, 3] },
+        ///          { "boolSpecifier": 'and', "prop": actualObj.addedBy, "values": [someOtherPassedValue] }] 
         ///          }
         /// 
-        /// 3. argsArr - An array of elements that need to be checked. They are the actual values of arguments passed to checkArgsFunc.
-        /// *** Important - First element in the argsArr represents single object/element in the input array. This provided value doesn't matter as the actual current element/object from the inputArray will 
-        ///                 be set behind the scenes. The recommended value of the first element in the argsArr is an empty object literal - {}. Please note that for all other elements in argsArr they need to 
-        ///                 be the actual values used in checkArgsFunc.
+        /// 3. argsArr - Actual values of arguments passed to checkArgsFunc (look above).
+        /// *** Important - First element in the argsArr represents single object/element in the input array. The value of the provided parameter doesn't matter as the actual element/object from the inputArray will 
+        ///                 be set behind the scenes as the current element when iterating over the element collection thus recommended value for the first element in the argsArr is an empty object literal - {}. Please note that all other elements in argsArr need to 
+        ///                 be provided with the actual values that we want to pass into checkArgsFunc.
         ///                 
         /// example - [{}, "foo"]
         /// Empty literal object '{}' represents actualObj passed to checkArgsFunc and string 'foo' will be used as somePropertyValue - the second parameter passed to checkArgsFunc etc. Same logic applies 
         /// for all additional parameters passed. 
 
         /// returns new array with elements that fulfilled check conditions
-        filterByPropertyAndOrPredicate: function (inputArray, checkArgsFunc, argsArr) {
+        filterBy: function (inputArray, checkArgsFunc, argsArr) {
             var item, outputArray = [];
             for (var i = 0; i < inputArray.length; i++) {
                 item = inputArray[i];
                 argsArr[0] = item;
-                if (this.checkByPropertyAndOrPredicate(checkArgsFunc.apply(checkArgsFunc, argsArr))) {
+                if (this.checkIf(checkArgsFunc.apply(checkArgsFunc, argsArr))) {
                     outputArray.push(item);
                 }
             }

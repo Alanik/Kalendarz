@@ -1420,7 +1420,7 @@
 			switch ( self.detailsPageJournalMenu.selectedMenuItem() )
 			{
 			    case 1:
-			        // parameter for checkByPropertyAndOrPredicate method
+			        // parameter for checkIf method
 			        checkArgs = function (actualObj, username) {
 			            return [{ "prop": actualObj.kind.value, "values": valueArr }]
 			        }
@@ -1454,7 +1454,7 @@
 					}
 					break;
 			    case 2:
-			        // parameter for checkByPropertyAndOrPredicate method
+			        // parameter for checkIf method
 			        checkArgs = function (actualObj, username) {
 			            return [{ "prop": actualObj.kind.value, "values": valueArr }, { "boolSpecifier": 'and', "prop": actualObj.addedBy, "values": [username] }]
 			        }

@@ -1,5 +1,5 @@
 ﻿<div class="display-events-overview-body" data-bind="visible: $root.detailsPageJournalMenu.selectedMenuItem() == 2">
-	<div class="legend-oldorupcoming" data-bind="click: function () { $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.showOld( !$root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.showOld() ), $root.showSelectedEvents( $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents, 'old', $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.selectedKindValues ) }">
+	<div class="legend-oldorupcoming" data-bind="click: function () { $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.showOld( !$root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.showOld() ), $root.showSelectedEvents( $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents, 'old', $root.detailsPageJournalMenu.selectedEventKindValues ) }">
 		<div style="position: absolute; left: 0;">
 			<span data-bind="text: $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.showOld() == true ? '-' : '+'" style="color: #99B799;">+</span>
 			<span>stare</span>

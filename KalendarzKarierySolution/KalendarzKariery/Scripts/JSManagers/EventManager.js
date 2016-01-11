@@ -391,7 +391,7 @@
 		}
 
 		//3. add event to appViewModel.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents
-		if ( appViewModel.detailsPageJournalMenu.isOpen() && appViewModel.detailsPageJournalMenu.selectedMenuItem() == 1 && $.inArray( newKKEvent.kind.value, appViewModel.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.selectedKindValues ) > -1 )
+		if ( appViewModel.detailsPageJournalMenu.isOpen() && appViewModel.detailsPageJournalMenu.selectedMenuItem() == 1 && $.inArray( newKKEvent.kind.value, appViewModel.detailsPageJournalMenu.selectedEventKindValues ) > -1 )
 		{
 			today = new Date();
 			endDate = new Date( newKKEvent.startDate.year, newKKEvent.startDate.month - 1, newKKEvent.startDate.day, newKKEvent.startDate.endHour, newKKEvent.startDate.endMinute, 0, 0 );
@@ -450,7 +450,7 @@
 			//3. add event to menuItems.selectedEvents
 
 			// lobby page
-			if ( appViewModel.lobbyPagePublicEventListMenu.isOpen() && $.inArray( newKKEvent.kind.value, appViewModel.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.selectedKindValues ) > -1 )
+			if ( appViewModel.lobbyPagePublicEventListMenu.isOpen() && $.inArray( newKKEvent.kind.value, appViewModel.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.selectedEventKindValues ) > -1 )
 			{
 				today = new Date();
 				endDate = new Date( newKKEvent.startDate.year, newKKEvent.startDate.month - 1, newKKEvent.startDate.day, newKKEvent.startDate.endHour, newKKEvent.startDate.endMinute, 0, 0 );

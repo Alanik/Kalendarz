@@ -39,7 +39,8 @@
 
             return finalResult;
 
-            function validateCheckArg(checkArg) {
+            function validateCheckArg( checkArg )
+            {
                 if (!checkArg.hasOwnProperty("prop")) {
                     throw new Error("Missing 'prop' property.");
                 }

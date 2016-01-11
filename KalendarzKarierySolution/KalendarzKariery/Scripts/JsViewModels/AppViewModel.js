@@ -113,8 +113,7 @@
                 //TODO: maybe change into event tree with arrays grouped by event kind
                 "selectedEvents": {
                     old: ko.observableArray( [] ),
-                    upcoming: ko.observableArray( [] ),
-                    selectedKindValues: []
+                    upcoming: ko.observableArray( [] )
                 },
                 "showOld": ko.observable( false ),
                 "showUpcoming": ko.observable( true )
@@ -123,15 +122,15 @@
                 "index": 2,
                 //TODO: maybe change into event tree with arrays grouped by event kind
                 "selectedEvents": {
-                    // are filled when building publicEventTree and then those arrays are put into old/upcoming observale array on showSelectedJournalMenuItem
+                	// are filled when building publicEventTree and then those arrays are put into old/upcoming observale array on showSelectedJournalMenuItem
+					// is made this way because otherwise app will throw errors... fix it when you get a chance (remove oldTemp and upcomingTemp)
                     oldTemp: [],
                     upcomingTemp: [],
 
                     old: ko.observableArray( [] ),
-                    upcoming: ko.observableArray( [] ),
-                    selectedKindValues: []
+                    upcoming: ko.observableArray( [] )
                 },
-                "showOld": ko.observable( true ),
+                "showOld": ko.observable( false ),
                 "showUpcoming": ko.observable( true )
             }
         },
@@ -147,6 +146,7 @@
                     return [];
             }
         },
+        "selectedEventKindValues": [],
 		"isOpen": ko.observable( false )
 }
 
@@ -158,11 +158,11 @@ self.lobbyPagePublicEventListMenu = {
             "selectedEvents": {
                 //it is filled with public events when building publicEventTree
                 old: ko.observableArray( [] ),
-                upcoming: ko.observableArray( [] ),
-                selectedKindValues: []
+                upcoming: ko.observableArray( [] )
             },
             "showOld": ko.observable( false ),
-            "showUpcoming": ko.observable( true )
+            "showUpcoming": ko.observable( true ),
+			"selectedEventKindvalues" : []
         }
     },
     "selectedMenuItem": ko.observable(1),
@@ -1005,7 +1005,18 @@ self.hideConfirmationPopupBox = function ( element )
 
 self.showSelectedJournalMenuItem = function ( menuItemIndex )
 {
+	if ( self.detailsPageJournalMenu.selectedMenuItem() === menuItemIndex )
+	{
+		return false;
+	}
+
+	var prop = self.detailsPageJournalMenu.getCurrentSelectedEventsProp();
+	prop.old([]);
+	prop.upcoming( [] );
+
     self.detailsPageJournalMenu.selectedMenuItem(menuItemIndex);
+
+    self.showSelectedEvents( self.detailsPageJournalMenu.getCurrentSelectedEventsProp(), 'all', self.detailsPageJournalMenu.selectedEventKindValues );
 
     if ( !self.detailsPageJournalMenu.isOpen() )
     {
@@ -1372,9 +1383,9 @@ self.signUpUserForEventOnClick = function ( element, id, year, month, day )
     }
 }
 
-self.showSelectedEventsOnMenuItemClick = function (element, eventKindValue, selectedEventsProp)
+self.showSelectedEventsOnMenuItemClick = function (element, eventKindValue, selectedEventsProp, selectedEventKindValues)
 {
-    var filteredArray, $menuItemContainer = $( element );
+    var $menuItemContainer = $( element );
     var $menuItem = $menuItemContainer.find( ".menu-item" );
 
     $menuItemContainer.toggleClass( "selected" );
@@ -1383,7 +1394,7 @@ self.showSelectedEventsOnMenuItemClick = function (element, eventKindValue, sele
     {
         $menuItemContainer.css( "top", "20px" );
         $menuItemContainer.css( "border-bottom", "2px solid gray" );
-        selectedEventsProp.selectedKindValues.push( eventKindValue );
+        selectedEventKindValues.push( eventKindValue );
         self.showSelectedEvents( selectedEventsProp, 'all', [eventKindValue] );
 
     } else
@@ -1391,15 +1402,18 @@ self.showSelectedEventsOnMenuItemClick = function (element, eventKindValue, sele
         $menuItemContainer.css( "top", "0px" );
         $menuItemContainer.css( "border", "2px solid #E4E0D1" );
 
-        filteredArray = selectedEventsProp.selectedKindValues.filter( function ( e ) { return e !== eventKindValue } )
-        selectedEventsProp.selectedKindValues = filteredArray;
+		//Trzeba cos z tym zrobic
+
+
+        selectedEventKindValues = selectedEventKindValues.filter( function ( e ) { return e !== eventKindValue } );
+
         self.removeSelectedEvents( selectedEventsProp, eventKindValue );
     }
 
     $menuItemContainer.scrollTo( 500 );
 };
 
-self.showSelectedEvents = function ( selectedEventsProp, oldOrUpcoming, valueArr )
+self.showSelectedEvents = function ( selectedEventsProp, oldOrUpcoming, valuesArr )
 {
     var checkArgs;
 
@@ -1417,7 +1431,7 @@ self.showSelectedEvents = function ( selectedEventsProp, oldOrUpcoming, valueArr
             case 1:
                 // parameter for simpleFilt.checkIf method
                 checkArgs = function (actualObj, username) {
-                    return [{ "prop": actualObj.kind.value, "values": valueArr }]
+                    return [{ "prop": actualObj.kind.value, "values": valuesArr }]
                 }
 
                 //////////////////////////////////////////////////////////
@@ -1451,7 +1465,7 @@ self.showSelectedEvents = function ( selectedEventsProp, oldOrUpcoming, valueArr
             case 2:
                 // parameter for checkIf method
                 checkArgs = function (actualObj, username) {
-                    return [{ "prop": actualObj.kind.value, "values": valueArr }, { "boolSpecifier": 'and', "prop": actualObj.addedBy, "values": [username] }]
+                    return [{ "prop": actualObj.kind.value, "values": valuesArr }, { "boolSpecifier": 'and', "prop": actualObj.addedBy, "values": [username] }]
                 }
 
                 //////////////////////////////////////////////////////////
@@ -1490,7 +1504,6 @@ self.showSelectedEvents = function ( selectedEventsProp, oldOrUpcoming, valueArr
         // lobby page
     else
     {
-
         if ( !self.lobbyPagePublicEventListMenu.isOpen() )
         {
             self.lobbyPagePublicEventListMenu.isOpen( true );
@@ -1600,7 +1613,7 @@ self.removeSelectedEvents = function ( selectedEvents, eventKindValue )
                     {
                         array = ko.utils.arrayFilter( selectedEvents.old(), function ( item )
                         {
-                            return item.kind.value != eventKindValue;
+                            return item.kind.value !== eventKindValue;
                         } );
 
                         selectedEvents.old( array );
@@ -1627,7 +1640,7 @@ self.removeSelectedEvents = function ( selectedEvents, eventKindValue )
                     {
                         array = ko.utils.arrayFilter( selectedEvents.old(), function ( item )
                         {
-                            return item.kind.value != eventKindValue;
+                            return item.kind.value !== eventKindValue;
                         } );
 
                         selectedEvents.old( array );
@@ -2367,12 +2380,13 @@ self.closeAllSelectedEventsListContainerOnClick = function ()
 
                     $menuItemContainer.css( "border-color", "" );
                     $menuItemContainer.css( "border", "2px solid #E4E0D1;" );
-
-                    self.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.selectedKindValues = [];
-                    self.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.old( [] );
-                    self.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.upcoming( [] );
                 }
             } );
+
+            self.lobbyPagePublicEventListMenu.selectedKindValues = [];
+
+            self.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.old( [] );
+            self.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.upcoming( [] );
 
             break;
         case 2:
@@ -2394,11 +2408,11 @@ self.closeAllSelectedEventsListContainerOnClick = function ()
                 }
             } );
 
-            self.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.selectedKindValues = [];
+            self.detailsPageJournalMenu.selectedKindValues = [];
+
             self.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.old( [] );
             self.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.upcoming( [] );
 
-            self.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.selectedKindValues = [];
             self.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.old( [] );
             self.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.upcoming( [] );
 

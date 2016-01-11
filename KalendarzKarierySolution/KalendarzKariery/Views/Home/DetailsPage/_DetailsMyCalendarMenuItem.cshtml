@@ -1,5 +1,5 @@
 ﻿<div class="display-events-overview-body" data-bind="visible: $root.detailsPageJournalMenu.selectedMenuItem() == 1">
-	<div class="legend-oldorupcoming" data-bind="click: function () { $root.detailsPageJournalMenu.menuItems.myCalendar.showOld( !$root.detailsPageJournalMenu.menuItems.myCalendar.showOld() ), $root.showSelectedEvents( $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents, 'old', $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.selectedKindValues ) }">
+	<div class="legend-oldorupcoming" data-bind="click: function () { $root.detailsPageJournalMenu.menuItems.myCalendar.showOld( !$root.detailsPageJournalMenu.menuItems.myCalendar.showOld() ), $root.showSelectedEvents( $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents, 'old', $root.detailsPageJournalMenu.selectedEventKindValues ) }">
 		<div style="position: absolute; left: 0;">
 			<span data-bind="text:$root.detailsPageJournalMenu.menuItems.myCalendar.showOld() == true ? '-' : '+'" style="color: #99B799;">+</span>
 			<span>stare</span>
@@ -25,7 +25,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="legend-oldorupcoming" data-bind="click: function () { $root.detailsPageJournalMenu.menuItems.myCalendar.showUpcoming( !$root.detailsPageJournalMenu.menuItems.myCalendar.showUpcoming() ), $root.showSelectedEvents( $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents, 'upcoming', $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.selectedKindValues ) }">
+	<div class="legend-oldorupcoming" data-bind="click: function () { $root.detailsPageJournalMenu.menuItems.myCalendar.showUpcoming( !$root.detailsPageJournalMenu.menuItems.myCalendar.showUpcoming() ), $root.showSelectedEvents( $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents, 'upcoming', $root.detailsPageJournalMenu.selectedEventKindValues ) }">
 		<div style="position: absolute; left: 0;">
 			<span data-bind="text: $root.detailsPageJournalMenu.menuItems.myCalendar.showUpcoming() == true ? '-' : '+'" style="color: #99B799;">-</span>
 			<span>nadchodzące</span>

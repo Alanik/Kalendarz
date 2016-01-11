@@ -649,7 +649,7 @@ describe( "SimpleFilt.js", function ()
 				expect( function () { simpleFilt.checkIf( checkArgs ) } ).toThrowError( TypeError, "Returned type from provided predicate function is not a primitive boolean value such as true or false." );
 			} );
 
-			it( "returns true when predicate returns true.", function ()
+			it( "returns true when predicate returns true. (without passed param to predicate)", function ()
 			{
 				var predicate = function ()
 				{
@@ -663,7 +663,7 @@ describe( "SimpleFilt.js", function ()
 				expect( actual ).toBe( true );
 			} );
 
-			it( "returns false when predicate returns false.", function ()
+			it("returns false when predicate returns false. (without passed param to predicate)", function ()
 			{
 				var predicate = function ()
 				{
@@ -705,21 +705,6 @@ describe( "SimpleFilt.js", function ()
 				var actual = simpleFilt.checkIf( checkArgs );
 
 				expect( actual ).toBe( false );
-			} );
-
-			it( "check being done on passed parameter works as expected (return true)", function ()
-			{
-				var obj = { "name": "foo", "age": 18 }
-				var predicate = function ( obj )
-				{
-					return obj.name === "foo" && obj.age === 18;
-				};
-
-				var checkArgs = [{ "prop": obj, "predicate": predicate }]
-
-				var actual = simpleFilt.checkIf( checkArgs );
-
-				expect( actual ).toBe( true );
 			} );
 
 			it( "check being done on passed parameter works as expected (return true, additional check done in predicate)", function ()

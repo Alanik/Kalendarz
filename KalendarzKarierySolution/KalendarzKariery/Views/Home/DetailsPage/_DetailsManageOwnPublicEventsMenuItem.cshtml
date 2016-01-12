@@ -25,7 +25,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="legend-oldorupcoming">
+	<div class="legend-oldorupcoming" data-bind="click: function () { $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.showUpcoming( !$root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.showUpcoming() ), $root.showSelectedEvents( $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents, 'upcoming', $root.detailsPageJournalMenu.selectedEventKindValues ) }">
 		<div style="position: absolute; left: 0;">
 			<span data-bind="text: $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.showUpcoming() == true ? '-' : '+'" style="color: #99B799;">+</span>
 			<span>nadchodzące</span>

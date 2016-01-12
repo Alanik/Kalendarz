@@ -13,7 +13,7 @@
         var Utils = function ()
         {
             var colorHelper = new EventColorHelper();
-            var webApiCaller = new WebApiCaller( self );
+            var webApiCaller = new WebApiCaller();
             var eventTreeBuilder = new TreeBuilder( self );
 
             this.colorHelper = colorHelper;
@@ -161,11 +161,11 @@ self.lobbyPagePublicEventListMenu = {
                 upcoming: ko.observableArray( [] )
             },
             "showOld": ko.observable( false ),
-            "showUpcoming": ko.observable( true ),
-			"selectedEventKindvalues" : []
+            "showUpcoming": ko.observable( true )
         }
     },
-    "selectedMenuItem": ko.observable(1),
+    "selectedMenuItem": ko.observable( 1 ),
+    "selectedEventKindValues" : [],
     "getCurrentSelectedEventsProp": function () {
         switch (this.selectedMenuItem()) {
             case 1:
@@ -813,7 +813,7 @@ self.editNoteDetailsPageOnEditLinkClick = function ( id, year, month, day )
     ko.applyBindings( self, cancelLink );
     ko.applyBindings( self, saveLink );
 
-    var $textbox = $( "<textarea style='width:80%;padding:10px;vertical-align:top;margin-top:20px;'/>" );
+    var $textbox = $( "<textarea style='width: 80%;vertical-align: top;margin-top: 12px;'/>" );
     var $container = $( "#details .li-note-container[data-noteid='" + id + "']" );
     var noteText = $container.find( "pre" ).text();
     $container.find( ".note-content" ).hide();
@@ -1014,8 +1014,7 @@ self.showSelectedJournalMenuItem = function ( menuItemIndex )
 	prop.old([]);
 	prop.upcoming( [] );
 
-    self.detailsPageJournalMenu.selectedMenuItem(menuItemIndex);
-
+	self.detailsPageJournalMenu.selectedMenuItem( menuItemIndex );
     self.showSelectedEvents( self.detailsPageJournalMenu.getCurrentSelectedEventsProp(), 'all', self.detailsPageJournalMenu.selectedEventKindValues );
 
     if ( !self.detailsPageJournalMenu.isOpen() )
@@ -1385,7 +1384,6 @@ self.signUpUserForEventOnClick = function ( element, id, year, month, day )
 
 self.showSelectedEventsOnMenuItemClick = function (element, eventKindValue, selectedEventsProp, menuObj)
 {
-
     var $menuItemContainer = $( element );
     var $menuItem = $menuItemContainer.find( ".menu-item" );
 
@@ -1425,8 +1423,8 @@ self.showSelectedEvents = function ( selectedEventsProp, oldOrUpcoming, valuesAr
         switch ( self.detailsPageJournalMenu.selectedMenuItem() )
         {
             case 1:
-                // parameter for simpleFilt.checkIf method
-                checkArgs = function (actualObj, username) {
+                // parameter for simpleFilt.checkIf() method
+                checkArgs = function (actualObj) {
                     return [{ "prop": actualObj.kind.value, "values": valuesArr }]
                 }
 
@@ -1505,6 +1503,12 @@ self.showSelectedEvents = function ( selectedEventsProp, oldOrUpcoming, valuesAr
             self.lobbyPagePublicEventListMenu.isOpen( true );
         }
 
+    	// parameter for simpleFilt.checkIf() method
+        checkArgs = function ( actualObj )
+        {
+        	return [{ "prop": actualObj.kind.value, "values": valuesArr }]
+        }
+
         //////////////////////////////////////////////////////////
         //old
         //////////////////////////////////////////////////////////
@@ -1512,7 +1516,7 @@ self.showSelectedEvents = function ( selectedEventsProp, oldOrUpcoming, valuesAr
         {
             if ( self.lobbyPagePublicEventListMenu.menuItems.publicEvents.showOld() )
             {
-                //show( valueArr, 'old', selectedEventsProp.old, ["kind", "value"], self.publicEventTree );
+            	show( 'old', selectedEventsProp.old, checkArgs, self.publicEventTree );
             } else
             {
                 selectedEventsProp.old( [] );
@@ -1526,7 +1530,7 @@ self.showSelectedEvents = function ( selectedEventsProp, oldOrUpcoming, valuesAr
         {
             if ( self.lobbyPagePublicEventListMenu.menuItems.publicEvents.showUpcoming() )
             {
-                //show( valueArr, 'upcoming', selectedEventsProp.upcoming, ["kind", "value"], self.publicEventTree );
+            	show( 'upcoming', selectedEventsProp.upcoming, checkArgs, self.publicEventTree );
             } else
             {
                 selectedEventsProp.upcoming( [] );
@@ -2361,60 +2365,54 @@ self.closeAllSelectedEventsListContainerOnClick = function ()
 
     switch ( self.currentPage )
     {
-        case 0:
-            self.lobbyPagePublicEventListMenu.isOpen( false );
+    	case 0:
+    		self.lobbyPagePublicEventListMenu.isOpen( false );
 
-            $eventsMenuContainer = $( "#lobby .events-menu-container" );
-            $eventsMenuContainer.find( ".menu-item-container" ).each( function ()
-            {
-                $menuItemContainer = $( this );
+    		$eventsMenuContainer = $( "#lobby .events-menu-container" );
+    		$eventsMenuContainer.find( ".menu-item-container" ).each( function ()
+    		{
+    			$menuItemContainer = $( this );
 
-                if ( $menuItemContainer.hasClass( "selected" ) )
-                {
-                    $menuItemContainer.removeClass( "selected" );
-                    $menuItemContainer.css( "top", "0px" );
+    			if ( $menuItemContainer.hasClass( "selected" ) )
+    			{
+    				$menuItemContainer.removeClass( "selected" );
+    				$menuItemContainer.css( "top", "0px" );
+    				$menuItemContainer.css( "border-color", "" );
+    				$menuItemContainer.css( "border", "2px solid #E4E0D1;" );
+    			}
+    		} );
 
-                    $menuItemContainer.css( "border-color", "" );
-                    $menuItemContainer.css( "border", "2px solid #E4E0D1;" );
-                }
-            } );
+    		self.lobbyPagePublicEventListMenu.selectedEventKindValues = [];
+    		self.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.old( [] );
+    		self.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.upcoming( [] );
 
-            self.lobbyPagePublicEventListMenu.selectedKindValues = [];
+    		return true;
+    	case 2:
+    		self.detailsPageJournalMenu.isOpen( false );
+    		self.showDetailsPageClockContainer();
 
-            self.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.old( [] );
-            self.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.upcoming( [] );
+    		$eventsMenuContainer = $( "#details .events-menu-container" );
+    		$eventsMenuContainer.find( ".menu-item-container" ).each( function ()
+    		{
+    			$menuItemContainer = $( this );
 
-            break;
-        case 2:
-            self.detailsPageJournalMenu.isOpen( false );
-            self.showDetailsPageClockContainer();
+    			if ( $menuItemContainer.hasClass( "selected" ) )
+    			{
+    				$menuItemContainer.removeClass( "selected" );
+    				$menuItemContainer.css( "top", "0px" );
+    				$menuItemContainer.css( "border-color", "" );
+    				$menuItemContainer.css( "border", "2px solid #E4E0D1;" );
+    			}
+    		} );
 
-            $eventsMenuContainer = $( "#details .events-menu-container" );
-            $eventsMenuContainer.find( ".menu-item-container" ).each( function ()
-            {
-                $menuItemContainer = $( this );
+    		self.detailsPageJournalMenu.selectedEventKindValues = [];
+    		self.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.old( [] );
+    		self.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.upcoming( [] );
+    		self.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.old( [] );
+    		self.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.upcoming( [] );
+    		self.detailsPageJournalMenu.selectedMenuItem( 1 );
 
-                if ( $menuItemContainer.hasClass( "selected" ) )
-                {
-                    $menuItemContainer.removeClass( "selected" );
-                    $menuItemContainer.css( "top", "0px" );
-
-                    $menuItemContainer.css( "border-color", "" );
-                    $menuItemContainer.css( "border", "2px solid #E4E0D1;" );
-                }
-            } );
-
-            self.detailsPageJournalMenu.selectedKindValues = [];
-
-            self.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.old( [] );
-            self.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.upcoming( [] );
-
-            self.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.old( [] );
-            self.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.upcoming( [] );
-
-            self.detailsPageJournalMenu.selectedMenuItem( 1 );
-
-            break;
+    		return true;
         default: return false;
     }
 };

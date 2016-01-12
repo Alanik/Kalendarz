@@ -1383,8 +1383,9 @@ self.signUpUserForEventOnClick = function ( element, id, year, month, day )
     }
 }
 
-self.showSelectedEventsOnMenuItemClick = function (element, eventKindValue, selectedEventsProp, selectedEventKindValues)
+self.showSelectedEventsOnMenuItemClick = function (element, eventKindValue, selectedEventsProp, menuObj)
 {
+
     var $menuItemContainer = $( element );
     var $menuItem = $menuItemContainer.find( ".menu-item" );
 
@@ -1394,19 +1395,14 @@ self.showSelectedEventsOnMenuItemClick = function (element, eventKindValue, sele
     {
         $menuItemContainer.css( "top", "20px" );
         $menuItemContainer.css( "border-bottom", "2px solid gray" );
-        selectedEventKindValues.push( eventKindValue );
+        menuObj.selectedEventKindValues.push( eventKindValue );
         self.showSelectedEvents( selectedEventsProp, 'all', [eventKindValue] );
 
     } else
     {
         $menuItemContainer.css( "top", "0px" );
         $menuItemContainer.css( "border", "2px solid #E4E0D1" );
-
-		//Trzeba cos z tym zrobic
-
-
-        selectedEventKindValues = selectedEventKindValues.filter( function ( e ) { return e !== eventKindValue } );
-
+        menuObj.selectedEventKindValues = menuObj.selectedEventKindValues.filter( function ( e ) { return e !== eventKindValue } );
         self.removeSelectedEvents( selectedEventsProp, eventKindValue );
     }
 

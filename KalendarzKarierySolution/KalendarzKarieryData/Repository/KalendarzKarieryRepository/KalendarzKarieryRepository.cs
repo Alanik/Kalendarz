@@ -1,22 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Security.Cryptography.Pkcs;
-using System.Web;
-using KalendarzKarieryData.Models.ViewModels;
-using System.Web.Hosting;
-using System.Data.Common;
-using KalendarzKarieryData.Models.DataTransferModels.Events;
-using KalendarzKarieryData.BO.Cache;
-using System.Collections;
-using KalendarzKarieryCore.BO;
-using KalendarzKarieryData.Models.DataTransferModels.Notes;
-
-
-namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
+﻿namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 {
-	public class KalendarzKarieryRepository : IKalendarzKarieryRepository
+    using System;
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Linq;
+    using KalendarzKarieryData.Models.DataTransferModels.Events;
+    using KalendarzKarieryCore.BO;
+    using KalendarzKarieryData.Models.DataTransferModels.Notes;
+
+    public class KalendarzKarieryRepository : IKalendarzKarieryRepository
 	{
 		#region User
 

@@ -1,36 +1,29 @@
-﻿<header class="lobby-header">
-	<div id="lobbyLogo">
-	</div>
+﻿<section class="dz-row">
+	<header>
+		<div id="lobbyLogo">
+			<img src="~/Images/Logo/kkLogo.png" alt="logo" />
+		</div>
 
-	@if (Request.IsAuthenticated)
- {
-		@Html.Partial( "_LobbyLoggedInBar" )			 
- }
- else
- {
-		@Html.Partial( "_LobbyNotLoggedInBar" )			 
- }
-</header>
+		@if (Request.IsAuthenticated)
+  {
+			@Html.Partial( "_LobbyLoggedInBar" )			 
+  }
+  else
+  {
+			@Html.Partial( "_LobbyNotLoggedInBar" )			 
+  }
+	</header>
 
-<nav class="lobby-body">
 	<section id="lobbyQuoteAndNavSection">
-		<div id="lobbyQuoteContainer">
-			<span>Twój osobisty kalendarz stworzony na miare Twoich potrzeb.</span>
-		</div>
-		<div id="lobbyNavContainer">
-			<div class="lobby-nav-link-container main-page-link selected-nav-link">
-				<a href="#0">Strona Główna</a>
-				
-			</div>
-			<div class="lobby-nav-link-container">
-				<a href="#1">Kalendarz</a>
-			</div>
-			<div class="lobby-nav-link-container">
-				<a href="#2">Dziennik</a>
-			</div>
-		</div>
+		<p class="lobby-quote">Twój osobisty kalendarz stworzony na miare Twoich potrzeb.</p>
+		<nav id="lobbyNavContainer">
+			<a href="#0">Strona Główna</a>
+			<a href="#1">Kalendarz</a>
+			<a href="#2">Dziennik</a>
+		</nav>
 	</section>
-
+</section>
+<div class="dz-row" style="display: none;">
 	<div id="addPrivateEventBtn" class="hover-cursor-pointer" data-bind="click: function ( data, e ) { $root.showAddPrivateEventLobbyPopupOnClick( $element, data, e ) }">Dodaj do swojego kalendarza +</div>
 	<header class="title-header">Tablica wydarzeń</header>
 
@@ -45,14 +38,22 @@
 			@Html.Partial( "_LobbyPublicEventList" )
 		</div>
 	</section>
-
+</div>
+<div class="dz-row" style="display: none;">
 	<section id="lobbyEventsDisplaySection">
 		@Html.Partial( "_LobbyEventsDisplay" )
 	</section>
-
+</div>
+<div class="dz-row" style="display: none;">
 	@Html.Partial( "_LobbyNews" )
-</nav>
+	<footer class="lobby-footer">
+		<span>Kalendarz Kariery 2015, wszelkie prawa zastrzezone</span>
+	</footer>
+</div>
 
-<footer class="lobby-footer">
-	<span>Kalendarz Kariery 2015, wszelkie prawa zastrzezone</span>
-</footer>
+
+
+
+
+
+

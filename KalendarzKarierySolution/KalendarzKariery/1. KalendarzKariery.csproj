@@ -209,6 +209,10 @@
     <Content Include="Content\MediaQueries.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\arrow-down.png" />
+    <Content Include="Images\arrow-left.png" />
+    <Content Include="Images\arrow-right.png" />
+    <Content Include="Images\arrow-up.png" />
     <Content Include="Images\BackgroundParts\kalendarzTlo.png" />
     <Content Include="Images\BackgroundParts\kalendarzTloLewy.png" />
     <Content Include="Images\BackgroundParts\kalendarzTloPrawo.png" />
@@ -276,6 +280,9 @@
     <Content Include="Scripts\JSModels\KKEventDateModelObservable.js" />
     <Content Include="Scripts\JSModels\KKNoteModelObservable.js" />
     <Content Include="Scripts\JSModels\KKNoteModel.js" />
+    <Content Include="Scripts\Lib\DzieuoJs\dzieuo.js" />
+    <Content Include="Scripts\Lib\DzieuoJs\jquery.animate-enhanced.min.js" />
+    <Content Include="Scripts\Lib\DzieuoJs\jquery.easing.1.3.js" />
     <Content Include="Scripts\Lib\HammerJS\hammer.min.map" />
     <None Include="Scripts\Lib\jquery-2.0.3.intellisense.js" />
     <Content Include="Images\TestBackgrounds\1600x900.jpg" />

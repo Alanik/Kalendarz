@@ -1,61 +1,22 @@
 ﻿@model KalendarzKarieryData.Models.ViewModels.MainViewModel
 
-<div class="navigation-arrows"></div>
+<div id="dzieuo">
+	<section id="lobby" class="dz-column">
+		@Html.Partial( "_Lobby" )
+	</section>
 
-<div id="slides">
-	<ul class="slides-container">
-		<li>
-			<div id="slide-item-lobby">
-				<div id="lobbyBg">
-					@*<img src="~/Images/KalendarzTlo.png" alt="background" />*@
-					<div class="dotted-page-overlay"></div>
-					@Html.Partial( "_ConfirmationPopupBox" )
+	<section id="calendar" class="dz-column">
+		<div id="calendarWidget" class="dz-row">
 
-					<section id="lobby" class="main-section">
-						@Html.Partial( "_Lobby" )
-					</section>
+			<!-- Calendar is added dynamically (calendarWidget.js)   -->
 
-				</div>
-				<div id="rightSideLobby" class="side"></div>
-				<div id="rightSideLobbyTopPart"></div>
-			</div>
-		</li>
-		<li>
-			<div id="slide-item-calendar">
-				<div id="leftSideCalendar" class="side">
-				</div>
-				<div id="calendarBg">
-					@*<img src="~/Images/KalendarzTlo.png" alt="background" />*@
-					<div class="dotted-page-overlay"></div>
-					@Html.Partial( "_ConfirmationPopupBox" )
-					<section id="calendar" class="main-section">
+		</div>
+	</section>
 
-						<!-- Calendar is added dynamically (calendarWidget.js)   -->
+	<section id="details" class="dz-column">
+		@Html.Partial( "_Details", @Model.RegisterViewModel )
+	</section>
 
-					</section>
-					@Html.Partial( "_AddNewEvent", new KalendarzKarieryData.Models.ViewModels.AddEventViewModel() )
-					@Html.Partial( "_HoverEvent" )
-					<section id="calendarListView">
-					</section>
-				</div>
-				<div id="rightSideCalendar" class="side"></div>
-			</div>
-		</li>
-		<li>
-			<div id="slide-item-details">
-				<div id="detailsBg">
-					@*<img src="~/Images/KalendarzTlo.png" alt="background" />*@
-					<div class="dotted-page-overlay"></div>
-					@Html.Partial( "_ConfirmationPopupBox" )
-					<div id="details" class="main-section">
-						@Html.Partial( "_Details", @Model.RegisterViewModel )
-					</div>
-				</div>
-				<div id="leftSideDetails" class="side">
-				</div>
-			</div>
-		</li>
-	</ul>
 </div>
 
 @* Lib  *@
@@ -71,9 +32,10 @@
 <script src="~/Scripts/Lib/Masonry/masonry-docs.min.js"></script>
 <script src="~/Scripts/KnockoutCustomBindings/KOCustomBindings.js"></script>
 <script src="~/Scripts/CalendarWidget/calendarWidget.js"></script>
-<script src="~/Scripts/CalendarWidget/Slider/jquery.animate-enhanced.min.js"></script>
-<script src="~/Scripts/CalendarWidget/Slider/jquery.easing.1.3.js"></script>
-<script src="~/Scripts/CalendarWidget/Slider/jquery.superslides.min.js"></script>
+
+<script src="~/Scripts/Lib/DzieuoJs/jquery.animate-enhanced.min.js"></script>
+<script src="~/Scripts/Lib/DzieuoJs/jquery.easing.1.3.js"></script>
+<script src="~/Scripts/Lib/DzieuoJs/dzieuo.js"></script>
 
 @* Models *@
 
@@ -121,6 +83,8 @@
 		PROGRAM.initializeJQueryExtentionMethods(SIMPLE_FILT());
 		PROGRAM.initializeAndStartSpinner();
 		PROGRAM.initialize(indexViewModel, userName);
+
+		var dzieuo = $('#dzieuo').dzieuo();
 
 	});
 

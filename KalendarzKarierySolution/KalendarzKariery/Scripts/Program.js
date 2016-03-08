@@ -53,8 +53,8 @@
         $target.css('top', winH / 2 - $target.height() / 2);
         $target.css('left', winW / 2 - $target.width() / 2 - 20);
 
-        this.spinner.spin($target[0]);
-        $target.show();
+        //this.spinner.spin($target[0]);
+        //$target.show();
     },
     initializeEventGrid: function () {
         var $container = $('#lobby .grid');
@@ -68,7 +68,7 @@
     initialize: function (indexViewModel, userName) {
         "use strict";
 
-        var $calendar = $("#calendar");
+        var $calendar = $("#calendarWidget");
         var $details = $("#details");
         var $lobby = $("#lobby");
 
@@ -76,7 +76,6 @@
         $calendar.calendarWidget({
             month: date.getMonth(), year: date.getFullYear()
         });
-
         var appViewModel = new AppViewModel(date, userName, this.spinner);
 
         appViewModel.eventPrivacyLevels = appViewModel.UTILS.eventTreeBuilder.transformPrivacyLevels(indexViewModel.PrivacyLevels);
@@ -203,91 +202,91 @@
         $tableBody.height(h + "px");
         ///////////////////////////////////////////////////////////////////
 
-        this.initializeSlides = function () {
-            location.hash = '#0';
+        //this.initializeSlides = function () {
+        //    location.hash = '#0';
 
-            var $slides = $('#slides');
+        //    var $slides = $('#slides');
 
-            //for touch swipes (using hammer.js)
-            //Hammer( $slides[0] ).on( "swipeleft", function ( e )
-            //{
-            //	$slides.data( 'superslides' ).animate( 'next' );
-            //} );
+        //    //for touch swipes (using hammer.js)
+        //    //Hammer( $slides[0] ).on( "swipeleft", function ( e )
+        //    //{
+        //    //	$slides.data( 'superslides' ).animate( 'next' );
+        //    //} );
 
-            //Hammer( $slides[0] ).on( "swiperight", function ( e )
-            //{
-            //	$slides.data( 'superslides' ).animate( 'prev' );
-            //} );
+        //    //Hammer( $slides[0] ).on( "swiperight", function ( e )
+        //    //{
+        //    //	$slides.data( 'superslides' ).animate( 'prev' );
+        //    //} );
 
-            $slides.superslides({
-                slide_easing: 'easeInOutCubic',
-                slide_speed: 800,
-                pagination: true,
-                hashchange: true,
-                scrollable: true
-            });
+        //    $slides.superslides({
+        //        slide_easing: 'easeInOutCubic',
+        //        slide_speed: 800,
+        //        pagination: true,
+        //        hashchange: true,
+        //        scrollable: true
+        //    });
 
-            $(window).on("hashchange", function () {
-                setTimeout(function () {
-                    var events = appViewModel.calendarDayEventsToUpdate.events;
+        //    $(window).on("hashchange", function () {
+        //        setTimeout(function () {
+        //            var events = appViewModel.calendarDayEventsToUpdate.events;
 
-                    if (location.hash === "#0") {
-                        appViewModel.currentPage = 0;
-                    }
-                    else if (location.hash === "#1") {
-                        appViewModel.currentPage = 1;
+        //            if (location.hash === "#0") {
+        //                appViewModel.currentPage = 0;
+        //            }
+        //            else if (location.hash === "#1") {
+        //                appViewModel.currentPage = 1;
 
-                        if (events && $.isArray(events)) {
-                            //setTimeout( function ()
-                            //{
-                            appViewModel.redrawCalendarCell(events, appViewModel.calendarDayEventsToUpdate.day, appViewModel.calendarDayEventsToUpdate.month, appViewModel.calendarDayEventsToUpdate.year);
-                            appViewModel.calendarDayEventsToUpdate.events = null;
-                            //}, 10 )
-                        }
+        //                if (events && $.isArray(events)) {
+        //                    //setTimeout( function ()
+        //                    //{
+        //                    appViewModel.redrawCalendarCell(events, appViewModel.calendarDayEventsToUpdate.day, appViewModel.calendarDayEventsToUpdate.month, appViewModel.calendarDayEventsToUpdate.year);
+        //                    appViewModel.calendarDayEventsToUpdate.events = null;
+        //                    //}, 10 )
+        //                }
 
-                        //TODO: not finished set dynamic height of calendar cells (calendar's height to be as browser window)
-                        //setTimeout(function(){				
+        //                //TODO: not finished set dynamic height of calendar cells (calendar's height to be as browser window)
+        //                //setTimeout(function(){				
 
-                        //	var height1 = $("#calendar #calendarMenuHeader").height();
-                        //	var height2 = $("#calendar .weekday-container").height();
-                        //	var height3 = $("#calendar .calendar-hours-placeholder").first().height();
-                        //	var height4 = 42;
-                        //	var winHeight = $(window).height();
+        //                //	var height1 = $("#calendar #calendarMenuHeader").height();
+        //                //	var height2 = $("#calendar .weekday-container").height();
+        //                //	var height3 = $("#calendar .calendar-hours-placeholder").first().height();
+        //                //	var height4 = 42;
+        //                //	var winHeight = $(window).height();
 
-                        //	var cellHeight = (winHeight - (height1 + height2 + height3 + 60)) / 6;
+        //                //	var cellHeight = (winHeight - (height1 + height2 + height3 + 60)) / 6;
 
-                        //	$("#calendar .calendar-cell").css("height", cellHeight);
+        //                //	$("#calendar .calendar-cell").css("height", cellHeight);
 
-                        //	console.log(cellHeight);
+        //                //	console.log(cellHeight);
 
-                        //}, 10)
+        //                //}, 10)
 
-                    }
-                    else if (location.hash === "#2") {
-                        appViewModel.currentPage = 2;
-                    }
-                }, 10);
-            });
+        //            }
+        //            else if (location.hash === "#2") {
+        //                appViewModel.currentPage = 2;
+        //            }
+        //        }, 10);
+        //    });
 
-            $(".slides-pagination a").on("click", function () {
-                var hash = $(this).attr("href");
+        //    $(".slides-pagination a").on("click", function () {
+        //        var hash = $(this).attr("href");
 
-                if (hash === "#2") {
-                    var $scrollable = $("#slide-item-details").parent();
+        //        if (hash === "#2") {
+        //            var $scrollable = $("#slide-item-details").parent();
 
-                    setTimeout(function () {
-                        $scrollable.scrollTop(0);
-                    }, 10)
-                }
-            });
-        }();
+        //            setTimeout(function () {
+        //                $scrollable.scrollTop(0);
+        //            }, 10)
+        //        }
+        //    });
+        //}();
 
-        this.createCalendarNavigationArrows = function () {
-            $calendar.append('<div id="calendar-navigation-arrows-left"><img src="Images/Nav/arrowLeft.png" alt="arrow-left"/></div>');
-            $calendar.append('<div id="calendar-navigation-arrows-right"><img src="Images/Nav/arrowRight.png" alt="arrow-Right"/></div>');
-            $details.append('<div id="details-navigation-arrows-left"><img src="Images/Nav/arrowLeft.png" alt="arrow-Left"/></div>');
-            $lobby.append('<div id="lobby-navigation-arrows-right"><img src="Images/Nav/arrowRight.png" alt="arrow-Right"/></div>');
-        }();
+        //this.createCalendarNavigationArrows = function () {
+        //    $calendar.append('<div id="calendar-navigation-arrows-left"><img src="Images/Nav/arrowLeft.png" alt="arrow-left"/></div>');
+        //    $calendar.append('<div id="calendar-navigation-arrows-right"><img src="Images/Nav/arrowRight.png" alt="arrow-Right"/></div>');
+        //    $details.append('<div id="details-navigation-arrows-left"><img src="Images/Nav/arrowLeft.png" alt="arrow-Left"/></div>');
+        //    $lobby.append('<div id="lobby-navigation-arrows-right"><img src="Images/Nav/arrowRight.png" alt="arrow-Right"/></div>');
+        //}();
 
         this.drawClocks = function () {
             appViewModel.drawAnalogClock();

@@ -1,222 +1,227 @@
 ﻿@model KalendarzKarieryData.Models.ViewModels.RegisterViewModel
-<div style="height: 20px; background: #EDE9D9;"></div>
-<div class="title-header">
-	<span>Dziennik</span>
+<div class="dz-row">
+	<div style="height: 20px; background: #EDE9D9;"></div>
+	<div class="title-header">
+		<span>Dziennik</span>
+	</div>
+	<section id="detailsPanel">
+		<div style="width: 90%;">
+			<div id="todayDateAndTimeContainer" data-bind="click: $root.showTodayInDetailsPageCalendarDetailsTable" class="hover-cursor-pointer">
+				<div style="position: absolute; z-index: -1;">
+					<div id="todayDateDay" data-bind="text: $root.todayDate.day"></div>
+					<div id="todayDateDayName" data-bind="text: $root.todayDate.getDayName()"></div>
+					<div id="todayDateMonth" data-bind="text: $root.todayDate.getMonthName()"></div>
+					<div id="todayDateYear" data-bind="text: $root.todayDate.year"></div>
+				</div>
+
+				<div id="clockCanvas">
+					<div id="digitalClock"></div>
+				</div>
+			</div>
+
+			<div style="float: right;" class="events-menu-container">
+				<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element, 7, $root.detailsPageJournalMenu.getCurrentSelectedEventsProp(), $root.detailsPageJournalMenu ) }">
+					<div class="border-item inne-border-tab"></div>
+					<div class="menu-item" data-eventkind="7">
+						<span>Inne</span>
+
+					</div>
+					<div class="menu-item-number-container">
+						<div class="menu-item-number-upcoming" data-bind="text: $root.myEventTreeCountBasedOnEventKind && $root.myEventTreeCountBasedOnEventKind[7].upcoming() != 0 ? $root.myEventTreeCountBasedOnEventKind[7].upcoming() : '-'"></div>
+						@*<div class="menu-item-number-old" data-bind="text: $root.myEventTreeCountBasedOnEventKind[7] ? $root.myEventTreeCountBasedOnEventKind[7].events.old() : 0"></div>*@
+					</div>
+				</div>
+
+				<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element, 2, $root.detailsPageJournalMenu.getCurrentSelectedEventsProp(), $root.detailsPageJournalMenu ) }">
+					<div class="border-item lekcje-border-tab"></div>
+					<div class="menu-item" data-eventkind="2">
+						<span>Lekcje</span>
+
+					</div>
+					<div class="menu-item-number-container">
+						<div class="menu-item-number-upcoming" data-bind="		text: $root.myEventTreeCountBasedOnEventKind && $root.myEventTreeCountBasedOnEventKind[2].upcoming() != 0 ? $root.myEventTreeCountBasedOnEventKind[2].upcoming() : '-'"></div>
+						@*<div class="menu-item-number-old" data-bind="text: $root.myEventTreeCountBasedOnEventKind[2] ? $root.myEventTreeCountBasedOnEventKind[2].events.old() : 0"></div>*@
+					</div>
+				</div>
+
+				<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element, 1, $root.detailsPageJournalMenu.getCurrentSelectedEventsProp(), $root.detailsPageJournalMenu ) }">
+					<div class="border-item wydarzenia-border-tab"></div>
+					<div class="menu-item" data-eventkind="1">
+						<span>Wydarzenia</span>
+					</div>
+					<div class="menu-item-number-container">
+						<div class="menu-item-number-upcoming" data-bind="text: $root.myEventTreeCountBasedOnEventKind && $root.myEventTreeCountBasedOnEventKind[1].upcoming() != 0 ? $root.myEventTreeCountBasedOnEventKind[1].upcoming() : '-'"></div>
+						@*<div class="menu-item-number-old" data-bind="text: $root.myEventTreeCountBasedOnEventKind[1] ? $root.myEventTreeCountBasedOnEventKind[1].events.old() : 0"></div>*@
+					</div>
+				</div>
+
+				<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element, 6, $root.detailsPageJournalMenu.getCurrentSelectedEventsProp(), $root.detailsPageJournalMenu ) }">
+					<div class="border-item spotkania-border-tab"></div>
+					<div class="menu-item" data-eventkind="6">
+						<span>Spotkania</span>
+
+					</div>
+					<div class="menu-item-number-container">
+						<div class="menu-item-number-upcoming" data-bind="text: $root.myEventTreeCountBasedOnEventKind && $root.myEventTreeCountBasedOnEventKind[6].upcoming() != 0 ? $root.myEventTreeCountBasedOnEventKind[6].upcoming() : '-'"></div>
+						@*<div class="menu-item-number-old" data-bind="text: $root.myEventTreeCountBasedOnEventKind[6] ? $root.myEventTreeCountBasedOnEventKind[6].events.old() : 0">78</div>*@
+					</div>
+				</div>
+
+				<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element, 3, $root.detailsPageJournalMenu.getCurrentSelectedEventsProp(), $root.detailsPageJournalMenu ) }">
+					<div class="border-item zajecia-border-tab"></div>
+					<div class="menu-item" data-eventkind="3">
+						<span>Zajęcia</span>
+					</div>
+					<div class="menu-item-number-container">
+						<div class="menu-item-number-upcoming" data-bind="text: $root.myEventTreeCountBasedOnEventKind && $root.myEventTreeCountBasedOnEventKind[3].upcoming() != 0 ? $root.myEventTreeCountBasedOnEventKind[3].upcoming() : '-'"></div>
+						@*<div class="menu-item-number-old" data-bind="text: $root.myEventTreeCountBasedOnEventKind[3] ? $root.myEventTreeCountBasedOnEventKind[3].events.old() : 0"></div>*@
+					</div>
+				</div>
+
+				<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element, 4, $root.detailsPageJournalMenu.getCurrentSelectedEventsProp(), $root.detailsPageJournalMenu ) }">
+					<div class="border-item szkolenia-border-tab"></div>
+					<div class="menu-item" data-eventkind="4">
+						<span>Szkolenia</span>
+
+					</div>
+					<div class="menu-item-number-container">
+						<div class="menu-item-number-upcoming" data-bind="text: $root.myEventTreeCountBasedOnEventKind && $root.myEventTreeCountBasedOnEventKind[4].upcoming() != 0 ? $root.myEventTreeCountBasedOnEventKind[4].upcoming() : '-'"></div>
+						@*<div class="menu-item-number-old" data-bind="text: $root.myEventTreeCountBasedOnEventKind[4] ? $root.myEventTreeCountBasedOnEventKind[4].events.old() : 0"></div>*@
+					</div>
+				</div>
+
+				<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element, 5, $root.detailsPageJournalMenu.getCurrentSelectedEventsProp(), $root.detailsPageJournalMenu ) }">
+					<div class="border-item kursy-border-tab"></div>
+					<div class="menu-item" data-eventkind="5">
+						<span>Kursy</span>
+
+					</div>
+					<div class="menu-item-number-container">
+						<div class="menu-item-number-upcoming" data-bind="		text: $root.myEventTreeCountBasedOnEventKind && $root.myEventTreeCountBasedOnEventKind[5].upcoming() != 0 ? $root.myEventTreeCountBasedOnEventKind[5].upcoming() : '-'"></div>
+						@*<div class="menu-item-number-old" data-bind="text: $root.myEventTreeCountBasedOnEventKind[5] ? $root.myEventTreeCountBasedOnEventKind[5].events.old() : 0"></div>*@
+					</div>
+				</div>
+			</div>
+
+			<div id="detailsPageAllEventsListContainer" class="display-events-overview-container" data-bind="visible: $root.detailsPageJournalMenu.isOpen()">
+				<header class="display-events-overview-header">
+					<span class="display-events-header-menu-title hover-cursor-pointer" data-bind="click: function () { $root.showSelectedJournalMenuItem( 1 ) }, css: { selected: $root.detailsPageJournalMenu.selectedMenuItem() === 1 }">Mój kalendarz</span>
+					<span class="display-events-header-menu-title hover-cursor-pointer" data-bind="click: function () { $root.showSelectedJournalMenuItem( 2 ) }, css: { selected: $root.detailsPageJournalMenu.selectedMenuItem() === 2 }">Moje publiczne wydarzenia</span>
+					<div class="close-btn-x hover-cursor-pointer" data-bind="click: $root.closeAllSelectedEventsListContainerOnClick">x</div>
+				</header>
+
+				@Html.Partial( "_DetailsMyCalendarMenuItem" )
+				@Html.Partial( "_DetailsManageOwnPublicEventsMenuItem" )
+			</div>
+
+
+			<div class="dziennik-menu-container">
+				<div class="manage-pubic-events-menu-link hover-cursor-pointer" data-bind="click: function () { $root.showSelectedJournalMenuItem( 2 ) }">
+					Zarządzaj swoimi publicznymi wydarzeniami
+				</div>
+			</div>
+
+		</div>
+	</section>
 </div>
-<section id="detailsPanel">
-	<div style="width: 90%;">
-		<div id="todayDateAndTimeContainer" data-bind="click: $root.showTodayInDetailsPageCalendarDetailsTable" class="hover-cursor-pointer">
-			<div style="position: absolute;z-index:-1;">
-				<div id="todayDateDay" data-bind="text: $root.todayDate.day"></div>
-				<div id="todayDateDayName" data-bind="text: $root.todayDate.getDayName()"></div>
-				<div id="todayDateMonth" data-bind="text: $root.todayDate.getMonthName()"></div>
-				<div id="todayDateYear" data-bind="text: $root.todayDate.year"></div>
-			</div>
-
-			<div id="clockCanvas">
-				<div id="digitalClock"></div>
-			</div>
-		</div>
-
-		<div style="float:right;" class="events-menu-container">
-			<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element, 7, $root.detailsPageJournalMenu.getCurrentSelectedEventsProp(), $root.detailsPageJournalMenu ) }">
-				<div class="border-item inne-border-tab"></div>
-				<div class="menu-item" data-eventkind="7">
-					<span>Inne</span>
-
-				</div>
-				<div class="menu-item-number-container">
-					<div class="menu-item-number-upcoming" data-bind="text: $root.myEventTreeCountBasedOnEventKind && $root.myEventTreeCountBasedOnEventKind[7].upcoming() != 0 ? $root.myEventTreeCountBasedOnEventKind[7].upcoming() : '-'"></div>
-					@*<div class="menu-item-number-old" data-bind="text: $root.myEventTreeCountBasedOnEventKind[7] ? $root.myEventTreeCountBasedOnEventKind[7].events.old() : 0"></div>*@
-				</div>
-			</div>
-
-			<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element, 2, $root.detailsPageJournalMenu.getCurrentSelectedEventsProp(), $root.detailsPageJournalMenu ) }">
-				<div class="border-item lekcje-border-tab"></div>
-				<div class="menu-item" data-eventkind="2">
-					<span>Lekcje</span>
-
-				</div>
-				<div class="menu-item-number-container">
-					<div class="menu-item-number-upcoming" data-bind="		text: $root.myEventTreeCountBasedOnEventKind && $root.myEventTreeCountBasedOnEventKind[2].upcoming() != 0 ? $root.myEventTreeCountBasedOnEventKind[2].upcoming() : '-'"></div>
-					@*<div class="menu-item-number-old" data-bind="text: $root.myEventTreeCountBasedOnEventKind[2] ? $root.myEventTreeCountBasedOnEventKind[2].events.old() : 0"></div>*@
-				</div>
-			</div>
-
-			<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element, 1, $root.detailsPageJournalMenu.getCurrentSelectedEventsProp(), $root.detailsPageJournalMenu ) }">
-				<div class="border-item wydarzenia-border-tab"></div>
-				<div class="menu-item" data-eventkind="1">
-					<span>Wydarzenia</span>
-				</div>
-				<div class="menu-item-number-container">
-					<div class="menu-item-number-upcoming" data-bind="text: $root.myEventTreeCountBasedOnEventKind && $root.myEventTreeCountBasedOnEventKind[1].upcoming() != 0 ? $root.myEventTreeCountBasedOnEventKind[1].upcoming() : '-'"></div>
-					@*<div class="menu-item-number-old" data-bind="text: $root.myEventTreeCountBasedOnEventKind[1] ? $root.myEventTreeCountBasedOnEventKind[1].events.old() : 0"></div>*@
-				</div>
-			</div>
-
-			<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element, 6, $root.detailsPageJournalMenu.getCurrentSelectedEventsProp(), $root.detailsPageJournalMenu ) }">
-				<div class="border-item spotkania-border-tab"></div>
-				<div class="menu-item" data-eventkind="6">
-					<span>Spotkania</span>
-
-				</div>
-				<div class="menu-item-number-container">
-					<div class="menu-item-number-upcoming" data-bind="text: $root.myEventTreeCountBasedOnEventKind && $root.myEventTreeCountBasedOnEventKind[6].upcoming() != 0 ? $root.myEventTreeCountBasedOnEventKind[6].upcoming() : '-'"></div>
-					@*<div class="menu-item-number-old" data-bind="text: $root.myEventTreeCountBasedOnEventKind[6] ? $root.myEventTreeCountBasedOnEventKind[6].events.old() : 0">78</div>*@
-				</div>
-			</div>
-
-			<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element, 3, $root.detailsPageJournalMenu.getCurrentSelectedEventsProp(), $root.detailsPageJournalMenu ) }">
-				<div class="border-item zajecia-border-tab"></div>
-				<div class="menu-item" data-eventkind="3">
-					<span>Zajęcia</span>
-				</div>
-				<div class="menu-item-number-container">
-					<div class="menu-item-number-upcoming" data-bind="text: $root.myEventTreeCountBasedOnEventKind && $root.myEventTreeCountBasedOnEventKind[3].upcoming() != 0 ? $root.myEventTreeCountBasedOnEventKind[3].upcoming() : '-'"></div>
-					@*<div class="menu-item-number-old" data-bind="text: $root.myEventTreeCountBasedOnEventKind[3] ? $root.myEventTreeCountBasedOnEventKind[3].events.old() : 0"></div>*@
-				</div>
-			</div>
-
-			<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element, 4, $root.detailsPageJournalMenu.getCurrentSelectedEventsProp(), $root.detailsPageJournalMenu ) }">
-				<div class="border-item szkolenia-border-tab"></div>
-				<div class="menu-item" data-eventkind="4">
-					<span>Szkolenia</span>
-
-				</div>
-				<div class="menu-item-number-container">
-					<div class="menu-item-number-upcoming" data-bind="text: $root.myEventTreeCountBasedOnEventKind && $root.myEventTreeCountBasedOnEventKind[4].upcoming() != 0 ? $root.myEventTreeCountBasedOnEventKind[4].upcoming() : '-'"></div>
-					@*<div class="menu-item-number-old" data-bind="text: $root.myEventTreeCountBasedOnEventKind[4] ? $root.myEventTreeCountBasedOnEventKind[4].events.old() : 0"></div>*@
-				</div>
-			</div>
-
-			<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element, 5, $root.detailsPageJournalMenu.getCurrentSelectedEventsProp(), $root.detailsPageJournalMenu ) }">
-				<div class="border-item kursy-border-tab"></div>
-				<div class="menu-item" data-eventkind="5">
-					<span>Kursy</span>
-
-				</div>
-				<div class="menu-item-number-container">
-					<div class="menu-item-number-upcoming" data-bind="		text: $root.myEventTreeCountBasedOnEventKind && $root.myEventTreeCountBasedOnEventKind[5].upcoming() != 0 ? $root.myEventTreeCountBasedOnEventKind[5].upcoming() : '-'"></div>
-					@*<div class="menu-item-number-old" data-bind="text: $root.myEventTreeCountBasedOnEventKind[5] ? $root.myEventTreeCountBasedOnEventKind[5].events.old() : 0"></div>*@
-				</div>
-			</div>
-		</div>
-
-		<div id="detailsPageAllEventsListContainer" class="display-events-overview-container" data-bind="visible: $root.detailsPageJournalMenu.isOpen()">
-			<header class="display-events-overview-header">
-				<span class="display-events-header-menu-title hover-cursor-pointer" data-bind="click: function () { $root.showSelectedJournalMenuItem( 1 ) }, css: { selected: $root.detailsPageJournalMenu.selectedMenuItem() === 1 }">Mój kalendarz</span>
-				<span class="display-events-header-menu-title hover-cursor-pointer" data-bind="click: function () { $root.showSelectedJournalMenuItem( 2 ) }, css: { selected: $root.detailsPageJournalMenu.selectedMenuItem() === 2 }">Moje publiczne wydarzenia</span>
-				<div class="close-btn-x hover-cursor-pointer" data-bind="click: $root.closeAllSelectedEventsListContainerOnClick">x</div>
-			</header>
-
-			@Html.Partial( "_DetailsMyCalendarMenuItem" )
-			@Html.Partial( "_DetailsManageOwnPublicEventsMenuItem" )
-		</div>
-
-
-		<div class="dziennik-menu-container">
-			<div class="manage-pubic-events-menu-link hover-cursor-pointer" data-bind="click: function () { $root.showSelectedJournalMenuItem( 2 ) }">
-				Zarządzaj swoimi publicznymi wydarzeniami
-			</div>
-		</div>
-
+<div class="dz-row">
+	<div class="title-header">
+		<span>Plan dnia
+		</span>
 	</div>
-</section>
+	<section id="calendarDayDetailsContainer">
+		<div style="font-size: 2em; color: #484848; padding: 10px; padding-left: 40px;">
+			<span data-bind="text: $root.detailsPageDisplayDate.getDayName()" style="font-size: .8em; color: #B1AB98;"></span>
+			<span data-bind="text: $root.detailsPageDisplayDate.day()"></span>
+			<span data-bind="text: $root.detailsPageDisplayDate.getMonthName()"></span>
+			<span data-bind="text: $root.detailsPageDisplayDate.year()"></span>
+		</div>
+		<div id="calendarDayDetailsTable">
+			<div class="table-details-head">
+				<div>7<span class="small-minutes">00</span></div>
+				<div>8<span class="small-minutes">00</span></div>
+				<div>9<span class="small-minutes">00</span></div>
+				<div>10<span class="small-minutes">00</span></div>
+				<div>11<span class="small-minutes">00</span></div>
+				<div>12<span class="small-minutes">00</span></div>
+				<div>13<span class="small-minutes">00</span></div>
+				<div>14<span class="small-minutes">00</span></div>
+				<div>15<span class="small-minutes">00</span></div>
+				<div>16<span class="small-minutes">00</span></div>
+				<div>17<span class="small-minutes">00</span></div>
+				<div>18<span class="small-minutes">00</span></div>
+				<div>19<span class="small-minutes">00</span></div>
+				<div>20<span class="small-minutes">00</span></div>
+				<div style="position: absolute; right: 30px; width: 26px;"><span>21</span><span class="small-minutes">00</span></div>
+			</div>
+			<div class="table-details-body">
+				<div class="details-day-cell hour-cell-7">
+					<div class="details-hour-line"></div>
+				</div>
 
-<div class="title-header">
-	<span>Plan dnia
-	</span>
+				<div class="details-day-cell hour-cell-8">
+					<div class="details-hour-line"></div>
+				</div>
+
+				<div class="details-day-cell hour-cell-9">
+					<div class="details-hour-line"></div>
+				</div>
+
+				<div class="details-day-cell hour-cell-10">
+					<div class="details-hour-line"></div>
+				</div>
+
+				<div class="details-day-cell hour-cell-11">
+					<div class="details-hour-line"></div>
+				</div>
+
+				<div class="details-day-cell hour-cell-12">
+					<div class="details-hour-line"></div>
+				</div>
+
+				<div class="details-day-cell hour-cell-13">
+					<div class="details-hour-line"></div>
+				</div>
+
+				<div class="details-day-cell hour-cell-14">
+					<div class="details-hour-line"></div>
+				</div>
+
+				<div class="details-day-cell hour-cell-15">
+					<div class="details-hour-line"></div>
+				</div>
+
+				<div class="details-day-cell hour-cell-16">
+					<div class="details-hour-line"></div>
+				</div>
+
+				<div class="details-day-cell hour-cell-17">
+					<div class="details-hour-line"></div>
+				</div>
+
+				<div class="details-day-cell hour-cell-18">
+					<div class="details-hour-line"></div>
+				</div>
+
+				<div class="details-day-cell hour-cell-19">
+					<div class="details-hour-line"></div>
+				</div>
+
+				<div class="details-day-cell hour-cell-20">
+					<div class="details-hour-line"></div>
+					<div class="details-hour-line-21"></div>
+				</div>
+			</div>
+		</div>
+
+		<div id="detailsEventsAndNotesContainer">
+			@Html.Partial( "_DetailsEventsAndNotesContainer" )
+		</div>
+
+	</section>
 </div>
-<section id="calendarDayDetailsContainer">
-	<div style="font-size: 2em; color: #484848; padding: 10px; padding-left: 40px;">
-		<span data-bind="text: $root.detailsPageDisplayDate.getDayName()" style="font-size: .8em; color: #B1AB98;"></span>
-		<span data-bind="text: $root.detailsPageDisplayDate.day()"></span>
-		<span data-bind="text: $root.detailsPageDisplayDate.getMonthName()"></span>
-		<span data-bind="text: $root.detailsPageDisplayDate.year()"></span>
-	</div>
-	<div id="calendarDayDetailsTable">
-		<div class="table-details-head">
-			<div>7<span class="small-minutes">00</span></div>
-			<div>8<span class="small-minutes">00</span></div>
-			<div>9<span class="small-minutes">00</span></div>
-			<div>10<span class="small-minutes">00</span></div>
-			<div>11<span class="small-minutes">00</span></div>
-			<div>12<span class="small-minutes">00</span></div>
-			<div>13<span class="small-minutes">00</span></div>
-			<div>14<span class="small-minutes">00</span></div>
-			<div>15<span class="small-minutes">00</span></div>
-			<div>16<span class="small-minutes">00</span></div>
-			<div>17<span class="small-minutes">00</span></div>
-			<div>18<span class="small-minutes">00</span></div>
-			<div>19<span class="small-minutes">00</span></div>
-			<div>20<span class="small-minutes">00</span></div>
-			<div style="position: absolute; right: 30px; width: 26px;"><span>21</span><span class="small-minutes">00</span></div>
-		</div>
-		<div class="table-details-body">
-			<div class="details-day-cell hour-cell-7">
-				<div class="details-hour-line"></div>
-			</div>
+<div class="dz-row">
+	@Html.Partial( "_DetailsSettings", @Model )
+</div>
 
-			<div class="details-day-cell hour-cell-8">
-				<div class="details-hour-line"></div>
-			</div>
-
-			<div class="details-day-cell hour-cell-9">
-				<div class="details-hour-line"></div>
-			</div>
-
-			<div class="details-day-cell hour-cell-10">
-				<div class="details-hour-line"></div>
-			</div>
-
-			<div class="details-day-cell hour-cell-11">
-				<div class="details-hour-line"></div>
-			</div>
-
-			<div class="details-day-cell hour-cell-12">
-				<div class="details-hour-line"></div>
-			</div>
-
-			<div class="details-day-cell hour-cell-13">
-				<div class="details-hour-line"></div>
-			</div>
-
-			<div class="details-day-cell hour-cell-14">
-				<div class="details-hour-line"></div>
-			</div>
-
-			<div class="details-day-cell hour-cell-15">
-				<div class="details-hour-line"></div>
-			</div>
-
-			<div class="details-day-cell hour-cell-16">
-				<div class="details-hour-line"></div>
-			</div>
-
-			<div class="details-day-cell hour-cell-17">
-				<div class="details-hour-line"></div>
-			</div>
-
-			<div class="details-day-cell hour-cell-18">
-				<div class="details-hour-line"></div>
-			</div>
-
-			<div class="details-day-cell hour-cell-19">
-				<div class="details-hour-line"></div>
-			</div>
-
-			<div class="details-day-cell hour-cell-20">
-				<div class="details-hour-line"></div>
-				<div class="details-hour-line-21"></div>
-			</div>
-		</div>
-	</div>
-
-	<div id="detailsEventsAndNotesContainer">
-		@Html.Partial( "_DetailsEventsAndNotesContainer" )
-	</div>
-
-</section>
-
-@Html.Partial( "_DetailsSettings", @Model )
 

@@ -1,12 +1,6 @@
 ﻿<div style="min-height: 180px;">
-	<div style="text-align: left;">
-		<div id="addPublicEventBtn" class="add-btn hover-cursor-pointer" data-bind="click: function ( data, e ) { $root.showAddPublicEventPopupOnClick( $element, data, e ) }">Stwórz publiczne wydarzenie +</div>
-	</div>
-
+	<div id="addPublicEventBtn" class="hover-cursor-pointer" data-bind="click: function ( data, e ) { $root.showAddPublicEventPopupOnClick( $element, data, e ) }">Stwórz publiczne wydarzenie +</div>
 	<div class="events-menu-container">
-		<div style="text-align:center;">
-			Nadchodzące wydarzenia
-		</div>
 		<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element, 7, $root.lobbyPagePublicEventListMenu.getCurrentSelectedEventsProp(), $root.lobbyPagePublicEventListMenu ) }">
 			<div class="border-item inne-border-tab"></div>
 			<div class="menu-item" data-eventkind="7">
@@ -80,5 +74,5 @@
 				<div class="menu-item-number-upcoming" data-bind="text: $root.publicEventTreeCountBasedOnEventKind[5].upcoming() != 0 ? $root.publicEventTreeCountBasedOnEventKind[5].upcoming() : '-'"></div>
 			</div>
 		</div>
-	</div>	
+	</div>
 </div>

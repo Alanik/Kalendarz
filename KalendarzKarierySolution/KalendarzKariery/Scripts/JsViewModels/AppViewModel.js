@@ -1817,16 +1817,15 @@ self.expandEventOverviewItemOnClick = function ( element )
     var $element = $( element );
     var $eventBlockContainer = $element.next();
     $element.toggleClass( "selected" );
+
     if ( !$element.hasClass( "selected" ) )
     {
         $eventBlockContainer.hide();
-        $element.css( "border-bottom", "none" );
         $element.parent().css( "border-left", "none" );
     }
     else
     {
-        $element.css( "border-bottom", "2px solid #D7D0B8" );
-        $element.parent().css( "border-left", "2px solid #D7D0B8" );
+        $element.parent().css( "border-left", "2px solid rgb(236, 235, 228)" );
         $eventBlockContainer.slideDown();
         $element.scrollTo();
 

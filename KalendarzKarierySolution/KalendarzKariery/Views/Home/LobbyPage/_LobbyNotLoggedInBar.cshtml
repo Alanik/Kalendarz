@@ -1,6 +1,6 @@
 ﻿<div class="login-bar-container">
 	<span data-bind="click: showLoginFormOnClick" id="loginSpanLink" class="login-link link">Zaloguj sie</span>
-	<span id="registerSpanLink" data-bind="click: showRegisterFormOnClick" class="login-link link">Stwórz konto</span>
+	<span id="registerSpanLink" style="color:gray;" data-bind="click: showRegisterFormOnClick" class="login-link link">Stwórz konto</span>
 </div>
 
 @Html.Partial( "_Login", new KalendarzKarieryData.Models.AccountModels.LoginModel() )

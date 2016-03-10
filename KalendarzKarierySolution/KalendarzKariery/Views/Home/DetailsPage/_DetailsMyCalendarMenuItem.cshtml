@@ -5,7 +5,7 @@
 			<span>stare</span>
 		</div>
 		<span style="font-size: 14px; position: relative; right: 100px;" data-bind="text: $root.detailsPageJournalMenu.menuItems.myCalendar.showOld() == true ? '[zwiń]' : '[rozwiń]'"></span>
-		<span class="display-events-count" data-bind="text: $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.old().length > 0 ? $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.old().length : ''"></span>
+		<span class="oldorupcoming-event-count" data-bind="text: $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.old().length > 0 ? $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.old().length : ''"></span>
 	</div>
 	<div data-bind="visible: $root.detailsPageJournalMenu.menuItems.myCalendar.showOld, foreach: $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.old" style="padding-left: 100px; padding-right: 6px;">
 		<div class="display-events-overview-item">
@@ -20,7 +20,7 @@
 			</div>
 			<div style="display: none;" class="event-block-container" data-bind="attr: { 'data-eventid': id }">
 				<div class="event-block">
-					@Html.Partial("_LobbyEventInfo")
+					@Html.Partial("_LobbyEventDetails")
 				</div>
 			</div>
 		</div>
@@ -31,7 +31,7 @@
 			<span>nadchodzące</span>
 		</div>
 		<span style="font-size: 14px; position: relative; right: 100px;" data-bind="text: $root.detailsPageJournalMenu.menuItems.myCalendar.showUpcoming() == true ? '[zwiń]' : '[rozwiń]'">rozwin</span>
-		<span class="display-events-count" data-bind="text: $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.upcoming().length > 0 ? $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.upcoming().length : ''"></span>
+		<span class="oldorupcoming-event-count" data-bind="text: $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.upcoming().length > 0 ? $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.upcoming().length : ''"></span>
 	</div>
 	<div data-bind="visible: $root.detailsPageJournalMenu.menuItems.myCalendar.showUpcoming, foreach: $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.upcoming" style="padding-left: 100px; padding-right: 6px;">
 		<div class="display-events-overview-item">
@@ -46,7 +46,7 @@
 			</div>
 			<div style="display: none;" class="event-block-container" data-bind="attr: { 'data-eventid': id }">
 				<div class="event-block">
-					@Html.Partial("_LobbyEventInfo")
+					@Html.Partial("_LobbyEventDetails")
 				</div>
 			</div>
 		</div>

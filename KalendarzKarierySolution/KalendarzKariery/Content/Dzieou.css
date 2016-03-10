@@ -13,11 +13,6 @@
   position: absolute;
   top: 0;
   left: 0;
-  color: red;
-}
-
-.dz-row {
-  height: 400px;
 }
 
 #dzViewPort {
@@ -44,14 +39,13 @@
   #dzHorizontalPaging .dz-horizontal-paging-item {
     width: 10px;
     height: 10px;
-    margin: 4px;
+    margin: 3px;
     border: 2px solid #DEDEDE;
     display: inline-block;
     border-radius: 10px;
   }
 
     #dzHorizontalPaging .dz-horizontal-paging-item.current {
-      margin: 4px;
       border: 2px solid #ADA8A8;
       display: inline-block;
       background: #E6D4C2;
@@ -68,11 +62,10 @@
     margin: 4px;
     border: 2px solid #DEDEDE;
     display: block;
-    border-radius: 20px;
+    border-radius: 10px;
   }
 
     #dzVerticalPaging .dz-vertical-paging-item.current {
-      margin: 4px;
       display: block;
       background: #E6D4C2;
       border: 2px solid #ADA8A8;

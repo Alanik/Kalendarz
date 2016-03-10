@@ -1814,21 +1814,18 @@ self.loginUserOnClick = function ()
 
 self.expandEventOverviewItemOnClick = function ( element )
 {
-    var $element = $( element );
-    var $eventBlockContainer = $element.next();
+	var $element = $( element );
+	var $expandDiv = $element.siblings('.event-block-expand');
     $element.toggleClass( "selected" );
 
     if ( !$element.hasClass( "selected" ) )
     {
-        $eventBlockContainer.hide();
-        $element.parent().css( "border-left", "none" );
+    	$expandDiv.slideUp();
     }
     else
     {
-        $element.parent().css( "border-left", "2px solid rgb(236, 235, 228)" );
-        $eventBlockContainer.slideDown();
+    	$expandDiv.slideDown();
         $element.scrollTo();
-
     }
 }
 

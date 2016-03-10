@@ -361,15 +361,13 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Home\LobbyPage\_Register.cshtml" />
     <Content Include="Views\Home\DetailsPage\_Details.cshtml" />
-    <Content Include="Views\Home\LobbyPage\_LobbyEventInfo.cshtml" />
+    <Content Include="Views\Home\LobbyPage\_LobbyEventDetails.cshtml" />
     <Content Include="Views\Home\SharedPartials\_ConfirmationPopupBox.cshtml" />
     <Content Include="Views\Home\LobbyPage\_LobbyNews.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsSettings.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsUserProfile.cshtml" />
     <Content Include="Views\Shared\JSUnitTests.cshtml" />
-    <Content Include="Views\Home\LobbyPage\_LobbyNotLoggedInBar.cshtml" />
-    <Content Include="Views\Home\LobbyPage\_LobbyLoggedInBar.cshtml" />
-    <Content Include="Views\Home\LobbyPage\_LobbyEventsDisplay.cshtml" />
+    <Content Include="Views\Home\LobbyPage\_LobbyLoginBar.cshtml" />
     <Content Include="Views\Home\LobbyPage\_LobbyEventsMenuItems.cshtml" />
     <Content Include="Views\Shared\_LayoutMobile.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsEventInfo.cshtml" />

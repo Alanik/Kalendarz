@@ -273,6 +273,7 @@
     <Content Include="Content\Fonts\Raleway\Raleway-Thin-Italic.ttf" />
     <Content Include="Content\Fonts\Raleway\Raleway-Thin.ttf" />
     <None Include="Properties\PublishProfiles\Alan.pubxml" />
+    <Content Include="Scripts\CalendarWidget\calendarWidget.css" />
     <Content Include="Scripts\JSManagers\EventManager.js" />
     <Content Include="Scripts\JSManagers\NoteManager.js" />
     <Content Include="Scripts\JSUtils\SimpleFilt.js" />

@@ -1,1 +1,185 @@
-﻿
+﻿#calendar {
+	margin: auto;
+	position: relative;
+	width: 80%;
+	height: 100%;
+	color: rgb(177,177,177);
+	display: table;
+	table-layout: fixed;
+	border-spacing: 1px;
+}
+
+#calendarMenuHeader {
+	display: table-caption;
+	text-align: center;
+}
+
+.today-day-header-calendar {
+	color: black;
+	display: inline-block;
+	font-size: 2.2em;
+	letter-spacing: 1px;
+	padding-top: 5px;
+	padding-right: 14px;
+	padding-left: 14px;
+}
+
+.month-name-calendar {
+	color: gray;
+	text-decoration: underline;
+	text-shadow: 0px 1px 1px rgb(255, 255, 255);
+}
+
+.month-name-container {
+	display: inline-block;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.current-month-name-calendar {
+	color: black;
+	font-size: 2em;
+}
+
+.calendar-header-year-container {
+	display: inline-block;
+}
+
+.year-name-container {
+	letter-spacing: 1px;
+	color: black;
+	display: inline-block;
+	padding-bottom: 4px;
+	padding-left: 14px;
+	padding-right: 30px;
+	font-size: 2em;
+	position: relative;
+}
+
+.weekday-container {
+	display: table-row;
+	color: gray;
+	text-shadow: 0px 1px 1px rgb(255, 255, 255);
+}
+
+.weekday {
+	display: table-cell;
+	text-align: center;
+}
+
+.current-weekday {
+	color: black;
+	font-weight: bold;
+}
+
+.calendar-hours {
+	width: 100%;
+	height: 14px;
+	display: table-cell;
+	overflow: hidden;
+	color: rgb(97, 85, 85);
+	/* background: rgb(115, 216, 163); */
+	position: relative;
+	padding-bottom: 2px;
+}
+
+.hour {
+	font-size: 10px;
+	position: absolute;
+}
+
+.calendar-row {
+	/* height: 84px; */
+	width: 100%;
+	margin: auto;
+	display: table-row;
+	position: relative;
+}
+
+.other-month-cell {
+	position: relative;
+	border: 1px solid white;
+	background: rgb(211, 204, 184);
+}
+
+.calendar-cell {
+	height: 80px;
+	display: table-cell;
+}
+
+.calendar-cell-placeholder {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+.other-month-cell .cell-span-container {
+	position: relative;
+	top: 56px;
+	height: 25px;
+	z-index: 98;
+	border-bottom: 2px solid rgb(228, 222, 202);
+	color: white;
+	background: #D3CCB8;
+}
+
+	.other-month-cell .cell-span-container span {
+		position: absolute;
+		padding-left: 2px;
+		padding-right: 5px;
+		top: 4px;
+	}
+
+.addNewEvent-cellIcon {
+	width: 40px;
+	height: 20px;
+	position: absolute;
+	right: 1px;
+	top: 2px;
+	text-align: center;
+	display: none;
+	z-index: 99;
+}
+
+.dark-icon {
+	color: white;
+}
+
+.cell-line-style {
+	position: absolute;
+	width: 1px;
+}
+
+.current-month-cell {
+	border: 2px solid white;
+	background-color: rgb(253,253,253);
+	color: black;
+	position: relative;
+}
+
+	.current-month-cell .cell-span-container .cell-month-name-span {
+		color: rgb(184, 184, 184);
+	}
+
+	.current-month-cell span {
+		color: rgb(109,109,109);
+		position: absolute;
+		padding-left: 2px;
+		padding-right: 5px;
+		top: 4px;
+	}
+
+.today-cell {
+	background: #FFFFFF !important;
+	border: 2px solid rgb(154, 149, 134) !important;
+}
+
+	.today-cell .cell-span-container {
+		position: relative;
+		top: 56px;
+		background: rgb(154, 149, 134);
+		height: 24px;
+		z-index: 98;
+		border-top: 1px solid white;
+	}

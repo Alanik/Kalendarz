@@ -1,21 +1,26 @@
 ﻿#calendar {
-	margin: auto;
-	position: relative;
-	width: 80%;
-	height: 100%;
-	color: rgb(177,177,177);
-	display: table;
-	table-layout: fixed;
-	border-spacing: 1px;
 }
+
+	#calendar .dz-column-inner-wrapper {
+		margin: auto;
+		position: relative;
+		width: 80%;
+		height: 100%;
+		color: rgb(177,177,177);
+		display: table;
+		table-layout: fixed;
+		border-spacing: 1px;
+	}
 
 #calendarMenuHeader {
 	display: table-caption;
-	text-align: center;
+	border-bottom: 1px solid white;
+	/*background: #E8E3CD;*/
+	background: gray;
 }
 
 .today-day-header-calendar {
-	color: black;
+	color: #EDE9D9;
 	display: inline-block;
 	font-size: 2.2em;
 	letter-spacing: 1px;
@@ -27,7 +32,6 @@
 .month-name-calendar {
 	color: gray;
 	text-decoration: underline;
-	text-shadow: 0px 1px 1px rgb(255, 255, 255);
 }
 
 .month-name-container {
@@ -37,7 +41,7 @@
 }
 
 .current-month-name-calendar {
-	color: black;
+	color: #EDE9D9;
 	font-size: 2em;
 }
 
@@ -47,7 +51,7 @@
 
 .year-name-container {
 	letter-spacing: 1px;
-	color: black;
+	color: #EDE9D9;
 	display: inline-block;
 	padding-bottom: 4px;
 	padding-left: 14px;
@@ -59,12 +63,12 @@
 .weekday-container {
 	display: table-row;
 	color: gray;
-	text-shadow: 0px 1px 1px rgb(255, 255, 255);
 }
 
 .weekday {
 	display: table-cell;
 	text-align: center;
+	padding-top: 10px;
 }
 
 .current-weekday {
@@ -78,9 +82,9 @@
 	display: table-cell;
 	overflow: hidden;
 	color: rgb(97, 85, 85);
-	/* background: rgb(115, 216, 163); */
 	position: relative;
 	padding-bottom: 2px;
+	border-bottom: 1px solid white;
 }
 
 .hour {
@@ -146,6 +150,10 @@
 	color: white;
 }
 
+.light-icon {
+	background: rgb(225, 225, 225);
+}
+
 .cell-line-style {
 	position: absolute;
 	width: 1px;
@@ -158,17 +166,35 @@
 	position: relative;
 }
 
-	.current-month-cell .cell-span-container .cell-month-name-span {
-		color: rgb(184, 184, 184);
+	.current-month-cell .cell-span-container {
+		position: relative;
+		top: 56px;
+		height: 25px;
+		z-index: 98;
 	}
 
-	.current-month-cell span {
-		color: rgb(109,109,109);
-		position: absolute;
-		padding-left: 2px;
-		padding-right: 5px;
-		top: 4px;
-	}
+
+.other-month-cell .cell-span-container {
+	position: relative;
+	top: 56px;
+	height: 25px;
+	z-index: 98;
+	border-bottom: 2px solid rgb(228, 222, 202);
+	color: white;
+	background: #D3CCB8;
+}
+
+.current-month-cell .cell-span-container .cell-month-name-span {
+	color: rgb(184, 184, 184);
+}
+
+.current-month-cell span {
+	color: rgb(109,109,109);
+	position: absolute;
+	padding-left: 2px;
+	padding-right: 5px;
+	top: 4px;
+}
 
 .today-cell {
 	background: #FFFFFF !important;
@@ -183,3 +209,25 @@
 		z-index: 98;
 		border-top: 1px solid white;
 	}
+
+		.today-cell .cell-span-container span {
+			color: white;
+		}
+
+#calendarWidget {
+	display: table;
+	table-layout: fixed;
+	width: 100%;
+	background: rgb(237, 233, 217);
+}
+
+.addNewEvent-cellIcon {
+	width: 40px;
+	height: 20px;
+	position: absolute;
+	right: 1px;
+	top: 2px;
+	text-align: center;
+	display: none;
+	z-index: 99;
+}

@@ -288,10 +288,10 @@
         //    $lobby.append('<div id="lobby-navigation-arrows-right"><img src="Images/Nav/arrowRight.png" alt="arrow-Right"/></div>');
         //}();
 
-        this.drawClocks = function () {
-            appViewModel.drawAnalogClock();
-            appViewModel.drawDigitalClock();
-        }();
+        //this.drawClocks = function () {
+        //    appViewModel.drawAnalogClock();
+        //    appViewModel.drawDigitalClock();
+        //}();
 
         this.initializeHover = function () {
             var $eventHoverContainer = $("#eventHoverContainer");
@@ -310,7 +310,7 @@
                     },
                     mouseleave: function () {
                         $(this).css({
-                            "border": "2px solid white",
+                        	"border": "2px solid white",
                             "cursor": "auto",
                             "top": "0"
                         }).find(".addNewEvent-cellIcon").hide();

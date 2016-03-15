@@ -28,11 +28,14 @@
 		calendar += ( '<div id="calendarMenuHeader">' );
 		calendar += ( '<div class="month-name-header-container">' );
 		calendar += ( '<div class="today-day-header-calendar">' + today + '</div>' );
-		for ( var i = 0; i < opts.monthNames.length; i++ )
-		{
-			currentMonthPrefix = ( i == opts.month ? "current-" : '' );
-			calendar += ( '<div class="month-name-container ' + currentMonthPrefix + 'month-name-calendar"><span data-bind="click: function(){ $root.redisplayCalendarAtChosenMonth(' + ( i + 1 ) + ') }">' + opts.monthNames[i] + '</span></div>' );
-		}
+		//for ( var i = 0; i < opts.monthNames.length; i++ )
+		//{
+		//	currentMonthPrefix = ( i == opts.month ? "current-" : '' );
+		//	calendar += ( '<div class="month-name-container ' + currentMonthPrefix + 'month-name-calendar"><span data-bind="click: function(){ $root.redisplayCalendarAtChosenMonth(' + ( i + 1 ) + ') }">' + opts.monthNames[i] + '</span></div>' );
+		//}
+
+		calendar += ( '<div class="month-name-container current-month-name-calendar"><span data-bind="click: function(){ $root.redisplayCalendarAtChosenMonth(' + ( opts.month + 1 ) + ') }">' + opts.monthNames[opts.month] + '</span></div>' );
+
 		calendar += ( '<div class="calendar-header-year-container"><span class="year-name-container">' + opts.year );
 		calendar += ( '<div class="calendar-year-arrows-container"><div id="calendarHeaderYearArrowUp" class="calendar-year-arrows" data-bind="click: function(){ $root.redisplayCalendarAtChosenYear( $root.calendarPageDisplayDate.year() + 1 )}"></div>' );
 		calendar += ( '<div id="calendarHeaderYearArrowDown" class="calendar-year-arrows" data-bind="click: function(){ $root.redisplayCalendarAtChosenYear( $root.calendarPageDisplayDate.year() - 1 )}"></div></div></div>' );

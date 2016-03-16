@@ -37,7 +37,7 @@
 
 					</div>
 					<div class="menu-item-number-container">
-						<div class="menu-item-number-upcoming" data-bind="		text: $root.myEventTreeCountBasedOnEventKind && $root.myEventTreeCountBasedOnEventKind[2].upcoming() != 0 ? $root.myEventTreeCountBasedOnEventKind[2].upcoming() : '-'"></div>
+						<div class="menu-item-number-upcoming" data-bind="text: $root.myEventTreeCountBasedOnEventKind && $root.myEventTreeCountBasedOnEventKind[2].upcoming() != 0 ? $root.myEventTreeCountBasedOnEventKind[2].upcoming() : '-'"></div>
 						@*<div class="menu-item-number-old" data-bind="text: $root.myEventTreeCountBasedOnEventKind[2] ? $root.myEventTreeCountBasedOnEventKind[2].events.old() : 0"></div>*@
 					</div>
 				</div>
@@ -112,7 +112,6 @@
 				@Html.Partial( "_DetailsManageOwnPublicEventsMenuItem" )
 			</div>
 
-
 			<div class="dziennik-menu-container">
 				<div class="manage-pubic-events-menu-link hover-cursor-pointer" data-bind="click: function () { $root.showSelectedJournalMenuItem( 2 ) }">
 					Zarządzaj swoimi publicznymi wydarzeniami
@@ -121,11 +120,10 @@
 
 	</section>
 </section>
-<div class="dz-row">
-	<div class="title-header">
-		<span>Plan dnia
-		</span>
-	</div>
+<section class="dz-row">
+	<header class="title-header">
+		<span>Plan dnia</span>
+	</header>
 	<section id="calendarDayDetailsContainer">
 		<div style="font-size: 2em; color: #484848; padding: 10px; padding-left: 40px;">
 			<span data-bind="text: $root.detailsPageDisplayDate.getDayName()" style="font-size: .8em; color: #B1AB98;"></span>
@@ -216,7 +214,7 @@
 		</div>
 
 	</section>
-</div>
+</section>
 <div class="dz-row">
 	@Html.Partial( "_DetailsSettings", @Model )
 </div>

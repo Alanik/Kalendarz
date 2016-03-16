@@ -231,10 +231,10 @@
         //            var events = appViewModel.calendarDayEventsToUpdate.events;
 
         //            if (location.hash === "#0") {
-        //                appViewModel.currentPage = 0;
+        //                appViewModel.currentPage() = 0;
         //            }
         //            else if (location.hash === "#1") {
-        //                appViewModel.currentPage = 1;
+        //                appViewModel.currentPage() = 1;
 
         //                if (events && $.isArray(events)) {
         //                    //setTimeout( function ()
@@ -263,7 +263,7 @@
 
         //            }
         //            else if (location.hash === "#2") {
-        //                appViewModel.currentPage = 2;
+        //                appViewModel.currentPage() = 2;
         //            }
         //        }, 10);
         //    });

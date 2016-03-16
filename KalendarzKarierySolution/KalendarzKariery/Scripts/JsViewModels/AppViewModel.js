@@ -36,7 +36,9 @@
     //0 - lobby page
     //1 - calendar page
     //2 - details page
-    self.currentPage = 0;
+    self.currentPage = function () {
+      return Number(window.location.hash.substring(1));
+    };
 
     self.todayDate = {
         "javaScriptDate": date,
@@ -1412,7 +1414,7 @@ self.showSelectedEvents = function ( selectedEventsProp, oldOrUpcoming, valuesAr
     var checkArgs;
 
     // details page
-    if ( self.currentPage == 2 )
+    if ( self.currentPage() == 2 )
     {
         if ( !self.detailsPageJournalMenu.isOpen() )
         {
@@ -1567,7 +1569,7 @@ self.removeSelectedEvents = function ( selectedEvents, eventKindValue )
 {
     var array;
 
-    switch ( self.currentPage )
+    switch ( self.currentPage() )
     {
         case 0:
             //////////////////////////////////////////////////////////
@@ -1701,7 +1703,7 @@ self.moveToDetailsDayOnEventCalendarIconClick = function ( id, year, month, day 
 
     var $scrollable = $( "#slide-item-details" ).parent();
     var speed = 800;
-    if ( self.currentPage == 0 )
+    if ( self.currentPage() == 0 )
     {
         window.location = "#2";
         speed = 100;
@@ -2359,7 +2361,7 @@ self.closeAllSelectedEventsListContainerOnClick = function ()
 {
     var $menuItemContainer, $eventsMenuContainer;
 
-    switch ( self.currentPage )
+    switch ( self.currentPage() )
     {
     	case 0:
     		self.lobbyPagePublicEventListMenu.isOpen( false );

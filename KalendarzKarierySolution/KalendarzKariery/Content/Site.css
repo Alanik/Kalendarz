@@ -8,7 +8,7 @@
 body {
 	font-size: .85em;
 	line-height: 1.6;
-	font-family: Raleway-Regular,"SegoeUI", Helvetica, Sans-Serif;
+	font-family: "SegoeUI", Helvetica, Sans-Serif, Raleway-Regular;
 	font-weight: 400;
 	-webkit-font-smoothing: antialiased;
 }
@@ -270,7 +270,7 @@ header, footer, nav, section, div {
 
 #details .dz-column-inner-wrapper {
 	width: 80%;
-	margin:0 auto;
+	margin: 0 auto;
 }
 
 
@@ -370,4 +370,21 @@ header, footer, nav, section, div {
 
 .event-block-menu {
 	float: right;
+}
+
+.dziennik-menu-container {
+	width: 40%;
+	height: 200px;
+	background: #EAEADD;
+	float: right;
+	text-align: center;
+	padding: 20px 0;
+	font-size: 1.4em;
+	color: #616158;
+}
+
+.small-kk-logo {
+	position: absolute;
+	left: 20px;
+	top: 20px;
 }

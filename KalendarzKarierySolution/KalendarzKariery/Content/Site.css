@@ -126,7 +126,7 @@ header, footer, nav, section, div {
 	position: relative;
 	margin-bottom: 20px;
 	margin-top: 20px;
-	background: #E8E8D4;
+	background: #FDFDF9;
 	border: 2px solid rgb(228, 224, 209);
 }
 
@@ -218,7 +218,7 @@ header, footer, nav, section, div {
 	margin-left: 100px;
 	margin-top: 1px;
 	position: relative;
-	background: rgb(165, 165, 149);
+	background: rgb(115, 115, 114);
 	border-bottom: 2px solid #E8E8D4;
 }
 
@@ -238,7 +238,7 @@ header, footer, nav, section, div {
 	border-left: 2px solid #D8D8C5;
 	border-right: 2px solid #D8D8C5;
 	border-bottom: 2px solid #F3F3E4;
-	background: #DBDBCA;
+	background: #FBFBF5;
 	overflow: hidden;
 }
 

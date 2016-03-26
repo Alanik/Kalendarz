@@ -75,18 +75,17 @@
 		var indexViewModel = @Html.Raw( Json.Encode( @Model.IndexViewModel ) );
 		var userName = '@User.Identity.Name.ToLower()';
 
-		var PROGRAM = Program;
+	  var PROGRAM = Program;
+
+	  $('#dzieuo').dzieuo({
+	    'row_scroll_padding_top': 20
+	  });
 
 		//used in jquery.superslides to initialize Masonry grid plugin when superslides fades in.
 		window.initializeEventGrid = PROGRAM.initializeEventGrid;	
-
 		PROGRAM.initializeJQueryExtentionMethods(SIMPLE_FILT());
 		PROGRAM.initializeAndStartSpinner();
 		PROGRAM.initialize(indexViewModel, userName);
-
-		var dzieuo = $('#dzieuo').dzieuo({
-			'row_scroll_padding_top': 20
-		});
 	});
 
 </script>

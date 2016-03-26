@@ -1,9 +1,40 @@
-﻿(function ($) {
+﻿// *** Description ***
+// Dzieuo.js - jQuery 2D slider plugin.
+// Version: 1.0.0
+// Created by Alan Budziński @ http://www.dzieuo.io
+// GitHub: https://github.com/Alanik/dzieuo.js
+// License: The MIT License (MIT)
+// *******************
+
+(function ($) {
   "use strict";
   function createDzieuo($dzieuo, opts) {
+
     // issues TODO:
     // 1. #viewPort adds up css left property value resulting in a very big negative or positive css left value.
     // Perhaps it can be optimized - Left property should be +- screen width value.
+
+    // global custom events EXAMPLE HOW TO USE IT
+    //$(document).bind("horizontal_transition:before", function (e, arg) {
+    //  console.log("horizontal_transition:before");
+    //  console.log(arg);
+    //});
+    //$(document).bind("vertical_transition:before", function (e, arg) {
+    //  console.log("vertical_transition:before" + arg);
+    //  console.log(arg);
+    //});
+    //$(document).bind("horizontal_transition:after", function (e, arg) {
+    //  console.log("horizontal_transition:after" + arg);
+    //  console.log(arg);
+    //});
+    //$(document).bind("vertical_transition:after", function (e, arg) {
+    //  console.log("vertical_transition:after" + arg);
+    //  console.log(arg);
+    //});
+    //$(document).bind("vertical_scroll:row_changed", function (e, arg) {
+    //  console.log("vertical_scroll:row_changed" + arg);
+    //  console.log(arg);
+    //});
 
     //default options
     var OPTIONS = {
@@ -26,8 +57,19 @@
 
     $.extend(OPTIONS, opts);
 
+    /////////////////////////////////////////////
+    //CUSTOM EVENTS
+    ////////////////////////////////////////////
+    var CUSTOM_EVENTS = {
+      horizontalTransitionBefore: 'horizontal_transition:before',
+      horizontalTransitionAfter: 'horizontal_transition:after',
+      verticalTransitionBefore: 'vertical_transition:before',
+      verticalTransitionAfter: 'vertical_transition:after',
+      verticalScrollRowChanged: 'vertical_scroll:row_changed'
+    };
+
     /////////////////////////////////////////
-    //private object definitions
+    // private object definitions
     /////////////////////////////////////////
     var ViewPortItem = function (data, column, row) {
       this.column = column;
@@ -42,38 +84,46 @@
       }
     }
 
-    var urlRouter = function (data, beginHorizontalTransitionFn) {
+    var TransitionEventParam = function (currentColumn, targetColumn, currentRow, targetRow) {
+      this.currentColumn = currentColumn;
+      this.targetColumn = targetColumn;
+      this.currentRow = currentRow;
+      this.targetRow = targetRow;
+    }
+
+    var UrlRouter = function (data, beginHorizontalTransitionFn) {
       var self = this;
-      self.hash = 0;
 
       self.initialize = function () {
+        self.hash = 0;
         window.location.hash = self.hash;
 
         $(window).on('hashchange', function () {
-          var hash;
-          if (!data.viewPort.isAnimationInProgressX) {
-            hash = parseInt(window.location.hash.substr(1));
+          var hash = parseInt(window.location.hash.substr(1));
 
-            if (hash >= 0 && hash < data.structure.numOfColumns) {
-              if (self.hash < hash) {
-                self.hash = hash;
-                data.structure.$nextHorizontalArrow.attr('href', "#" + self.hash);
-                beginHorizontalTransitionFn(data, self.hash)
-              } else if (self.hash > hash) {
-                self.hash = hash;
-                data.structure.$prevHorizontalArrow.attr('href', "#" + self.hash);
-                beginHorizontalTransitionFn(data, self.hash)
-              }
+          if (hash >= 0 && hash < data.structure.numOfColumns) {
+            if (self.hash < hash || self.hash > hash) {
+              setUpArrowHrefAndBeginTransition();
             } else {
               self.hash = 0;
               window.location.hash = self.hash;
             }
           }
-        })
-      }
-    }
+
+          function setUpArrowHrefAndBeginTransition() {
+            self.hash = hash;
+
+            if (!data.viewPort.isAnimationInProgressX) {
+              data.structure.$prevHorizontalArrow.attr('href', "#" + (self.hash - 1));
+              data.structure.$nextHorizontalArrow.attr('href', "#" + (self.hash + 1));
+              beginHorizontalTransitionFn(data, self.hash)
+            }
+          };
+        });
+      };
+    };
     ///////////////////////////////////////////
-    //private plugin state
+    // private plugin state
     ///////////////////////////////////////////
     var _data = {
       structure: {
@@ -87,7 +137,7 @@
         $downVerticalArrow: null,
         $upVerticalArrow: null,
         $verticalNav: null,
-        columns: [ //{ $column : $(column), rows : [ $(row) , $(row) ], numOfRows = rows.length, currentRow = 0 }
+        columns: [ // { $column : $(column), rows : [ $(row) , $(row) ], numOfRows = rows.length, currentRow = 0 }
         ],
         numOfColumns: 0
       },
@@ -106,14 +156,14 @@
     };
 
     ///////////////////////////////////////////
-    //private plugin initialization methods
+    // private plugin initialization methods
     ///////////////////////////////////////////
     var _plugin = {
 
       // call order:
       // 1
       setUpDataStructure: function (structure) {
-        var $columns = structure.$dzieuo.children();
+        var $columns = structure.$dzieuo.children('.dz-column');
         var numOfColumns = 0;
         var numOfRows = 0;
 
@@ -124,7 +174,7 @@
 
           structure.columns.push(column);
 
-          $column.children().each(function (rowIndex) {
+          $column.children(".dz-row").each(function (rowIndex) {
             numOfRows++;
             column.rows.push($(this));
           });
@@ -147,7 +197,7 @@
         row = data.structure.columns[0].numOfRows == 1 ? 0 : 1;
 
         data.viewPort.nextItem = new ViewPortItem(data, col, row);
-        data.viewPort.horizontalSlideOffset = $(window).width() - 20;
+        data.viewPort.horizontalSlideOffset = data.structure.$dzieuo.width() - 20;
       },
       // 3
       setUpViewPort: function (structure) {
@@ -186,7 +236,7 @@
         var containerId = "dzHorizontalNav", prevArrowId = "dzPrevArrow", nextArrowId = "dzNextArrow";
         var $nav, $prevArrow, $nextArrow, winHalfHeight, style = '';
 
-        $prevArrow = $("<a id ='" + prevArrowId + "' href='#' style='display:none'></a>");
+        $prevArrow = $("<a id ='" + prevArrowId + "' href='#0' style='display:none'></a>");
 
         if (!OPTIONS.hide_horizontal_paging_when_single_column || structure.numOfColumns > 1) {
 
@@ -195,7 +245,7 @@
           }
 
           $nav = $("<nav id='" + containerId + "'></nav>");
-          $nextArrow = $("<a id='" + nextArrowId + "' href='#' " + style + "></a>");
+          $nextArrow = $("<a id='" + nextArrowId + "' href='#1' " + style + "></a>");
 
           winHalfHeight = _plugin.getHalfWindowHeight();
 
@@ -299,21 +349,11 @@
         $currentViewPortElement.css({ "left": 0, "top": 0 });
       },
       // 9
+      setUpInitialColumnCssOverflow: function (structure) {
+        _plugin.setUpColumnCssOverflow(0, structure);
+      },
+      // 10
       setUpClickHandlers: function (data) {
-        data.structure.$dzieuo.on("click", "#dzNextArrow", function () {
-          if (!data.viewPort.isAnimationInProgressX) {
-            data.structure.$nextHorizontalArrow.attr('href', "#" + data.viewPort.nextItem.column);
-            _plugin.beginHorizontalTransition(data, data.viewPort.nextItem.column);
-          }
-        })
-
-        data.structure.$dzieuo.on("click", "#dzPrevArrow", function () {
-          if (!data.viewPort.isAnimationInProgressX) {
-            data.structure.$prevHorizontalArrow.attr('href', "#" + data.viewPort.prevItem.column);
-            _plugin.beginHorizontalTransition(data, data.viewPort.prevItem.column);
-          }
-        })
-
         data.structure.$dzieuo.on("click", "#dzDownArrow", function () {
           if (!data.viewPort.isAnimationInProgressY) {
             data.scroll.shouldCalculateScroll = false;
@@ -335,10 +375,11 @@
           var targetColumn = $(this).data("column");
 
           if (!data.viewPort.isAnimationInProgressX && data.viewPort.currentItem.column !== targetColumn) {
-            if (data.viewPort.currentItem.column < targetColumn) {
-              _plugin.beginHorizontalTransition(data, targetColumn);
-            }
-            else if (data.viewPort.currentItem.column > targetColumn) {
+            if (data.viewPort.currentItem.column < targetColumn || data.viewPort.currentItem.column > targetColumn) {
+
+              data.structure.$prevHorizontalArrow.attr('href', "#" + (targetColumn - 1));
+              data.structure.$nextHorizontalArrow.attr('href', "#" + (targetColumn + 1));
+
               _plugin.beginHorizontalTransition(data, targetColumn);
             }
           }
@@ -353,7 +394,7 @@
           }
         })
       },
-      // 10
+      // 11
       updateVerticalPagingOnWindowScroll: function (data) {
         var currentColumn, winHeightHalf, $nextRow, $currentRow;
         var viewPort = data.viewPort, structure = data.structure, scroll = data.scroll;
@@ -371,7 +412,12 @@
         };
 
         $(".dz-column").scroll(throttle(function () {
-          var st, currentColumn = viewPort.currentItem.column;
+          var st, param, currentColumn = viewPort.currentItem.column;
+
+          // if only one row exists no need to do any calculations
+          if (structure.columns[currentColumn].numOfRows === 1) {
+            return;
+          }
 
           if (scroll.shouldCalculateScroll) {
 
@@ -382,7 +428,7 @@
             if (st > scroll.lastScrollTop) {
               $nextRow = viewPort.nextItem.get$Row();
 
-              if ($nextRow.offset().top <= winHeightHalf) {
+              if ($nextRow.offset().top <= winHeightHalf && viewPort.currentItem.row !== viewPort.nextItem.row) {
                 _plugin.rowToggleCurrentClass(data, viewPort.nextItem.row, true);
 
                 viewPort.prevItem.row = viewPort.currentItem.row;
@@ -396,13 +442,15 @@
                 _plugin.updateVerticalPaging(structure.$verticalPaging, viewPort.currentItem.row);
                 _plugin.toggleVerticalArrowVisibility(viewPort.prevItem.row, viewPort.currentItem.row, viewPort.currentItem.column, data);
 
+                param = new TransitionEventParam(viewPort.currentItem.column, viewPort.currentItem.column, viewPort.prevItem.row, viewPort.currentItem.row);
+                $.event.trigger(CUSTOM_EVENTS.verticalScrollRowChanged, param);
               }
             }
               // scroll up
             else {
               $currentRow = viewPort.currentItem.get$Row();
 
-              if ($currentRow.offset().top >= winHeightHalf) {
+              if ($currentRow.offset().top >= winHeightHalf && viewPort.currentItem.row !== viewPort.prevItem.row) {
                 _plugin.rowToggleCurrentClass(data, viewPort.prevItem.row, true);
 
                 viewPort.nextItem.row = viewPort.currentItem.row;
@@ -415,6 +463,9 @@
                 structure.columns[currentColumn].currentRow = viewPort.currentItem.row;
                 _plugin.updateVerticalPaging(structure.$verticalPaging, viewPort.currentItem.row);
                 _plugin.toggleVerticalArrowVisibility(viewPort.nextItem.row, viewPort.currentItem.row, viewPort.currentItem.column, data);
+
+                param = new TransitionEventParam(viewPort.currentItem.column, viewPort.currentItem.column, viewPort.nextItem.row, viewPort.currentItem.row);
+                $.event.trigger(CUSTOM_EVENTS.verticalScrollRowChanged, param);
               }
             }
 
@@ -423,7 +474,7 @@
 
         }, OPTIONS.scroll_calculation_interval));
       },
-      // 11
+      // 12
       updatePagingAndArrowsOnWindowResize: function (data) {
         $(window).on('resize', function () {
           setTimeout(function () {
@@ -451,10 +502,10 @@
     };
 
     ///////////////////////////////////////////
-    //private other plugin  methods
+    // private other plugin  methods
     ///////////////////////////////////////////
     _plugin.beginHorizontalTransition = function (data, targetColumn) {
-      var columnObj, $row, topOffset, currentRow;
+      var columnObj, $row, topOffset, currentRow, param;
 
       if (data.viewPort.currentItem.column < targetColumn) {
         if ((data.viewPort.currentItem.column + 1) === data.structure.numOfColumns) {
@@ -480,88 +531,100 @@
       }
 
       function moveToNext(data, targetColumnIndex) {
-        var columnObj = data.structure.columns[targetColumnIndex];
-        var left = data.structure.$viewPort.offset().left;
+        var viewPort = data.viewPort, structure = data.structure;
+        var columnObj = structure.columns[targetColumnIndex];
+        var left = structure.$viewPort.offset().left;
         var $row = columnObj.rows[columnObj.currentRow];
+        var oldColumn = viewPort.currentItem.column;
 
         columnObj.$column.show();
 
-        // if column div's height is less than the window's height hide scrollbar
-        if (columnObj.$column.children().height() <= $(window).height()) {
-          columnObj.$column.css("overflow-y", "hidden");
-        } else {
-          columnObj.$column.css("overflow-y", "scroll");
-        }
+        _plugin.setUpColumnCssOverflow(targetColumnIndex, data.structure);
 
-        data.viewPort.prevItem.column = data.viewPort.currentItem.column;
-        data.viewPort.nextItem.column = targetColumnIndex;
-        data.viewPort.currentItem.column = targetColumnIndex;
+        viewPort.prevItem.column = data.viewPort.currentItem.column;
+        viewPort.nextItem.column = targetColumnIndex;
+        viewPort.currentItem.column = targetColumnIndex;
 
-        toggleHorizontalArrowVisibility(targetColumnIndex, data.viewPort.prevItem.column, data.structure);
+        toggleHorizontalArrowVisibility(targetColumnIndex, viewPort.prevItem.column, structure);
 
-        columnObj.$column.css({ "left": data.viewPort.horizontalSlideOffset - left, "top": 0 });
+        columnObj.$column.css({ "left": viewPort.horizontalSlideOffset - left, "top": 0 });
 
-        data.viewPort.isAnimationInProgressX = true;
-        data.structure.$viewPort.animate({
-          "left": (left - data.viewPort.horizontalSlideOffset)
+        viewPort.isAnimationInProgressX = true;
+
+        param = new TransitionEventParam(viewPort.prevItem.column, viewPort.currentItem.column, viewPort.currentItem.row, structure.columns[viewPort.currentItem.column].currentRow);
+        $.event.trigger(CUSTOM_EVENTS.horizontalTransitionBefore, param);
+
+        structure.$viewPort.animate({
+          "left": (left - viewPort.horizontalSlideOffset)
         }, OPTIONS.horizontal_animation_speed, OPTIONS.horizontal_animation_easing, function () {
 
-          data.viewPort.prevItem.get$Column().hide();
-          data.viewPort.prevItem.column = targetColumnIndex - 1;
-          data.viewPort.nextItem.column++;
+          viewPort.prevItem.get$Column().hide();
+          viewPort.prevItem.column = targetColumnIndex - 1;
+          viewPort.nextItem.column++;
 
-          data.viewPort.currentItem.row = columnObj.currentRow;
-          data.viewPort.prevItem.row = columnObj.currentRow - 1;
-          data.viewPort.nextItem.row = columnObj.currentRow + 1;
+          viewPort.currentItem.row = columnObj.currentRow;
+          viewPort.prevItem.row = columnObj.currentRow - 1;
+          viewPort.nextItem.row = columnObj.currentRow + 1;
 
-          data.viewPort.isAnimationInProgressX = false;
+          viewPort.isAnimationInProgressX = false;
 
-          _plugin.rowToggleCurrentClass(data, data.viewPort.currentItem.row, false);
+          _plugin.rowToggleCurrentClass(data, viewPort.currentItem.row, false);
 
           data.scroll.lastScrollTop = columnObj.$column.scrollTop();
+
+          param = new TransitionEventParam(oldColumn, targetColumnIndex, structure.columns[oldColumn].currentRow, structure.columns[targetColumnIndex].currentRow);
+          $.event.trigger(CUSTOM_EVENTS.horizontalTransitionAfter, param);
         });
       }
 
       function moveToPrevious(data, targetColumnIndex) {
-        var columnObj = data.structure.columns[targetColumnIndex]
-        var left = data.structure.$viewPort.offset().left;
+        var viewPort = data.viewPort, structure = data.structure;
+        var columnObj = structure.columns[targetColumnIndex]
+        var left = structure.$viewPort.offset().left;
         var $row = columnObj.rows[columnObj.currentRow];
+        var oldColumn = viewPort.currentItem.column;
 
         columnObj.$column.show();
 
-        // if column div's height is less than the window's height hide scrollbar
-        if (columnObj.$column.children().height() <= $(window).height()) {
+        // if column div's height is less than the dzieuo's height hide scrollbar
+        if (columnObj.$column.children().height() <= structure.$dzieuo.height()) {
           columnObj.$column.css("overflow-y", "hidden");
         } else {
           columnObj.$column.css("overflow-y", "scroll");
         }
 
-        data.viewPort.nextItem.column = data.viewPort.currentItem.column;
-        data.viewPort.prevItem.column = targetColumnIndex;
-        data.viewPort.currentItem.column = targetColumnIndex;
+        viewPort.nextItem.column = viewPort.currentItem.column;
+        viewPort.prevItem.column = targetColumnIndex;
+        viewPort.currentItem.column = targetColumnIndex;
 
-        toggleHorizontalArrowVisibility(targetColumnIndex, data.viewPort.nextItem.column, data.structure);
+        toggleHorizontalArrowVisibility(targetColumnIndex, viewPort.nextItem.column, structure);
 
-        columnObj.$column.css({ "left": (-data.viewPort.horizontalSlideOffset) - left, "top": 0 });
+        columnObj.$column.css({ "left": (-viewPort.horizontalSlideOffset) - left, "top": 0 });
 
-        data.viewPort.isAnimationInProgressX = true;
+        viewPort.isAnimationInProgressX = true;
 
-        data.structure.$viewPort.animate({
-          "left": (left + data.viewPort.horizontalSlideOffset)
+        param = new TransitionEventParam(viewPort.nextItem.column, viewPort.currentItem.column, viewPort.currentItem.row, structure.columns[viewPort.currentItem.column].currentRow);
+        $.event.trigger(CUSTOM_EVENTS.horizontalTransitionBefore, param);
+
+        structure.$viewPort.animate({
+          "left": (left + viewPort.horizontalSlideOffset)
         }, OPTIONS.horizontal_animation_speed, OPTIONS.horizontal_animation_easing, function () {
-          data.viewPort.nextItem.get$Column().hide();
-          data.viewPort.nextItem.column = targetColumnIndex + 1;
-          data.viewPort.prevItem.column--;
+          viewPort.nextItem.get$Column().hide();
+          viewPort.nextItem.column = targetColumnIndex + 1;
+          viewPort.prevItem.column--;
 
-          data.viewPort.currentItem.row = columnObj.currentRow;
-          data.viewPort.nextItem.row = columnObj.currentRow + 1;
-          data.viewPort.prevItem.row = columnObj.currentRow - 1;
+          viewPort.currentItem.row = columnObj.currentRow;
+          viewPort.nextItem.row = columnObj.currentRow + 1;
+          viewPort.prevItem.row = columnObj.currentRow - 1;
 
-          data.viewPort.isAnimationInProgressX = false;
+          viewPort.isAnimationInProgressX = false;
 
-          _plugin.rowToggleCurrentClass(data, data.viewPort.currentItem.row, false);
+          _plugin.rowToggleCurrentClass(data, viewPort.currentItem.row, false);
 
           data.scroll.lastScrollTop = columnObj.$column.scrollTop();
+
+          param = new TransitionEventParam(oldColumn, targetColumnIndex, structure.columns[oldColumn].currentRow, structure.columns[targetColumnIndex].currentRow);
+          $.event.trigger(CUSTOM_EVENTS.horizontalTransitionAfter, param);
         });
       }
 
@@ -574,46 +637,47 @@
       }
 
       function reCreateVerticalPaging(data, column) {
-        var html, verticalPagingItemClass = "dz-vertical-paging-item";
+        var html, structure = data.structure, verticalPagingItemClass = "dz-vertical-paging-item";
 
-        data.structure.$verticalPaging.empty();
+        structure.$verticalPaging.empty();
 
-        if (!OPTIONS.hide_vertical_paging_when_single_row || data.structure.columns[column].numOfRows > 1) {
+        if (!OPTIONS.hide_vertical_paging_when_single_row || structure.columns[column].numOfRows > 1) {
           html = "<a class='" + verticalPagingItemClass + "' href='#" + column + "' data-row='0'>";
 
-          for (var i = 1; i < data.structure.columns[column].numOfRows; i++) {
+          for (var i = 1; i < structure.columns[column].numOfRows; i++) {
             html += "<a class='" + verticalPagingItemClass + "' href='#" + column + "' data-row='" + i + "'>";
           }
-          data.structure.$verticalPaging.append(html);
+          structure.$verticalPaging.append(html);
         }
 
         if (OPTIONS.initialize_vertical_paging_position) {
-          data.structure.$verticalPaging.css('top', _plugin.getHalfWindowHeight() - (data.structure.$verticalPaging.height() / 2));
+          structure.$verticalPaging.css('top', _plugin.getHalfWindowHeight() - (structure.$verticalPaging.height() / 2));
         }
       }
 
       function toggleHorizontalArrowVisibility(targetIndex, currentIndex, structure) {
-        var lastColumnIndex = data.structure.numOfColumns - 1;
+        var lastColumnIndex = structure.numOfColumns - 1;
 
         if (currentIndex === 0) {
-          data.structure.$prevHorizontalArrow.fadeIn();
+          structure.$prevHorizontalArrow.fadeIn();
         } else if (currentIndex === lastColumnIndex) {
-          data.structure.$nextHorizontalArrow.fadeIn();
+          structure.$nextHorizontalArrow.fadeIn();
         }
 
         if (targetIndex === 0) {
-          data.structure.$prevHorizontalArrow.fadeOut();
+          structure.$prevHorizontalArrow.fadeOut();
         } else if (targetIndex === lastColumnIndex) {
-          data.structure.$nextHorizontalArrow.fadeOut();
+          structure.$nextHorizontalArrow.fadeOut();
         }
 
       }
     };
 
     _plugin.beginVerticalTransition = function (data, targetRowIndex) {
-      var viewPort = data.viewPort, scroll = data.scroll, structure = data.structure, moveDown = false, newScrollTop;
+      var param, viewPort = data.viewPort, scroll = data.scroll, structure = data.structure, moveDown = false, newScrollTop;
       var $column = structure.columns[viewPort.currentItem.column].$column;
       var $targetRow = structure.columns[viewPort.currentItem.column].rows[targetRowIndex];
+      var oldRow;
 
       if (viewPort.currentItem.row < targetRowIndex) {
         if ((viewPort.currentItem.row) === structure.columns[viewPort.currentItem.column].numOfRows - 1) {
@@ -637,6 +701,11 @@
 
       newScrollTop = scroll.lastScrollTop + $targetRow.offset().top;
 
+      param = new TransitionEventParam(viewPort.currentItem.column, viewPort.currentItem.column, viewPort.currentItem.row, targetRowIndex);
+      $.event.trigger(CUSTOM_EVENTS.verticalTransitionBefore, param);
+
+      oldRow = viewPort.currentItem.row;
+
       $column.animate({ scrollTop: newScrollTop - OPTIONS.row_scroll_padding_top }, OPTIONS.vertical_animation_speed, OPTIONS.vertical_animation_easing, function () {
         viewPort.isAnimationInProgressY = false;
 
@@ -659,56 +728,66 @@
         structure.columns[viewPort.currentItem.column].currentRow = viewPort.currentItem.row;
         scroll.lastScrollTop = newScrollTop;
         scroll.shouldCalculateScroll = true;
+
+        param = new TransitionEventParam(viewPort.currentItem.column, viewPort.currentItem.column, oldRow, targetRowIndex);
+        $.event.trigger(CUSTOM_EVENTS.verticalTransitionAfter, param);
       });
-    }
+    };
 
     _plugin.updateVerticalPaging = function ($paging, targetRowIndex) {
       var $item = $paging.find(".dz-vertical-paging-item.current");
       $item.removeClass("current");
       var $nextItem = $paging.find('[data-row="' + targetRowIndex + '"]');
       $nextItem.addClass("current");
-    }
+    };
 
     _plugin.toggleVerticalArrowVisibility = function (currentRowIndex, targetRowIndex, targetColumnIndex, data) {
       var lastRowIndex = data.structure.columns[targetColumnIndex].numOfRows - 1;
-
       // when horizontal trasition takes place
       if (targetColumnIndex !== data.viewPort.currentItem.column) {
+        updateVisibilityForHorizontalTransition(data.structure, targetRowIndex, lastRowIndex)
+      }
+        // when vertical transition or vertical scroll takes place
+      else {
+        updateVisibilityForVerticalTransition(data.structure, currentRowIndex, targetRowIndex);
+      }
 
-        // only one row present so hide both arrows
-        if (lastRowIndex == 0) {
-          data.structure.$upVerticalArrow.fadeOut();
-          data.structure.$downVerticalArrow.fadeOut();
-        }
-        else if (targetRowIndex === 0) {
-          data.structure.$downVerticalArrow.fadeIn();
-          data.structure.$upVerticalArrow.fadeOut();
-        } else if (targetRowIndex === lastRowIndex) {
-          data.structure.$downVerticalArrow.fadeOut();
-          data.structure.$upVerticalArrow.fadeIn();
-        } else {
-          data.structure.$upVerticalArrow.fadeIn();
-          data.structure.$downVerticalArrow.fadeIn();
-        }
-      } else {
+      function updateVisibilityForVerticalTransition(structure, currentRowIndex, targetRowIndex) {
         if (currentRowIndex === 0) {
-          data.structure.$upVerticalArrow.fadeIn();
+          structure.$upVerticalArrow.fadeIn();
         } else if (currentRowIndex === lastRowIndex) {
-        	data.structure.$downVerticalArrow.fadeIn();
-        	console.log("down arrow fadeIn()");
+          structure.$downVerticalArrow.fadeIn();
         }
 
         if (targetRowIndex === 0) {
-          data.structure.$upVerticalArrow.fadeOut();
+          structure.$upVerticalArrow.fadeOut();
         } else if (targetRowIndex === lastRowIndex) {
-          data.structure.$downVerticalArrow.fadeOut();
+          structure.$downVerticalArrow.fadeOut();
         }
       }
-    }
+
+      function updateVisibilityForHorizontalTransition(structure, targetRowIndex, lastRowIndex) {
+        // only one row present so hide both arrows
+        if (lastRowIndex == 0) {
+          structure.$upVerticalArrow.fadeOut();
+          structure.$downVerticalArrow.fadeOut();
+        }
+        else if (targetRowIndex === 0) {
+          structure.$downVerticalArrow.fadeIn();
+          structure.$upVerticalArrow.fadeOut();
+        } else if (targetRowIndex === lastRowIndex) {
+          structure.$downVerticalArrow.fadeOut();
+          structure.$upVerticalArrow.fadeIn();
+        } else {
+          structure.$downVerticalArrow.fadeIn();
+          structure.$upVerticalArrow.fadeIn();
+        }
+      }
+    };
 
     _plugin.getHalfWindowHeight = function () {
       return $(window).height() / 2;
-    }
+    };
 
     _plugin.rowToggleCurrentClass = function (data, targetRowIndex, isVerticalTransition) {
       if (isVerticalTransition) {
@@ -716,12 +795,23 @@
       }
 
       data.structure.columns[data.viewPort.currentItem.column].rows[targetRowIndex].addClass('current');
-    }
+    };
+
+    _plugin.setUpColumnCssOverflow = function (column, structure) {
+      var columnObj = structure.columns[column];
+
+      // if column div's height is less than the #dzieuo's height hide scrollbar
+      if (structure.columns[column].$column.children().height() <= structure.$dzieuo.height()) {
+        columnObj.$column.css("overflow-y", "hidden");
+      } else {
+        columnObj.$column.css("overflow-y", "scroll");
+      }
+    };
 
     ///////////////////////////////////////////
-    //initialize helper objects
+    // initialize helper objects
     ///////////////////////////////////////////
-    _plugin.URL_ROUTER = new urlRouter(_data, _plugin.beginHorizontalTransition);
+    _plugin.URL_ROUTER = new UrlRouter(_data, _plugin.beginHorizontalTransition);
 
     //////////////////////////////////////
     // initialize plugin
@@ -734,6 +824,7 @@
     _plugin.setUpVerticalNav(_data);
     _plugin.setUpVerticalPaging(_data);
     _plugin.setUpViewPortPositions(_data.viewPort);
+    _plugin.setUpInitialColumnCssOverflow(_data.structure);
     _plugin.setUpClickHandlers(_data);
     _plugin.updateVerticalPagingOnWindowScroll(_data);
     _plugin.updatePagingAndArrowsOnWindowResize(_data);
@@ -742,7 +833,6 @@
 
   }
 
-  // jQuery plugin initialization
   $.fn.dzieuo = function (params) {
     return createDzieuo(this, params);
   };

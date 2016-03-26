@@ -4,7 +4,7 @@
 		<span>Dziennik</span>
 	</header>
 	<section id="detailsPanel">
-			@*<div id="todayDateAndTimeContainer" data-bind="click: $root.showTodayInDetailsPageCalendarDetailsTable" class="hover-cursor-pointer">
+			<div id="todayDateAndTimeContainer" data-bind="click: $root.showTodayInDetailsPageCalendarDetailsTable" class="hover-cursor-pointer">
 				<div style="position: absolute; z-index: -1;">
 					<div id="todayDateDay" data-bind="text: $root.todayDate.day"></div>
 					<div id="todayDateDayName" data-bind="text: $root.todayDate.getDayName()"></div>
@@ -15,7 +15,7 @@
 				<div id="clockCanvas">
 					<div id="digitalClock"></div>
 				</div>
-			</div>*@
+			</div>
 
 			<div class="events-menu-container">
 				<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnMenuItemClick( $element, 7, $root.detailsPageJournalMenu.getCurrentSelectedEventsProp(), $root.detailsPageJournalMenu ) }">

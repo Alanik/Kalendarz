@@ -96,7 +96,7 @@ header, footer, nav, section, div {
 .dz-row {
   position: relative;
   margin-bottom: 20px;
-  top:20px;
+  top: 20px;
 }
 
 #lobbyNavContainer {
@@ -279,6 +279,26 @@ header, footer, nav, section, div {
 #details .dz-column-inner-wrapper {
   width: 80%;
   margin: 0 auto;
+}
+
+#detailsPanel .events-menu-container {
+  float: right;
+}
+
+#detailsPanel {
+  overflow: hidden;
+}
+
+#todayDateAndTimeContainer {
+  height: 200px;
+  width: 200px;
+  background: gray;
+  display: inline-block;
+}
+
+.details-day-table-head div {
+  display: inline-block;
+  padding: 10px;
 }
 
 /*#clockCanvas {

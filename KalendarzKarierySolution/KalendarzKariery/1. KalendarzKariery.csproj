@@ -199,6 +199,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Dzieuo.css" />
     <Content Include="Content\Fonts\Oxygen\OFL.txt" />
     <Content Include="Content\Fonts\Raleway\FONTLOG.txt" />
     <Content Include="Content\Fonts\Raleway\images\raleway-1.jpeg" />
@@ -377,6 +378,8 @@
     <Content Include="Views\Home\DetailsPage\_DetailsManageOwnPublicEventsMenuItem.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsMyCalendarMenuItem.cshtml" />
     <Content Include="Views\Home\LobbyPage\_LobbyPublicEventList.cshtml" />
+    <Content Include="Views\Home\DetailsPage\_DetailsEventsMenuContainer.cshtml" />
+    <Content Include="Views\Home\DetailsPage\_DetailsDayTable.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

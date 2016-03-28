@@ -372,9 +372,8 @@
     <Content Include="Views\Home\LobbyPage\_LobbyLoginBar.cshtml" />
     <Content Include="Views\Home\LobbyPage\_LobbyEventsMenuItems.cshtml" />
     <Content Include="Views\Shared\_LayoutMobile.cshtml" />
-    <Content Include="Views\Home\DetailsPage\_DetailsEventInfo.cshtml" />
+    <Content Include="Views\Home\DetailsPage\_DetailsEventBlock.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsNotesSummary.cshtml" />
-    <Content Include="Views\Home\DetailsPage\_DetailsEventsAndNotesContainer.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsManageOwnPublicEventsMenuItem.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsMyCalendarMenuItem.cshtml" />
     <Content Include="Views\Home\LobbyPage\_LobbyPublicEventList.cshtml" />

@@ -91,8 +91,8 @@
 .other-month-cell {
   position: relative;
   border: 1px solid white;
-  /*background: rgb(211, 204, 184);*/
-  background:rgb(228, 225, 214);
+  /*background:rgb(228, 225, 214);*/
+  background:rgb(210, 210, 188);
 }
 
 .calendar-cell {
@@ -112,8 +112,8 @@
   top: 56px;
   height: 25px;
   z-index: 98;
-  color: rgb(109,109,109);
-  background: rgb(228, 225, 214);
+  color: white;
+  background: rgb(210, 210, 188);
 }
 
   .other-month-cell .cell-span-container span {
@@ -196,7 +196,7 @@
   table-layout: fixed;
   width: 100%;
   /*background:rgb(232, 232, 228);*/
-  background:rgb(232, 232, 228);
+  background:#E8E8D4;
 }
 
 .addNewEvent-cellIcon {

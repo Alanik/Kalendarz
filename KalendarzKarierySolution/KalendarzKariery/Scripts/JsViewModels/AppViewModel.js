@@ -678,7 +678,7 @@
         alert(result.Message);
       } else {
         self.hideLoader($loader);
-        $container = $("#details #notesList .li-note-container[data-noteid='" + id + "']");
+        $container = $("#details .li-note-container[data-noteid='" + id + "']");
         $container.fadeOut(500, function () {
           $container.remove();
           self.NOTE_MANAGER.removeNote(id, year, month, day);
@@ -785,7 +785,7 @@
   };
 
   self.updateNoteDetailsPageOnSaveLinkClick = function (id, year, month, day) {
-    var $container = $("#details #notesList .li-note-container[data-noteid='" + id + "']");
+    var $container = $("#details .li-note-container[data-noteid='" + id + "']");
     var $loader = $("#details").siblings(".dotted-page-overlay");
     var text = $container.find("textarea").val().trim();
     var promise, note, data;
@@ -832,7 +832,7 @@
 
   self.setLineThroughNoteDetailsPageOnLineThroughLinkClick = function (id, year, month, day, isLineThrough) {
     var $loader = $("#details").siblings(".dotted-page-overlay");
-    var $container = $("#details #notesList .li-note-container[data-noteid='" + id + "']");
+    var $container = $("#details .li-note-container[data-noteid='" + id + "']");
     var text, promise;
 
     var note = self.NOTE_MANAGER.getNoteByDateAndId(id, self.detailsPageDisplayDate.year(), self.detailsPageDisplayDate.month(), self.detailsPageDisplayDate.day());
@@ -1937,6 +1937,7 @@
   };
 
   self.showAddPublicEventPopupOnClick = function (element, data, e) {
+    debugger;
     var day = self.todayDate.day < 10 ? '0' + self.todayDate.day : self.todayDate.day;
     var month = self.todayDate.month < 10 ? '0' + self.todayDate.month : self.todayDate.month;
 

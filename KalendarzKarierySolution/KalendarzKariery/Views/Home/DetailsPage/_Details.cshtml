@@ -43,19 +43,27 @@
     <span>Plan dnia</span>
   </header>
   <section id="calendarDayDetailsContainer">
-    <div>
-      <span data-bind="text: $root.detailsPageDisplayDate.getDayName()"></span>
+    <div class="day-display-date-container">
+      <span class="display-date-small" data-bind="text: $root.detailsPageDisplayDate.getDayName()"></span>
       <span data-bind="text: $root.detailsPageDisplayDate.day()"></span>
       <span data-bind="text: $root.detailsPageDisplayDate.getMonthName()"></span>
-      <span data-bind="text: $root.detailsPageDisplayDate.year()"></span>
+      <span class="display-date-small" data-bind="text: $root.detailsPageDisplayDate.year()"></span>
     </div>
-    <div id="calendarDayDetailsTable">
+    <div id="detailsDayTable">
       @Html.Partial("_DetailsDayTable")
     </div>
 
     <div id="detailsEventsAndNotesContainer">
-      @Html.Partial("_DetailsEventsAndNotesContainer")
+
+      <div id="detailsEventBlockList" data-bind="foreach: detailsPageDayEvents()">
+        @Html.Partial("_DetailsEventBlock")
+      </div>
+      <div id="notesContainer">
+        @Html.Partial("_DetailsNotesSummary")
+
+      </div>
     </div>
+
 
   </section>
 </section>

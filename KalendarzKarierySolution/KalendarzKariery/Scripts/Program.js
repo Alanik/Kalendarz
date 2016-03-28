@@ -196,7 +196,7 @@
             appViewModel.drawEventToDetailsDayTable(events[i]);
         }
 
-        var $tableBody = $("#calendarDayDetailsTable .table-details-body");
+        var $tableBody = $("#detailsDayTable .details-day-table-body");
         var h = (appViewModel.detailsPageEventMostBottomRow) * 46;
         h = h + 20;
         $tableBody.height(h + "px");

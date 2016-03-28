@@ -435,7 +435,7 @@ pre {
     background: #A29C8F;
     width: 100px;
     line-height: 1.5;
-    font-size:1em;
+    font-size: 1em;
     float: right;
     text-align: center;
   }
@@ -455,12 +455,13 @@ pre {
 .details-event-block-footer {
   padding: 10px;
   overflow: hidden;
-  color:rgb(152, 152, 137);
+  color: rgb(152, 152, 137);
 }
 
 .notes-shadow-box {
   position: relative;
-  background: rgb(245, 242, 230);
+  /*background: rgb(245, 242, 230);*/
+  background: rgb(253, 253, 249);
   border: 2px solid #FAFAF0;
   color: rgba(0,0,0, .8);
 }
@@ -490,10 +491,14 @@ pre {
   height: 80px;
   box-sizing: border-box;
   font-size: 1.4em;
-  /*background: rgb(237, 233, 217);*/
-  background: rgb(253, 253, 249);
-  border: 1px solid #A9A9A9;
+  background: rgb(242, 242, 229);
   padding: 10px;
+  resize: none;
+  border-style: none;
+  border-color: Transparent;
+  overflow: auto;
+  -webkit-appearance: none;
+  outline: 0;
 }
 
 #btnAddNewNote {
@@ -509,11 +514,11 @@ pre {
 
 
 #notesListContainer {
-  padding: 0 2px;
+  padding: 0 10px;
 }
 
 .note-content {
-  border-bottom: 1px solid rgb(253, 252, 250);
+  border-bottom: 1px solid rgb(235, 235, 217);
 }
 
 .edit-mode-note-container {
@@ -565,6 +570,13 @@ pre {
   background: #FDFCFA;
 }
 
+.green-color {
+  color: rgb(106, 183, 129);
+}
+
+.red-color {
+  color: #FD6969;
+}
 
 .inline-block {
   display: inline-block;
@@ -593,6 +605,15 @@ pre {
 
 .hover-cursor-pointer:hover {
   cursor: pointer;
+}
+
+.line-through-text {
+  text-decoration: line-through;
+}
+
+.link:hover {
+  cursor: pointer;
+  color: black;
 }
 
 .close-btn-x {
@@ -657,4 +678,28 @@ pre {
   position: absolute;
   left: 20px;
   top: 20px;
+}
+
+.confirmation-popupbox {
+  position: fixed;
+  padding: 20px 0;
+  width: 60%;
+  left: 20%;
+  z-index: 100;
+  top: 300px;
+  text-align: center;
+  background: #EAEAD1;
+  border-radius: 3px;
+  font-size: 2em;
+  color:#827869;
+  border:2px solid #FFFFEB;
+}
+
+.page-overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #4E4E42;
+  opacity: .6;
+  z-index: 99;
 }

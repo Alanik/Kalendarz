@@ -12,10 +12,10 @@
 						<div style="font-size: 16px; color: rgb(201, 189, 144);text-align:right;">
 						<span>dodano: </span><span data-bind="text: dateAdded.displayFullTime()"></span><span>  </span><span data-bind="text: dateAdded.displayFullDate()"></span>
 						</div>
-							<span style="font-size: 18px;float:right; background: rgb(250, 250, 240);padding:0 10px;">
-								<span style="color: gray; padding-right: 10px;" class="link" data-bind="click: function () { $root.setLineThroughNoteDetailsPageOnLineThroughLinkClick( id, displayDate.year, displayDate.month, displayDate.day, !isLineThrough() ) }, text: isLineThrough() ? 'odkreśl' : 'skreśl' ">skreśl</span>
-								<span class="link" style="color: gray;" data-bind="click: function () { $root.editNoteDetailsPageOnEditLinkClick( id, displayDate.year, displayDate.month, displayDate.day ) }">edytuj</span>
-								<span data-bind="click: function () { $root.prepareDeleteNoteDetailsPageOnDeleteLinkClick( id, displayDate.year, displayDate.month, displayDate.day ) }" class="link" style="color: rgb(175, 167, 167);">usuń</span>
+							<span style="font-size: 18px;float:right;color:rgb(210, 210, 188);">
+								<span class="link" data-bind="click: function () { $root.setLineThroughNoteDetailsPageOnLineThroughLinkClick( id, displayDate.year, displayDate.month, displayDate.day, !isLineThrough() ) }, text: isLineThrough() ? 'odkreśl' : 'skreśl' ">skreśl</span>
+								<span class="link" data-bind="click: function () { $root.editNoteDetailsPageOnEditLinkClick( id, displayDate.year, displayDate.month, displayDate.day ) }">edytuj</span>
+								<span data-bind="click: function () { $root.prepareDeleteNoteDetailsPageOnDeleteLinkClick( id, displayDate.year, displayDate.month, displayDate.day ) }" class="link">usuń</span>
 							</span>
 						</div>
 					</div>

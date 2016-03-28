@@ -324,7 +324,7 @@
       //////////////////////////////////////////////
       //call WebAPI - Add new event
       //////////////////////////////////////////////
-      self.showLoader($addEventContainer.closest(".main-section").siblings(".dotted-page-overlay"));
+      self.showLoader($addEventContainer.closest(".main-section").siblings(".page-overlay"));
       $addEventContainer.hide();
 
       var promise = self.UTILS.webApiCaller.callAddEvent(data);
@@ -373,7 +373,7 @@
         self.setCalendarPlacementRow(dayEvents);
         self.redrawCalendarCell(dayEvents, kkEvent.startDate.day, kkEvent.startDate.month, kkEvent.startDate.year);
 
-        self.hideLoader($("#addNewEventContainer").closest(".main-section").siblings(".dotted-page-overlay"));
+        self.hideLoader($("#addNewEventContainer").closest(".main-section").siblings(".page-overlay"));
       }
 
     };
@@ -462,7 +462,7 @@
       //////////////////////////////////////////////
       //call WebAPI - update event
       //////////////////////////////////////////////
-      self.showLoader($addEventContainer.closest(".main-section").siblings(".dotted-page-overlay"));
+      self.showLoader($addEventContainer.closest(".main-section").siblings(".page-overlay"));
       $addEventContainer.hide();
 
       var promise = self.UTILS.webApiCaller.callUpdateEvent(data);
@@ -510,7 +510,7 @@
         self.setCalendarPlacementRow(dayEvents);
         self.redrawCalendarCell(dayEvents, kkEvent.startDate.day, kkEvent.startDate.month, kkEvent.startDate.year);
 
-        self.hideLoader($addEventContainer.closest(".main-section").siblings(".dotted-page-overlay"));
+        self.hideLoader($addEventContainer.closest(".main-section").siblings(".page-overlay"));
       }
     };
     function error(result) {
@@ -527,7 +527,7 @@
       return false;
     }
 
-    $loader = $("#details").siblings(".dotted-page-overlay");
+    $loader = $("#details").siblings(".page-overlay");
 
     data = 'Data=' + text;
     data += '&DisplayDate.Year=' + self.detailsPageDisplayDate.year();
@@ -568,7 +568,7 @@
   };
 
   self.prepareDeleteEventDetailsPageOnDeleteLinkClick = function (id, year, month, day, privacyLevelName) {
-    var $popup = $("#details").siblings(".confirmation-popupbox-container");
+    var $popup = $("#mainContainer").children(".confirmation-popupbox");
 
     var selectedKKEventModel = self.EVENT_MANAGER.getEventByDateAndId(id, year, month, day, self.myEventTree);
 
@@ -582,7 +582,7 @@
   };
 
   self.prepareDeleteNoteDetailsPageOnDeleteLinkClick = function (id, year, month, day) {
-    var $popup = $("#details").siblings(".confirmation-popupbox-container");
+    var $popup = $("#mainContainer").children(".confirmation-popupbox");
     var $yesBtn = $popup.find(".confirmation-popupbox-yesbtn");
     $yesBtn.attr("data-bind", "click: function () { $root.deleteNoteDetailsPageOnConfirmationYesBtnClick($element, " + id + "," + year + "," + month + "," + day + ")}");
 
@@ -593,7 +593,7 @@
   };
 
   self.deleteEventDetailsPageOnConfirmationYesBtnClick = function (element, id, year, month, day) {
-    var $loader = $("#details").siblings(".dotted-page-overlay");
+    var $loader = $("#details").siblings(".page-overlay");
 
     //////////////////////////////////////////////
     //call WebAPI - Delete event with given id
@@ -656,7 +656,7 @@
   };
 
   self.deleteNoteDetailsPageOnConfirmationYesBtnClick = function (element, id, year, month, day) {
-    var $loader = $("#details").siblings(".dotted-page-overlay");
+    var $loader = $("#details").siblings(".page-overlay");
     var promise;
 
     //////////////////////////////////////////////
@@ -697,11 +697,11 @@
     var $calendar = $("#calendar");
     var $details = $("#details");
 
-    $lobby.siblings(".dotted-page-overlay").hide();
-    $calendar.siblings(".dotted-page-overlay").hide();
-    $details.siblings(".dotted-page-overlay").hide();
+    $lobby.siblings(".page-overlay").hide();
+    $calendar.siblings(".page-overlay").hide();
+    $details.siblings(".page-overlay").hide();
 
-    var $overlay = $details.siblings(".dotted-page-overlay");
+    var $overlay = $details.siblings(".page-overlay");
     $overlay.css("opacity", 1);
     $overlay.show();
 
@@ -766,17 +766,17 @@
 
   self.editNoteDetailsPageOnEditLinkClick = function (id, year, month, day) {
     var $editContainer = $("<div class='edit-mode-note-container'></div>");
-    var $btns = $("<div style='text-align:center;font-size:18px;'><span class='link save-link' style='padding:4px;color: rgb(68, 192, 64);'  data-bind='click:$root.updateNoteDetailsPageOnSaveLinkClick.bind($root," + id + ',' + year + ',' + month + ',' + day + ")'>zapisz</span><span class='link cancel-link' style='padding:4px;color:red;' data-bind='click:$root.cancelEditNoteDetailsPageOnCancelLinkClick.bind($root," + id + ")'>anuluj</span></div>");
-    var cancelLink = $btns.find(".cancel-link")[0];
-    var saveLink = $btns.find(".save-link")[0];
+    var $btns = $("<div style='text-align:center;font-size:18px;'><span class='green-color hover-cursor-pointer' style='padding:4px;'  data-bind='click:$root.updateNoteDetailsPageOnSaveLinkClick.bind($root," + id + ',' + year + ',' + month + ',' + day + ")'>zapisz</span><span class='red-color hover-cursor-pointer' style='padding:4px;' data-bind='click:$root.cancelEditNoteDetailsPageOnCancelLinkClick.bind($root," + id + ")'>anuluj</span></div>");
+    var cancelLink = $btns.find(".red-color")[0];
+    var saveLink = $btns.find(".green-color")[0];
 
     ko.unapplyBindings(cancelLink);
     ko.unapplyBindings(saveLink);
     ko.applyBindings(self, cancelLink);
     ko.applyBindings(self, saveLink);
 
-    var $textbox = $("<textarea style='width: 80%;vertical-align: top;margin-top: 12px;'/>");
-    var $container = $("#details .li-note-container[data-noteid='" + id + "']");
+    var $textbox = $("<textarea style='width: 100%;vertical-align: top;margin-top: 10px;box-sizing: border-box;border: 1px solid #EBEBD9;resize: none;outline: none;padding: 10px;background: #F2F2E5;'/>");
+    var $container = $("#notesListContainer li[data-noteid='" + id + "']");
     var noteText = $container.find("pre").text();
     $container.find(".note-content").hide();
     $textbox.val(noteText);
@@ -785,8 +785,8 @@
   };
 
   self.updateNoteDetailsPageOnSaveLinkClick = function (id, year, month, day) {
-    var $container = $("#details .li-note-container[data-noteid='" + id + "']");
-    var $loader = $("#details").siblings(".dotted-page-overlay");
+    var $container = $("#notesListContainer li[data-noteid='" + id + "']");
+    var $loader = $("#details").siblings(".page-overlay");
     var text = $container.find("textarea").val().trim();
     var promise, note, data;
 
@@ -831,8 +831,8 @@
   };
 
   self.setLineThroughNoteDetailsPageOnLineThroughLinkClick = function (id, year, month, day, isLineThrough) {
-    var $loader = $("#details").siblings(".dotted-page-overlay");
-    var $container = $("#details .li-note-container[data-noteid='" + id + "']");
+    var $loader = $("#details").siblings(".page-overlay");
+    var $container = $("#notesListContainer li[data-noteid='" + id + "']");
     var text, promise;
 
     var note = self.NOTE_MANAGER.getNoteByDateAndId(id, self.detailsPageDisplayDate.year(), self.detailsPageDisplayDate.month(), self.detailsPageDisplayDate.day());
@@ -874,7 +874,7 @@
   };
 
   self.cancelEditNoteDetailsPageOnCancelLinkClick = function (id) {
-    var $container = $("#details .li-note-container[data-noteid='" + id + "']");
+    var $container = $("#notesListContainer li[data-noteid='" + id + "']");
     $container.find(".edit-mode-note-container").remove();
     $container.find(".note-content").show();
   };
@@ -918,25 +918,18 @@
   }
 
   self.showConfirmationPopupBox = function ($popup, txt) {
-    var offset = $popup.closest(".scrollable").scrollTop();
-
-    var viewportHeight = $(window).height();
-
-    var offsetPopup = ((viewportHeight / 2) + offset) - ($popup.height());
-    $popup.css("top", offsetPopup + "px");
-
     $popup.find(".confirmation-popupbox-maintext").text(txt);
-    $popup.siblings(".dotted-page-overlay").fadeIn("fast");
+    $("#mainContainer").children(".page-overlay").show();
     $popup.show();
   };
 
   self.hideConfirmationPopupBox = function (element) {
     var $btn = $(element);
-    var $popup = $btn.closest(".confirmation-popupbox-container");
+    var $popup = $btn.closest(".confirmation-popupbox");
     var $yesBtn = $popup.find(".confirmation-popupbox-yesbtn");
     $yesBtn.attr("data-bind", '');
 
-    $popup.siblings(".dotted-page-overlay").hide();
+    $popup.siblings(".page-overlay").hide();
     $popup.hide();
 
   };
@@ -1192,7 +1185,7 @@
   }
 
   self.addPublicEventToMyCalendarOnClick = function (element, id, year, month, day) {
-    var $loader = $("#lobby").siblings(".dotted-page-overlay");
+    var $loader = $("#lobby").siblings(".page-overlay");
     var data = 'Username=' + self.userName + '&EventId=' + id;
     var promise;
 
@@ -1231,7 +1224,7 @@
   }
 
   self.signUpUserForEventOnClick = function (element, id, year, month, day) {
-    var $loader = $("#lobby").siblings(".dotted-page-overlay");
+    var $loader = $("#lobby").siblings(".page-overlay");
     var data = 'Username=' + self.userName + '&EventId=' + id;
     var promise;
 
@@ -1576,7 +1569,7 @@
     var $cont = $("#addNewEventContainer");
     //$cont.find( "#addEventForm" )[0].reset();
 
-    $cont.closest(".main-section").siblings(".dotted-page-overlay").hide();
+    $cont.closest(".main-section").siblings(".page-overlay").hide();
     $cont.hide();
     $cont.css("top", 30);
     //TODO:add scroll to top 
@@ -1585,7 +1578,7 @@
   self.showRegisterFormOnClick = function () {
     var $loginForm = $("#loginPageContainer");
     var $registerForm = $("#registerPageContainer");
-    var $overlay = $("#lobby").siblings(".dotted-page-overlay");
+    var $overlay = $("#lobby").siblings(".page-overlay");
     $overlay.css("opacity", 1);
     $overlay.show();
     $loginForm.hide();
@@ -1595,7 +1588,7 @@
   self.showLoginFormOnClick = function () {
     var $loginForm = $("#loginPageContainer");
     var $registerForm = $("#registerPageContainer");
-    var $overlay = $("#lobby").siblings(".dotted-page-overlay");
+    var $overlay = $("#lobby").siblings(".page-overlay");
     $overlay.css("opacity", 1);
     $overlay.show();
     $registerForm.hide();
@@ -1614,7 +1607,7 @@
 
     if ($loginForm.valid()) {
       $loginContainer.hide();
-      $loader = $loginContainer.closest(".main-section").siblings(".dotted-page-overlay");
+      $loader = $loginContainer.closest(".main-section").siblings(".page-overlay");
       $.ajax({
         url: action,
         type: "POST",
@@ -1656,7 +1649,7 @@
 
   self.closeLoginPopupOnClick = function () {
     var $login = $("#loginPageContainer");
-    var $overlay = $("#lobby").siblings(".dotted-page-overlay");
+    var $overlay = $("#lobby").siblings(".page-overlay");
 
     $overlay.fadeOut();
     $login.hide();
@@ -1665,7 +1658,7 @@
 
   self.closeRegisterPopupOnClick = function () {
     var $register = $("#registerPageContainer");
-    var $overlay = $("#lobby").siblings(".dotted-page-overlay");
+    var $overlay = $("#lobby").siblings(".page-overlay");
 
     $overlay.fadeOut();
     $register.hide();
@@ -1675,7 +1668,7 @@
     //TODO: in _register page make sure we have labels corresponding to their form textboxes (basically check all pages with forms that their html is correct)
     //TODO: add ajax code to WebApiCaller.js class
 
-    var $overlay = $("#lobby").siblings(".dotted-page-overlay");
+    var $overlay = $("#lobby").siblings(".page-overlay");
     var $dateBirthValidationMsg;
     var $registerForm = $("#registerForm");
     $registerForm.find(".summary-validation-errors").empty();
@@ -1741,7 +1734,7 @@
   };
 
   self.updateUserOnClick = function () {
-    var $overlay = $("#details").siblings(".dotted-page-overlay");
+    var $overlay = $("#details").siblings(".page-overlay");
 
     var $dateBirthValidationMsg;
     var $registerForm = $("#updateProfileForm");
@@ -1871,13 +1864,13 @@
     var $calendar = $("#calendar");
     var $details = $("#details");
 
-    $lobby.siblings(".dotted-page-overlay").hide();
-    $calendar.siblings(".dotted-page-overlay").hide();
-    $details.siblings(".dotted-page-overlay").hide();
+    $lobby.siblings(".page-overlay").hide();
+    $calendar.siblings(".page-overlay").hide();
+    $details.siblings(".page-overlay").hide();
 
     $(element).hide();
 
-    var $overlay = $calendar.siblings(".dotted-page-overlay");
+    var $overlay = $calendar.siblings(".page-overlay");
     $overlay.css("opacity", 1);
     $overlay.show();
 
@@ -1937,7 +1930,6 @@
   };
 
   self.showAddPublicEventPopupOnClick = function (element, data, e) {
-    debugger;
     var day = self.todayDate.day < 10 ? '0' + self.todayDate.day : self.todayDate.day;
     var month = self.todayDate.month < 10 ? '0' + self.todayDate.month : self.todayDate.month;
 
@@ -1947,11 +1939,11 @@
     var $calendar = $("#calendar");
     var $details = $("#details");
 
-    $lobby.siblings(".dotted-page-overlay").hide();
-    $calendar.siblings(".dotted-page-overlay").hide();
-    $details.siblings(".dotted-page-overlay").hide();
+    $lobby.siblings(".page-overlay").hide();
+    $calendar.siblings(".page-overlay").hide();
+    $details.siblings(".page-overlay").hide();
 
-    var $overlay = $lobby.siblings(".dotted-page-overlay");
+    var $overlay = $lobby.siblings(".page-overlay");
     $overlay.css("opacity", 1);
     $overlay.show();
 
@@ -1985,11 +1977,11 @@
     var $calendar = $("#calendar");
     var $details = $("#details");
 
-    $lobby.siblings(".dotted-page-overlay").hide();
-    $calendar.siblings(".dotted-page-overlay").hide();
-    $details.siblings(".dotted-page-overlay").hide();
+    $lobby.siblings(".page-overlay").hide();
+    $calendar.siblings(".page-overlay").hide();
+    $details.siblings(".page-overlay").hide();
 
-    var $overlay = $lobby.siblings(".dotted-page-overlay");
+    var $overlay = $lobby.siblings(".page-overlay");
     $overlay.css("opacity", 1);
     $overlay.show();
 
@@ -2022,7 +2014,7 @@
   self.redisplayCalendarAtChosenMonth = function (monthNum) {
     var $calendar = $("#calendar");
     var $addNewEvent = $("#addNewEventContainer");
-    var $loader = $calendar.siblings(".dotted-page-overlay");
+    var $loader = $calendar.siblings(".page-overlay");
 
     self.showLoader();
 

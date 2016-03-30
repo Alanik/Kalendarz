@@ -1,6 +1,6 @@
 ﻿@model KalendarzKarieryData.Models.ViewModels.AddEventViewModel
 
-<div id="addNewEventContainer" class="slick-contact-form">
+<div id="addNewEventContainer" class="slick-contact-form" style="display:none;">
 
 	<div class="form-header">
 		<div id="btnClose-AddEventContainer" class="btn-close hover-cursor-pointer" data-bind="click: $root.closeAddNewEventPopupOnClick">
@@ -96,7 +96,7 @@
 							</div>
 						</div>
 
-						<div id="addNewEventShowMoreOptionsLink" style="display: inline-block;" class="hover-cursor-pointer" data-bind="click: $root.showMoreOptionsInAddNewEventPopupOnClick( $element )">
+						<div id="addNewEventShowMoreOptionsLink" style="display: inline-block;" class="hover-cursor-pointer" data-bind="click: function(){ $root.showMoreOptionsInAddNewEventPopupOnClick( $element ) }">
 							<span>Pokaż więcej opcji +</span>
 						</div>
 

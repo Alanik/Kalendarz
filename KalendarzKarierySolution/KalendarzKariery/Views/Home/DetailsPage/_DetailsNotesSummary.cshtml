@@ -10,7 +10,7 @@
 						<pre data-bind="text: data, css: { 'line-through-text': isLineThrough() }" style="white-space: pre-wrap;"></pre>
 						<div style="overflow:hidden;">
 						<div style="font-size: 16px; color: rgb(201, 189, 144);text-align:right;">
-						<span>dodano: </span><span data-bind="text: dateAdded.displayFullTime()"></span><span>  </span><span data-bind="text: dateAdded.displayFullDate()"></span>
+						<span data-bind="text: dateAdded.displayFullTime()"></span><span>  </span><span data-bind="text: dateAdded.displayFullDate()"></span>
 						</div>
 							<span style="font-size: 18px;float:right;color:rgb(210, 210, 188);">
 								<span class="link" data-bind="click: function () { $root.setLineThroughNoteDetailsPageOnLineThroughLinkClick( id, displayDate.year, displayDate.month, displayDate.day, !isLineThrough() ) }, text: isLineThrough() ? 'odkreśl' : 'skreśl' ">skreśl</span>

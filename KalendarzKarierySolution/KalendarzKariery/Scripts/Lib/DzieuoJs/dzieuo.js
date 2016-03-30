@@ -102,7 +102,7 @@
           var hash = parseInt(window.location.hash.substr(1));
 
           if (hash >= 0 && hash < data.structure.numOfColumns) {
-            if (self.hash < hash || self.hash > hash) {
+            if (self.hash !== hash) {
               setUpArrowHrefAndBeginTransition();
             } else {
               self.hash = 0;
@@ -114,8 +114,6 @@
             self.hash = hash;
 
             if (!data.viewPort.isAnimationInProgressX) {
-              data.structure.$prevHorizontalArrow.attr('href', "#" + (self.hash - 1));
-              data.structure.$nextHorizontalArrow.attr('href', "#" + (self.hash + 1));
               beginHorizontalTransitionFn(data, self.hash)
             }
           };
@@ -388,7 +386,7 @@
         data.structure.$dzieuo.on("click", ".dz-vertical-paging-item", function () {
           var targetRow = $(this).data("row");
 
-          if (!data.viewPort.isAnimationInProgressY && data.viewPort.currentItem.row !== targetRow) {
+          if (!data.viewPort.isAnimationInProgressY) {
             data.scroll.shouldCalculateScroll = false;
             _plugin.beginVerticalTransition(data, targetRow);
           }
@@ -496,6 +494,9 @@
               data.structure.$verticalNav.css('top', _plugin.getHalfWindowHeight() - (data.structure.$verticalNav.height() / 2));
             }
 
+            // css overflow-y         
+            _plugin.setUpColumnCssOverflow(data.viewPort.currentItem.column, data.structure);
+
           }, 10);
         });
       }
@@ -511,23 +512,49 @@
         if ((data.viewPort.currentItem.column + 1) === data.structure.numOfColumns) {
           return false;
         }
-
-        reCreateVerticalPaging(data, targetColumn);
-        _plugin.updateVerticalPaging(data.structure.$verticalPaging, data.structure.columns[targetColumn].currentRow);
-        _plugin.toggleVerticalArrowVisibility(data.viewPort.currentItem.row, data.structure.columns[targetColumn].currentRow, targetColumn, data);
-        updateHorizontalPaging(data.structure.$horizontalPaging, targetColumn);
+        beforeMove(data, targetColumn);
         moveToNext(data, targetColumn);
       }
       else {
         if ((data.viewPort.currentItem.column === 0)) {
           return false;
         }
+        beforeMove(data, targetColumn);
+        moveToPrevious(data, targetColumn);
+      }
 
+      function beforeMove(data, targetColumn) {
         reCreateVerticalPaging(data, targetColumn);
         _plugin.updateVerticalPaging(data.structure.$verticalPaging, data.structure.columns[targetColumn].currentRow);
         _plugin.toggleVerticalArrowVisibility(data.viewPort.currentItem.row, data.structure.columns[targetColumn].currentRow, targetColumn, data);
         updateHorizontalPaging(data.structure.$horizontalPaging, targetColumn);
-        moveToPrevious(data, targetColumn);
+
+        function updateHorizontalPaging($paging, targetColumn) {
+          var className = "current";
+          var $item = $paging.find(".dz-horizontal-paging-item.current");
+          $item.removeClass(className);
+          var $nextItem = $paging.find('[data-column="' + targetColumn + '"]');
+          $nextItem.addClass(className);
+        }
+
+        function reCreateVerticalPaging(data, targetColumn) {
+          var html, structure = data.structure, verticalPagingItemClass = "dz-vertical-paging-item";
+
+          structure.$verticalPaging.empty();
+
+          if (!OPTIONS.hide_vertical_paging_when_single_row || structure.columns[targetColumn].numOfRows > 1) {
+            html = "<a class='" + verticalPagingItemClass + "' href='#" + targetColumn + "' data-row='0'>";
+
+            for (var i = 1; i < structure.columns[targetColumn].numOfRows; i++) {
+              html += "<a class='" + verticalPagingItemClass + "' href='#" + targetColumn + "' data-row='" + i + "'>";
+            }
+            structure.$verticalPaging.append(html);
+          }
+
+          if (OPTIONS.initialize_vertical_paging_position) {
+            structure.$verticalPaging.css('top', _plugin.getHalfWindowHeight() - (structure.$verticalPaging.height() / 2));
+          }
+        }
       }
 
       function moveToNext(data, targetColumnIndex) {
@@ -572,6 +599,9 @@
 
           data.scroll.lastScrollTop = columnObj.$column.scrollTop();
 
+          data.structure.$prevHorizontalArrow.attr('href', "#" + (targetColumnIndex - 1));
+          data.structure.$nextHorizontalArrow.attr('href', "#" + (targetColumnIndex + 1));
+
           param = new TransitionEventParam(oldColumn, targetColumnIndex, structure.columns[oldColumn].currentRow, structure.columns[targetColumnIndex].currentRow);
           $.event.trigger(CUSTOM_EVENTS.horizontalTransitionAfter, param);
         });
@@ -587,11 +617,7 @@
         columnObj.$column.show();
 
         // if column div's height is less than the dzieuo's height hide scrollbar
-        if (columnObj.$column.children().height() <= structure.$dzieuo.height()) {
-          columnObj.$column.css("overflow-y", "hidden");
-        } else {
-          columnObj.$column.css("overflow-y", "scroll");
-        }
+        _plugin.setUpColumnCssOverflow(targetColumnIndex, structure);
 
         viewPort.nextItem.column = viewPort.currentItem.column;
         viewPort.prevItem.column = targetColumnIndex;
@@ -623,36 +649,12 @@
 
           data.scroll.lastScrollTop = columnObj.$column.scrollTop();
 
+          structure.$prevHorizontalArrow.attr('href', "#" + (targetColumnIndex - 1));
+          structure.$nextHorizontalArrow.attr('href', "#" + (targetColumnIndex + 1));
+
           param = new TransitionEventParam(oldColumn, targetColumnIndex, structure.columns[oldColumn].currentRow, structure.columns[targetColumnIndex].currentRow);
           $.event.trigger(CUSTOM_EVENTS.horizontalTransitionAfter, param);
         });
-      }
-
-      function updateHorizontalPaging($paging, targetColumnIndex) {
-        var className = "current";
-        var $item = $paging.find(".dz-horizontal-paging-item.current");
-        $item.removeClass(className);
-        var $nextItem = $paging.find('[data-column="' + targetColumnIndex + '"]');
-        $nextItem.addClass(className);
-      }
-
-      function reCreateVerticalPaging(data, column) {
-        var html, structure = data.structure, verticalPagingItemClass = "dz-vertical-paging-item";
-
-        structure.$verticalPaging.empty();
-
-        if (!OPTIONS.hide_vertical_paging_when_single_row || structure.columns[column].numOfRows > 1) {
-          html = "<a class='" + verticalPagingItemClass + "' href='#" + column + "' data-row='0'>";
-
-          for (var i = 1; i < structure.columns[column].numOfRows; i++) {
-            html += "<a class='" + verticalPagingItemClass + "' href='#" + column + "' data-row='" + i + "'>";
-          }
-          structure.$verticalPaging.append(html);
-        }
-
-        if (OPTIONS.initialize_vertical_paging_position) {
-          structure.$verticalPaging.css('top', _plugin.getHalfWindowHeight() - (structure.$verticalPaging.height() / 2));
-        }
       }
 
       function toggleHorizontalArrowVisibility(targetIndex, currentIndex, structure) {
@@ -801,7 +803,7 @@
       var columnObj = structure.columns[column];
 
       // if column div's height is less than the #dzieuo's height hide scrollbar
-      if (structure.columns[column].$column.children().height() <= structure.$dzieuo.height()) {
+      if (columnObj.$column.children().height() <= structure.$dzieuo.height()) {
         columnObj.$column.css("overflow-y", "hidden");
       } else {
         columnObj.$column.css("overflow-y", "scroll");

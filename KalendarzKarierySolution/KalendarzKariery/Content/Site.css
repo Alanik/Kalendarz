@@ -441,9 +441,10 @@ pre {
   }
 
 .details-event-block-body {
-  color: rgb(126, 116, 101);
+  color: rgb(72, 68, 62);
   border-top: 2px solid #FDFDFD;
   padding: 10px;
+  font-size: 1.2em;
 }
 
 #notesContainer {
@@ -523,6 +524,24 @@ pre {
 
 .edit-mode-note-container {
   clear: both;
+}
+
+.details-event-block-info-date {
+  color: #969689;
+  margin-bottom: 10px;
+}
+
+.details-event-block-info-body {
+  margin-top: 20px;
+  padding-left: 20px;
+}
+
+.details-event-block-info-time {
+  font-size: 1.6em;
+}
+
+.details-event-block-info-addedby {
+  font-size: .8em;
 }
 
 
@@ -655,10 +674,6 @@ pre {
   text-align: center;
 }
 
-.event-block-info-details {
-  font-size: 1.4em;
-}
-
 .event-block-menu {
   float: right;
 }
@@ -691,8 +706,8 @@ pre {
   background: #EAEAD1;
   border-radius: 3px;
   font-size: 2em;
-  color:#827869;
-  border:2px solid #FFFFEB;
+  color: #827869;
+  border: 2px solid #FFFFEB;
 }
 
 .page-overlay {

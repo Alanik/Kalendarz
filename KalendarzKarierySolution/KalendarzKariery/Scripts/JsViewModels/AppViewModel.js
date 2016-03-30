@@ -678,7 +678,7 @@
         alert(result.Message);
       } else {
         self.hideLoader($loader);
-        $container = $("#details .li-note-container[data-noteid='" + id + "']");
+        $container = $("#notesList li[data-noteid='" + id + "']");
         $container.fadeOut(500, function () {
           $container.remove();
           self.NOTE_MANAGER.removeNote(id, year, month, day);

@@ -25,7 +25,6 @@ namespace KalendarzKarieryData
         public string Title { get; set; }
         public string Description { get; set; }
         public string Details { get; set; }
-        public System.DateTime DateAdded { get; set; }
         public int OwnerUserId { get; set; }
         public System.DateTime StartDate { get; set; }
         public Nullable<int> OccupancyLimit { get; set; }
@@ -38,6 +37,7 @@ namespace KalendarzKarieryData
         public Nullable<System.DateTime> EndDate { get; set; }
         public Nullable<int> AddressId { get; set; }
         public Nullable<System.DateTime> EditDate { get; set; }
+        public System.DateTime CreateDate { get; set; }
     
         public virtual Address Address { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }

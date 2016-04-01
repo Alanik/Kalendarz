@@ -36,7 +36,7 @@ namespace KalendarzKarieryData.Models.DataTransferModels.Events
 			addedBy = m.User.UserName.ToLower();
 			description = m.Description;
 			details = m.Details;
-			dateAdded = new JsonDateTimeModel( m.DateAdded );
+			dateAdded = new JsonDateTimeModel( m.CreateDate );
 			occupancyLimit = m.OccupancyLimit;
 			urlLink = m.UrlLink;
 			startDate = new JsonDateTimeModel( m.StartDate );

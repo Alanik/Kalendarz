@@ -27,6 +27,7 @@ namespace KalendarzKarieryData
         public string Country { get; set; }
         public Nullable<decimal> Latidute { get; set; }
         public Nullable<decimal> Longitude { get; set; }
+        public Nullable<System.DateTime> EditDate { get; set; }
     
         public virtual ICollection<Event> Events { get; set; }
         public virtual ICollection<User> Users { get; set; }

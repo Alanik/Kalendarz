@@ -21,7 +21,7 @@ namespace KalendarzKarieryData.Models.DataTransferModels.Notes
 		{		
 				id = m.Id;
 				data = m.Data;
-				dateAdded = new JsonDateTimeModel(m.DateAdded);
+				dateAdded = new JsonDateTimeModel(m.CreateDate);
 				displayDate = new JsonDateTimeModel(m.DisplayDate);
 				privacyLevel = new { name = m.PrivacyLevel.Name, value = m.PrivacyLevel.Value };
 				isLineThrough = m.IsLineThrough;

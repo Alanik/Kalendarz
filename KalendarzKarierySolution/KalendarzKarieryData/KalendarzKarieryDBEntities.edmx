@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="KalendarzKarieryDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="KalendarzKarieryDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Address">
           <Key>
             <PropertyRef Name="Id" />
@@ -16,6 +16,7 @@
           <Property Name="Country" Type="varchar" MaxLength="50" />
           <Property Name="Latidute" Type="decimal" Precision="9" Scale="6" />
           <Property Name="Longitude" Type="decimal" Precision="9" Scale="6" />
+          <Property Name="EditDate" Type="date" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -24,8 +25,9 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Text" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="AuthorId" Type="int" Nullable="false" />
-          <Property Name="DateAdded" Type="datetime" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="EventId" Type="int" Nullable="false" />
+          <Property Name="EditDate" Type="datetime" />
         </EntityType>
         <EntityType Name="Event">
           <Key>
@@ -35,7 +37,7 @@
           <Property Name="Title" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="7000" />
           <Property Name="Details" Type="varchar(max)" />
-          <Property Name="DateAdded" Type="datetime" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="OwnerUserId" Type="int" Nullable="false" />
           <Property Name="StartDate" Type="datetime" Nullable="false" />
           <Property Name="OccupancyLimit" Type="int" />
@@ -73,7 +75,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Data" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="DateAdded" Type="datetime" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="OwnerUserId" Type="int" Nullable="false" />
           <Property Name="NoteKindId" Type="int" />
           <Property Name="PrivacyLevelId" Type="int" Nullable="false" />
@@ -98,6 +100,16 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="500" />
           <Property Name="Value" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -137,12 +149,13 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="LastLogin" Type="datetime" />
           <Property Name="LastLogout" Type="datetime" />
           <Property Name="NumOfLogins" Type="int" Nullable="false" />
           <Property Name="TotalLoginTime" Type="bigint" />
           <Property Name="AverageLoginTime" Type="bigint" />
+          <Property Name="EditDate" Type="datetime" />
         </EntityType>
         <EntityType Name="webpages_Membership">
           <Key>
@@ -415,6 +428,7 @@
           <EntitySet Name="Note" EntityType="Self.Note" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NoteKind" EntityType="Self.NoteKind" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PrivacyLevel" EntityType="Self.PrivacyLevel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Event_EventsAddedToUserCalendar" EntityType="Self.User_Event_EventsAddedToUserCalendar" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Event_UsersGoingToEvent" EntityType="Self.User_Event_UsersGoingToEvent" Schema="dbo" store:Type="Tables" />
@@ -513,6 +527,7 @@
           <Property Name="Longitude" Type="Decimal" Precision="9" Scale="6" />
           <NavigationProperty Name="Events" Relationship="Self.FK_Event_Address" FromRole="Address" ToRole="Event" />
           <NavigationProperty Name="Users" Relationship="Self.FK_User_Address" FromRole="Address" ToRole="User" />
+          <Property Name="EditDate" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -521,10 +536,11 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Text" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="AuthorId" Type="Int32" Nullable="false" />
-          <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="EventId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Event" Relationship="Self.FK_Comment_Event" FromRole="Comment" ToRole="Event" />
           <NavigationProperty Name="User" Relationship="Self.FK_Comment_User" FromRole="Comment" ToRole="User" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EditDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Event">
           <Key>
@@ -534,7 +550,6 @@
           <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="7000" FixedLength="false" Unicode="false" />
           <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="OwnerUserId" Type="Int32" Nullable="false" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="OccupancyLimit" Type="Int32" />
@@ -555,6 +570,7 @@
           <NavigationProperty Name="PrivacyLevel" Relationship="Self.FK_PrivacyLevel_Event" FromRole="Event" ToRole="PrivacyLevel" />
           <NavigationProperty Name="CalendarUsers" Relationship="Self.User_Event_EventsAddedToUserCalendar" FromRole="Event" ToRole="User" />
           <NavigationProperty Name="SignedUpUsers" Relationship="Self.User_Event_UsersGoingToEvent" FromRole="Event" ToRole="User" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="EventKind">
           <Key>
@@ -582,7 +598,6 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Data" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="OwnerUserId" Type="Int32" Nullable="false" />
           <Property Name="NoteKindId" Type="Int32" />
           <Property Name="PrivacyLevelId" Type="Int32" Nullable="false" />
@@ -592,6 +607,7 @@
           <NavigationProperty Name="NoteKind" Relationship="Self.FK_Note_NoteKind" FromRole="Note" ToRole="NoteKind" />
           <NavigationProperty Name="PrivacyLevel" Relationship="Self.FK_Note_PrivacyLevel" FromRole="Note" ToRole="PrivacyLevel" />
           <NavigationProperty Name="User" Relationship="Self.FK_Note_User" FromRole="Note" ToRole="User" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="NoteKind">
           <Key>
@@ -644,13 +660,14 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LastLogin" Type="DateTime" Precision="3" />
           <Property Name="LastLogout" Type="DateTime" Precision="3" />
           <Property Name="NumOfLogins" Type="Int32" Nullable="false" />
           <Property Name="TotalLoginTime" Type="Int64" />
           <Property Name="AverageLoginTime" Type="Int64" />
           <NavigationProperty Name="Users" Relationship="Self.FK_User_UserAccountInfo" FromRole="UserAccountInfo" ToRole="User" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EditDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="webpages_Membership">
           <Key>
@@ -917,7 +934,18 @@
             <End Role="webpages_Roles" EntitySet="webpages_Roles" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
+          <EntitySet Name="sysdiagrams" EntityType="KalendarzKarieryDBModel.sysdiagram" />
         </EntityContainer>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -927,6 +955,7 @@
           <EntitySetMapping Name="Addresses">
             <EntityTypeMapping TypeName="KalendarzKarieryDBModel.Address">
               <MappingFragment StoreEntitySet="Address">
+                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Street" ColumnName="Street" />
                 <ScalarProperty Name="City" ColumnName="City" />
@@ -940,10 +969,11 @@
           <EntitySetMapping Name="Comments">
             <EntityTypeMapping TypeName="KalendarzKarieryDBModel.Comment">
               <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Text" ColumnName="Text" />
                 <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
-                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
                 <ScalarProperty Name="EventId" ColumnName="EventId" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -951,11 +981,11 @@
           <EntitySetMapping Name="Events">
             <EntityTypeMapping TypeName="KalendarzKarieryDBModel.Event">
               <MappingFragment StoreEntitySet="Event">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Details" ColumnName="Details" />
-                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
                 <ScalarProperty Name="OwnerUserId" ColumnName="OwnerUserId" />
                 <ScalarProperty Name="StartDate" ColumnName="StartDate" />
                 <ScalarProperty Name="OccupancyLimit" ColumnName="OccupancyLimit" />
@@ -994,9 +1024,9 @@
           <EntitySetMapping Name="Notes">
             <EntityTypeMapping TypeName="KalendarzKarieryDBModel.Note">
               <MappingFragment StoreEntitySet="Note">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Data" ColumnName="Data" />
-                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
                 <ScalarProperty Name="OwnerUserId" ColumnName="OwnerUserId" />
                 <ScalarProperty Name="NoteKindId" ColumnName="NoteKindId" />
                 <ScalarProperty Name="PrivacyLevelId" ColumnName="PrivacyLevelId" />
@@ -1047,8 +1077,9 @@
           <EntitySetMapping Name="UserAccountInfoes">
             <EntityTypeMapping TypeName="KalendarzKarieryDBModel.UserAccountInfo">
               <MappingFragment StoreEntitySet="UserAccountInfo">
+                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
                 <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
                 <ScalarProperty Name="LastLogout" ColumnName="LastLogout" />
                 <ScalarProperty Name="NumOfLogins" ColumnName="NumOfLogins" />
@@ -1115,6 +1146,17 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="KalendarzKarieryDBModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

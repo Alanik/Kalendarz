@@ -20,12 +20,13 @@ namespace KalendarzKarieryData
         }
     
         public int Id { get; set; }
-        public System.DateTime CreationDate { get; set; }
         public Nullable<System.DateTime> LastLogin { get; set; }
         public Nullable<System.DateTime> LastLogout { get; set; }
         public int NumOfLogins { get; set; }
         public Nullable<long> TotalLoginTime { get; set; }
         public Nullable<long> AverageLoginTime { get; set; }
+        public System.DateTime CreateDate { get; set; }
+        public Nullable<System.DateTime> EditDate { get; set; }
     
         public virtual ICollection<User> Users { get; set; }
     }

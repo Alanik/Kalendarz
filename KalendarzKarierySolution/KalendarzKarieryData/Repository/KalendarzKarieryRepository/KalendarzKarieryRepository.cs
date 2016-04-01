@@ -99,7 +99,7 @@
 				user.UserAccountInfo = new UserAccountInfo
 				{
 					AverageLoginTime = 0,
-					CreationDate = DateTimeFacade.DateTimeNow(),
+					CreateDate = DateTimeFacade.DateTimeNow(),
 					LastLogin = DateTimeFacade.DateTimeNow(),
 					LastLogout = null,
 					NumOfLogins = 1,
@@ -466,7 +466,7 @@
 
 				foreach (int num in years)
 				{
-					var list = context.Notes.Where( m => m.DisplayDate.Year == num && m.OwnerUserId == id ).OrderByDescending( m => m.DateAdded ).AsEnumerable();
+					var list = context.Notes.Where( m => m.DisplayDate.Year == num && m.OwnerUserId == id ).OrderByDescending( m => m.CreateDate ).AsEnumerable();
 					var transformedList = list.Select( m => new JsonNoteModel( m ) );
 
 					var groups = transformedList.ToLookup( m => m.displayDate.month ).Select( o => new NotesGroupedByMonthModel( o.Key, o.ToArray().ToLookup( t => t.displayDate.day ).Select( l => new NotesGroupedByDayModel( l.Key, l.ToArray() ) ) ) ).ToArray();

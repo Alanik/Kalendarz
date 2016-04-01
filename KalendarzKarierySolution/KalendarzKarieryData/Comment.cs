@@ -17,8 +17,9 @@ namespace KalendarzKarieryData
         public int Id { get; set; }
         public string Text { get; set; }
         public int AuthorId { get; set; }
-        public System.DateTime DateAdded { get; set; }
         public int EventId { get; set; }
+        public System.DateTime CreateDate { get; set; }
+        public Nullable<System.DateTime> EditDate { get; set; }
     
         public virtual Event Event { get; set; }
         public virtual User User { get; set; }

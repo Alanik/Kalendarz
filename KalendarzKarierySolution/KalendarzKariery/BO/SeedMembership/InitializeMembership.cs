@@ -60,7 +60,7 @@ namespace KalendarzKariery.BO.SeedMembership
 			user.UserName = loginName;
 
 			user.UserAccountInfo = new UserAccountInfo();
-			user.UserAccountInfo.CreationDate = DateTimeFacade.DateTimeNow();
+			user.UserAccountInfo.CreateDate = DateTimeFacade.DateTimeNow();
 			user.UserAccountInfo.NumOfLogins = 1;
 			user.UserAccountInfo.LastLogin = DateTimeFacade.DateTimeNow();
 		

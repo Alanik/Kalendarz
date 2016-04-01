@@ -127,7 +127,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 			DateTime datetime = new DateTime( viewModel.DisplayDate.Year, viewModel.DisplayDate.Month, viewModel.DisplayDate.Day );
 
 			note.Data = viewModel.Data;
-			note.DateAdded = DateTimeFacade.DateTimeNow();
+			note.CreateDate = DateTimeFacade.DateTimeNow();
 			note.DisplayDate = datetime;
 			note.IsLineThrough = false;
 			note.NoteKind = null;

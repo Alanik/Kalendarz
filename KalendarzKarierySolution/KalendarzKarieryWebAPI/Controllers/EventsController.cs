@@ -60,7 +60,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 
 			_repository.AddEvent( @event, @event.Address );
 
-			return new AddEventValidationResponseModel { IsSuccess = true, EventId = @event.Id, DateAdded = @event.DateAdded };
+			return new AddEventValidationResponseModel { IsSuccess = true, EventId = @event.Id, DateAdded = @event.CreateDate};
 		}
 
 		// PUT api/events/5 (update)
@@ -206,7 +206,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 
 			if (@event.Id == 0)
 			{
-				@event.DateAdded = DateTimeFacade.DateTimeNow();
+				@event.CreateDate = DateTimeFacade.DateTimeNow();
 			}
 			else
 			{

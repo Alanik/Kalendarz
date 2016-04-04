@@ -9,9 +9,8 @@
 
 namespace KalendarzKarieryData
 {
-    using System;
     using System.Collections.Generic;
-    
+
     public partial class webpages_Roles
     {
         public webpages_Roles()

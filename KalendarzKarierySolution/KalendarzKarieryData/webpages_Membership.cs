@@ -10,8 +10,7 @@
 namespace KalendarzKarieryData
 {
     using System;
-    using System.Collections.Generic;
-    
+
     public partial class webpages_Membership
     {
         public int UserId { get; set; }

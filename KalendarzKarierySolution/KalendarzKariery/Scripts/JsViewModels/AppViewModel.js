@@ -252,6 +252,7 @@
     var $addEventContainer = $("#addNewEventContainer");
     var privacyLvlValue = self.observableEvent.privacyLevel.value;
     var eventKindValue = self.observableEvent.kind.value();
+    var $dateValidationMsg;
 
     var day = self.observableEvent.startDate.day();
     var month = self.observableEvent.startDate.month();
@@ -1117,7 +1118,7 @@
   };
 
   self.removeEventRectanglesFromDetailsDay = function () {
-    $("#details #calendarDayDetailsTable .event-rectangle-details").remove();
+    $("#details #detailsDayTable .event-rectangle-details").remove();
     self.detailsPageEventMostBottomRow = 1;
   };
 
@@ -1179,7 +1180,7 @@
   };
 
   self.resizeCalendarDayDetailsTable = function (detailsPageEventMostBottomRow) {
-    var $tableBody = $("#details #calendarDayDetailsTable .table-details-body");
+    var $tableBody = $("#details .details-day-table-body");
     var h = (detailsPageEventMostBottomRow * 46) + 20;
     $tableBody.height(h + "px");
   }

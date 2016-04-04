@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.Linq;
 using System.Web.Mvc;
 
 namespace KalendarzKariery.BO.ExtentionMethods
 {
-	public static class ModelStateHelper
+    public static class ModelStateHelper
 	{
 		public static IEnumerable Errors(this ModelStateDictionary modelState)
 		{

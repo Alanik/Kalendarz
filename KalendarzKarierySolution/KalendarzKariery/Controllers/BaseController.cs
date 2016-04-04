@@ -1,15 +1,11 @@
 ﻿using KalendarzKarieryCore.Consts;
 using KalendarzKarieryData.BO.Cache;
 using KalendarzKarieryData.Repository.KalendarzKarieryRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace KalendarzKariery.Controllers
 {
-	public class BaseController : Controller
+    public class BaseController : Controller
 	{
 		protected int? GetUserId( string username, IKalendarzKarieryRepository repository )
 		{

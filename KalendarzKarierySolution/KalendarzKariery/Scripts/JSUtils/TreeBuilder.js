@@ -1,223 +1,198 @@
-﻿var TreeBuilder = function (appViewModel)
-{
-	var self = this;
+﻿var TreeBuilder = function (appViewModel) {
+  var self = this;
 
-	//Events
+  //Events
 
-	self.buildEventTree = function ( yearEventTreeModel, isPublicEventTree )
-	{
-		var eventTree = {}, groups;
-		var dayGroup, day, dayGroupLength, event, kkEvent, address, minutes, startDate;
-		var year, yearProp, eventTreeYearProp, eventTreeMonthProp, eventTreeDayGroupProp, eventTreeEventsProp;
-		var nowDate = appViewModel.todayDate.javaScriptDate;
+  self.buildEventTree = function (yearEventTreeModel, isPublicEventTree) {
+    var eventTree = {}, groups;
+    var dayGroup, day, dayGroupLength, event, kkEvent, address, minutes, startDate;
+    var year, yearProp, eventTreeYearProp, eventTreeMonthProp, eventTreeDayGroupProp, eventTreeEventsProp;
+    var nowDate = appViewModel.todayDate.javaScriptDate;
 
-		for ( var y = 0; y < yearEventTreeModel.length; y++ )
-		{
-			yearProp = yearEventTreeModel[y];
-			year = yearProp.year
-			eventTreeYearProp = eventTree[year] ? eventTree[year] : eventTree[year] = {};
+    for (var y = 0; y < yearEventTreeModel.length; y++) {
+      yearProp = yearEventTreeModel[y];
+      year = yearProp.year
+      eventTreeYearProp = eventTree[year] ? eventTree[year] : eventTree[year] = {};
 
-			for ( var k = 0; k < yearProp.eventsGroupedByMonth.length; k++ )
-			{
+      for (var k = 0; k < yearProp.eventsGroupedByMonth.length; k++) {
 
-				eventTreeMonthProp = eventTreeYearProp[yearProp.eventsGroupedByMonth[k].month] = {};
-				groups = yearProp.eventsGroupedByMonth[k].eventsGroupedByDay;
+        eventTreeMonthProp = eventTreeYearProp[yearProp.eventsGroupedByMonth[k].month] = {};
+        groups = yearProp.eventsGroupedByMonth[k].eventsGroupedByDay;
 
-				//event day groups
-				for ( var i = 0; i < groups.length; i++ )
-				{
-					dayGroup = groups[i];
-					day = dayGroup.day;
+        //event day groups
+        for (var i = 0; i < groups.length; i++) {
+          dayGroup = groups[i];
+          day = dayGroup.day;
 
-					dayGroupLength = dayGroup.events.length;
-					eventTreeDayGroupProp = eventTreeMonthProp[day] = [];
+          dayGroupLength = dayGroup.events.length;
+          eventTreeDayGroupProp = eventTreeMonthProp[day] = [];
 
-					// events in the day group
-					for ( var j = 0; j < dayGroupLength; j++ )
-					{
-						event = dayGroup.events[j];
+          // events in the day group
+          for (var j = 0; j < dayGroupLength; j++) {
+            event = dayGroup.events[j];
 
-						address = getAddress( event );
-						minutes = getMinutes( event );
-						startDate = getStartDate( event );
+            address = getAddress(event);
+            minutes = getMinutes(event);
+            startDate = getStartDate(event);
 
-						kkEvent = appViewModel.EVENT_MANAGER.getNewKKEventModel( event.addedBy, address.street, address.city, address.zipCode, event.description, event.details, minutes, event.kind.value, event.kind.name, event.id, event.occupancyLimit, event.privacyLevel.name, event.privacyLevel.value, startDate, event.name, event.urlLink, event.price, event.dateAdded, event.isEventAddedToCurrentUserCalendar, event.isCurrentUserSignedUpForEvent, event.status );
-						
-						eventTreeDayGroupProp.push( kkEvent );
+            kkEvent = appViewModel.EVENT_MANAGER.getNewKKEventModel(event.addedBy, address.street, address.city, address.zipCode, event.description, event.details, minutes, event.kind.value, event.kind.name, event.id, event.occupancyLimit, event.privacyLevel.name, event.privacyLevel.value, startDate, event.name, event.urlLink, event.price, event.dateAdded, event.isEventAddedToCurrentUserCalendar, event.isCurrentUserSignedUpForEvent, event.status);
 
-						if ( isPublicEventTree )
-						{
-							//push public event to appViewModel.publicEvents
-							appViewModel.publicEvents.push( kkEvent );
-						}
-					}
+            eventTreeDayGroupProp.push(kkEvent);
 
-					appViewModel.setCalendarPlacementRow( eventTreeDayGroupProp );
-				}
+            if (isPublicEventTree) {
+              //push public event to appViewModel.publicEvents
+              appViewModel.publicEvents.push(kkEvent);
+            }
+          }
 
-				eventTreeYearProp[yearProp.eventsGroupedByMonth[k].month] = eventTreeMonthProp;
-			}
-		}
+          appViewModel.setCalendarPlacementRow(eventTreeDayGroupProp);
+        }
 
-		function getStartDate( event )
-		{
-			//TODO: create KKEventModel from the event returned from the server (don't use new Date call - unnecessary)
+        eventTreeYearProp[yearProp.eventsGroupedByMonth[k].month] = eventTreeMonthProp;
+      }
+    }
 
-			////////////////////////////////////////////////////////////////
-			//in javascript months start from 0 to 11 so we need to adjust it
-			event.startDate.month = event.startDate.month - 1;
-			////////////////////////////////////////////////////////////////
+    function getStartDate(event) {
+      //TODO: create KKEventModel from the event returned from the server (don't use new Date call - unnecessary)
 
-			var sdate = new Date( event.startDate.year, event.startDate.month, event.startDate.day, event.startDate.hour, event.startDate.minute, 0, 0 );
-			var edate;
+      ////////////////////////////////////////////////////////////////
+      //in javascript months start from 0 to 11 so we need to adjust it
+      event.startDate.month = event.startDate.month - 1;
+      ////////////////////////////////////////////////////////////////
 
-			if ( event.endDate )
-			{
-				////////////////////////////////////////////////////////////////
-				//in javascript months start from 0 to 11 so we need to adjust it
-				event.endDate.month = event.endDate.month - 1;
-				////////////////////////////////////////////////////////////////
+      var sdate = new Date(event.startDate.year, event.startDate.month, event.startDate.day, event.startDate.hour, event.startDate.minute, 0, 0);
+      var edate;
 
-				edate = new Date( event.endDate.year, event.endDate.month, event.endDate.day, event.endDate.hour, event.endDate.minute, 0, 0 );
-				return new KKEventDateModel( sdate.getMinutes(), edate.getMinutes(), sdate.getHours(), edate.getHours(), sdate.getDate(), sdate.getMonth() + 1, sdate.getFullYear() );
-			} else
-			{
-				return new KKEventDateModel( sdate.getMinutes(), null, sdate.getHours(), null, sdate.getDate(), sdate.getMonth(), sdate.getFullYear() );
-			}
-		};
-		function getAddress( event )
-		{
-				return {
-					street: event.address.street,
-					city: event.address.city,
-					zipCode: event.address.zipCode
-				}
-		};
-		function getMinutes( event ){
+      if (event.endDate) {
+        ////////////////////////////////////////////////////////////////
+        //in javascript months start from 0 to 11 so we need to adjust it
+        event.endDate.month = event.endDate.month - 1;
+        ////////////////////////////////////////////////////////////////
 
-			if (event.endDate == null) {
-				return 0;
-			}
+        edate = new Date(event.endDate.year, event.endDate.month, event.endDate.day, event.endDate.hour, event.endDate.minute, 0, 0);
+        return new KKEventDateModel(sdate.getMinutes(), edate.getMinutes(), sdate.getHours(), edate.getHours(), sdate.getDate(), sdate.getMonth() + 1, sdate.getFullYear());
+      } else {
+        return new KKEventDateModel(sdate.getMinutes(), null, sdate.getHours(), null, sdate.getDate(), sdate.getMonth(), sdate.getFullYear());
+      }
+    };
+    function getAddress(event) {
+      return {
+        street: event.address.street,
+        city: event.address.city,
+        zipCode: event.address.zipCode
+      }
+    };
+    function getMinutes(event) {
 
-			var startH = event.startDate.hour;
-			var startM = event.startDate.minute;
-			var endH = event.endDate.hour;
-			var endM = event.endDate.minute;
-			
-			var minutes = ((endH - startH) * 60 ) + (endM - startM);
+      if (event.endDate == null) {
+        return 0;
+      }
 
-			return minutes;
-		}
+      var startH = event.startDate.hour;
+      var startM = event.startDate.minute;
+      var endH = event.endDate.hour;
+      var endM = event.endDate.minute;
 
-		return eventTree;
-	};
+      var minutes = ((endH - startH) * 60) + (endM - startM);
 
-	self.buildEventTreeCountBasedOnEventKind = function ( indexViewModelEventCountTree, defaultEventKinds )
-	{
-		var eventTree = {}, element, eventCountTreeElement;
+      return minutes;
+    }
 
-		for ( var i = 0; i < defaultEventKinds.length; i++ )
-		{
-			element = eventTree[i + 1] = {};
-			eventCountTreeElement = indexViewModelEventCountTree[i];
+    return eventTree;
+  };
 
-			if ( eventCountTreeElement && eventCountTreeElement.value == ( i + 1 ) )
-			{
-				element.upcoming = ko.observable( eventCountTreeElement.events.upcoming );
-				element.old = ko.observable( eventCountTreeElement.events.old );
-			} else
-			{
-				//events with given eventKind.value do not exist so we need to create an empty object
+  self.buildEventTreeCountBasedOnEventKind = function (indexViewModelEventCountTree, defaultEventKinds) {
+    var eventTree = {}, element, eventCountTreeElement;
 
-				element.upcoming = ko.observable( 0 );
-				element.old = ko.observable( 0 );
+    for (var i = 0; i < defaultEventKinds.length; i++) {
+      element = eventTree[i + 1] = {};
+      eventCountTreeElement = indexViewModelEventCountTree[i];
 
-				indexViewModelEventCountTree.splice( i, 0, element );
-			}
-		}
+      if (eventCountTreeElement && eventCountTreeElement.value == (i + 1)) {
+        element.upcoming = ko.observable(eventCountTreeElement.events.upcoming);
+        element.old = ko.observable(eventCountTreeElement.events.old);
+      } else {
+        //events with given eventKind.value do not exist so we need to create an empty object
 
-		return eventTree;
-	};
+        element.upcoming = ko.observable(0);
+        element.old = ko.observable(0);
 
-	self.transformNews = function ( eventsArray )
-	{
-		var event, events = [];
+        indexViewModelEventCountTree.splice(i, 0, element);
+      }
+    }
 
-		for ( var i = 0; i < eventsArray.length; i++ )
-		{
-			event = eventsArray[i];
-			setDateAdded( event );
-			events.push( event );
-		}
+    return eventTree;
+  };
 
-		return events;
+  self.transformNews = function (eventsArray) {
+    var event, events = [];
 
-		function setDateAdded( event )
-		{
-			var sdate = new Date( parseInt( event.dateAdded.substr( 6 ) ) );
-			event.dateAdded = new KKDateModel( sdate.getMinutes(), sdate.getHours(), sdate.getDate(), sdate.getMonth() + 1, sdate.getFullYear() );
-		}
-	}
+    for (var i = 0; i < eventsArray.length; i++) {
+      event = eventsArray[i];
+      setDateAdded(event);
+      events.push(event);
+    }
 
-	self.transformPrivacyLevels = function ( plArray )
-	{
-		var obj = {}, privacyLevel;
+    return events;
 
-		for ( var i = 0; i < plArray.length; i++ )
-		{
-			privacyLevel = plArray[i];
-			privacyLevel.name = privacyLevel.name.toLowerCase();
+    function setDateAdded(event) {
+      var sdate = new Date(parseInt(event.dateAdded.substr(6)));
+      event.dateAdded = new KKDateModel(sdate.getMinutes(), sdate.getHours(), sdate.getDate(), sdate.getMonth() + 1, sdate.getFullYear());
+    }
+  }
 
-			obj[privacyLevel.name] = privacyLevel.value;
-		}
+  self.transformPrivacyLevels = function (plArray) {
+    var obj = {}, privacyLevel;
 
-		return obj;
+    for (var i = 0; i < plArray.length; i++) {
+      privacyLevel = plArray[i];
+      privacyLevel.name = privacyLevel.name.toLowerCase();
 
-	}
+      obj[privacyLevel.name] = privacyLevel.value;
+    }
 
-	//Notes
+    return obj;
 
-	self.buildNoteTree = function ( yearNoteTreeModel )
-	{
-		var noteTree = {}, groups;
-		var dayGroup, day, dayGroupLength, note, kkNote, dateAdded, displayDate;
-		var year, yearProp, noteTreeYearProp, noteTreeMonthProp, noteTreeDayGroupProp, noteTreeNotesProp;
+  }
 
-		for ( var y = 0; y < yearNoteTreeModel.length; y++ )
-		{
-			yearProp = yearNoteTreeModel[y];
-			year = yearProp.year
-			noteTreeYearProp = noteTree[year] ? noteTree[year] : noteTree[year] = {};
+  //Notes
 
-			for ( var k = 0; k < yearProp.notesGroupedByMonth.length; k++ )
-			{
-				noteTreeMonthProp = noteTreeYearProp[yearProp.notesGroupedByMonth[k].month] = {};
-				groups = yearProp.notesGroupedByMonth[k].notesGroupedByDay;
+  self.buildNoteTree = function (yearNoteTreeModel) {
+    var noteTree = {}, groups;
+    var dayGroup, day, dayGroupLength, note, kkNote, dateAdded, displayDate;
+    var year, yearProp, noteTreeYearProp, noteTreeMonthProp, noteTreeDayGroupProp, noteTreeNotesProp;
 
-				//note day groups
-				for ( var i = 0; i < groups.length; i++ )
-				{
-					dayGroup = groups[i];
-					day = dayGroup.day;
+    for (var y = 0; y < yearNoteTreeModel.length; y++) {
+      yearProp = yearNoteTreeModel[y];
+      year = yearProp.year
+      noteTreeYearProp = noteTree[year] ? noteTree[year] : noteTree[year] = {};
 
-					dayGroupLength = dayGroup.notes.length;
-					noteTreeDayGroupProp = noteTreeMonthProp[day] = [];
+      for (var k = 0; k < yearProp.notesGroupedByMonth.length; k++) {
+        noteTreeMonthProp = noteTreeYearProp[yearProp.notesGroupedByMonth[k].month] = {};
+        groups = yearProp.notesGroupedByMonth[k].notesGroupedByDay;
 
-					// notes in the day group
-					for ( var j = 0; j < dayGroupLength; j++ )
-					{
-						note = dayGroup.notes[j];
+        //note day groups
+        for (var i = 0; i < groups.length; i++) {
+          dayGroup = groups[i];
+          day = dayGroup.day;
 
-						kkNote = appViewModel.NOTE_MANAGER.getNewKKNoteModel(note.id, note.data, note.addedBy, note.privacyLevel.name, note.privacyLevel.value, note.displayDate, note.isLineThrough, note.dateAdded);
+          dayGroupLength = dayGroup.notes.length;
+          noteTreeDayGroupProp = noteTreeMonthProp[day] = [];
 
-						noteTreeDayGroupProp.push( kkNote );
-					}
-				}
+          // notes in the day group
+          for (var j = 0; j < dayGroupLength; j++) {
+            note = dayGroup.notes[j];
 
-				noteTreeYearProp[yearProp.notesGroupedByMonth[k].month] = noteTreeMonthProp;
-			}
-		}
+            kkNote = appViewModel.NOTE_MANAGER.getNewKKNoteModel(note.id, note.data, note.addedBy, note.privacyLevel.name, note.privacyLevel.value, note.displayDate, note.isLineThrough, note.dateAdded);
 
-		return noteTree;
-	}
+            noteTreeDayGroupProp.push(kkNote);
+          }
+        }
+
+        noteTreeYearProp[yearProp.notesGroupedByMonth[k].month] = noteTreeMonthProp;
+      }
+    }
+
+    return noteTree;
+  }
 };

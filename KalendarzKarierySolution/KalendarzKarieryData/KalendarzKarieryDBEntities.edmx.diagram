@@ -33,6 +33,7 @@
         <AssociationConnector Association="KalendarzKarieryDBModel.User_Event_EventsAddedToUserCalendar" ManuallyRouted="false" />
         <AssociationConnector Association="KalendarzKarieryDBModel.User_Event_UsersGoingToEvent" ManuallyRouted="false" />
         <AssociationConnector Association="KalendarzKarieryDBModel.webpages_UsersInRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="KalendarzKarieryDBModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

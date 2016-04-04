@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace KalendarzKarieryData.Enums
+﻿namespace KalendarzKarieryData.Enums
 {
-	public enum EventKindEnum
+    public enum EventKindEnum
 	{
 		none = 0,
 		wydarzenie = 1,

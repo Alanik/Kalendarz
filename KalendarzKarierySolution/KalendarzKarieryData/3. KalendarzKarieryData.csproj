@@ -129,6 +129,9 @@
     <Compile Include="Models\ViewModels\RegisterViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\RepositoryProvider.cs" />
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>KalendarzKarieryDBEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="User.cs">
       <DependentUpon>KalendarzKarieryDBEntities.tt</DependentUpon>
     </Compile>

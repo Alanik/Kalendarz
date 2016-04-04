@@ -1,12 +1,11 @@
 ﻿using System;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 //nie zmieniac namespace'a
 namespace KalendarzKarieryData
 {
 
-	[MetadataType(typeof(Event_Validation))]
+    [MetadataType(typeof(Event_Validation))]
 	public partial class Event
 	{
 

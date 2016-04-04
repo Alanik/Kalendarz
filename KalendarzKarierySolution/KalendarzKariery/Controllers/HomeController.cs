@@ -1,22 +1,13 @@
-﻿
-using System;
-using System.Collections.Generic;
-using KalendarzKarieryData;
+﻿using KalendarzKarieryData;
 using KalendarzKarieryData.Models.ViewModels;
 using System.Web.Mvc;
-using System.Collections;
-using Microsoft.Ajax.Utilities;
-using Newtonsoft.Json;
 using KalendarzKarieryData.Repository;
 using KalendarzKarieryData.Repository.KalendarzKarieryRepository;
-using KalendarzKarieryData.BO.Cache;
 using KalendarzKarieryData.Models.AccountModels;
-using System.Linq;
-using KalendarzKarieryCore.BO;
 
 namespace KalendarzKariery.Controllers
 {
-	public class HomeController : BaseController
+    public class HomeController : BaseController
 	{
 		private readonly IKalendarzKarieryRepository _repository = RepositoryProvider.GetRepository();
 

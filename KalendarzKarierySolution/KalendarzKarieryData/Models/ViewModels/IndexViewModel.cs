@@ -2,13 +2,10 @@
 using KalendarzKarieryData.Models.DataTransferModels.Notes;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KalendarzKarieryData.Models.ViewModels
 {
-	[Serializable]
+    [Serializable]
 	public class IndexViewModel
 	{
 		//TODO: remove anonymous types (object)

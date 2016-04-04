@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KalendarzKarieryCore.BO
 {
-	public static class DateTimeFacade
+    public static class DateTimeFacade
 	{
 		private const string CentralEuropeanStandardTime = "Central European Standard Time";
 

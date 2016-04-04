@@ -1,15 +1,8 @@
-﻿
-using KalendarzKarieryData.BO.Cache;
-using KalendarzKarieryData.Repository.KalendarzKarieryRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using KalendarzKarieryData.Repository.KalendarzKarieryRepository;
 
 namespace KalendarzKarieryData.Repository
 {
-	public static class RepositoryProvider
+    public static class RepositoryProvider
 	{
 		public static IKalendarzKarieryRepository GetRepository()
 		{

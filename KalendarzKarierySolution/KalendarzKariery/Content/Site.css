@@ -329,7 +329,7 @@ pre {
 
 #detailsDayTable {
   position: relative;
-  padding: 0px 2%;
+  padding: 2% 2%;
   padding-bottom: 40px;
   width: 88%;
   margin: 0 auto;
@@ -339,10 +339,11 @@ pre {
   #detailsDayTable .details-day-table-head {
     overflow: hidden;
     text-align: left;
-    color: rgb(99, 96, 90);
+    color: #DED9CF;
     padding: 10px;
     padding-left: 6px;
-    font-size: 18px;
+    font-size: 15px;
+    background: #5F5F55;
   }
 
     #detailsDayTable .details-day-table-head div {

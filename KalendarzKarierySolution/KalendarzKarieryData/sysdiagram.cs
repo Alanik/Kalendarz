@@ -9,20 +9,14 @@
 
 namespace KalendarzKarieryData
 {
-    using System.Collections.Generic;
+    using System;
 
-    public partial class EventStatus
+    public partial class sysdiagram
     {
-        public EventStatus()
-        {
-            this.Events = new HashSet<Event>();
-        }
-    
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int Value { get; set; }
-        public string Description { get; set; }
-    
-        public virtual ICollection<Event> Events { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

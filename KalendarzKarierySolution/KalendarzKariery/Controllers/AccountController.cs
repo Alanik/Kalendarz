@@ -14,14 +14,11 @@ using System.Linq;
 using KalendarzKarieryData.Repository;
 using KalendarzKarieryData.Repository.KalendarzKarieryRepository;
 using KalendarzKarieryCore.Consts;
-using System.Web;
-using System.Web.Caching;
-using KalendarzKarieryData.BO.Cache;
 using KalendarzKarieryCore.BO;
 
 namespace KalendarzKariery.Controllers
 {
-	[Authorize]
+    [Authorize]
 	public class
 	AccountController : BaseController
 	{

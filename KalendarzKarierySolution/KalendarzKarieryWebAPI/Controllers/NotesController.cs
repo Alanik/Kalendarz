@@ -8,14 +8,11 @@ using KalendarzKarieryData.Repository.KalendarzKarieryRepository;
 using KalendarzKarieryWebAPI.Models.ResponseModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace KalendarzKarieryWebAPI.Controllers
 {
-	public class NotesController : BaseController
+    public class NotesController : BaseController
 	{
 		private readonly IKalendarzKarieryRepository _repository = RepositoryProvider.GetRepository();
 

@@ -1,22 +1,14 @@
 ﻿
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data.Entity.Migrations.Infrastructure;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Web;
 using System.Web.Security;
 using WebMatrix.WebData;
 using KalendarzKarieryData;
-using KalendarzKarieryData.Repository;
-using KalendarzKarieryData.Repository.KalendarzKarieryRepository;
-using KalendarzKarieryData.BO.Cache;
 using KalendarzKarieryCore.BO;
 
 namespace KalendarzKariery.BO.SeedMembership
 {
-	public static class InitializeMembership
+    public static class InitializeMembership
 	{
 		const string AdminRole = "Administrator";
 		const string AdminAlanikLogin = "AdminAlanik";

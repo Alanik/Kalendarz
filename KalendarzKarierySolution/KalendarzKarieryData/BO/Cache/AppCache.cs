@@ -1,14 +1,9 @@
-﻿using KalendarzKarieryCore.BO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Runtime.Caching;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KalendarzKarieryData.BO.Cache
 {
-	public static class AppCache
+    public static class AppCache
 	{
 		//TODO: should use lock?
 		private static readonly Object _locker = new object();

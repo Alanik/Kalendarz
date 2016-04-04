@@ -91,15 +91,15 @@
 
       appViewModel.myNoteTree = appViewModel.UTILS.eventTreeBuilder.buildNoteTree(indexViewModel.MyNotes);
 
-      //console.log( JSON.stringify(appViewModel.myEventTree));
-      //console.log( appViewModel.myEventTree );
-      //console.log( appViewModel.myNoteTree );
-
-      //console.log( appViewModel.publicEvents);
-      //console.log( appViewModel.publicEventTree);
-      //console.log( appViewModel.publicEventTreeCountBasedOnEventKind );
-      //console.log( appViewModel.myEventTreeCountBasedOnEventKind );
-      //console.log( appViewModel.eventPrivacyLevels);
+      //console.log(JSON.stringify(appViewModel.myEventTree));
+      //console.log(appViewModel.myEventTree);
+      //console.log(appViewModel.myNoteTree);
+      
+      //console.log(appViewModel.publicEvents);
+      //console.log(appViewModel.publicEventTree);
+      //console.log(appViewModel.publicEventTreeCountBasedOnEventKind);
+      //console.log(appViewModel.myEventTreeCountBasedOnEventKind);
+      //console.log(appViewModel.eventPrivacyLevels);
 
       /////////////////////////////////////////////////////////////////////////
       //draw events to the calendar
@@ -153,14 +153,16 @@
         calendarPageMonth = calendarPageMonth + 1;
       }
 
-      nextMonth = yearProp[calendarPageMonth];
-      if (nextMonth) {
-        for (var days in nextMonth) {
-          events = nextMonth[days];
-          for (var i = 0; i < events.length; i++) {
-            event = events[i];
+      if (yearProp) {
+        nextMonth = yearProp[calendarPageMonth];
+        if (nextMonth) {
+          for (var days in nextMonth) {
+            events = nextMonth[days];
+            for (var i = 0; i < events.length; i++) {
+              event = events[i];
 
-            appViewModel.drawEventToCalendar(event);
+              appViewModel.drawEventToCalendar(event);
+            }
           }
         }
       }

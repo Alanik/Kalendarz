@@ -1,18 +1,10 @@
 ﻿using KalendarzKarieryData.Models.DataTransferModels.Events;
 using KalendarzKarieryData.Models.DataTransferModels.Notes;
-using KalendarzKarieryData.Models.ViewModels;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.Entity;
 
 namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 {
-	public interface IKalendarzKarieryRepository
+    public interface IKalendarzKarieryRepository
 	{
 		#region User
 		User GetUserById( int id );

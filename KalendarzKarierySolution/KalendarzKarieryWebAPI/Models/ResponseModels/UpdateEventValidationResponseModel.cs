@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace KalendarzKarieryWebAPI.Models.ResponseModels
+﻿namespace KalendarzKarieryWebAPI.Models.ResponseModels
 {
-	public class UpdateEventValidationResponseModel : IValidationResponse
+    public class UpdateEventValidationResponseModel : IValidationResponse
 	{
 		public int EventId { get; set; }
 		public bool IsSuccess { get; set; }

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace KalendarzKarieryData.Models.ViewModels
 {
-	public class DateModel
+    public class DateModel
 	{
 		[RegularExpression( @"^\d+$", ErrorMessage = "Pole \"Dzień\" powinno zawierać same cyfry." )]
 		[Required( ErrorMessage = "Pole \"Dzień\" nie może być puste." )]

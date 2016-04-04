@@ -5,14 +5,11 @@ using KalendarzKarieryData.Repository;
 using KalendarzKarieryData.Repository.KalendarzKarieryRepository;
 using KalendarzKarieryWebAPI.Models.ResponseModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 
 namespace KalendarzKarieryWebAPI.Controllers
 {
-	public class AccountController : BaseController
+    public class AccountController : BaseController
 	{
 		private readonly IKalendarzKarieryRepository _repository = RepositoryProvider.GetRepository();
 

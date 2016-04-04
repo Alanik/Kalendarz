@@ -1,9 +1,8 @@
-﻿using KalendarzKarieryData;
-using KalendarzKarieryData.Models.AccountModels;
+﻿using KalendarzKarieryData.Models.AccountModels;
 
 namespace KalendarzKarieryData.Models.ViewModels
 {
-	public class RegisterViewModel
+    public class RegisterViewModel
 	{
 		public RegisterModel RegisterModel { get; set; }
 		public DateModel BirthDateModel { get; set; }

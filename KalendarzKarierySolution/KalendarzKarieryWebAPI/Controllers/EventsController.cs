@@ -1,25 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
-using System.Web.UI.WebControls;
 using KalendarzKarieryData.Repository;
 using KalendarzKarieryData.Models.ViewModels;
 using KalendarzKarieryWebAPI.Models.ResponseModels;
-using Newtonsoft.Json;
 using KalendarzKarieryData;
 using KalendarzKarieryData.Repository.KalendarzKarieryRepository;
 using KalendarzKarieryCore.Consts;
 using KalendarzKarieryData.BO.Cache;
-using System.Text.RegularExpressions;
 using KalendarzKarieryCore.BO;
-using KalendarzKarieryWebAPI.Models;
 
 namespace KalendarzKarieryWebAPI.Controllers
 {
-	public class EventsController : BaseController
+    public class EventsController : BaseController
 	{
 		private readonly IKalendarzKarieryRepository _repository = RepositoryProvider.GetRepository();
 

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace KalendarzKarieryCore.Consts
+﻿namespace KalendarzKarieryCore.Consts
 {
-	public static class Consts
+    public static class Consts
 	{
 
 		#region validation

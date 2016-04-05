@@ -569,7 +569,7 @@
   };
 
   self.prepareDeleteEventDetailsPageOnDeleteLinkClick = function (id, year, month, day, privacyLevelName) {
-    var $popup = $("#mainContainer").children(".confirmation-popupbox");
+    var $popup = $("#appContainer").children(".confirmation-popupbox");
 
     var selectedKKEventModel = self.EVENT_MANAGER.getEventByDateAndId(id, year, month, day, self.myEventTree);
 
@@ -583,7 +583,7 @@
   };
 
   self.prepareDeleteNoteDetailsPageOnDeleteLinkClick = function (id, year, month, day) {
-    var $popup = $("#mainContainer").children(".confirmation-popupbox");
+    var $popup = $("#appContainer").children(".confirmation-popupbox");
     var $yesBtn = $popup.find(".confirmation-popupbox-yesbtn");
     $yesBtn.attr("data-bind", "click: function () { $root.deleteNoteDetailsPageOnConfirmationYesBtnClick($element, " + id + "," + year + "," + month + "," + day + ")}");
 
@@ -920,7 +920,7 @@
 
   self.showConfirmationPopupBox = function ($popup, txt) {
     $popup.find(".confirmation-popupbox-maintext").text(txt);
-    $("#mainContainer").children(".page-overlay").show();
+    $("#appContainer").children(".page-overlay").show();
     $popup.show();
   };
 
@@ -955,16 +955,16 @@
 
   self.showMoreOptionsInAddNewEventPopupOnClick = function (element) {
     var $element = $(element);
-    var $addNewEventContainer = $element.closest("#addNewEventContainer");
+    var $addNewEventContainer = $("#addNewEventContainer");
     var offset = $element.position().top + $addNewEventContainer.position().top;
 
-    if ($element.hasClass("visible")) {
+    if (!$element.hasClass("visible")) {
       $element.text("Ukryj dodatkowe opcje -");
-      $element.closest(".add-event-fieldset").find(".more-options-container").slideDown();
+      $addNewEventContainer.find(".more-options-container").slideDown();
       $element.scrollTo(500, offset);
     } else {
       $element.text("Pokaż więcej opcji +");
-      $element.closest(".add-event-fieldset").find(".more-options-container").slideUp();
+      $addNewEventContainer.find(".more-options-container").slideUp();
       $addNewEventContainer.scrollTo(500);
     }
 
@@ -1569,8 +1569,7 @@
   self.closeAddNewEventPopupOnClick = function () {
     var $cont = $("#addNewEventContainer");
     //$cont.find( "#addEventForm" )[0].reset();
-
-    $cont.closest(".main-section").siblings(".page-overlay").hide();
+    $("#appContainer").children(".page-overlay").hide();
     $cont.hide();
     $cont.css("top", 30);
     //TODO:add scroll to top 
@@ -1861,19 +1860,9 @@
   };
 
   self.showAddPrivateCalendarEventPopupOnClick = function (element, data, e) {
-    var $lobby = $("#lobby");
     var $calendar = $("#calendar");
-    var $details = $("#details");
-
-    $lobby.siblings(".page-overlay").hide();
-    $calendar.siblings(".page-overlay").hide();
-    $details.siblings(".page-overlay").hide();
-
     $(element).hide();
-
-    var $overlay = $calendar.siblings(".page-overlay");
-    $overlay.css("opacity", 1);
-    $overlay.show();
+    $("#appContainer").children(".page-overlay").show();
 
     //////////////////////////////////////////////////
     var $addEventContainer = $("#addNewEventContainer");

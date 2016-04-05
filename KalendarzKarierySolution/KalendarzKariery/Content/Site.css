@@ -1,4 +1,4 @@
-﻿html, body, #mainContainer {
+﻿html, body, #appContainer {
   padding: 0px;
   margin: 0px;
   height: 100%;
@@ -22,6 +22,12 @@ header, footer, nav, section, div {
 pre {
   margin: 0;
   padding: 0;
+}
+
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
 }
 
 @font-face {
@@ -565,7 +571,16 @@ pre {
 
 
 
-
+.popup-form {
+  position: absolute;
+  width: 80%;
+  height: auto;
+  padding: 20px;
+  left: 10%;
+  background: green;
+  z-index: 100;
+  top: 100px;
+}
 
 
 #loginPageContainer {
@@ -596,6 +611,14 @@ pre {
 
 .red-color {
   color: #FD6969;
+}
+
+.div-separator {
+  margin: 20px;
+}
+
+.block {
+  display: block;
 }
 
 .inline-block {
@@ -696,21 +719,6 @@ pre {
   top: 20px;
 }
 
-.confirmation-popupbox {
-  position: fixed;
-  padding: 20px 0;
-  width: 60%;
-  left: 20%;
-  z-index: 100;
-  top: 300px;
-  text-align: center;
-  background: #EAEAD1;
-  border-radius: 3px;
-  font-size: 2em;
-  color: #827869;
-  border: 2px solid #FFFFEB;
-}
-
 .page-overlay {
   position: fixed;
   width: 100%;
@@ -718,4 +726,90 @@ pre {
   background: #4E4E42;
   opacity: .6;
   z-index: 99;
+}
+
+/*popupbox*/
+
+.popupbox {
+  position: absolute;
+  background: #EAEAD1;
+  border: 2px solid #FFFFEB;
+  color: #827869;
+  font-size: 2em;
+  border-radius: 3px;
+  width: 60%;
+  left: 20%;
+  padding: 20px;
+  padding-top: 10px;
+  z-index: 100;
+}
+
+.confirmation-popupbox {
+  top: 300px;
+  text-align: center;
+}
+
+.popupbox-header {
+  text-align: right;
+}
+
+.popupbox label {
+  color: white;
+  padding: 10px;
+  margin-bottom: -5px;
+  padding-bottom: 5px;
+  text-transform: uppercase;
+  background: rgba(194, 175, 129, 0.4);
+  font-size: .6em;
+}
+
+.popupbox legend {
+  color: #808080;
+  font-size: 1em;
+}
+
+.popupbox input[type=text], .popupbox input[type=password], .popupbox textarea, .popupbox select {
+  color: #8B836B;
+  background: rgba(211, 203, 178, 0.4);
+  /*background: rgb(194, 185, 159);*/
+  width: 220px;
+  height: 36px;
+  padding: 0px 10px;
+  border: 2px solid #f8f5f1;
+  border-radius: 5px;
+  box-shadow: inset 0px 0px 1px #b3a895;
+  outline: none;
+}
+
+.event-startdate-txtbox {
+  width: 44px !important;
+}
+
+.popupbox textarea {
+  height: 80px;
+  padding-top: 14px;
+}
+
+.popupbox .time-select-box {
+  width: 70px !important;
+}
+
+.popupbox #kindSelectBox {
+  width: 159px !important;
+}
+
+.popupbox textarea:focus, .popupbox input[type=text]:focus, .popupbox input[type=password]:focus select:focus {
+  background: rgba(255,255,255,.35);
+  border: 2px solid white;
+  color: gray;
+}
+
+#btnAddNewEvent {
+  float: left;
+  font-size: 1em;
+  margin-left: 183px;
+}
+
+#addNewEventShowMoreOptionsLink {
+  font-size: .6em;
 }

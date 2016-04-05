@@ -3,10 +3,10 @@
   initializeJQueryExtentionMethods: function (simpleFilt) {
     jQuery.fn.extend({
       scrollTo: function (speed, offset) {
-        if (!offset) {
-          offset = this.position().top - 50;
-        }
-        this.closest(".dz-column").animate({ scrollTop: offset }, speed);
+        //if (!offset) {
+        //  offset = this.position().top - 50;
+        //}
+        //this.closest(".dz-column").animate({ scrollTop: offset }, speed);
       }
     });
 
@@ -296,11 +296,11 @@
 
     this.initializeHover = function () {
       var $eventHoverContainer = $("#eventHoverContainer");
-      var $mainContainer = $("#mainContainer");
+      var $appContainer = $("#appContainer");
       var tap = ("ontouchstart" in document.documentElement);
 
       if (!tap) {
-        $mainContainer.on({
+        $appContainer.on({
           mouseenter: function () {
             $(this).css({
               "border-bottom": "2px solid rgb(235,235,235)",
@@ -318,7 +318,7 @@
           }
         }, '.current-month-cell');
 
-        $mainContainer.on({
+        $appContainer.on({
           mouseenter: function () {
             $(this).css({
               "cursor": "pointer",
@@ -333,7 +333,7 @@
           }
         }, '.other-month-cell');
 
-        $mainContainer.on({
+        $appContainer.on({
           mouseenter: function () {
             var $this = $(this);
             var name = $this.data("name");
@@ -372,7 +372,7 @@
         }, '.event-rectangle');
       }
 
-      $mainContainer.on({
+      $appContainer.on({
         mouseenter: function () {
           $(this).css({
             "cursor": "pointer",
@@ -413,7 +413,7 @@
       //	} );
       //} );
 
-      $mainContainer.on({
+      $appContainer.on({
         mouseenter: function () {
           var $this = $(this);
           if (!$this.hasClass("main-page-link")) {
@@ -430,7 +430,7 @@
         }
       }, '.lobby-nav-link-container');
 
-      $mainContainer.on({
+      $appContainer.on({
         mouseenter: function () {
           $(this).css("background", "rgb(160, 243, 169)");
         },
@@ -439,7 +439,7 @@
         }
       }, '.light-icon');
 
-      $mainContainer.on({
+      $appContainer.on({
         mouseenter: function () {
           $(this).css("background", "rgb(160, 243, 169)");
         },
@@ -448,7 +448,7 @@
         }
       }, '.dark-icon');
 
-      $mainContainer.on({
+      $appContainer.on({
         mouseenter: function () {
           $(this).css({
             "cursor": "pointer"
@@ -461,7 +461,7 @@
         }
       }, ".month-name-calendar");
 
-      //$mainContainer.on( {
+      //$appContainer.on( {
       //	mouseenter: function ()
       //	{
       //		$( this ).css( {
@@ -714,7 +714,7 @@
 
       });
 
-      $mainContainer.on({
+      $appContainer.on({
         mouseenter: function () {
           $(this).css({
             "font-style": "italic"
@@ -738,34 +738,34 @@
         $txtbox.removeClass("input-validation-error");
       });
 
-      var $mainContainer = $("#mainContainer");
+      var $appContainer = $("#appContainer");
 
-      $mainContainer.on("click", "#leftSideCalendar", function (event) {
+      $appContainer.on("click", "#leftSideCalendar", function (event) {
         window.location = "#0";
       });
-      $mainContainer.on("click", "#calendar-navigation-arrows-left", function (event) {
+      $appContainer.on("click", "#calendar-navigation-arrows-left", function (event) {
         window.location = "#0";
       });
-      $mainContainer.on("click", "#rightSideCalendar", function (event) {
+      $appContainer.on("click", "#rightSideCalendar", function (event) {
         window.location = "#2";
       });
-      $mainContainer.on("click", "#calendar-navigation-arrows-right", function (event) {
+      $appContainer.on("click", "#calendar-navigation-arrows-right", function (event) {
         window.location = "#2";
       });
-      $mainContainer.on("click", "#rightSideLobby", function (event) {
+      $appContainer.on("click", "#rightSideLobby", function (event) {
         window.location = "#1";
       });
-      $mainContainer.on("click", "#lobby-navigation-arrows-right", function (event) {
+      $appContainer.on("click", "#lobby-navigation-arrows-right", function (event) {
         window.location = "#1";
       });
-      $mainContainer.on("click", "#leftSideDetails", function (event) {
+      $appContainer.on("click", "#leftSideDetails", function (event) {
         window.location = "#1";
       });
-      $mainContainer.on("click", "#details-navigation-arrows-left", function (event) {
+      $appContainer.on("click", "#details-navigation-arrows-left", function (event) {
         window.location = "#1";
       });
-      $mainContainer.on("click", ".page-overlay", function (event) {
-        var $confPopoupBox = $("#mainContainer").children(".confirmation-popupbox");
+      $appContainer.on("click", ".page-overlay", function (event) {
+        var $confPopoupBox = $("#appContainer").children(".confirmation-popupbox");
         $confPopoupBox.find(".confirmation-popupbox-yesbtn").attr("data-bind", '');
         $confPopoupBox.hide();
         $(this).hide();

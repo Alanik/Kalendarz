@@ -1,17 +1,21 @@
 ﻿<section class="dz-row">
-  <header style="overflow:hidden;padding-bottom:10px;">
-    <div id="lobbyLogo">
+  <header style="overflow:hidden;background:#E4DECA;">
+    <div id="lobbyLogo" class="sm-hide">
       <img src="~/Images/Logo/kkLogo.png" alt="logo" />
+    </div>
+    <div id="lobbyLogoSmall" class="sm-show" style="display:none;">
+      <img src="~/Images/Logo/kkLogo200px.png" alt="logo" />
     </div>
     @Html.Partial("_LobbyLoginBar")
   </header>
   <section id="lobbyQuoteAndNavSection">
-    <p class="lobby-quote">Twój osobisty kalendarz stworzony na miare Twoich potrzeb.</p>
     <nav id="lobbyNavContainer">
       <a href="#0" class="selected-nav-link">Strona Główna</a>
       <a href="#1">Kalendarz</a>
       <a href="#2">Dziennik</a>
     </nav>
+    <p class="lobby-quote">Twój osobisty kalendarz stworzony na miare Twoich potrzeb.</p>
+
   </section>
 </section>
 <section class="dz-row" style="height:200px;">

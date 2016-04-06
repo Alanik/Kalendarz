@@ -24,6 +24,14 @@ MEDIA QUERIES
     display: block;
   }
 
+  .sm-hide {
+    display: none;
+  }
+
+  .sm-show {
+    display: block;
+  }
+
   #dzPrevArrow {
     left: 2px !important;
   }

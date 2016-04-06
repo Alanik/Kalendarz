@@ -82,8 +82,8 @@ fieldset {
 
 #loginBarContainer {
   float: right;
-  margin-top: 10px;
-  color: gray;
+  color: #75797B;
+  padding: 20px;
   font-size: 1.6em;
 }
 
@@ -94,15 +94,14 @@ fieldset {
 
 #lobbyQuoteAndNavSection {
   font-family: Raleway-Regular;
+  text-align: left;
+  margin: 0 auto;
+  width: 80%;
 }
 
 .lobby-quote {
-  background: #BDB7B7;
-  color: black;
+  color: #CAC3AD;
   font-size: 2em;
-  text-align: center;
-  padding: 30px;
-  border-bottom: 1px solid #BDBDBC;
 }
 
 .dz-row {
@@ -112,12 +111,8 @@ fieldset {
 }
 
 #lobbyNavContainer {
-  margin-top: 150px;
-  text-align: center;
+  margin-top: 40px;
   font-size: 1.2em;
-  padding: 20px;
-  /*border-top: 1px solid #949494;*/
-  /*border-top: 1px solid #B5B19E;*/
 }
 
   #lobbyNavContainer a {
@@ -202,6 +197,7 @@ fieldset {
 .display-events-overview-container {
   background: rgb(232, 232, 212);
   border: 2px solid white;
+  clear:both;
 }
 
 .display-events-overview-header {
@@ -319,6 +315,8 @@ fieldset {
 #details .dz-column-inner-wrapper {
   width: 80%;
   margin: 0 auto;
+  background: rgb(250, 250, 240);
+  border: 1px solid #F1F1E7;
 }
 
 #detailsPanel .events-menu-container {
@@ -333,7 +331,7 @@ fieldset {
   height: 200px;
   width: 200px;
   background: gray;
-  display: inline-block;
+  display: none;
 }
 
 #detailsDayTable {
@@ -642,11 +640,11 @@ fieldset {
 }
 
 .section-title {
-  background: #E8E8D4;
   font-size: 2em;
   text-align: center;
   color: #5D5D59;
   margin-bottom: 10px;
+  border-bottom: 1px solid #EAEADC;
 }
 
 .hover-cursor-pointer:hover {

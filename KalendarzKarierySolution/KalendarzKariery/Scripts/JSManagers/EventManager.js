@@ -387,7 +387,7 @@
 				appViewModel.drawEventToDetailsDayTable( dayEventsArr[i] );
 			}
 
-			appViewModel.resizeCalendarDayDetailsTable( appViewModel.detailsPageEventMostBottomRow );
+			appViewModel.resizeDetailsDayTable( appViewModel.detailsPageEventMostBottomRow );
 		}
 
 		//3. add event to appViewModel.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents
@@ -565,7 +565,7 @@
 										appViewModel.drawEventToDetailsDayTable( dayEvents[i] );
 									}
 
-									appViewModel.resizeCalendarDayDetailsTable( appViewModel.detailsPageEventMostBottomRow );
+									appViewModel.resizeDetailsDayTable( appViewModel.detailsPageEventMostBottomRow );
 
 									//for calendar to redraw events in day cell
 									appViewModel.calendarDayEventsToUpdate.day = appViewModel.detailsPageDisplayDate.day();

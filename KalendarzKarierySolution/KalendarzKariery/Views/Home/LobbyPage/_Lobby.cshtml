@@ -1,52 +1,52 @@
 ﻿<section class="dz-row">
-  <header>
+  <header style="overflow:hidden;padding-bottom:10px;">
     <div id="lobbyLogo">
       <img src="~/Images/Logo/kkLogo.png" alt="logo" />
     </div>
     @Html.Partial("_LobbyLoginBar")
   </header>
-	<section id="lobbyQuoteAndNavSection">
-		<p class="lobby-quote">Twój osobisty kalendarz stworzony na miare Twoich potrzeb.</p>
-		<nav id="lobbyNavContainer">
-			<a href="#0" class="selected-nav-link">Strona Główna</a>
-			<a href="#1">Kalendarz</a>
-			<a href="#2">Dziennik</a>
-		</nav>
-	</section>
+  <section id="lobbyQuoteAndNavSection">
+    <p class="lobby-quote">Twój osobisty kalendarz stworzony na miare Twoich potrzeb.</p>
+    <nav id="lobbyNavContainer">
+      <a href="#0" class="selected-nav-link">Strona Główna</a>
+      <a href="#1">Kalendarz</a>
+      <a href="#2">Dziennik</a>
+    </nav>
+  </section>
 </section>
 <section class="dz-row" style="height:200px;">
-	<div id="addPrivateEventBtn" class="hover-cursor-pointer" style="display:none;" data-bind="click: function ( data, e ) { $root.showAddPrivateEventLobbyPopupOnClick( $element, data, e ) }">Dodaj do swojego kalendarza +</div>
-</section>
-<section class="dz-row">	
-	<header class="section-title">Nadchodzące wydarzenia</header>
-	<section id="lobbyTableOfEventsSection">
-
-		@Html.Partial( "_LobbyEventsMenuItems" )
-
-		<div id="lobbyDisplayEventsOverviewContainer" class="display-events-overview-container" data-bind="visible: $root.lobbyPagePublicEventListMenu.isOpen()">
-			<header class="display-events-overview-header">
-				<span class="display-events-header-menu-title selected hover-cursor-pointer">Publiczne wydarzenia</span>
-				<div class="close-btn-x hover-cursor-pointer" data-bind="click: $root.closeAllSelectedEventsListContainerOnClick">x</div>
-			</header>
-			@Html.Partial( "_LobbyPublicEventList" )
-		</div>
-	</section>
+  <div id="addPrivateEventBtn" class="hover-cursor-pointer" style="display:none;" data-bind="click: function ( data, e ) { $root.showAddPrivateEventLobbyPopupOnClick( $element, data, e ) }">Dodaj do swojego kalendarza +</div>
 </section>
 <section class="dz-row">
-	<header class="section-title">Tablica wydarzeń</header>
-	<section id="lobbyEventsMasonryContainer">
-		<div class="grid js-masonry" data-bind="masonry: { data: publicEvents, masonryOptions: { itemClass: 'event-block-container', gutter: 10 } }">
-			<div class="event-block-container" data-bind="attr: { 'data-eventid': id }">
-				<div class="event-block">
-					@Html.Partial( "_LobbyEventDetails" )
-				</div>
-			</div>
-		</div>
-	</section>
-	@*	@Html.Partial( "_LobbyNews" )*@
-	<footer class="lobby-footer">
-		<span>Kalendarz Kariery 2015, wszelkie prawa zastrzeżone</span>
-	</footer>
+  <header class="section-title">Nadchodzące wydarzenia</header>
+  <section id="lobbyTableOfEventsSection">
+
+    @Html.Partial("_LobbyEventsMenuItems")
+
+    <div id="lobbyDisplayEventsOverviewContainer" class="display-events-overview-container" data-bind="visible: $root.lobbyPagePublicEventListMenu.isOpen()">
+      <header class="display-events-overview-header">
+        <span class="display-events-header-menu-title selected hover-cursor-pointer">Publiczne wydarzenia</span>
+        <div class="close-btn-x hover-cursor-pointer" data-bind="click: $root.closeAllSelectedEventsListContainerOnClick">x</div>
+      </header>
+      @Html.Partial("_LobbyPublicEventList")
+    </div>
+  </section>
+</section>
+<section class="dz-row">
+  <header class="section-title">Tablica wydarzeń</header>
+  <section id="lobbyEventsMasonryContainer">
+    <div class="grid js-masonry" data-bind="masonry: { data: publicEvents, masonryOptions: { itemClass: 'event-block-container', gutter: 10 } }">
+      <div class="event-block-container" data-bind="attr: { 'data-eventid': id }">
+        <div class="event-block">
+          @Html.Partial("_LobbyEventDetails")
+        </div>
+      </div>
+    </div>
+  </section>
+  @*	@Html.Partial( "_LobbyNews" )*@
+  <footer class="lobby-footer">
+    <span>Kalendarz Kariery 2015, wszelkie prawa zastrzeżone</span>
+  </footer>
 </section>
 
 

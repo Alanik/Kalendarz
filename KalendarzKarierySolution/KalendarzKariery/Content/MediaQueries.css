@@ -12,12 +12,21 @@ MEDIA QUERIES
     font-size: .65em;
   }
 
+  .menu-items {
+    width: 80px;
+    margin-bottom:10px;
+  }
+
+  .menu-item-number-upcoming {
+    font-size: 2em;
+  }
+
   .event-block-container {
     width: 48%;
   }
 
   #lobbyLogo img {
-    width: 300px;
+    max-width: 100%;
   }
 
   .xs-hide {

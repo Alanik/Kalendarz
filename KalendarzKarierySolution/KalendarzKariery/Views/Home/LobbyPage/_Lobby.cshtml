@@ -1,13 +1,10 @@
 ﻿<section class="dz-row">
   <header style="overflow:hidden;background:#E4DECA;">
-    <div id="lobbyLogo" class="sm-hide">
+    <div id="lobbyLogo">
       <img src="~/Images/Logo/kkLogo.png" alt="logo" />
     </div>
-    <div id="lobbyLogoSmall" class="sm-show" style="display:none;">
-      <img src="~/Images/Logo/kkLogo200px.png" alt="logo" />
-    </div>
-    @Html.Partial("_LobbyLoginBar")
   </header>
+  @Html.Partial("_LobbyLoginBar")
   <section id="lobbyQuoteAndNavSection">
     <nav id="lobbyNavContainer">
       <a href="#0" class="selected-nav-link">Strona Główna</a>
@@ -18,7 +15,7 @@
 
   </section>
 </section>
-<section class="dz-row" style="height:200px;">
+<section class="dz-row" style="height:100px;">
   <div id="addPrivateEventBtn" class="hover-cursor-pointer" style="display:none;" data-bind="click: function ( data, e ) { $root.showAddPrivateEventLobbyPopupOnClick( $element, data, e ) }">Dodaj do swojego kalendarza +</div>
 </section>
 <section class="dz-row">

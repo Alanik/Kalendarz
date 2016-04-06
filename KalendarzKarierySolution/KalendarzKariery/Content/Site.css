@@ -83,7 +83,6 @@ fieldset {
 #loginBarContainer {
   float: right;
   color: #75797B;
-  padding: 20px;
   font-size: 1.6em;
 }
 
@@ -116,7 +115,7 @@ fieldset {
 }
 
   #lobbyNavContainer a {
-    margin: 10px;
+    margin-right: 10px;
     color: black;
     text-decoration: none;
   }

@@ -2,8 +2,17 @@
 MEDIA QUERIES
 */
 
-@media (max-width: 460px) {
+@media only screen and (min-width: 768px) {
+  /* tablets and desktop */
+}
+
+@media only screen and (max-width: 767px) {
+  /* phones */
   #lobbyLogo img {
-    width: 200px;
+    width: 300px;
   }
+}
+
+@media only screen and (max-width: 767px) and (orientation: portrait) {
+  /* portrait phones */
 }

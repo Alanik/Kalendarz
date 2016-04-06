@@ -8,6 +8,14 @@ MEDIA QUERIES
 
 @media only screen and (max-width: 767px) {
   /* phones */
+  body {
+    font-size: .45em;
+  }
+
+  .event-block-container {
+    width: 48%;
+  }
+
   #lobbyLogo img {
     width: 300px;
   }

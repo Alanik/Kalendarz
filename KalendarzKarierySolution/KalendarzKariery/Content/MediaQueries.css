@@ -16,6 +16,14 @@ MEDIA QUERIES
     display: block;
   }
 
+  #dzPrevArrow {
+    left: 2px !important;
+  }
+
+    #dzPrevArrow img {
+      height: 40px;
+    }
+
   #dzNextArrow {
     right: 8px !important;
   }

@@ -17,8 +17,6 @@ MEDIA QUERIES
   }
 
   #dzNextArrow {
-    top: unset !important;
-    bottom: 32px !important;
     right: 8px !important;
   }
 
@@ -27,8 +25,6 @@ MEDIA QUERIES
     }
 
   #dzVerticalNav {
-    bottom: 2px !important;
-    top: unset !important;
     right: 42px !important;
   }
 
@@ -42,8 +38,6 @@ MEDIA QUERIES
 
   #dzVerticalPaging {
     right: 48px !important;
-    bottom: 4px !important;
-    top: unset !important;
   }
 }
 

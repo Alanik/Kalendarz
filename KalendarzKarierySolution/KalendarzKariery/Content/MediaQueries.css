@@ -9,7 +9,7 @@ MEDIA QUERIES
 @media only screen and (max-width: 767px) {
   /* phones */
   body {
-    font-size: .45em;
+    font-size: .65em;
   }
 
   .event-block-container {

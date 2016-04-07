@@ -12,6 +12,14 @@ MEDIA QUERIES
     font-size: .65em;
   }
 
+  .calendar-hours {
+    height: 0px;
+  }
+
+  .weekday {
+    padding-top: 2px;
+  }
+
   .display-events-overview-container .legend-oldorupcoming {
     margin-left: 0;
   }

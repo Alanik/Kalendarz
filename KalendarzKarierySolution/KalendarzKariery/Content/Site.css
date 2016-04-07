@@ -651,7 +651,7 @@ fieldset {
   color: #5D5D59;
   margin-bottom: 10px;
   border-bottom: 1px solid #EAEADC;
-  padding-left: 10px;
+  text-align: center;
 }
 
 .hover-cursor-pointer:hover {

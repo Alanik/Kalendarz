@@ -1936,28 +1936,12 @@
 
     self.resetAndSetPrivacyLvlToObservableEvent(day, month, self.todayDate.year, "public", self.eventPrivacyLevels["public"]);
 
-    var $lobby = $("#lobby");
-    var $calendar = $("#calendar");
-    var $details = $("#details");
-
-    $lobby.siblings(".page-overlay").hide();
-    $calendar.siblings(".page-overlay").hide();
-    $details.siblings(".page-overlay").hide();
-
-    var $overlay = $lobby.siblings(".page-overlay");
-    $overlay.css("opacity", 1);
-    $overlay.show();
-
     ///////////////////////////////////////////////////
     var $addEventContainer = $("#addNewEventContainer");
-    $addEventContainer.detach().prependTo("#lobby");
     $addEventContainer.find("legend").text("Dodaj do tablicy wydarzeń");
 
-    var top = $("#slide-item-lobby").parent().scrollTop();
-    $addEventContainer.css("top", top + 30);
-
     var $addBtn = $addEventContainer.find("#btnAddNewEvent");
-    $addBtn.find("span").text("Dodaj");
+    $addBtn.text("Dodaj");
     $addBtn.attr("data-bind", "click: $root.addEventOnClick")
 
     ko.unapplyBindings($addBtn[0]);

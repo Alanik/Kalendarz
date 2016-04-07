@@ -12,6 +12,15 @@ MEDIA QUERIES
     font-size: .65em;
   }
 
+  .display-events-overview-container .legend-oldorupcoming {
+    margin-left: 0;
+  }
+
+  .display-events-overview-item-list {
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+
   #detailsDayTable .details-day-table-head {
     padding: 2px;
     padding-left: 2px;

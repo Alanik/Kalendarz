@@ -217,15 +217,11 @@ fieldset {
 }
 
 .display-events-header-menu-title {
-  border-top: 4px solid #A7A292;
   padding: 10px;
 }
 
   .display-events-header-menu-title.selected {
-    /*color: rgb(255, 251, 239);*/
     color: rgb(121, 121, 106);
-    border-top: 4px solid #9A9A84;
-    /*border-top: 4px solid #D7D0B8;*/
   }
 
 .display-events-overview-body {

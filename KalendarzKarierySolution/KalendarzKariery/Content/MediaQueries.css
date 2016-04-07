@@ -17,6 +17,10 @@ MEDIA QUERIES
     padding-left: 2px;
   }
 
+    #detailsDayTable .details-day-table-head div {
+      width: 14.14%;
+    }
+
   .menu-item {
     width: 60px;
     margin-bottom: 10px;

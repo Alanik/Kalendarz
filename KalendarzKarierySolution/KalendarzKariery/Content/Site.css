@@ -84,6 +84,7 @@ fieldset {
   float: right;
   color: #75797B;
   font-size: 1.6em;
+  padding-right: 10px;
 }
 
 #registerSpanLink {
@@ -101,6 +102,13 @@ fieldset {
 .lobby-quote {
   color: #CAC3AD;
   font-size: 2em;
+  line-height: 1;
+}
+
+#addPublicEventBtn {
+  float: right;
+  padding-right: 40px;
+  clear: both;
 }
 
 .dz-row {
@@ -196,7 +204,7 @@ fieldset {
 .display-events-overview-container {
   background: rgb(232, 232, 212);
   border: 2px solid white;
-  clear:both;
+  clear: both;
 }
 
 .display-events-overview-header {
@@ -640,10 +648,10 @@ fieldset {
 
 .section-title {
   font-size: 2em;
-  text-align: center;
   color: #5D5D59;
   margin-bottom: 10px;
   border-bottom: 1px solid #EAEADC;
+  padding-left: 10px;
 }
 
 .hover-cursor-pointer:hover {

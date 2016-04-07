@@ -12,9 +12,9 @@ MEDIA QUERIES
     font-size: .65em;
   }
 
-  .menu-items {
-    width: 80px;
-    margin-bottom:10px;
+  .menu-item {
+    width: 60px;
+    margin-bottom: 10px;
   }
 
   .menu-item-number-upcoming {
@@ -78,5 +78,9 @@ MEDIA QUERIES
   /* portrait phones */
   .xs-hide {
     display: none;
+  }
+
+  #lobbyQuoteAndNavSection {
+    width: 98%;
   }
 }

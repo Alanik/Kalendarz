@@ -12,6 +12,11 @@ MEDIA QUERIES
     font-size: .65em;
   }
 
+  #detailsDayTable .details-day-table-head {
+    padding: 2px;
+    padding-left: 2px;
+  }
+
   .menu-item {
     width: 60px;
     margin-bottom: 10px;

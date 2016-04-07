@@ -2,7 +2,7 @@
 	function calendarWidget( $calendar, params ){
 		"use strict";
 
-		var currentMonthPrefix, currentWeekdayClass, counter;
+		var currentMonthPrefix, currentWeekdayClass, counter, smhideCounter;
 		var days, firstDay, prev_m, next_m, prev_days;
 		var weekdayModulo, currentDay, dayPlusOne, dayCounter = 0;
 
@@ -58,9 +58,16 @@
 		{
 			calendar += '<div class="calendar-hours">';
 			counter = 0;
+			smhideCounter = 0;
 			for ( var i = 7; i < 22; i += 2 )
 			{
-				calendar += '<div class="hour" style="left:' + ( ( counter + .4 ) * 6.4 ) + '%;"> ' + i + ' </div>';
+			  if (smhideCounter == 0) {
+			    calendar += '<div class="hour" style="left:' + ((counter + .4) * 6.4) + '%;"> ' + i + ' </div>';
+			    smhideCounter++;
+			  } else {
+			    calendar += '<div class="hour sm-hide" style="left:' + ((counter + .4) * 6.4) + '%;"> ' + i + ' </div>';
+			    smhideCounter = 0;
+			  }			
 				counter += 2;
 			}
 			calendar += '</div>';

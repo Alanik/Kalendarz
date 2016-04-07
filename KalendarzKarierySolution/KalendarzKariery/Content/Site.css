@@ -70,7 +70,8 @@ fieldset {
 
 #lobby .dz-column-inner-wrapper {
   border-right: 1px solid #F1F1E7;
-  background: rgb(250, 250, 240);
+  /*background: rgb(250, 250, 240);*/
+  background: rgb(247, 247, 247);
   width: 85%;
 }
 
@@ -318,7 +319,7 @@ fieldset {
 #details .dz-column-inner-wrapper {
   width: 80%;
   margin: 0 auto;
-  background: rgb(250, 250, 240);
+  background: rgb(247, 247, 247);
   border: 1px solid #F1F1E7;
 }
 

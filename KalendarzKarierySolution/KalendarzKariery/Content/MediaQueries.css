@@ -13,7 +13,7 @@ MEDIA QUERIES
   }
 
   .weekday {
-    padding-top: 2px;
+    padding-top: 2px !important;
   }
 
   .display-events-overview-container .legend-oldorupcoming {

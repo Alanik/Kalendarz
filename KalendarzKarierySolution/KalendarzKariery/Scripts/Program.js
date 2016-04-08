@@ -485,8 +485,8 @@
           $this.css({
             "cursor": "pointer",
             "border": "2px solid gray",
-            "border-left": "2px solid #E4E0D1",
-            "border-right": "2px solid #E4E0D1"
+            "border-left": "1px solid rgb(226, 226, 226)",
+            "border-right": "1px solid rgb(226, 226, 226)"
           });
         }
         else {
@@ -501,14 +501,14 @@
         if (!$this.hasClass("selected")) {
           $this.css({
             "cursor": "auto",
-            "border": "2px solid #E4E0D1",
-            "border-top": "2px solid #E4E0D1"
+            "border": "1px solid rgb(226, 226, 226)",
+            "border-top": "1px solid rgb(226, 226, 226)"
           });
         } else {
           $this.css({
             "border": "2px solid gray",
-            "border-left": "2px solid #E4E0D1",
-            "border-right": "2px solid #E4E0D1",
+            "border-left": "2px solid rgb(218, 216, 208) ",
+            "border-right": "2px solid rgb(218, 216, 208) ",
             "border-top": "2px solid #E4E0D1"
           });
         }

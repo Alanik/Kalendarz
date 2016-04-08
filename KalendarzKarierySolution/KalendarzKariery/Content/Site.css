@@ -328,6 +328,8 @@ fieldset {
 }
 
 #detailsPanel {
+	border-top: 1px solid #E8E8E8;
+	padding-top: 10px;
 	overflow: hidden;
 }
 
@@ -397,9 +399,11 @@ fieldset {
 }
 
 .day-display-date-container {
+
 	font-size: 2em;
 	color: black;
 	padding-bottom: 10px;
+	border-top: 1px solid #E8E8E8;
 }
 
 	.day-display-date-container .display-date-small {
@@ -734,7 +738,7 @@ fieldset {
 /*popupbox*/
 
 .popupbox {
-	background: #F9F9F6;
+	background: #FBFBFB;
 	border: 2px solid #ffffeb;
 	color: #827869;
 	font-size: 2em;
@@ -744,9 +748,7 @@ fieldset {
 	padding: 20px;
 	padding-top: 10px;
 	z-index: 100;
-	height: 90%;
 	top: 0;
-	overflow-y: scroll;
 	position: absolute;
 }
 
@@ -832,5 +834,4 @@ fieldset {
 .field-validation-error {
 	font-size: .6em;
 	color: red;
-
 }

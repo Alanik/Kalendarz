@@ -1,5 +1,6 @@
 ﻿#calendar {
 }
+
 	#calendar .dz-column-inner-wrapper {
 		border: 1px solid #F1F1E7;
 		margin: auto;
@@ -15,11 +16,11 @@
 
 #calendarMenuHeader {
 	display: table-caption;
-	border-bottom: 1px solid white;
+	border-bottom: 1px solid #FAFFFE;
 	letter-spacing: 1px;
 	font-size: 2.2em;
 	text-align: center;
-	color: #B3B3B3;
+	color: #C1BEBE;
 }
 
 .today-day-header-calendar {
@@ -57,7 +58,9 @@
 	display: table-cell;
 	text-align: center;
 	padding-top: 10px;
+	border-top: 1px solid #DADADA;
 }
+
 
 .current-weekday {
 	color: black;
@@ -90,8 +93,7 @@
 .other-month-cell {
 	position: relative;
 	border: 1px solid white;
-	/*background:rgb(228, 225, 214);*/
-	background: rgb(210, 210, 188);
+	background: rgb(210, 210, 203);
 }
 
 .calendar-cell {
@@ -157,7 +159,8 @@
 		position: relative;
 		top: 56px;
 		height: 25px;
-		z-index: 98;
+		z-index: 10;
+		background: #FDFDFD;
 	}
 
 		.current-month-cell .cell-span-container .cell-month-name-span {
@@ -183,7 +186,7 @@
 		top: 56px;
 		height: 24px;
 		z-index: 98;
-		border-top: 1px solid white;
+		background: #F7F7F7 !important;
 	}
 
 		.today-cell .cell-span-container span {

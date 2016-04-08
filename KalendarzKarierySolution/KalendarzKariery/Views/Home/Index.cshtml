@@ -1,6 +1,6 @@
 ﻿@model KalendarzKarieryData.Models.ViewModels.MainViewModel
 
-<div id="dzieuo" style="display: none;">
+<div id="dzieuo">
 
 	<section id="lobby" class="dz-column">
 		@Html.Partial( "_Lobby" )
@@ -88,8 +88,6 @@
 		PROGRAM.initializeJQueryExtentionMethods(SIMPLE_FILT());
 		PROGRAM.initializeAndStartSpinner();
 		PROGRAM.initialize(indexViewModel, userName, spinner);
-
-		$("#dzieuo").show();
 
 		function initializeLoader(){
 			//////////////////////////////////////////////////////////

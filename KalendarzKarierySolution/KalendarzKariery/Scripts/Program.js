@@ -15,45 +15,7 @@
     })
   },
   initializeAndStartSpinner: function () {
-    //////////////////////////////////////////////////////////
-    //ajax loader (spinner)
-    //////////////////////////////////////////////////////////
-    var opts = {
-      lines: 17, // The number of lines to draw
-      length: 6, // The length of each line
-      width: 4, // The line thickness
-      radius: 20, // The radius of the inner circle
-      corners: 1, // Corner roundness (0..1)
-      rotate: 0, // The rotation offset
-      direction: 1, // 1: clockwise, -1: counterclockwise
-      color: '#FFF', // #rgb or #rrggbb or array of colors
-      speed: 2, // Rounds per second
-      trail: 80, // Afterglow percentage
-      shadow: false, // Whether to render a shadow
-      hwaccel: false, // Whether to use hardware acceleration
-      className: 'spinner', // The CSS class to assign to the spinner
-      zIndex: 2e9, // The z-index (defaults to 2000000000)
-      top: '50%', // Top position relative to parent
-      left: '50%' // Left position relative to parent
-    };
-
-    this.spinner = new Spinner(opts);
-
-    //used in jquery.superslides to turn spinner off when superslides fades in.
-    window.spinner = this.spinner;
-
-    var $target = $("#spinnerContainer");
-
-    //Get the window height and width
-    var winH = $(window).height();
-    var winW = $(window).width();
-
-    //Set the popup window to center
-    $target.css('top', winH / 2 - $target.height() / 2);
-    $target.css('left', winW / 2 - $target.width() / 2 - 20);
-
-    //this.spinner.spin($target[0]);
-    //$target.show();
+    
   },
   initializeEventGrid: function () {
     var $container = $('#lobby .grid');
@@ -64,7 +26,7 @@
       });
     });
   },
-  initialize: function (indexViewModel, userName) {
+  initialize: function (indexViewModel, userName, spinner) {
     "use strict";
 
     var $calendar = $("#calendarWidget");
@@ -75,7 +37,7 @@
     $calendar.calendarWidget({
       month: date.getMonth(), year: date.getFullYear()
     });
-    var appViewModel = new AppViewModel(date, userName, this.spinner);
+    var appViewModel = new AppViewModel(date, userName, spinner);
 
     appViewModel.eventPrivacyLevels = appViewModel.UTILS.eventTreeBuilder.transformPrivacyLevels(indexViewModel.PrivacyLevels);
     appViewModel.eventKinds = indexViewModel.EventKinds;
@@ -501,13 +463,12 @@
         if (!$this.hasClass("selected")) {
           $this.css({
             "cursor": "auto",
-            "border": "1px solid rgb(226, 226, 226)",
-            "border-top": "1px solid rgb(226, 226, 226)"
+            "border": "1px solid rgb(226, 226, 226)"
           });
         } else {
           $this.css({
-            "border": "2px solid gray",
-            "border-left": "2px solid rgb(218, 216, 208) ",
+            "border-bottom": "2px solid gray",
+            "border-left": "2px solid rgb(218, 216, 208)",
             "border-right": "2px solid rgb(218, 216, 208) ",
             "border-top": "2px solid #E4E0D1"
           });

@@ -1292,14 +1292,15 @@
     $menuItemContainer.toggleClass("selected");
 
     if ($menuItemContainer.hasClass("selected")) {
-      $menuItemContainer.css("top", "20px");
-      $menuItemContainer.css("border-bottom", "2px solid gray");
+    	$menuItemContainer.css( "top", "20px" );
+    	$menuItemContainer.css( "border", "2px solid rgb(218, 216, 208)" );
+    	$menuItemContainer.css( "border-bottom", "2px solid gray" );
+    	$menuItemContainer.css( "border-top", "2px solid gray" );
       menuObj.selectedEventKindValues.push(eventKindValue);
       self.showSelectedEvents(selectedEventsProp, 'all', [eventKindValue]);
 
     } else {
       $menuItemContainer.css("top", "0px");
-      $menuItemContainer.css("border", "2px solid #E4E0D1");
       menuObj.selectedEventKindValues = menuObj.selectedEventKindValues.filter(function (e) { return e !== eventKindValue });
       self.removeSelectedEvents(selectedEventsProp, eventKindValue);
     }
@@ -1881,7 +1882,7 @@
     $addEventContainer.find("legend").text("Dodaj do kalendarza");
 
     var $addBtn = $addEventContainer.find("#btnAddNewEvent");
-    $addBtn.text("Dodaj");
+    $addBtn.text("+");
     $addBtn.attr("data-bind", "click: $root.addEventOnClick")
 
     ko.unapplyBindings($addBtn[0]);
@@ -1941,7 +1942,7 @@
     $addEventContainer.find("legend").text("Dodaj do tablicy wydarzeń");
 
     var $addBtn = $addEventContainer.find("#btnAddNewEvent");
-    $addBtn.text("Dodaj");
+    $addBtn.text("+");
     $addBtn.attr("data-bind", "click: $root.addEventOnClick")
 
     ko.unapplyBindings($addBtn[0]);
@@ -1976,7 +1977,7 @@
     $addEventContainer.find("legend").text("Dodaj do kalendarza");
 
     var $addBtn = $addEventContainer.find("#btnAddNewEvent");
-    $addBtn.find("span").text("Dodaj");
+    $addBtn.find("span").text("+");
     $addBtn.attr("data-bind", "click: $root.addEventOnClick")
 
     ko.unapplyBindings($addBtn[0]);
@@ -2115,9 +2116,8 @@
 
           if ($menuItemContainer.hasClass("selected")) {
             $menuItemContainer.removeClass("selected");
-            $menuItemContainer.css("top", "0px");
-            $menuItemContainer.css("border-color", "");
-            $menuItemContainer.css("border", "2px solid #E4E0D1;");
+            $menuItemContainer.css( "top", "0px" );
+            $menuItemContainer.css( "border", "1px solid rgb(226, 226, 226)" );
           }
         });
 
@@ -2136,9 +2136,8 @@
 
           if ($menuItemContainer.hasClass("selected")) {
             $menuItemContainer.removeClass("selected");
-            $menuItemContainer.css("top", "0px");
-            $menuItemContainer.css("border-color", "");
-            $menuItemContainer.css("border", "2px solid #E4E0D1;");
+            $menuItemContainer.css( "top", "0px" );
+            $menuItemContainer.css( "border", "1px solid rgb(226, 226, 226)" );
           }
         });
 

@@ -11,7 +11,6 @@ body {
 	font-family: "SegoeUI", Helvetica, Sans-Serif, Raleway-Regular;
 	font-weight: 400;
 	-webkit-font-smoothing: antialiased;
-	/*background: rgb(250, 250, 240);*/
 }
 
 header, footer, nav, section, div {
@@ -29,7 +28,6 @@ fieldset {
 	padding: 0;
 	margin: 0;
 }
-
 @font-face {
 	font-family: Raleway;
 	src: url('Fonts/Raleway/Raleway-Thin.ttf');
@@ -399,16 +397,16 @@ fieldset {
 }
 
 .day-display-date-container {
-
 	font-size: 2em;
 	color: black;
 	padding-bottom: 10px;
 	border-top: 1px solid #E8E8E8;
+	padding-left: 20px;
 }
 
 	.day-display-date-container .display-date-small {
 		font-size: .5em;
-		color: #B7AE9A;
+		color: #716B5E;
 	}
 
 .event-rectangle-details {
@@ -604,13 +602,22 @@ fieldset {
 }
 
 .btn-add {
-	font-size: 1.8em;
-	color: rgb(137, 197, 155);
 	padding: 0 14px;
-	border: 2px solid rgb(137, 197, 155);
+	border: 2px solid;
 	border-radius: 4px;
 	margin: 10px;
 	background: #FDFCFA;
+}
+
+.btn-close {
+	padding: 0 14px;
+	border: 2px solid;
+	border-radius: 4px;
+	position: relative;
+	background: #FDFCFA;
+	top: 20px;
+	padding-bottom: 4px;
+	right: 40px;
 }
 
 .green-color {
@@ -820,6 +827,8 @@ fieldset {
 	float: right;
 	font-size: 1em;
 	margin-right: 50%;
+	position: relative;
+	left: 4px;
 }
 
 #addNewEventShowMoreOptionsLink {

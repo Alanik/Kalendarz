@@ -731,7 +731,7 @@ fieldset {
 /*popupbox*/
 
 .popupbox {
-	position: absolute;
+	position: fixed;
 	background: #F9F9F6;
 	border: 2px solid #ffffeb;
 	color: #827869;
@@ -742,6 +742,9 @@ fieldset {
 	padding: 20px;
 	padding-top: 10px;
 	z-index: 100;
+	height: 90%;
+	top: 0;
+	overflow-y: scroll;
 }
 
 .confirmation-popupbox {
@@ -823,5 +826,4 @@ fieldset {
 .field-validation-error {
 	font-size: .6em;
 	color: red;
-
 }

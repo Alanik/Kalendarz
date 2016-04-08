@@ -230,6 +230,7 @@
     <Content Include="Images\Icons\list-icon.png" />
     <Content Include="Images\Logo\blackAndWhiteSmallKKLogo.png" />
     <Content Include="Images\Logo\kkLogo.png" />
+    <Content Include="Images\Logo\kkLogo200px.png" />
     <Content Include="Images\Logo\kkLogo_mobile.png" />
     <Content Include="Images\Logo\kkLogo_smaller.png" />
     <Content Include="Images\Logo\lightSmallKKLogo.png" />

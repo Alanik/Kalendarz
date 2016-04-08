@@ -1,7 +1,7 @@
 ﻿#calendar {
 }
-
 	#calendar .dz-column-inner-wrapper {
+		border: 1px solid #F1F1E7;
 		margin: auto;
 		position: relative;
 		width: 80%;
@@ -10,6 +10,7 @@
 		display: table;
 		table-layout: fixed;
 		border-spacing: 1px;
+		background: rgb(247, 247, 247);
 	}
 
 #calendarMenuHeader {
@@ -90,7 +91,7 @@
 	position: relative;
 	border: 1px solid white;
 	/*background:rgb(228, 225, 214);*/
-	background: rgb(210, 210, 203);
+	background: rgb(210, 210, 188);
 }
 
 .calendar-cell {
@@ -159,7 +160,6 @@
 		z-index: 98;
 	}
 
-
 		.current-month-cell .cell-span-container .cell-month-name-span {
 			color: rgb(184, 184, 184);
 		}
@@ -171,6 +171,7 @@
 		padding-right: 5px;
 		top: 4px;
 	}
+
 
 .today-cell {
 	background: #F7F7F7 !important;
@@ -193,8 +194,7 @@
 	display: table;
 	table-layout: fixed;
 	width: 100%;
-	/*background:rgb(232, 232, 228);*/
-	background: #E8E8D4;
+	background: rgb(232, 232, 228);
 }
 
 .addNewEvent-cellIcon {

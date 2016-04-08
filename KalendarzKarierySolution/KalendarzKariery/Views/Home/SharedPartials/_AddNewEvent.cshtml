@@ -15,7 +15,7 @@
           <legend>Dodaj do kalendarza</legend>
           <div data-bind="with: observableEvent">
             <div class="div-separator">
-              @Html.LabelFor(m => m.Event.Title, new { @class = "block", style = "width:235px;" })
+              @Html.LabelFor(m => m.Event.Title, new { @class = "block" })
               <div>
                 @Html.ValidationMessageFor(m => m.Event.Title)
               </div>
@@ -71,7 +71,7 @@
 
             <div class="div-separator">
               <div>
-                @Html.LabelFor(m => m.Event.StartDate, new { @class = "block", style = "width:240px;" })
+                @Html.LabelFor(m => m.Event.StartDate, new { @class = "block" })
                 <div>
                   <div>
                     @Html.ValidationMessageFor(m => m.StartDate.Day)
@@ -96,31 +96,31 @@
 
             <div style="display: none;" class="more-options-container">
               <div class="div-separator">
-                @Html.LabelFor(m => m.Address.Street, new { @class = "block" })
                 <div>
-                  @Html.ValidationMessageFor(m => m.Address.Street)
+                  @Html.LabelFor(m => m.Address.Street, new { @class = "block" })
+                  <div>
+                    @Html.ValidationMessageFor(m => m.Address.Street)
+                  </div>
+                  @Html.TextBoxFor(m => m.Address.Street, new { maxlength = 30, data_bind = "value: address.street" })
                 </div>
-                @Html.TextBoxFor(m => m.Address.Street, new { maxlength = 30, data_bind = "value: address.street" })
+                <div class="inline-block">
+                  @Html.LabelFor(m => m.Address.City, new { @class = "block" })
+                  <div>
+                    @Html.ValidationMessageFor(m => m.Address.City)
+                  </div>
+                  @Html.TextBoxFor(m => m.Address.City, new { maxlength = 30, data_bind = "value: address.city" })
+                </div>
+                <div class="inline-block">
+                  @Html.LabelFor(m => m.Address.ZipCode, new { @class = "block" })
+                  <div>
+                    @Html.ValidationMessageFor(m => m.Address.ZipCode)
+                  </div>
+                  @Html.TextBoxFor(m => m.Address.ZipCode, new { maxlength = 6, placeholder = "00-000", style = "width:50px !important;", data_bind = "value:address.zipCode" })
+                </div>
               </div>
 
               <div class="div-separator">
-                @Html.LabelFor(m => m.Address.City, new { @class = "block" })
-                <div>
-                  @Html.ValidationMessageFor(m => m.Address.City)
-                </div>
-                @Html.TextBoxFor(m => m.Address.City, new { maxlength = 30, data_bind = "value: address.city" })
-              </div>
-
-              <div class="div-separator">
-                @Html.LabelFor(m => m.Address.ZipCode, new { @class = "block" })
-                <div>
-                  @Html.ValidationMessageFor(m => m.Address.ZipCode)
-                </div>
-                @Html.TextBoxFor(m => m.Address.ZipCode, new { maxlength = 6, placeholder = "00-000", style = "width:50px !important;", data_bind = "value:address.zipCode" })
-              </div>
-
-              <div class="div-separator">
-                @Html.LabelFor(m => m.Event.Description, new { @class = "block", @style = "vertical-align:top;" })
+                @Html.LabelFor(m => m.Event.Description, new { @class = "block" })
                 <div>
                   @Html.ValidationMessageFor(m => m.Event.Description)
                 </div>
@@ -128,7 +128,7 @@
               </div>
 
               <div class="div-separator">
-                @Html.LabelFor(m => m.Event.Details, new { @class = "block", @style = "vertical-align:top;" })
+                @Html.LabelFor(m => m.Event.Details, new { @class = "block" })
                 <div>
                   @Html.ValidationMessageFor(m => m.Event.Details)
                 </div>
@@ -136,7 +136,7 @@
               </div>
 
               <div class="div-separator">
-                @Html.LabelFor(m => m.Event.UrlLink, new { @class = "block", @style = "vertical-align:top;" })
+                @Html.LabelFor(m => m.Event.UrlLink, new { @class = "block" })
                 <div>
                   @Html.ValidationMessageFor(m => m.Event.UrlLink)
                 </div>
@@ -144,17 +144,17 @@
               </div>
 
               <div class="div-separator">
-                @Html.LabelFor(m => m.Event.Price, new { @class = "block", @style = "vertical-align:top;" })
+                @Html.LabelFor(m => m.Event.Price, new { @class = "block" })
                 <div>
-                  @Html.ValidationMessageFor(m => m.Event.Price, "Pole \"Opłata za wstęp zawiera nieprawidłową wartość.\" ")
+                  @Html.ValidationMessageFor(m => m.Event.Price)
                 </div>
-                @Html.TextBoxFor(m => m.Event.Price, new { style = "width:50px;", maxlength = 7, data_bind = "value: price" })<span>ZŁ.</span>
+                @Html.TextBoxFor(m => m.Event.Price, new { style = "width:50px;", maxlength = 7, data_bind = "value: price" })<span style="font-size:.5em;vertical-align:bottom;">ZŁ.</span>
               </div>
 
               <div class="div-separator" style="margin-bottom:40px;">
-                @Html.LabelFor(m => m.Event.OccupancyLimit, new { @class = "block", @style = "vertical-align:top;" })
+                @Html.LabelFor(m => m.Event.OccupancyLimit, new { @class = "block" })
                 <div>
-                  @Html.ValidationMessageFor(m => m.Event.OccupancyLimit, "Pole \"Limit Miejsc\" musi zawierać same cyfry.")
+                  @Html.ValidationMessageFor(m => m.Event.OccupancyLimit)
                 </div>
                 @Html.TextBoxFor(m => m.Event.OccupancyLimit, new { style = "width:50px;", maxlength = 6, data_bind = "value: occupancyLimit" })
               </div>

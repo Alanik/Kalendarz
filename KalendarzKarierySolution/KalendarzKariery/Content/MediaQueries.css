@@ -2,117 +2,111 @@
 MEDIA QUERIES
 */
 
-@media (max-width: 1300px) {
-	.event-block {
-		box-shadow: none;
-	}
-
-	.current-month-cell {
-		box-shadow: none;
-	}
-
-	.slick-contact-form {
-		box-shadow: none;
-	}
-
-	.year-name-container {
-		box-shadow: none;
-	}
-
-	.current-month-name-calendar {
-		box-shadow: none;
-	}
-
-	.today-day-header-calendar {
-		box-shadow: none;
-	}
-
-	.event-kind-tag {
-		box-shadow: none;
-	}
-
-	#registerPageContainer {
-		box-shadow: none;
-	}
-
-	#loginPageContainer {
-		box-shadow: none;
-	}
-
-	#eventHoverContainer {
-		box-shadow: none;
-	}
-
-	.event-block-container {
-		width: 45%;
-	}
+@media only screen and (min-width: 768px) {
+  /* tablets and desktop */
 }
 
-@media (max-width: 800px) {
-	.event-block-container {
-		width: 98%;
-	}
+@media only screen and (max-width: 767px) {
+  /* phones */
+  body {
+    font-size: .65em;
+  }
 
-	#lobbyLogo {
-		background-image: url(../Images/Logo/kkLogo.png);
-		background-size: contain;
-		position: absolute !important;
-		background-repeat: no-repeat;
-		width: 320px;
-		top: 14px;
-	}
+  .weekday {
+    padding-top: 2px !important;
+  }
 
-	#layoutLogo {
-		background-image: url(../Images/Logo/kkLogo.png);
-		background-size: contain;
-		position: absolute !important;
-		background-repeat: no-repeat;
-		width: 320px;
-		top: 14px;
-	}
+  .display-events-overview-container .legend-oldorupcoming {
+    margin-left: 0;
+  }
 
-	.login-bar-container {
-		text-align: center;
-		top: 90px;
-		margin: 0;
-	}
+  .display-events-overview-item-list {
+    padding-left: 2px;
+    padding-right: 2px;
+  }
 
-	#loginPageContainer {
-		width: 100%;
-		margin-left: 0;
-	}
+  #detailsDayTable .details-day-table-head {
+    padding: 2px;
+    padding-left: 2px;
+  }
 
-	#registerPageContainer {
-		width: 100%;
-		margin-left: 0;
-	}
+    #detailsDayTable .details-day-table-head div {
+      width: 14.14%;
+    }
 
-	#lobbyQuoteContainer {
-		font-size: 1.6em;
-	}
+  .menu-item {
+    width: 60px;
+    margin-bottom: 10px;
+  }
 
-	#lobbyQuoteAndNavSection {
-		margin-top: 120px;
-		margin-bottom: 40px;
-	}
+  .menu-item-number-upcoming {
+    font-size: 2em;
+  }
 
-		#calendarDayDetailsTable .table-details-head {
-		padding-top: 0;
-	}
+  .event-block-container {
+    width: 99%;
+  }
+
+  #lobbyLogo img {
+    width: 100%;
+  }
+
+  .xs-hide {
+    display: block;
+  }
+
+  .sm-hide {
+    display: none !important;
+  }
+
+  .sm-show {
+    display: block;
+  }
+
+  #dzPrevArrow {
+    left: 2px !important;
+  }
+
+    #dzPrevArrow img {
+      height: 40px;
+    }
+
+  #dzNextArrow {
+    right: 8px !important;
+  }
+
+    #dzNextArrow img {
+      height: 40px;
+    }
+
+  #dzVerticalNav {
+    right: 42px !important;
+  }
+
+    #dzVerticalNav img {
+      width: 40px;
+    }
+
+  #dzVerticalNav {
+    height: 106px;
+  }
+
+  #dzVerticalPaging {
+    right: 48px !important;
+  }
+
+  #lobbyNavContainer {
+    text-align: center;
+  }
 }
 
-@media (max-width: 320px) {
-	#lobbyLogo {
-		width: 250px;
-		top: 14px;
-	}
+@media only screen and (max-width: 767px) and (orientation: portrait) {
+  /* portrait phones */
+  .xs-hide {
+    display: none;
+  }
 
-	#layoutLogo {
-		width: 250px;
-		top: 14px;
-	}
-
-	.login-bar-container {
-		top: 80px;
-	}
+  #lobbyQuoteAndNavSection {
+    width: 98%;
+  }
 }

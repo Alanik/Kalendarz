@@ -1,23 +1,24 @@
 ﻿<section class="dz-row">
-  <header>
-    <div id="lobbyLogo">
-      <img src="~/Images/Logo/kkLogo.png" alt="logo" />
-    </div>
-    @Html.Partial("_LobbyLoginBar")
-  </header>
+	<header style="overflow: hidden; background: rgb(232, 232, 228);">
+		<div id="lobbyLogo">
+			<img src="~/Images/Logo/kkLogo.png" alt="logo" />
+		</div>
+	</header>
+	@Html.Partial( "_LobbyLoginBar" )
 	<section id="lobbyQuoteAndNavSection">
-		<p class="lobby-quote">Twój osobisty kalendarz stworzony na miare Twoich potrzeb.</p>
 		<nav id="lobbyNavContainer">
 			<a href="#0" class="selected-nav-link">Strona Główna</a>
 			<a href="#1">Kalendarz</a>
 			<a href="#2">Dziennik</a>
 		</nav>
+		<p class="lobby-quote">Twój osobisty kalendarz stworzony na miare Twoich potrzeb.</p>
+
 	</section>
 </section>
-<section class="dz-row" style="height:200px;">
-	<div id="addPrivateEventBtn" class="hover-cursor-pointer" data-bind="click: function ( data, e ) { $root.showAddPrivateEventLobbyPopupOnClick( $element, data, e ) }">Dodaj do swojego kalendarza +</div>
+<section class="dz-row" style="height: 100px;">
+	<div id="addPrivateEventBtn" class="hover-cursor-pointer" style="display: none;" data-bind="click: function ( data, e ) { $root.showAddPrivateEventLobbyPopupOnClick( $element, data, e ) }">Dodaj do swojego kalendarza +</div>
 </section>
-<section class="dz-row">	
+<section class="dz-row" style="overflow: hidden;">
 	<header class="section-title">Nadchodzące wydarzenia</header>
 	<section id="lobbyTableOfEventsSection">
 

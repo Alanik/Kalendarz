@@ -11,7 +11,7 @@ body {
 	font-family: "SegoeUI", Helvetica, Sans-Serif, Raleway-Regular;
 	font-weight: 400;
 	-webkit-font-smoothing: antialiased;
-	background: rgb(250, 250, 240);
+	/*background: rgb(250, 250, 240);*/
 }
 
 header, footer, nav, section, div {
@@ -69,7 +69,9 @@ fieldset {
 }
 
 #lobby .dz-column-inner-wrapper {
-	padding-right: 260px;
+	border-right: 1px solid #F3F3F3;
+	background: rgb(247, 247, 247);
+	width: 85%;
 }
 
 #lobbyHeader {
@@ -80,9 +82,9 @@ fieldset {
 
 #loginBarContainer {
 	float: right;
-	margin-top: 70px;
-	color: gray;
+	color: #75797B;
 	font-size: 1.6em;
+	padding-right: 10px;
 }
 
 #registerSpanLink {
@@ -91,17 +93,22 @@ fieldset {
 }
 
 #lobbyQuoteAndNavSection {
-	background: #9E9A89;
-	/*background: gray;*/
-	padding: 10px;
-	padding-bottom: 0;
 	font-family: Raleway-Regular;
+	text-align: left;
+	margin: 0 auto;
+	width: 80%;
 }
 
 .lobby-quote {
-	color: black;
+	color: #B7B7AF;
 	font-size: 2em;
-	text-align: center;
+	line-height: 1;
+}
+
+#addPublicEventBtn {
+	float: right;
+	padding-right: 40px;
+	clear: both;
 }
 
 .dz-row {
@@ -111,27 +118,26 @@ fieldset {
 }
 
 #lobbyNavContainer {
-	margin-top: 150px;
-	text-align: center;
+	margin-top: 40px;
 	font-size: 1.2em;
-	padding: 20px;
-	/*border-top: 1px solid #949494;*/
-	border-top: 1px solid #B5B19E;
 }
 
 	#lobbyNavContainer a {
-		margin: 10px;
-		color: white;
+		margin-right: 10px;
+		color: black;
 		text-decoration: none;
 	}
 
 .selected-nav-link {
-	text-shadow: 0px 1px 1px #B3AC95;
-	border-bottom: 2px solid #F6FFF4;
+	/*text-shadow: 0px 1px 1px #B3AC95;
+  border-bottom: 2px solid #F6FFF4;*/
+	text-shadow: 0px 1px 1px #929292;
+	border-bottom: 2px solid #BDB7B7;
 }
 
 #lobbyTableOfEventsSection {
-	/*background: rgb(250, 250, 240);*/
+	border-top: 1px solid #E8E8E8;
+	padding-top: 10px;
 }
 
 .events-menu-container {
@@ -143,13 +149,13 @@ fieldset {
 	display: inline-block;
 	position: relative;
 	margin-bottom: 20px;
-	background: #FDFDF9;
-	border: 2px solid rgb(228, 224, 209);
+	background: #E8E8E4;
+	border: 1px solid rgb(226, 226, 226);
 }
 
 .menu-item {
 	height: 0px;
-	color: rgb(133, 123, 100);
+	color: rgb(76, 76, 76);
 	font-size: 1em;
 	margin-bottom: 20px;
 	width: 100px;
@@ -193,12 +199,13 @@ fieldset {
 
 .menu-item-number-upcoming {
 	font-size: 3em;
-	color: rgb(173, 165, 137);
+	color: rgb(148, 148, 148);
 }
 
 .display-events-overview-container {
 	background: rgb(232, 232, 212);
 	border: 2px solid white;
+	clear: both;
 }
 
 .display-events-overview-header {
@@ -211,15 +218,11 @@ fieldset {
 }
 
 .display-events-header-menu-title {
-	border-top: 4px solid #A7A292;
 	padding: 10px;
 }
 
 	.display-events-header-menu-title.selected {
-		/*color: rgb(255, 251, 239);*/
 		color: rgb(121, 121, 106);
-		border-top: 4px solid #9A9A84;
-		/*border-top: 4px solid #D7D0B8;*/
 	}
 
 .display-events-overview-body {
@@ -316,6 +319,8 @@ fieldset {
 #details .dz-column-inner-wrapper {
 	width: 80%;
 	margin: 0 auto;
+	background: rgb(247, 247, 247);
+	border: 1px solid #F1F1E7;
 }
 
 #detailsPanel .events-menu-container {
@@ -330,7 +335,7 @@ fieldset {
 	height: 200px;
 	width: 200px;
 	background: gray;
-	display: inline-block;
+	display: none;
 }
 
 #detailsDayTable {
@@ -582,7 +587,6 @@ fieldset {
 	top: 100px;
 }
 
-
 #loginPageContainer {
 	display: none;
 }
@@ -639,11 +643,10 @@ fieldset {
 }
 
 .section-title {
-	background: #E8E8D4;
 	font-size: 2em;
-	text-align: center;
 	color: #5D5D59;
-	margin-bottom: 10px;
+	border-bottom: 1px solid #FFFFFF;
+	text-align: center;
 }
 
 .hover-cursor-pointer:hover {
@@ -731,7 +734,6 @@ fieldset {
 /*popupbox*/
 
 .popupbox {
-	position: fixed;
 	background: #F9F9F6;
 	border: 2px solid #ffffeb;
 	color: #827869;
@@ -745,6 +747,7 @@ fieldset {
 	height: 90%;
 	top: 0;
 	overflow-y: scroll;
+	position: absolute;
 }
 
 .confirmation-popupbox {
@@ -758,18 +761,20 @@ fieldset {
 
 .popupbox label {
 	color: #484848;
-	padding: 10px;
-	margin-bottom: -20px;
-	padding-left: 0;
 	text-transform: uppercase;
-	/* background: rgba(194,175,129,.4); */
 	font-size: .6em;
+	margin-bottom: -10px;
 }
 
 .popupbox legend {
 	color: #808080;
 	font-size: 1em;
 	border-bottom: 2px solid;
+	width: 50%;
+}
+
+.popupbox textarea {
+	margin-top: 8px;
 }
 
 .popupbox input[type=text], .popupbox input[type=password], .popupbox textarea, .popupbox select {
@@ -791,7 +796,8 @@ fieldset {
 
 .popupbox textarea {
 	height: 80px;
-	padding-top: 14px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
 .popupbox .time-select-box {
@@ -809,9 +815,9 @@ fieldset {
 }
 
 #btnAddNewEvent {
-	float: left;
+	float: right;
 	font-size: 1em;
-	margin-left: 183px;
+	margin-right: 50%;
 }
 
 #addNewEventShowMoreOptionsLink {
@@ -826,4 +832,5 @@ fieldset {
 .field-validation-error {
 	font-size: .6em;
 	color: red;
+
 }

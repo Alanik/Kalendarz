@@ -14,12 +14,15 @@
 </head>
 <body>
 	<div id="appContainer">
-		<div id="spinnerContainer" style="display:none;">
+		<div id="pageOverlayAtPageLoad" style="width: 100%; height: 100%; background: rgb(247, 247, 247); position: absolute; z-index: 100;"></div>
+		<div id="spinnerContainer">
 			<span id="spinnerText"></span>
 		</div>
-    <div class="page-overlay" style="display:none;"></div>
-    @Html.Partial("_ConfirmationPopupBox")
-    @Html.Partial("_AddNewEvent", new KalendarzKarieryData.Models.ViewModels.AddEventViewModel())
+
+
+		<div class="page-overlay" style="display: none;"></div>
+		@Html.Partial("_ConfirmationPopupBox")
+		@Html.Partial("_AddNewEvent", new KalendarzKarieryData.Models.ViewModels.AddEventViewModel())
 
 		@RenderBody()
 

@@ -25,7 +25,7 @@ namespace KalendarzKariery
 			bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
 			"~/Scripts/Lib/knockout-*"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/Site.css", "~/Content/MediaQueries.css"));
+			bundles.Add( new StyleBundle( "~/Content/css" ).Include( "~/Content/Site.css", "~/Content/MediaQueries.css", "~/Scripts/CalendarWidget/CalendarWidget.css", "~/Scripts/Lib/DzieuoJs/Dzieuo.css" ) );
 
 			bundles.Add(new ScriptBundle("~/bundles/kalendarzKarieryScripts").Include(
 			"~/Scripts/Lib/SpinJS/spin.min.js",

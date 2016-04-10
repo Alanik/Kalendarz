@@ -199,7 +199,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Dzieuo.css" />
+    <Content Include="Scripts\Lib\DzieuoJs\Dzieuo.css" />
     <Content Include="Content\Fonts\Oxygen\OFL.txt" />
     <Content Include="Content\Fonts\Raleway\FONTLOG.txt" />
     <Content Include="Content\Fonts\Raleway\images\raleway-1.jpeg" />
@@ -275,7 +275,7 @@
     <Content Include="Content\Fonts\Raleway\Raleway-Thin-Italic.ttf" />
     <Content Include="Content\Fonts\Raleway\Raleway-Thin.ttf" />
     <None Include="Properties\PublishProfiles\Alan.pubxml" />
-    <Content Include="Scripts\CalendarWidget\calendarWidget.css" />
+    <Content Include="Scripts\CalendarWidget\CalendarWidget.css" />
     <Content Include="Scripts\JSManagers\EventManager.js" />
     <Content Include="Scripts\JSManagers\NoteManager.js" />
     <Content Include="Scripts\JSUtils\SimpleFilt.js" />

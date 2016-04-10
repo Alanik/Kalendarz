@@ -27,8 +27,6 @@
 @Scripts.Render( "~/bundles/modernizr" )
 @Scripts.Render( "~/bundles/knockout" )
 
-<script src="~/Scripts/Lib/raphael-min.js"></script>
-
 <script src="~/Scripts/Lib/SpinJS/spin.min.js"></script>
 <script src="~/Scripts/Lib/Masonry/masonry-docs.min.js"></script>
 <script src="~/Scripts/KnockoutCustomBindings/KOCustomBindings.js"></script>
@@ -69,24 +67,22 @@
 
 	$(function () { 
 		"use strict";
-		//////////////////////////
-		//Start of application
-		//////////////////////////
-		var PROGRAM = Program;
-		var spinner = PROGRAM.initializeLoader();
-
+		var PROGRAM = Program, siteLoadingTextAnimationInterval = {interval : null};
 		var indexViewModel = @Html.Raw( Json.Encode( @Model.IndexViewModel ) );
 		var userName = '@User.Identity.Name.ToLower()';
 		var $dzieuo = $("#dzieuo");
 
-		$dzieuo.dzieuo({
-			'row_scroll_padding_top': 20
-		});
+		//////////////////////////
+		//Start of application
+		//////////////////////////
 
-		$("#dzVerticalPaging").addClass("xs-hide");
-	
+		PROGRAM.initializeSiteLoadingText();
+		PROGRAM.animateSiteLoadingText(siteLoadingTextAnimationInterval);
 		PROGRAM.initializeJQueryExtentionMethods(SIMPLE_FILT());
-		PROGRAM.initialize(indexViewModel, userName, spinner);
+		PROGRAM.initializeDzieuoPlugin($dzieuo);
+		PROGRAM.initialize(indexViewModel, userName, PROGRAM.initializeLoader());
+		PROGRAM.displaySiteAfterLoad(siteLoadingTextAnimationInterval, $dzieuo);
+		
 	});
 
 </script>

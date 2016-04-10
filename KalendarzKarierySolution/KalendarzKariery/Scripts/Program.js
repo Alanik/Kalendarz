@@ -50,9 +50,6 @@
 		//Set the popup window to center
 		$target.css( 'top', winH / 2 - $target.height() / 2 );
 		$target.css( 'left', winW / 2 - $target.width() / 2 - 20 );
-
-		spinner.spin( $target[0] );
-
 		return spinner;
 	},
 	initializeEventGrid: function ()
@@ -65,6 +62,62 @@
 				itemSelector: '.event-block-container'
 			} );
 		} );
+	},
+	initializeSiteLoadingText: function ()
+	{
+		var textArr = ["Ł", "A", "D", "O", "W", "A", "N", "I", "E", " ", "A", "P", "L", "I", "K", "A", "C", "J", "I", ".", ".", "."];
+		var spanOpened = "<span>", spanClosed = "</span>";
+		var output = "";
+
+		for ( var i = 0; i < textArr.length; i++ )
+		{
+			output += spanOpened + textArr[i] + spanClosed;
+		}
+
+		$( "#pageOverlayAtSiteLoadText" ).html( output );
+	},
+	animateSiteLoadingText: function ( siteLoadingTextAnimationInterval )
+	{
+		var $spans = $( "#pageOverlayAtSiteLoadText" ).children();
+		var counter = 0;
+
+		siteLoadingTextAnimationInterval.interval = setInterval( function () { animate( $spans ) }, 50 );
+
+		function animate( $spans )
+		{
+			if ( counter > 0 )
+			{
+				$spans[counter - 1].style.color = "gray";
+			}
+			else if ( counter == 0 )
+			{
+				$spans[$spans.length - 1].style.color = "gray";
+			}
+
+			if ( counter != $spans.length )
+			{
+				$spans[counter].style.color = "#E4E4DA";
+				counter++;
+			} else
+			{
+				counter = 0;
+			}
+		}
+	},
+	initializeDzieuoPlugin: function ( $dzieuo )
+	{
+		$dzieuo.dzieuo( {
+			'row_scroll_padding_top': 20
+		} );
+	},
+	displaySiteAfterLoad: function ( siteLoadingTextAnimationInterval, $dzieuo)
+	{
+		setTimeout( function ()
+		{
+			clearInterval( siteLoadingTextAnimationInterval.interval );
+			$( "#pageOverlayAtSiteLoad" ).hide();
+			$dzieuo.css( "visibility", "visible" )
+		}, 500 );
 	},
 	initialize: function ( indexViewModel, userName, spinner )
 	{
@@ -314,6 +367,8 @@
 		//    appViewModel.drawAnalogClock();
 		//    appViewModel.drawDigitalClock();
 		//}();
+
+		$( "#dzVerticalPaging" ).addClass( "xs-hide" );
 
 		this.initializeHover = function ()
 		{
@@ -877,9 +932,6 @@
 			} );
 
 		}();
-
-		setTimeout( function () { $( "#pageOverlayAtSiteLoad" ).hide(); $("#dzieuo").css("visibility", "visible") }, 500 );
-
 
 	}
 };

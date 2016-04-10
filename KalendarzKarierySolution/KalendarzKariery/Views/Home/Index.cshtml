@@ -1,6 +1,6 @@
 ﻿@model KalendarzKarieryData.Models.ViewModels.MainViewModel
 
-<div id="dzieuo">
+<div id="dzieuo" style="display: none;">
 
 	<section id="lobby" class="dz-column">
 		@Html.Partial( "_Lobby" )
@@ -77,9 +77,9 @@
 
 		var indexViewModel = @Html.Raw( Json.Encode( @Model.IndexViewModel ) );
 		var userName = '@User.Identity.Name.ToLower()';
-		
+		var $dzieuo = $("#dzieuo");
 
-		$('#dzieuo').dzieuo({
+		$dzieuo.dzieuo({
 			'row_scroll_padding_top': 20
 		});
 
@@ -87,6 +87,8 @@
 	
 		PROGRAM.initializeJQueryExtentionMethods(SIMPLE_FILT());
 		PROGRAM.initialize(indexViewModel, userName, spinner);
+
+		$dzieuo.show();
 	});
 
 </script>

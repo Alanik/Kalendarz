@@ -878,10 +878,7 @@
 
 		}();
 
-
-		$( "#pageOverlayAtPageLoad" ).fadeOut( "slow" );
-
-		setTimeout( function () { $( "#spinnerContainer" ).hide(); }, 500 )
+		setTimeout( function () { $( "#pageOverlayAtPageLoad" ).hide()}, 500 );
 
 	}
 };

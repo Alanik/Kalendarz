@@ -14,15 +14,17 @@
 </head>
 <body>
 	<div id="appContainer">
-		<div id="pageOverlayAtPageLoad" style="width: 100%; height: 100%; background: rgb(247, 247, 247); position: absolute; z-index: 100;"></div>
-		<div id="spinnerContainer">
+		<div id="pageOverlayAtPageLoad">
+			<div style="width: 50%; margin: 0 auto; text-align: center; padding-top: 20%; font-family: Raleway-Regular; font-size: 3em;">Ładowanie aplikacji...</div>
+		</div>
+		<div id="spinnerContainer" style="display: none;">
 			<span id="spinnerText"></span>
 		</div>
 
 
 		<div class="page-overlay" style="display: none;"></div>
-		@Html.Partial("_ConfirmationPopupBox")
-		@Html.Partial("_AddNewEvent", new KalendarzKarieryData.Models.ViewModels.AddEventViewModel())
+		@Html.Partial( "_ConfirmationPopupBox" )
+		@Html.Partial( "_AddNewEvent", new KalendarzKarieryData.Models.ViewModels.AddEventViewModel() )
 
 		@RenderBody()
 

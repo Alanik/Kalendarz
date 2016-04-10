@@ -28,6 +28,7 @@ fieldset {
 	padding: 0;
 	margin: 0;
 }
+
 @font-face {
 	font-family: Raleway;
 	src: url('Fonts/Raleway/Raleway-Thin.ttf');
@@ -69,7 +70,16 @@ fieldset {
 #lobby .dz-column-inner-wrapper {
 	border-right: 1px solid #F3F3F3;
 	background: rgb(247, 247, 247);
-	width: 85%;
+	width: 80%;
+}
+
+#pageOverlayAtPageLoad {
+	width: 80%;
+	height: 100%;
+	background: rgb(247, 247, 247);
+	border-right: 1px solid #F3F3F3;
+	position: absolute;
+	z-index: 100;
 }
 
 #lobbyHeader {

@@ -878,7 +878,8 @@
 
 		}();
 
-		setTimeout( function () { $( "#pageOverlayAtPageLoad" ).hide()}, 500 );
+		setTimeout( function () { $( "#pageOverlayAtSiteLoad" ).hide(); $("#dzieuo").css("visibility", "visible") }, 500 );
+
 
 	}
 };

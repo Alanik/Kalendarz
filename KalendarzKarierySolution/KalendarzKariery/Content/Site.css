@@ -73,13 +73,24 @@ fieldset {
 	width: 80%;
 }
 
-#pageOverlayAtPageLoad {
+#pageOverlayAtSiteLoad {
 	width: 80%;
 	height: 100%;
 	background: rgb(247, 247, 247);
 	border-right: 1px solid #F3F3F3;
 	position: absolute;
+	left: -14px;
 	z-index: 100;
+}
+
+#pageOverlayAtSiteLoadText {
+	width: 50%;
+	margin: 0 auto;
+	text-align: center;
+	padding-top: 20%;
+	font-family: Raleway-Regular;
+	font-size: 2em;
+	color: gray;
 }
 
 #lobbyHeader {

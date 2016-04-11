@@ -423,6 +423,7 @@
     var $addEventContainer = $("#addNewEventContainer");
     var privacyLvlValue = self.observableEvent.privacyLevel.value;
     var eventKindValue = self.observableEvent.kind.value();
+    var $dateValidationMsg;
 
     var day = self.observableEvent.startDate.day();
     var month = self.observableEvent.startDate.month();

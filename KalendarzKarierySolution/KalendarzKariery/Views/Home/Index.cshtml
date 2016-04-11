@@ -20,9 +20,9 @@
 
 </div>
 
-@* Lib  *@
+@Scripts.Render("~/bundles/scripts")
 
-@Scripts.Render( "~/bundles/jquery" )
+@*@Scripts.Render( "~/bundles/jquery" )
 @Scripts.Render( "~/bundles/jqueryval" )
 @Scripts.Render( "~/bundles/modernizr" )
 @Scripts.Render( "~/bundles/knockout" )
@@ -36,8 +36,6 @@
 <script src="~/Scripts/Lib/DzieuoJs/jquery.easing.1.3.js"></script>
 <script src="~/Scripts/Lib/DzieuoJs/dzieuo.js"></script>
 
-@* Models *@
-
 <script src="~/Scripts/JSModels/KKEventModel.js"></script>
 <script src="~/Scripts/JSModels/KKEventModelObservable.js"></script>
 <script src="~/Scripts/JSModels/KKNoteModel.js"></script>
@@ -47,21 +45,15 @@
 <script src="~/Scripts/JSModels/KKEventDateModelObservable.js"></script>
 <script src="~/Scripts/JSViewModels/AppViewModel.js"></script>
 
-@* Utils *@
-
 <script src="~/Scripts/JSUtils/EventColorHelper.js"></script>
 <script src="~/Scripts/JSUtils/TreeBuilder.js"></script>
 <script src="~/Scripts/JSUtils/WebApiCaller.js"></script>
 <script src="~/Scripts/JSUtils/SimpleFilt.js"></script>
 
-@* Managers *@
-
 <script src="~/Scripts/JSManagers/EventManager.js"></script>
 <script src="~/Scripts/JSManagers/NoteManager.js"></script>
 
-@* Program *@
-
-<script src="~/Scripts/Program.js"></script>
+<script src="~/Scripts/Program.js"></script>*@
 
 <script type="text/javascript">
 
@@ -81,8 +73,8 @@
 		PROGRAM.initializeJQueryExtentionMethods(SIMPLE_FILT());
 		PROGRAM.initializeDzieuoPlugin($dzieuo);
 		PROGRAM.initialize(indexViewModel, userName, PROGRAM.initializeLoader());
-		PROGRAM.displaySiteAfterLoad(siteLoadingTextAnimationInterval, $dzieuo);
-		
+		PROGRAM.displaySiteAfterLoad(siteLoadingTextAnimationInterval, $dzieuo);	
 	});
 
 </script>
+

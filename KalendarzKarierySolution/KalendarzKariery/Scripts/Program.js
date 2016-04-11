@@ -65,7 +65,7 @@
 	},
 	initializeSiteLoadingText: function ()
 	{
-		var textArr = ["Ł", "A", "D", "O", "W", "A", "N", "I", "E", " ", "A", "P", "L", "I", "K", "A", "C", "J", "I", ".", ".", "."];
+		var textArr = ["Z", "N", "A", "J", "D", "Ź", " ", "C", "Z", "A", "S", " ", "N", "A", " ", "S", "U", "K", "C", "E", "S"];
 		var spanOpened = "<span>", spanClosed = "</span>";
 		var output = "";
 
@@ -117,7 +117,7 @@
 			clearInterval( siteLoadingTextAnimationInterval.interval );
 			$( "#pageOverlayAtSiteLoad" ).hide();
 			$dzieuo.css( "visibility", "visible" )
-		}, 500 );
+		}, 1000 );
 	},
 	initialize: function ( indexViewModel, userName, spinner )
 	{

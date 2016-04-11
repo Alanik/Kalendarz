@@ -100,6 +100,12 @@ fieldset {
   float: right;
 }
 
+#loginFormBtn {
+  padding: 14px;
+  float: right;
+  margin-right: 50%;
+}
+
 #loginBarContainer {
   float: right;
   color: #75797B;
@@ -112,7 +118,7 @@ fieldset {
   margin-left: 20px;
 }
 
-#lobbyQuoteAndNavSection {
+#lobbyQuoteSection {
   font-family: Raleway-Regular;
   text-align: left;
   margin: 0 auto;
@@ -138,6 +144,8 @@ fieldset {
 }
 
 #lobbyNavContainer {
+  margin: 0 auto;
+  width: 80%;
   margin-top: 40px;
   font-size: 1.2em;
 }
@@ -241,7 +249,7 @@ fieldset {
 }
 
   .display-events-header-menu-title.selected {
-    color: rgb(121, 121, 106);
+    color: gray;
   }
 
 .display-events-overview-body {
@@ -596,7 +604,59 @@ fieldset {
 
 
 
+.flat-form {
+  margin: 0 auto;
+  width: 50%;
+  position: relative;
+  border: 1px solid #D8D8D8;
+  padding: 20px;
+  background: #ECECEC;
+  margin-top: 40px;
+  font-size: 1.4em;
+}
 
+  .flat-form label {
+    color: #484848;
+    text-transform: uppercase;
+    font-size: .6em;
+  }
+
+  .flat-form legend {
+    color: #808080;
+    font-size: 1em;
+    border-bottom: 2px solid;
+    width: 50%;
+  }
+
+  .flat-form textarea {
+    margin-top: 8px;
+  }
+
+  .flat-form input[type=text], .flat-form input[type=password], .flat-form textarea, .flat-form select {
+    color: #8B836B;
+    background: rgba(236, 234, 227, 0.4);
+    /*background: rgb(194, 185, 159);*/
+    width: 220px;
+    height: 36px;
+    padding: 0px 10px;
+    border: 2px solid #f8f5f1;
+    border-radius: 5px;
+    box-shadow: inset 0px 0px 1px #b3a895;
+  }
+
+
+  .flat-form textarea {
+    height: 80px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+
+    .flat-form textarea:focus, .flat-form input[type=text]:focus, .flat-form input[type=password]:focus select:focus {
+      background: rgba(214, 211, 196, 0.4);
+      border: 2px solid white;
+      color: gray;
+    }
 
 
 .popup-form {
@@ -605,7 +665,6 @@ fieldset {
   height: auto;
   padding: 20px;
   left: 10%;
-  background: green;
   z-index: 100;
   top: 100px;
 }
@@ -626,19 +685,18 @@ fieldset {
   padding: 0 14px;
   border: 2px solid;
   border-radius: 4px;
-  margin: 10px;
-  background: #FDFCFA;
+  background: rgba(255,255,255,.5);
 }
 
 .btn-close {
   padding: 0 14px;
   border: 2px solid;
   border-radius: 4px;
-  position: relative;
-  background: #FDFCFA;
+  position: absolute;
+  background: rgba(255,255,255,.5);
   top: 20px;
   padding-bottom: 4px;
-  right: 40px;
+  right: 20px;
 }
 
 .green-color {
@@ -650,7 +708,7 @@ fieldset {
 }
 
 .div-separator {
-  margin: 20px;
+  margin: 10px 20px;
 }
 
 .block {
@@ -771,7 +829,6 @@ fieldset {
   background: #FBFBFB;
   border: 2px solid #ffffeb;
   color: #827869;
-  font-size: 2em;
   border-radius: 3px;
   width: 60%;
   left: 20%;
@@ -788,7 +845,11 @@ fieldset {
 }
 
 .popupbox-header {
-  text-align: right;
+  font-size: 1.4em;
+}
+
+.popupbox-body {
+  font-size: 2em;
 }
 
 .popupbox label {

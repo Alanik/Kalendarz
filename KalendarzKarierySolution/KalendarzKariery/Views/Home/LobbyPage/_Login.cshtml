@@ -1,47 +1,45 @@
 ﻿@model KalendarzKarieryData.Models.AccountModels.LoginModel
 
-<div id="loginPageContainer" class="slick-contact-form">
-	<div class="form-header">
-		<div id="btnClose-loginPopup" data-bind="click: closeLoginPopupOnClick" class="btn-close hover-cursor-pointer"><span class="close-text">zamknij</span></div>
-	</div>
-	<div class="form-body">
-		@using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "loginForm" }))
-  {
-			@Html.AntiForgeryToken()
+<div id="loginPageContainer" class="flat-form">
+  <div class="form-header">
+    <div data-bind="click: closeLoginPopupOnClick" class="btn-close red-color hover-cursor-pointer">x</div>
+  </div>
+  <div class="form-body">
+    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "loginForm" }))
+    {
+        @Html.AntiForgeryToken()
 
-			<fieldset>
-				<legend>Logowanie</legend>
-				<ol>
-					<li>
-						@Html.LabelFor(m => m.UserName, new { @class = "form-label" })
-						<div>
-							@Html.ValidationMessageFor(m => m.UserName)
-						</div>
-						@Html.TextBoxFor(m => m.UserName)
-					</li>
-					<li>
+        <fieldset>
+          <legend>Logowanie</legend>
 
-						@Html.LabelFor(m => m.Password, new { @class = "form-label" })
-						<div>
-							@Html.ValidationMessageFor(m => m.Password)
-						</div>
-						@Html.PasswordFor(m => m.Password)
-					</li>
-					<li style="margin-top:20px;">
-						@Html.CheckBoxFor(m => m.RememberMe)
-						@Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
-					</li>
-				</ol>
-				<input type="button" id="loginFormBtn" class="myButton-white" value="Zaloguj sie" data-bind="click: $root.loginUserOnClick" />
-			</fieldset>
-		
-  }
-		<p>
-			<span class="link" id="showRegisterFormBtn" data-bind="click: $root.showRegisterFormOnClick">Utwórz konto</span><span> jeśli jeszcze takiego nie posiadasz.</span>
-		</p>
+          <div class="div-separator">
+            @Html.LabelFor(m => m.UserName, new { @class = "form-label" })
+            <div>
+              @Html.ValidationMessageFor(m => m.UserName)
+            </div>
+            @Html.TextBoxFor(m => m.UserName)
+          </div>
+          <div class="div-separator">
+            @Html.LabelFor(m => m.Password, new { @class = "form-label" })
+            <div>
+              @Html.ValidationMessageFor(m => m.Password)
+            </div>
+            @Html.PasswordFor(m => m.Password)
+          </div>
+          <div class="div-separator">
+            @Html.CheckBoxFor(m => m.RememberMe)
+            @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
+          </div>
 
-	</div>
+          <input type="button" id="loginFormBtn" class="btn-add green-color hover-cursor-pointer" value="Zaloguj sie" data-bind="click: $root.loginUserOnClick" />
+        </fieldset>
+    }
+
+    <div style="text-align:right;margin-top:20px;font-size:.8em;">
+      <a id="showRegisterFormBtn" class="green-color hover-cursor-pointer" href="#" data-bind="click: $root.showRegisterFormOnClick">Utwórz konto</a><span style="color:gray;"> jeśli jeszcze takiego nie posiadasz.</span>
+    </div>
+
+  </div>
 </div>
-
 
 

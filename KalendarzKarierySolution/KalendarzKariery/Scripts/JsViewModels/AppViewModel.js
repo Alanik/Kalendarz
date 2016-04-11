@@ -1293,10 +1293,10 @@
     $menuItemContainer.toggleClass("selected");
 
     if ($menuItemContainer.hasClass("selected")) {
-    	$menuItemContainer.css( "top", "20px" );
-    	$menuItemContainer.css( "border", "2px solid rgb(218, 216, 208)" );
-    	$menuItemContainer.css( "border-bottom", "2px solid gray" );
-    	$menuItemContainer.css( "border-top", "2px solid gray" );
+      $menuItemContainer.css("top", "20px");
+      $menuItemContainer.css("border", "2px solid rgb(218, 216, 208)");
+      $menuItemContainer.css("border-bottom", "2px solid gray");
+      $menuItemContainer.css("border-top", "2px solid gray");
       menuObj.selectedEventKindValues.push(eventKindValue);
       self.showSelectedEvents(selectedEventsProp, 'all', [eventKindValue]);
 
@@ -1606,14 +1606,16 @@
 
   self.showLoginFormOnClick = function () {
     var $loginForm = $("#loginPageContainer");
-    var $registerForm = $("#registerPageContainer");
-    var $overlay = $("#lobby").siblings(".page-overlay");
-    $overlay.css("opacity", 1);
-    $overlay.show();
-    $registerForm.hide();
+    var $loginBtn = $loginForm.find("#loginFormBtn");
+    var $username = $loginForm.find("#UserName");
+
     $loginForm.fadeIn();
-    var top = $loginForm.position().top;
-    $("#slide-item-lobby").parent().scrollTop(top);
+
+    if ($username.val() !== '') {
+      $loginBtn.focus();
+    } else {
+      $username.focus();
+    }
   };
 
   self.loginUserOnClick = function () {
@@ -2117,8 +2119,8 @@
 
           if ($menuItemContainer.hasClass("selected")) {
             $menuItemContainer.removeClass("selected");
-            $menuItemContainer.css( "top", "0px" );
-            $menuItemContainer.css( "border", "1px solid rgb(226, 226, 226)" );
+            $menuItemContainer.css("top", "0px");
+            $menuItemContainer.css("border", "1px solid rgb(226, 226, 226)");
           }
         });
 
@@ -2137,8 +2139,8 @@
 
           if ($menuItemContainer.hasClass("selected")) {
             $menuItemContainer.removeClass("selected");
-            $menuItemContainer.css( "top", "0px" );
-            $menuItemContainer.css( "border", "1px solid rgb(226, 226, 226)" );
+            $menuItemContainer.css("top", "0px");
+            $menuItemContainer.css("border", "1px solid rgb(226, 226, 226)");
           }
         });
 

@@ -16,7 +16,7 @@
 
 #calendarMenuHeader {
 	display: table-caption;
-	border-bottom: 1px solid #FAFFFE;
+	border-bottom: 1px solid #FBFBFB;
 	letter-spacing: 1px;
 	font-size: 2.2em;
 	text-align: center;
@@ -51,14 +51,14 @@
 
 .weekday-container {
 	display: table-row;
-	color: gray;
+	color: #A9A8A8;
 }
 
 .weekday {
 	display: table-cell;
 	text-align: center;
-	padding-top: 10px;
-	border-top: 1px solid #DADADA;
+	padding: 10px;
+	border-top: 1px solid #F1F1F1;
 }
 
 
@@ -168,7 +168,7 @@
 		}
 
 	.current-month-cell span {
-		color: rgb(109,109,109);
+		color: #b8b8b8;
 		position: absolute;
 		padding-left: 2px;
 		padding-right: 5px;
@@ -197,7 +197,6 @@
 	display: table;
 	table-layout: fixed;
 	width: 100%;
-	background: rgb(232, 232, 228);
 }
 
 .addNewEvent-cellIcon {

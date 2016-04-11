@@ -53,17 +53,17 @@
     calendar += '</div>';
     // END weekday-container
 
-    // START calendar-hours
-    for (var d = 0; d < 7; d++) {
-      calendar += '<div class="calendar-hours sm-hide">';
-      counter = 0;
-      for (var i = 7; i < 22; i += 2) {
-        calendar += '<div class="hour" style="left:' + ((counter + .4) * 6.4) + '%;"> ' + i + ' </div>';
-        counter += 2;
-      }
-      calendar += '</div>';
-    }
-    // END calendar-hours
+    //// START calendar-hours
+    //for (var d = 0; d < 7; d++) {
+    //  calendar += '<div class="calendar-hours sm-hide">';
+    //  counter = 0;
+    //  for (var i = 7; i < 22; i += 2) {
+    //    calendar += '<div class="hour" style="left:' + ((counter + .4) * 6.4) + '%;"> ' + i + ' </div>';
+    //    counter += 2;
+    //  }
+    //  calendar += '</div>';
+    //}
+    //// END calendar-hours
 
     // START calendar
     days = getDaysInMonth(opts.month, opts.year);

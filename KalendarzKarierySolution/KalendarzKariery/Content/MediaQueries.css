@@ -19,6 +19,10 @@ MEDIA QUERIES
     padding-top: 2px !important;
   }
 
+  .flat-form {
+    width: 98%;
+  }
+
   .display-events-overview-container .legend-oldorupcoming {
     margin-left: 0;
   }
@@ -113,7 +117,7 @@ MEDIA QUERIES
     display: none !important;
   }
 
-  #lobbyQuoteAndNavSection {
+  #lobbyQuoteSection {
     width: 98%;
   }
 }

@@ -6,14 +6,14 @@
 	</header>
 	@Html.Partial( "_LobbyLoginBar" )
 
-  <nav id="lobbyNavContainer">
-    <a href="#0" class="selected-nav-link">Strona Główna</a>
-    <a href="#1">Kalendarz</a>
-    <a href="#2">Dziennik</a>
-  </nav>
+	<nav id="lobbyNavContainer">
+		<a href="#0" class="selected-nav-link">Strona Główna</a>
+		<a href="#1">Kalendarz</a>
+		<a href="#2">Dziennik</a>
+	</nav>
 
-  @Html.Partial("_Login", new KalendarzKarieryData.Models.AccountModels.LoginModel())
-  @Html.Partial("_Register", new KalendarzKarieryData.Models.ViewModels.RegisterViewModel())
+	@Html.Partial( "_Login", new KalendarzKarieryData.Models.AccountModels.LoginModel() )
+	@Html.Partial( "_Register", new KalendarzKarieryData.Models.ViewModels.RegisterViewModel() )
 	<section id="lobbyQuoteSection">
 		<p class="lobby-quote">Twój osobisty kalendarz stworzony na miare Twoich potrzeb.</p>
 	</section>
@@ -34,6 +34,9 @@
 			</header>
 			@Html.Partial( "_LobbyPublicEventList" )
 		</div>
+
+		<input type="button" value="Stwórz publiczne wydarzenie +" id="addPublicEventBtn" class="btn-add green-color hover-cursor-pointer" data-bind="click: function ( data, e ) { $root.showAddPublicEventPopupOnClick( $element, data, e ) }" />
+
 	</section>
 </section>
 <section class="dz-row">

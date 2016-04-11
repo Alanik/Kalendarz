@@ -12,15 +12,13 @@
 			<div class="overview-item-inner-wrapper" data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
 				<div class="inline-block width-49per">
 					<div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
-					<img class="list-item-star" src="~/Images/Icons/star.png" alt="public event star" />
-					<span class="list-item-title" data-bind="text: name"></span>
 					<div class="list-item-date">
 						<span class="list-item-other" data-bind="text: startDate.displayFullDate()"></span>
 						<span class="list-item-other" data-bind="text: startDate.displayFullTime()"></span>
 					</div>
 				</div>
 				<div class="inline-block width-49per">
-					<p class="event-block-description" data-bind="text: description"></p>
+          <span class="list-item-title" data-bind="text: name"></span>
 				</div>
 			</div>
 			<div class="event-block-expand" style="display:none;">
@@ -41,15 +39,14 @@
 			<div class="overview-item-inner-wrapper" data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
 				<div class="inline-block width-49per">
 					<div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
-					<img class="list-item-star" src="~/Images/Icons/star.png" alt="public event star" />
-					<span class="list-item-title" data-bind="text: name"></span>
-					<div class="list-item-date">
+				
+					<span class="list-item-date">
 						<span class="list-item-other" data-bind="text: startDate.displayFullDate()"></span>
 						<span class="list-item-other" data-bind="text: startDate.displayFullTime()"></span>
-					</div>
+					</span>
 				</div>
 				<div class="inline-block width-49per">
-					<p class="event-block-description" data-bind="text: description"></p>
+          <span class="list-item-title" data-bind="text: name"></span>
 				</div>
 			</div>
 			<div class="event-block-expand" style="display:none;">

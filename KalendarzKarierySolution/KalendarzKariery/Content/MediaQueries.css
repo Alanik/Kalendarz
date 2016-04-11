@@ -108,10 +108,19 @@ MEDIA QUERIES
 
 	#lobbyNavContainer {
 		text-align: center;
+		padding-right: 0;
 	}
 
 	#loginFormBtn {
 		margin-right: 0;
+	}
+
+	#loginBarContainer {
+		padding-right: 5px;
+	}
+
+	#registerSpanLink {
+		margin-right: 5px;
 	}
 }
 

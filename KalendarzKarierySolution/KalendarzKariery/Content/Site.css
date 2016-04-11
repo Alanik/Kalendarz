@@ -117,7 +117,7 @@ fieldset {
 
 #registerSpanLink {
 	font-size: .8em;
-	margin-left: 20px;
+	margin-right:12px;
 }
 
 #lobbyQuoteSection {
@@ -149,7 +149,6 @@ fieldset {
 	margin: 0 auto;
 	font-size: 1.2em;
 	border-top: 1px solid white;
-	padding-left: 20%;
 	padding-top: 30px;
 }
 

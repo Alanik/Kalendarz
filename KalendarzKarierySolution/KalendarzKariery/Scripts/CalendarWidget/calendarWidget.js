@@ -17,6 +17,7 @@
       month: thismonth,
       year: thisyear,
       dayNames: ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'],
+      shortDayNames:["Pn", "Wt", "Śr", "Cz", "Pt", "So", "Nd"],
       monthNames: ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień']
     };
 
@@ -47,7 +48,7 @@
     calendar += ('<div class="weekday-container">');
     for (var d = 0; d < 7; d++) {
       currentWeekdayClass = (weekday - 1 === d ? 'current-weekday' : '');
-      calendar += '<div class="weekday ' + currentWeekdayClass + '">' + opts.dayNames[d] + '</div>';
+      calendar += '<div class="weekday ' + currentWeekdayClass + '"><div class="sm-hide">' + opts.dayNames[d] + '</div><div class="sm-show rg-hide">' + opts.shortDayNames[d] + '</div></div>';
     }
     calendar += '</div>';
     // END weekday-container

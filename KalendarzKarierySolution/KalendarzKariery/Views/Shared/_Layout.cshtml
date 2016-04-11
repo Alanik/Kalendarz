@@ -1,33 +1,32 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-	<title>Kalendarz Kariery</title>
+  <title>Kalendarz Kariery</title>
 
-	<link rel="icon" href="@Url.Content( "~/Images/Ico/favicon.ico" )"/>
-	@Styles.Render( "~/Content/css" )
+  <link rel="icon" href="@Url.Content( "~/Images/Ico/favicon.ico" )" />
+  @Styles.Render("~/Content/css")
 </head>
 <body>
-	<div id="appContainer">
-		<div id="pageOverlayAtSiteLoad">
-			<div id="pageOverlayAtSiteLoadText">
+  <div id="appContainer">
+    <div id="pageOverlayAtSiteLoad">
+      <div id="pageOverlayAtSiteLoadText">
+      </div>
+    </div>
+    <div id="spinnerContainer" style="display: none;">
+      <span id="spinnerText"></span>
+    </div>
 
-			</div>
-		</div>
-		<div id="spinnerContainer" style="display: none;">
-			<span id="spinnerText"></span>
-		</div>
 
+    <div class="page-overlay" style="display: none;"></div>
+    @Html.Partial("_ConfirmationPopupBox")
+    @Html.Partial("_AddNewEvent", new KalendarzKarieryData.Models.ViewModels.AddEventViewModel())
 
-		<div class="page-overlay" style="display: none;"></div>
-		@Html.Partial( "_ConfirmationPopupBox" )
-		@Html.Partial( "_AddNewEvent", new KalendarzKarieryData.Models.ViewModels.AddEventViewModel() )
+    @RenderBody()
 
-		@RenderBody()
-
-	</div>
+  </div>
 </body>
 </html>

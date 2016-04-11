@@ -4,6 +4,9 @@ MEDIA QUERIES
 
 @media only screen and (min-width: 768px) {
   /* tablets and desktop */
+  .rg-hide {
+    display: none !important;
+  }
 }
 
 @media only screen and (max-width: 767px) {
@@ -56,7 +59,7 @@ MEDIA QUERIES
   }
 
   .xs-hide {
-    display: block;
+    display: block !important;
   }
 
   .sm-hide {
@@ -64,7 +67,7 @@ MEDIA QUERIES
   }
 
   .sm-show {
-    display: block;
+    display: block !important;
   }
 
   #dzPrevArrow {
@@ -107,7 +110,7 @@ MEDIA QUERIES
 @media only screen and (max-width: 767px) and (orientation: portrait) {
   /* portrait phones */
   .xs-hide {
-    display: none;
+    display: none !important;
   }
 
   #lobbyQuoteAndNavSection {

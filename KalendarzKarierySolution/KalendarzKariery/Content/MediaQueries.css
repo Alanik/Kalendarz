@@ -124,4 +124,8 @@ MEDIA QUERIES
 	.flat-form input[type=text], .flat-form input[type=password], .flat-form textarea, .flat-form select {
 		width: 100%;
 	}
+
+	.div-separator {
+	margin-top:20px;
+	}
 }

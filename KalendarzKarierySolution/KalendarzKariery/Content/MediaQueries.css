@@ -125,7 +125,9 @@ MEDIA QUERIES
   }
 
   #registerForm .slash-separator {
-    visibility: hidden;
+    position: relative;
+    bottom: 10px;
+    vertical-align: bottom;
   }
 }
 
@@ -157,6 +159,6 @@ MEDIA QUERIES
   }
 
   #registerForm select {
-    width: 85% !important;
+    width: 84.6% !important;
   }
 }

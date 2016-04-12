@@ -332,7 +332,7 @@ fieldset {
   float: right;
 }
 
-.register-birthdate-txtbox {
+#registerForm .register-birthdate-txtbox {
   width: 46px !important;
 }
 

@@ -1,17 +1,17 @@
 ﻿@if (Request.IsAuthenticated)
 {
 	<div id="loginBarContainer">
-		<span class="lobby-user-nickname">@User.Identity.Name</span>
+		<span class="lobby-login-text">@User.Identity.Name</span>
 		@using (Html.BeginForm( "LogOff", "Account", FormMethod.Post, new { id = "logoutForm" } ))
   {
 			@Html.AntiForgeryToken()
-			<a style="color: rgb(255, 109, 109); padding: 10px;" href="javascript:document.getElementById('logoutForm').submit()">wyloguj</a>   }
+			<a style="color: rgb(255, 109, 109);" href="javascript:document.getElementById('logoutForm').submit()">wyloguj</a>   }
 	</div>
 }
 else
 {
 	<div id="loginBarContainer">
-		<span id="registerSpanLink" data-bind="click: showRegisterFormOnClick" class="hover-cursor-pointer">Stwórz konto</span>
+		<span id="registerSpanLink" class="lobby-login-text" data-bind="click: showRegisterFormOnClick" class="hover-cursor-pointer">Stwórz konto</span>
 		<span id="loginSpanLink" data-bind="click: showLoginFormOnClick" class="hover-cursor-pointer">Zaloguj sie</span>
 	</div>
 }

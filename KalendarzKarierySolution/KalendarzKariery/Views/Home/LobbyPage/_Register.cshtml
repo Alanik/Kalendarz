@@ -1,76 +1,76 @@
 ﻿@model KalendarzKarieryData.Models.ViewModels.RegisterViewModel
 
 <div id="registerPageContainer" class="flat-form">
-	<div class="form-header">
-		<span data-bind="click: closeRegisterPopupOnClick" class="btn-close red-color hover-cursor-pointer">x</span>
-	</div>
-	<div class="form-body">
-		@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { id = "registerForm" }))
-  {
-			@Html.AntiForgeryToken()
+  <div class="form-header">
+    <span data-bind="click: closeRegisterPopupOnClick" class="btn-close red-color hover-cursor-pointer">x</span>
+  </div>
+  <div class="form-body">
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { id = "registerForm" }))
+    {
+        @Html.AntiForgeryToken()
 
-			<fieldset>
-				<legend>Rejestracja</legend>
-				<div class="summary-validation-errors"></div>
-				<ol>
-					<li>
+        <fieldset>
+          <legend>Rejestracja</legend>
+          <div class="summary-validation-errors"></div>
+          <ol>
+            <li>
 
-						@Html.LabelFor(m => m.RegisterModel.UserName, new { @class = "form-label" })
-						<div>
-							@Html.ValidationMessageFor(m => m.RegisterModel.UserName)
-						</div>
-           	@Html.TextBoxFor(m => m.RegisterModel.UserName, new { maxlength = 30 })<span class="exclamation-mark">*</span>
+              @Html.LabelFor(m => m.RegisterModel.UserName, new { @class = "form-label" })
+              <div>
+                @Html.ValidationMessageFor(m => m.RegisterModel.UserName)
+              </div>
+              @Html.TextBoxFor(m => m.RegisterModel.UserName, new { maxlength = 30 })<span class="exclamation-mark">*</span>
 
-					</li>
-					<li>
+            </li>
+            <li>
 
-						@Html.LabelFor(m => m.RegisterModel.Password, new { @class = "form-label" })
-						<div>
-							@Html.ValidationMessageFor(m => m.RegisterModel.Password)
-						</div>
-						@Html.PasswordFor(m => m.RegisterModel.Password, new { maxlength = 30 })<span class="exclamation-mark">*</span>
+              @Html.LabelFor(m => m.RegisterModel.Password, new { @class = "form-label" })
+              <div>
+                @Html.ValidationMessageFor(m => m.RegisterModel.Password)
+              </div>
+              @Html.PasswordFor(m => m.RegisterModel.Password, new { maxlength = 30 })<span class="exclamation-mark">*</span>
 
-					</li>
-					<li>
+            </li>
+            <li>
 
-						@Html.LabelFor(m => m.RegisterModel.ConfirmPassword, new { @class = "form-label" })
-						<div>
-							@Html.ValidationMessageFor(m => m.RegisterModel.ConfirmPassword)
-						</div>
-						@Html.PasswordFor(m => m.RegisterModel.ConfirmPassword, new { maxlength = 30 })<span class="exclamation-mark">*</span>
+              @Html.LabelFor(m => m.RegisterModel.ConfirmPassword, new { @class = "form-label" })
+              <div>
+                @Html.ValidationMessageFor(m => m.RegisterModel.ConfirmPassword)
+              </div>
+              @Html.PasswordFor(m => m.RegisterModel.ConfirmPassword, new { maxlength = 30 })<span class="exclamation-mark">*</span>
 
-					</li>
-					<li>
-						@Html.LabelFor(m => m.User.Email, new { @class = "form-label" })
-						<div>
-							@Html.ValidationMessageFor(m => m.User.Email)
-						</div>
-						@Html.TextBoxFor(m => m.User.Email, new { maxlength = 30 })<span class="exclamation-mark">*</span>
+            </li>
+            <li>
+              @Html.LabelFor(m => m.User.Email, new { @class = "form-label" })
+              <div>
+                @Html.ValidationMessageFor(m => m.User.Email)
+              </div>
+              @Html.TextBoxFor(m => m.User.Email, new { maxlength = 30 })<span class="exclamation-mark">*</span>
 
-					</li>
-					<li>
+            </li>
+            <li>
 
-						@Html.LabelFor(m => m.User.FirstName, new { @class = "form-label" })
-						<div>
-							@Html.ValidationMessageFor(m => m.User.FirstName)
-						</div>
-						@Html.TextBoxFor(m => m.User.FirstName, new { maxlength = 30 })<span class="exclamation-mark">*</span>
+              @Html.LabelFor(m => m.User.FirstName, new { @class = "form-label" })
+              <div>
+                @Html.ValidationMessageFor(m => m.User.FirstName)
+              </div>
+              @Html.TextBoxFor(m => m.User.FirstName, new { maxlength = 30 })<span class="exclamation-mark">*</span>
 
-					</li>
-					<li>
-						@Html.LabelFor(m => m.User.LastName, new { @class = "form-label" })
-						<div>
-							@Html.ValidationMessageFor(m => m.User.LastName)
-						</div>
-						@Html.TextBoxFor(m => m.User.LastName, new { maxlength = 30 })<span class="exclamation-mark">*</span>
+            </li>
+            <li>
+              @Html.LabelFor(m => m.User.LastName, new { @class = "form-label" })
+              <div>
+                @Html.ValidationMessageFor(m => m.User.LastName)
+              </div>
+              @Html.TextBoxFor(m => m.User.LastName, new { maxlength = 30 })<span class="exclamation-mark">*</span>
 
-					</li>
-					<li>
-						@Html.LabelFor(m => m.User.Gender, new { @class = "form-label" })
-						<div>
-							@Html.ValidationMessageFor(m => m.User.Gender)
-						</div>
-						@Html.DropDownList("User.Gender",
+            </li>
+            <li>
+              @Html.LabelFor(m => m.User.Gender, new { @class = "form-label" })
+              <div>
+                @Html.ValidationMessageFor(m => m.User.Gender)
+              </div>
+              @Html.DropDownList("User.Gender",
     new SelectList(new Dictionary<string, string>
         {
             {"Mężczyzna", "m"},
@@ -78,92 +78,93 @@
         },
         "Value", "Key")
 , new { style = "width:130px;" })<span class="exclamation-mark">*</span>
-					</li>
-					<li>
+            </li>
+            <li>
 
-						@Html.LabelFor(m => m.User.BirthDay, new { @class = "form-label" })
-						<div>
-							@Html.ValidationMessageFor(m => m.BirthDateModel.Day)
-						</div>
-						<div>
-							@Html.ValidationMessageFor(m => m.BirthDateModel.Month)
-						</div>
-						<div>
-							@Html.ValidationMessageFor(m => m.BirthDateModel.Year)
-						</div>
-						<div>
-						<span id="birthDateValidationErrorMsg" class="field-validation-error" style="display:none">Nieprawidłowa data.</span>
-						</div>
+              @Html.LabelFor(m => m.User.BirthDay, new { @class = "form-label" })
+              <div>
+                @Html.ValidationMessageFor(m => m.BirthDateModel.Day)
+              </div>
+              <div>
+                @Html.ValidationMessageFor(m => m.BirthDateModel.Month)
+              </div>
+              <div>
+                @Html.ValidationMessageFor(m => m.BirthDateModel.Year)
+              </div>
+              <div>
+                <span id="birthDateValidationErrorMsg" class="field-validation-error" style="display:none">Nieprawidłowa data.</span>
+              </div>
 
-						@Html.TextBoxFor(m => m.BirthDateModel.Day , string.Empty, new { id="birthDateDayTxtBox", @class = "register-birthdate-txtbox", placeholder = "dzień", maxlength = 2 }) <span style="color: #b3aba1;"> / </span>@Html.TextBoxFor(m => m.BirthDateModel.Month, string.Empty, new { id="birthDateMonthTxtBox", @class = "register-birthdate-txtbox", placeholder = "miesiąc", maxlength = 2 }) <span style="color: #b3aba1;"> / </span>@Html.TextBoxFor(m => m.BirthDateModel.Year, string.Empty, new { id = "birthDateYearTxtBox", @class = "register-birthdate-txtbox", placeholder = "rok", maxlength = 4 })<span class="exclamation-mark">*</span>
+              @Html.TextBoxFor(m => m.BirthDateModel.Day, string.Empty, new { id = "birthDateDayTxtBox", @class = "register-birthdate-txtbox", placeholder = "dzień", maxlength = 2 }) <span style="color: #b3aba1;"> / </span>@Html.TextBoxFor(m => m.BirthDateModel.Month, string.Empty, new { id = "birthDateMonthTxtBox", @class = "register-birthdate-txtbox", placeholder = "miesiąc", maxlength = 2 }) <span style="color: #b3aba1;"> / </span>@Html.TextBoxFor(m => m.BirthDateModel.Year, string.Empty, new { id = "birthDateYearTxtBox", @class = "register-birthdate-txtbox", placeholder = "rok", maxlength = 4 })<span class="exclamation-mark">*</span>
 
-					</li>
-					<li>
+            </li>
+            <li>
 
-						@Html.LabelFor(m => m.User.Address.Street, new { @class = "form-label" })
-						<div>
-							@Html.ValidationMessageFor(m => m.User.Address.Street)
-						</div>
-						@Html.TextBoxFor(m => m.User.Address.Street, new { maxlength = 50 })
+              @Html.LabelFor(m => m.User.Address.Street, new { @class = "form-label" })
+              <div>
+                @Html.ValidationMessageFor(m => m.User.Address.Street)
+              </div>
+              @Html.TextBoxFor(m => m.User.Address.Street, new { maxlength = 50 })
 
-					</li>
-					<li>
+            </li>
+            <li>
 
-						@Html.LabelFor(m => m.User.Address.City, new { @class = "form-label" })
-						<div>
-							@Html.ValidationMessageFor(m => m.User.Address.City)
-						</div>
-						@Html.TextBoxFor(m => m.User.Address.City, new { maxlength = 30 })
+              @Html.LabelFor(m => m.User.Address.City, new { @class = "form-label" })
+              <div>
+                @Html.ValidationMessageFor(m => m.User.Address.City)
+              </div>
+              @Html.TextBoxFor(m => m.User.Address.City, new { maxlength = 30 })
 
-					</li>
-					<li>
+            </li>
+            <li>
 
-						@Html.LabelFor(m => m.User.Address.ZipCode, new { @class = "form-label" })
-						<div>
-							@Html.ValidationMessageFor(m => m.User.Address.ZipCode)
-						</div>
-						@Html.TextBoxFor(m => m.User.Address.ZipCode, new { maxlength = 6, placeholder="00-000", style="width:50px *important;" })
+              @Html.LabelFor(m => m.User.Address.ZipCode, new { @class = "form-label" })
+              <div>
+                @Html.ValidationMessageFor(m => m.User.Address.ZipCode)
+              </div>
+              @Html.TextBoxFor(m => m.User.Address.ZipCode, new { maxlength = 6, placeholder = "00-000", style = "width:50px !important;" })
 
-					</li>
-					<li>
-						@Html.LabelFor(m => m.User.Address.Country, new { @class = "form-label" })
-						<div>
-							@Html.ValidationMessageFor(m => m.User.Address.Country)
-						</div>
-						@Html.TextBoxFor(m => m.User.Address.Country, new { maxlength = 30 })
-					</li>
-				
-					<li>
-						@Html.LabelFor(m => m.User.Phone, new { @class = "form-label" })
-						<div>
-							@Html.ValidationMessageFor(m => m.User.Phone)
-						</div>
-						@Html.TextBoxFor(m => m.User.Phone, new { maxlength = 20 })
+            </li>
+            <li>
+              @Html.LabelFor(m => m.User.Address.Country, new { @class = "form-label" })
+              <div>
+                @Html.ValidationMessageFor(m => m.User.Address.Country)
+              </div>
+              @Html.TextBoxFor(m => m.User.Address.Country, new { maxlength = 30 })
+            </li>
 
-					</li>
-					<li>
-						@Html.LabelFor(m => m.User.WebSiteUrl, new { @class = "form-label" })
-						<div>
-							@Html.ValidationMessageFor(m => m.User.WebSiteUrl)
-						</div>
-						@Html.TextBoxFor(m => m.User.WebSiteUrl, new { maxlength = 50 })
+            <li>
+              @Html.LabelFor(m => m.User.Phone, new { @class = "form-label" })
+              <div>
+                @Html.ValidationMessageFor(m => m.User.Phone)
+              </div>
+              @Html.TextBoxFor(m => m.User.Phone, new { maxlength = 20 })
 
-					</li>
-					<li>
-						@Html.LabelFor(m => m.User.Bio, new { @class = "form-label" })
-						<div>
-							@Html.ValidationMessageFor(m => m.User.Bio)
-						</div>
-						@Html.TextAreaFor(m => m.User.Bio, new { cols = 50, rows = 5, maxlength = 300 })
-					</li>
-				</ol>
-				<span id="registerFormBtn" class="save-text hover-cursor-pointer" data-bind="click: $root.registerUserOnClick">Utwórz konto</span>
-			</fieldset>
-  }
-		<p>
-			<span class="link" id="showLoginFormBtn" data-bind="click: $root.showLoginFormOnClick">Zaloguj się</span><span> jeśli już posiadasz własne konto.</span>
-		</p>
-	</div>
+            </li>
+            <li>
+              @Html.LabelFor(m => m.User.WebSiteUrl, new { @class = "form-label" })
+              <div>
+                @Html.ValidationMessageFor(m => m.User.WebSiteUrl)
+              </div>
+              @Html.TextBoxFor(m => m.User.WebSiteUrl, new { maxlength = 50 })
+
+            </li>
+            <li>
+              @Html.LabelFor(m => m.User.Bio, new { @class = "form-label" })
+              <div>
+                @Html.ValidationMessageFor(m => m.User.Bio)
+              </div>
+              @Html.TextAreaFor(m => m.User.Bio, new { cols = 50, rows = 5, maxlength = 300 })
+            </li>
+          </ol>
+          <input type="button" value="Utwórz konto" id="registerFormBtn" class="btn-add green-color hover-cursor-pointer" data-bind="click: $root.registerUserOnClick" />
+        </fieldset>
+    }
+    <div style="text-align:right;margin-top:20px;font-size:.8em;">
+      <a class="green-color hover-cursor-pointer" id="showLoginFormBtn" data-bind="click: $root.showLoginFormOnClick"  href="#">Zaloguj się</a><span style="color:gray;"> jeśli już posiadasz własne konto.</span>
+    </div>
+
+  </div>
 
 
 </div>

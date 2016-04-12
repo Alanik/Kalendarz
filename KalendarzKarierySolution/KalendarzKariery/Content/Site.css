@@ -106,6 +106,12 @@ fieldset {
   margin-right: 50%;
 }
 
+#registerFormBtn {
+  padding: 14px;
+  float: right;
+  margin-right: 50%;
+}
+
 #loginBarContainer {
   /* float: right; */
   color: #75797b;

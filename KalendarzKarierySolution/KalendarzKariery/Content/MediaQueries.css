@@ -118,6 +118,10 @@ MEDIA QUERIES
     margin-right: 0;
   }
 
+  #registerFormBtn {
+    margin-right: 0;
+  }
+
   #loginBarContainer {
     padding-right: 5px;
   }

@@ -145,4 +145,12 @@ MEDIA QUERIES
     margin-left: 0;
     margin-right: 4px;
   }
+
+  #registerForm ol {
+    padding-left: 20px;
+  }
+
+  .exclamation-mark {
+    padding: 4px;
+  }
 }

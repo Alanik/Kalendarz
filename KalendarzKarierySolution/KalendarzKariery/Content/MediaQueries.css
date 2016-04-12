@@ -129,6 +129,10 @@ MEDIA QUERIES
   #registerSpanLink {
     margin-right: 5px;
   }
+
+  #registerForm ol {
+    padding-left: 10px;
+  }
 }
 
 @media only screen and (max-width: 767px) and (orientation: portrait) {
@@ -148,10 +152,6 @@ MEDIA QUERIES
   .div-separator {
     margin-left: 0;
     margin-right: 4px;
-  }
-
-  #registerForm ol {
-    padding-left: 20px;
   }
 
   .exclamation-mark {

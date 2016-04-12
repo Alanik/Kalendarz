@@ -95,7 +95,7 @@
                 <span id="birthDateValidationErrorMsg" class="field-validation-error" style="display:none">Nieprawidłowa data.</span>
               </div>
 
-              @Html.TextBoxFor(m => m.BirthDateModel.Day, string.Empty, new { id = "birthDateDayTxtBox", @class = "register-birthdate-txtbox", placeholder = "dzień", maxlength = 2 }) <span style="color: #b3aba1;"> / </span>@Html.TextBoxFor(m => m.BirthDateModel.Month, string.Empty, new { id = "birthDateMonthTxtBox", @class = "register-birthdate-txtbox", placeholder = "miesiąc", maxlength = 2 }) <span style="color: #b3aba1;"> / </span>@Html.TextBoxFor(m => m.BirthDateModel.Year, string.Empty, new { id = "birthDateYearTxtBox", @class = "register-birthdate-txtbox", placeholder = "rok", maxlength = 4 })<span class="exclamation-mark">*</span>
+              @Html.TextBoxFor(m => m.BirthDateModel.Day, string.Empty, new { id = "birthDateDayTxtBox", @class = "register-birthdate-txtbox", placeholder = "dzień", maxlength = 2 }) <span class="xs-hide" style="color: #b3aba1;"> / </span>@Html.TextBoxFor(m => m.BirthDateModel.Month, string.Empty, new { id = "birthDateMonthTxtBox", @class = "register-birthdate-txtbox", placeholder = "miesiąc", maxlength = 2 }) <span class="xs-hide" style="color: #b3aba1;"> / </span>@Html.TextBoxFor(m => m.BirthDateModel.Year, string.Empty, new { id = "birthDateYearTxtBox", @class = "register-birthdate-txtbox", placeholder = "rok", maxlength = 4 })<span class="exclamation-mark">*</span>
 
             </li>
             <li>

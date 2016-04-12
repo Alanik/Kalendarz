@@ -16,7 +16,7 @@ MEDIA QUERIES
   }
 
   .weekday {
-    padding-top: 2px !important;
+    padding: 2px !important;
   }
 
   .flat-form {
@@ -143,5 +143,6 @@ MEDIA QUERIES
 
   .div-separator {
     margin-left: 0;
+    margin-right: 0;
   }
 }

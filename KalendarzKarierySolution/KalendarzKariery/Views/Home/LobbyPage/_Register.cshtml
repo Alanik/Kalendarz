@@ -99,12 +99,12 @@
                 @Html.TextBoxFor(m => m.BirthDateModel.Day, string.Empty, new { id = "birthDateDayTxtBox", @class = "register-birthdate-txtbox", placeholder = "dzień", maxlength = 2 })
                 <span class="exclamation-mark xs-show-inline">*</span>
               </div>
-              <span class="xs-hide-inline" style="color: #b3aba1;"> / </span>
+              <span class="xs-hide-inline slash-separator"> / </span>
               <div class="inline-block">
                 @Html.TextBoxFor(m => m.BirthDateModel.Month, string.Empty, new { id = "birthDateMonthTxtBox", @class = "register-birthdate-txtbox register-birthdate-month-thxbox", placeholder = "miesiąc", maxlength = 2 })
                 <span class="exclamation-mark xs-show-inline">*</span>
               </div>
-              <span class="xs-hide-inline" style="color: #b3aba1;"> / </span>
+              <span class="xs-hide-inline slash-separator"> / </span>
               <div class="inline-block">
                 @Html.TextBoxFor(m => m.BirthDateModel.Year, string.Empty, new { id = "birthDateYearTxtBox", @class = "register-birthdate-txtbox", placeholder = "rok", maxlength = 4 })
                 <span class="exclamation-mark">*</span>

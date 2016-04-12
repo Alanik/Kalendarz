@@ -119,6 +119,14 @@ MEDIA QUERIES
   #registerForm ol {
     padding-left: 20px;
   }
+
+  .register-birthdate-txtbox {
+    width: 48px !important;
+  }
+
+  .slash-separator {
+    vertical-align: bottom;
+  }
 }
 
 @media only screen and (max-width: 767px) and (orientation: portrait) {
@@ -131,7 +139,7 @@ MEDIA QUERIES
     width: 90%;
   }
 
-  #registerForm input[type=text], #registerForm input[type=password], #registerForm textarea, #registerForm select {
+  #registerForm input[type=text], #registerForm input[type=password], #registerForm textarea {
     width: 70%;
   }
 
@@ -144,7 +152,11 @@ MEDIA QUERIES
     padding: 4px;
   }
 
-  #registerPageContainer .inline-block {
+  #registerForm .inline-block {
     display: block;
+  }
+
+  #registerForm select {
+    width: 85%;
   }
 }

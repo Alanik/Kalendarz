@@ -336,6 +336,10 @@ fieldset {
   width: 46px !important;
 }
 
+.slash-separator {
+  color: #b3aba1;
+}
+
 .exclamation-mark {
   color: #B9B9B9;
   padding: 8px;

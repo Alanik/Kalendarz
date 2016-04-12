@@ -129,6 +129,10 @@ MEDIA QUERIES
   #registerSpanLink {
     margin-right: 5px;
   }
+
+  #registerForm ol {
+    padding-left: 20px;
+  }
 }
 
 @media only screen and (max-width: 767px) and (orientation: portrait) {

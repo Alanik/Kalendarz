@@ -3,142 +3,145 @@ MEDIA QUERIES
 */
 
 @media only screen and (min-width: 768px) {
-	/* tablets and desktop */
-	.rg-hide {
-		display: none !important;
-	}
+  /* tablets and desktop */
+  .rg-hide {
+    display: none !important;
+  }
 }
 
 @media only screen and (max-width: 767px) {
-	/* phones */
-	body {
-		font-size: .65em;
-	}
+  /* phones */
+  body {
+    font-size: .65em;
+  }
 
-	.weekday {
-		padding-top: 2px !important;
-	}
+  .weekday {
+    padding-top: 2px !important;
+  }
 
-	.flat-form {
-		width: 80%;
-	}
+  .flat-form {
+    width: 80%;
+    margin-top: 20px;
+  }
 
-	.display-events-overview-container .legend-oldorupcoming {
-		margin-left: 0;
-	}
+  .display-events-overview-container .legend-oldorupcoming {
+    margin-left: 0;
+  }
 
-	#pageOverlayAtSiteLoad {
-		left: 0;
-	}
+  #pageOverlayAtSiteLoad {
+    left: 0;
+  }
 
-	.display-events-overview-item-list {
-		padding-left: 2px;
-		padding-right: 2px;
-	}
+  .display-events-overview-item-list {
+    padding-left: 2px;
+    padding-right: 2px;
+  }
 
-	#detailsDayTable .details-day-table-head {
-		padding: 2px;
-		padding-left: 2px;
-	}
+  #detailsDayTable .details-day-table-head {
+    padding: 2px;
+    padding-left: 2px;
+  }
 
-		#detailsDayTable .details-day-table-head div {
-			width: 14.14%;
-		}
+    #detailsDayTable .details-day-table-head div {
+      width: 14.14%;
+    }
 
-	.menu-item {
-		width: 60px;
-		margin-bottom: 10px;
-	}
+  .menu-item {
+    width: 60px;
+    margin-bottom: 10px;
+  }
 
-	.menu-item-number-upcoming {
-		font-size: 2em;
-	}
+  .menu-item-number-upcoming {
+    font-size: 2em;
+  }
 
-	.event-block-container {
-		width: 99%;
-	}
+  .event-block-container {
+    width: 99%;
+  }
 
-	#lobbyLogo img {
-		width: 100%;
-	}
+  #lobbyLogo img {
+    width: 100%;
+  }
 
-	.xs-hide {
-		display: block !important;
-	}
+  .xs-hide {
+    display: block !important;
+  }
 
-	.sm-hide {
-		display: none !important;
-	}
+  .sm-hide {
+    display: none !important;
+  }
 
-	.sm-show {
-		display: block !important;
-	}
+  .sm-show {
+    display: block !important;
+  }
 
-	#dzPrevArrow {
-		left: 2px !important;
-	}
+  #dzPrevArrow {
+    left: 2px !important;
+  }
 
-		#dzPrevArrow img {
-			height: 40px;
-		}
+    #dzPrevArrow img {
+      height: 40px;
+    }
 
-	#dzNextArrow {
-		right: 8px !important;
-	}
+  #dzNextArrow {
+    right: 8px !important;
+  }
 
-		#dzNextArrow img {
-			height: 40px;
-		}
+    #dzNextArrow img {
+      height: 40px;
+    }
 
-	#dzVerticalNav {
-		right: 42px !important;
-	}
+  #dzVerticalNav {
+    right: 42px !important;
+  }
 
-		#dzVerticalNav img {
-			width: 40px;
-		}
+    #dzVerticalNav img {
+      width: 40px;
+    }
 
-	#dzVerticalNav {
-		height: 106px;
-	}
+  #dzVerticalNav {
+    height: 106px;
+  }
 
-	#dzVerticalPaging {
-		right: 48px !important;
-	}
+  #dzVerticalPaging {
+    right: 48px !important;
+  }
 
-	#lobbyNavContainer {
-		text-align: center;
-		padding-right: 0;
-	}
+  #lobbyNavContainer {
+    text-align: center;
+    padding-right: 0;
+    margin: 0;
+    padding-top: 20px;
+  }
 
-	#loginFormBtn {
-		margin-right: 0;
-	}
+  #loginFormBtn {
+    margin-right: 0;
+  }
 
-	#loginBarContainer {
-		padding-right: 5px;
-	}
+  #loginBarContainer {
+    padding-right: 5px;
+  }
 
-	#registerSpanLink {
-		margin-right: 5px;
-	}
+  #registerSpanLink {
+    margin-right: 5px;
+  }
 }
 
 @media only screen and (max-width: 767px) and (orientation: portrait) {
-	/* portrait phones */
-	.xs-hide {
-		display: none !important;
-	}
+  /* portrait phones */
+  .xs-hide {
+    display: none !important;
+  }
 
-	#lobbyQuoteSection {
-		width: 98%;
-	}
+  #lobbyQuoteSection {
+    width: 98%;
+  }
 
-	.flat-form input[type=text], .flat-form input[type=password], .flat-form textarea, .flat-form select {
-		width: 90%;
-	}
+  .flat-form input[type=text], .flat-form input[type=password], .flat-form textarea, .flat-form select {
+    width: 90%;
+  }
 
-	.div-separator {
-		margin-left: 0;
-	}
+  .div-separator {
+    margin-left: 0;
+  }
 }

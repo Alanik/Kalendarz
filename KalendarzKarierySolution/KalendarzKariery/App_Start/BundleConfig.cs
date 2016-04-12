@@ -50,7 +50,7 @@ namespace KalendarzKariery
             //"~/Scripts/Program.js"
             //));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/Site.css", "~/Content/MediaQueries.css", "~/Scripts/CalendarWidget/CalendarWidget.css", "~/Scripts/Lib/DzieuoJs/Dzieuo.css"));
+            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/Site.css", "~/Content/MediaQueries.css", "~/Content/MediaQueries_ShowHide.css", "~/Scripts/CalendarWidget/CalendarWidget.css", "~/Scripts/Lib/DzieuoJs/Dzieuo.css"));
         }
     }
 }

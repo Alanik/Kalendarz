@@ -4,9 +4,7 @@ MEDIA QUERIES
 
 @media only screen and (min-width: 768px) {
   /* tablets and desktop */
-  .rg-hide {
-    display: none !important;
-  }
+
 }
 
 @media only screen and (max-width: 767px) {
@@ -61,18 +59,6 @@ MEDIA QUERIES
 
   #lobbyLogo img {
     width: 100%;
-  }
-
-  .xs-hide {
-    display: block !important;
-  }
-
-  .sm-hide {
-    display: none !important;
-  }
-
-  .sm-show {
-    display: block !important;
   }
 
   #dzPrevArrow {
@@ -137,10 +123,6 @@ MEDIA QUERIES
 
 @media only screen and (max-width: 767px) and (orientation: portrait) {
   /* portrait phones */
-  .xs-hide {
-    display: none !important;
-  }
-
   #lobbyQuoteSection {
     width: 98%;
   }

@@ -95,8 +95,20 @@
                 <span id="birthDateValidationErrorMsg" class="field-validation-error" style="display:none">Nieprawidłowa data.</span>
               </div>
 
-              @Html.TextBoxFor(m => m.BirthDateModel.Day, string.Empty, new { id = "birthDateDayTxtBox", @class = "register-birthdate-txtbox", placeholder = "dzień", maxlength = 2 }) <span class="xs-hide" style="color: #b3aba1;"> / </span>@Html.TextBoxFor(m => m.BirthDateModel.Month, string.Empty, new { id = "birthDateMonthTxtBox", @class = "register-birthdate-txtbox", placeholder = "miesiąc", maxlength = 2 }) <span class="xs-hide" style="color: #b3aba1;"> / </span>@Html.TextBoxFor(m => m.BirthDateModel.Year, string.Empty, new { id = "birthDateYearTxtBox", @class = "register-birthdate-txtbox", placeholder = "rok", maxlength = 4 })<span class="exclamation-mark">*</span>
-
+              <div class="inline-block">
+                @Html.TextBoxFor(m => m.BirthDateModel.Day, string.Empty, new { id = "birthDateDayTxtBox", @class = "register-birthdate-txtbox", placeholder = "dzień", maxlength = 2 })
+                <span class="exclamation-mark xs-show-inline">*</span>
+              </div>
+              <span class="xs-hide-inline" style="color: #b3aba1;"> / </span>
+              <div class="inline-block">
+                @Html.TextBoxFor(m => m.BirthDateModel.Month, string.Empty, new { id = "birthDateMonthTxtBox", @class = "register-birthdate-txtbox register-birthdate-month-thxbox", placeholder = "miesiąc", maxlength = 2 })
+                <span class="exclamation-mark xs-show-inline">*</span>
+              </div>
+              <span class="xs-hide-inline" style="color: #b3aba1;"> / </span>
+              <div class="inline-block">
+                @Html.TextBoxFor(m => m.BirthDateModel.Year, string.Empty, new { id = "birthDateYearTxtBox", @class = "register-birthdate-txtbox", placeholder = "rok", maxlength = 4 })
+                <span class="exclamation-mark">*</span>
+              </div>
             </li>
             <li>
 
@@ -161,7 +173,7 @@
         </fieldset>
     }
     <div style="text-align:right;margin-top:20px;font-size:.8em;">
-      <a class="green-color hover-cursor-pointer" id="showLoginFormBtn" data-bind="click: $root.showLoginFormOnClick"  href="#">Zaloguj się</a><span style="color:gray;"> jeśli już posiadasz własne konto.</span>
+      <a class="green-color hover-cursor-pointer" id="showLoginFormBtn" data-bind="click: $root.showLoginFormOnClick" href="#">Zaloguj się</a><span style="color:gray;"> jeśli już posiadasz własne konto.</span>
     </div>
 
   </div>

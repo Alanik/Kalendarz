@@ -199,6 +199,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\MediaQueries_ShowHide.css" />
     <Content Include="Scripts\Lib\DzieuoJs\Dzieuo.css" />
     <Content Include="Content\Fonts\Oxygen\OFL.txt" />
     <Content Include="Content\Fonts\Raleway\FONTLOG.txt" />

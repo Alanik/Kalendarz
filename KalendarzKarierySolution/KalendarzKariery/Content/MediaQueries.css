@@ -149,6 +149,10 @@ MEDIA QUERIES
     width: 90%;
   }
 
+  #registerForm input[type=text], #registerForm input[type=password], #registerForm textarea, #registerForm select {
+    width: 70%;
+  }
+
   .div-separator {
     margin-left: 0;
     margin-right: 4px;
@@ -156,5 +160,6 @@ MEDIA QUERIES
 
   .exclamation-mark {
     padding: 4px;
+    position
   }
 }

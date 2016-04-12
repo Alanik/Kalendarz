@@ -143,4 +143,8 @@ MEDIA QUERIES
   .exclamation-mark {
     padding: 4px;
   }
+
+  #registerPageContainer .inline-block {
+    display: block;
+  }
 }

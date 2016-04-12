@@ -120,12 +120,12 @@ MEDIA QUERIES
     padding-left: 20px;
   }
 
-  .register-birthdate-txtbox {
+  #registerForm .register-birthdate-txtbox {
     width: 48px !important;
   }
 
-  .slash-separator {
-    vertical-align: bottom;
+  #registerForm .slash-separator {
+    visibility: hidden;
   }
 }
 
@@ -157,6 +157,6 @@ MEDIA QUERIES
   }
 
   #registerForm select {
-    width: 85%;
+    width: 85% !important;
   }
 }

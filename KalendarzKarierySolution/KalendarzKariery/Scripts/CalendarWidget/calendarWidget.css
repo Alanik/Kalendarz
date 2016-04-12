@@ -177,8 +177,8 @@
 
 
 .today-cell {
-	background: #F7F7F7 !important;
-	border: 2px solid rgb(154, 149, 134) !important;
+	background: #FBFBFB!important;
+	border: 2px solid #D2D2CB!important;
 }
 
 	.today-cell .cell-span-container {
@@ -186,7 +186,7 @@
 		top: 56px;
 		height: 24px;
 		z-index: 98;
-		background: #F7F7F7 !important;
+		background: #FBFBFB!important;
 	}
 
 		.today-cell .cell-span-container span {

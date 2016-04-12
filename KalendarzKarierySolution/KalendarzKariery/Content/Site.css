@@ -326,6 +326,20 @@ fieldset {
   float: right;
 }
 
+.register-birthdate-txtbox {
+  width: 46px !important;
+}
+
+.exclamation-mark {
+  color: #AFAFAF;
+  padding: 4px 12px;
+  margin-left: 10px;
+  font-size: .8em;
+  border: 1px solid #D4D4D4;
+  vertical-align: middle;
+  border-radius: 4px;
+}
+
 /*Calendar page*/
 .event-rectangle {
   overflow: hidden;

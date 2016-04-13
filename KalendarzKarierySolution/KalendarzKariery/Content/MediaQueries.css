@@ -13,6 +13,10 @@ MEDIA QUERIES
     font-size: .65em;
   }
 
+  #loginBarContainer {
+    padding-right: 0px;
+  }
+
   .weekday {
     padding: 2px !important;
   }

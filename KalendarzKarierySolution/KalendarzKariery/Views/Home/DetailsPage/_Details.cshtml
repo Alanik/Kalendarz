@@ -24,7 +24,7 @@
       <header class="display-events-overview-header">
         <span class="display-events-header-menu-title hover-cursor-pointer" data-bind="click: function () { $root.showSelectedJournalMenuItem( 1 ) }, css: { selected: $root.detailsPageJournalMenu.selectedMenuItem() === 1 }">Mój kalendarz</span>
         <span class="display-events-header-menu-title hover-cursor-pointer" data-bind="click: function () { $root.showSelectedJournalMenuItem( 2 ) }, css: { selected: $root.detailsPageJournalMenu.selectedMenuItem() === 2 }">Moje publiczne wydarzenia</span>
-        <div class="close-btn-x hover-cursor-pointer" data-bind="click: $root.closeAllSelectedEventsListContainerOnClick">x</div>
+        <div class="hover-cursor-pointer" data-bind="click: $root.closeAllSelectedEventsListContainerOnClick">x</div>
       </header>
 
       @Html.Partial("_DetailsMyCalendarMenuItem")

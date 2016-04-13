@@ -1,163 +1,163 @@
 ﻿@model KalendarzKarieryData.Models.ViewModels.RegisterViewModel
 
-<div id="updateProfileContainer" class="slick-contact-form">
-	<div id="expandBtnUpdateProfile" class="btn-expand hover-cursor-pointer" data-bind="click: function () { $root.expandUpdateProfileForm($element) }"><span class="save-text">rozwiń</span></div>
-	<div id="hideBtnUpdateProfile" class="btn-expand hover-cursor-pointer" style="display:none;" data-bind="click: function () { $root.hideUpdateProfileForm($element) }"><span class="close-text">zwiń</span></div>
-		<div class="form-body">
-			@using (Html.BeginForm("POST", "api/Account", FormMethod.Post, new { id = "updateProfileForm" }))
-   {
-				@Html.AntiForgeryToken()
+<div id="updateProfileContainer" class="flat-form">
+  <div id="expandBtnUpdateProfile" class="btn-expand hover-cursor-pointer" data-bind="click: function () { $root.expandUpdateProfileForm($element) }"><span class="save-text">rozwiń</span></div>
+  <div id="hideBtnUpdateProfile" class="btn-expand hover-cursor-pointer" style="display:none;" data-bind="click: function () { $root.hideUpdateProfileForm($element) }"><span class="close-text">zwiń</span></div>
+  <div class="form-body">
+    @using (Html.BeginForm("POST", "api/Account", FormMethod.Post, new { id = "updateProfileForm" }))
+    {
+        @Html.AntiForgeryToken()
 
-				<fieldset>
-					<legend>Twoje Konto</legend>
+        <fieldset>
+          <legend>Twoje Konto</legend>
 
-					<div class="summary-validation-errors"></div>
-					<ol style="display:none;">
-					@Html.HiddenFor(m => m.User.Id)
+          <div class="summary-validation-errors"></div>
+          <ol>
+            @Html.HiddenFor(m => m.User.Id)
 
-						<li>
+            <li>
 
-							@Html.LabelFor(m => m.RegisterModel.UserName, new { @class = "form-label" })
-						
-							@Html.TextBoxFor(m => m.RegisterModel.UserName, new { maxlength = 30, disabled="disabled", style="background:rgba(128,128,128,.2);color:white;"})
+              @Html.LabelFor(m => m.RegisterModel.UserName, new { @class = "form-label" })
 
-						</li>
-						<li>
+              @Html.TextBoxFor(m => m.RegisterModel.UserName, new { maxlength = 30, disabled = "disabled", style = "background:rgba(128,128,128,.2);color:white;" })
 
-							@Html.LabelFor(m => m.User.FirstName, new { @class = "form-label" })
-							<div>
-								@Html.ValidationMessageFor(m => m.User.FirstName)
-							</div>
-							@Html.TextBoxFor(m => m.User.FirstName, new { maxlength = 30 })
+            </li>
+            <li>
 
-						</li>
-						<li>
-							@Html.LabelFor(m => m.User.LastName, new { @class = "form-label" })
-							<div>
-								@Html.ValidationMessageFor(m => m.User.LastName)
-							</div>
-							@Html.TextBoxFor(m => m.User.LastName, new { maxlength = 30 })
+              @Html.LabelFor(m => m.User.FirstName, new { @class = "form-label" })
+              <div>
+                @Html.ValidationMessageFor(m => m.User.FirstName)
+              </div>
+              @Html.TextBoxFor(m => m.User.FirstName, new { maxlength = 30 })
 
-						</li>
-						<li>
-							@Html.LabelFor(m => m.User.Gender, new { @class = "form-label" })
-							<div>
-								@Html.ValidationMessageFor(m => m.User.Gender)
-							</div>
-							@if (@Model.User != null)
-	   {
-		   	@Html.DropDownList("User.Gender",
-	new SelectList(new Dictionary<string, string> 
+            </li>
+            <li>
+              @Html.LabelFor(m => m.User.LastName, new { @class = "form-label" })
+              <div>
+                @Html.ValidationMessageFor(m => m.User.LastName)
+              </div>
+              @Html.TextBoxFor(m => m.User.LastName, new { maxlength = 30 })
+
+            </li>
+            <li>
+              @Html.LabelFor(m => m.User.Gender, new { @class = "form-label" })
+              <div>
+                @Html.ValidationMessageFor(m => m.User.Gender)
+              </div>
+              @if (@Model.User != null)
+              {
+                  @Html.DropDownList("User.Gender",
+    new SelectList(new Dictionary<string, string>
         {
             {"Mężczyzna", "m"},
             {"Kobieta", "k"},
         },
-		"Value", "Key", @Model.User.Gender)
+        "Value", "Key", @Model.User.Gender)
 )
-	   }
-	   else
-	   {
-	    	@Html.DropDownList("User.Gender",
-	new SelectList(new Dictionary<string, string> 
+              }
+              else
+              {
+                  @Html.DropDownList("User.Gender",
+    new SelectList(new Dictionary<string, string>
         {
             {"Mężczyzna", "m"},
             {"Kobieta", "k"},
         },
-		"Value", "Key")
+        "Value", "Key")
 )
-	   }
-						
-						</li>
-						<li>
+              }
 
-							@Html.LabelFor(m => m.User.BirthDay, new { @class = "form-label" })
-							<div>
-								@Html.ValidationMessageFor(m => m.BirthDateModel.Day)
-							</div>
-							<div>
-								@Html.ValidationMessageFor(m => m.BirthDateModel.Month)
-							</div>
-							<div>
-								@Html.ValidationMessageFor(m => m.BirthDateModel.Year)
-							</div>
-							<div>
-								<span id="birthDateValidationErrorMsgUpdateProfile" class="field-validation-error" style="display: none">Nieprawidłowa data.</span>
-							</div>
+            </li>
+            <li>
 
-							@Html.TextBoxFor(m => m.BirthDateModel.Day, string.Empty, new { id = "birthDateDayTxtBoxUpdateProfile", @class = "register-birthdate-txtbox", placeholder = "dzień", maxlength = 2 }) <span style="color: #b3aba1;">/ </span>@Html.TextBoxFor(m => m.BirthDateModel.Month, string.Empty, new { id = "birthDateMonthTxtBoxUpdateProfile", @class = "register-birthdate-txtbox", placeholder = "miesiąc", maxlength = 2 }) <span style="color: #b3aba1;">/ </span>@Html.TextBoxFor(m => m.BirthDateModel.Year, string.Empty, new { id = "birthDateYearTxtBoxUpdateProfile", @class = "register-birthdate-txtbox", placeholder = "rok", maxlength = 4 })
+              @Html.LabelFor(m => m.User.BirthDay, new { @class = "form-label" })
+              <div>
+                @Html.ValidationMessageFor(m => m.BirthDateModel.Day)
+              </div>
+              <div>
+                @Html.ValidationMessageFor(m => m.BirthDateModel.Month)
+              </div>
+              <div>
+                @Html.ValidationMessageFor(m => m.BirthDateModel.Year)
+              </div>
+              <div>
+                <span id="birthDateValidationErrorMsgUpdateProfile" class="field-validation-error" style="display: none">Nieprawidłowa data.</span>
+              </div>
 
-						</li>
-						<li>
+              @Html.TextBoxFor(m => m.BirthDateModel.Day, string.Empty, new { id = "birthDateDayTxtBoxUpdateProfile", @class = "register-birthdate-txtbox", placeholder = "dzień", maxlength = 2 }) <span style="color: #b3aba1;">/ </span>@Html.TextBoxFor(m => m.BirthDateModel.Month, string.Empty, new { id = "birthDateMonthTxtBoxUpdateProfile", @class = "register-birthdate-txtbox", placeholder = "miesiąc", maxlength = 2 }) <span style="color: #b3aba1;">/ </span>@Html.TextBoxFor(m => m.BirthDateModel.Year, string.Empty, new { id = "birthDateYearTxtBoxUpdateProfile", @class = "register-birthdate-txtbox", placeholder = "rok", maxlength = 4 })
 
-							@Html.LabelFor(m => m.User.Address.Street, new { @class = "form-label" })
-							<div>
-								@Html.ValidationMessageFor(m => m.User.Address.Street)
-							</div>
-							@Html.TextBoxFor(m => m.User.Address.Street, new { maxlength = 50 })
+            </li>
+            <li>
 
-						</li>
-						<li>
+              @Html.LabelFor(m => m.User.Address.Street, new { @class = "form-label" })
+              <div>
+                @Html.ValidationMessageFor(m => m.User.Address.Street)
+              </div>
+              @Html.TextBoxFor(m => m.User.Address.Street, new { maxlength = 50 })
 
-							@Html.LabelFor(m => m.User.Address.City, new { @class = "form-label" })
-							<div>
-								@Html.ValidationMessageFor(m => m.User.Address.City)
-							</div>
-							@Html.TextBoxFor(m => m.User.Address.City, new { maxlength = 30 })
+            </li>
+            <li>
 
-						</li>
-						<li>
+              @Html.LabelFor(m => m.User.Address.City, new { @class = "form-label" })
+              <div>
+                @Html.ValidationMessageFor(m => m.User.Address.City)
+              </div>
+              @Html.TextBoxFor(m => m.User.Address.City, new { maxlength = 30 })
 
-							@Html.LabelFor(m => m.User.Address.ZipCode, new { @class = "form-label" })
-							<div>
-								@Html.ValidationMessageFor(m => m.User.Address.ZipCode)
-							</div>
-							@Html.TextBoxFor(m => m.User.Address.ZipCode, new { maxlength = 6, placeholder = "00-000", style = "width:50px !important;" })
+            </li>
+            <li>
 
-						</li>
-						<li>
-							@Html.LabelFor(m => m.User.Address.Country, new { @class = "form-label" })
-							<div>
-								@Html.ValidationMessageFor(m => m.User.Address.Country)
-							</div>
-							@Html.TextBoxFor(m => m.User.Address.Country, new { maxlength = 30 })
-						</li>
+              @Html.LabelFor(m => m.User.Address.ZipCode, new { @class = "form-label" })
+              <div>
+                @Html.ValidationMessageFor(m => m.User.Address.ZipCode)
+              </div>
+              @Html.TextBoxFor(m => m.User.Address.ZipCode, new { maxlength = 6, placeholder = "00-000", style = "width:50px !important;" })
 
-						<li>
-						@Html.LabelFor(m => m.User.Email, new { @class = "form-label" })
-						<div>
-							@Html.ValidationMessageFor(m => m.User.Email)
-						</div>
-						@Html.TextBoxFor(m => m.User.Email, new { maxlength = 30 })
+            </li>
+            <li>
+              @Html.LabelFor(m => m.User.Address.Country, new { @class = "form-label" })
+              <div>
+                @Html.ValidationMessageFor(m => m.User.Address.Country)
+              </div>
+              @Html.TextBoxFor(m => m.User.Address.Country, new { maxlength = 30 })
+            </li>
 
-					</li>
-					<li>
-						@Html.LabelFor(m => m.User.Phone, new { @class = "form-label" })
-						<div>
-							@Html.ValidationMessageFor(m => m.User.Phone)
-						</div>
-						@Html.TextBoxFor(m => m.User.Phone, new { maxlength = 20 })
+            <li>
+              @Html.LabelFor(m => m.User.Email, new { @class = "form-label" })
+              <div>
+                @Html.ValidationMessageFor(m => m.User.Email)
+              </div>
+              @Html.TextBoxFor(m => m.User.Email, new { maxlength = 30 })
 
-					</li>
-					<li>
-						@Html.LabelFor(m => m.User.WebSiteUrl, new { @class = "form-label" })
-						<div>
-							@Html.ValidationMessageFor(m => m.User.WebSiteUrl)
-						</div>
-						@Html.TextBoxFor(m => m.User.WebSiteUrl, new { maxlength = 50 })
+            </li>
+            <li>
+              @Html.LabelFor(m => m.User.Phone, new { @class = "form-label" })
+              <div>
+                @Html.ValidationMessageFor(m => m.User.Phone)
+              </div>
+              @Html.TextBoxFor(m => m.User.Phone, new { maxlength = 20 })
 
-					</li>
+            </li>
+            <li>
+              @Html.LabelFor(m => m.User.WebSiteUrl, new { @class = "form-label" })
+              <div>
+                @Html.ValidationMessageFor(m => m.User.WebSiteUrl)
+              </div>
+              @Html.TextBoxFor(m => m.User.WebSiteUrl, new { maxlength = 50 })
 
-						<li>
-							@Html.LabelFor(m => m.User.Bio, new { @class = "form-label" })
-							<div>
-								@Html.ValidationMessageFor(m => m.User.Bio)
-							</div>
-							@Html.TextAreaFor(m => m.User.Bio, new { cols = 50, rows = 5, maxlength = 300 })
-						</li>
-					</ol>
-					<input type="button" id="updateUserFormBtn" class="myButton-white" value="Zapisz zmniany" data-bind="click: $root.updateUserOnClick" />
-				</fieldset>
-   }
+            </li>
 
-		</div>
-	</div>
+            <li>
+              @Html.LabelFor(m => m.User.Bio, new { @class = "form-label" })
+              <div>
+                @Html.ValidationMessageFor(m => m.User.Bio)
+              </div>
+              @Html.TextAreaFor(m => m.User.Bio, new { cols = 50, rows = 5, maxlength = 300 })
+            </li>
+          </ol>
+          <input type="button" id="updateUserFormBtn" class="myButton-white" value="Zapisz zmniany" data-bind="click: $root.updateUserOnClick" />
+        </fieldset>
+    }
+
+  </div>
+</div>

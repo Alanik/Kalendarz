@@ -5,13 +5,13 @@
 		@using (Html.BeginForm( "LogOff", "Account", FormMethod.Post, new { id = "logoutForm" } ))
   {
 			@Html.AntiForgeryToken()
-			<a style="color: rgb(255, 109, 109);" href="javascript:document.getElementById('logoutForm').submit()">wyloguj</a>   }
+			<a style="color: rgb(255, 109, 109);padding-right:4px;" href="javascript:document.getElementById('logoutForm').submit()">wyloguj</a>   }
 	</div>
 }
 else
 {
 	<div id="loginBarContainer">
-		<span id="registerSpanLink" class="lobby-login-text hover-cursor-pointer" data-bind="click: showRegisterFormOnClick" class="hover-cursor-pointer">Stwórz konto</span>
-		<span id="loginSpanLink" data-bind="click: showLoginFormOnClick" class="hover-cursor-pointer">Zaloguj sie</span>
+		<span id="registerSpanLink" class="lobby-login-text hover-cursor-pointer" data-bind="click: showRegisterFormOnClick">Stwórz konto</span>
+		<span id="loginSpanLink" data-bind="click: showLoginFormOnClick" class="hover-cursor-pointer gray-btn">Zaloguj sie</span>
 	</div>
 }

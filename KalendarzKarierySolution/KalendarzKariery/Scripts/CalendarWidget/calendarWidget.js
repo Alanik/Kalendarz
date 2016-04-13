@@ -29,6 +29,7 @@
     calendar += ('<div id="calendarMenuHeader">');
     calendar += ('<div class="month-name-header-container">');
     calendar += ('<div class="today-day-header-calendar">' + today + '</div>');
+
     //for ( var i = 0; i < opts.monthNames.length; i++ )
     //{
     //	currentMonthPrefix = ( i == opts.month ? "current-" : '' );

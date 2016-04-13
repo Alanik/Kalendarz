@@ -95,9 +95,9 @@ fieldset {
 }
 
 #lobbyHeader {
-  background: #D8CDB8;
-  padding: 40px 0;
-  float: right;
+  background: rgb(232, 232, 228);
+  width: 100%;
+  border-top: 1px solid #E8E5E5;
 }
 
 #loginFormBtn {

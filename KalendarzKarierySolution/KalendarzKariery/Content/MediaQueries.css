@@ -13,6 +13,10 @@ MEDIA QUERIES
     font-size: .65em;
   }
 
+  #lobbyHeader {
+    margin-top: 1px;
+  }
+
   #loginBarContainer {
     padding-right: 0px;
   }

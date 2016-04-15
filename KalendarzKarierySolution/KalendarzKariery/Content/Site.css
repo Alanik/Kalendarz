@@ -114,10 +114,13 @@ fieldset {
 
 #loginBarContainer {
   font-size: 1.6em;
-  padding-right: 4px;
   text-align: right;
   border-bottom: 1px solid #FBFBFB;
   color: #676666;
+}
+
+#loginLink {
+  font-size: 1em;
 }
 
 #lobbyQuoteSection {

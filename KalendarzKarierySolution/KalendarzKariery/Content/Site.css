@@ -75,7 +75,7 @@ fieldset {
 }
 
 #pageOverlayAtSiteLoad {
-  width: 80%;
+  width: 83%;
   height: 100%;
   background: rgb(247, 247, 247);
   border-right: 1px solid #F3F3F3;
@@ -113,12 +113,11 @@ fieldset {
 }
 
 #loginBarContainer {
-  color: #75797b;
   font-size: 1.6em;
-  padding-bottom: 3px;
-  padding-right: 1px;
+  padding-right: 4px;
   text-align: right;
   border-bottom: 1px solid #FBFBFB;
+  color: #676666;
 }
 
 #lobbyQuoteSection {
@@ -735,13 +734,6 @@ fieldset {
 
 .red-color {
   color: #FD6969;
-}
-
-.gray-btn {
-  padding: 4px;
-  padding-top: 2px;
-  border: 2px solid #DAD6C6;
-  border-radius: 4px;
 }
 
 .div-separator {

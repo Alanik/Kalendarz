@@ -66,7 +66,7 @@ MEDIA QUERIES
   }
 
   #lobbyLogo img {
-    width: 100%;
+    width: 50%;
   }
 
   #dzPrevArrow {
@@ -164,5 +164,9 @@ MEDIA QUERIES
 
   #registerForm select {
     width: 83% !important;
+  }
+
+  #lobbyLogo img {
+    width: 100%;
   }
 }

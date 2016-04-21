@@ -160,6 +160,7 @@ MEDIA QUERIES
   .popupbox {
     width: 100%;
     left: 0;
+    padding: 0;
   }
 }
 

@@ -767,7 +767,9 @@ fieldset {
   text-align: center;
 }
 
-
+.width-49per{
+  width:49%;
+}
 
 .hover-cursor-pointer:hover {
   cursor: pointer;

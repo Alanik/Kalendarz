@@ -152,6 +152,10 @@ MEDIA QUERIES
   .display-events-overview-item .event-kind-tag {
     border: none;
   }
+
+  .list-item-other {
+    width: 80px;
+  }
 }
 
 @media only screen and (max-width: 767px) and (orientation: portrait) {

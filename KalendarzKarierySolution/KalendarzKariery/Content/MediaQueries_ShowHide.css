@@ -29,12 +29,16 @@ MEDIA QUERIES
     display: none !important;
   }
 
-   .sm-hide {
+  .sm-hide {
     display: block !important;
   }
 
   .sm-hide-inline {
     display: inline !important;
+  }
+
+  .sm-hidden {
+    visibility: visible !important;
   }
 
 
@@ -46,7 +50,7 @@ MEDIA QUERIES
     display: none !important;
   }
 
-   .xs-hide {
+  .xs-hide {
     display: block !important;
   }
 
@@ -88,6 +92,10 @@ MEDIA QUERIES
 
   .sm-hide-inline {
     display: none !important;
+  }
+
+  .sm-hidden {
+    visibility: hidden !important;
   }
 
 
@@ -144,6 +152,9 @@ MEDIA QUERIES
     display: none !important;
   }
 
+  .sm-hidden {
+    visibility: hidden !important;
+  }
 
   .xs-show {
     display: block !important;

@@ -4,7 +4,7 @@
 			<span class="oldorupcoming-sign" data-bind="text: $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.showOld() == true ? '-' : '+'">+</span>
 			<span>stare</span>
 		</div>
-		<span class="oldorupcoming-expand-text" data-bind="text: $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.showOld() == true ? '[zwiń]' : '[rozwiń]'"></span>
+		<span class="oldorupcoming-expand-text sm-hidden" data-bind="text: $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.showOld() == true ? '[zwiń]' : '[rozwiń]'"></span>
 		<span class="oldorupcoming-event-count" data-bind="text: $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.old().length > 0 ? $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.old().length : ''"></span>
 	</div>
 	<div class="display-events-overview-item-list" data-bind="foreach: $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.old">
@@ -31,7 +31,7 @@
 			<span class="oldorupcoming-sign" data-bind="text: $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.showUpcoming() == true ? '-' : '+'">+</span>
 			<span>nadchodzące</span>
 		</div>
-		<span class="oldorupcoming-expand-text" data-bind="text: $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.showUpcoming() == true ? '[zwiń]' : '[rozwiń]'"></span>
+		<span class="oldorupcoming-expand-text sm-hidden" data-bind="text: $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.showUpcoming() == true ? '[zwiń]' : '[rozwiń]'"></span>
 		<span class="oldorupcoming-event-count" data-bind="text: $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.upcoming().length > 0 ? $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.upcoming().length : ''"></span>
 	</div>
 	<div class="display-events-overview-item-list" data-bind="foreach: $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.upcoming" s>

@@ -1597,11 +1597,9 @@
   self.showRegisterFormOnClick = function () {
     var $loginForm = $("#loginPageContainer");
     var $registerForm = $("#registerPageContainer");
-    var $overlay = $("#lobby").siblings(".page-overlay");
-    $overlay.css("opacity", 1);
-    $overlay.show();
     $loginForm.hide();
     $registerForm.fadeIn();
+    $("#RegisterModel_UserName").focus();
   };
 
   self.showLoginFormOnClick = function () {
@@ -1941,6 +1939,8 @@
     self.resetAndSetPrivacyLvlToObservableEvent(day, month, self.todayDate.year, "public", self.eventPrivacyLevels["public"]);
 
     ///////////////////////////////////////////////////
+    self.UTILS.loader.$overlay.show();
+
     var $addEventContainer = $("#addNewEventContainer");
     $addEventContainer.find("legend").text("Dodaj do tablicy wydarzeń");
 

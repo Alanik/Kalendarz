@@ -160,8 +160,8 @@ MEDIA QUERIES
   .popupbox {
     width: 100%;
     left: 0;
-    padding: 0;
   }
+
 }
 
 @media only screen and (max-width: 767px) and (orientation: portrait) {

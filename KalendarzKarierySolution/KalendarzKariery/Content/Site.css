@@ -803,8 +803,8 @@ fieldset {
 }
 
 .list-item-date {
-  text-align: center;
   display: inline-block;
+  padding-left: 20px;
 }
 
 .event-kind-tag {

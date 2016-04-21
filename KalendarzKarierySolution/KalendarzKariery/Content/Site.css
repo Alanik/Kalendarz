@@ -347,11 +347,15 @@ fieldset {
   color: #b3aba1;
 }
 
-.exclamation-mark {
+.required-mark {
   color: #B9B9B9;
   padding: 8px;
   font-size: 1em;
   vertical-align: middle;
+}
+
+.event-block-link {
+  word-break: break-word;
 }
 
 /*Calendar page*/

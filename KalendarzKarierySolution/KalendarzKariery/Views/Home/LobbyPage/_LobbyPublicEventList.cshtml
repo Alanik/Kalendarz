@@ -10,14 +10,14 @@
 	<div class="display-events-overview-item-list" data-bind="foreach: $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.old">
 		<div class="display-events-overview-item">
 			<div class="overview-item-inner-wrapper" data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
-				<div class="inline-block width-49per">
+				<div class="inline-block rg-width-49per">
 					<div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
 					<span class="list-item-date">
 						<span class="list-item-other" data-bind="text: startDate.displayFullDate()"></span>
 						<span class="list-item-other" data-bind="text: startDate.displayFullTime()"></span>
 					</span>
 				</div>
-				<div class="inline-block width-49per">
+				<div class="inline-block rg-width-49per">
           <span class="list-item-title" data-bind="text: name"></span>
 				</div>
 			</div>
@@ -37,7 +37,7 @@
 	<div class="display-events-overview-item-list" data-bind="foreach: $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.upcoming" s>
 		<div class="display-events-overview-item">
 			<div class="overview-item-inner-wrapper" data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
-				<div class="inline-block width-49per">
+				<div class="inline-block rg-width-49per">
 					<div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
 				
 					<span class="list-item-date">
@@ -45,7 +45,7 @@
 						<span class="list-item-other" data-bind="text: startDate.displayFullTime()"></span>
 					</span>
 				</div>
-				<div class="inline-block width-49per">
+				<div class="inline-block rg-width-49per">
           <span class="list-item-title" data-bind="text: name"></span>
 				</div>
 			</div>

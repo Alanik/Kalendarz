@@ -752,10 +752,6 @@ fieldset {
   vertical-align: top;
 }
 
-.width-49per {
-  width: 49%;
-}
-
 .event-block-description {
 }
 
@@ -793,6 +789,7 @@ fieldset {
 
 .list-item-title {
   font-size: 1.4em;
+  padding: 6px;
 }
 
 .list-item-star {
@@ -803,11 +800,13 @@ fieldset {
 
 .list-item-other {
   font-size: 1.2em;
-  margin: 10px;
-  margin-right: 5px;
+  width: 100px;
+  display: inline-block;
 }
 
 .list-item-date {
+  text-align: center;
+  display: inline-block;
 }
 
 .event-kind-tag {

@@ -30,6 +30,15 @@ MEDIA QUERIES
     margin-top: 20px;
   }
 
+  .display-events-overview-container {
+    border: 1px solid white;
+  }
+
+  .display-events-overview-item {
+    border-left: none;
+    border-right: none;
+  }
+
   .display-events-overview-container .legend-oldorupcoming {
     margin-left: 0;
   }

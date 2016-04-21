@@ -188,7 +188,7 @@ fieldset {
   display: inline-block;
   position: relative;
   margin-bottom: 20px;
-  background: #E8E8E4;
+  background: white;
   border: 1px solid rgb(226, 226, 226);
 }
 
@@ -278,7 +278,7 @@ fieldset {
   margin-top: 1px;
   margin-bottom: 1px;
   position: relative;
-  border-bottom: 2px solid #C1C1C1;
+  border-bottom: 2px solid #F3F3F3;
 }
 
 .oldorupcoming-event-count {

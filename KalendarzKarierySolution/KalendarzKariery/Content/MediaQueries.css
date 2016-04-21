@@ -148,6 +148,10 @@ MEDIA QUERIES
   .rg-width-49per {
     width: 100%;
   }
+
+  .display-events-overview-item .event-kind-tag {
+    border: none;
+  }
 }
 
 @media only screen and (max-width: 767px) and (orientation: portrait) {

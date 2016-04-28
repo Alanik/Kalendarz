@@ -713,6 +713,7 @@ fieldset {
 .overview-item-inner-wrapper {
   font-size: 1em;
   color: #5D5B55;
+  overflow: hidden;
 }
 
 .list-item-title {

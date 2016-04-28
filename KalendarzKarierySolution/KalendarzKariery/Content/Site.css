@@ -735,12 +735,11 @@ fieldset {
 .list-item-date {
   display: inline-block;
   text-align: right;
+  padding: 0 4px;
 }
 
 .event-kind-tag {
   padding: 5px;
-  /*background: #8E8E8D;*/
-  background: #777064;
   width: 100px;
   text-align: center;
   display: inline-block;

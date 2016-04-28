@@ -152,6 +152,7 @@ MEDIA QUERIES
   .display-events-overview-item .event-kind-tag {
     border: none;
     float:right;
+    border-right:1px solid white;
   }
 
   .list-item-other {

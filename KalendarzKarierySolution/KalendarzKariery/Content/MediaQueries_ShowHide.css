@@ -58,8 +58,9 @@ MEDIA QUERIES
     display: inline !important;
   }
 
-  .rg-inline-block{
-    display:inline-block;
+  .rg-inline-block {
+    display: inline-block;
+    overflow: hidden;
   }
 }
 
@@ -119,8 +120,9 @@ MEDIA QUERIES
     display: inline !important;
   }
 
-   .rg-inline-block{
-    display:block;
+  .rg-inline-block {
+    display: block;
+    overflow: hidden;
   }
 }
 
@@ -180,7 +182,8 @@ MEDIA QUERIES
     display: none !important;
   }
 
-   .rg-inline-block{
-    display:block;
+  .rg-inline-block {
+    display: block;
+    overflow: hidden;
   }
 }

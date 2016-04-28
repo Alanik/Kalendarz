@@ -151,6 +151,7 @@ MEDIA QUERIES
 
   .display-events-overview-item .event-kind-tag {
     border: none;
+    float:right;
   }
 
   .list-item-other {

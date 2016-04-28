@@ -717,7 +717,7 @@ fieldset {
 
 .list-item-title {
   font-size: 1.4em;
-  line-height:1;
+  line-height: 1;
 }
 
 .list-item-star {
@@ -734,6 +734,8 @@ fieldset {
 
 .list-item-date {
   display: inline-block;
+  text-align: right;
+  padding: 0 10px;
 }
 
 .event-kind-tag {

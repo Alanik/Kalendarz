@@ -57,6 +57,10 @@ MEDIA QUERIES
   .xs-hide-inline {
     display: inline !important;
   }
+
+  .rg-inline-block{
+    display:inline-block;
+  }
 }
 
 @media only screen and (max-width: 767px) {
@@ -114,6 +118,10 @@ MEDIA QUERIES
   .xs-hide-inline {
     display: inline !important;
   }
+
+   .rg-inline-block{
+    display:block;
+  }
 }
 
 @media only screen and (max-width: 767px) and (orientation: portrait) {
@@ -170,5 +178,9 @@ MEDIA QUERIES
 
   .xs-hide-inline {
     display: none !important;
+  }
+
+   .rg-inline-block{
+    display:block;
   }
 }

@@ -72,7 +72,7 @@ MEDIA QUERIES
     font-size: 2em;
   }
 
-  .event-block-container {
+ #lobbyEventsMasonryContainer .event-block-container {
     width: 99%;
   }
 

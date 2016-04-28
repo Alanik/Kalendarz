@@ -1,69 +1,72 @@
-﻿.event-block-container {
+﻿
+/*Lobby - lobbyEventsMasonryContainer*/
+
+#lobbyEventsMasonryContainer .event-block-container {
   display: inline-block;
   width: 33%;
   vertical-align: top;
-  margin: 1px;
-  border: 1px solid #F3F3F3;
+  margin: 2px;
 }
 
-.event-block {
-}
-
-.event-block-link {
-  word-break: break-all;
-}
-
-.details-event-block {
+#lobbyEventsMasonryContainer .event-block {
   color: rgb(250, 250, 250);
   line-height: 1;
   background: rgb(236, 236, 236);
 }
 
-  .details-event-block .event-kind-tag {
-    padding: 5px;
-    width: 100px;
-    line-height: 1.5;
-    font-size: 1em;
-    float: right;
-    text-align: center;
-    border-right: none;
-    border-top: none;
-  }
+#lobbyEventsMasonryContainer .event-block-info-link {
+  word-break: break-all;
+}
 
-  .details-event-block-body {
+#lobbyEventsMasonryContainer .event-block-info-name {
+  font-size: 1.5em;
+  background: #949089;
+  color: wheat;
+  padding: 6px;
+  border-bottom: 2px solid whitesmoke;
+}
+
+#lobbyEventsMasonryContainer .event-kind-tag {
+  line-height: 1.5;
+  font-size: 1em;
+  float: right;
+  text-align: center;
+  border: 1px solid #807C77;
+  border-left: 1px solid darkgrey;
+}
+
+#lobbyEventsMasonryContainer .event-block-body {
   color: rgb(72, 68, 62);
   padding: 10px;
   font-size: 1.2em;
 }
 
- .details-event-block-footer {
+#lobbyEventsMasonryContainer .event-block-footer {
   padding: 10px;
   overflow: hidden;
   color: rgb(152, 152, 137);
+  background: rgba(222, 220, 220, 0.5);
 }
 
- .details-event-block-info-date {
-  color: #969689;
-  margin-bottom: 10px;
-}
-
-.details-event-block-info-body {
-  margin-top: 20px;
-  padding-left: 20px;
-}
-
-.details-event-block-info-time {
+#lobbyEventsMasonryContainer .event-block-info-date {
+  margin-bottom: 2px;
   font-size: 1.6em;
 }
 
-.details-event-block-info-addedby {
-  font-size: .8em;
+#lobbyEventsMasonryContainer .event-block-info-body {
+  margin-top: 20px;
 }
 
-
-.event-block-description {
+#lobbyEventsMasonryContainer .event-block-info-time {
+  font-size: 1.2em;
+  color: #969689;
 }
 
-.event-block-menu {
+#lobbyEventsMasonryContainer .event-block-info-addedby {
+  color: gray;
+  text-align: right;
+}
+
+#lobbyEventsMasonryContainer .event-block-menu {
   float: right;
 }

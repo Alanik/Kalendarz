@@ -279,6 +279,7 @@ fieldset {
   margin-top: 1px;
   margin-bottom: 1px;
   position: relative;
+  background: #D8D8D8;
   border-bottom: 2px solid #F3F3F3;
 }
 
@@ -655,13 +656,12 @@ fieldset {
 
 .btn-close {
   padding: 0 14px;
-  border: 2px solid;
-  border-radius: 4px;
   position: absolute;
-  background: rgba(255,255,255,.5);
-  top: 20px;
+  top: 0px;
   padding-bottom: 4px;
-  right: 20px;
+  right: 0px;
+  color: white;
+  background: #FD6969;
 }
 
 .green-color {
@@ -688,7 +688,6 @@ fieldset {
 
 .display-events-overview-item-list {
   padding-left: 100px;
-  padding-right: 6px;
 }
 
 .section-title {
@@ -739,11 +738,12 @@ fieldset {
 
 .event-kind-tag {
   padding: 5px;
-  background: #8E8E8D;
+  /*background: #8E8E8D;*/
+  background: #777064;
   width: 100px;
   text-align: center;
   display: inline-block;
-  border: 1px solid #F7F7F7;
+  background: #807C77;
 }
 
 .dziennik-menu-container {

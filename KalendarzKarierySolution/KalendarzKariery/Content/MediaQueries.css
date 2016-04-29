@@ -72,7 +72,7 @@ MEDIA QUERIES
     font-size: 2em;
   }
 
- #lobbyEventsMasonryContainer .event-block-container {
+  #lobbyEventsMasonryContainer .event-block-container {
     width: 99%;
   }
 
@@ -151,8 +151,8 @@ MEDIA QUERIES
 
   .display-events-overview-item .event-kind-tag {
     border: none;
-    float:right;
-    border-right:1px solid white;
+    float: right;
+    border-right: 1px solid white;
   }
 
   .list-item-other {
@@ -164,6 +164,9 @@ MEDIA QUERIES
     left: 0;
   }
 
+    .popupbox label {
+      margin-bottom: 0px;
+    }
 }
 
 @media only screen and (max-width: 767px) and (orientation: portrait) {
@@ -211,5 +214,13 @@ MEDIA QUERIES
 
   .display-events-overview-item .event-kind-tag {
     vertical-align: top;
+  }
+
+  .end-hour-container {
+    margin-left: 0px;
+  }
+
+  #Address_City {
+    width: 220px;
   }
 }

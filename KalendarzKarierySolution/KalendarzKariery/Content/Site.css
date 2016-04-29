@@ -266,7 +266,7 @@ fieldset {
 
 .display-events-overview-body {
   padding-bottom: 40px;
-  padding-top: 20px;
+  padding-top: 18px;
   margin-bottom: 40px;
 }
 
@@ -655,13 +655,14 @@ fieldset {
 }
 
 .btn-close {
-  padding: 0 14px;
+  padding: 0 25px;
   position: absolute;
   top: 0px;
-  padding-bottom: 4px;
+  padding-bottom: 8px;
   right: 0px;
   color: white;
   background: #FD6969;
+  font-size: 1.6em;
 }
 
 .green-color {
@@ -773,11 +774,19 @@ fieldset {
   z-index: 99;
 }
 
+#Address_City{
+  width:138px;
+}
+
+.end-hour-container{
+  margin-left:20px;
+}
+
 /*popupbox*/
 
 .popupbox {
-  background: #FBFBFB;
-  border: 2px solid #ffffeb;
+  background: #ECECEC;
+  border: 1px solid #D8D8D8;
   color: #827869;
   border-radius: 3px;
   width: 60%;
@@ -787,7 +796,6 @@ fieldset {
   z-index: 100;
   top: 0;
   position: absolute;
-  padding: 10px;
   box-sizing: border-box;
 }
 
@@ -808,7 +816,7 @@ fieldset {
   color: #484848;
   text-transform: uppercase;
   font-size: .6em;
-  margin-bottom: -10px;
+  margin-bottom:-10px;
 }
 
 .popupbox legend {
@@ -816,6 +824,7 @@ fieldset {
   font-size: 1em;
   border-bottom: 2px solid;
   width: 50%;
+  line-height: 1;
 }
 
 .popupbox textarea {
@@ -825,14 +834,12 @@ fieldset {
 .popupbox input[type=text], .popupbox input[type=password], .popupbox textarea, .popupbox select {
   color: #8B836B;
   background: rgba(236, 234, 227, 0.4);
-  /*background: rgb(194, 185, 159);*/
   width: 220px;
   height: 36px;
   padding: 0px 10px;
   border: 2px solid #f8f5f1;
   border-radius: 5px;
   box-shadow: inset 0px 0px 1px #b3a895;
-  outline: none;
 }
 
 .event-startdate-txtbox {

@@ -70,3 +70,68 @@
 #lobbyEventsMasonryContainer .event-block-menu {
   float: right;
 }
+
+/*Lobby and Details - event-block-expand*/ 
+
+.event-block-expand .event-block {
+  color: rgb(250, 250, 250);
+  line-height: 1;
+  background: rgb(236, 236, 236);
+}
+
+.event-block-expand .event-block-info-link {
+  word-break: break-all;
+}
+
+.event-block-expand .event-block-info-name {
+  font-size: 1.5em;
+  background: #949089;
+  color: wheat;
+  padding: 6px;
+  border-bottom: 2px solid whitesmoke;
+}
+
+.event-block-expand .event-kind-tag {
+  line-height: 1.5;
+  font-size: 1em;
+  float: right;
+  text-align: center;
+  border: 1px solid #807C77;
+  border-left: 1px solid darkgrey;
+}
+
+.event-block-expand .event-block-body {
+  color: rgb(72, 68, 62);
+  padding: 10px;
+  font-size: 1.2em;
+}
+
+.event-block-expand .event-block-footer {
+  padding: 10px;
+  overflow: hidden;
+  color: rgb(152, 152, 137);
+  background: rgba(222, 220, 220, 0.5);
+}
+
+.event-block-expand .event-block-info-date {
+  margin-bottom: 2px;
+  font-size: 1.6em;
+}
+
+.event-block-expand .event-block-info-body {
+  margin-top: 20px;
+}
+
+.event-block-expand .event-block-info-time {
+  font-size: 1.2em;
+  color: #969689;
+}
+
+.event-block-expand .event-block-info-addedby {
+  color: gray;
+  text-align: right;
+}
+
+.event-block-expand .event-block-menu {
+  float: right;
+}

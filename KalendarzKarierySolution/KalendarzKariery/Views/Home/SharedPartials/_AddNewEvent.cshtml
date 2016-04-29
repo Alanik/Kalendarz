@@ -28,7 +28,7 @@
             </div>
 
             <div class="div-separator">
-              <div style="display: inline-block;">
+              <div class="inline-block">
                 <label for="startMinuteSelectBox" class="block">Godzina rozpoczęcia: </label>
                 <select id="startHourSelectBox" class="time-select-box" data-bind="optionsText: 'name', optionsValue: 'value', value: $root.observableEvent.startDate.startHour">
                   @for (int i = 7; i < 21; i++)
@@ -46,7 +46,7 @@
                 </select>
               </div>
 
-              <div style="display: inline-block; margin-left: 20px;">
+              <div class="end-hour-container inline-block">
                 <label for="endHourSelectBox" class="block">Godzina zakończenia: </label>
 
                 <div id="endDateValidationErrorMsg" class="field-validation-error"></div>

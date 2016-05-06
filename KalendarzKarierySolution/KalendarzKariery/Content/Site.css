@@ -95,8 +95,6 @@ fieldset {
 }
 
 #lobbyHeader {
-  /*background: rgb(232, 232, 228);*/
-  background: rgb(236, 236, 236);
   width: 100%;
   border-top: 1px solid #E8E5E5;
 }
@@ -158,7 +156,6 @@ fieldset {
 #lobbyNavContainer {
   margin: 0 10%;
   font-size: 1.2em;
-  border-top: 1px solid white;
   padding-top: 30px;
 }
 
@@ -254,14 +251,17 @@ fieldset {
   padding-left: 20px;
   font-size: 1.4em;
   position: relative;
+  color: #CACACA;
+  margin-bottom: 14px;
 }
 
 .display-events-header-menu-title {
-  padding: 10px;
+  padding: 4px;
 }
 
   .display-events-header-menu-title.selected {
-    color: gray;
+    border-bottom: 2px solid black;
+    color: black;
   }
 
 .display-events-overview-body {
@@ -367,10 +367,6 @@ fieldset {
   border: 1px solid #F1F1E7;
 }
 
-#detailsPanel .events-menu-container {
-  float: right;
-}
-
 #detailsPanel {
   border-top: 1px solid #E8E8E8;
   padding-top: 10px;
@@ -386,11 +382,10 @@ fieldset {
 
 #detailsDayTable {
   position: relative;
-  padding: 2% 2%;
-  padding-bottom: 40px;
+  padding: 1% 2%;
   width: 88%;
   margin: 0 auto;
-  background: rgba(232, 232, 212, 0.8);
+  background: rgba(236, 236, 231, 0.8);
 }
 
   #detailsDayTable .details-day-table-head {
@@ -471,12 +466,13 @@ fieldset {
   padding-bottom: 40px;
   width: 88%;
   margin: 0 auto;
-  background: rgba(232, 232, 212, 0.8);
+  background: rgba(236, 236, 231, 0.8);
 }
 
 #detailsEventBlockList {
   width: 49%;
   display: inline-block;
+  background: #CECECE;
 }
 
 #notesContainer {
@@ -751,7 +747,7 @@ fieldset {
 .dziennik-menu-container {
   width: 40%;
   height: 200px;
-  background: #EAEADD;
+  background: #ECECEC;
   float: right;
   text-align: center;
   padding: 20px 0;
@@ -774,12 +770,12 @@ fieldset {
   z-index: 99;
 }
 
-#Address_City{
-  width:138px;
+#Address_City {
+  width: 138px;
 }
 
-.end-hour-container{
-  margin-left:20px;
+.end-hour-container {
+  margin-left: 20px;
 }
 
 /*popupbox*/
@@ -816,7 +812,7 @@ fieldset {
   color: #484848;
   text-transform: uppercase;
   font-size: .6em;
-  margin-bottom:-10px;
+  margin-bottom: -10px;
 }
 
 .popupbox legend {

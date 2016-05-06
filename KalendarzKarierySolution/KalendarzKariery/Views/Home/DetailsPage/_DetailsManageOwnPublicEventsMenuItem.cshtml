@@ -1,54 +1,56 @@
 ﻿<div class="display-events-overview-body" data-bind="visible: $root.detailsPageJournalMenu.selectedMenuItem() == 2">
-	<div class="legend-oldorupcoming" data-bind="click: function () { $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.showOld( !$root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.showOld() ), $root.showSelectedEvents( $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents, 'old', $root.detailsPageJournalMenu.selectedEventKindValues ) }">
-		<div style="position: absolute; left: 0;">
-			<span data-bind="text: $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.showOld() == true ? '-' : '+'" style="color: #99B799;">+</span>
+	<div class="legend-oldorupcoming hover-cursor-pointer" data-bind="click: function () { $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.showOld( !$root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.showOld() ), $root.showSelectedEvents( $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents, 'old', $root.detailsPageJournalMenu.selectedEventKindValues ) }">
+		<div class="oldorupcoming-text-container">
+			<span class="oldorupcoming-sign" data-bind="text: $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.showOld() == true ? '-' : '+'">+</span>
 			<span>stare</span>
 		</div>
-		<span style="font-size: 14px; position: relative; right: 100px;" data-bind="text: $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.showOld() == true ? '[zwiń]' : '[rozwiń]'"></span>
+		<span class="oldorupcoming-expand-text sm-hidden" data-bind="text: $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.showOld() == true ? '[zwiń]' : '[rozwiń]'"></span>
 		<span class="oldorupcoming-event-count" data-bind="text: $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.old().length > 0 ? $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.old().length : ''"></span>
 	</div>
-	<div data-bind="foreach: $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.old" style="padding-left: 100px;padding-right:6px;">
+	<div class="display-events-overview-item-list" data-bind="foreach: $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.old">
 		<div class="display-events-overview-item">
-			<div data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
-				<div class="list-item-star">
-					<img src="~/Images/Icons/star.png" alt="public event star" />
-				</div>
-				<div class="list-item-title" data-bind="text: name"></div>
-				<div class="list-item-other" data-bind="text: startDate.displayFullDate()"></div>
-				<div class="list-item-other" data-bind="text: startDate.displayFullTime()"></div>
-				<div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
-			</div>
-			<div style="display: none;" class="event-block-container" data-bind="attr: { 'data-eventid': id }">
-				<div class="event-block">
-					@Html.Partial( "_LobbyEventBlock" )
-				</div>
-			</div>
+      <div class="overview-item-inner-wrapper" data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
+        <div class="rg-inline-block">
+          <div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
+          <span class="list-item-title" data-bind="text: name"></span>
+        </div>
+        <div class="inline-block" style="float:right;">
+          <span class="list-item-date">
+            <span class="list-item-other" data-bind="text: startDate.displayFullDate()"></span>
+            <span class="list-item-other" data-bind="text: startDate.displayFullTime()"></span>
+          </span>
+        </div>
+      </div>
+      <div class="event-block-expand" style="display:none;">
+        @Html.Partial("_LobbyEventBlock")
+      </div>
 		</div>
 	</div>
-	<div class="legend-oldorupcoming" data-bind="click: function () { $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.showUpcoming( !$root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.showUpcoming() ), $root.showSelectedEvents( $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents, 'upcoming', $root.detailsPageJournalMenu.selectedEventKindValues ) }">
-		<div style="position: absolute; left: 0;">
-			<span data-bind="text: $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.showUpcoming() == true ? '-' : '+'" style="color: #99B799;">+</span>
+	<div class="legend-oldorupcoming hover-cursor-pointer" data-bind="click: function () { $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.showUpcoming( !$root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.showUpcoming() ), $root.showSelectedEvents( $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents, 'upcoming', $root.detailsPageJournalMenu.selectedEventKindValues ) }">
+		<div class="oldorupcoming-text-container">
+			<span class="oldorupcoming-sign" data-bind="text: $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.showUpcoming() == true ? '-' : '+'">+</span>
 			<span>nadchodzące</span>
 		</div>
-		<span style="font-size: 14px; position: relative; right: 100px;" data-bind="text: $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.showUpcoming() == true ? '[zwiń]' : '[rozwiń]'"></span>
+		<span  class="oldorupcoming-expand-text sm-hidden" data-bind="text: $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.showUpcoming() == true ? '[zwiń]' : '[rozwiń]'"></span>
 		<span class="oldorupcoming-event-count" data-bind="text: $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.upcoming().length > 0 ? $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.upcoming().length : ''"></span>
 	</div>
-	<div data-bind="foreach: $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.upcoming" style="padding-left: 100px;padding-right:6px;">
-		<div class="display-events-overview-item">
-			<div data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }" style="border-top-width: 2px; border-top-style: solid; border-top-color: rgb(253, 252, 250);">
-				<div class="list-item-star">
-					<img src="~/Images/Icons/star.png" alt="public event star" />
-				</div>
-				<div class="list-item-title" data-bind="text: name"></div>
-				<div class="list-item-other" data-bind="text: startDate.displayFullDate()"></div>
-				<div class="list-item-other" data-bind="text: startDate.displayFullTime()"></div>
-				<div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
-			</div>
-			<div style="display: none;" class="event-block-container" data-bind="attr: { 'data-eventid': id }">
-				<div class="event-block">
-					@Html.Partial( "_LobbyEventBlock" )
-				</div>
-			</div>
-		</div>
+	<div class="display-events-overview-item-list" data-bind="foreach: $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.upcoming">
+    <div class="display-events-overview-item">
+      <div class="overview-item-inner-wrapper" data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
+        <div class="rg-inline-block">
+          <div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
+          <span class="list-item-title" data-bind="text: name"></span>
+        </div>
+        <div class="inline-block" style="float:right;">
+          <span class="list-item-date">
+            <span class="list-item-other" data-bind="text: startDate.displayFullDate()"></span>
+            <span class="list-item-other" data-bind="text: startDate.displayFullTime()"></span>
+          </span>
+        </div>
+      </div>
+      <div class="event-block-expand" style="display:none;">
+        @Html.Partial("_LobbyEventBlock")
+      </div>
+    </div>
 	</div>
 </div>

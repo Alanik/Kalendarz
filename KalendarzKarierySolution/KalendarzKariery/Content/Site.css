@@ -114,7 +114,7 @@ fieldset {
 #loginBarContainer {
   font-size: 1.6em;
   text-align: right;
-  border-bottom: 1px solid #FBFBFB;
+  border-bottom: 2px solid #FBFBFB;
   color: #676666;
 }
 
@@ -186,7 +186,6 @@ fieldset {
   display: inline-block;
   position: relative;
   margin-bottom: 20px;
-  background: white;
   border: 1px solid rgb(226, 226, 226);
 }
 
@@ -279,7 +278,6 @@ fieldset {
   margin-top: 1px;
   margin-bottom: 1px;
   position: relative;
-  background: #D8D8D8;
   border-bottom: 2px solid #F3F3F3;
 }
 
@@ -385,7 +383,7 @@ fieldset {
   padding: 1% 2%;
   width: 88%;
   margin: 0 auto;
-  background: rgba(236, 236, 231, 0.8);
+  background: rgb(132, 132, 132);
 }
 
   #detailsDayTable .details-day-table-head {
@@ -395,7 +393,6 @@ fieldset {
     padding: 10px;
     padding-left: 6px;
     font-size: 15px;
-    background: #5F5F55;
   }
 
     #detailsDayTable .details-day-table-head div {
@@ -404,7 +401,7 @@ fieldset {
     }
 
   #detailsDayTable .details-day-table-body {
-    background: rgb(162, 156, 143);
+    background: rgb(103, 103, 103);
     padding-top: 4px;
     padding-bottom: 4px;
     padding-left: 1px;
@@ -424,14 +421,14 @@ fieldset {
 
 .hour-line {
   position: absolute;
-  background: rgb(177, 173, 159);
+  background: rgb(113, 113, 113);
   height: 100%;
   width: 1px;
 }
 
 .hour-line-21 {
   position: absolute;
-  background: rgb(177, 173, 159);
+  background: rgb(113, 113, 113);
   height: 100%;
   width: 1px;
   right: 1px;
@@ -466,7 +463,7 @@ fieldset {
   padding-bottom: 40px;
   width: 88%;
   margin: 0 auto;
-  background: rgba(236, 236, 231, 0.8);
+  background: rgb(132, 132, 132);
 }
 
 #detailsEventBlockList {

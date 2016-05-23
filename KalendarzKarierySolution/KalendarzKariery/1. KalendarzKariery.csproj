@@ -287,7 +287,6 @@
     <Content Include="Scripts\JSModels\KKNoteModel.js" />
     <Content Include="Scripts\Lib\DzieuoJs\dzieuo.js" />
     <Content Include="Scripts\Lib\DzieuoJs\jquery.animate-enhanced.min.js" />
-    <Content Include="Scripts\Lib\DzieuoJs\jquery.easing.1.3.js" />
     <Content Include="Scripts\Lib\HammerJS\hammer.min.map" />
     <None Include="Scripts\Lib\jquery-2.0.3.intellisense.js" />
     <Content Include="Images\TestBackgrounds\1600x900.jpg" />

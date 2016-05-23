@@ -72,11 +72,13 @@
 #dzHorizontalNav #dzNextArrow {
   position: absolute;
   right: 50px;
+  height:92px;
 }
 
 #dzHorizontalNav #dzPrevArrow {
   position: absolute;
   left: 40px;
+  height:92px;
 }
 
 #dzVerticalNav {

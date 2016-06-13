@@ -106,9 +106,7 @@
 	},
 	initializeDzieuoPlugin: function ( $dzieuo )
 	{
-		$dzieuo.dzieuo( {
-			'row_scroll_padding_top': 20
-		} );
+		$dzieuo.dzieuo();
 	},
 	displaySiteAfterLoad: function ( siteLoadingTextAnimationInterval, $dzieuo)
 	{

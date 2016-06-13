@@ -60,7 +60,7 @@ MEDIA QUERIES
 
   .rg-inline-block {
     display: inline-block;
-    overflow: hidden;
+    /*overflow: hidden;*/
   }
 }
 
@@ -122,7 +122,7 @@ MEDIA QUERIES
 
   .rg-inline-block {
     display: block;
-    overflow: hidden;
+    /*overflow: hidden;*/
   }
 }
 
@@ -184,6 +184,6 @@ MEDIA QUERIES
 
   .rg-inline-block {
     display: block;
-    overflow: hidden;
+    /*overflow: hidden;*/
   }
 }

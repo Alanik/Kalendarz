@@ -33,6 +33,7 @@
   text-align: center;
   border: 1px solid #807C77;
   border-left: 1px solid darkgrey;
+  min-height:0;
 }
 
 #lobbyEventsMasonryContainer .event-block-body {

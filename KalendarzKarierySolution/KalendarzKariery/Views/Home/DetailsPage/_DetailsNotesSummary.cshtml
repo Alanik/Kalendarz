@@ -1,25 +1,25 @@
 ﻿<div class="notes-shadow-box">
-			<textarea id="notesTxtArea" maxlength="1000" data-bind="value: $root.observableNote.data" placeholder="Wpisz treść notatki"></textarea>
+  <textarea id="notesTxtArea" maxlength="1000" data-bind="value: $root.observableNote.data" placeholder="Wpisz treść notatki"></textarea>
   <div style="overflow:hidden;">
     <button id="btnAddNewNote" data-bind="click: $root.AddNoteOnClick" class="btn-add green-color hover-cursor-pointer">+</button>
   </div>
-		<div id="notesListContainer">
-			<ul id="notesList" data-bind="foreach: $root.detailsPageDayNotes">
-				<li data-bind="attr: { 'data-noteid': id, 'type': isLineThrough() ? 'disc' : 'circle' }, css: { 'line-through-text': isLineThrough() }">
-					<div class="note-content">
-						<pre data-bind="text: data, css: { 'line-through-text': isLineThrough() }" style="white-space: pre-wrap;"></pre>
-						<div style="overflow:hidden;">
-						<div style="font-size: 14px; color: rgb(201, 189, 144);text-align:right;text-decoration:none;">
-						<span data-bind="text: dateAdded.displayFullTime()"></span><span>  </span><span data-bind="text: dateAdded.displayFullDate()"></span>
-						</div>
-							<span style="font-size: 16px;float:right;color:rgb(210, 210, 188);">
-								<span class="link" data-bind="click: function () { $root.setLineThroughNoteDetailsPageOnLineThroughLinkClick( id, displayDate.year, displayDate.month, displayDate.day, !isLineThrough() ) }, text: isLineThrough() ? 'odkreśl' : 'skreśl' ">skreśl</span>
-								<span class="link" data-bind="click: function () { $root.editNoteDetailsPageOnEditLinkClick( id, displayDate.year, displayDate.month, displayDate.day ) }">edytuj</span>
-								<span data-bind="click: function () { $root.prepareDeleteNoteDetailsPageOnDeleteLinkClick( id, displayDate.year, displayDate.month, displayDate.day ) }" class="link">usuń</span>
-							</span>
-						</div>
-					</div>
-				</li>
-			</ul>
-		</div>
-	</div>
+  <div id="notesListContainer">
+    <ul id="notesList" data-bind="foreach: $root.detailsPageDayNotes">
+      <li data-bind="attr: { 'data-noteid': id, 'type': isLineThrough() ? 'disc' : 'circle' }, css: { 'line-through-text': isLineThrough() }">
+        <div class="note-content">
+          <pre data-bind="text: data, css: { 'line-through-text': isLineThrough() }" style="white-space: pre-wrap;"></pre>
+          <div style="overflow:hidden;">
+            <div style="font-size: 14px; color: rgb(183, 183, 183);text-align:right;text-decoration:none;">
+              <span data-bind="text: dateAdded.displayFullTime()"></span><span>  </span><span data-bind="text: dateAdded.displayFullDate()"></span>
+            </div>
+            <span style="font-size: 16px;float:right;color:rgb(210, 210, 188);">
+              <span class="link" data-bind="click: function () { $root.setLineThroughNoteDetailsPageOnLineThroughLinkClick( id, displayDate.year, displayDate.month, displayDate.day, !isLineThrough() ) }, text: isLineThrough() ? 'odkreśl' : 'skreśl' ">skreśl</span>
+              <span class="link" data-bind="click: function () { $root.editNoteDetailsPageOnEditLinkClick( id, displayDate.year, displayDate.month, displayDate.day ) }">edytuj</span>
+              <span data-bind="click: function () { $root.prepareDeleteNoteDetailsPageOnDeleteLinkClick( id, displayDate.year, displayDate.month, displayDate.day ) }" class="link">usuń</span>
+            </span>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

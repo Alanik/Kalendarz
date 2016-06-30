@@ -93,7 +93,7 @@
         calendar += ('<div class="other-month-cell other-month-day' + currentDay + ' prev-month-cell calendar-cell"  data-daynumber="' + (prev_days - firstDay + dayPlusOne) + '" data-weekday="' + weekdayModulo + '" data-bind="click:function(){ $root.moveToDetailsPageOnCalendarCellClick($element) }">');
         calendar += ('<div class="calendar-cell-placeholder"><div class="cell-span-container"><span class="day">' + (prev_days - firstDay + dayPlusOne) + '</span>');
         if (dayPlusOne == firstDay) {
-          calendar += ('<span class="cell-month-name-span" style="padding-left:20px;">' + opts.monthNames[prev_m] + '</span>');
+          calendar += ('<span class="cell-month-name-span" style="margin-left:20px;">' + opts.monthNames[prev_m] + '</span>');
         }
         calendar += ('<div class="addNewEvent-cellIcon dark-icon" data-bind="click:function(data, e){ $root.showAddPrivateCalendarEventPopupOnClick($element, data, e)}">+</div></div></div></div>');
 
@@ -103,7 +103,7 @@
         calendar += ('<div class="other-month-cell other-month-day' + dayCounter + ' next-month-cell calendar-cell" data-daynumber="' + dayCounter + '" data-weekday="' + weekdayModulo + '" data-bind="click:function(){ $root.moveToDetailsPageOnCalendarCellClick($element) }">');
         calendar += ('<div class="calendar-cell-placeholder"><div class="cell-span-container"><span class="day">' + dayCounter + '</span>');
         if (d == (firstDay + days)) {
-          calendar += ('<span class="cell-month-name-span" style="padding-left:10px;">' + opts.monthNames[next_m] + '</span>');
+          calendar += ('<span class="cell-month-name-span" style="margin-left:10px;">' + opts.monthNames[next_m] + '</span>');
         }
         calendar += (' <div class="addNewEvent-cellIcon dark-icon" data-bind="click:function(data, e){ $root.showAddPrivateCalendarEventPopupOnClick($element, data, e)}">+</div></div></div></div>');
 
@@ -114,7 +114,7 @@
         calendar += ('<div class="current-month-cell calendar-cell day' + currentDay + '" data-daynumber="' + currentDay + '" data-weekday="' + weekdayModulo + '" data-bind="click:function(){ $root.moveToDetailsPageOnCalendarCellClick($element) }">');
         calendar += ('<div class="calendar-cell-placeholder"><div class="cell-span-container"><span class="day">' + currentDay + '</span>');
         if (currentDay == 1) {
-          calendar += ('<span class="cell-month-name-span" style="padding-left:10px;">' + opts.monthNames[opts.month] + '</span>');
+          calendar += ('<span class="cell-month-name-span" style="margin-left:10px;">' + opts.monthNames[opts.month] + '</span>');
         }
         calendar += ('<div class="addNewEvent-cellIcon light-icon" data-bind="click:function(data, e){ $root.showAddPrivateCalendarEventPopupOnClick($element, data, e)}">+</div></div></div></div>');
       }

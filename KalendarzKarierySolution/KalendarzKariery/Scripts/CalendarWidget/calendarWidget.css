@@ -1,209 +1,210 @@
 ﻿#calendar {
 }
 
-  #calendar .dz-column-inner-wrapper {
-    border: 1px solid #F1F1E7;
-    margin: auto;
-    position: relative;
-    width: 83%;
-    height: 100%;
-    color: rgb(177,177,177);
-    display: table;
-    table-layout: fixed;
-    border-spacing: 1px;
-    background: rgb(247, 247, 247);
-  }
+	#calendar .dz-column-inner-wrapper {
+		border: 1px solid #F1F1E7;
+		margin: auto;
+		position: relative;
+		width: 83%;
+		height: 100%;
+		color: rgb(177,177,177);
+		display: table;
+		table-layout: fixed;
+		border-spacing: 1px;
+		background: rgb(247, 247, 247);
+	}
 
 #calendarMenuHeader {
-  display: table-caption;
-  border-bottom: 1px solid #FBFBFB;
-  letter-spacing: 1px;
-  font-size: 2.2em;
-  text-align: center;
-  color: #C1BEBE;
+	display: table-caption;
+	border-bottom: 1px solid #FBFBFB;
+	letter-spacing: 1px;
+	font-size: 2.2em;
+	text-align: center;
+	color: #616161;
 }
 
 .today-day-header-calendar {
-  display: inline-block;
+	display: inline-block;
 }
 
 .month-name-calendar {
-  color: gray;
-  text-decoration: underline;
+	color: gray;
+	text-decoration: underline;
 }
 
 .month-name-container {
-  display: inline-block;
-  padding-left: 10px;
-  padding-right: 10px;
+	display: inline-block;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
 .calendar-header-year-container {
-  display: inline-block;
+	display: inline-block;
 }
 
 .year-name-container {
-  display: inline-block;
+	display: inline-block;
 }
 
 .weekday-container {
-  display: table-row;
-  color: #A9A8A8;
+	display: table-row;
+	color: #5a5a5a;
 }
 
 .weekday {
-  display: table-cell;
-  text-align: center;
-  padding: 10px;
-  border-top: 1px solid #F1F1F1;
+	display: table-cell;
+	text-align: center;
+	padding: 10px;
 }
 
 
 .current-weekday {
-  color: black;
-  font-weight: bold;
+	color: black;
+	font-weight: bold;
 }
 
 .calendar-hours {
-  width: 100%;
-  height: 14px;
-  display: table-cell;
-  overflow: hidden;
-  color: rgb(97, 85, 85);
-  position: relative;
-  padding-bottom: 2px;
+	width: 100%;
+	height: 14px;
+	display: table-cell;
+	overflow: hidden;
+	color: rgb(97, 85, 85);
+	position: relative;
+	padding-bottom: 2px;
 }
 
 .hour {
-  font-size: 10px;
-  position: absolute;
+	font-size: 10px;
+	position: absolute;
 }
 
 .calendar-row {
-  /* height: 84px; */
-  width: 100%;
-  margin: auto;
-  display: table-row;
-  position: relative;
+	/* height: 84px; */
+	width: 100%;
+	margin: auto;
+	display: table-row;
+	position: relative;
 }
 
 .other-month-cell {
-  position: relative;
-  border: 1px solid white;
-  background: rgb(210, 210, 203);
+	position: relative;
+	border: 2px dashed #dadad5;
+	background: rgb(253,253,253);
 }
 
 .calendar-cell {
-  height: 80px;
-  display: table-cell;
+	height: 80px;
+	display: table-cell;
 }
 
 .calendar-cell-placeholder {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
+	position: relative;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
 }
 
 .other-month-cell .cell-span-container {
-  position: relative;
-  top: 56px;
-  height: 25px;
-  z-index: 98;
-  color: white;
-  background: rgb(210, 210, 203);
+	position: relative;
+	top: 56px;
+	height: 25px;
+	z-index: 98;
+	color: #B5B5B1;
 }
 
-  .other-month-cell .cell-span-container span {
-    position: absolute;
-    padding-left: 2px;
-    padding-right: 5px;
-    top: 4px;
-  }
+	.other-month-cell .cell-span-container span {
+		position: absolute;
+		padding-left: 2px;
+		padding-right: 5px;
+		top: 4px;
+	}
 
 .addNewEvent-cellIcon {
-  width: 40px;
-  height: 20px;
-  position: absolute;
-  right: 1px;
-  top: 2px;
-  text-align: center;
-  display: none;
-  z-index: 99;
+	width: 40px;
+	height: 20px;
+	position: absolute;
+	right: 1px;
+	top: 2px;
+	text-align: center;
+	display: none;
+	z-index: 99;
 }
 
 .dark-icon {
-  color: white;
+	color: white;
 }
 
 .light-icon {
-  background: rgb(225, 225, 225);
+	background: rgb(225, 225, 225);
 }
 
 .cell-line-style {
-  position: absolute;
-  width: 1px;
+	position: absolute;
+	width: 1px;
 }
 
 .current-month-cell {
-  border: 2px solid white;
-  background-color: rgb(253,253,253);
-  color: black;
-  position: relative;
+	border: 2px solid white;
+	background-color: rgb(253,253,253);
+	color: black;
+	position: relative;
 }
 
-  .current-month-cell .cell-span-container {
-    position: relative;
-    top: 56px;
-    height: 25px;
-    z-index: 10;
-    background: #FDFDFD;
-  }
+	.current-month-cell .cell-span-container {
+		position: relative;
+		top: 56px;
+		height: 25px;
+		z-index: 10;
+		background: #FDFDFD;
+	}
 
-    .current-month-cell .cell-span-container .cell-month-name-span {
-      color: rgb(184, 184, 184);
-    }
+		.current-month-cell .cell-span-container .cell-month-name-span {
+			color: rgb(184, 184, 184);
+		}
 
-  .current-month-cell span {
-    color: #B5B5B1;
-    position: absolute;
-    padding-left: 2px;
-    padding-right: 5px;
-    top: 4px;
-  }
+	.current-month-cell span {
+		color: #B5B5B1;
+		position: absolute;
+		padding-left: 2px;
+		padding-right: 5px;
+		top: 4px;
+	}
 
+.cell-month-name-span {
+	background: #eaeae9;
+}
 
 .today-cell {
-  background: #FBFBFB !important;
-  border: 2px solid #71716D !important;
+	background: #FBFBFB !important;
+	border: 2px solid #ffff78 !important;
 }
 
-  .today-cell .cell-span-container {
-    position: relative;
-    top: 56px;
-    height: 24px;
-    z-index: 98;
-    background: #FBFBFB !important;
-  }
+	.today-cell .cell-span-container {
+		position: relative;
+		top: 56px;
+		height: 24px;
+		z-index: 98;
+		background: #FBFBFB !important;
+	}
 
-    .today-cell .cell-span-container span {
-      color: gray;
-    }
+		.today-cell .cell-span-container span {
+			color: gray;
+		}
 
 #calendarWidget {
-  display: table;
-  table-layout: fixed;
-  width: 100%;
-  background: rgba(210, 210, 203, 0.14);
+	display: table;
+	table-layout: fixed;
+	width: 100%;
+	background: rgba(210, 210, 203, 0.47);
 }
 
 .addNewEvent-cellIcon {
-  width: 40px;
-  height: 20px;
-  position: absolute;
-  right: 1px;
-  top: 2px;
-  text-align: center;
-  display: none;
-  z-index: 99;
+	width: 40px;
+	height: 20px;
+	position: absolute;
+	right: 1px;
+	top: 2px;
+	text-align: center;
+	display: none;
+	z-index: 99;
 }

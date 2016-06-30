@@ -9,9 +9,8 @@
 }
 
 #lobbyEventsMasonryContainer .event-block {
-  color: rgb(250, 250, 250);
   line-height: 1;
-  background: rgb(236, 236, 236);
+  background:rgb(250,250,250);
 }
 
 #lobbyEventsMasonryContainer .event-block-info-link {
@@ -20,10 +19,8 @@
 
 #lobbyEventsMasonryContainer .event-block-info-name {
   font-size: 1.5em;
-  background: #e6e5e5;
   color: #636363;
   padding: 6px;
-  border-bottom: 1px solid whitesmoke;
 }
 
 #lobbyEventsMasonryContainer .event-kind-tag {
@@ -76,9 +73,8 @@
 }
 
 #detailsEventBlockList .event-block {
-  color: rgb(250, 250, 250);
   line-height: 1;
-  background: rgb(236, 236, 236);
+  background: rgb(250, 250, 250);
 }
 
 #detailsEventBlockList .event-block-info-link {
@@ -87,10 +83,8 @@
 
 #detailsEventBlockList .event-block-info-name {
   font-size: 1.5em;
-  background: #e6e5e5;
   color: #636363;
   padding: 6px;
-  border-bottom: 1px solid whitesmoke;
 }
 
 #detailsEventBlockList .event-kind-tag {
@@ -138,9 +132,8 @@
 /*Lobby and Details - event-block-expand*/
 
 .event-block-expand .event-block {
-  color: rgb(250, 250, 250);
   line-height: 1;
-  background: rgb(236, 236, 236);
+  background: rgb(250, 250, 250);
 }
 
 .event-block-expand .event-block-info-link {
@@ -149,10 +142,8 @@
 
 .event-block-expand .event-block-info-name {
   font-size: 1.5em;
-  background: #e6e5e5;
   color: #636363;
   padding: 6px;
-  border-bottom: 1px solid whitesmoke;
 }
 
 .event-block-expand .event-kind-tag {
@@ -166,7 +157,6 @@
   color: rgb(72, 68, 62);
   padding: 10px;
   font-size: 1.2em;
-  background: rgb(236, 236, 236);
 }
 
   .event-block-expand .event-block-body :hover {

@@ -1,4 +1,4 @@
-﻿var Program = {
+﻿var App = {
 	indexViewModel: null,
 	initializeJQueryExtentionMethods: function ( simpleFilt )
 	{
@@ -106,7 +106,9 @@
 	},
 	initializeDzieuoPlugin: function ( $dzieuo )
 	{
-		$dzieuo.dzieuo();
+		$dzieuo.dzieuo({
+			row_scroll_padding_top : 10
+		});
 	},
 	displaySiteAfterLoad: function ( siteLoadingTextAnimationInterval, $dzieuo)
 	{

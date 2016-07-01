@@ -106,11 +106,11 @@
 	},
 	initializeDzieuoPlugin: function ( $dzieuo )
 	{
-		$dzieuo.dzieuo({
-			row_scroll_padding_top : 10
-		});
+		$dzieuo.dzieuo( {
+			row_scroll_padding_top: 10
+		} );
 	},
-	displaySiteAfterLoad: function ( siteLoadingTextAnimationInterval, $dzieuo)
+	displaySiteAfterLoad: function ( siteLoadingTextAnimationInterval, $dzieuo )
 	{
 		setTimeout( function ()
 		{
@@ -580,19 +580,18 @@
 			$( ".menu-item-container" ).hover( function ()
 			{
 				var $this = $( this );
+
 				if ( !$this.hasClass( "selected" ) )
 				{
 					$this.css( {
 						"cursor": "pointer",
-						"border": "2px solid gray",
-						"border-left": "1px solid rgb(226, 226, 226)",
-						"border-right": "1px solid rgb(226, 226, 226)"
+						"border": "2px solid gray"
 					} );
 				}
 				else
 				{
 					$this.css( {
-						"border-top": "2px solid gray"
+						"border": "2px solid gray"
 					} );
 				}
 
@@ -604,15 +603,12 @@
 				{
 					$this.css( {
 						"cursor": "auto",
-						"border": "1px solid rgb(226, 226, 226)"
+						"border": "2px solid rgb(247, 247, 247)"
 					} );
 				} else
 				{
 					$this.css( {
-						"border-bottom": "2px solid gray",
-						"border-left": "2px solid rgb(218, 216, 208)",
-						"border-right": "2px solid rgb(218, 216, 208) ",
-						"border-top": "2px solid #E4E0D1"
+						"border": "2px solid gray"
 					} );
 				}
 			} );

@@ -1294,9 +1294,6 @@
 
     if ($menuItemContainer.hasClass("selected")) {
       $menuItemContainer.css("top", "20px");
-      $menuItemContainer.css("border", "2px solid rgb(218, 216, 208)");
-      $menuItemContainer.css("border-bottom", "2px solid gray");
-      $menuItemContainer.css("border-top", "2px solid gray");
       menuObj.selectedEventKindValues.push(eventKindValue);
       self.showSelectedEvents(selectedEventsProp, 'all', [eventKindValue]);
 

@@ -2,11 +2,11 @@
 }
 
 	#calendar .dz-column-inner-wrapper {
-		border: 1px solid #F1F1E7;
+		border: 2px solid #808080;
 		margin: auto;
 		position: relative;
 		width: 83%;
-		height: 100%;
+		height: auto;
 		color: rgb(177,177,177);
 		display: table;
 		table-layout: fixed;
@@ -16,11 +16,12 @@
 
 #calendarMenuHeader {
 	display: table-caption;
-	border-bottom: 1px solid #FBFBFB;
 	letter-spacing: 1px;
 	font-size: 2.2em;
-	text-align: center;
-	color: #616161;
+	padding-left: 20px;
+	color: #f7f7f7;
+	background: gray;
+	padding-top:40px;
 }
 
 .today-day-header-calendar {
@@ -59,7 +60,7 @@
 
 
 .current-weekday {
-	color: black;
+	color: white;
 	font-weight: bold;
 }
 
@@ -88,8 +89,8 @@
 
 .other-month-cell {
 	position: relative;
-	border: 2px dashed #dadad5;
-	background: rgb(253,253,253);
+	border: 1px solid #e4e4e4;
+	background: rgb(247, 247, 247);
 }
 
 .calendar-cell {
@@ -110,6 +111,7 @@
 	height: 25px;
 	z-index: 98;
 	color: #B5B5B1;
+	background: #f7f7f7;
 }
 
 	.other-month-cell .cell-span-container span {
@@ -175,8 +177,8 @@
 }
 
 .today-cell {
-	background: #FBFBFB !important;
-	border: 2px solid #ffff78 !important;
+	background: #ffffff !important;
+	border: 2px solid #f7f7f3 !important;
 }
 
 	.today-cell .cell-span-container {
@@ -184,7 +186,7 @@
 		top: 56px;
 		height: 24px;
 		z-index: 98;
-		background: #FBFBFB !important;
+		background: white !important;
 	}
 
 		.today-cell .cell-span-container span {

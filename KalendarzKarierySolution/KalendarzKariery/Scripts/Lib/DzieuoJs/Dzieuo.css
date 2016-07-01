@@ -46,7 +46,7 @@
   }
 
     #dzHorizontalPaging .dz-horizontal-paging-item.current {
-      border: 2px solid #ADA8A8;
+      border: 2px solid gray;
       background: #A2D5EE;
     }
 
@@ -66,7 +66,7 @@
 
     #dzVerticalPaging .dz-vertical-paging-item.current {
       background: #A2D5EE;
-      border: 2px solid #ADA8A8;
+      border: 2px solid gray;
     }
 
 #dzHorizontalNav #dzNextArrow {

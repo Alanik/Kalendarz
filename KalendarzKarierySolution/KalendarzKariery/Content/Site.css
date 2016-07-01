@@ -174,24 +174,31 @@ fieldset {
 
 #lobbyTableOfEventsSection {
 	border-top: 1px solid #E8E8E8;
-	padding-top: 10px;
+	padding-top: 20px;
 }
 
 .events-menu-container {
 	text-align: center;
-	margin-bottom: 20px;
+	background: #ececec;
+	padding-top: 20px;
+	padding-bottom: 4px;
 }
 
 .menu-item-container {
 	display: inline-block;
 	position: relative;
 	margin-bottom: 20px;
-	border: 1px solid rgb(226, 226, 226);
+	border: 2px solid rgb(247, 247, 247);
 }
 
 	.menu-item-container.selected {
 		background: #ececec;
 	}
+
+		.menu-item-container.selected .menu-item-number-upcoming {
+			color: gray;
+			background: #f7f7f7;
+		}
 
 .menu-item {
 	height: 0px;
@@ -239,38 +246,41 @@ fieldset {
 
 .menu-item-number-upcoming {
 	font-size: 3em;
-	color: rgb(148, 148, 148);
+	color: rgb(189, 189, 189);
+	border: 2px solid #f7f7f7;
+	border-bottom: 10px solid #f7f7f7;
 }
 
+
 .display-events-overview-container {
-	background: #ECECEC;
-	border: 2px solid white;
-	margin-bottom: 40px;
+	border: 2px solid grey;
 }
 
 .display-events-overview-header {
 	text-align: left;
 	padding: 5px;
-	padding-left: 20px;
+	padding-left: 1px;
 	font-size: 1.4em;
 	position: relative;
-	color: #CACACA;
-	margin-bottom: 14px;
+	color: #cacaca;
+	height: 48px;
+	background: gray;
 }
 
 .display-events-header-menu-title {
 	padding: 4px;
+	position: relative;
+	top: 8px;
 }
 
 	.display-events-header-menu-title.selected {
-		border-bottom: 2px solid black;
-		color: black;
+		border-bottom: 2px solid #f7f7f7;
+		color: white;
 	}
 
 .display-events-overview-body {
 	padding-bottom: 40px;
-	padding-top: 18px;
-	margin-bottom: 40px;
+	padding-top: 40px;
 }
 
 .display-events-overview-container .legend-oldorupcoming {
@@ -282,7 +292,7 @@ fieldset {
 	margin-top: 1px;
 	margin-bottom: 1px;
 	position: relative;
-	border-bottom: 2px solid #F3F3F3;
+	/* border-bottom: 2px solid #f7f7f7; */
 }
 
 .oldorupcoming-event-count {
@@ -301,7 +311,7 @@ fieldset {
 	border-right: 2px solid #DEDEDE;
 	border-bottom: 2px solid #E6E6E6;
 	border-top: 1px solid #FFFFFF;
-	background: #F7F7F7;
+	background: #ececec;
 	overflow: hidden;
 	min-height: 29px;
 }
@@ -372,7 +382,7 @@ fieldset {
 
 #detailsPanel {
 	border-top: 1px solid #E8E8E8;
-	padding-top: 10px;
+	padding-top: 20px;
 	overflow: hidden;
 }
 
@@ -387,8 +397,9 @@ fieldset {
 	position: relative;
 	padding: 0 2%;
 	padding-bottom: 40px;
-	width: 88%;
+	width: 100%;
 	margin: 0 auto;
+	box-sizing: border-box;
 	background: rgb(132, 132, 132);
 }
 
@@ -396,9 +407,10 @@ fieldset {
 		overflow: hidden;
 		text-align: left;
 		color: #DED9CF;
-		padding: 10px;
-		padding-left: 6px;
+		padding-top: 10px;
 		font-size: 15px;
+		margin-bottom: 2px;
+		border-bottom: 2px solid #464646;
 	}
 
 		#detailsDayTable .details-day-table-head div {
@@ -468,15 +480,16 @@ fieldset {
 	overflow: hidden;
 	padding: 0 2%;
 	padding-bottom: 40px;
-	width: 88%;
+	width: 100%;
 	margin: 0 auto;
+	box-sizing: border-box;
 	background: rgb(132, 132, 132);
 }
 
 #detailsEventBlockList {
 	width: 49%;
 	display: inline-block;
-	background: #CECECE;
+	background: #5f5f5f;
 }
 
 #notesContainer {
@@ -520,8 +533,7 @@ fieldset {
 	font-size: 1.4em;
 	background: rgb(125, 124, 124);
 	padding: 10px;
-	resize: none;
-	border: 1px solid #a9a9a9;
+	border: 2px solid #676767;
 	overflow: auto;
 	-webkit-appearance: none;
 	outline: 0;
@@ -533,8 +545,8 @@ fieldset {
 	margin-bottom: 10px;
 	font-size: 2em;
 	padding: 0 25px;
-	background: #efefef;
-	border: 2px solid #efefef;
+	background: #676767;
+	border: 2px solid #5f5f5f;
 }
 
 #notesList {
@@ -779,7 +791,7 @@ li.line-through-text {
 }
 
 .dziennik-menu-container {
-	width: 40%;
+	width: 50%;
 	height: 200px;
 	background: #ECECEC;
 	float: right;

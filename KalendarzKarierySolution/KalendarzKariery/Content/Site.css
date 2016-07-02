@@ -116,10 +116,22 @@ fieldset {
 	margin-right: 50%;
 }
 
+#calendarDayDetailsContainer {
+margin-top:20px;
+}
+
 #loginBarContainer {
-	font-size: 1.6em;
+	font-size: 18px;
 	text-align: right;
+	position: fixed;
 	color: #676666;
+	top: 0px;
+	height: 28px;
+	right: 18%;
+	z-index: 10;
+	transition-property: all;
+	transition-duration: .5s;
+	transition-timing-function: ease;
 }
 
 #loginLink {
@@ -134,7 +146,7 @@ fieldset {
 }
 
 .lobby-quote {
-	color: #B7B7AF;
+	color: #b7b7b3;
 	font-size: 2em;
 	line-height: 1;
 }
@@ -333,7 +345,7 @@ fieldset {
 
 .js-masonry {
 	background: #CECECE;
-	width: 100%;
+	width: 100% !important;
 }
 
 #lobbyEventsMasonryContainer {
@@ -467,15 +479,15 @@ fieldset {
 
 .day-display-date-container {
 	font-size: 2em;
-	color: black;
+	color: #c5c5c5;
 	padding-bottom: 10px;
-	border-top: 1px solid #E8E8E8;
 	padding-left: 20px;
+	background:#5f5f5f;
 }
 
 	.day-display-date-container .display-date-small {
 		font-size: .5em;
-		color: #716B5E;
+		color: #b5b5b5;
 	}
 
 .event-rectangle-details {
@@ -860,9 +872,9 @@ li.line-through-text {
 /*popupbox*/
 
 .popupbox {
-	background: #ECECEC;
+	background: #f5f5f5;
 	border: 1px solid #D8D8D8;
-	color: #827869;
+	color: #a2a2a2;
 	border-radius: 3px;
 	width: 60%;
 	left: 20%;
@@ -877,6 +889,7 @@ li.line-through-text {
 .confirmation-popupbox {
 	top: 300px;
 	text-align: center;
+	font-size:2em;
 }
 
 .popupbox-header {

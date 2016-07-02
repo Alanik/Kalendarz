@@ -117,7 +117,7 @@ fieldset {
 }
 
 #calendarDayDetailsContainer {
-margin-top:20px;
+	margin-top: 20px;
 }
 
 #loginBarContainer {
@@ -140,15 +140,16 @@ margin-top:20px;
 
 #lobbyQuoteSection {
 	font-family: Raleway-Regular;
-	text-align: left;
-	margin: 0 auto;
-	width: 80%;
+	text-align: center;
 }
 
 .lobby-quote {
-	color: #b7b7b3;
+	color: #c5c5c0;
 	font-size: 2em;
 	line-height: 1;
+	background: #ececec;
+	margin: 0;
+	padding-bottom: 40px;
 }
 
 #addPublicEventBtn {
@@ -171,7 +172,7 @@ margin-top:20px;
 
 #lobbyNavContainer {
 	font-size: 1.2em;
-	padding: 30px 0;
+	padding: 50px 0;
 	width: 100%;
 	text-align: center;
 	background: #ececec;
@@ -291,7 +292,6 @@ margin-top:20px;
 }
 
 	.display-events-header-menu-title.selected {
-		border-bottom: 2px solid #f7f7f7;
 		color: white;
 	}
 
@@ -310,13 +310,14 @@ margin-top:20px;
 	margin-top: 1px;
 	margin-bottom: 1px;
 	position: relative;
-	/* border-bottom: 2px solid #f7f7f7; */
+	background: #cecece;
 }
 
 .oldorupcoming-event-count {
 	padding-right: 10px;
 	position: absolute;
 	right: 0;
+	color:white;
 }
 
 .oldorupcoming-expand-text {
@@ -346,6 +347,7 @@ margin-top:20px;
 .js-masonry {
 	background: #CECECE;
 	width: 100% !important;
+	position: relative !important;
 }
 
 #lobbyEventsMasonryContainer {
@@ -482,7 +484,7 @@ margin-top:20px;
 	color: #c5c5c5;
 	padding-bottom: 10px;
 	padding-left: 20px;
-	background:#5f5f5f;
+	background: #5f5f5f;
 }
 
 	.day-display-date-container .display-date-small {
@@ -632,13 +634,12 @@ margin-top:20px;
 
 
 .flat-form {
-	margin: 0 auto;
+	margin: 40px auto;
 	width: 50%;
 	position: relative;
 	border: 1px solid #D8D8D8;
 	padding: 20px;
 	background: #ECECEC;
-	margin-top: 40px;
 	font-size: 1.4em;
 }
 
@@ -887,9 +888,9 @@ li.line-through-text {
 }
 
 .confirmation-popupbox {
-	top: 300px;
+	top: 250px;
 	text-align: center;
-	font-size:2em;
+	font-size: 2em;
 }
 
 .popupbox-header {

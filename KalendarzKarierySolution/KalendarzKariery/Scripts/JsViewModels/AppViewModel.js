@@ -1072,13 +1072,9 @@
 
 	}
 
-	self.showEventDetailsOnEventBlockClick = function ( element )
+	self.showEventDetailsOnEventBlockClick = function ( block )
 	{
-		var $block = $( element );
-		var $eventBlockContainer;
-
-		$eventBlockContainer = $block.closest( ".details-event-block-container" );
-		$eventBlockContainer.scrollTo( 500 );
+		$( block ).closest( ".event-block-container" ).scrollTo( 500 );
 	};
 
 	self.showTodayInDetailsPageCalendarDetailsTable = function ()
@@ -1300,9 +1296,7 @@
 
 		setTimeout( function ()
 		{
-			var $container = $( "#details #calendarDayDetailsContainer" );
-			var offset = $container.position().top - 83;
-			$container.scrollTo( 100, offset );
+			$( "#details #calendarDayDetailsContainer" ).scrollTo(1000, 80);
 
 		}, 10 )
 	};
@@ -1426,7 +1420,7 @@
 			self.removeSelectedEvents( selectedEventsProp, eventKindValue );
 		}
 
-		$menuItemContainer.scrollTo( 500 );
+		$menuItemContainer.scrollTo( 500, 20 );
 	};
 
 	self.showSelectedEvents = function ( selectedEventsProp, oldOrUpcoming, valuesArr )
@@ -1762,7 +1756,6 @@
 	self.closeAddNewEventPopupOnClick = function ()
 	{
 		var $cont = $( "#addNewEventContainer" );
-		//$cont.find( "#addEventForm" )[0].reset();
 		$( "#appContainer" ).children( ".page-overlay" ).hide();
 		$cont.hide();
 		$cont.css( "top", 30 );
@@ -1776,14 +1769,23 @@
 		$loginForm.hide();
 		$registerForm.fadeIn();
 		$( "#RegisterModel_UserName" ).focus();
+		window.location = "/#0";
+
+		setTimeout( function ()
+		{
+			$registerForm.scrollTo( 1000, 40 );
+		}, 10 );
+
 	};
 
 	self.showLoginFormOnClick = function ()
 	{
 		var $loginForm = $( "#loginPageContainer" );
+		var $registerForm = $( "#registerPageContainer" );
 		var $loginBtn = $loginForm.find( "#loginFormBtn" );
 		var $username = $loginForm.find( "#UserName" );
 
+		$registerForm.hide();
 		$loginForm.fadeIn();
 
 		if ( $username.val() !== '' )
@@ -1793,6 +1795,13 @@
 		{
 			$username.focus();
 		}
+
+		window.location = "/#0";
+
+		setTimeout( function ()
+		{
+			$loginForm.scrollTo( 1000, 40 );
+		}, 10 );
 	};
 
 	self.loginUserOnClick = function ()
@@ -1843,32 +1852,29 @@
 
 		if ( !$element.hasClass( "selected" ) )
 		{
-			$expandDiv.slideUp();
+			$expandDiv.slideUp( function ()
+			{
+				$element.scrollTo( 500, 200 );
+			} );
+
 		}
 		else
 		{
 			$expandDiv.slideDown();
-			$element.scrollTo();
+			$element.scrollTo( 500, 80 );
 		}
 	}
 
 	self.closeLoginPopupOnClick = function ()
 	{
-		var $login = $( "#loginPageContainer" );
-		var $overlay = $( "#lobby" ).siblings( ".page-overlay" );
-
-		$overlay.fadeOut();
-		$login.hide();
-
+		$( "#loginPageContainer" ).hide();
+		$( "#lobbyLogo" ).scrollTo();
 	};
 
 	self.closeRegisterPopupOnClick = function ()
 	{
-		var $register = $( "#registerPageContainer" );
-		var $overlay = $( "#lobby" ).siblings( ".page-overlay" );
-
-		$overlay.fadeOut();
-		$register.hide();
+		$( "#registerPageContainer" ).hide();
+		$( "#lobbyLogo" ).scrollTo();
 	};
 
 	self.registerUserOnClick = function ()
@@ -2344,9 +2350,7 @@
 
 	self.showEventBlockInfoOnDetailsPageEventRectangleClick = function ( id )
 	{
-		var $container = $( "#details .details-event-block-container[data-eventid='" + id + "']" );
-		var block = $container.find( ".details-event-block" )[0];
-		self.showEventDetailsOnEventBlockClick( block );
+		$( "#details .event-block-container[data-eventid='" + id + "']" ).scrollTo( 500 );
 	};
 
 	self.closeAllSelectedEventsListContainerOnClick = function ()
@@ -2375,6 +2379,7 @@
 				self.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.old( [] );
 				self.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.upcoming( [] );
 
+				$( "#lobbyTableOfEventsSection" ).scrollTo( 500, 60 );
 				return true;
 			case 2:
 				self.detailsPageJournalMenu.isOpen( false );
@@ -2399,7 +2404,7 @@
 				self.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.old( [] );
 				self.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.upcoming( [] );
 				self.detailsPageJournalMenu.selectedMenuItem( 1 );
-
+				$( "#detailsPanel" ).scrollTo( 500, 60 );
 				return true;
 			default: return false;
 		}
@@ -2586,6 +2591,23 @@
 				case 2:
 					$dzVerticalPaging.css( { 'right': '8.5%' } );
 					$dzVerticalNav.css( { 'right': '16%' } );
+					break;
+				default:
+
+			}
+		} );
+
+		$( document ).bind( "horizontal_transition:after", function ( e, arg )
+		{
+			switch ( arg.targetColumn )
+			{
+				case 0:
+					window.dispatchEvent( new Event( 'resize' ) );
+					console.log( "triggered window resize" );
+					break;
+				case 1:
+					break;
+				case 2:
 					break;
 				default:
 

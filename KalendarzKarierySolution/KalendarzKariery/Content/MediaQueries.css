@@ -3,224 +3,226 @@ MEDIA QUERIES
 */
 
 @media only screen and (min-width: 768px) {
-  /* tablets and desktop */
-  .rg-width-49per {
-    width: 49%;
-  }
+	/* tablets and desktop */
+	.rg-width-49per {
+		width: 49%;
+	}
 }
 
 @media only screen and (max-width: 767px) {
-  /* phones */
-  body {
-    font-size: .65em;
-  }
+	/* phones */
+	body {
+		font-size: .65em;
+	}
 
-  #lobbyHeader {
-    margin-top: 1px;
-  }
+	#lobbyHeader {
+		margin-top: 1px;
+	}
 
-  #loginBarContainer {
-    font-size: 1.4em;
-  }
+	#loginBarContainer {
+		font-size: 1.4em;
+	}
 
-  .weekday {
-    padding: 2px !important;
-  }
+	.weekday {
+		padding: 2px !important;
+	}
 
-  .flat-form {
-    width: 80%;
-    margin-top: 20px;
-  }
+	.flat-form {
+		width: 80%;
+		margin-top: 20px;
+	}
 
-  .display-events-overview-container {
-    border: 1px solid white;
-  }
+	.display-events-overview-container {
+		border: 1px solid white;
+	}
 
-  .display-events-overview-item {
-    border-left: none;
-    border-right: none;
-  }
+	.display-events-overview-item {
+		border-left: none;
+		border-right: none;
+	}
 
-  .display-events-overview-container .legend-oldorupcoming {
-    margin-left: 0;
-  }
+	.display-events-overview-container .legend-oldorupcoming {
+		margin-left: 0;
+	}
 
-  #pageOverlayAtSiteLoad {
-    left: 0;
-  }
+	#pageOverlayAtSiteLoad {
+		left: 0;
+	}
 
-  .display-events-overview-item-list {
-    padding-left: 2px;
-    padding-right: 2px;
-  }
+	.display-events-overview-item-list {
+		padding-left: 2px;
+		padding-right: 2px;
+	}
 
-  #detailsDayTable .details-day-table-head {
-    padding: 2px;
-    padding-left: 2px;
-  }
+	#detailsDayTable .details-day-table-head {
+		padding: 2px;
+		padding-left: 2px;
+	}
 
-    #detailsDayTable .details-day-table-head div {
-      width: 14.14%;
-    }
+		#detailsDayTable .details-day-table-head div {
+			width: 14.14%;
+		}
 
-  .menu-item {
-    width: 60px;
-    margin-bottom: 10px;
-  }
+	.menu-item {
+		width: 60px;
+		margin-bottom: 10px;
+	}
 
-  .menu-item-number-upcoming {
-    font-size: 2em;
-  }
+	.menu-item-number-upcoming {
+		font-size: 2em;
+	}
 
-  #lobbyEventsMasonryContainer .event-block-container {
-    width: 99%;
-  }
+	#lobbyEventsMasonryContainer .event-block-container {
+		width: 99%;
+	}
 
-  #lobbyLogo img {
-    width: 50%;
-  }
+	#lobbyLogo img {
+		width: 50%;
+	}
 
-  #dzPrevArrow {
-    left: 2px !important;
-  }
+	#dzHorizontalNav #dzPrevArrow {
+		left: 2px !important;
+		height: 40px !important;
+	}
 
-    #dzPrevArrow img {
-      height: 40px;
-    }
+		#dzHorizontalNav #dzPrevArrow img {
+			height: 40px;
+		}
 
-  #dzNextArrow {
-    right: 8px !important;
-  }
+	#dzHorizontalNav #dzNextArrow {
+		right: 8px !important;
+		height: 40px !important;
+	}
 
-    #dzNextArrow img {
-      height: 40px;
-    }
+		#dzHorizontalNav #dzNextArrow img {
+			height: 40px;
+		}
 
-  #dzVerticalNav {
-    right: 42px !important;
-  }
+	#dzVerticalNav {
+		right: 42px !important;
+	}
 
-    #dzVerticalNav img {
-      width: 40px;
-    }
+		#dzVerticalNav img {
+			width: 40px;
+		}
 
-  #dzVerticalNav {
-    height: 106px;
-  }
+	#dzVerticalNav {
+		height: 106px;
+	}
 
-  #dzVerticalPaging {
-    right: 48px !important;
-  }
+	#dzVerticalPaging {
+		right: 48px !important;
+	}
 
-  #lobbyNavContainer {
-    text-align: center;
-    padding-right: 0;
-    margin: 0;
-    padding-top: 20px;
-  }
+	#lobbyNavContainer {
+		text-align: center;
+		padding-right: 0;
+		margin: 0;
+		padding-top: 20px;
+	}
 
-  #loginFormBtn {
-    margin-right: 0;
-  }
+	#loginFormBtn {
+		margin-right: 0;
+	}
 
-  #registerFormBtn {
-    margin-right: 0;
-  }
+	#registerFormBtn {
+		margin-right: 0;
+	}
 
-  #loginLink {
-    font-size: .8em;
-  }
+	#loginLink {
+		font-size: .8em;
+	}
 
-  #registerForm ol {
-    padding-left: 20px;
-  }
+	#registerForm ol {
+		padding-left: 20px;
+	}
 
-  #registerForm .register-birthdate-txtbox {
-    width: 48px !important;
-  }
+	#registerForm .register-birthdate-txtbox {
+		width: 48px !important;
+	}
 
-  #registerForm .slash-separator {
-    position: relative;
-    bottom: 10px;
-    vertical-align: bottom;
-  }
+	#registerForm .slash-separator {
+		position: relative;
+		bottom: 10px;
+		vertical-align: bottom;
+	}
 
-  .rg-width-49per {
-    width: 100%;
-  }
+	.rg-width-49per {
+		width: 100%;
+	}
 
-  .display-events-overview-item .event-kind-tag {
-    border: none;
-    float: right;
-    border-right: 1px solid white;
-  }
+	.display-events-overview-item .event-kind-tag {
+		border: none;
+		float: right;
+		border-right: 1px solid white;
+	}
 
-  .list-item-other {
-    width: 80px;
-  }
+	.list-item-other {
+		width: 80px;
+	}
 
-  .popupbox {
-    width: 100%;
-    left: 0;
-  }
+	.popupbox {
+		width: 100%;
+		left: 0;
+	}
 
-    .popupbox label {
-      margin-bottom: 0px;
-    }
+		.popupbox label {
+			margin-bottom: 0px;
+		}
 }
 
 @media only screen and (max-width: 767px) and (orientation: portrait) {
-  /* portrait phones */
-  #lobbyQuoteSection {
-    width: 98%;
-  }
+	/* portrait phones */
+	#lobbyQuoteSection {
+		width: 98%;
+	}
 
-  .flat-form input[type=text], .flat-form input[type=password], .flat-form textarea, .flat-form select {
-    width: 90%;
-  }
+	.flat-form input[type=text], .flat-form input[type=password], .flat-form textarea, .flat-form select {
+		width: 90%;
+	}
 
-  #registerForm input[type=text], #registerForm input[type=password], #registerForm textarea {
-    width: 70%;
-  }
+	#registerForm input[type=text], #registerForm input[type=password], #registerForm textarea {
+		width: 70%;
+	}
 
-  .div-separator {
-    margin-left: 0;
-    margin-right: 4px;
-  }
+	.div-separator {
+		margin-left: 0;
+		margin-right: 4px;
+	}
 
-  .required-mark {
-    padding: 4px;
-  }
+	.required-mark {
+		padding: 4px;
+	}
 
-  #registerForm .inline-block {
-    display: block;
-  }
+	#registerForm .inline-block {
+		display: block;
+	}
 
-  #registerForm select {
-    width: 83% !important;
-  }
+	#registerForm select {
+		width: 83% !important;
+	}
 
-  #lobbyLogo img {
-    width: 100%;
-  }
+	#lobbyLogo img {
+		width: 100%;
+	}
 
-  .rg-width-49per {
-    width: 100%;
-  }
+	.rg-width-49per {
+		width: 100%;
+	}
 
-  .list-item-other {
-    display: block;
-  }
+	.list-item-other {
+		display: block;
+	}
 
-  .display-events-overview-item .event-kind-tag {
-    vertical-align: top;
-  }
+	.display-events-overview-item .event-kind-tag {
+		vertical-align: top;
+	}
 
-  .end-hour-container {
-    margin-left: 0px;
-  }
+	.end-hour-container {
+		margin-left: 0px;
+	}
 
-  #Address_City {
-    width: 220px;
-  }
+	#Address_City {
+		width: 220px;
+	}
 }

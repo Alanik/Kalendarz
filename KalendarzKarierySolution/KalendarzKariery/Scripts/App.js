@@ -5,10 +5,17 @@
 		jQuery.fn.extend( {
 			scrollTo: function ( speed, offset )
 			{
-				//if (!offset) {
-				//  offset = this.position().top - 50;
-				//}
-				//this.closest(".dz-column").animate({ scrollTop: offset }, speed);
+				if ( typeof offset === 'undefined' )
+				{
+					offset = 0;
+				}
+
+				var $col = this.closest( ".dz-column" );
+				var scrollTo = this.offset().top - $col.offset().top + $col.scrollTop() - offset;
+
+				console.log(scrollTo);
+
+				$col.animate( { scrollTop: scrollTo }, speed );
 			}
 		} );
 
@@ -907,14 +914,14 @@
 			{
 				window.location = "#1";
 			} );
-			$appContainer.on( "click", ".page-overlay", function ( event )
-			{
-				var $confPopoupBox = $( "#appContainer" ).children( ".confirmation-popupbox" );
-				$confPopoupBox.find( ".confirmation-popupbox-yesbtn" ).attr( "data-bind", '' );
-				$confPopoupBox.hide();
-				$( this ).hide();
+			//$appContainer.on( "click", ".page-overlay", function ( event )
+			//{
+			//	var $confPopoupBox = $( "#appContainer" ).children( ".confirmation-popupbox" );
+			//	$confPopoupBox.find( ".confirmation-popupbox-yesbtn" ).attr( "data-bind", '' );
+			//	$confPopoupBox.hide();
+			//	$( this ).hide();
 
-			} );
+			//} );
 
 		}();
 

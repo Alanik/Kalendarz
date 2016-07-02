@@ -107,7 +107,7 @@
 	initializeDzieuoPlugin: function ( $dzieuo )
 	{
 		$dzieuo.dzieuo( {
-			row_scroll_padding_top: 10
+			row_scroll_padding_top: 30
 		} );
 	},
 	displaySiteAfterLoad: function ( siteLoadingTextAnimationInterval, $dzieuo )
@@ -116,8 +116,16 @@
 		{
 			clearInterval( siteLoadingTextAnimationInterval.interval );
 			$( "#pageOverlayAtSiteLoad" ).hide();
-			$dzieuo.css( "visibility", "visible" )
+			$dzieuo.css( "visibility", "visible" );
 		}, 1000 );
+	},
+	setPagesHeights: function ()
+	{
+		var height = $( window ).height() - 30;
+		$( "#lobby" ).css( "height", height );
+		$( "#details" ).css( "height", height );
+		$( "#calendar" ).css( "height", height );
+
 	},
 	initialize: function ( indexViewModel, userName, spinner )
 	{

@@ -23,13 +23,13 @@
       <div class="block-info-details">
         <p data-bind="text: details"></p>
       </div>
-      <p class="event-block-info-price" data-bind="visible: price != 0 && price != '0' && price != ''">
-        <div style="display: inline-block; width: 100px; color:#969689;">opłata za wstęp:</div>
-        <span data-bind="text: price + 'zł.'"></span>
-      </p>
+      <div class="event-block-info-price" data-bind="visible: price != 0 && price != '0' && price != ''">
+        <div>opłata za wstęp:</div>
+        <span style="color: rgb(76, 76, 76);" data-bind="text: price + 'zł.'"></span>
+      </div>
       <div class="event-block-info-occupancyLimit" data-bind="visible: occupancyLimit != null && occupancyLimit != ''">
-        <div style="display: inline-block; width: 100px; color:#969689;">limit miejsc:</div>
-        <a data-bind="text: occupancyLimit"></a>
+        <div>limit miejsc:</div>
+        <span style="color: rgb(76, 76, 76);" data-bind="text: occupancyLimit"></span>
       </div>
       <div class="event-block-info-link">
         <p>

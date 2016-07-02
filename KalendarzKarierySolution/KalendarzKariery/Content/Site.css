@@ -64,6 +64,13 @@ fieldset {
 -----------------------------------------------------------*/
 
 /*Lobby*/
+#lobby {
+	top: 30px !important;
+	/*transition-property: all;
+	transition-duration: .5s;
+	transition-timing-function: ease;*/
+}
+
 #lobbyLogo {
 	display: inline-block;
 }
@@ -95,8 +102,6 @@ fieldset {
 }
 
 #lobbyHeader {
-	width: 100%;
-	border-top: 1px solid #E8E5E5;
 }
 
 #loginFormBtn {
@@ -114,7 +119,6 @@ fieldset {
 #loginBarContainer {
 	font-size: 1.6em;
 	text-align: right;
-	border-bottom: 2px solid #FBFBFB;
 	color: #676666;
 }
 
@@ -144,7 +148,7 @@ fieldset {
 .dz-row {
 	position: relative;
 	margin-bottom: 20px;
-	top: 20px;
+	/*top: 20px;*/
 }
 
 .lobby-login-text {
@@ -154,9 +158,11 @@ fieldset {
 }
 
 #lobbyNavContainer {
-	margin: 0 10%;
 	font-size: 1.2em;
-	padding-top: 30px;
+	padding: 30px 0;
+	width: 100%;
+	text-align: center;
+	background: #ececec;
 }
 
 	#lobbyNavContainer a {
@@ -248,7 +254,6 @@ fieldset {
 	font-size: 3em;
 	color: rgb(189, 189, 189);
 	border: 2px solid #f7f7f7;
-	border-bottom: 10px solid #f7f7f7;
 }
 
 
@@ -281,6 +286,7 @@ fieldset {
 .display-events-overview-body {
 	padding-bottom: 40px;
 	padding-top: 40px;
+	background: #f7f7f7;
 }
 
 .display-events-overview-container .legend-oldorupcoming {
@@ -371,14 +377,21 @@ fieldset {
 	font-size: .9em;
 }
 
-/*Details page*/
-
-#details .dz-column-inner-wrapper {
-	width: 83%;
-	margin: 0 auto;
-	background: rgb(247, 247, 247);
-	border: 1px solid #F1F1E7;
+#calendar {
+	top: 30px !important;
 }
+
+/*Details page*/
+#details {
+	top: 30px !important;
+}
+
+	#details .dz-column-inner-wrapper {
+		width: 83%;
+		margin: 0 auto;
+		background: rgb(247, 247, 247);
+		border: 1px solid #F1F1E7;
+	}
 
 #detailsPanel {
 	border-top: 1px solid #E8E8E8;
@@ -408,9 +421,8 @@ fieldset {
 		text-align: left;
 		color: #DED9CF;
 		padding-top: 10px;
+		padding-bottom: 10px;
 		font-size: 15px;
-		margin-bottom: 2px;
-		border-bottom: 2px solid #464646;
 	}
 
 		#detailsDayTable .details-day-table-head div {
@@ -489,7 +501,7 @@ fieldset {
 #detailsEventBlockList {
 	width: 49%;
 	display: inline-block;
-	background: #5f5f5f;
+	/*background: #5f5f5f;*/
 }
 
 #notesContainer {
@@ -542,7 +554,7 @@ fieldset {
 
 #btnAddNewNote {
 	float: right;
-	margin-bottom: 10px;
+	margin-bottom: 5px;
 	font-size: 2em;
 	padding: 0 25px;
 	background: #676767;
@@ -557,17 +569,38 @@ fieldset {
 
 
 #notesListContainer {
-	padding: 0 10px;
+	padding: 20px 20px;
+	background: #757575;
 }
 
 .note-content {
-	border-bottom: 1px solid rgb(150, 149, 149);
 }
 
 .edit-mode-note-container {
 	clear: both;
 }
 
+#dzieuo #dzVerticalNav {
+	right: 16%;
+	transition-property: all;
+	transition-duration: .5s;
+	transition-timing-function: ease;
+}
+
+#dzieuo #dzVerticalPaging {
+	right: 8.5%;
+	transition-property: all;
+	transition-duration: .5s;
+	transition-timing-function: ease;
+}
+
+#dzieuo #dzHorizontalNav #dzNextArrow {
+	right: 2.5%;
+}
+
+#dzieuo #dzHorizontalNav #dzPrevArrow {
+	left: 2.5%;
+}
 
 
 /*#clockCanvas {
@@ -929,4 +962,47 @@ li.line-through-text {
 .field-validation-error {
 	font-size: .6em;
 	color: red;
+}
+
+
+/*SCROLLBARS*/
+::-webkit-scrollbar {
+	width: 16px;
+	height: 10px;
+}
+
+::-webkit-scrollbar-button {
+	width: 16px;
+	height: 28px;
+	background: gray;
+	border: 4px solid white;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #cecece;
+	border: 4px solid white;
+	border-top: 0;
+	border-bottom: 0;
+}
+
+/*::-webkit-scrollbar-thumb:hover {
+		background: rgb(113, 113, 113);
+	}
+
+	::-webkit-scrollbar-thumb:active {
+		background: rgb(113, 113, 113);
+	}*/
+
+::-webkit-scrollbar-track {
+	border: 4px solid white;
+}
+
+	::-webkit-scrollbar-track:hover {
+	}
+
+	::-webkit-scrollbar-track:active {
+	}
+
+::-webkit-scrollbar-corner {
+	background: transparent;
 }

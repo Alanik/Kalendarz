@@ -2,7 +2,6 @@
 @model KalendarzKarieryData.Models.ViewModels.MainViewModel
 
 <div id="dzieuo" style="visibility: hidden;">
-
 	<section id="lobby" class="dz-column">
 		@Html.Partial( "_Lobby" )
 	</section>
@@ -73,6 +72,7 @@
 		APP.initializeJQueryExtentionMethods(SIMPLE_FILT());
 		APP.initializeDzieuoPlugin($dzieuo);
 		APP.initialize(indexViewModel, userName, APP.initializeLoader());
+		APP.setPagesHeights();
 		APP.displaySiteAfterLoad(siteLoadingTextAnimationInterval, $dzieuo);	
 	});
 

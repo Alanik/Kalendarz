@@ -2117,7 +2117,7 @@
           if ($menuItemContainer.hasClass("selected")) {
             $menuItemContainer.removeClass("selected");
             $menuItemContainer.css("top", "0px");
-            $menuItemContainer.css("border", "1px solid rgb(226, 226, 226)");
+            $menuItemContainer.css( "border", "2px solid rgb(247, 247, 247)" );
           }
         });
 
@@ -2137,7 +2137,7 @@
           if ($menuItemContainer.hasClass("selected")) {
             $menuItemContainer.removeClass("selected");
             $menuItemContainer.css("top", "0px");
-            $menuItemContainer.css("border", "1px solid rgb(226, 226, 226)");
+            $menuItemContainer.css("border", "1px solid rgb(247, 247, 247)");
           }
         });
 
@@ -2289,12 +2289,12 @@
 
     $(document).bind("horizontal_transition:before", function (e, arg) {
       if (arg.targetColumn == 2) {
-        self.$dzVerticalPaging.animate({ 'right': '+=40px' });
-        self.$dzVerticalNav.animate({ 'right': '+=140px' });
+        self.$dzVerticalPaging.css({ 'right': '2%' });
+        self.$dzVerticalNav.css({ 'right': '8.5%' });
       }
       else if (arg.currentColumn == 2) {
-        self.$dzVerticalPaging.animate({ 'right': '+=130px' });
-        self.$dzVerticalNav.animate({ 'right': '+=240px' });
+        self.$dzVerticalPaging.css({ 'right': '8.5%' });
+        self.$dzVerticalNav.css({ 'right': '16%' });
       }
 
     });

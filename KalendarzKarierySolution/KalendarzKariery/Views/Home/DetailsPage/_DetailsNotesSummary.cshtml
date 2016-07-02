@@ -9,10 +9,10 @@
         <div class="note-content">
           <pre data-bind="text: data, css: { 'line-through-text': isLineThrough() }" style="white-space: pre-wrap;"></pre>
           <div style="overflow:hidden;">
-            <div style="font-size: 14px; color: rgb(183, 183, 183);text-align:right;text-decoration:none;">
+            <div style="font-size: 14px; color: rgb(154, 154, 154); text-align: right; text-decoration: none;">
               <span data-bind="text: dateAdded.displayFullTime()"></span><span>  </span><span data-bind="text: dateAdded.displayFullDate()"></span>
             </div>
-            <span style="font-size: 16px;float:right;color:rgb(210, 210, 188);">
+            <span style="font-size: 16px; float: right; color: rgb(154, 154, 154);">
               <span class="link" data-bind="click: function () { $root.setLineThroughNoteDetailsPageOnLineThroughLinkClick( id, displayDate.year, displayDate.month, displayDate.day, !isLineThrough() ) }, text: isLineThrough() ? 'odkreśl' : 'skreśl' ">skreśl</span>
               <span class="link" data-bind="click: function () { $root.editNoteDetailsPageOnEditLinkClick( id, displayDate.year, displayDate.month, displayDate.day ) }">edytuj</span>
               <span data-bind="click: function () { $root.prepareDeleteNoteDetailsPageOnDeleteLinkClick( id, displayDate.year, displayDate.month, displayDate.day ) }" class="link">usuń</span>

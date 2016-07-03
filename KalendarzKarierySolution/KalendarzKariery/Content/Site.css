@@ -1,4 +1,19 @@
-﻿html, body, #appContainer {
+﻿@font-face {
+	font-family: Raleway;
+	src: url('Fonts/Raleway/Raleway-Thin.ttf');
+}
+
+@font-face {
+	font-family: Raleway-Regular;
+	src: url('Fonts/Raleway/Raleway-Regular.ttf');
+}
+
+@font-face {
+	font-family: SegoeUI;
+	src: url('Fonts/SegoeUI/segoeui.ttf');
+}
+
+html, body, #appContainer {
 	padding: 0px;
 	margin: 0px;
 	height: 100%;
@@ -17,23 +32,6 @@ header, footer, nav, section, div {
 	display: block;
 	margin: 0;
 }
-
-
-@font-face {
-	font-family: Raleway;
-	src: url('Fonts/Raleway/Raleway-Thin.ttf');
-}
-
-@font-face {
-	font-family: Raleway-Regular;
-	src: url('Fonts/Raleway/Raleway-Regular.ttf');
-}
-
-@font-face {
-	font-family: SegoeUI;
-	src: url('Fonts/SegoeUI/segoeui.ttf');
-}
-
 pre {
 	margin: 0;
 	padding: 0;
@@ -71,7 +69,7 @@ fieldset {
 	top: 0;
 	left: 0;
 	z-index: 999;
-	height: 140px;
+	height: 154px;
 }
 
 
@@ -88,7 +86,7 @@ fieldset {
 
 #lobby .dz-column-inner-wrapper {
 	border-right: 1px solid #F3F3F3;
-	background: rgb(247, 247, 247);
+	background: #f7f6f5;
 	width: 83%;
 }
 
@@ -113,10 +111,11 @@ fieldset {
 }
 
 #lobbyHeader {
-	background: white;
+	background: #ffffff;
 	position: relative;
 	left: 1px;
-	height: 110px;
+	height: 120px;
+	border-bottom: 4px solid white;
 }
 
 #loginFormBtn {
@@ -157,7 +156,7 @@ fieldset {
 #lobbyQuoteSection {
 	font-family: Raleway-Regular;
 	text-align: center;
-	padding: 20px;
+	padding-top: 60px;
 }
 
 .lobby-quote {
@@ -187,12 +186,7 @@ fieldset {
 
 #lobbyNavContainer {
 	font-size: 1.2em;
-	padding-top: 50px;
-	padding-bottom: 12px;
-	width: 100%;
 	text-align: center;
-	/* background: #ececec; */
-	border-top: 1px solid white;
 }
 
 	#lobbyNavContainer a {
@@ -283,7 +277,7 @@ fieldset {
 .menu-item-number-upcoming {
 	font-size: 3em;
 	color: rgb(189, 189, 189);
-	border: 2px solid #f7f7f7;
+	border: 2px solid #a2a2a2;
 }
 
 
@@ -301,6 +295,7 @@ fieldset {
 	background: gray;
 	overflow: hidden;
 	border-bottom: 2px solid grey;
+	font-family: Raleway-Regular;
 }
 
 .display-events-header-menu-title {
@@ -423,7 +418,7 @@ fieldset {
 	#details .dz-column-inner-wrapper {
 		width: 83%;
 		margin: 0 auto;
-		background: rgb(247, 247, 247);
+		background: #f7f6f5;
 		border: 1px solid #F1F1E7;
 		border-top: 0;
 	}
@@ -791,9 +786,12 @@ fieldset {
 
 .section-title {
 	font-size: 2em;
-	color: #bfbfb5;
-	border-bottom: 1px solid #FFFFFF;
-	padding-left: 10px;
+	color: #a2a2a2;
+	padding-right: 10px;
+	width: 50%;
+	background: #d4d4d4;
+	text-align: right;
+	box-sizing: border-box;
 }
 
 .hover-cursor-pointer:hover {
@@ -858,7 +856,7 @@ li.line-through-text {
 }
 
 .event-block-expand {
-	border: 4px solid #dcdbd7;
+	border: 4px solid gray;
 }
 
 .event-kind-tag {
@@ -1013,7 +1011,7 @@ li.line-through-text {
 	font-size: 1em;
 	margin-right: 50%;
 	padding: 0 40px;
-	margin-top:20px;
+	margin-top: 20px;
 }
 
 #addNewEventShowMoreOptionsLink {

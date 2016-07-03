@@ -2368,7 +2368,6 @@
 					{
 						$menuItemContainer.removeClass( "selected" );
 						$menuItemContainer.css( "top", "0px" );
-						$menuItemContainer.css( "border", "2px solid rgb(247, 247, 247)" );
 					}
 				} );
 
@@ -2391,7 +2390,6 @@
 					{
 						$menuItemContainer.removeClass( "selected" );
 						$menuItemContainer.css( "top", "0px" );
-						$menuItemContainer.css( "border", "1px solid rgb(247, 247, 247)" );
 					}
 				} );
 

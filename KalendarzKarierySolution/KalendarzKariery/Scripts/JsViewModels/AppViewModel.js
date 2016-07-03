@@ -777,7 +777,7 @@
 		self.UTILS.loader.$overlay.show();
 
 		var $addEventContainer = $( "#addNewEventContainer" );
-		$addEventContainer.find( "legend" ).text( "Edycja wydarzenia" );
+		$addEventContainer.find( ".popupbox-header-title" ).text( "Edycja wydarzenia" );
 
 		var $addBtn = $addEventContainer.find( "#btnAddNewEvent" );
 		$addBtn.attr( "data-bind", "click: $root.updateEventOnClick" )
@@ -1053,19 +1053,16 @@
 	self.showMoreOptionsInAddNewEventPopupOnClick = function ( element )
 	{
 		var $element = $( element );
-		var $addNewEventContainer = $( "#addNewEventContainer" );
-		var offset = $element.position().top + $addNewEventContainer.position().top;
+		var $moreOptionsContainer = $( "#addNewEventContainer .more-options-container" );
 
 		if ( !$element.hasClass( "visible" ) )
 		{
 			$element.text( "Ukryj dodatkowe opcje -" );
-			$addNewEventContainer.find( ".more-options-container" ).slideDown();
-			$element.scrollTo( 500, offset );
+			$moreOptionsContainer.slideDown();
 		} else
 		{
 			$element.text( "Pokaż więcej opcji +" );
-			$addNewEventContainer.find( ".more-options-container" ).slideUp();
-			$addNewEventContainer.scrollTo( 500 );
+			$moreOptionsContainer.slideUp();
 		}
 
 		$element.toggleClass( "visible" );
@@ -1296,7 +1293,7 @@
 
 		setTimeout( function ()
 		{
-			$( "#details #calendarDayDetailsContainer" ).scrollTo(1000, 80);
+			$( "#details #calendarDayDetailsContainer" ).scrollTo( 1000, 50 );
 
 		}, 10 )
 	};
@@ -2105,10 +2102,10 @@
 
 		//////////////////////////////////////////////////
 		var $addEventContainer = $( "#addNewEventContainer" );
-		$addEventContainer.find( "legend" ).text( "Dodaj do kalendarza" );
+		$addEventContainer.find( ".popupbox-header-title" ).text( "Dodaj do kalendarza" );
 
 		var $addBtn = $addEventContainer.find( "#btnAddNewEvent" );
-		$addBtn.text( "+" );
+		$addBtn.text( "dodaj" );
 		$addBtn.attr( "data-bind", "click: $root.addEventOnClick" )
 
 		ko.unapplyBindings( $addBtn[0] );
@@ -2175,10 +2172,10 @@
 		self.UTILS.loader.$overlay.show();
 
 		var $addEventContainer = $( "#addNewEventContainer" );
-		$addEventContainer.find( "legend" ).text( "Dodaj do tablicy wydarzeń" );
+		$addEventContainer.find( ".popupbox-header-title" ).text( "Dodaj do tablicy wydarzeń" );
 
 		var $addBtn = $addEventContainer.find( "#btnAddNewEvent" );
-		$addBtn.text( "+" );
+		$addBtn.text( "dodaj" );
 		$addBtn.attr( "data-bind", "click: $root.addEventOnClick" )
 
 		ko.unapplyBindings( $addBtn[0] );
@@ -2211,7 +2208,7 @@
 		//////////////////////////////////////////////////
 		var $addEventContainer = $( "#addNewEventContainer" );
 		$addEventContainer.detach().prependTo( $lobby );
-		$addEventContainer.find( "legend" ).text( "Dodaj do kalendarza" );
+		$addEventContainer.find( ".popupbox-header-title" ).text( "Dodaj do kalendarza" );
 
 		var $addBtn = $addEventContainer.find( "#btnAddNewEvent" );
 		$addBtn.find( "span" ).text( "+" );

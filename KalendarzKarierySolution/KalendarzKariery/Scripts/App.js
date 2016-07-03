@@ -12,9 +12,6 @@
 
 				var $col = this.closest( ".dz-column" );
 				var scrollTo = this.offset().top - $col.offset().top + $col.scrollTop() - offset;
-
-				console.log(scrollTo);
-
 				$col.animate( { scrollTop: scrollTo }, speed );
 			}
 		} );
@@ -123,8 +120,9 @@
 		{
 			clearInterval( siteLoadingTextAnimationInterval.interval );
 			$( "#pageOverlayAtSiteLoad" ).hide();
+			$( "#initialWhiteOverlay" ).hide();
 			$dzieuo.css( "visibility", "visible" );
-		}, 1000 );
+		}, 1050 );
 	},
 	setPagesHeights: function ()
 	{
@@ -618,7 +616,7 @@
 				{
 					$this.css( {
 						"cursor": "auto",
-						"border": "2px solid rgb(247, 247, 247)"
+						"border": "none"
 					} );
 				} else
 				{

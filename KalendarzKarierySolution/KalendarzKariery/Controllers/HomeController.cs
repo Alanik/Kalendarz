@@ -7,7 +7,7 @@ using KalendarzKarieryData.Models.AccountModels;
 
 namespace KalendarzKariery.Controllers
 {
-    public class HomeController : BaseController
+	public class HomeController : BaseController
 	{
 		private readonly IKalendarzKarieryRepository _repository = RepositoryProvider.GetRepository();
 
@@ -18,10 +18,10 @@ namespace KalendarzKariery.Controllers
 				return View( "Index", null );
 			}
 
-			var currentUserId = this.GetUserId(User.Identity.Name.ToLower(), _repository);
+			var currentUserId = this.GetUserId( User.Identity.Name.ToLower(), _repository );
 
 			var indexViewModel = new IndexViewModel();
-			indexViewModel.PublicEvents = _repository.GetAllPublicEvents(currentUserId);
+			indexViewModel.PublicEvents = _repository.GetAllPublicEvents( currentUserId );
 			indexViewModel.EventKinds = _repository.GetEventKindsBasedOnUserName( User.Identity.Name );
 			indexViewModel.PrivacyLevels = _repository.GetAllPrivacyLevels();
 			indexViewModel.PublicEventCountTree = _repository.GetPublicEventCountTree();
@@ -38,7 +38,7 @@ namespace KalendarzKariery.Controllers
 				{
 					indexViewModel.MyEvents = _repository.GetAllEventsConnectedToUserId( currentUserId.Value );
 					indexViewModel.MyEventCountTree = _repository.GetMyEventCountTree( currentUserId.Value );
-					indexViewModel.MyNotes = _repository.GetNotesByUserId(currentUserId.Value);
+					indexViewModel.MyNotes = _repository.GetNotesByUserId( currentUserId.Value );
 					registerViewModel = this.GetRegisterViewModel( currentUserId.Value, _repository );
 				}
 				else
@@ -64,7 +64,7 @@ namespace KalendarzKariery.Controllers
 			var currentUserId = this.GetUserId( User.Identity.Name.ToLower(), _repository );
 
 			var indexViewModel = new IndexViewModel();
-			indexViewModel.PublicEvents = _repository.GetAllPublicEvents(currentUserId);
+			indexViewModel.PublicEvents = _repository.GetAllPublicEvents( currentUserId );
 			indexViewModel.EventKinds = _repository.GetEventKindsBasedOnUserName( User.Identity.Name );
 			indexViewModel.PrivacyLevels = _repository.GetAllPrivacyLevels();
 			indexViewModel.PublicEventCountTree = _repository.GetPublicEventCountTree();

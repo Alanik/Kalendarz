@@ -3,7 +3,7 @@
 
 #lobbyEventsMasonryContainer .event-block-container {
 	display: inline-block;
-	width: 33%;
+	width: 33.05%;
 	vertical-align: top;
 	margin: 1px;
 }
@@ -158,7 +158,7 @@
 
 .event-block-expand .event-block {
 	line-height: 1;
-	background: rgb(250, 250, 250);
+	background: rgb(251, 251, 250);
 }
 
 .event-block-expand .event-block-info-link {

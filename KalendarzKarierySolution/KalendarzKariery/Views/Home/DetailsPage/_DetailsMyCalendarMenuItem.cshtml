@@ -1,5 +1,5 @@
 ﻿<div class="display-events-overview-body" data-bind="visible: $root.detailsPageJournalMenu.selectedMenuItem() == 1">
-	<div class="legend-oldorupcoming hover-cursor-pointer" data-bind="click: function () { $root.detailsPageJournalMenu.menuItems.myCalendar.showOld( !$root.detailsPageJournalMenu.menuItems.myCalendar.showOld() ), $root.showSelectedEvents( $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents, 'old', $root.detailsPageJournalMenu.selectedEventKindValues ) }">
+	<div class="legend-oldorupcoming hover-cursor-pointer" data-bind="css: { open: $root.detailsPageJournalMenu.menuItems.myCalendar.showOld() }, click: function () { $root.detailsPageJournalMenu.menuItems.myCalendar.showOld( !$root.detailsPageJournalMenu.menuItems.myCalendar.showOld() ), $root.showSelectedEvents( $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents, 'old', $root.detailsPageJournalMenu.selectedEventKindValues ) }">
 		<div class="oldorupcoming-text-container">
 			<span class="oldorupcoming-sign" data-bind="text:$root.detailsPageJournalMenu.menuItems.myCalendar.showOld() == true ? '-' : '+'">+</span>
 			<span>stare</span>
@@ -29,7 +29,7 @@
    </div>
     
 	</div>
-	<div class="legend-oldorupcoming hover-cursor-pointer" data-bind="click: function () { $root.detailsPageJournalMenu.menuItems.myCalendar.showUpcoming( !$root.detailsPageJournalMenu.menuItems.myCalendar.showUpcoming() ), $root.showSelectedEvents( $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents, 'upcoming', $root.detailsPageJournalMenu.selectedEventKindValues ) }">
+	<div class="legend-oldorupcoming hover-cursor-pointer" data-bind="css: { open: $root.detailsPageJournalMenu.menuItems.myCalendar.showUpcoming() }, click: function () { $root.detailsPageJournalMenu.menuItems.myCalendar.showUpcoming( !$root.detailsPageJournalMenu.menuItems.myCalendar.showUpcoming() ), $root.showSelectedEvents( $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents, 'upcoming', $root.detailsPageJournalMenu.selectedEventKindValues ) }">
 		<div class="oldorupcoming-text-container">
 			<span class="oldorupcoming-sign" data-bind="text: $root.detailsPageJournalMenu.menuItems.myCalendar.showUpcoming() == true ? '-' : '+'">-</span>
 			<span>nadchodzące</span>

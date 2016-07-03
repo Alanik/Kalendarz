@@ -3,6 +3,7 @@
 <div id="addNewEventContainer" class="popupbox" style="display:none;">
 
   <div class="popupbox-header">
+  <span class="popupbox-header-title">Dodaj do kalendarza</span>
     <span class="btn-close hover-cursor-pointer" data-bind="click: $root.closeAddNewEventPopupOnClick">
       x
     </span>
@@ -12,7 +13,7 @@
     @using (Html.BeginForm("Post", "api/Events", FormMethod.Post, new { id = "addEventForm" }))
     {
         <fieldset>
-          <legend>Dodaj do kalendarza</legend>
+		<legend></legend>
           <div data-bind="with: observableEvent">
             <div class="div-separator">
               @Html.LabelFor(m => m.Event.Title, new { @class = "block" })
@@ -160,9 +161,9 @@
               </div>
             </div>
 
-            <div id="btnAddNewEvent" class="green-color btn-add hover-cursor-pointer" data-bind="click: $root.addEventOnClick">
-              +
-            </div>
+            <button id="btnAddNewEvent" class="green-color btn-add hover-cursor-pointer" data-bind="click: $root.addEventOnClick">
+              dodaj
+            </button>
           </div>
         </fieldset>
     }

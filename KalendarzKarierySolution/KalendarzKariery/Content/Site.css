@@ -64,6 +64,17 @@ fieldset {
 -----------------------------------------------------------*/
 
 /*Lobby*/
+#initialWhiteOverlay {
+	width: 83%;
+	background: white;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 999;
+	height: 140px;
+}
+
+
 #lobby {
 	top: 30px !important;
 	/*transition-property: all;
@@ -102,6 +113,10 @@ fieldset {
 }
 
 #lobbyHeader {
+	background: white;
+	position: relative;
+	left: 1px;
+	height: 110px;
 }
 
 #loginFormBtn {
@@ -117,7 +132,8 @@ fieldset {
 }
 
 #calendarDayDetailsContainer {
-	margin-top: 20px;
+	padding-top: 20px;
+	border-top: 1px solid #E8E8E8;
 }
 
 #loginBarContainer {
@@ -141,15 +157,14 @@ fieldset {
 #lobbyQuoteSection {
 	font-family: Raleway-Regular;
 	text-align: center;
+	padding: 20px;
 }
 
 .lobby-quote {
-	color: #c5c5c0;
 	font-size: 2em;
 	line-height: 1;
-	background: #ececec;
 	margin: 0;
-	padding-bottom: 40px;
+	color: #cacaca;
 }
 
 #addPublicEventBtn {
@@ -172,15 +187,17 @@ fieldset {
 
 #lobbyNavContainer {
 	font-size: 1.2em;
-	padding: 50px 0;
+	padding-top: 50px;
+	padding-bottom: 12px;
 	width: 100%;
 	text-align: center;
-	background: #ececec;
+	/* background: #ececec; */
+	border-top: 1px solid white;
 }
 
 	#lobbyNavContainer a {
 		margin-right: 10px;
-		color: black;
+		color: #737362;
 		text-decoration: none;
 	}
 
@@ -198,7 +215,7 @@ fieldset {
 
 .events-menu-container {
 	text-align: center;
-	background: #ececec;
+	background: #e6e6e6;
 	padding-top: 20px;
 	padding-bottom: 4px;
 }
@@ -207,7 +224,7 @@ fieldset {
 	display: inline-block;
 	position: relative;
 	margin-bottom: 20px;
-	border: 2px solid rgb(247, 247, 247);
+	/*border: 2px solid rgb(247, 247, 247);*/
 }
 
 	.menu-item-container.selected {
@@ -272,17 +289,18 @@ fieldset {
 
 .display-events-overview-container {
 	border: 2px solid grey;
+	margin-bottom: 100px;
 }
 
 .display-events-overview-header {
 	text-align: left;
-	padding: 5px;
 	padding-left: 1px;
 	font-size: 1.4em;
 	position: relative;
 	color: #cacaca;
-	height: 48px;
 	background: gray;
+	overflow: hidden;
+	border-bottom: 2px solid grey;
 }
 
 .display-events-header-menu-title {
@@ -310,14 +328,17 @@ fieldset {
 	margin-top: 1px;
 	margin-bottom: 1px;
 	position: relative;
-	background: #cecece;
 }
+
+	.display-events-overview-container .legend-oldorupcoming.open {
+		background: #cecece;
+	}
 
 .oldorupcoming-event-count {
 	padding-right: 10px;
 	position: absolute;
 	right: 0;
-	color:white;
+	color: white;
 }
 
 .oldorupcoming-expand-text {
@@ -328,11 +349,9 @@ fieldset {
 .display-events-overview-item {
 	border-left: 2px solid #cecece;
 	border-right: 2px solid #DEDEDE;
-	border-bottom: 2px solid #E6E6E6;
-	border-top: 1px solid #FFFFFF;
-	background: #ececec;
+	background: #f7f7f7;
 	overflow: hidden;
-	min-height: 29px;
+	min-height: 32px;
 }
 
 .oldorupcoming-text-container {
@@ -345,7 +364,8 @@ fieldset {
 }
 
 .js-masonry {
-	background: #CECECE;
+	border-top: 4px solid #e6e6e6;
+	background: #e6e6e6;
 	width: 100% !important;
 	position: relative !important;
 }
@@ -354,7 +374,7 @@ fieldset {
 	height: 100%;
 	width: 100%;
 	border-top: 1px solid #E8E8E8;
-	padding-top: 10px;
+	padding-top: 20px;
 }
 
 #registerForm .register-birthdate-txtbox {
@@ -405,6 +425,7 @@ fieldset {
 		margin: 0 auto;
 		background: rgb(247, 247, 247);
 		border: 1px solid #F1F1E7;
+		border-top: 0;
 	}
 
 #detailsPanel {
@@ -594,27 +615,36 @@ fieldset {
 	clear: both;
 }
 
-#dzieuo #dzVerticalNav {
-	right: 16%;
-	transition-property: all;
-	transition-duration: .5s;
-	transition-timing-function: ease;
+#dzieuo {
 }
 
-#dzieuo #dzVerticalPaging {
-	right: 8.5%;
-	transition-property: all;
-	transition-duration: .5s;
-	transition-timing-function: ease;
-}
+	#dzieuo #dzVerticalNav {
+		right: 16%;
+		transition-property: all;
+		transition-duration: .5s;
+		transition-timing-function: ease;
+	}
 
-#dzieuo #dzHorizontalNav #dzNextArrow {
-	right: 2.5%;
-}
+	#dzieuo #dzVerticalPaging {
+		right: 8.5%;
+		transition-property: all;
+		transition-duration: .5s;
+		transition-timing-function: ease;
+	}
 
-#dzieuo #dzHorizontalNav #dzPrevArrow {
-	left: 2.5%;
-}
+	#dzieuo #dzHorizontalNav #dzNextArrow {
+		right: 2.5%;
+		transition-property: all;
+		transition-duration: .5s;
+		transition-timing-function: ease;
+	}
+
+	#dzieuo #dzHorizontalNav #dzPrevArrow {
+		left: 2.5%;
+		transition-property: all;
+		transition-duration: .5s;
+		transition-timing-function: ease;
+	}
 
 
 /*#clockCanvas {
@@ -710,21 +740,28 @@ fieldset {
 }
 
 .btn-add {
-	padding: 0 14px;
-	border: 2px solid;
 	border-radius: 4px;
 	background: rgba(255,255,255,.5);
+	font-family: Raleway-Regular;
+}
+
+.popupbox-header-title {
+	position: absolute;
+	bottom: 0;
+	left: 10px;
 }
 
 .btn-close {
-	padding: 0 25px;
-	position: absolute;
-	top: 0px;
-	padding-bottom: 8px;
-	right: 0px;
+	float: right;
+	padding: 0 20px;
+	padding-bottom: 4px;
 	color: white;
 	background: #FD6969;
-	font-size: 1.6em;
+	font-size: 1.2em;
+}
+
+.gray-color {
+	color: rgb(146, 146, 146);
 }
 
 .green-color {
@@ -754,10 +791,9 @@ fieldset {
 
 .section-title {
 	font-size: 2em;
-	color: #5D5D59;
+	color: #bfbfb5;
 	border-bottom: 1px solid #FFFFFF;
-	text-align: center;
-	padding: 10px;
+	padding-left: 10px;
 }
 
 .hover-cursor-pointer:hover {
@@ -781,7 +817,7 @@ li.line-through-text {
 	font-size: 1em;
 	color: #5D5B55;
 	overflow: hidden;
-	min-height: 29px;
+	min-height: 32px;
 }
 
 	.overview-item-inner-wrapper:hover {
@@ -790,7 +826,7 @@ li.line-through-text {
 	}
 
 	.overview-item-inner-wrapper.selected {
-		background: #ececec;
+		background: #dcdbd7;
 	}
 
 .display-events-overview-item-list-inner-wrapper {
@@ -822,7 +858,7 @@ li.line-through-text {
 }
 
 .event-block-expand {
-	border: 5px solid #cecece;
+	border: 4px solid #dcdbd7;
 }
 
 .event-kind-tag {
@@ -841,10 +877,25 @@ li.line-through-text {
 	height: 200px;
 	background: #ECECEC;
 	float: right;
-	text-align: center;
+	text-align: right;
 	padding: 20px 0;
-	font-size: 1.4em;
-	color: #616158;
+	font-size: 1.2em;
+	color: #777771;
+	padding: 20px;
+	box-sizing: border-box;
+}
+
+.lobby-menu-container {
+	width: 50%;
+	height: 200px;
+	background: #ECECEC;
+	float: right;
+	text-align: right;
+	padding: 20px 0;
+	font-size: 1.2em;
+	color: #777771;
+	padding: 20px;
+	box-sizing: border-box;
 }
 
 .small-kk-logo {
@@ -873,14 +924,12 @@ li.line-through-text {
 /*popupbox*/
 
 .popupbox {
-	background: #f5f5f5;
-	border: 1px solid #D8D8D8;
+	background: #ececec;
+	border: 2px solid white;
 	color: #a2a2a2;
 	border-radius: 3px;
 	width: 60%;
 	left: 20%;
-	padding: 20px;
-	padding-top: 10px;
 	z-index: 100;
 	top: 0;
 	position: absolute;
@@ -891,14 +940,23 @@ li.line-through-text {
 	top: 250px;
 	text-align: center;
 	font-size: 2em;
+	border: 2px solid white;
+	border-top: 40px solid white;
 }
 
 .popupbox-header {
+	position: relative;
 	font-size: 1.4em;
+	width: 100%;
+	background: white;
+	overflow: hidden;
+	border-bottom: 2px solid white;
+	font-family: Raleway-Regular;
 }
 
 .popupbox-body {
 	font-size: 2em;
+	padding-bottom: 20px;
 }
 
 .popupbox label {
@@ -909,11 +967,6 @@ li.line-through-text {
 }
 
 .popupbox legend {
-	color: #808080;
-	font-size: 1em;
-	border-bottom: 2px solid;
-	width: 50%;
-	line-height: 1;
 }
 
 .popupbox textarea {
@@ -922,11 +975,11 @@ li.line-through-text {
 
 .popupbox input[type=text], .popupbox input[type=password], .popupbox textarea, .popupbox select {
 	color: #8B836B;
-	background: rgba(236, 234, 227, 0.4);
+	background: rgb(251, 251, 251);
 	width: 220px;
-	height: 36px;
+	height: 40px;
 	padding: 0px 10px;
-	border: 2px solid #f8f5f1;
+	border: 2px solid #ececec;
 	border-radius: 5px;
 	box-shadow: inset 0px 0px 1px #b3a895;
 }
@@ -959,13 +1012,13 @@ li.line-through-text {
 	float: right;
 	font-size: 1em;
 	margin-right: 50%;
-	position: relative;
-	left: 4px;
-	padding: 0 25px;
+	padding: 0 40px;
+	margin-top:20px;
 }
 
 #addNewEventShowMoreOptionsLink {
 	font-size: .6em;
+	padding-left: 20px;
 }
 
 /*Validation*/
@@ -976,6 +1029,10 @@ li.line-through-text {
 .field-validation-error {
 	font-size: .6em;
 	color: red;
+	position: relative;
+	margin-top: 10px;
+	padding: 4px;
+	background: #fff8fa;
 }
 
 

@@ -13,7 +13,7 @@
 		aktualności = 8
 	}
 
-	public enum PrivacyLevel
+	public enum PrivacyLevelEnum
 	{
 		none = 0,
 		@private = 1,

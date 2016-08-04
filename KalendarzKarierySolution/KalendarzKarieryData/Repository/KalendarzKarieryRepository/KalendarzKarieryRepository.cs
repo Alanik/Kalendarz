@@ -1,14 +1,15 @@
 ﻿namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data.Entity;
-    using System.Linq;
-    using KalendarzKarieryData.Models.DataTransferModels.Events;
-    using KalendarzKarieryCore.BO;
-    using KalendarzKarieryData.Models.DataTransferModels.Notes;
+	using System;
+	using System.Collections.Generic;
+	using System.Data.Entity;
+	using System.Linq;
+	using KalendarzKarieryData.Models.DataTransferModels.Events;
+	using KalendarzKarieryCore.BO;
+	using KalendarzKarieryData.Models.DataTransferModels.Notes;
+	using KalendarzKarieryData.Enums;
 
-    public class KalendarzKarieryRepository : IKalendarzKarieryRepository
+	public class KalendarzKarieryRepository : IKalendarzKarieryRepository
 	{
 		#region User
 
@@ -128,7 +129,7 @@
 
 		#endregion
 
-	#region Event
+		#region Event
 
 		public Event GetEventById( int id )
 		{
@@ -156,7 +157,7 @@
 			}
 		}
 
-		public void UpdateEvent( Event @event, Address address)
+		public void UpdateEvent( Event @event, Address address )
 		{
 			using (var context = new KalendarzKarieryDBEntities())
 			{
@@ -198,10 +199,10 @@
 
 				if (address != null)
 				{
-					context.Addresses.Attach(address);
-				    context.Entry( address ).State = EntityState.Deleted;
+					context.Addresses.Attach( address );
+					context.Entry( address ).State = EntityState.Deleted;
 				}
-				
+
 				context.SaveChanges();
 			}
 		}
@@ -383,6 +384,32 @@
 			}
 		}
 
+		public ICollection<JsonEventModel> GetMostRecentlyCreatedEvents( int numberOfEvents, PrivacyLevelEnum privacyLevel )
+		{
+			using (var context = new KalendarzKarieryDBEntities())
+			{
+				var list = context.Events.Include( "User" ).Include( "Address" ).Include( "EventKind" ).Include( "PrivacyLevel" ).Where( m => m.PrivacyLevel.Value == (int)privacyLevel ).OrderByDescending( m => m.CreateDate ).Take( numberOfEvents ).AsEnumerable();
+
+				var transformedList = list.Select( m => new JsonEventModel( m, null ) ).ToArray();
+
+				return transformedList;
+			}
+		}
+
+		public ICollection<JsonEventModel> GetUpcomingEvents( int numberOfEvents, PrivacyLevelEnum privacyLevel )
+		{
+			using (var context = new KalendarzKarieryDBEntities())
+			{
+				var now = DateTimeFacade.DateTimeNow();
+				var list = context.Events.Include( "User" ).Include( "Address" ).Include( "EventKind" ).Include( "PrivacyLevel" ).Where( m => m.PrivacyLevel.Value == (int)privacyLevel && (m.EndDate.HasValue && m.EndDate.Value > now)).OrderBy( m => m.StartDate ).Take( numberOfEvents ).AsEnumerable();
+
+				var transformedList = list.Select( m => new JsonEventModel( m, null ) ).ToArray();
+
+				return transformedList;
+			}
+
+		}
+
 		public object GetMyEventCountTree( int userId )
 		{
 			using (var context = new KalendarzKarieryDBEntities())
@@ -391,7 +418,7 @@
 
 				var query = from e in context.Events.Where( m => m.OwnerUserId == userId || m.CalendarUsers.Any( o => o.Id == userId ) )
 							group e by e.EventKind.Value into grp
-							select new { value = grp.Key, events = new { upcoming = grp.Where( m => m.EndDate.HasValue && m.EndDate > now ).Count(), old = grp.Where( m => m.EndDate.HasValue && m.EndDate <= now ).Count() } };
+							select new { value = grp.Key, events = new { upcoming = grp.Where( m => m.EndDate.HasValue && m.EndDate.Value > now ).Count(), old = grp.Where( m => m.EndDate.HasValue && m.EndDate.Value <= now ).Count() } };
 
 				return query.ToArray();
 			}
@@ -405,7 +432,7 @@
 
 				var query = from e in context.Events.Where( m => m.PrivacyLevel.Value == 2 )
 							group e by e.EventKind.Value into grp
-							select new { value = grp.Key, events = new { upcoming = grp.Where( m => m.EndDate.HasValue && m.EndDate > now ).Count(), old = grp.Where( m => m.EndDate.HasValue && m.EndDate <= now ).Count() } };
+							select new { value = grp.Key, events = new { upcoming = grp.Where( m => m.EndDate.HasValue && m.EndDate.Value > now ).Count(), old = grp.Where( m => m.EndDate.HasValue && m.EndDate <= now ).Count() } };
 
 				return query.ToArray();
 			}
@@ -453,7 +480,7 @@
 			}
 		}
 
-		#endregion	
+		#endregion
 
 		#region Note
 

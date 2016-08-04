@@ -1,4 +1,5 @@
-﻿using KalendarzKarieryData.Models.DataTransferModels.Events;
+﻿using KalendarzKarieryData.Enums;
+using KalendarzKarieryData.Models.DataTransferModels.Events;
 using KalendarzKarieryData.Models.DataTransferModels.Notes;
 using System.Collections.Generic;
 
@@ -31,6 +32,8 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 		PrivacyLevel GetPrivacyLevelByValue( int id );
 		EventKind GetEventKindByValue( int id );
 		ICollection<JsonEventModel> GetAllNews();
+		ICollection<JsonEventModel> GetMostRecentlyCreatedEvents(int numberOfEvents, PrivacyLevelEnum privacyLevel);
+		ICollection<JsonEventModel> GetUpcomingEvents( int numOfEvents, PrivacyLevelEnum privacyLevel );
 		object GetMyEventCountTree( int userId );
 		object GetPublicEventCountTree();
 		IList<EventsGroupedByYearModel> GetAllEventsConnectedToUserId( int userId );

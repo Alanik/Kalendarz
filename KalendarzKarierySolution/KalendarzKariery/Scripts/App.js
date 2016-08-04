@@ -132,7 +132,7 @@
 		$( "#calendar" ).css( "height", height );
 
 	},
-	initialize: function ( indexViewModel, userName, spinner )
+	initializeApp: function ( indexViewModel, userName, spinner )
 	{
 		"use strict";
 
@@ -151,6 +151,8 @@
 		appViewModel.publicEventTree = appViewModel.UTILS.eventTreeBuilder.buildEventTree( indexViewModel.PublicEvents, true );
 		appViewModel.publicEventTreeCountBasedOnEventKind = appViewModel.UTILS.eventTreeBuilder.buildEventTreeCountBasedOnEventKind( indexViewModel.PublicEventCountTree, appViewModel.eventKinds );
 
+		appViewModel.lobbyPageRecentlyAddedPublicEvents( appViewModel.UTILS.eventTreeBuilder.transformEventListToKKEventList( indexViewModel.MostRecentlyAddedPublicEvents ) );
+		appViewModel.lobbyPageUpcomingPublicEvents(appViewModel.UTILS.eventTreeBuilder.transformEventListToKKEventList(indexViewModel.UpcomingPublicEvents));
 		//appViewModel.newsEvents = appViewModel.UTILS.eventTreeBuilder.transformNews( indexViewModel.News );
 
 		//if user is logged in
@@ -597,17 +599,9 @@
 				if ( !$this.hasClass( "selected" ) )
 				{
 					$this.css( {
-						"cursor": "pointer",
-						"border": "2px solid gray"
+						"cursor": "pointer"
 					} );
 				}
-				else
-				{
-					$this.css( {
-						"border": "2px solid gray"
-					} );
-				}
-
 			}, function ()
 			{
 				var $this = $( this );
@@ -615,13 +609,7 @@
 				if ( !$this.hasClass( "selected" ) )
 				{
 					$this.css( {
-						"cursor": "auto",
-						"border": "none"
-					} );
-				} else
-				{
-					$this.css( {
-						"border": "2px solid gray"
+						"cursor": "auto"
 					} );
 				}
 			} );

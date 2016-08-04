@@ -13,7 +13,7 @@
     var thisyear = now.getFullYear();
 
     var opts = {
-      // month needs to be from 0 - 11
+      // month must be from 0 - 11
       month: thismonth,
       year: thisyear,
       dayNames: ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'],

@@ -72,7 +72,7 @@
 		APP.animateSiteLoadingText(siteLoadingTextAnimationInterval);
 		APP.initializeJQueryExtentionMethods(SIMPLE_FILT());
 		APP.initializeDzieuoPlugin($dzieuo);
-		APP.initialize(indexViewModel, userName, APP.initializeLoader());
+		APP.initializeApp(indexViewModel, userName, APP.initializeLoader());
 		APP.setPagesHeights();
 		APP.displaySiteAfterLoad(siteLoadingTextAnimationInterval, $dzieuo);	
 	});

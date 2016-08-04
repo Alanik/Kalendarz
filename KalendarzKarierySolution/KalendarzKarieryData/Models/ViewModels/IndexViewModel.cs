@@ -5,11 +5,13 @@ using System.Collections.Generic;
 
 namespace KalendarzKarieryData.Models.ViewModels
 {
-    [Serializable]
+	[Serializable]
 	public class IndexViewModel
 	{
 		//TODO: remove anonymous types (object)
 
+		public ICollection<JsonEventModel> MostRecentlyAddedPublicEvents { get; set; }
+		public ICollection<JsonEventModel> UpcomingPublicEvents { get; set; }
 		public IList<EventsGroupedByYearModel> MyEvents { get; set; }
 		public IList<EventsGroupedByYearModel> PublicEvents { get; set; }
 		public IList<NotesGroupedByYearModel> MyNotes { get; set; }

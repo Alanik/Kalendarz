@@ -143,6 +143,9 @@
 		"events": null
 	}
 
+	self.lobbyPageRecentlyAddedPublicEvents = ko.observableArray( [] );
+	self.lobbyPageUpcomingPublicEvents = ko.observableArray( [] );
+
 	self.calendarPageMonthEvents = [];
 	self.detailsPageDayEvents = ko.observableArray( [] );
 	self.detailsPageDayNotes = ko.observableArray( [] );

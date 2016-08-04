@@ -148,7 +148,7 @@ namespace KalendarzKarieryWebAPI.Controllers
 				}
 			}
 
-			var privacyLevel = _repository.GetPrivacyLevelByValue( (int)KalendarzKarieryData.Enums.PrivacyLevel.@private );
+			var privacyLevel = _repository.GetPrivacyLevelByValue( (int)KalendarzKarieryData.Enums.PrivacyLevelEnum.@private );
 			if (privacyLevel != null)
 			{
 				note.PrivacyLevelId = privacyLevel.Id;

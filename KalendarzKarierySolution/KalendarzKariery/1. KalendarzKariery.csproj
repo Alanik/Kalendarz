@@ -361,7 +361,7 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Home\LobbyPage\_Register.cshtml" />
     <Content Include="Views\Home\DetailsPage\_Details.cshtml" />
-    <Content Include="Views\Home\LobbyPage\_LobbyEventBlock.cshtml" />
+    <Content Include="Views\Home\SharedPartials\_EventBlock.cshtml" />
     <Content Include="Views\Home\SharedPartials\_ConfirmationPopupBox.cshtml" />
     <Content Include="Views\Home\LobbyPage\_LobbyNews.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsSettings.cshtml" />

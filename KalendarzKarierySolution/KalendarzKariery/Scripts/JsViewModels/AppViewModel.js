@@ -136,12 +136,8 @@
 
 	self.addNewEvent_Day = ko.observable( 0 );
 
-	self.calendarDayEventsToUpdate = {
-		"day": 0,
-		"month": 0,
-		"year": 0,
-		"events": null
-	}
+	//[ { "year" : 2016, "month" : 12, "day" : 1, "events" : [KKEventModel, KKEventModel] }, [ {"year" : 2016, "month" : 3, "events" : [KKEventModel] } ]
+	self.calendarCellsToUpdate = [];
 
 	self.lobbyPageRecentlyAddedPublicEvents = ko.observableArray( [] );
 	self.lobbyPageUpcomingPublicEvents = ko.observableArray( [] );
@@ -166,7 +162,7 @@
 				"index": 2,
 				//TODO: maybe change into event tree with arrays grouped by event kind
 				"selectedEvents": {
-					// are filled when building publicEventTree and then those arrays are put into old/upcoming observale array on showSelectedJournalMenuItem
+					// TODO: oldTemp and upcomingTemp are filled when building publicEventTree and then those arrays are put into old/upcoming observale array on showSelectedJournalMenuItem
 					// is made this way because otherwise app will throw errors... fix it when you get a chance (remove oldTemp and upcomingTemp)
 					oldTemp: [],
 					upcomingTemp: [],
@@ -426,7 +422,7 @@
 				var dayEvents = self.EVENT_MANAGER.addEvent( kkEvent );
 
 				self.setCalendarPlacementRow( dayEvents );
-				self.redrawCalendarCell( dayEvents, kkEvent.startDate.day, kkEvent.startDate.month, kkEvent.startDate.year );
+				self.redrawCalendarCell( dayEvents, kkEvent.startDate.year, kkEvent.startDate.month, kkEvent.startDate.day );
 
 				self.UTILS.loader.hide( true );
 			}
@@ -568,11 +564,11 @@
 						oldEvent.status
 						);
 
-				self.EVENT_MANAGER.removeEvent( result.EventId, result.Year, result.Month, result.Day );
+				self.EVENT_MANAGER.removeEvent( result.EventId, result.Year, result.Month, result.Day, true );
 				var dayEvents = self.EVENT_MANAGER.addEvent( kkEvent );
 
 				self.setCalendarPlacementRow( dayEvents );
-				self.redrawCalendarCell( dayEvents, kkEvent.startDate.day, kkEvent.startDate.month, kkEvent.startDate.year );
+				self.redrawCalendarCell( dayEvents, kkEvent.startDate.year, kkEvent.startDate.month, kkEvent.startDate.day );
 
 				self.UTILS.loader.hide( true );
 			}
@@ -679,7 +675,6 @@
 		function success( result )
 		{
 			var $container, events, $tableBody, h, offset, $detailsDayTable;
-
 			if ( result.IsSuccess === false )
 			{
 				self.UTILS.loader.hide( true );
@@ -688,15 +683,11 @@
 			} else
 			{
 				self.UTILS.loader.hide( true );
-				$container = $( "#details .details-event-block-container[data-eventid='" + id + "']" );
-
+				$container = $( "#details .event-block-container[data-eventid='" + id + "']" );
 				$container.fadeOut( 500, function ()
 				{
-					$detailsDayTable = $( "#details #detailsDayTable" );
-
 					$container.remove();
-
-					self.EVENT_MANAGER.removeEvent( id, year, month, day );
+					self.EVENT_MANAGER.removeEvent( id, year, month, day, false );
 
 					//redraw details page event rectangle table
 					self.removeEventRectanglesFromDetailsDay();
@@ -704,22 +695,17 @@
 
 					self.setCalendarPlacementRow( events );
 					self.detailsPageEventMostBottomRow = 1;
+					self.redrawCalendarCell( events, year, month, day );
 
 					for ( var i in events )
 					{
 						self.drawEventToDetailsDayTable( events[i] );
 					}
 
+					$detailsDayTable = $( "#details #detailsDayTable" );
 					self.resizeDetailsDayTable( self.detailsPageEventMostBottomRow );
-
 					offset = $detailsDayTable.position().top - 83;
 					$detailsDayTable.scrollTo( 500, offset );
-
-					//for calendar to redraw events in day cell
-					self.calendarDayEventsToUpdate.day = self.detailsPageDisplayDate.day();
-					self.calendarDayEventsToUpdate.month = self.detailsPageDisplayDate.month();
-					self.calendarDayEventsToUpdate.year = self.detailsPageDisplayDate.year();
-					self.calendarDayEventsToUpdate.events = events;
 				} );
 			}
 
@@ -967,49 +953,40 @@
 		$container.find( ".note-content" ).show();
 	};
 
-	self.redrawCalendarCell = function ( dayEvents, day, month, year )
+	self.redrawCalendarCell = function ( dayEvents, year, month, day )
 	{
-		var cellDay, $cellPlaceholder, $eventsToRemove;
+		var monthClass;
 		var calendarYear = self.calendarPageDisplayDate.year(), calendarMonth = self.calendarPageDisplayDate.month();
 
 		if ( year === calendarYear )
 		{
 			if ( month === calendarMonth )
 			{
-				cellDay = ".day" + day;
-				$cellPlaceholder = $( "#calendar" ).find( cellDay ).find( ".calendar-cell-placeholder" );
-				$eventsToRemove = $cellPlaceholder.find( ".event-rectangle" );
-				$eventsToRemove.remove();
-
-				for ( var i in dayEvents )
-				{
-					self.drawEventToCalendar( dayEvents[i] );
-				}
+				monthClass = ".day" + day;
 			}
 			else if ( month === ( calendarMonth - 1 || calendarMonth + 1 ) )
 			{
-				cellDay = ".other-month-day" + day;
-				$cellPlaceholder = $( "#calendar" ).find( cellDay ).find( ".calendar-cell-placeholder" );
-				$eventsToRemove = $cellPlaceholder.find( ".event-rectangle" );
-				$eventsToRemove.remove();
-
-				for ( var i in dayEvents )
-				{
-					self.drawEventToCalendar( dayEvents[i] );
-				}
+				monthClass = ".other-month-day" + day;
 			}
 		}
 		else if ( ( year === ( calendarYear - 1 ) && month == 12 ) || ( year === ( calendarYear + 1 ) && month == 1 ) )
 		{
-			cellDay = ".other-month-day" + day;
-			$cellPlaceholder = $( "#calendar" ).find( cellDay ).find( ".calendar-cell-placeholder" );
-			$eventsToRemove = $cellPlaceholder.find( ".event-rectangle" );
-			$eventsToRemove.remove();
+			monthClass = ".other-month-day" + day;
+		}
 
-			for ( var i in dayEvents )
-			{
-				self.drawEventToCalendar( dayEvents[i] );
-			}
+		removeEventRectangle( monthClass );
+
+		for ( var i = 0; i < dayEvents.length; i++ )
+		{
+			self.drawEventToCalendar( dayEvents[i] );
+		}
+
+		function removeEventRectangle( cssClass )
+		{
+			var cellDay = cssClass;
+			var $cellPlaceholder = $( "#calendar" ).find( cellDay ).find( ".calendar-cell-placeholder" );
+			var $eventsToRemove = $cellPlaceholder.find( ".event-rectangle" );
+			$eventsToRemove.remove();
 		}
 	}
 
@@ -1048,7 +1025,7 @@
 
 		if ( !self.detailsPageJournalMenu.isOpen() )
 		{
-			self.hideDetailsPageClockContainer()
+			//self.hideDetailsPageClockContainer()
 			self.detailsPageJournalMenu.isOpen( true );
 		}
 	};
@@ -1186,7 +1163,7 @@
 		var addressCityStr = event.address.city ? ", " + event.address.city : "";
 		var addressStr = addressStreetStr + addressCityStr;
 
-		var name = event.privacyLevel.value == 1 ? event.name : ( "*** " + event.name );
+		var name = event.privacyLevel.value == self.eventPrivacyLevels["private"] ? event.name : ( "*** " + event.name );
 
 		var weekday = $cell.data( "weekday" );
 
@@ -1339,7 +1316,7 @@
 				dayEvents = self.EVENT_MANAGER.addEvent( kkEvent );
 
 				self.setCalendarPlacementRow( dayEvents );
-				self.redrawCalendarCell( dayEvents, kkEvent.startDate.day, kkEvent.startDate.month, kkEvent.startDate.year );
+				self.redrawCalendarCell( dayEvents, kkEvent.startDate.year, kkEvent.startDate.month, kkEvent.startDate.day );
 
 				self.UTILS.loader.hide( true );
 			}
@@ -1386,7 +1363,7 @@
 					dayEvents = self.EVENT_MANAGER.addEvent( kkEvent );
 
 					self.setCalendarPlacementRow( dayEvents );
-					self.redrawCalendarCell( dayEvents, kkEvent.startDate.day, kkEvent.startDate.month, kkEvent.startDate.year );
+					self.redrawCalendarCell( dayEvents, kkEvent.startDate.year, kkEvent.startDate.month, kkEvent.startDate.day );
 				}
 
 				self.UTILS.loader.hide( true );
@@ -1432,7 +1409,7 @@
 		{
 			if ( !self.detailsPageJournalMenu.isOpen() )
 			{
-				self.hideDetailsPageClockContainer();
+				//self.hideDetailsPageClockContainer();
 				self.detailsPageJournalMenu.isOpen( true );
 			}
 
@@ -1479,7 +1456,6 @@
 					{
 						return [{ "prop": actualObj.kind.value, "values": valuesArr }, { "boolSpecifier": 'and', "prop": actualObj.addedBy, "values": [username] }]
 					}
-
 					//////////////////////////////////////////////////////////
 					//old
 					//////////////////////////////////////////////////////////
@@ -1560,7 +1536,6 @@
 		{
 			var shownEvents, combinedArray;
 			var arr = self.EVENT_MANAGER.getEventsByPropertyValue( eventTree, checkArgs, oldOrUpcomingFlag );
-
 			shownEvents = selectedEventsProp();
 
 			if ( shownEvents.length )
@@ -1717,7 +1692,6 @@
 
 		self.resizeDetailsDayTable( self.detailsPageEventMostBottomRow );
 
-		var $scrollable = $( "#slide-item-details" ).parent();
 		var speed = 800;
 		if ( self.currentPage() == 0 )
 		{
@@ -1727,7 +1701,7 @@
 
 		setTimeout( function ()
 		{
-			$( "#details .details-event-block-container[data-eventid='" + id + "']" ).scrollTo( speed );
+			$( "#details .event-block-container[data-eventid='" + id + "']" ).scrollTo( speed );
 		}, 10 )
 	};
 
@@ -2600,15 +2574,14 @@
 			switch ( arg.targetColumn )
 			{
 				case 0:
+					// for js-masonry bug where sometimes masonry grid container does not render properly  
 					window.dispatchEvent( new Event( 'resize' ) );
-					console.log( "triggered window resize" );
 					break;
 				case 1:
 					break;
 				case 2:
 					break;
 				default:
-
 			}
 		} );
 

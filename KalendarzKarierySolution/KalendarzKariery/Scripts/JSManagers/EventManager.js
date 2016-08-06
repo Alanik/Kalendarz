@@ -343,10 +343,9 @@
 			default: return arr;
 		}
 	}
-
 	self.addEvent = function ( newKKEvent )
 	{
-		var today, endDay, oldOrUpcoming, event, didAddEvent = false;
+		var today, endDay, oldOrUpcoming, event, didAddEvent = false, recentlyAddedEvents;
 
 		var year = newKKEvent.startDate.year;
 		var month = newKKEvent.startDate.month;
@@ -379,6 +378,7 @@
 			appViewModel.detailsPageDayEvents( dayEventsArr );
 
 			appViewModel.removeEventRectanglesFromDetailsDay();
+
 			appViewModel.setCalendarPlacementRow( dayEventsArr );
 			appViewModel.detailsPageEventMostBottomRow = 1;
 
@@ -428,7 +428,7 @@
 				if ( event.id == newKKEvent.id )
 				{
 					// this check is for when adding public event to user's calendar - the public event already exists so do not add it again to public event tree.
-					return dayEventsArr;
+					break;
 				}
 
 				if ( newKKEvent.startDate.startHour < event.startDate.startHour || ( newKKEvent.startDate.startHour == event.startDate.startHour && newKKEvent.startDate.startMinute < event.startDate.startMinute ) )
@@ -485,17 +485,90 @@
 
 			//4. increment appViewModel.myEventTreeCountBasedOnEventKind value
 			appViewModel.changeEventCountTreeValueBasedOnEventKind( appViewModel.publicEventTreeCountBasedOnEventKind, newKKEvent, 1 );
+
+			//5. appViewModel.lobbyPageRecentlyAddedPublicEvents repopulate the list
+			for ( var i = 0, recentlyAddedEvents = appViewModel.lobbyPageRecentlyAddedPublicEvents() ; i < recentlyAddedEvents.length; i++ )
+			{
+				event = recentlyAddedEvents[i];
+				if ( newKKEvent.id === event.id )
+				{
+					appViewModel.lobbyPageRecentlyAddedPublicEvents.swap( event, newKKEvent );
+					break;
+				}
+			}
 		}
 
 		return dayEventsArr;
 	};
 
-	self.removeEvent = function ( id, year, month, day )
+	self.removeEvent = function ( id, year, month, day, isEditEventCalled )
 	{
-		var eventTree = appViewModel.myEventTree;
+		var eventTree = appViewModel.publicEventTree;
 		var eventTreeYearProp, eventTreeMonthProp, dayEvents, event;
 		var today, endDate, oldOrUpcoming;
-		var $container, h;
+		var $container, h, recentlyAddedEvents, cellObj, assignedCell = false;
+
+		// remove from public tree
+		if ( eventTree[year] )
+		{
+			eventTreeYearProp = eventTree[year];
+			if ( eventTreeYearProp[month] )
+			{
+				eventTreeMonthProp = eventTreeYearProp[month];
+				if ( eventTreeMonthProp[day] )
+				{
+					dayEvents = eventTreeMonthProp[day];
+
+					for ( var i = 0; i < dayEvents.length; i++ )
+					{
+						event = dayEvents[i];
+						if ( event.id === id )
+						{
+							//1.1 remove from eventTree
+							dayEvents.splice( i, 1 );
+
+							if ( !dayEvents.length )
+							{
+								//if array node that contains daily events is empty then remove the node from eventTree
+								delete eventTreeMonthProp[day];
+							}
+
+							//1.2 remove event from appViewModel.publicEvents
+							appViewModel.publicEvents.remove( function ( event )
+							{
+								return event.id === id;
+							} );
+
+							//1.3 decrement appViewModel.publicEventTreeCountBasedOnEventKind value
+							appViewModel.changeEventCountTreeValueBasedOnEventKind( appViewModel.publicEventTreeCountBasedOnEventKind, event, -1 );
+
+
+							//1.4 if selected events panel is open and the deleted event is displayed on the list then remove it from  lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents
+							if ( appViewModel.lobbyPagePublicEventListMenu.isOpen() && appViewModel.lobbyPagePublicEventListMenu.selectedMenuItem() === 1 )
+							{
+								today = new Date();
+								endDate = new Date( event.startDate.year, event.startDate.month - 1, event.startDate.day, event.startDate.endHour, event.startDate.endMinute, 0, 0 );
+
+								if ( today > endDate )
+								{
+									oldOrUpcoming = appViewModel.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.old;
+								} else
+								{
+									oldOrUpcoming = appViewModel.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.upcoming;
+								}
+
+								oldOrUpcoming.remove( function ( event )
+								{
+									return event.id === id;
+								} );
+							}
+						}
+					}
+				}
+			}
+		}
+		//remove from myEventTree
+		eventTree = appViewModel.myEventTree;
 
 		if ( eventTree[year] )
 		{
@@ -510,10 +583,9 @@
 					for ( var i = 0; i < dayEvents.length; i++ )
 					{
 						event = dayEvents[i];
-
 						if ( event.id === id )
 						{
-							//1. remove event from eventTree
+							//2.1 remove event from eventTree
 							dayEvents.splice( i, 1 );
 
 							if ( !dayEvents.length )
@@ -521,8 +593,33 @@
 								//if array node that contains daily events is empty then remove the node from eventTree
 								delete eventTreeMonthProp[day];
 							}
+						
+							////2.2 setup calendarCellsToUpdate
+							//if ( appViewModel.calendarCellsToUpdate.length > 0 )
+							//{
+							//	for ( var i = 0; i < appViewModel.calendarCellsToUpdate.length; i++ )
+							//	{
+							//		cellObj = appViewModel.calendarCellsToUpdate[i];
 
-							//2. if selected events panel is open and the deleted event is displayed on the list then remove it from  menuItems.myCalendar.selectedEvents
+							//		if ( cellObj.year === event.startDate.year && cellObj.month === event.startDate.month && cellObj.day === event.startDate.day )
+							//		{
+							//			cellObj.events = dayEvents;
+							//			assignedCell = true;
+							//			break;
+							//		}
+							//	}
+
+							//	if ( !assignedCell )
+							//	{
+							//		appViewModel.calendarCellsToUpdate.push( { "year" : event.startDate.year, "month" : event.startDate.month, "day" : event.startDate.day, "events" : dayEvents });
+							//	}
+
+							//} else
+							//{
+							//	appViewModel.calendarCellsToUpdate.push( { "year": event.startDate.year, "month": event.startDate.month, "day": event.startDate.day, "events": dayEvents } );
+							//}
+
+							//2.3 if selected events panel is open and the deleted event is displayed on the list then remove it from  menuItems.myCalendar.selectedEvents
 							if ( appViewModel.detailsPageJournalMenu.isOpen() && appViewModel.detailsPageJournalMenu.selectedMenuItem() === 1 )
 							{
 								today = new Date();
@@ -542,37 +639,46 @@
 								} );
 							}
 
-							//3. decrement appViewModel.myEventTreeCountBasedOnEventKind value
-							appViewModel.changeEventCountTreeValueBasedOnEventKind( appViewModel.myEventTreeCountBasedOnEventKind, event, -1 );
-
-							//4. update appViewModel.detailsPageEvents()
-							if ( year == appViewModel.detailsPageDisplayDate.year() && month == appViewModel.detailsPageDisplayDate.month() && day == appViewModel.detailsPageDisplayDate.day() )
+							//2.4 if managage own events panel is open and the deleted event is displayed on the list then remove it from  menuItems.manageOwnPublicEvents.selectedEvents
+							if ( appViewModel.detailsPageJournalMenu.isOpen() && appViewModel.detailsPageJournalMenu.selectedMenuItem() === 2 )
 							{
-								$container = $( "#details .details-event-block-container[data-eventid='" + id + "']" );
-								$container.fadeOut( 500, function ()
+								today = new Date();
+								endDate = new Date( event.startDate.year, event.startDate.month - 1, event.startDate.day, event.startDate.endHour, event.startDate.endMinute, 0, 0 );
+
+								if ( today > endDate )
 								{
-									$container.remove();
+									oldOrUpcoming = appViewModel.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.old;
+								} else
+								{
+									oldOrUpcoming = appViewModel.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.upcoming;
+								}
 
-									//redraw details page event rectangle table
-									appViewModel.removeEventRectanglesFromDetailsDay();
-									dayEvents = appViewModel.detailsPageDayEvents();
-
-									appViewModel.setCalendarPlacementRow( dayEvents );
-									appViewModel.detailsPageEventMostBottomRow = 1;
-
-									for ( var i in dayEvents )
-									{
-										appViewModel.drawEventToDetailsDayTable( dayEvents[i] );
-									}
-
-									appViewModel.resizeDetailsDayTable( appViewModel.detailsPageEventMostBottomRow );
-
-									//for calendar to redraw events in day cell
-									appViewModel.calendarDayEventsToUpdate.day = appViewModel.detailsPageDisplayDate.day();
-									appViewModel.calendarDayEventsToUpdate.month = appViewModel.detailsPageDisplayDate.month();
-									appViewModel.calendarDayEventsToUpdate.year = appViewModel.detailsPageDisplayDate.year();
-									appViewModel.calendarDayEventsToUpdate.events = dayEvents;
+								oldOrUpcoming.remove( function ( event )
+								{
+									return event.id === id;
 								} );
+							}
+
+							//2.5 decrement appViewModel.myEventTreeCountBasedOnEventKind value
+							appViewModel.changeEventCountTreeValueBasedOnEventKind( appViewModel.myEventTreeCountBasedOnEventKind, event, -1 );
+						
+							//2.6 if event is present in appViewModel.lobbyPageRecentlyAddedPublicEvents
+							for ( var i = 0, recentlyAddedEvents = appViewModel.lobbyPageRecentlyAddedPublicEvents() ; i < recentlyAddedEvents.length; i++ )
+							{
+								event = recentlyAddedEvents[i];
+								if ( id === event.id )
+								{
+									if ( !isEditEventCalled )
+									{
+										//TODO: not optimal because sorting public events everytime we add a new event.. maybe refactor
+										recentlyAddedEvents = appViewModel.publicEvents().sort( function ( event1, event2 )
+										{
+											return event1.dateAdded.javaScriptDate - event2.dateAdded.javaScriptDate;
+										} );
+										appViewModel.lobbyPageRecentlyAddedPublicEvents( recentlyAddedEvents.slice( Math.max( recentlyAddedEvents.length - 5, 1 ) ).reverse() );
+									}
+									break;
+								}
 							}
 
 							return;
@@ -582,5 +688,4 @@
 			}
 		}
 	};
-
 }

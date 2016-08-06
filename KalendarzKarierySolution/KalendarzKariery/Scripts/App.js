@@ -148,11 +148,13 @@
 
 		appViewModel.eventPrivacyLevels = appViewModel.UTILS.eventTreeBuilder.transformPrivacyLevels( indexViewModel.PrivacyLevels );
 		appViewModel.eventKinds = indexViewModel.EventKinds;
+
 		appViewModel.publicEventTree = appViewModel.UTILS.eventTreeBuilder.buildEventTree( indexViewModel.PublicEvents, true );
 		appViewModel.publicEventTreeCountBasedOnEventKind = appViewModel.UTILS.eventTreeBuilder.buildEventTreeCountBasedOnEventKind( indexViewModel.PublicEventCountTree, appViewModel.eventKinds );
 
-		appViewModel.lobbyPageRecentlyAddedPublicEvents( appViewModel.UTILS.eventTreeBuilder.transformEventListToKKEventList( indexViewModel.MostRecentlyAddedPublicEvents ) );
-		appViewModel.lobbyPageUpcomingPublicEvents(appViewModel.UTILS.eventTreeBuilder.transformEventListToKKEventList(indexViewModel.UpcomingPublicEvents));
+		appViewModel.lobbyPageRecentlyAddedPublicEvents( getRecentlyAddedEvents( appViewModel ) );
+		appViewModel.lobbyPageUpcomingPublicEvents = appViewModel.UTILS.eventTreeBuilder.transformEventListToKKEventList( indexViewModel.UpcomingPublicEvents )
+
 		//appViewModel.newsEvents = appViewModel.UTILS.eventTreeBuilder.transformNews( indexViewModel.News );
 
 		//if user is logged in
@@ -900,15 +902,6 @@
 			{
 				window.location = "#1";
 			} );
-			//$appContainer.on( "click", ".page-overlay", function ( event )
-			//{
-			//	var $confPopoupBox = $( "#appContainer" ).children( ".confirmation-popupbox" );
-			//	$confPopoupBox.find( ".confirmation-popupbox-yesbtn" ).attr( "data-bind", '' );
-			//	$confPopoupBox.hide();
-			//	$( this ).hide();
-
-			//} );
-
 		}();
 
 		this.initializeDateValidationErrorMsgDisplay = function ()
@@ -930,5 +923,14 @@
 
 		}();
 
+		function getRecentlyAddedEvents( appViewModel )
+		{
+			var recentlyAddedEvents = appViewModel.publicEvents().sort( function ( event1, event2 )
+			{
+				return event1.dateAdded.javaScriptDate - event2.dateAdded.javaScriptDate;
+			} );
+
+			return recentlyAddedEvents.slice( Math.max( recentlyAddedEvents.length - 5, 1 ) ).reverse();
+		}
 	}
 };

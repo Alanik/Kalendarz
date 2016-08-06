@@ -57,7 +57,7 @@
 
       <div id="detailsEventBlockList" data-bind="foreach: detailsPageDayEvents()">
         <div class="event-block-container" data-bind="attr: { 'data-eventid': id }">
-          @Html.Partial("_LobbyEventBlock")
+          @Html.Partial("_EventBlock", new ViewDataDictionary { { "page", "details" } } )
         </div>
       </div>
       <div id="notesContainer">

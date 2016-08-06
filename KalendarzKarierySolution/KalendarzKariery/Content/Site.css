@@ -158,12 +158,14 @@ fieldset {
 	font-family: Raleway-Regular;
 	text-align: center;
 	padding-top: 60px;
+	background: #b9b7b7;
 }
 
 .lobby-quote {
 	font-size: 1.4em;
 	line-height: 1;
-	color: #cacaca;
+	color: #dcdcdc;
+	margin: 0;
 }
 
 #addPublicEventBtn {
@@ -188,6 +190,7 @@ fieldset {
 	text-align: center;
 	padding-top: 30px;
 	padding-bottom: 60px;
+	background: #b9b7b7;
 }
 
 	#lobbyNavContainer a {

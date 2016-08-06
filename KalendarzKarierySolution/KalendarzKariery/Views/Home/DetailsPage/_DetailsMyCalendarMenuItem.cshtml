@@ -23,7 +23,7 @@
          </div>
        </div>
        <div class="event-block-expand" style="display:none;">
-         @Html.Partial("_LobbyEventBlock")
+         @Html.Partial("_EventBlock", new ViewDataDictionary { { "page", "details" } })
        </div>
      </div>
    </div>
@@ -53,7 +53,7 @@
           </div>
         </div>
         <div class="event-block-expand" style="display:none;">
-          @Html.Partial("_LobbyEventBlock")
+          @Html.Partial("_EventBlock", new ViewDataDictionary { { "page", "details" } })
         </div>
       </div>
     </div>

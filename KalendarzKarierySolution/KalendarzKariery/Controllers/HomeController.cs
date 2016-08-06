@@ -22,7 +22,6 @@ namespace KalendarzKariery.Controllers
 			var currentUserId = this.GetUserId( User.Identity.Name.ToLower(), _repository );
 
 			var indexViewModel = new IndexViewModel();
-			indexViewModel.MostRecentlyAddedPublicEvents = _repository.GetMostRecentlyCreatedEvents( 5, PrivacyLevelEnum.@public);
 			indexViewModel.UpcomingPublicEvents  = _repository.GetUpcomingEvents(5, PrivacyLevelEnum.@public);
 			indexViewModel.PublicEvents = _repository.GetAllPublicEvents( currentUserId );
 			indexViewModel.EventKinds = _repository.GetEventKindsBasedOnUserName( User.Identity.Name );

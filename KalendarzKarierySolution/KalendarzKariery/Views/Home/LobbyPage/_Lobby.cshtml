@@ -17,15 +17,14 @@
 	@Html.Partial( "_Register", new KalendarzKarieryData.Models.ViewModels.RegisterViewModel() )
 
 </section>
-<section class="dz-row" style="background: rgb(236, 236, 236); border-right: 2px solid #f7f6f5; border-left: 3px solid #f7f6f5; border-top: 1px solid #e2e2e2;">
+<section class="dz-row" style="background: rgb(236, 236, 236); border-top: 1px solid #e2e2e2;">
 	@*<div id="addPrivateEventBtn" class="hover-cursor-pointer" data-bind="click: function ( data, e ) { $root.showAddPrivateEventLobbyPopupOnClick( $element, data, e ) }">Dodaj do swojego kalendarza +</div>*@
-	<section class="lobby-overview" style="width:48%;">
+	<section class="lobby-overview" style="width: 48%;">
 		<div class="overview-events-list-container">
-		<h3 style="padding-left:100px;font-weight:normal;margin-top:10px;">
-		Najnowsze wydarzenia
-		</h3>
-			<ul data-bind="foreach: $root.lobbyPageRecentlyAddedPublicEvents" style="padding:0;">
-				<li style="list-style:none;">
+			<h3 style="padding-left: 100px; font-weight: normal; margin-top: 10px;">Najnowsze wydarzenia
+			</h3>
+			<ul data-bind="foreach: $root.lobbyPageRecentlyAddedPublicEvents" style="padding: 0;">
+				<li style="list-style: none;">
 					<div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
 					<div class="display-events-overview-item">
 						<div class="overview-item-inner-wrapper" data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
@@ -40,7 +39,7 @@
 							</div>
 						</div>
 						<div class="event-block-expand" style="display: none;">
-							@Html.Partial("_LobbyEventBlock")
+							@Html.Partial( "_EventBlock", new ViewDataDictionary { { "page", "lobby" } }  )
 						</div>
 					</div>
 				</li>
@@ -66,7 +65,7 @@
 							</div>
 						</div>
 						<div class="event-block-expand" style="display: none;">
-							@Html.Partial("_LobbyEventBlock")
+							@Html.Partial( "_EventBlock", new ViewDataDictionary { { "page", "lobby" } }  )
 						</div>
 					</div>
 				</li>
@@ -102,7 +101,7 @@
 	<section id="lobbyEventsMasonryContainer">
 		<div class="grid js-masonry" data-bind="masonry: { data: publicEvents, masonryOptions: { itemClass: 'event-block-container', gutter: 10 } }">
 			<div class="event-block-container" data-bind="attr: { 'data-eventid': id }">
-				@Html.Partial( "_LobbyEventBlock" )
+				@Html.Partial( "_EventBlock", new ViewDataDictionary { { "page", "lobby" } } )
 			</div>
 		</div>
 	</section>

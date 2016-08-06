@@ -135,3 +135,15 @@ ko.bindingHandlers.selectedText = {
 		}
 	};
 } )();
+
+// custom Knockout functions
+
+ko.observableArray.fn.swap = function ( oldItem, newItem )
+{
+	var index = this['indexOf']( oldItem );
+	if ( index >= 0 )
+	{
+		this.splice( index, 1 );
+		this.splice( index, 0, newItem );
+	}
+}

@@ -384,18 +384,6 @@
 			}
 		}
 
-		public ICollection<JsonEventModel> GetMostRecentlyCreatedEvents( int numberOfEvents, PrivacyLevelEnum privacyLevel )
-		{
-			using (var context = new KalendarzKarieryDBEntities())
-			{
-				var list = context.Events.Include( "User" ).Include( "Address" ).Include( "EventKind" ).Include( "PrivacyLevel" ).Where( m => m.PrivacyLevel.Value == (int)privacyLevel ).OrderByDescending( m => m.CreateDate ).Take( numberOfEvents ).AsEnumerable();
-
-				var transformedList = list.Select( m => new JsonEventModel( m, null ) ).ToArray();
-
-				return transformedList;
-			}
-		}
-
 		public ICollection<JsonEventModel> GetUpcomingEvents( int numberOfEvents, PrivacyLevelEnum privacyLevel )
 		{
 			using (var context = new KalendarzKarieryDBEntities())

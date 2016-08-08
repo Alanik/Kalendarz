@@ -158,19 +158,20 @@ fieldset {
 	font-family: Raleway-Regular;
 	text-align: center;
 	padding-top: 60px;
-	background: #b9b7b7;
+	background: #ececec;
 }
 
 .lobby-quote {
 	font-size: 1.4em;
 	line-height: 1;
-	color: #dcdcdc;
+	color: #d4d4d4;
 	margin: 0;
 }
 
 #addPublicEventBtn {
 	padding: 10px;
-	background: rgb(247, 247, 247);
+	background: rgb(147, 193, 153);
+	color: white;
 }
 
 .dz-row {
@@ -190,7 +191,7 @@ fieldset {
 	text-align: center;
 	padding-top: 30px;
 	padding-bottom: 60px;
-	background: #b9b7b7;
+	background: #ececec;
 }
 
 	#lobbyNavContainer a {
@@ -349,8 +350,8 @@ fieldset {
 }
 
 .display-events-overview-item {
-	border-left: 1px solid #cecece;
-	border-right: 2px solid #DEDEDE;
+	border-left: 1px solid #cccccc;
+	border-right: 1px solid #cccccc;
 	background: #ececec;
 	overflow: hidden;
 	min-height: 32px;
@@ -873,7 +874,7 @@ li.line-through-text {
 	width: 100px;
 	text-align: center;
 	float: left;
-	background: #807C77;
+	/*background: #807C77;*/
 	clear: both;
 	min-height: 32px;
 	padding: 5px;

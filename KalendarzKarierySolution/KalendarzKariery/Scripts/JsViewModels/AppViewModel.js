@@ -3,6 +3,7 @@
 	"use strict";
 
 	var self = this;
+	var lobbyVM, calendarVM, detailsVM;
 
 	//////////////////////////////////////////////////////////
 	//utils, managers etc
@@ -63,12 +64,23 @@
 	self.EVENT_MANAGER = new EventManager( self );
 	self.NOTE_MANAGER = new NoteManager( self );
 
+	self.lobbyPage = {};
+	self.calendarPage = {};
+	self.detailsPage = {};
+
+	self.lobbyPage.navPart = {};
+	self.lobbyPage.dashboardPart = {};
+	self.lobbyPage.upcomingEventsPart = {};
+	self.lobbyPage.eventGridPart = {};
+
+
+
 	//////////////////////////////////////////////////////////
 	//public properties
 	//////////////////////////////////////////////////////////
 	var year = date.getFullYear(), month = date.getMonth(), day = date.getDate();
 
-	//ajax loader 
+	// ajax loader 
 	self.spinner = spinner;
 
 	//0 - lobby page
@@ -109,6 +121,48 @@
 	// is used when adding note
 	self.observableNote = new KKNoteModelObservable();
 
+
+
+	self.lobbyPagePublicEventListMenu = {
+		"menuItems": {
+			publicEvents: {
+				"index": 1,
+				//TODO: maybe change into event tree with arrays grouped by event kind
+				"selectedEvents": {
+					//it is filled with public events when building publicEventTree
+					old: ko.observableArray( [] ),
+					upcoming: ko.observableArray( [] )
+				},
+				"showOld": ko.observable( false ),
+				"showUpcoming": ko.observable( true )
+			}
+		},
+		"selectedMenuItem": ko.observable( 1 ),
+		"selectedEventKindValues": [],
+		"getCurrentSelectedEventsProp": function ()
+		{
+			switch ( this.selectedMenuItem() )
+			{
+				case 1:
+					return this.menuItems.publicEvents.selectedEvents;
+				default:
+					return [];
+			}
+		},
+		"isOpen": ko.observable( false )
+	}
+
+	self.lobbyPageRecentlyAddedPublicEvents = ko.observableArray( [] );
+	self.lobbyPageUpcomingPublicEvents = ko.observableArray( [] );
+	
+
+	//month starts from 1 to 12
+	self.calendarPageDisplayDate = {
+		"year": ko.observable( year ),
+		"month": ko.observable( month + 1 )
+	};
+	self.calendarPageMonthEvents = [];
+
 	self.detailsPageDisplayDate = {
 		"year": ko.observable( year ),
 		//month starts from 1 to 12
@@ -128,21 +182,6 @@
 	// used to specify the most bottom row of events in details page in the daily plan table
 	self.detailsPageEventMostBottomRow = 1;
 
-	//month starts from 1 to 12
-	self.calendarPageDisplayDate = {
-		"year": ko.observable( year ),
-		"month": ko.observable( month + 1 )
-	};
-
-	self.addNewEvent_Day = ko.observable( 0 );
-
-	//[ { "year" : 2016, "month" : 12, "day" : 1, "events" : [KKEventModel, KKEventModel] }, [ {"year" : 2016, "month" : 3, "events" : [KKEventModel] } ]
-	self.calendarCellsToUpdate = [];
-
-	self.lobbyPageRecentlyAddedPublicEvents = ko.observableArray( [] );
-	self.lobbyPageUpcomingPublicEvents = ko.observableArray( [] );
-
-	self.calendarPageMonthEvents = [];
 	self.detailsPageDayEvents = ko.observableArray( [] );
 	self.detailsPageDayNotes = ko.observableArray( [] );
 
@@ -188,35 +227,6 @@
 			}
 		},
 		"selectedEventKindValues": [],
-		"isOpen": ko.observable( false )
-	}
-
-	self.lobbyPagePublicEventListMenu = {
-		"menuItems": {
-			publicEvents: {
-				"index": 1,
-				//TODO: maybe change into event tree with arrays grouped by event kind
-				"selectedEvents": {
-					//it is filled with public events when building publicEventTree
-					old: ko.observableArray( [] ),
-					upcoming: ko.observableArray( [] )
-				},
-				"showOld": ko.observable( false ),
-				"showUpcoming": ko.observable( true )
-			}
-		},
-		"selectedMenuItem": ko.observable( 1 ),
-		"selectedEventKindValues": [],
-		"getCurrentSelectedEventsProp": function ()
-		{
-			switch ( this.selectedMenuItem() )
-			{
-				case 1:
-					return this.menuItems.publicEvents.selectedEvents;
-				default:
-					return [];
-			}
-		},
 		"isOpen": ko.observable( false )
 	}
 
@@ -2092,8 +2102,6 @@
 		var $eventTitle = $addEventContainer.find( "#Event_Title" );
 
 		var dayNumber = $( element ).siblings( ".day" ).text();
-		self.addNewEvent_Day( dayNumber );
-
 		dayNumber = dayNumber < 10 ? '0' + dayNumber : dayNumber;
 
 		var currMonth = self.calendarPageDisplayDate.month();

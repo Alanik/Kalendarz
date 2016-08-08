@@ -1,0 +1,16 @@
+﻿<header id="lobbyHeader">
+	<div id="lobbyLogo">
+		<img src="~/Images/Logo/kkLogo.png" alt="logo" style="position: relative; top: 4px;" />
+	</div>
+</header>
+<section id="lobbyQuoteSection">
+	<p class="lobby-quote">Twój osobisty kalendarz stworzony na miare Twoich potrzeb.</p>
+</section>
+<nav id="lobbyNavContainer">
+	<a href="#0" class="selected-nav-link">Strona Główna</a>
+	<a href="#1">Kalendarz</a>
+	<a href="#2">Dziennik</a>
+</nav>
+
+@Html.Partial( "_Login", new KalendarzKarieryData.Models.AccountModels.LoginModel() )
+@Html.Partial( "_Register", new KalendarzKarieryData.Models.ViewModels.RegisterViewModel() )

@@ -377,6 +377,10 @@
     <Content Include="Views\Home\LobbyPage\_LobbyPublicEventList.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsEventsMenuContainer.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsDayTable.cshtml" />
+    <Content Include="Views\Home\LobbyPage\_NavPart.cshtml" />
+    <Content Include="Views\Home\LobbyPage\_DashboardPart.cshtml" />
+    <Content Include="Views\Home\LobbyPage\_UpcomingEventsPart.cshtml" />
+    <Content Include="Views\Home\LobbyPage\_EventGridPart.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

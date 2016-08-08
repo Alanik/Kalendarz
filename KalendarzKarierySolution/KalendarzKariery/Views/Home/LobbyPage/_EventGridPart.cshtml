@@ -1,0 +1,7 @@
+﻿<section id="lobbyEventsMasonryContainer">
+	<div class="grid js-masonry" data-bind="masonry: { data: publicEvents, masonryOptions: { itemClass: 'event-block-container', gutter: 10 } }">
+		<div class="event-block-container" data-bind="attr: { 'data-eventid': id }">
+			@Html.Partial( "_EventBlock", new ViewDataDictionary { { "page", "lobby" } } )
+		</div>
+	</div>
+</section>

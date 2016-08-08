@@ -1,0 +1,86 @@
+﻿@*<div id="addPrivateEventBtn" class="hover-cursor-pointer" data-bind="click: function ( data, e ) { $root.showAddPrivateEventLobbyPopupOnClick( $element, data, e ) }">Dodaj do swojego kalendarza +</div>*@
+<section class="lobby-overview">
+	<div class="inline-block" style="width: 48%;">
+		<div class="overview-events-list-container">
+			<h3 style="padding-left: 100px; font-weight: normal; margin-top: 10px; background: #f7f6f5; color: #c1c1c1;">Najnowsze wydarzenia
+			</h3>
+			<ul data-bind="foreach: $root.lobbyPageRecentlyAddedPublicEvents" style="padding: 0;">
+				<li style="list-style: none;">
+					<div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
+					<div class="display-events-overview-item">
+						<div class="overview-item-inner-wrapper" data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
+							<div class="rg-inline-block">
+								<span class="list-item-title" data-bind="text: name"></span>
+							</div>
+							<div class="inline-block" style="float: right;">
+								<span class="list-item-date">
+									<span class="list-item-other" data-bind="text: startDate.displayFullDate()"></span>
+									<span class="list-item-other" data-bind="text: startDate.displayFullTime()"></span>
+								</span>
+							</div>
+						</div>
+						<div class="event-block-expand" style="display: none;">
+							@Html.Partial( "_EventBlock", new ViewDataDictionary { { "page", "lobby" } }  )
+						</div>
+					</div>
+				</li>
+
+			</ul>
+		</div>
+		<div class="overview-events-list-container">
+			<h3 style="padding-left: 100px; font-weight: normal; margin-top: 10px; background: #f7f6f5; color: #c1c1c1;">Najbliższe wydarzenia</h3>
+			<ul data-bind="foreach: $root.lobbyPageUpcomingPublicEvents" style="padding: 0;">
+				<li style="list-style: none;">
+					<div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
+					<div class="display-events-overview-item">
+						<div class="overview-item-inner-wrapper" data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
+							<div class="rg-inline-block">
+								<span class="list-item-title" data-bind="text: name"></span>
+							</div>
+							<div class="inline-block" style="float: right;">
+								<span class="list-item-date">
+									<span class="list-item-other" data-bind="text: startDate.displayFullDate()"></span>
+									<span class="list-item-other" data-bind="text: startDate.displayFullTime()"></span>
+								</span>
+							</div>
+						</div>
+						<div class="event-block-expand" style="display: none;">
+							@Html.Partial( "_EventBlock", new ViewDataDictionary { { "page", "lobby" } }  )
+						</div>
+					</div>
+				</li>
+
+			</ul>
+
+		</div>
+	</div>
+	<div class="inline-block" style="width: 48%;">
+		<div class="overview-events-list-container">
+			<h3 style="padding-left: 100px; font-weight: normal; margin-top: 10px; background: #f7f6f5; color: #c1c1c1;">Najbliższe wydarzenia</h3>
+			<ul data-bind="foreach: $root.lobbyPageUpcomingPublicEvents" style="padding: 0;">
+				<li style="list-style: none;">
+					<div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
+					<div class="display-events-overview-item">
+						<div class="overview-item-inner-wrapper" data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
+							<div class="rg-inline-block">
+								<span class="list-item-title" data-bind="text: name"></span>
+							</div>
+							<div class="inline-block" style="float: right;">
+								<span class="list-item-date">
+									<span class="list-item-other" data-bind="text: startDate.displayFullDate()"></span>
+									<span class="list-item-other" data-bind="text: startDate.displayFullTime()"></span>
+								</span>
+							</div>
+						</div>
+						<div class="event-block-expand" style="display: none;">
+							@Html.Partial( "_EventBlock", new ViewDataDictionary { { "page", "lobby" } }  )
+						</div>
+					</div>
+				</li>
+
+			</ul>
+
+		</div>
+	</div>
+
+</section>

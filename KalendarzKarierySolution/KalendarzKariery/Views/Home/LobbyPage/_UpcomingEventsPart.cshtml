@@ -1,0 +1,15 @@
+﻿<section id="lobbyTableOfEventsSection">
+	<div class="lobby-menu-container">
+		<input type="button" value="Stwórz publiczne wydarzenie" id="addPublicEventBtn" class="btn-add hover-cursor-pointer" data-bind="click: function ( data, e ) { $root.showAddPublicEventPopupOnClick( $element, data, e ) }" />
+	</div>
+	@Html.Partial( "_LobbyEventsMenuItems" )
+
+	<div id="lobbyDisplayEventsOverviewContainer" class="display-events-overview-container" data-bind="visible: $root.lobbyPagePublicEventListMenu.isOpen()">
+		<header class="display-events-overview-header">
+			<span class="display-events-header-menu-title selected hover-cursor-pointer">Publiczne wydarzenia</span>
+			<span class="btn-close hover-cursor-pointer" data-bind="click: $root.closeAllSelectedEventsListContainerOnClick">x</span>
+		</header>
+		@Html.Partial( "_LobbyPublicEventList" )
+	</div>
+
+</section>

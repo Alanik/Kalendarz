@@ -1,110 +1,24 @@
-﻿<section class="dz-row">
-	<header id="lobbyHeader">
-		<div id="lobbyLogo">
-			<img src="~/Images/Logo/kkLogo.png" alt="logo" style="position: relative; top: 4px;" />
-		</div>
-	</header>
-	<section id="lobbyQuoteSection">
-		<p class="lobby-quote">Twój osobisty kalendarz stworzony na miare Twoich potrzeb.</p>
-	</section>
-	<nav id="lobbyNavContainer">
-		<a href="#0" class="selected-nav-link">Strona Główna</a>
-		<a href="#1">Kalendarz</a>
-		<a href="#2">Dziennik</a>
-	</nav>
+﻿<section class="dz-row nav-part">
 
-	@Html.Partial( "_Login", new KalendarzKarieryData.Models.AccountModels.LoginModel() )
-	@Html.Partial( "_Register", new KalendarzKarieryData.Models.ViewModels.RegisterViewModel() )
+	@Html.Partial( "_NavPart" )
 
 </section>
-<section class="dz-row" style="background: rgb(236, 236, 236); border-top: 1px solid #e2e2e2;">
-	@*<div id="addPrivateEventBtn" class="hover-cursor-pointer" data-bind="click: function ( data, e ) { $root.showAddPrivateEventLobbyPopupOnClick( $element, data, e ) }">Dodaj do swojego kalendarza +</div>*@
-	<section class="lobby-overview" style="width: 48%;">
-		<div class="overview-events-list-container">
-			<h3 style="padding-left: 100px; font-weight: normal; margin-top: 10px;">Najnowsze wydarzenia
-			</h3>
-			<ul data-bind="foreach: $root.lobbyPageRecentlyAddedPublicEvents" style="padding: 0;">
-				<li style="list-style: none;">
-					<div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
-					<div class="display-events-overview-item">
-						<div class="overview-item-inner-wrapper" data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
-							<div class="rg-inline-block">
-								<span class="list-item-title" data-bind="text: name"></span>
-							</div>
-							<div class="inline-block" style="float: right;">
-								<span class="list-item-date">
-									<span class="list-item-other" data-bind="text: startDate.displayFullDate()"></span>
-									<span class="list-item-other" data-bind="text: startDate.displayFullTime()"></span>
-								</span>
-							</div>
-						</div>
-						<div class="event-block-expand" style="display: none;">
-							@Html.Partial( "_EventBlock", new ViewDataDictionary { { "page", "lobby" } }  )
-						</div>
-					</div>
-				</li>
+<section class="dz-row dashboard-part" style="background: rgb(236, 236, 236); border-top: 1px solid #e2e2e2;">
 
-			</ul>
-
-		</div>
-		<div class="overview-events-list-container">
-			<h3 style="padding-left: 100px; font-weight: normal; margin-top: 10px;">Najbliższe wydarzenia</h3>
-			<ul data-bind="foreach: $root.lobbyPageUpcomingPublicEvents" style="padding: 0;">
-				<li style="list-style: none;">
-					<div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
-					<div class="display-events-overview-item">
-						<div class="overview-item-inner-wrapper" data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
-							<div class="rg-inline-block">
-								<span class="list-item-title" data-bind="text: name"></span>
-							</div>
-							<div class="inline-block" style="float: right;">
-								<span class="list-item-date">
-									<span class="list-item-other" data-bind="text: startDate.displayFullDate()"></span>
-									<span class="list-item-other" data-bind="text: startDate.displayFullTime()"></span>
-								</span>
-							</div>
-						</div>
-						<div class="event-block-expand" style="display: none;">
-							@Html.Partial( "_EventBlock", new ViewDataDictionary { { "page", "lobby" } }  )
-						</div>
-					</div>
-				</li>
-
-			</ul>
-
-		</div>
-	</section>
-	<section>
-	</section>
+	@Html.Partial( "_DashboardPart" )
 
 </section>
-<section class="dz-row" style="overflow: hidden;">
+<section class="dz-row upcoming-events-part" style="overflow: hidden;">
 	<header class="section-title">Nadchodzące wydarzenia</header>
-	<section id="lobbyTableOfEventsSection">
-		<div class="lobby-menu-container">
-			<input type="button" value="Stwórz publiczne wydarzenie" id="addPublicEventBtn" class="btn-add gray-color hover-cursor-pointer" data-bind="click: function ( data, e ) { $root.showAddPublicEventPopupOnClick( $element, data, e ) }" />
-		</div>
-		@Html.Partial( "_LobbyEventsMenuItems" )
 
-		<div id="lobbyDisplayEventsOverviewContainer" class="display-events-overview-container" data-bind="visible: $root.lobbyPagePublicEventListMenu.isOpen()">
-			<header class="display-events-overview-header">
-				<span class="display-events-header-menu-title selected hover-cursor-pointer">Publiczne wydarzenia</span>
-				<span class="btn-close hover-cursor-pointer" data-bind="click: $root.closeAllSelectedEventsListContainerOnClick">x</span>
-			</header>
-			@Html.Partial( "_LobbyPublicEventList" )
-		</div>
+	@Html.Partial( "_UpcomingEventsPart" )
 
-	</section>
 </section>
-<section class="dz-row">
+<section class="dz-row event-grid-part">
 	<header class="section-title">Tablica wydarzeń</header>
-	<section id="lobbyEventsMasonryContainer">
-		<div class="grid js-masonry" data-bind="masonry: { data: publicEvents, masonryOptions: { itemClass: 'event-block-container', gutter: 10 } }">
-			<div class="event-block-container" data-bind="attr: { 'data-eventid': id }">
-				@Html.Partial( "_EventBlock", new ViewDataDictionary { { "page", "lobby" } } )
-			</div>
-		</div>
-	</section>
+
+	@Html.Partial("_EventGridPart");
+
 	@*	@Html.Partial( "_LobbyNews" )*@
 	<footer class="lobby-footer">
 		<span>Kalendarz Kariery 2015, wszelkie prawa zastrzeżone</span>

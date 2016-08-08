@@ -144,26 +144,30 @@
 		$calendar.calendarWidget( {
 			month: date.getMonth(), year: date.getFullYear()
 		} );
-		var appViewModel = new AppViewModel( date, userName, spinner );
 
-		appViewModel.eventPrivacyLevels = appViewModel.UTILS.eventTreeBuilder.transformPrivacyLevels( indexViewModel.PrivacyLevels );
-		appViewModel.eventKinds = indexViewModel.EventKinds;
+		var appvm = new AppViewModel( date, userName, spinner );
+		var UTILS = appvm.UTILS;
+		var EVENT_MANAGER = appvm.EVENT_MANAGER;
+		var NOTE_MANAGER = appvm.NOTE_MANAGER;
 
-		appViewModel.publicEventTree = appViewModel.UTILS.eventTreeBuilder.buildEventTree( indexViewModel.PublicEvents, true );
-		appViewModel.publicEventTreeCountBasedOnEventKind = appViewModel.UTILS.eventTreeBuilder.buildEventTreeCountBasedOnEventKind( indexViewModel.PublicEventCountTree, appViewModel.eventKinds );
+		appvm.eventPrivacyLevels = UTILS.eventTreeBuilder.transformPrivacyLevels( indexViewModel.PrivacyLevels );
+		appvm.eventKinds = indexViewModel.EventKinds;
 
-		appViewModel.lobbyPageRecentlyAddedPublicEvents( getRecentlyAddedEvents( appViewModel ) );
-		appViewModel.lobbyPageUpcomingPublicEvents = appViewModel.UTILS.eventTreeBuilder.transformEventListToKKEventList( indexViewModel.UpcomingPublicEvents )
+		appvm.publicEventTree = UTILS.eventTreeBuilder.buildEventTree( indexViewModel.PublicEvents, true );
+		appvm.publicEventTreeCountBasedOnEventKind = UTILS.eventTreeBuilder.buildEventTreeCountBasedOnEventKind( indexViewModel.PublicEventCountTree, appvm.eventKinds );
+
+		appvm.lobbyPageRecentlyAddedPublicEvents( getRecentlyAddedEvents( appvm ) );
+		appvm.lobbyPageUpcomingPublicEvents = UTILS.eventTreeBuilder.transformEventListToKKEventList( indexViewModel.UpcomingPublicEvents )
 
 		//appViewModel.newsEvents = appViewModel.UTILS.eventTreeBuilder.transformNews( indexViewModel.News );
 
 		//if user is logged in
 		if ( indexViewModel.MyEvents )
 		{
-			appViewModel.myEventTree = appViewModel.UTILS.eventTreeBuilder.buildEventTree( indexViewModel.MyEvents, false );
-			appViewModel.myEventTreeCountBasedOnEventKind = appViewModel.UTILS.eventTreeBuilder.buildEventTreeCountBasedOnEventKind( indexViewModel.MyEventCountTree, appViewModel.eventKinds );
+			appvm.myEventTree = UTILS.eventTreeBuilder.buildEventTree( indexViewModel.MyEvents, false );
+			appvm.myEventTreeCountBasedOnEventKind = UTILS.eventTreeBuilder.buildEventTreeCountBasedOnEventKind( indexViewModel.MyEventCountTree, appvm.eventKinds );
 
-			appViewModel.myNoteTree = appViewModel.UTILS.eventTreeBuilder.buildNoteTree( indexViewModel.MyNotes );
+			appvm.myNoteTree = UTILS.eventTreeBuilder.buildNoteTree( indexViewModel.MyNotes );
 
 			//console.log(JSON.stringify(appViewModel.myEventTree));
 			//console.log(appViewModel.myEventTree);
@@ -178,8 +182,9 @@
 			/////////////////////////////////////////////////////////////////////////
 			//draw events to the calendar
 			/////////////////////////////////////////////////////////////////////////
-			var yearProp = appViewModel.myEventTree[appViewModel.calendarPageDisplayDate.year()];
-			var events, month, nextMonth, prevMonth, event, calendarPageMonth = appViewModel.calendarPageDisplayDate.month();
+
+			var yearProp = appvm.myEventTree[appvm.calendarPageDisplayDate.year()];
+			var events, month, nextMonth, prevMonth, event, calendarPageMonth = appvm.calendarPageDisplayDate.month();
 
 			// current month
 			if ( yearProp )
@@ -194,16 +199,16 @@
 						{
 							event = events[i];
 
-							appViewModel.drawEventToCalendar( event );
+							appvm.drawEventToCalendar( event );
 						}
 					}
 				}
 			}
 			// prev month
-			if ( appViewModel.calendarPageDisplayDate.month() == 1 )
+			if ( appvm.calendarPageDisplayDate.month() == 1 )
 			{
 				calendarPageMonth = 12;
-				yearProp = appViewModel.myEventTree[appViewModel.calendarPageDisplayDate.year() - 1];
+				yearProp = appvm.myEventTree[appvm.calendarPageDisplayDate.year() - 1];
 			}
 			else
 			{
@@ -222,17 +227,17 @@
 						{
 							event = events[i];
 
-							appViewModel.drawEventToCalendar( event );
+							appvm.drawEventToCalendar( event );
 						}
 					}
 				}
 			}
 
 			// next month
-			if ( appViewModel.calendarPageDisplayDate.month() == 12 )
+			if ( appvm.calendarPageDisplayDate.month() == 12 )
 			{
 				calendarPageMonth = 1;
-				yearProp = appViewModel.myEventTree[appViewModel.calendarPageDisplayDate.year() + 1];
+				yearProp = appvm.myEventTree[appvm.calendarPageDisplayDate.year() + 1];
 			}
 			else
 			{
@@ -251,7 +256,7 @@
 						{
 							event = events[i];
 
-							appViewModel.drawEventToCalendar( event );
+							appvm.drawEventToCalendar( event );
 						}
 					}
 				}
@@ -261,35 +266,35 @@
 		//////////////////////////////////////////////////////////////////
 		//initialize details page
 		//////////////////////////////////////////////////////////////////
-		appViewModel.detailsPageEventMostBottomRow = 1;
-		appViewModel.detailsPageDisplayDate.year( date.getFullYear() );
-		appViewModel.detailsPageDisplayDate.month( date.getMonth() + 1 );
-		appViewModel.detailsPageDisplayDate.day( date.getDate() );
+		appvm.detailsPageEventMostBottomRow = 1;
+		appvm.detailsPageDisplayDate.year( date.getFullYear() );
+		appvm.detailsPageDisplayDate.month( date.getMonth() + 1 );
+		appvm.detailsPageDisplayDate.day( date.getDate() );
 
-		var events = appViewModel.EVENT_MANAGER.getEventsForGivenDay( appViewModel.detailsPageDisplayDate.year(), appViewModel.detailsPageDisplayDate.month(), appViewModel.detailsPageDisplayDate.day(), appViewModel.myEventTree )
-		var notes = appViewModel.NOTE_MANAGER.getNotesForGivenDay( appViewModel.detailsPageDisplayDate.year(), appViewModel.detailsPageDisplayDate.month(), appViewModel.detailsPageDisplayDate.day() )
-		appViewModel.detailsPageDayEvents( events );
-		appViewModel.detailsPageDayNotes( notes );
+		var events = EVENT_MANAGER.getEventsForGivenDay( appvm.detailsPageDisplayDate.year(), appvm.detailsPageDisplayDate.month(), appvm.detailsPageDisplayDate.day(), appvm.myEventTree )
+		var notes = NOTE_MANAGER.getNotesForGivenDay( appvm.detailsPageDisplayDate.year(), appvm.detailsPageDisplayDate.month(), appvm.detailsPageDisplayDate.day() )
+		appvm.detailsPageDayEvents( events );
+		appvm.detailsPageDayNotes( notes );
 		///////////////////////////////////////////////////////////////////
 
 		///////////////////////////////////////////////////////////////////
 		//Knockout apply bindings
 		///////////////////////////////////////////////////////////////////
-		ko.applyBindings( appViewModel );
+		ko.applyBindings( appvm );
 		///////////////////////////////////////////////////////////////////
 
 		///////////////////////////////////////////////////////////////////
 		//draw to details page
 		///////////////////////////////////////////////////////////////////
 
-		//method drawEventToDetailsDayTable(events[i]) needs to be called after ko.applyBindings(appViewModel)!
+		//method drawEventToDetailsDayTable(events[i]) needs to be called after ko.applyBindings(appvm)!
 		for ( var i in events )
 		{
-			appViewModel.drawEventToDetailsDayTable( events[i] );
+			appvm.drawEventToDetailsDayTable( events[i] );
 		}
 
 		var $tableBody = $( "#detailsDayTable .details-day-table-body" );
-		var h = ( appViewModel.detailsPageEventMostBottomRow ) * 46;
+		var h = ( appvm.detailsPageEventMostBottomRow ) * 46;
 		h = h + 20;
 		$tableBody.height( h + "px" );
 		///////////////////////////////////////////////////////////////////
@@ -320,19 +325,19 @@
 
 		//    $(window).on("hashchange", function () {
 		//        setTimeout(function () {
-		//            var events = appViewModel.calendarDayEventsToUpdate.events;
+		//            var events = appvm.calendarDayEventsToUpdate.events;
 
 		//            if (location.hash === "#0") {
-		//                appViewModel.currentPage() = 0;
+		//                appvm.currentPage() = 0;
 		//            }
 		//            else if (location.hash === "#1") {
-		//                appViewModel.currentPage() = 1;
+		//                appvm.currentPage() = 1;
 
 		//                if (events && $.isArray(events)) {
 		//                    //setTimeout( function ()
 		//                    //{
-		//                    appViewModel.redrawCalendarCell(events, appViewModel.calendarDayEventsToUpdate.day, appViewModel.calendarDayEventsToUpdate.month, appViewModel.calendarDayEventsToUpdate.year);
-		//                    appViewModel.calendarDayEventsToUpdate.events = null;
+		//                    appvm.redrawCalendarCell(events, appvm.calendarDayEventsToUpdate.day, appvm.calendarDayEventsToUpdate.month, appvm.calendarDayEventsToUpdate.year);
+		//                    appvm.calendarDayEventsToUpdate.events = null;
 		//                    //}, 10 )
 		//                }
 
@@ -355,7 +360,7 @@
 
 		//            }
 		//            else if (location.hash === "#2") {
-		//                appViewModel.currentPage() = 2;
+		//                appvm.currentPage() = 2;
 		//            }
 		//        }, 10);
 		//    });
@@ -381,8 +386,8 @@
 		//}();
 
 		//this.drawClocks = function () {
-		//    appViewModel.drawAnalogClock();
-		//    appViewModel.drawDigitalClock();
+		//    appvm.drawAnalogClock();
+		//    appvm.drawDigitalClock();
 		//}();
 
 		$( "#dzVerticalPaging" ).addClass( "xs-hide" );
@@ -923,9 +928,9 @@
 
 		}();
 
-		function getRecentlyAddedEvents( appViewModel )
+		function getRecentlyAddedEvents( appvm )
 		{
-			var recentlyAddedEvents = appViewModel.publicEvents().sort( function ( event1, event2 )
+			var recentlyAddedEvents = appvm.publicEvents().sort( function ( event1, event2 )
 			{
 				return event1.dateAdded.javaScriptDate - event2.dateAdded.javaScriptDate;
 			} );

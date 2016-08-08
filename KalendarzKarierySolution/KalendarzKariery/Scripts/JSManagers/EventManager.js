@@ -593,33 +593,8 @@
 								//if array node that contains daily events is empty then remove the node from eventTree
 								delete eventTreeMonthProp[day];
 							}
-						
-							////2.2 setup calendarCellsToUpdate
-							//if ( appViewModel.calendarCellsToUpdate.length > 0 )
-							//{
-							//	for ( var i = 0; i < appViewModel.calendarCellsToUpdate.length; i++ )
-							//	{
-							//		cellObj = appViewModel.calendarCellsToUpdate[i];
 
-							//		if ( cellObj.year === event.startDate.year && cellObj.month === event.startDate.month && cellObj.day === event.startDate.day )
-							//		{
-							//			cellObj.events = dayEvents;
-							//			assignedCell = true;
-							//			break;
-							//		}
-							//	}
-
-							//	if ( !assignedCell )
-							//	{
-							//		appViewModel.calendarCellsToUpdate.push( { "year" : event.startDate.year, "month" : event.startDate.month, "day" : event.startDate.day, "events" : dayEvents });
-							//	}
-
-							//} else
-							//{
-							//	appViewModel.calendarCellsToUpdate.push( { "year": event.startDate.year, "month": event.startDate.month, "day": event.startDate.day, "events": dayEvents } );
-							//}
-
-							//2.3 if selected events panel is open and the deleted event is displayed on the list then remove it from  menuItems.myCalendar.selectedEvents
+							//2.2 if selected events panel is open and the deleted event is displayed on the list then remove it from  menuItems.myCalendar.selectedEvents
 							if ( appViewModel.detailsPageJournalMenu.isOpen() && appViewModel.detailsPageJournalMenu.selectedMenuItem() === 1 )
 							{
 								today = new Date();
@@ -639,7 +614,7 @@
 								} );
 							}
 
-							//2.4 if managage own events panel is open and the deleted event is displayed on the list then remove it from  menuItems.manageOwnPublicEvents.selectedEvents
+							//2.3 if managage own events panel is open and the deleted event is displayed on the list then remove it from  menuItems.manageOwnPublicEvents.selectedEvents
 							if ( appViewModel.detailsPageJournalMenu.isOpen() && appViewModel.detailsPageJournalMenu.selectedMenuItem() === 2 )
 							{
 								today = new Date();
@@ -659,10 +634,10 @@
 								} );
 							}
 
-							//2.5 decrement appViewModel.myEventTreeCountBasedOnEventKind value
+							//2.4 decrement appViewModel.myEventTreeCountBasedOnEventKind value
 							appViewModel.changeEventCountTreeValueBasedOnEventKind( appViewModel.myEventTreeCountBasedOnEventKind, event, -1 );
 						
-							//2.6 if event is present in appViewModel.lobbyPageRecentlyAddedPublicEvents
+							//2.5 if event is present in appViewModel.lobbyPageRecentlyAddedPublicEvents
 							for ( var i = 0, recentlyAddedEvents = appViewModel.lobbyPageRecentlyAddedPublicEvents() ; i < recentlyAddedEvents.length; i++ )
 							{
 								event = recentlyAddedEvents[i];

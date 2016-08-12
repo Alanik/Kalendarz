@@ -201,6 +201,7 @@
   <ItemGroup>
     <Content Include="Content\EventBlock.css" />
     <Content Include="Content\MediaQueries_ShowHide.css" />
+    <Content Include="Scripts\JSViewModels\LobbyPage\AppViewModel.js" />
     <Content Include="Scripts\Lib\DzieuoJs\Dzieuo.css" />
     <Content Include="Content\Fonts\Oxygen\OFL.txt" />
     <Content Include="Content\Fonts\Raleway\FONTLOG.txt" />

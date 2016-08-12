@@ -64,13 +64,20 @@
 	self.EVENT_MANAGER = new EventManager( self );
 	self.NOTE_MANAGER = new NoteManager( self );
 
+	// pages
 	self.lobbyPage = {};
 	self.calendarPage = {};
 	self.detailsPage = {};
 
+	// lobby page / nav part view models
 	self.lobbyPage.navPart = {};
+
+	// lobby page / dashboard part view models
 	self.lobbyPage.dashboardPart = {};
 	self.lobbyPage.dashboardPart.recenlyAddedPublicEventsVM = ko.observableArray( [] );
+	self.lobbyPage.dashboardPart.upcomingPublicEventsVM = ko.observableArray( [] );
+
+	// lobby page / upcoming events part view models
 	self.lobbyPage.upcomingEventsPart = {};
 	self.lobbyPage.upcomingEventsPart.eventListMenuVM = {
 		"menuItems": {
@@ -100,7 +107,6 @@
 		},
 		"isOpen": ko.observable( false )
 	}
-
 	self.lobbyPage.eventGridPart = {};
 
 	//////////////////////////////////////////////////////////
@@ -148,6 +154,10 @@
 
 	// is used when adding note
 	self.observableNote = new KKNoteModelObservable();
+
+
+	
+	
 
 	//month starts from 1 to 12
 	self.calendarPageDisplayDate = {

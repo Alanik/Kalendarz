@@ -4,7 +4,7 @@
 	</div>
 	@Html.Partial( "_LobbyEventsMenuItems" )
 
-	<div id="lobbyDisplayEventsOverviewContainer" class="display-events-overview-container" data-bind="visible: $root.lobbyPagePublicEventListMenu.isOpen()">
+	<div id="lobbyDisplayEventsOverviewContainer" class="display-events-overview-container" data-bind="visible: $root.lobbyPage.upcomingEventsPart.eventListMenuVM.isOpen()">
 		<header class="display-events-overview-header">
 			<span class="display-events-header-menu-title selected hover-cursor-pointer">Publiczne wydarzenia</span>
 			<span class="btn-close hover-cursor-pointer" data-bind="click: $root.closeAllSelectedEventsListContainerOnClick">x</span>

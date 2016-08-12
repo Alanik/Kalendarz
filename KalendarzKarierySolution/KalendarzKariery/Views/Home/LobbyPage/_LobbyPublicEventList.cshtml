@@ -1,13 +1,13 @@
 ﻿<div class="display-events-overview-body">
-  <div class="legend-oldorupcoming hover-cursor-pointer" data-bind="css: { open: $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.showOld() }, click: function () { $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.showOld( !$root.lobbyPagePublicEventListMenu.menuItems.publicEvents.showOld() ), $root.showSelectedEvents( $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents, 'old', $root.lobbyPagePublicEventListMenu.selectedEventKindValues ) }">
+  <div class="legend-oldorupcoming hover-cursor-pointer" data-bind="css: { open: $root.lobbyPage.upcomingEventsPart.eventListMenuVM.menuItems.publicEvents.showOld() }, click: function () { $root.eventListMenuVM.menuItems.publicEvents.showOld( !$root.eventListMenuVM.menuItems.publicEvents.showOld() ), $root.showSelectedEvents( $root.eventListMenuVM.menuItems.publicEvents.selectedEvents, 'old', $root.eventListMenuVM.selectedEventKindValues ) }">
     <div class="oldorupcoming-text-container">
-      <span class="oldorupcoming-sign" data-bind="text: $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.showOld() == true ? '-' : '+'">+</span>
+      <span class="oldorupcoming-sign" data-bind="text: $root.lobbyPage.upcomingEventsPart.eventListMenuVM.menuItems.publicEvents.showOld() == true ? '-' : '+'">+</span>
       <span>stare</span>
     </div>
-    <span class="oldorupcoming-expand-text sm-hidden" data-bind="text: $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.showOld() == true ? '[zwiń]' : '[rozwiń]'"></span>
-    <span class="oldorupcoming-event-count" data-bind="text: $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.old().length > 0 ? $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.old().length : ''"></span>
+    <span class="oldorupcoming-expand-text sm-hidden" data-bind="text: $root.lobbyPage.upcomingEventsPart.eventListMenuVM.menuItems.publicEvents.showOld() == true ? '[zwiń]' : '[rozwiń]'"></span>
+    <span class="oldorupcoming-event-count" data-bind="text: $root.lobbyPage.upcomingEventsPart.eventListMenuVM.menuItems.publicEvents.selectedEvents.old().length > 0 ? $root.eventListMenuVM.menuItems.publicEvents.selectedEvents.old().length : ''"></span>
   </div>
-  <div class="display-events-overview-item-list" data-bind="foreach: $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.old">
+  <div class="display-events-overview-item-list" data-bind="foreach: $root.lobbyPage.upcomingEventsPart.eventListMenuVM.menuItems.publicEvents.selectedEvents.old">
     <div class="display-events-overview-item-list-inner-wrapper">
       <div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
       <div class="display-events-overview-item">
@@ -29,15 +29,15 @@
     </div>
     
   </div>
-  <div class="legend-oldorupcoming hover-cursor-pointer" data-bind="css: { open: $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.showUpcoming() }, click: function () { $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.showUpcoming( !$root.lobbyPagePublicEventListMenu.menuItems.publicEvents.showUpcoming() ), $root.showSelectedEvents( $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents, 'upcoming', $root.lobbyPagePublicEventListMenu.selectedEventKindValues ) }">
+  <div class="legend-oldorupcoming hover-cursor-pointer" data-bind="css: { open: $root.lobbyPage.upcomingEventsPart.eventListMenuVM.menuItems.publicEvents.showUpcoming() }, click: function () { $root.eventListMenuVM.menuItems.publicEvents.showUpcoming( !$root.eventListMenuVM.menuItems.publicEvents.showUpcoming() ), $root.showSelectedEvents( $root.eventListMenuVM.menuItems.publicEvents.selectedEvents, 'upcoming', $root.eventListMenuVM.selectedEventKindValues ) }">
     <div class="oldorupcoming-text-container">
-      <span class="oldorupcoming-sign" data-bind="text: $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.showUpcoming() == true ? '-' : '+'">+</span>
+      <span class="oldorupcoming-sign" data-bind="text: $root.lobbyPage.upcomingEventsPart.eventListMenuVM.menuItems.publicEvents.showUpcoming() == true ? '-' : '+'">+</span>
       <span>nadchodzące</span>
     </div>
-    <span class="oldorupcoming-expand-text sm-hidden" data-bind="text: $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.showUpcoming() == true ? '[zwiń]' : '[rozwiń]'"></span>
-    <span class="oldorupcoming-event-count" data-bind="text: $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.upcoming().length > 0 ? $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.upcoming().length : ''"></span>
+    <span class="oldorupcoming-expand-text sm-hidden" data-bind="text: $root.lobbyPage.upcomingEventsPart.eventListMenuVM.menuItems.publicEvents.showUpcoming() == true ? '[zwiń]' : '[rozwiń]'"></span>
+    <span class="oldorupcoming-event-count" data-bind="text: $root.lobbyPage.upcomingEventsPart.eventListMenuVM.menuItems.publicEvents.selectedEvents.upcoming().length > 0 ? $root.eventListMenuVM.menuItems.publicEvents.selectedEvents.upcoming().length : ''"></span>
   </div>
-  <div class="display-events-overview-item-list" data-bind="foreach: $root.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.upcoming" s>
+  <div class="display-events-overview-item-list" data-bind="foreach: $root.lobbyPage.upcomingEventsPart.eventListMenuVM.menuItems.publicEvents.selectedEvents.upcoming" s>
     <div class="display-events-overview-item-list-inner-wrapper">
       <div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
       <div class="display-events-overview-item">

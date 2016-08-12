@@ -4,7 +4,7 @@
 		<div class="overview-events-list-container">
 			<h3 style="padding-left: 100px; font-weight: normal; margin-top: 10px; background: #f7f6f5; color: #c1c1c1;">Najnowsze wydarzenia
 			</h3>
-			<ul data-bind="foreach: $root.lobbyPageRecentlyAddedPublicEvents" style="padding: 0;">
+			<ul data-bind="foreach: $root.lobbyPage.dashboardPart.recenlyAddedPublicEventsVM" style="padding: 0;">
 				<li style="list-style: none;">
 					<div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
 					<div class="display-events-overview-item">
@@ -29,7 +29,7 @@
 		</div>
 		<div class="overview-events-list-container">
 			<h3 style="padding-left: 100px; font-weight: normal; margin-top: 10px; background: #f7f6f5; color: #c1c1c1;">Najbliższe wydarzenia</h3>
-			<ul data-bind="foreach: $root.lobbyPageUpcomingPublicEvents" style="padding: 0;">
+			<ul data-bind="foreach: $root.lobbyPage.dashboardPart.upcomingPublicEventsVM" style="padding: 0;">
 				<li style="list-style: none;">
 					<div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
 					<div class="display-events-overview-item">
@@ -57,7 +57,7 @@
 	<div class="inline-block" style="width: 48%;">
 		<div class="overview-events-list-container">
 			<h3 style="padding-left: 100px; font-weight: normal; margin-top: 10px; background: #f7f6f5; color: #c1c1c1;">Najbliższe wydarzenia</h3>
-			<ul data-bind="foreach: $root.lobbyPageUpcomingPublicEvents" style="padding: 0;">
+			<ul data-bind="foreach: $root.lobbyPage.dashboardPart.upcomingPublicEventsVM" style="padding: 0;">
 				<li style="list-style: none;">
 					<div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
 					<div class="display-events-overview-item">

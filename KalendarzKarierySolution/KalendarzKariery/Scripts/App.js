@@ -156,8 +156,8 @@
 		appvm.publicEventTree = UTILS.eventTreeBuilder.buildEventTree( indexViewModel.PublicEvents, true );
 		appvm.publicEventTreeCountBasedOnEventKind = UTILS.eventTreeBuilder.buildEventTreeCountBasedOnEventKind( indexViewModel.PublicEventCountTree, appvm.eventKinds );
 
-		appvm.lobbyPageRecentlyAddedPublicEvents( getRecentlyAddedEvents( appvm ) );
-		appvm.lobbyPageUpcomingPublicEvents = UTILS.eventTreeBuilder.transformEventListToKKEventList( indexViewModel.UpcomingPublicEvents )
+		appvm.lobbyPage.dashboardPart.recenlyAddedPublicEventsVM( getRecentlyAddedEvents( appvm ) );
+		appvm.lobbyPage.dashboardPart.upcomingPublicEventsVM = UTILS.eventTreeBuilder.transformEventListToKKEventList( indexViewModel.UpcomingPublicEvents )
 
 		//appViewModel.newsEvents = appViewModel.UTILS.eventTreeBuilder.transformNews( indexViewModel.News );
 

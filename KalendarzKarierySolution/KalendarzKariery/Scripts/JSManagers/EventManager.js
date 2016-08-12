@@ -450,17 +450,17 @@
 			//3. add event to menuItems.selectedEvents
 
 			// lobby page
-			if ( appViewModel.lobbyPagePublicEventListMenu.isOpen() && $.inArray( newKKEvent.kind.value, appViewModel.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.selectedEventKindValues ) > -1 )
+			if ( appViewModel.lobbyPage.upcomingEventsPart.eventListMenuVM.isOpen() && $.inArray( newKKEvent.kind.value, appViewModel.lobbyPage.upcomingEventsPart.eventListMenuVM.menuItems.publicEvents.selectedEvents.selectedEventKindValues ) > -1 )
 			{
 				today = new Date();
 				endDate = new Date( newKKEvent.startDate.year, newKKEvent.startDate.month - 1, newKKEvent.startDate.day, newKKEvent.startDate.endHour, newKKEvent.startDate.endMinute, 0, 0 );
 
 				if ( today > endDate )
 				{
-					oldOrUpcoming = appViewModel.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.old;
+					oldOrUpcoming = appViewModel.lobbyPage.upcomingEventsPart.eventListMenuVM.menuItems.publicEvents.selectedEvents.old;
 				} else
 				{
-					oldOrUpcoming = appViewModel.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.upcoming;
+					oldOrUpcoming = appViewModel.lobbyPage.upcomingEventsPart.eventListMenuVM.menuItems.publicEvents.selectedEvents.upcoming;
 				}
 
 				oldOrUpcoming.push( newKKEvent );
@@ -486,13 +486,13 @@
 			//4. increment appViewModel.myEventTreeCountBasedOnEventKind value
 			appViewModel.changeEventCountTreeValueBasedOnEventKind( appViewModel.publicEventTreeCountBasedOnEventKind, newKKEvent, 1 );
 
-			//5. appViewModel.lobbyPageRecentlyAddedPublicEvents repopulate the list
-			for ( var i = 0, recentlyAddedEvents = appViewModel.lobbyPageRecentlyAddedPublicEvents() ; i < recentlyAddedEvents.length; i++ )
+			//5. appViewModel.lobbyPage.dashboardPart.recenlyAddedPublicEventsVM repopulate the list
+			for ( var i = 0, recentlyAddedEvents = appViewModel.lobbyPage.dashboardPart.recenlyAddedPublicEventsVM() ; i < recentlyAddedEvents.length; i++ )
 			{
 				event = recentlyAddedEvents[i];
 				if ( newKKEvent.id === event.id )
 				{
-					appViewModel.lobbyPageRecentlyAddedPublicEvents.swap( event, newKKEvent );
+					appViewModel.lobbyPage.dashboardPart.recenlyAddedPublicEventsVM.swap( event, newKKEvent );
 					break;
 				}
 			}
@@ -543,18 +543,18 @@
 							appViewModel.changeEventCountTreeValueBasedOnEventKind( appViewModel.publicEventTreeCountBasedOnEventKind, event, -1 );
 
 
-							//1.4 if selected events panel is open and the deleted event is displayed on the list then remove it from  lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents
-							if ( appViewModel.lobbyPagePublicEventListMenu.isOpen() && appViewModel.lobbyPagePublicEventListMenu.selectedMenuItem() === 1 )
+							//1.4 if selected events panel is open and the deleted event is displayed on the list then remove it from eventListMenuVM.menuItems.publicEvents.selectedEvents
+							if ( appViewModel.lobbyPage.upcomingEventsPart.eventListMenuVM.isOpen() && appViewModel.eventListMenuVM.selectedMenuItem() === 1 )
 							{
 								today = new Date();
 								endDate = new Date( event.startDate.year, event.startDate.month - 1, event.startDate.day, event.startDate.endHour, event.startDate.endMinute, 0, 0 );
 
 								if ( today > endDate )
 								{
-									oldOrUpcoming = appViewModel.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.old;
+									oldOrUpcoming = appViewModel.lobbyPage.upcomingEventsPart.eventListMenuVM.menuItems.publicEvents.selectedEvents.old;
 								} else
 								{
-									oldOrUpcoming = appViewModel.lobbyPagePublicEventListMenu.menuItems.publicEvents.selectedEvents.upcoming;
+									oldOrUpcoming = appViewModel.lobbyPage.upcomingEventsPart.eventListMenuVM.menuItems.publicEvents.selectedEvents.upcoming;
 								}
 
 								oldOrUpcoming.remove( function ( event )
@@ -637,8 +637,8 @@
 							//2.4 decrement appViewModel.myEventTreeCountBasedOnEventKind value
 							appViewModel.changeEventCountTreeValueBasedOnEventKind( appViewModel.myEventTreeCountBasedOnEventKind, event, -1 );
 						
-							//2.5 if event is present in appViewModel.lobbyPageRecentlyAddedPublicEvents
-							for ( var i = 0, recentlyAddedEvents = appViewModel.lobbyPageRecentlyAddedPublicEvents() ; i < recentlyAddedEvents.length; i++ )
+							//2.5 if event is present in appViewModel.lobbyPage.dashboardPart.recenlyAddedPublicEventsVM
+							for ( var i = 0, recentlyAddedEvents = appViewModel.lobbyPage.dashboardPart.recenlyAddedPublicEventsVM() ; i < recentlyAddedEvents.length; i++ )
 							{
 								event = recentlyAddedEvents[i];
 								if ( id === event.id )
@@ -650,7 +650,7 @@
 										{
 											return event1.dateAdded.javaScriptDate - event2.dateAdded.javaScriptDate;
 										} );
-										appViewModel.lobbyPageRecentlyAddedPublicEvents( recentlyAddedEvents.slice( Math.max( recentlyAddedEvents.length - 5, 1 ) ).reverse() );
+										appViewModel.lobbyPage.dashboardPart.recenlyAddedPublicEventsVM( recentlyAddedEvents.slice( Math.max( recentlyAddedEvents.length - 5, 1 ) ).reverse() );
 									}
 									break;
 								}

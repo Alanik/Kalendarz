@@ -1,6 +1,6 @@
 ﻿// *** Description ***
 // Dzieuo.js - jQuery 2D slider plugin.
-// Version: 1.0.0
+// Version: 1.1.1
 // Created by Alan Budziński @ http://www.dzieuo.io
 // GitHub: https://github.com/Alanik/dzieuo.js
 // License: The MIT License (MIT)
@@ -30,7 +30,8 @@
       vertical_animation_easing: 'slide',
       vertical_animation_speed: 800,
       hide_vertical_paging_when_single_row: true,
-      hide_horizontal_paging_when_single_column: true
+      hide_horizontal_paging_when_single_column: true,
+      full_screen_mode: false
     }
 
     $.extend(OPTIONS, opts);
@@ -475,7 +476,13 @@
             }
 
             // css overflow-y         
-            _plugin.setUpColumnCssOverflow(data.viewPort.currentItem.column, data.structure);
+            _plugin.setUpColumnCssOverflow( data.viewPort.currentItem.column, data.structure );
+
+          	// full screen
+            if ( OPTIONS.full_screen_mode )
+            {
+            	_plugin.setFullScreen( data.structure, $( window ).height() );
+            }
 
           }, 10);
         });
@@ -504,7 +511,23 @@
           // css overflow-y         
           _plugin.setUpColumnCssOverflow(data.viewPort.currentItem.column, data.structure);
 
+        	// full screen
+          if ( OPTIONS.full_screen_mode )
+          {
+          	_plugin.setFullScreen( data.structure, $( window ).height() );
+          }
         });
+      },
+    	//14
+      setFullScreen: function ( structure, height )
+      {
+      	for ( var i = 0; i < structure.columns.length; i++ )
+      	{
+      		for ( var j = 0; j < structure.columns[i].rows.length; j++ )
+      		{
+      			structure.columns[i].rows[j].css( "height", height );
+      		}
+      	}
       }
 
     };
@@ -535,6 +558,8 @@
         _plugin.updateVerticalPaging(data.structure.$verticalPaging, data.structure.columns[targetColumn].currentRow);
         _plugin.toggleVerticalArrowVisibility(data.viewPort.currentItem.row, data.structure.columns[targetColumn].currentRow, targetColumn, data);
         updateHorizontalPaging(data.structure.$horizontalPaging, targetColumn);
+
+        data.scroll.shouldCalculateScroll = false;
 
         function updateHorizontalPaging($paging, targetColumn) {
           var className = "current";
@@ -604,6 +629,7 @@
           _plugin.rowToggleCurrentClass(data, viewPort.currentItem.row, false);
 
           data.scroll.lastScrollTop = columnObj.$column.scrollTop();
+          data.scroll.shouldCalculateScroll = true;
 
           structure.$prevHorizontalArrow.attr('href', "#" + (targetColumnIndex - 1));
           structure.$nextHorizontalArrow.attr('href', "#" + (targetColumnIndex + 1));
@@ -653,6 +679,7 @@
           _plugin.rowToggleCurrentClass(data, viewPort.currentItem.row, false);
 
           data.scroll.lastScrollTop = columnObj.$column.scrollTop();
+          data.scroll.shouldCalculateScroll = true;
 
           structure.$prevHorizontalArrow.attr('href', "#" + (targetColumnIndex - 1));
           structure.$nextHorizontalArrow.attr('href', "#" + (targetColumnIndex + 1));
@@ -834,7 +861,12 @@
     _plugin.setUpClickHandlers(_data);
     _plugin.updateVerticalPagingOnWindowScroll(_data);
     _plugin.updatePagingAndArrowsOnWindowResize(_data);
-    _plugin.updatePagingAndArrowsOnOrientationChange(_data);
+    _plugin.updatePagingAndArrowsOnOrientationChange( _data );
+
+    if ( OPTIONS.full_screen_mode )
+    {
+    	_plugin.setFullScreen( _data.structure, $( window ).height() );
+    }
 
     _plugin.URL_ROUTER.initialize();
 

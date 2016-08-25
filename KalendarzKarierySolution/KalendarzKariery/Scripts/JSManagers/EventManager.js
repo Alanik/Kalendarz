@@ -445,7 +445,7 @@
 			}
 
 			//2. add event to publicEvents observable array
-			appViewModel.publicEvents.push( newKKEvent );
+			appViewModel.lobbyPage.eventGridPart.publicEventsVM.push(newKKEvent);
 
 			//3. add event to menuItems.selectedEvents
 
@@ -484,7 +484,7 @@
 			}
 
 			//4. increment appViewModel.myEventTreeCountBasedOnEventKind value
-			appViewModel.changeEventCountTreeValueBasedOnEventKind( appViewModel.publicEventTreeCountBasedOnEventKind, newKKEvent, 1 );
+			appViewModel.changeEventCountTreeValueBasedOnEventKind(appViewModel.lobbyPage.upcomingEventsPart.publicEventTreeCountBasedOnEventKindVM, newKKEvent, 1);
 
 			//5. appViewModel.lobbyPage.dashboardPart.recenlyAddedPublicEventsVM repopulate the list
 			for ( var i = 0, recentlyAddedEvents = appViewModel.lobbyPage.dashboardPart.recenlyAddedPublicEventsVM() ; i < recentlyAddedEvents.length; i++ )
@@ -533,18 +533,18 @@
 								delete eventTreeMonthProp[day];
 							}
 
-							//1.2 remove event from appViewModel.publicEvents
-							appViewModel.publicEvents.remove( function ( event )
+						  //1.2 remove event from appViewModel.lobbyPage.eventGridPart.publicEventsVM
+							appViewModel.lobbyPage.eventGridPart.publicEventsVM.remove(function (event)
 							{
 								return event.id === id;
 							} );
 
-							//1.3 decrement appViewModel.publicEventTreeCountBasedOnEventKind value
-							appViewModel.changeEventCountTreeValueBasedOnEventKind( appViewModel.publicEventTreeCountBasedOnEventKind, event, -1 );
+						  //1.3 decrement appViewModel.lobbyPage.upcomingEventsPart.publicEventTreeCountBasedOnEventKindVM value
+							appViewModel.changeEventCountTreeValueBasedOnEventKind(appViewModel.lobbyPage.upcomingEventsPart.publicEventTreeCountBasedOnEventKindVM, event, -1);
 
 
 							//1.4 if selected events panel is open and the deleted event is displayed on the list then remove it from eventListMenuVM.menuItems.publicEvents.selectedEvents
-							if ( appViewModel.lobbyPage.upcomingEventsPart.eventListMenuVM.isOpen() && appViewModel.eventListMenuVM.selectedMenuItem() === 1 )
+							if (appViewModel.lobbyPage.upcomingEventsPart.eventListMenuVM.isOpen() && appViewModel.lobbyPage.upcomingEventsPart.eventListMenuVM.selectedMenuItem() === 1)
 							{
 								today = new Date();
 								endDate = new Date( event.startDate.year, event.startDate.month - 1, event.startDate.day, event.startDate.endHour, event.startDate.endMinute, 0, 0 );
@@ -646,7 +646,7 @@
 									if ( !isEditEventCalled )
 									{
 										//TODO: not optimal because sorting public events everytime we add a new event.. maybe refactor
-										recentlyAddedEvents = appViewModel.publicEvents().sort( function ( event1, event2 )
+									  recentlyAddedEvents = appViewModel.lobbyPage.eventGridPart.publicEventsVM().sort(function (event1, event2)
 										{
 											return event1.dateAdded.javaScriptDate - event2.dateAdded.javaScriptDate;
 										} );

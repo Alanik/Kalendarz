@@ -369,13 +369,13 @@
     <Content Include="Views\Home\DetailsPage\_DetailsUserProfile.cshtml" />
     <Content Include="Views\Shared\JSUnitTests.cshtml" />
     <Content Include="Views\Home\SharedPartials\_LoginBar.cshtml" />
-    <Content Include="Views\Home\LobbyPage\_LobbyEventsMenuItems.cshtml" />
+    <Content Include="Views\Home\LobbyPage\_UpcomingEventsPart.EventCountTiles.cshtml" />
     <Content Include="Views\Shared\_LayoutMobile.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsEventBlock.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsNotesSummary.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsManageOwnPublicEventsMenuItem.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsMyCalendarMenuItem.cshtml" />
-    <Content Include="Views\Home\LobbyPage\_LobbyPublicEventList.cshtml" />
+    <Content Include="Views\Home\LobbyPage\_UpcomingEventsPart.EventListMenu.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsEventsMenuContainer.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsDayTable.cshtml" />
     <Content Include="Views\Home\LobbyPage\_NavPart.cshtml" />

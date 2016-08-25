@@ -5,7 +5,7 @@
 		jQuery.fn.extend( {
 			scrollTo: function ( speed, offset )
 			{
-				if ( typeof offset === 'undefined' )
+				if ( typeof offset === undefined )
 				{
 					offset = 0;
 				}
@@ -154,7 +154,7 @@
 		appvm.eventKinds = indexViewModel.EventKinds;
 
 		appvm.publicEventTree = UTILS.eventTreeBuilder.buildEventTree( indexViewModel.PublicEvents, true );
-		appvm.publicEventTreeCountBasedOnEventKind = UTILS.eventTreeBuilder.buildEventTreeCountBasedOnEventKind( indexViewModel.PublicEventCountTree, appvm.eventKinds );
+		appvm.lobbyPage.upcomingEventsPart.publicEventTreeCountBasedOnEventKindVM = UTILS.eventTreeBuilder.buildEventTreeCountBasedOnEventKind(indexViewModel.PublicEventCountTree, appvm.eventKinds);
 
 		appvm.lobbyPage.dashboardPart.recenlyAddedPublicEventsVM( getRecentlyAddedEvents( appvm ) );
 		appvm.lobbyPage.dashboardPart.upcomingPublicEventsVM = UTILS.eventTreeBuilder.transformEventListToKKEventList( indexViewModel.UpcomingPublicEvents )
@@ -168,16 +168,6 @@
 			appvm.myEventTreeCountBasedOnEventKind = UTILS.eventTreeBuilder.buildEventTreeCountBasedOnEventKind( indexViewModel.MyEventCountTree, appvm.eventKinds );
 
 			appvm.myNoteTree = UTILS.eventTreeBuilder.buildNoteTree( indexViewModel.MyNotes );
-
-			//console.log(JSON.stringify(appViewModel.myEventTree));
-			//console.log(appViewModel.myEventTree);
-			//console.log(appViewModel.myNoteTree);
-
-			//console.log(appViewModel.publicEvents);
-			//console.log(appViewModel.publicEventTree);
-			//console.log(appViewModel.publicEventTreeCountBasedOnEventKind);
-			//console.log(appViewModel.myEventTreeCountBasedOnEventKind);
-			//console.log(appViewModel.eventPrivacyLevels);
 
 			/////////////////////////////////////////////////////////////////////////
 			//draw events to the calendar
@@ -930,7 +920,7 @@
 
 		function getRecentlyAddedEvents( appvm )
 		{
-			var recentlyAddedEvents = appvm.publicEvents().sort( function ( event1, event2 )
+		  var recentlyAddedEvents = appvm.lobbyPage.eventGridPart.publicEventsVM.sort(function (event1, event2)
 			{
 				return event1.dateAdded.javaScriptDate - event2.dateAdded.javaScriptDate;
 			} );

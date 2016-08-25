@@ -26,7 +26,6 @@
 				var $overlay = $( "#appContainer" ).children( ".page-overlay" );
 
 				return {
-					$spinner: $spinner,
 					$overlay: $overlay,
 					show: function ( shouldDisplayOverlay )
 					{
@@ -114,9 +113,6 @@
 	//////////////////////////////////////////////////////////
 	var year = date.getFullYear(), month = date.getMonth(), day = date.getDate();
 
-	// ajax loader 
-	self.spinner = spinner;
-
 	//0 - lobby page
 	//1 - calendar page
 	//2 - details page
@@ -155,10 +151,6 @@
 	// is used when adding note
 	self.observableNote = new KKNoteModelObservable();
 
-
-	
-	
-
 	//month starts from 1 to 12
 	self.calendarPageDisplayDate = {
 		"year": ko.observable( year ),
@@ -181,13 +173,10 @@
 			return weekday == 0 ? self.dayNames[6] : self.dayNames[weekday - 1];
 		}
 	};
-
 	// used to specify the most bottom row of events in details page in the daily plan table
 	self.detailsPageEventMostBottomRow = 1;
-
 	self.detailsPageDayEvents = ko.observableArray( [] );
 	self.detailsPageDayNotes = ko.observableArray( [] );
-
 	self.detailsPageJournalMenu = {
 		"menuItems": {
 			myCalendar: {
@@ -249,18 +238,6 @@
 		//		"9": [{ "2": [event] }]	
 		//			}
 	};
-
-	self.publicEventTreeCountBasedOnEventKind = null;
-	// example
-	//
-	//"1": {
-	//	"upcoming": ko.observable(10),
-	//	"old" : ko.observable(20)
-	//},
-	//"2": {
-	//	"upcoming": ko.observable(10),
-	//	"old" : ko.observable(20)
-	//}
 
 	self.myEventTreeCountBasedOnEventKind = null;
 	// example
@@ -1390,7 +1367,7 @@
 		}
 	}
 
-	self.showSelectedEventsOnMenuItemClick = function ( element, eventKindValue, selectedEventsProp, menuObj )
+	self.showSelectedEventsOnEventCountTileClick = function ( element, eventKindValue, selectedEventsProp, menuObj )
 	{
 		var $menuItemContainer = $( element );
 		var $menuItem = $menuItemContainer.find( ".menu-item" );

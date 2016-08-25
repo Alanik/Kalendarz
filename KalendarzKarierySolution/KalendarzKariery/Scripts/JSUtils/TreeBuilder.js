@@ -44,7 +44,7 @@
 						if ( isPublicEventTree )
 						{
 							//push public event to appViewModel.publicEvents
-							appViewModel.publicEvents.push( kkEvent );
+						  appViewModel.lobbyPage.eventGridPart.publicEventsVM.push(kkEvent);
 						}
 					}
 

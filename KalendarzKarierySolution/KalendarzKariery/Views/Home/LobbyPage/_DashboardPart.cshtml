@@ -1,86 +1,45 @@
 ﻿@*<div id="addPrivateEventBtn" class="hover-cursor-pointer" data-bind="click: function ( data, e ) { $root.showAddPrivateEventLobbyPopupOnClick( $element, data, e ) }">Dodaj do swojego kalendarza +</div>*@
 <section class="lobby-overview">
-	<div class="inline-block" style="width: 48%;">
+	<div class="inline-block" style="width: 50%;">
 		<div class="overview-events-list-container">
-			<h3 style="padding-left: 100px; font-weight: normal; margin-top: 10px; background: #f7f6f5; color: #c1c1c1;">Najnowsze wydarzenia
+			<h3 class="dashboard-title">Nadchodzące wydarzenia</h3>
+			<ul data-bind="foreach: $root.lobbyPage.dashboardPart.upcomingPublicEventsVM">
+				@Html.Partial( "_EventListItem" )
+			</ul>
+		</div>
+		<div class="overview-events-list-container">
+			<h3 class="dashboard-title">Najnowsze wydarzenia
 			</h3>
-			<ul data-bind="foreach: $root.lobbyPage.dashboardPart.recenlyAddedPublicEventsVM" style="padding: 0;">
-				<li style="list-style: none;">
-					<div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
-					<div class="display-events-overview-item">
-						<div class="overview-item-inner-wrapper" data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
-							<div class="rg-inline-block">
-								<span class="list-item-title" data-bind="text: name"></span>
-							</div>
-							<div class="inline-block" style="float: right;">
-								<span class="list-item-date">
-									<span class="list-item-other" data-bind="text: startDate.displayFullDate()"></span>
-									<span class="list-item-other" data-bind="text: startDate.displayFullTime()"></span>
-								</span>
-							</div>
-						</div>
-						<div class="event-block-expand" style="display: none;">
-							@Html.Partial( "_EventBlock", new ViewDataDictionary { { "page", "lobby" } }  )
-						</div>
-					</div>
-				</li>
-
+			<ul data-bind="foreach: $root.lobbyPage.dashboardPart.recenlyAddedPublicEventsVM">
+				@Html.Partial( "_EventListItem" )
 			</ul>
 		</div>
+	</div>
+	<div class="inline-block" style="width: 50%; float: right; width: 48%; margin-left: 1%; margin-top: 1%; color: white;">
 		<div class="overview-events-list-container">
-			<h3 style="padding-left: 100px; font-weight: normal; margin-top: 10px; background: #f7f6f5; color: #c1c1c1;">Najbliższe wydarzenia</h3>
-			<ul data-bind="foreach: $root.lobbyPage.dashboardPart.upcomingPublicEventsVM" style="padding: 0;">
-				<li style="list-style: none;">
-					<div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
-					<div class="display-events-overview-item">
-						<div class="overview-item-inner-wrapper" data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
-							<div class="rg-inline-block">
-								<span class="list-item-title" data-bind="text: name"></span>
-							</div>
-							<div class="inline-block" style="float: right;">
-								<span class="list-item-date">
-									<span class="list-item-other" data-bind="text: startDate.displayFullDate()"></span>
-									<span class="list-item-other" data-bind="text: startDate.displayFullTime()"></span>
-								</span>
-							</div>
-						</div>
-						<div class="event-block-expand" style="display: none;">
-							@Html.Partial( "_EventBlock", new ViewDataDictionary { { "page", "lobby" } }  )
-						</div>
-					</div>
-				</li>
+			<h3 class="dashboard-calendar-title">Mój kalendarz</h3>
 
+			<h4 style="font-weight: normal; color: #616161;">dzisiaj</h4>
+
+
+			<ul class="dashboard-calendar-list today-dashboard-list" style="background: #a7a2a2;" data-bind="foreach: $root.lobbyPage.dashboardPart.myCalendarVM.today">
+				@Html.Partial( "_EventListItem" )
+			</ul>
+
+			<h4 style="font-weight: normal; color: #616161;">jutro</h4>
+
+
+			<ul class="dashboard-calendar-list" data-bind="foreach: $root.lobbyPage.dashboardPart.myCalendarVM.tommorow">
+				@Html.Partial( "_EventListItem" )
+			</ul>
+
+			<h4 style="font-weight: normal; color: #616161;">pojutrze</h4>
+
+
+			<ul class="dashboard-calendar-list" data-bind="foreach: $root.lobbyPage.dashboardPart.myCalendarVM.dayAfterTommorow">
+				@Html.Partial( "_EventListItem" )
 			</ul>
 
 		</div>
 	</div>
-	<div class="inline-block" style="width: 48%;">
-		<div class="overview-events-list-container">
-			<h3 style="padding-left: 100px; font-weight: normal; margin-top: 10px; background: #f7f6f5; color: #c1c1c1;">Najbliższe wydarzenia</h3>
-			<ul data-bind="foreach: $root.lobbyPage.dashboardPart.upcomingPublicEventsVM" style="padding: 0;">
-				<li style="list-style: none;">
-					<div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
-					<div class="display-events-overview-item">
-						<div class="overview-item-inner-wrapper" data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
-							<div class="rg-inline-block">
-								<span class="list-item-title" data-bind="text: name"></span>
-							</div>
-							<div class="inline-block" style="float: right;">
-								<span class="list-item-date">
-									<span class="list-item-other" data-bind="text: startDate.displayFullDate()"></span>
-									<span class="list-item-other" data-bind="text: startDate.displayFullTime()"></span>
-								</span>
-							</div>
-						</div>
-						<div class="event-block-expand" style="display: none;">
-							@Html.Partial( "_EventBlock", new ViewDataDictionary { { "page", "lobby" } }  )
-						</div>
-					</div>
-				</li>
-
-			</ul>
-
-		</div>
-	</div>
-
 </section>

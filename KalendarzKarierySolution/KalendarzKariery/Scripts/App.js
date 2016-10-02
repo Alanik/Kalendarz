@@ -140,9 +140,14 @@
 		var $details = $( "#details" );
 		var $lobby = $( "#lobby" );
 
+		var year, month, day;
 		var date = new Date();
+		year = date.getFullYear();
+		month = date.getMonth();
+		day = date.getDate();
+
 		$calendar.calendarWidget( {
-			month: date.getMonth(), year: date.getFullYear()
+			month: month, year: year
 		} );
 
 		var appvm = new AppViewModel( date, userName, spinner );
@@ -157,17 +162,20 @@
 		appvm.lobbyPage.upcomingEventsPart.publicEventTreeCountBasedOnEventKindVM = UTILS.eventTreeBuilder.buildEventTreeCountBasedOnEventKind(indexViewModel.PublicEventCountTree, appvm.eventKinds);
 
 		appvm.lobbyPage.dashboardPart.recenlyAddedPublicEventsVM( getRecentlyAddedEvents( appvm ) );
-		appvm.lobbyPage.dashboardPart.upcomingPublicEventsVM = UTILS.eventTreeBuilder.transformEventListToKKEventList( indexViewModel.UpcomingPublicEvents )
+		appvm.lobbyPage.dashboardPart.upcomingPublicEventsVM( UTILS.eventTreeBuilder.transformEventListToKKEventList( indexViewModel.UpcomingPublicEvents ) );
 
 		//appViewModel.newsEvents = appViewModel.UTILS.eventTreeBuilder.transformNews( indexViewModel.News );
 
-		//if user is logged in
+		//When user is logged in
 		if ( indexViewModel.MyEvents )
 		{
 			appvm.myEventTree = UTILS.eventTreeBuilder.buildEventTree( indexViewModel.MyEvents, false );
 			appvm.myEventTreeCountBasedOnEventKind = UTILS.eventTreeBuilder.buildEventTreeCountBasedOnEventKind( indexViewModel.MyEventCountTree, appvm.eventKinds );
 
 			appvm.myNoteTree = UTILS.eventTreeBuilder.buildNoteTree( indexViewModel.MyNotes );
+			appvm.lobbyPage.dashboardPart.myCalendarVM.today( EVENT_MANAGER.getEventsForGivenDay(year, month + 1, day, appvm.myEventTree) );
+			appvm.lobbyPage.dashboardPart.myCalendarVM.tommorow( EVENT_MANAGER.getEventsForGivenDay( year, month + 1, day + 1, appvm.myEventTree ) );
+			appvm.lobbyPage.dashboardPart.myCalendarVM.dayAfterTommorow(EVENT_MANAGER.getEventsForGivenDay( year, month + 1, day + 2, appvm.myEventTree) );
 
 			/////////////////////////////////////////////////////////////////////////
 			//draw events to the calendar

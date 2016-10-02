@@ -382,6 +382,7 @@
     <Content Include="Views\Home\LobbyPage\_DashboardPart.cshtml" />
     <Content Include="Views\Home\LobbyPage\_UpcomingEventsPart.cshtml" />
     <Content Include="Views\Home\LobbyPage\_EventGridPart.cshtml" />
+    <Content Include="Views\Home\SharedPartials\_EventListItem.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -5,6 +5,9 @@
 	<div class="event-block-info-name">
 		<span data-bind="text: name"></span>
 	</div>
+	<div>
+		<span class="list-item-date" data-bind="text: startDate.displayInfo()"></span>
+	</div>
 	<div class="event-block-body">
 		<div class="event-block-info-date">
 			<span data-bind="text: startDate.displayFullDate()"></span>
@@ -14,7 +17,7 @@
 		</div>
 		<div class="event-block-info-address">
 			<div data-bind="text: address.street, visible: ( address.street != '' && address.street != null )"></div>
-			<span data-bind="text: address.zipCode, visible: ( address.city != '' && address.city != null )"></span><span data-bind="	text ' ' + address.city, visible ( address.city !='' && address.city !=null )"></span>
+			<span data-bind="text: address.zipCode, visible: ( address.city != '' && address.city != null )"></span><span data-bind="text: ' ' + address.city, visible ( address.city !='' && address.city !=null )"></span>
 		</div>
 		<div class="event-block-info-body">
 			<div class="block-info-description">

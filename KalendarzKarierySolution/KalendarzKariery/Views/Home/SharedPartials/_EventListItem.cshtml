@@ -1,0 +1,26 @@
+﻿<li style="list-style: none;">
+	<div style="width: 100px; float: left; clear: both; height: 54px;">
+		<span class="list-item-date">
+			<span style="font-size: 1.6em; width: 26px; display: inline-block; color: #716c67;" data-bind="text: startDate.formatZero( startDate.day )"></span>
+			<span class="list-item-month" data-bind="text: startDate.formatZero( startDate.month )"></span>
+			<span class="list-item-year" data-bind="text: startDate.year"></span>
+			<span class="list-item-other" data-bind="text: startDate.displayFullTime()" style="position: relative; bottom: 10px;"></span>
+		</span>
+	</div>
+	<div class="display-events-overview-item">
+		<div class="overview-item-inner-wrapper" data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
+			<div class="event-kind-tag" data-bind="style: { color: kind.headerColor }">
+				<span data-bind="text: kind.name"></span>
+			</div>
+			<div>
+				<span class="list-item-date" data-bind="text: startDate.displayInfo()"></span>
+			</div>
+			<div style="padding-bottom: 10px;">
+				<span class="list-item-title" data-bind="text: name"></span>
+			</div>
+		</div>
+		<div class="event-block-expand" style="display: none;">
+			@Html.Partial( "_EventBlock", new ViewDataDictionary { { "page", "lobby" } } )
+		</div>
+	</div>
+</li>

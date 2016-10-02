@@ -1,63 +1,77 @@
 ﻿<div data-bind="with: $root.lobbyPage.upcomingEventsPart.eventListMenuVM" class="display-events-overview-body">
   <div class="legend-oldorupcoming hover-cursor-pointer" data-bind="css: { open: menuItems.publicEvents.showOld() }, click: function () { menuItems.publicEvents.showOld( !menuItems.publicEvents.showOld() ), $root.showSelectedEvents( menuItems.publicEvents.selectedEvents, 'old', selectedEventKindValues ) }">
     <div class="oldorupcoming-text-container">
-      <span class="oldorupcoming-sign" data-bind="text: menuItems.publicEvents.showOld() == true ? '-' : '+'">+</span>
-      <span>stare</span>
+      <span class="oldorupcoming-sign" data-bind="text: menuItems.publicEvents.showOld() ? '-' : '+'"></span>
+      <span class="legend-text">stare</span>
     </div>
     <span class="oldorupcoming-expand-text sm-hidden" data-bind="text: menuItems.publicEvents.showOld() == true ? '[zwiń]' : '[rozwiń]'"></span>
     <span class="oldorupcoming-event-count" data-bind="text: menuItems.publicEvents.selectedEvents.old().length > 0 ? menuItems.publicEvents.selectedEvents.old().length : ''"></span>
   </div>
-  <div class="display-events-overview-item-list" data-bind="foreach: menuItems.publicEvents.selectedEvents.old">
-    <div class="display-events-overview-item-list-inner-wrapper">
-      <div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
-      <div class="display-events-overview-item">
-        <div class="overview-item-inner-wrapper" data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
-          <div class="rg-inline-block">
-            <span class="list-item-title" data-bind="text: name"></span>
-          </div>
-          <div class="inline-block" style="float:right;">
-            <span class="list-item-date">
-              <span class="list-item-other" data-bind="text: startDate.displayFullDate()"></span>
-              <span class="list-item-other" data-bind="text: startDate.displayFullTime()"></span>
-            </span>
-          </div>
-        </div>
-        <div class="event-block-expand" style="display:none;">
-          @Html.Partial("_EventBlock", new ViewDataDictionary { { "page", "lobby" } })
-        </div>
-      </div>
-    </div>
+  <ul class="display-events-overview-item-list" data-bind="foreach: menuItems.publicEvents.selectedEvents.old">
+	  <li style="list-style: none;">
+		  <div style="width: 100px; float: left; clear: both; height: 54px;">
+			  <span class="list-item-date">
+				  <span style="font-size: 1.6em; width: 26px; display: inline-block; color: #716c67;" data-bind="text: startDate.formatZero( startDate.day )"></span>
+				  <span class="list-item-month" data-bind="text: startDate.formatZero( startDate.month )"></span>
+				  <span class="list-item-year" data-bind="text: startDate.year"></span>
+				  <span class="list-item-other" data-bind="text: startDate.displayFullTime()" style="position: relative; bottom: 10px;"></span>
+			  </span>
+		  </div>
+		  <div class="display-events-overview-item">
+			  <div class="overview-item-inner-wrapper" data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
+				  <div class="event-kind-tag" data-bind="style: { color: kind.headerColor }">
+					  <span data-bind="text: kind.name"></span>
+				  </div>
+				  <div>
+					  <span class="list-item-date" data-bind="text: startDate.displayInfo()"></span>
+				  </div>
+				  <div style="padding-bottom: 10px;">
+					  <span class="list-item-title" data-bind="text: name"></span>
+				  </div>
+			  </div>
+			  <div class="event-block-expand" style="display: none;">
+				  @Html.Partial( "_EventBlock", new ViewDataDictionary { { "page", "lobby" } } )
+			  </div>
+		  </div>
+	  </li>
 
-  </div>
-  <div class="legend-oldorupcoming hover-cursor-pointer" data-bind="css: { open: menuItems.publicEvents.showUpcoming() }, click: function () { publicEvents.showUpcoming(
+  </ul>
+  <div class="legend-oldorupcoming hover-cursor-pointer" data-bind="css: { open: menuItems.publicEvents.showUpcoming() }, click: function () { menuItems.publicEvents.showUpcoming(
        !menuItems.publicEvents.showUpcoming() ), $root.showSelectedEvents( menuItems.publicEvents.selectedEvents, 'upcoming', selectedEventKindValues ) }">
     <div class="oldorupcoming-text-container">
-      <span class="oldorupcoming-sign" data-bind="text: menuItems.publicEvents.showUpcoming() == true ? '-' : '+'">+</span>
-      <span>nadchodzące</span>
+      <span class="oldorupcoming-sign" data-bind="text: menuItems.publicEvents.showUpcoming() ? '-' : '+'"></span>
+      <span class="legend-text">nadchodzące</span>
     </div>
     <span class="oldorupcoming-expand-text sm-hidden" data-bind="text: menuItems.publicEvents.showUpcoming() == true ? '[zwiń]' : '[rozwiń]'"></span>
     <span class="oldorupcoming-event-count" data-bind="text: menuItems.publicEvents.selectedEvents.upcoming().length > 0 ? menuItems.publicEvents.selectedEvents.upcoming().length : ''"></span>
   </div>
-  <div class="display-events-overview-item-list" data-bind="foreach: menuItems.publicEvents.selectedEvents.upcoming">
-    <div class="display-events-overview-item-list-inner-wrapper">
-      <div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
-      <div class="display-events-overview-item">
-        <div class="overview-item-inner-wrapper" data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
-          <div class="rg-inline-block">
-            <span class="list-item-title" data-bind="text: name"></span>
-          </div>
-          <div class="inline-block" style="float:right;">
-            <span class="list-item-date">
-              <span class="list-item-other" data-bind="text: startDate.displayFullDate()"></span>
-              <span class="list-item-other" data-bind="text: startDate.displayFullTime()"></span>
-            </span>
-          </div>
-        </div>
-        <div class="event-block-expand" style="display:none;">
-          @Html.Partial("_EventBlock", new ViewDataDictionary { { "page", "lobby" } })
-        </div>
-      </div>
-    </div>
-  </div>
+  <ul class="display-events-overview-item-list" data-bind="foreach: menuItems.publicEvents.selectedEvents.upcoming">
+	  <li style="list-style: none;">
+		  <div style="width: 100px; float: left; clear: both; height: 54px;">
+			  <span class="list-item-date">
+				  <span style="font-size: 1.6em; width: 26px; display: inline-block; color: #716c67;" data-bind="text: startDate.formatZero( startDate.day )"></span>
+				  <span class="list-item-month" data-bind="text: startDate.formatZero( startDate.month )"></span>
+				  <span class="list-item-year" data-bind="text: startDate.year"></span>
+				  <span class="list-item-other" data-bind="text: startDate.displayFullTime()" style="position: relative; bottom: 10px;"></span>
+			  </span>
+		  </div>
+		  <div class="display-events-overview-item">
+			  <div class="overview-item-inner-wrapper" data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
+				  <div class="event-kind-tag" data-bind="style: { color: kind.headerColor }">
+					  <span data-bind="text: kind.name"></span>
+				  </div>
+				  <div>
+					  <span class="list-item-date" data-bind="text: startDate.displayInfo()"></span>
+				  </div>
+				  <div style="padding-bottom: 10px;">
+					  <span class="list-item-title" data-bind="text: name"></span>
+				  </div>
+			  </div>
+			  <div class="event-block-expand" style="display: none;">
+				  @Html.Partial( "_EventBlock", new ViewDataDictionary { { "page", "lobby" } } )
+			  </div>
+		  </div>
+	  </li>
+  </ul>
 </div>
 

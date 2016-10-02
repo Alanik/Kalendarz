@@ -9,70 +9,7 @@
 }
 
 #lobbyEventsMasonryContainer .event-block {
-	line-height: 1;
-	background: rgb(165, 165, 165);
-}
-
-#lobbyEventsMasonryContainer .event-block-info-link {
-	word-break: break-all;
-}
-
-#lobbyEventsMasonryContainer .event-block-info-name {
-	font-size: 1.5em;
-	color: #f7f7f7;
-	padding: 6px;
-}
-
-#lobbyEventsMasonryContainer .event-kind-tag {
-	line-height: 1.5;
-	font-size: 1em;
-	float: right;
-	text-align: center;
-	min-height: 0;
-}
-
-#lobbyEventsMasonryContainer .event-block-body {
-	color: rgb(72, 68, 62);
-	padding: 10px;
-	font-size: 1.2em;
-}
-
-#lobbyEventsMasonryContainer .event-block-footer {
-	padding: 10px;
-	overflow: hidden;
-	color: #dedede;
-}
-
-#lobbyEventsMasonryContainer .event-block-info-date {
-	margin-bottom: 2px;
-	font-size: 1.8em;
-}
-
-#lobbyEventsMasonryContainer .event-block-info-body {
-	margin-top: 20px;
-	color: rgb(220, 220, 220);
-}
-
-#lobbyEventsMasonryContainer .event-block-info-time {
-	font-size: 1.2em;
-	color: rgb(72, 68, 62);
-}
-
-#lobbyEventsMasonryContainer .block-info-description {
-	color: #f7f7f7;
-}
-
-#lobbyEventsMasonryContainer .block-info-details {
-	color: #f7f7f7;
-}
-
-#lobbyEventsMasonryContainer .event-block-info-addedby {
-	color: rgb(76, 76, 76);
-	text-align: right;
-}
-
-#lobbyEventsMasonryContainer .event-block-menu {
-	float: right;
+	border: none;
 }
 
 /*Details - detailsEventBlockList*/
@@ -158,8 +95,8 @@
 
 .event-block-expand .event-block {
 	line-height: 1;
-	background: rgb(251,251,251);
-	border: 1px solid #dcdbd7;
+	background: rgb(251, 249, 249);
+	border: 2px solid #a7a2a2;
 }
 
 .event-block-expand .event-block-info-link {

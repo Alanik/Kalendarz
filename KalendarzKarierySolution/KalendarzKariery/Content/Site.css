@@ -87,14 +87,14 @@ fieldset {
 
 #lobby .dz-column-inner-wrapper {
 	border-right: 1px solid #F3F3F3;
-	background: #f7f6f5;
+	background: #e6e1db;
 	width: 83%;
 }
 
 #pageOverlayAtSiteLoad {
 	width: 83%;
 	height: 100%;
-	background: rgb(247, 247, 247);
+	background: #f7f5f3;
 	border-right: 1px solid #F3F3F3;
 	position: absolute;
 	left: -14px;
@@ -158,20 +158,19 @@ fieldset {
 	font-family: Raleway-Regular;
 	text-align: center;
 	padding-top: 60px;
-	background: #ececec;
+	background: #f7f5f3;
 }
 
 .lobby-quote {
 	font-size: 1.4em;
 	line-height: 1;
-	color: #d4d4d4;
+	color: #d4cdc5;
 	margin: 0;
 }
 
 #addPublicEventBtn {
 	padding: 10px;
-	background: rgb(147, 193, 153);
-	color: white;
+	color: gray;
 }
 
 .dz-row {
@@ -191,7 +190,7 @@ fieldset {
 	text-align: center;
 	padding-top: 30px;
 	padding-bottom: 60px;
-	background: #ececec;
+	background: #f7f5f3;
 }
 
 	#lobbyNavContainer a {
@@ -199,6 +198,10 @@ fieldset {
 		color: #737362;
 		text-decoration: none;
 	}
+
+.nav-part {
+	border-bottom: 1px solid #e6e1db;
+}
 
 .selected-nav-link {
 	/*text-shadow: 0px 1px 1px #B3AC95;
@@ -208,7 +211,7 @@ fieldset {
 }
 
 #lobbyTableOfEventsSection {
-	background: #ececec;
+	background: #f7f5f3;
 	padding-bottom: 10px;
 }
 
@@ -223,12 +226,11 @@ fieldset {
 	display: inline-block;
 	position: relative;
 	margin-bottom: 20px;
-	background: white;
 	transition-duration: .5s;
 }
 
 	.menu-item-container.selected {
-		background: #d6d6d6;
+		background: #e6e1db;
 	}
 
 		.menu-item-container.selected .menu-item-number-upcoming {
@@ -287,11 +289,9 @@ fieldset {
 
 
 .display-events-overview-container {
-	border: 1px solid #b1b1b1;
 	clear: both;
 	width: 98%;
 	margin: 0 auto;
-	/* padding-bottom: 20px; */
 	margin-bottom: 20px;
 	margin-top: 10px;
 }
@@ -302,25 +302,23 @@ fieldset {
 	font-size: 1.4em;
 	position: relative;
 	color: #cacaca;
-	background: #d6d6d6;
+	background: #e6e1db;
 	overflow: hidden;
-	border-bottom: 1px solid #b1b1b1;
 	font-family: Raleway-Regular;
 }
 
 .display-events-header-menu-title {
 	padding: 4px;
 	position: relative;
-	top: 8px;
+	top: 5px;
 }
 
 	.display-events-header-menu-title.selected {
 		color: white;
+		background:#afaba7;
 	}
 
 .display-events-overview-body {
-	padding-bottom: 40px;
-	background: #d6d6d6;
 }
 
 .display-events-overview-container .legend-oldorupcoming {
@@ -334,7 +332,8 @@ fieldset {
 	position: relative;
 }
 
-	.display-events-overview-container .legend-oldorupcoming.open {
+	.display-events-overview-container .legend-oldorupcoming.open .legend-text{
+	background:#e6e1db;
 	}
 
 .oldorupcoming-event-count {
@@ -350,9 +349,8 @@ fieldset {
 }
 
 .display-events-overview-item {
-	border-left: 1px solid #cccccc;
-	border-right: 1px solid #cccccc;
-	background: #ececec;
+	border: 2px solid #f7f5f3;
+	background: white;
 	overflow: hidden;
 	min-height: 32px;
 }
@@ -367,10 +365,10 @@ fieldset {
 }
 
 .js-masonry {
-	border-top: 4px solid #e6e6e6;
+	/*border-top: 4px solid #e6e6e6;
 	background: #e6e6e6;
 	width: 100% !important;
-	position: relative !important;
+	position: relative !important;*/
 }
 
 #lobbyEventsMasonryContainer {
@@ -758,9 +756,8 @@ fieldset {
 	padding: 0 20px;
 	padding-bottom: 4px;
 	color: white;
-	/*background: #FD6969;*/
+	background: #afaba7;
 	font-size: 1.2em;
-	background: #b1b1b1;
 }
 
 .gray-color {
@@ -796,9 +793,10 @@ fieldset {
 	font-size: 1.6em;
 	color: #a2a2a2;
 	text-align: center;
-	padding-bottom: 40px;
-	padding-top: 10px;
-	border-top: 1px solid white;
+	padding-bottom: 30px;
+	padding-top: 20px;
+	background:rgb(247, 245, 243);
+	border-bottom:1px solid #e6e1db;
 }
 
 .hover-cursor-pointer:hover {
@@ -819,7 +817,6 @@ li.line-through-text {
 }
 
 .overview-events-list-container {
-	padding-bottom: 20px;
 }
 
 .overview-item-inner-wrapper {
@@ -830,12 +827,12 @@ li.line-through-text {
 }
 
 	.overview-item-inner-wrapper:hover {
-		background: #f7f6f5;
+		background: #fbfbfb;
 		cursor: pointer;
 	}
 
 	.overview-item-inner-wrapper.selected {
-		background: #dcdbd7;
+		background: #a7a2a2;
 	}
 
 .display-events-overview-item-list-inner-wrapper {
@@ -855,16 +852,15 @@ li.line-through-text {
 }
 
 .list-item-other {
-	font-size: 1.2em;
 	width: 100px;
 	display: inline-block;
 }
 
 .list-item-date {
 	display: inline-block;
-	text-align: right;
-	padding: 0 4px;
-	color: #b5b5b5;
+	text-align: left;
+	padding: 0 6px;
+	color: #b3aea8;
 }
 
 .event-block-expand {
@@ -873,8 +869,8 @@ li.line-through-text {
 .event-kind-tag {
 	width: 100px;
 	text-align: center;
-	float: left;
-	/*background: #807C77;*/
+	float: right;
+	/*background: #e6e1db;*/
 	clear: both;
 	min-height: 32px;
 	padding: 5px;
@@ -898,8 +894,7 @@ li.line-through-text {
 	display: inline-block;
 	padding: 20px;
 	box-sizing: border-box;
-	background: #ececec;
-	min-height: 200px;
+	min-height: 120px;
 	vertical-align: top;
 }
 
@@ -929,7 +924,7 @@ li.line-through-text {
 /*popupbox*/
 
 .popupbox {
-	background: #ececec;
+	background: #f7f7f7;
 	border: 2px solid white;
 	color: #a2a2a2;
 	border-radius: 3px;
@@ -1026,6 +1021,52 @@ li.line-through-text {
 	padding-left: 20px;
 }
 
+.dashboard-part {
+	background: rgb(247, 245, 243);
+	overflow: hidden;
+}
+
+.overview-events-list-container ul {
+	padding-left: 20px;
+}
+
+.upcoming-events-part {
+	overflow: hidden;
+}
+
+.dashboard-title {
+	padding-left: 100px;
+	font-weight: normal;
+	font-size: 1.4em;
+	color: #a5a5a5;
+}
+
+.dashboard-calendar-title {
+	padding-left: 120px;
+	font-weight: normal;
+	font-size: 1.4em;
+	color: #a5a5a5;
+}
+
+.dashboard-calendar-list {
+	border-left: 2px solid #e6e1db;
+}
+
+	.dashboard-calendar-list.today-dashboard-list .list-item-other {
+		color: #f1eeea;
+	}
+
+	.dashboard-calendar-list.today-dashboard-list .list-item-month {
+		color: #cecbc8;
+	}
+
+	.dashboard-calendar-list.today-dashboard-list .list-item-year {
+		color: #cecbc8;
+	}
+
+
+
+
 /*Validation*/
 .input-validation-error {
 	border: 2px solid red !important;
@@ -1060,14 +1101,6 @@ li.line-through-text {
 	border-top: 0;
 	border-bottom: 0;
 }
-
-/*::-webkit-scrollbar-thumb:hover {
-		background: rgb(113, 113, 113);
-	}
-
-	::-webkit-scrollbar-thumb:active {
-		background: rgb(113, 113, 113);
-	}*/
 
 ::-webkit-scrollbar-track {
 	border: 4px solid white;

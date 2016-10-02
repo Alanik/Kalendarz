@@ -26,7 +26,7 @@
 				var $overlay = $( "#appContainer" ).children( ".page-overlay" );
 
 				return {
-					$overlay: $overlay,
+					$overlay: function ($overlay) { return $overlay }($overlay),
 					show: function ( shouldDisplayOverlay )
 					{
 						if ( shouldDisplayOverlay )

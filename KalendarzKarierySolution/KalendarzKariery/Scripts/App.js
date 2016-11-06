@@ -120,7 +120,6 @@
 		{
 			clearInterval( siteLoadingTextAnimationInterval.interval );
 			$( "#pageOverlayAtSiteLoad" ).hide();
-			$( "#initialWhiteOverlay" ).hide();
 			$dzieuo.css( "visibility", "visible" );
 		}, 1050 );
 	},
@@ -483,14 +482,14 @@
 				{
 					$( this ).css( {
 						"cursor": "pointer",
-						"color": "white"
+						"color": "rgb(232,232,232)"
 					} );
 				},
 				mouseleave: function ()
 				{
 					$( this ).css( {
 						"cursor": "auto",
-						"color": "rgb(232,232,232)"
+						"color": "gray"
 					} );
 				}
 			}, '.event-rectangle-details' );

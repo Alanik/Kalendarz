@@ -63,22 +63,12 @@ fieldset {
 -----------------------------------------------------------*/
 
 /*Lobby*/
-#initialWhiteOverlay {
-	width: 83%;
-	background: white;
-	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: 999;
-	height: 154px;
-}
-
 
 #lobby {
 	top: 30px !important;
-	/*transition-property: all;
+	transition-property: all;
 	transition-duration: .5s;
-	transition-timing-function: ease;*/
+	transition-timing-function: ease;
 }
 
 #lobbyLogo {
@@ -87,7 +77,7 @@ fieldset {
 
 #lobby .dz-column-inner-wrapper {
 	border-right: 1px solid #F3F3F3;
-	background: #e6e1db;
+	background: #f7f5f3;
 	width: 83%;
 }
 
@@ -112,11 +102,10 @@ fieldset {
 }
 
 #lobbyHeader {
-	background: #ffffff;
+	background: #f7f5f3;
 	position: relative;
 	left: 1px;
 	height: 120px;
-	border-bottom: 4px solid white;
 }
 
 #loginFormBtn {
@@ -158,19 +147,13 @@ fieldset {
 	font-family: Raleway-Regular;
 	text-align: center;
 	padding-top: 60px;
-	background: #f7f5f3;
 }
 
 .lobby-quote {
 	font-size: 1.4em;
 	line-height: 1;
-	color: #d4cdc5;
+	color: #c5c2be;
 	margin: 0;
-}
-
-#addPublicEventBtn {
-	padding: 10px;
-	color: gray;
 }
 
 .dz-row {
@@ -190,7 +173,6 @@ fieldset {
 	text-align: center;
 	padding-top: 30px;
 	padding-bottom: 60px;
-	background: #f7f5f3;
 }
 
 	#lobbyNavContainer a {
@@ -230,7 +212,7 @@ fieldset {
 }
 
 	.menu-item-container.selected {
-		background: #e6e1db;
+		background: #e4e1de;
 	}
 
 		.menu-item-container.selected .menu-item-number-upcoming {
@@ -290,10 +272,12 @@ fieldset {
 
 .display-events-overview-container {
 	clear: both;
-	width: 98%;
+	/* width: 98%; */
 	margin: 0 auto;
 	margin-bottom: 20px;
 	margin-top: 10px;
+	background: #e4e1de;
+	border: 2px solid #adadad;
 }
 
 .display-events-overview-header {
@@ -302,7 +286,7 @@ fieldset {
 	font-size: 1.4em;
 	position: relative;
 	color: #cacaca;
-	background: #e6e1db;
+	background: #adadad;
 	overflow: hidden;
 	font-family: Raleway-Regular;
 }
@@ -315,10 +299,11 @@ fieldset {
 
 	.display-events-header-menu-title.selected {
 		color: white;
-		background:#afaba7;
+		background: #afaba7;
 	}
 
 .display-events-overview-body {
+	border: 2px solid #f7f5f3;
 }
 
 .display-events-overview-container .legend-oldorupcoming {
@@ -332,8 +317,8 @@ fieldset {
 	position: relative;
 }
 
-	.display-events-overview-container .legend-oldorupcoming.open .legend-text{
-	background:#e6e1db;
+	.display-events-overview-container .legend-oldorupcoming.open .legend-text {
+		background: #e6e1db;
 	}
 
 .oldorupcoming-event-count {
@@ -349,8 +334,8 @@ fieldset {
 }
 
 .display-events-overview-item {
-	border: 2px solid #f7f5f3;
-	background: white;
+	border: 1px solid #e4e1de;
+	background: #f7f5f3;
 	overflow: hidden;
 	min-height: 32px;
 }
@@ -374,7 +359,10 @@ fieldset {
 #lobbyEventsMasonryContainer {
 	height: 100%;
 	width: 100%;
-	padding-top: 20px;
+	padding-top: 1px;
+	border: 2px solid #adadad;
+	box-sizing: border-box;
+	background: rgb(228, 225, 222);
 }
 
 #registerForm .register-birthdate-txtbox {
@@ -444,17 +432,16 @@ fieldset {
 #detailsDayTable {
 	position: relative;
 	padding: 0 2%;
-	padding-bottom: 40px;
+	padding-bottom: 2px;
 	width: 100%;
 	margin: 0 auto;
 	box-sizing: border-box;
-	background: rgb(132, 132, 132);
 }
 
 	#detailsDayTable .details-day-table-head {
 		overflow: hidden;
 		text-align: left;
-		color: #DED9CF;
+		color: #86837e;
 		padding-top: 10px;
 		padding-bottom: 10px;
 		font-size: 15px;
@@ -466,11 +453,12 @@ fieldset {
 		}
 
 	#detailsDayTable .details-day-table-body {
-		background: rgb(103, 103, 103);
+		background: rgb(253, 253, 253);
 		padding-top: 4px;
 		padding-bottom: 4px;
 		padding-left: 1px;
-		border-bottom: 2px solid #5f5f5f;
+		border: 2px solid white;
+		border-bottom: 2px solid #dcdcdc;
 	}
 
 	#detailsDayTable .details-day-table-cell {
@@ -487,14 +475,14 @@ fieldset {
 
 .hour-line {
 	position: absolute;
-	background: rgb(113, 113, 113);
+	background: rgb(247, 246, 245);
 	height: 100%;
 	width: 1px;
 }
 
 .hour-line-21 {
 	position: absolute;
-	background: rgb(113, 113, 113);
+	background: rgb(247, 246, 245);
 	height: 100%;
 	width: 1px;
 	right: 1px;
@@ -505,7 +493,6 @@ fieldset {
 	color: #c5c5c5;
 	padding-bottom: 10px;
 	padding-left: 20px;
-	background: #5f5f5f;
 }
 
 	.day-display-date-container .display-date-small {
@@ -514,7 +501,7 @@ fieldset {
 	}
 
 .event-rectangle-details {
-	color: rgb(232,232,232);
+	color: gray;
 	overflow: hidden;
 	position: absolute;
 	z-index: 2;
@@ -530,13 +517,12 @@ fieldset {
 	width: 100%;
 	margin: 0 auto;
 	box-sizing: border-box;
-	background: rgb(132, 132, 132);
 }
 
 #detailsEventBlockList {
 	width: 49%;
 	display: inline-block;
-	/*background: #5f5f5f;*/
+	background: #dcdcdc;
 }
 
 #notesContainer {
@@ -578,37 +564,35 @@ fieldset {
 	height: 80px;
 	box-sizing: border-box;
 	font-size: 1.4em;
-	background: rgb(125, 124, 124);
+	background: rgb(243, 243, 243);
 	padding: 10px;
-	border: 2px solid #676767;
+	border: 2px solid #dcdcdc;
 	overflow: auto;
 	-webkit-appearance: none;
 	outline: 0;
-	color: #f7f7f7;
+	color: #000000;
 }
 
 #btnAddNewNote {
 	float: right;
 	margin-bottom: 5px;
-	font-size: 2em;
-	padding: 0 25px;
-	background: #676767;
-	border: 2px solid #5f5f5f;
+	padding: 10px 20px;
 }
 
 #notesList {
 	list-style-position: outside;
 	font-size: 1.4em;
 	margin: 0 auto;
+	color:gray;
 }
 
 
 #notesListContainer {
 	padding: 20px 20px;
-	background: #757575;
 }
 
 .note-content {
+	border-bottom: 1px solid gainsboro;
 }
 
 .edit-mode-note-container {
@@ -743,6 +727,8 @@ fieldset {
 	border-radius: 4px;
 	background: rgba(255,255,255,.5);
 	font-family: Raleway-Regular;
+	padding: 10px;
+	color: gray;
 }
 
 .popupbox-header-title {
@@ -756,7 +742,7 @@ fieldset {
 	padding: 0 20px;
 	padding-bottom: 4px;
 	color: white;
-	background: #afaba7;
+	background: #adadad;
 	font-size: 1.2em;
 }
 
@@ -793,10 +779,8 @@ fieldset {
 	font-size: 1.6em;
 	color: #a2a2a2;
 	text-align: center;
-	padding-bottom: 30px;
+	padding-bottom: 10px;
 	padding-top: 20px;
-	background:rgb(247, 245, 243);
-	border-bottom:1px solid #e6e1db;
 }
 
 .hover-cursor-pointer:hover {
@@ -817,6 +801,9 @@ li.line-through-text {
 }
 
 .overview-events-list-container {
+	border: 4px solid #f7f5f3;
+	margin: 1px;
+	background: rgb(228, 225, 222);
 }
 
 .overview-item-inner-wrapper {
@@ -832,7 +819,7 @@ li.line-through-text {
 	}
 
 	.overview-item-inner-wrapper.selected {
-		background: #a7a2a2;
+		background: #fbfbfb;
 	}
 
 .display-events-overview-item-list-inner-wrapper {
@@ -1022,7 +1009,7 @@ li.line-through-text {
 }
 
 .dashboard-part {
-	background: rgb(247, 245, 243);
+	background: rgb(173, 173, 173);
 	overflow: hidden;
 }
 
@@ -1035,17 +1022,11 @@ li.line-through-text {
 }
 
 .dashboard-title {
-	padding-left: 100px;
+	padding: 10px;
 	font-weight: normal;
-	font-size: 1.4em;
-	color: #a5a5a5;
-}
-
-.dashboard-calendar-title {
-	padding-left: 120px;
-	font-weight: normal;
-	font-size: 1.4em;
-	color: #a5a5a5;
+	font-size: 1.2em;
+	color: #ffffff;
+	background: #adadad;
 }
 
 .dashboard-calendar-list {
@@ -1053,15 +1034,15 @@ li.line-through-text {
 }
 
 	.dashboard-calendar-list.today-dashboard-list .list-item-other {
-		color: #f1eeea;
+		color: #8e8b87;
 	}
 
 	.dashboard-calendar-list.today-dashboard-list .list-item-month {
-		color: #cecbc8;
+		color: #8e8b87;
 	}
 
 	.dashboard-calendar-list.today-dashboard-list .list-item-year {
-		color: #cecbc8;
+		color: #8e8b87;
 	}
 
 

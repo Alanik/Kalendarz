@@ -20,7 +20,7 @@
 
 #detailsEventBlockList .event-block {
 	line-height: 1;
-	background: rgb(165, 165, 165);
+	background: #fbfbfb;
 }
 
 #detailsEventBlockList .event-block-info-link {
@@ -29,8 +29,9 @@
 
 #detailsEventBlockList .event-block-info-name {
 	font-size: 1.5em;
-	color: #f7f7f7;
+	color: #636363;
 	padding: 10px;
+	background:#f3f3f3;
 }
 
 #detailsEventBlockList .event-kind-tag {
@@ -95,8 +96,7 @@
 
 .event-block-expand .event-block {
 	line-height: 1;
-	background: rgb(251, 249, 249);
-	border: 2px solid #a7a2a2;
+	background: rgb(251, 251, 251);
 }
 
 .event-block-expand .event-block-info-link {
@@ -107,6 +107,7 @@
 	font-size: 1.5em;
 	color: #636363;
 	padding: 6px;
+	background: #f3f3f3;
 }
 
 .event-block-expand .event-kind-tag {

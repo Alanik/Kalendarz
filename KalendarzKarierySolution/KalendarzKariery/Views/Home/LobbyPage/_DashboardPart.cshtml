@@ -1,39 +1,38 @@
 ﻿@*<div id="addPrivateEventBtn" class="hover-cursor-pointer" data-bind="click: function ( data, e ) { $root.showAddPrivateEventLobbyPopupOnClick( $element, data, e ) }">Dodaj do swojego kalendarza +</div>*@
 <section class="lobby-overview">
-	<div class="inline-block" style="width: 50%;">
+	<div class="inline-block" style="width: 51%;">
 		<div class="overview-events-list-container">
-			<h3 class="dashboard-title">Nadchodzące wydarzenia</h3>
+			<div class="dashboard-title">Nadchodzące wydarzenia</div>
 			<ul data-bind="foreach: $root.lobbyPage.dashboardPart.upcomingPublicEventsVM">
 				@Html.Partial( "_EventListItem" )
 			</ul>
 		</div>
 		<div class="overview-events-list-container">
-			<h3 class="dashboard-title">Najnowsze wydarzenia
-			</h3>
+			<div class="dashboard-title">Najnowsze wydarzenia</div>
 			<ul data-bind="foreach: $root.lobbyPage.dashboardPart.recenlyAddedPublicEventsVM">
 				@Html.Partial( "_EventListItem" )
 			</ul>
 		</div>
 	</div>
-	<div class="inline-block" style="width: 50%; float: right; width: 48%; margin-left: 1%; margin-top: 1%; color: white;">
-		<div class="overview-events-list-container">
-			<h3 class="dashboard-calendar-title">Mój kalendarz</h3>
+	<div class="inline-block" style="width: 49%; float: right; color: white;">
+		<div class="overview-events-list-container" style="background: #fdfdfd;">
+			<div class="dashboard-title">Mój kalendarz</div>
 
-			<h4 style="font-weight: normal; color: #616161;">dzisiaj</h4>
+			<h4 style="font-weight: normal; color: #a7a2a2;">dzisiaj</h4>
 
 
-			<ul class="dashboard-calendar-list today-dashboard-list" style="background: #a7a2a2;" data-bind="foreach: $root.lobbyPage.dashboardPart.myCalendarVM.today">
+			<ul class="dashboard-calendar-list today-dashboard-list" data-bind="foreach: $root.lobbyPage.dashboardPart.myCalendarVM.today">
 				@Html.Partial( "_EventListItem" )
 			</ul>
 
-			<h4 style="font-weight: normal; color: #616161;">jutro</h4>
+			<h4 style="font-weight: normal; color: #a7a2a2;">jutro</h4>
 
 
 			<ul class="dashboard-calendar-list" data-bind="foreach: $root.lobbyPage.dashboardPart.myCalendarVM.tommorow">
 				@Html.Partial( "_EventListItem" )
 			</ul>
 
-			<h4 style="font-weight: normal; color: #616161;">pojutrze</h4>
+			<h4 style="font-weight: normal; color: #a7a2a2;">pojutrze</h4>
 
 
 			<ul class="dashboard-calendar-list" data-bind="foreach: $root.lobbyPage.dashboardPart.myCalendarVM.dayAfterTommorow">

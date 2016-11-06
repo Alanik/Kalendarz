@@ -10,13 +10,14 @@
 		display: table;
 		table-layout: fixed;
 		border-spacing: 1px;
-		background: rgb(247, 247, 247);
+		background: #f7f5f3;
 	}
 
 #calendarMenuHeader {
 	display: table-caption;
 	letter-spacing: 1px;
 	padding-left: 20px;
+	height:50px;
 }
 
 .today-day-header-calendar {
@@ -34,7 +35,6 @@
 	padding-left: 10px;
 	padding-right: 10px;
 	font-size: 1.2em;
-
 }
 
 .calendar-header-year-container {
@@ -49,17 +49,21 @@
 .weekday-container {
 	display: table-row;
 	color: #5a5a5a;
+	background: #f7f5f3;
 }
 
 .weekday {
 	display: table-cell;
 	text-align: center;
 	padding: 10px;
+	background:#efedec;
 }
 
 
 .current-weekday {
-	color: white;
+	color: black;
+	text-transform: uppercase;
+	background: #fdfdfd;
 }
 
 .calendar-hours {
@@ -196,5 +200,5 @@
 	display: table;
 	table-layout: fixed;
 	width: 100%;
-	background: rgba(210, 210, 203, 0.47);
+	background: rgb(228, 225, 222);
 }

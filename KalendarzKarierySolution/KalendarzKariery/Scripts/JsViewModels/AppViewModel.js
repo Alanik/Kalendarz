@@ -841,7 +841,7 @@
 		ko.applyBindings( self, cancelLink );
 		ko.applyBindings( self, saveLink );
 
-		var $textbox = $( "<textarea style='width: 100%;vertical-align: top;margin-top: 10px;box-sizing: border-box;border: 1px solid #EBEBD9;resize: none;outline: none;padding: 10px;background: #F2F2E5;'/>" );
+		var $textbox = $( "<textarea style='width: 100%;vertical-align: top;margin-top: 10px;box-sizing: border-box;border: 2px solid #dcdcdc;resize: none;outline: none;padding: 10px;background: #f3f3f3;'/>" );
 		var $container = $( "#notesListContainer li[data-noteid='" + id + "']" );
 		var noteText = $container.find( "pre" ).text();
 		$container.find( ".note-content" ).hide();

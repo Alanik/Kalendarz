@@ -1,7 +1,7 @@
 ﻿<div class="notes-shadow-box">
   <textarea id="notesTxtArea" maxlength="1000" data-bind="value: $root.observableNote.data" placeholder="Wpisz treść notatki"></textarea>
   <div style="overflow:hidden;">
-    <button id="btnAddNewNote" data-bind="click: $root.AddNoteOnClick" class="btn-add green-color hover-cursor-pointer">+</button>
+    <button id="btnAddNewNote" data-bind="click: $root.AddNoteOnClick" class="btn-add hover-cursor-pointer">dodaj</button>
   </div>
   <div id="notesListContainer">
     <ul id="notesList" data-bind="foreach: $root.detailsPageDayNotes">
@@ -12,7 +12,7 @@
             <div style="font-size: 14px; color: rgb(154, 154, 154); text-align: right; text-decoration: none;">
               <span data-bind="text: dateAdded.displayFullTime()"></span><span>  </span><span data-bind="text: dateAdded.displayFullDate()"></span>
             </div>
-            <span style="font-size: 16px; float: right; color: rgb(154, 154, 154);">
+            <span style="font-size: 16px; float: right; color: rgb(220, 220, 220)">
               <span class="link" data-bind="click: function () { $root.setLineThroughNoteDetailsPageOnLineThroughLinkClick( id, displayDate.year, displayDate.month, displayDate.day, !isLineThrough() ) }, text: isLineThrough() ? 'odkreśl' : 'skreśl' ">skreśl</span>
               <span class="link" data-bind="click: function () { $root.editNoteDetailsPageOnEditLinkClick( id, displayDate.year, displayDate.month, displayDate.day ) }">edytuj</span>
               <span data-bind="click: function () { $root.prepareDeleteNoteDetailsPageOnDeleteLinkClick( id, displayDate.year, displayDate.month, displayDate.day ) }" class="link">usuń</span>

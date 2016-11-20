@@ -122,7 +122,7 @@ fieldset {
 
 #calendarDayDetailsContainer {
 	padding-top: 20px;
-	border-top: 1px solid #E8E8E8;
+	border-top: 1px solid white;
 }
 
 #loginBarContainer {
@@ -181,10 +181,6 @@ fieldset {
 		text-decoration: none;
 	}
 
-.nav-part {
-	border-bottom: 1px solid #e6e1db;
-}
-
 .selected-nav-link {
 	/*text-shadow: 0px 1px 1px #B3AC95;
   border-bottom: 2px solid #F6FFF4;*/
@@ -195,6 +191,7 @@ fieldset {
 #lobbyTableOfEventsSection {
 	background: #f7f5f3;
 	padding-bottom: 10px;
+	border-top: 1px solid white;
 }
 
 .events-menu-container {
@@ -298,8 +295,8 @@ fieldset {
 }
 
 	.display-events-header-menu-title.selected {
+		border-bottom: 3px solid #f7f5f3;
 		color: white;
-		background: #afaba7;
 	}
 
 .display-events-overview-body {
@@ -363,6 +360,7 @@ fieldset {
 	border: 2px solid #adadad;
 	box-sizing: border-box;
 	background: rgb(228, 225, 222);
+	border-top: 1px solid white;
 }
 
 #registerForm .register-birthdate-txtbox {
@@ -417,9 +415,9 @@ fieldset {
 	}
 
 #detailsPanel {
-	border-top: 1px solid #E8E8E8;
 	padding-top: 20px;
 	overflow: hidden;
+	border-top: 1px solid white;
 }
 
 #todayDateAndTimeContainer {
@@ -583,7 +581,7 @@ fieldset {
 	list-style-position: outside;
 	font-size: 1.4em;
 	margin: 0 auto;
-	color:gray;
+	color: gray;
 }
 
 
@@ -772,7 +770,8 @@ fieldset {
 }
 
 
-.display-events-overview-item-list {
+.lobby-overview {
+	border-top: 1px solid white;
 }
 
 .section-title {
@@ -781,6 +780,8 @@ fieldset {
 	text-align: center;
 	padding-bottom: 10px;
 	padding-top: 20px;
+	background: #f7f5f3;
+	border-bottom: 1px solid #E8E8E8;
 }
 
 .hover-cursor-pointer:hover {

@@ -158,7 +158,7 @@
 		appvm.eventKinds = indexViewModel.EventKinds;
 
 		appvm.publicEventTree = UTILS.eventTreeBuilder.buildEventTree( indexViewModel.PublicEvents, true );
-		appvm.lobbyPage.upcomingEventsPart.publicEventTreeCountBasedOnEventKindVM = UTILS.eventTreeBuilder.buildEventTreeCountBasedOnEventKind(indexViewModel.PublicEventCountTree, appvm.eventKinds);
+		appvm.lobbyPage.upcomingEventsPart.publicEventTreeCountBasedOnEventKindVM = UTILS.eventTreeBuilder.buildEventTreeCountBasedOnEventKind( indexViewModel.PublicEventCountTree, appvm.eventKinds );
 
 		appvm.lobbyPage.dashboardPart.recenlyAddedPublicEventsVM( getRecentlyAddedEvents( appvm ) );
 		appvm.lobbyPage.dashboardPart.upcomingPublicEventsVM( UTILS.eventTreeBuilder.transformEventListToKKEventList( indexViewModel.UpcomingPublicEvents ) );
@@ -172,9 +172,9 @@
 			appvm.myEventTreeCountBasedOnEventKind = UTILS.eventTreeBuilder.buildEventTreeCountBasedOnEventKind( indexViewModel.MyEventCountTree, appvm.eventKinds );
 
 			appvm.myNoteTree = UTILS.eventTreeBuilder.buildNoteTree( indexViewModel.MyNotes );
-			appvm.lobbyPage.dashboardPart.myCalendarVM.today( EVENT_MANAGER.getEventsForGivenDay(year, month + 1, day, appvm.myEventTree) );
+			appvm.lobbyPage.dashboardPart.myCalendarVM.today( EVENT_MANAGER.getEventsForGivenDay( year, month + 1, day, appvm.myEventTree ) );
 			appvm.lobbyPage.dashboardPart.myCalendarVM.tommorow( EVENT_MANAGER.getEventsForGivenDay( year, month + 1, day + 1, appvm.myEventTree ) );
-			appvm.lobbyPage.dashboardPart.myCalendarVM.dayAfterTommorow(EVENT_MANAGER.getEventsForGivenDay( year, month + 1, day + 2, appvm.myEventTree) );
+			appvm.lobbyPage.dashboardPart.myCalendarVM.dayAfterTommorow( EVENT_MANAGER.getEventsForGivenDay( year, month + 1, day + 2, appvm.myEventTree ) );
 
 			/////////////////////////////////////////////////////////////////////////
 			//draw events to the calendar
@@ -600,22 +600,16 @@
 			{
 				var $this = $( this );
 
-				if ( !$this.hasClass( "selected" ) )
-				{
-					$this.css( {
-						"cursor": "pointer"
-					} );
-				}
+				$this.css( {
+					"cursor": "pointer"
+				} );
 			}, function ()
 			{
 				var $this = $( this );
 
-				if ( !$this.hasClass( "selected" ) )
-				{
-					$this.css( {
-						"cursor": "auto"
-					} );
-				}
+				$this.css( {
+					"cursor": "auto"
+				} );
 			} );
 
 			var $leftSideCalendar = $( "#leftSideCalendar" );
@@ -927,7 +921,7 @@
 
 		function getRecentlyAddedEvents( appvm )
 		{
-		  var recentlyAddedEvents = appvm.lobbyPage.eventGridPart.publicEventsVM.sort(function (event1, event2)
+			var recentlyAddedEvents = appvm.lobbyPage.eventGridPart.publicEventsVM.sort( function ( event1, event2 )
 			{
 				return event1.dateAdded.javaScriptDate - event2.dateAdded.javaScriptDate;
 			} );

@@ -112,14 +112,14 @@ fieldset {
 	padding: 14px;
 	float: right;
 	margin-right: 50%;
-	background:#fdfdfd;
+	background: #fdfdfd;
 }
 
 #registerFormBtn {
 	padding: 14px;
 	float: right;
 	margin-right: 50%;
-	background:#fdfdfd;
+	background: #fdfdfd;
 }
 
 #calendarDayDetailsContainer {
@@ -150,7 +150,7 @@ fieldset {
 	text-align: center;
 	padding-top: 100px;
 	background: #f7f5f3;
-	display:none;
+	display: none;
 }
 
 .lobby-quote {
@@ -177,19 +177,19 @@ fieldset {
 	text-align: center;
 	padding-top: 30px;
 	padding-bottom: 40px;
+	background:#f7f5f3;
 }
 
 	#lobbyNavContainer a {
 		margin-right: 10px;
-		color: #737362;
+		color: #c5c5c5;
 		text-decoration: none;
 	}
 
 .selected-nav-link {
-	/*text-shadow: 0px 1px 1px #B3AC95;
-  border-bottom: 2px solid #F6FFF4;*/
 	text-shadow: 0px 1px 1px #929292;
 	border-bottom: 2px solid #B5E4EC;
+	color: gray !important;
 }
 
 #lobbyTableOfEventsSection {

@@ -96,7 +96,8 @@
 
 .event-block-expand .event-block {
 	line-height: 1;
-	background: rgb(251, 251, 251);
+	background: rgb(253, 253, 253);
+	border-top:2px solid #bbb8b5;
 }
 
 .event-block-expand .event-block-info-link {
@@ -107,7 +108,7 @@
 	font-size: 1.5em;
 	color: #636363;
 	padding: 6px;
-	background: #f3f3f3;
+	background: #e4e1de;
 }
 
 .event-block-expand .event-kind-tag {

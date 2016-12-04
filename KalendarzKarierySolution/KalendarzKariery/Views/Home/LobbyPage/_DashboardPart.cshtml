@@ -18,21 +18,21 @@
 		<div class="overview-events-list-container" style="background: #fdfdfd;">
 			<div class="dashboard-title">Mój kalendarz</div>
 
-			<h4 style="font-weight: normal; color: #a7a2a2;">dzisiaj</h4>
+			<h4 style="font-weight: normal; color: #a7a2a2; padding-left: 10px;">dzisiaj</h4>
 
 
 			<ul class="dashboard-calendar-list today-dashboard-list" data-bind="foreach: $root.lobbyPage.dashboardPart.myCalendarVM.today">
 				@Html.Partial( "_EventListItem" )
 			</ul>
 
-			<h4 style="font-weight: normal; color: #a7a2a2;">jutro</h4>
+			<h4 style="font-weight: normal; color: #a7a2a2; padding-left: 10px;">jutro</h4>
 
 
 			<ul class="dashboard-calendar-list" data-bind="foreach: $root.lobbyPage.dashboardPart.myCalendarVM.tommorow">
 				@Html.Partial( "_EventListItem" )
 			</ul>
 
-			<h4 style="font-weight: normal; color: #a7a2a2;">pojutrze</h4>
+			<h4 style="font-weight: normal; color: #a7a2a2; padding-left: 10px;">pojutrze</h4>
 
 
 			<ul class="dashboard-calendar-list" data-bind="foreach: $root.lobbyPage.dashboardPart.myCalendarVM.dayAfterTommorow">

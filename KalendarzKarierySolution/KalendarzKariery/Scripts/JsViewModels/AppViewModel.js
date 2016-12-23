@@ -1824,7 +1824,7 @@
 
 	self.expandEventOverviewItemOnClick = function ( element )
 	{
-		var $element = $( element );
+		var $element = $( element );	
 		var $expandDiv = $element.siblings( '.event-block-expand' );
 		$element.toggleClass( "selected" );
 
@@ -2151,7 +2151,7 @@
 		self.UTILS.loader.$overlay.show();
 
 		var $addEventContainer = $( "#addNewEventContainer" );
-		$addEventContainer.find( ".popupbox-header-title" ).text( "Dodaj do tablicy wydarzeń" );
+		$addEventContainer.find( ".popupbox-header-title" ).text( "Stwórz publiczne wydarzenie" );
 
 		var $addBtn = $addEventContainer.find( "#btnAddNewEvent" );
 		$addBtn.text( "dodaj" );

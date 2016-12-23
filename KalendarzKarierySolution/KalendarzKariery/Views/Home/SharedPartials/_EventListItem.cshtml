@@ -1,25 +1,20 @@
-﻿<li style="list-style: none;">
-	<div style="width: 100px; float: left; clear: both; height: 54px;">
-		<span class="list-item-date">
-			<span style="font-size: 1.6em; width: 26px; display: inline-block;" data-bind="text: startDate.formatZero( startDate.day )"></span>
-			<span class="list-item-month" data-bind="text: startDate.formatZero( startDate.month )"></span>
-			<span class="list-item-year" data-bind="text: startDate.year"></span>
-			<span class="list-item-other" data-bind="text: startDate.displayFullTime()" style="position: relative; bottom: 10px;"></span>
-		</span>
-	</div>
-	<div class="display-events-overview-item">
-		<div class="overview-item-inner-wrapper" data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
-			<div class="event-kind-tag" data-bind="style: { color: kind.headerColor }">
-				<span data-bind="text: kind.name"></span>
-				<div style="color: #b3aea8;">
-					<span data-bind="text: startDate.displayInfo()"></span>
+﻿<li class="list-style-none">
+	<div class="event-list-item-container">
+		<div class="event-list-item" data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
+			<div class="rg-label expand-label">[ZWIŃ]</div>
+			<div class="event-list-item-left">
+				<div class="event-kind-tag" data-bind="style: { color: kind.headerColor }, text: kind.name"></div>
+				<div class="list-item-date">
+					<div data-bind="html: startDate.displayFullDate_EnlargeDay()"></div>
+					<div data-bind="text: startDate.displayFullTime()"></div>
 				</div>
+				<div class="sm-label pad-top-8" data-bind="text: startDate.displayInfo()"></div>
 			</div>
-			<div padding-bottom: 4px;">
+			<div class="event-list-item-right">
 				<span class="list-item-title" data-bind="text: name"></span>
 			</div>
 		</div>
-		<div class="event-block-expand" style="display: none;">
+		<div class="event-block-expand">
 			@Html.Partial( "_EventBlock", new ViewDataDictionary { { "page", "lobby" } } )
 		</div>
 	</div>

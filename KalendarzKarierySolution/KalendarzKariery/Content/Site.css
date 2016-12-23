@@ -175,9 +175,8 @@ fieldset {
 #lobbyNavContainer {
 	font-size: 1.2em;
 	text-align: center;
-	padding-top: 30px;
+	padding-top: 50px;
 	padding-bottom: 40px;
-	background:#f7f5f3;
 }
 
 	#lobbyNavContainer a {
@@ -213,7 +212,7 @@ fieldset {
 }
 
 	.menu-item-container.selected {
-		background: #e6e1db;
+		background: white;
 	}
 
 		.menu-item-container.selected .menu-item-number-upcoming {
@@ -334,10 +333,9 @@ fieldset {
 	position: relative;
 }
 
-.display-events-overview-item {
+.event-list-item-container {
 	border-bottom: 2px solid #eceae7;
 	overflow: hidden;
-	min-height: 32px;
 	padding: 4px;
 }
 
@@ -722,7 +720,7 @@ fieldset {
 }
 
 .btn-add {
-	background: rgb(234, 234, 234);
+	background: rgb(253, 253, 253);
 	font-family: Raleway-Regular;
 	padding: 10px;
 	color: #828282;
@@ -768,6 +766,13 @@ fieldset {
 	vertical-align: top;
 }
 
+.event-block-footer-right {
+	float: right;
+}
+
+.width-60 {
+	width: 60px;
+}
 
 .lobby-overview {
 	border-top: 1px solid white;
@@ -779,7 +784,6 @@ fieldset {
 	text-align: center;
 	padding-bottom: 10px;
 	padding-top: 20px;
-	background: #f7f5f3;
 	border-bottom: 1px solid #E8E8E8;
 }
 
@@ -801,34 +805,64 @@ li.line-through-text {
 }
 
 .overview-events-list-container {
-	border: 4px solid #e6e1db;
+	border: 2px solid #e6e1db;
 	margin: 1px;
 	background: #fdfdfd;
 }
 
-.overview-item-inner-wrapper {
+.enlarged-font {
+	font-size: 1.6em;
+}
+
+.expand-label {
+	display: none;
+	position: absolute;
+	text-align: center;
+	width: 100%;
+	bottom: 10px;
+	padding: 0 !important;
+}
+
+.event-list-item {
 	font-size: 1em;
 	color: #5D5B55;
 	overflow: hidden;
-	min-height: 32px;
-	padding-left: 6px;
+	position: relative;
 }
 
-	.overview-item-inner-wrapper:hover {
+	.event-list-item:hover {
 		cursor: pointer;
 	}
 
-	.overview-item-inner-wrapper.selected {
-		background: #fbfbfb;
+	.event-list-item.selected .expand-label {
+		display: block;
 	}
 
-.display-events-overview-item-list-inner-wrapper {
+	.event-list-item.selected .event-list-item-right {
+		visibility: hidden;
+	}
+
+.list-style-none {
+	list-style: none;
+}
+
+.event-list-item-right {
+	display: inline-block;
+	vertical-align: bottom;
+	width: 70%;
+}
+
+.event-list-item-left {
+	width: 25%;
+	display: inline-block;
+	line-height: 1;
+}
+
+.event-list-item-container-list-inner-wrapper {
 	background: #807c77;
 }
 
 .list-item-title {
-	line-height: 1;
-	vertical-align: bottom;
 }
 
 .list-item-star {
@@ -843,25 +877,31 @@ li.line-through-text {
 }
 
 .list-item-date {
-	display: inline-block;
-	text-align: left;
-	padding: 0 6px;
 	color: #b3aea8;
+	padding-top: 4px;
+	display: inline-block;
 }
 
+.pad-top-8 {
+	padding-top: 8px;
+}
+
+.event-list-item-container .event-block-expand {
+	display: none;
+}
+
+#lobbyEventsMasonryContainer .event-block-expand {
+	border: 2px solid #BBBBBB;
+}
+
+
 .event-block-expand {
+	border: 2px solid #E6E1DB;
 }
 
 .event-kind-tag {
-	width: 100px;
-	text-align: center;
-	float: right;
-	clear: both;
-	min-height: 32px;
-	padding: 5px;
-	box-sizing: border-box;
+	/*width: 100px;*/
 	background: rgb(253, 253, 253);
-	position: relative;
 }
 
 
@@ -964,8 +1004,7 @@ li.line-through-text {
 	width: 220px;
 	height: 40px;
 	padding: 0px 10px;
-	border: 0px solid #ececec;
-	box-shadow: inset 0px 0px 1px #b3a895;
+	border: 1px solid #ececec;
 }
 
 .event-startdate-txtbox {
@@ -987,9 +1026,42 @@ li.line-through-text {
 }
 
 .popupbox textarea:focus, .popupbox input[type=text]:focus, .popupbox input[type=password]:focus select:focus {
-	background: rgb(247, 247, 247);
+	background: white;
 	border: 2px solid white;
-	color: gray;
+}
+
+.event-block-description {
+	margin-top: 0;
+}
+
+.event-block-occupancylimit {
+	margin: 0;
+}
+
+.event-block-price {
+	margin: 0;
+}
+
+.event-block-details {
+	margin-bottom: 0;
+}
+
+.sm-label {
+	color: #D4CEC6;
+	font-size: .8em;
+}
+
+.event-block-data-content {
+	padding-left: 20px;
+}
+
+.event-block-body {
+}
+
+.rg-label {
+	font-size: 1em;
+	color: #ADABAA;
+	padding: 10px 0;
 }
 
 #btnAddNewEvent {
@@ -1020,15 +1092,13 @@ li.line-through-text {
 }
 
 .dashboard-title {
-	padding: 10px;
-	font-weight: normal;
+	padding: 12px;
 	font-size: 1.2em;
-	color: gray;
-	background: #e6e1db;
+	color: black;
+	background: #FDFDFD;
 }
 
 .dashboard-calendar-list {
-	border-left: 2px solid #e6e1db;
 }
 
 	.dashboard-calendar-list.today-dashboard-list .list-item-other {

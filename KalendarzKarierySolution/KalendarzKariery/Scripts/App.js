@@ -593,7 +593,7 @@
 			//			"border-left": "none"
 			//		} );
 			//	}
-			//}, ".display-events-overview-item" );
+			//}, ".event-list-item-container" );
 
 
 			$( ".menu-item-container" ).hover( function ()

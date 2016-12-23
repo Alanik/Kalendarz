@@ -17,7 +17,11 @@ KKDateModel.prototype.formatZero = function ( time )
 }
 KKDateModel.prototype.displayFullDate = function ()
 {
-	return this.day + '.' + this.formatZero( this.month ) + '.' + this.year;
+	return this.formatZero( this.day ) + '.' + this.formatZero( this.month ) + '.' + this.year;
+}
+KKDateModel.prototype.displayFullDate_EnlargeDay = function ()
+{
+	return ( '<span class="enlarged-font">' + this.formatZero( this.day ) + '</span>' + '.' + this.formatZero( this.month ) + '.' + this.year );
 }
 KKDateModel.prototype.displayFullTime = function ()
 {

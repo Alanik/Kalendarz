@@ -2,13 +2,13 @@
 <section class="lobby-overview">
 	<div class="inline-block" style="width: 51%;position:relative;top:-1px;">
 		<div class="overview-events-list-container">
-			<div class="dashboard-title">Nadchodzące wydarzenia</div>
+			<div class="dashboard-title">Nadchodzące publiczne wydarzenia</div>
 			<ul data-bind="foreach: $root.lobbyPage.dashboardPart.upcomingPublicEventsVM">
 				@Html.Partial( "_EventListItem" )
 			</ul>
 		</div>
 		<div class="overview-events-list-container">
-			<div class="dashboard-title">Najnowsze wydarzenia</div>
+			<div class="dashboard-title">Najnowsze publiczne wydarzenia</div>
 			<ul data-bind="foreach: $root.lobbyPage.dashboardPart.recenlyAddedPublicEventsVM">
 				@Html.Partial( "_EventListItem" )
 			</ul>

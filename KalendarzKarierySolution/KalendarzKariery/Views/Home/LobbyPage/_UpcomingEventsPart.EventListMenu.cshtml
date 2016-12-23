@@ -7,7 +7,7 @@
     <span class="oldorupcoming-expand-text sm-hidden" data-bind="text: menuItems.publicEvents.showOld() == true ? '[zwiń]' : '[rozwiń]'"></span>
     <span class="oldorupcoming-event-count" data-bind="text: menuItems.publicEvents.selectedEvents.old().length > 0 ? menuItems.publicEvents.selectedEvents.old().length : ''"></span>
   </div>
-  <ul class="display-events-overview-item-list" data-bind="foreach: menuItems.publicEvents.selectedEvents.old">
+  <ul class="event-list-item-container-list" data-bind="foreach: menuItems.publicEvents.selectedEvents.old">
 	  <li style="list-style: none;">
 		  <div style="width: 100px; float: left; clear: both; height: 54px;">
 			  <span class="list-item-date">
@@ -17,8 +17,8 @@
 				  <span class="list-item-other" data-bind="text: startDate.displayFullTime()" style="position: relative; bottom: 10px;"></span>
 			  </span>
 		  </div>
-		  <div class="display-events-overview-item">
-			  <div class="overview-item-inner-wrapper" data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
+		  <div class="event-list-item-container">
+			  <div class="event-list-item" data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
 				  <div class="event-kind-tag" data-bind="style: { color: kind.headerColor }">
 					  <span data-bind="text: kind.name"></span>
 					  <div style="color: #b3aea8;">
@@ -45,7 +45,7 @@
     <span class="oldorupcoming-expand-text sm-hidden" data-bind="text: menuItems.publicEvents.showUpcoming() == true ? '[zwiń]' : '[rozwiń]'"></span>
     <span class="oldorupcoming-event-count" data-bind="text: menuItems.publicEvents.selectedEvents.upcoming().length > 0 ? menuItems.publicEvents.selectedEvents.upcoming().length : ''"></span>
   </div>
-  <ul class="display-events-overview-item-list" data-bind="foreach: menuItems.publicEvents.selectedEvents.upcoming">
+  <ul class="event-list-item-container-list" data-bind="foreach: menuItems.publicEvents.selectedEvents.upcoming">
 	  <li style="list-style: none;">
 		  <div style="width: 100px; float: left; clear: both; height: 54px;">
 			  <span class="list-item-date">
@@ -55,8 +55,8 @@
 				  <span class="list-item-other" data-bind="text: startDate.displayFullTime()" style="position: relative; bottom: 10px;"></span>
 			  </span>
 		  </div>
-		  <div class="display-events-overview-item">
-			  <div class="overview-item-inner-wrapper" data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
+		  <div class="event-list-item-container">
+			  <div class="event-list-item" data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
 				  <div class="event-kind-tag" data-bind="style: { color: kind.headerColor }">
 					  <span data-bind="text: kind.name"></span>
 					  <div style="color: #b3aea8;">

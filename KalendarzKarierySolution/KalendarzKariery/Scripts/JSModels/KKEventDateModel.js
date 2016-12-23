@@ -20,7 +20,11 @@ KKEventDateModel.prototype.formatZero = function ( time )
 }
 KKEventDateModel.prototype.displayFullDate = function ()
 {
-	return this.day + '.' + this.formatZero( this.month ) + '.' + this.year;
+	return this.formatZero( this.day ) + '.' + this.formatZero( this.month ) + '.' + this.year;
+}
+KKEventDateModel.prototype.displayFullDate_EnlargeDay = function ()
+{
+	return ( '<span class="enlarged-font">' + this.formatZero( this.day ) + '</span>' + '.' + this.formatZero( this.month ) + '.' + this.year );
 }
 KKEventDateModel.prototype.displayFullTime = function ()
 {
@@ -45,5 +49,5 @@ KKEventDateModel.prototype.displayInfo = function ()
 	else if ( daysDiff > 2 ) return "za " + daysDiff + " dni";
 	else if ( daysDiff === -1 ) return "wczoraj";
 	else if ( daysDiff === -2 ) return "przedwczoraj";
-	else return (-daysDiff) + " dni temu";
+	else return ( -daysDiff ) + " dni temu";
 }

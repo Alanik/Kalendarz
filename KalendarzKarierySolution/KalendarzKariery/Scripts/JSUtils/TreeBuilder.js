@@ -160,7 +160,6 @@
 		};
 		function getMinutes( event )
 		{
-
 			if ( event.endDate == null )
 			{
 				return 0;

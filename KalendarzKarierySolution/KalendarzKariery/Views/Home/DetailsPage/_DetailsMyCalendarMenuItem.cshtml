@@ -7,11 +7,11 @@
 		<span class="oldorupcoming-expand-text sm-hidden" data-bind="text: $root.detailsPageJournalMenu.menuItems.myCalendar.showOld() == true ? '[zwiń]' : '[rozwiń]'"></span>
 		<span class="oldorupcoming-event-count" data-bind="text: $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.old().length > 0 ? $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.old().length : ''"></span>
 	</div>
-	<div class="display-events-overview-item-list" data-bind="visible: $root.detailsPageJournalMenu.menuItems.myCalendar.showOld, foreach: $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.old">
-   <div class="display-events-overview-item-list-inner-wrapper">
+	<div class="event-list-item-container-list" data-bind="visible: $root.detailsPageJournalMenu.menuItems.myCalendar.showOld, foreach: $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.old">
+   <div class="event-list-item-container-list-inner-wrapper">
      <div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
-     <div class="display-events-overview-item">
-       <div class="overview-item-inner-wrapper" data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
+     <div class="event-list-item-container">
+       <div class="event-list-item" data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
          <div class="rg-inline-block">
            <span class="list-item-title" data-bind="text: name"></span>
          </div>
@@ -37,11 +37,11 @@
 		<span class="oldorupcoming-expand-text sm-hidden" data-bind="text: $root.detailsPageJournalMenu.menuItems.myCalendar.showUpcoming() == true ? '[zwiń]' : '[rozwiń]'">rozwin</span>
 		<span class="oldorupcoming-event-count" data-bind="text: $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.upcoming().length > 0 ? $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.upcoming().length : ''"></span>
 	</div>
-	<div class="display-events-overview-item-list" data-bind="visible: $root.detailsPageJournalMenu.menuItems.myCalendar.showUpcoming, foreach: $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.upcoming">
-    <div class="display-events-overview-item-list-inner-wrapper">
+	<div class="event-list-item-container-list" data-bind="visible: $root.detailsPageJournalMenu.menuItems.myCalendar.showUpcoming, foreach: $root.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.upcoming">
+    <div class="event-list-item-container-list-inner-wrapper">
       <div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
-      <div class="display-events-overview-item">
-        <div class="overview-item-inner-wrapper" data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
+      <div class="event-list-item-container">
+        <div class="event-list-item" data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
           <div class="rg-inline-block">
             <span class="list-item-title" data-bind="text: name"></span>
           </div>

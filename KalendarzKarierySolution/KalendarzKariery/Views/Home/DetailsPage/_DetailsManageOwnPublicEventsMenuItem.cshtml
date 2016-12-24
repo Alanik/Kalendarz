@@ -7,8 +7,8 @@
     <span class="oldorupcoming-expand-text sm-hidden" data-bind="text: $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.showOld() == true ? '[zwiń]' : '[rozwiń]'"></span>
     <span class="oldorupcoming-event-count" data-bind="text: $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.old().length > 0 ? $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.old().length : ''"></span>
   </div>
-  <div class="event-list-item-container-list" data-bind="foreach: $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.old">
-    <div class="event-list-item-container-list-inner-wrapper">
+  <div class="event-list" data-bind="foreach: $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.old">
+    <div class="event-list-inner-wrapper">
       <div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
       <div class="event-list-item-container">
         <div class="event-list-item" data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
@@ -37,8 +37,8 @@
     <span class="oldorupcoming-expand-text sm-hidden" data-bind="text: $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.showUpcoming() == true ? '[zwiń]' : '[rozwiń]'"></span>
     <span class="oldorupcoming-event-count" data-bind="text: $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.upcoming().length > 0 ? $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.upcoming().length : ''"></span>
   </div>
-  <div class="event-list-item-container-list" data-bind="foreach: $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.upcoming">
-    <div class="event-list-item-container-list-inner-wrapper">
+  <div class="event-list" data-bind="foreach: $root.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.upcoming">
+    <div class="event-list-inner-wrapper">
       <div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
       <div class="event-list-item-container">
         <div class="event-list-item" data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">

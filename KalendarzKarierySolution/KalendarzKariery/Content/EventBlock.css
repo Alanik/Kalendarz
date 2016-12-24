@@ -71,7 +71,7 @@
 	color: #f7f7f7;
 }
 
-#detailsEventBlockList .event-block-info-addedby {
+#detailsEventBlockList .event-block-addedby {
 	color: rgb(76, 76, 76);
 	text-align: right;
 }
@@ -133,7 +133,7 @@
 	font-size: 1.2em;
 }
 
-.event-block-expand .event-block-info-addedby {
+.event-block-expand .event-block-addedby {
 	color: #ADABAA;
 	text-align: right;
 }

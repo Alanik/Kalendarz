@@ -64,11 +64,11 @@
 		</div>
 		<div data-bind="ifnot: price === null">
 			<div class="rg-label">opłata za wstęp:</div>
-			<p class="event-block-price" data-bind="text: price + 'zł.'"></p>
+			<p class="event-block-price event-block-data-content" data-bind="text: price + 'zł.'"></p>
 		</div>
-		<div data-bind="ifnot: occupancyLimit == null">
+		<div data-bind="ifnot: occupancyLimit === null">
 			<div class="rg-label">limit miejsc:</div>
-			<p class="event-block-occupancylimit" data-bind="text: occupancyLimit"></p>
+			<p class="event-block-occupancylimit event-block-data-content" data-bind="text: occupancyLimit"></p>
 		</div>
 		<div data-bind="ifnot: urlLink === null">
 			<p class="event-block-link">
@@ -81,7 +81,6 @@
 			<div class="event-block-addedby">
 				<div data-bind="text: addedBy"></div>
 				<span data-bind="text: dateAdded.displayFullTime()"></span>
-				<span>&nbsp;&nbsp;</span>
 				<span data-bind="text: dateAdded.displayFullDate()"></span>
 			</div>
 

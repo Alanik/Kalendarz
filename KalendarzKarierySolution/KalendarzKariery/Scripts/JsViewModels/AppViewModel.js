@@ -89,7 +89,7 @@
 	//	"old" : ko.observable(20)
 	//}
 	self.lobbyPage.upcomingEventsPart.publicEventTreeCountBasedOnEventKindVM = null;
-	self.lobbyPage.upcomingEventsPart.eventListMenuVM = {
+	self.lobbyPage.upcomingEventsPart.eventListVM = {
 		"menuItems": {
 			publicEvents: {
 				"index": 1,
@@ -1496,9 +1496,9 @@
 			// lobby page
 		else
 		{
-			if ( !self.lobbyPage.upcomingEventsPart.eventListMenuVM.isOpen() )
+			if ( !self.lobbyPage.upcomingEventsPart.eventListVM.isOpen() )
 			{
-				self.lobbyPage.upcomingEventsPart.eventListMenuVM.isOpen( true );
+				self.lobbyPage.upcomingEventsPart.eventListVM.isOpen( true );
 			}
 
 			// parameter for simpleFilt.checkIf() method
@@ -1512,7 +1512,7 @@
 			//////////////////////////////////////////////////////////
 			if ( ( oldOrUpcoming == 'old' || oldOrUpcoming == 'all' ) )
 			{
-				if ( self.lobbyPage.upcomingEventsPart.eventListMenuVM.menuItems.publicEvents.showOld() )
+				if ( self.lobbyPage.upcomingEventsPart.eventListVM.menuItems.publicEvents.showOld() )
 				{
 					show( 'old', selectedEventsProp.old, checkArgs, self.publicEventTree );
 				} else
@@ -1526,7 +1526,7 @@
 			//////////////////////////////////////////////////////////
 			if ( ( oldOrUpcoming == 'upcoming' || oldOrUpcoming == 'all' ) )
 			{
-				if ( self.lobbyPage.upcomingEventsPart.eventListMenuVM.menuItems.publicEvents.showUpcoming() )
+				if ( self.lobbyPage.upcomingEventsPart.eventListVM.menuItems.publicEvents.showUpcoming() )
 				{
 					show( 'upcoming', selectedEventsProp.upcoming, checkArgs, self.publicEventTree );
 				} else
@@ -1570,7 +1570,7 @@
 				//////////////////////////////////////////////////////////
 				//old
 				//////////////////////////////////////////////////////////
-				if ( self.lobbyPage.upcomingEventsPart.eventListMenuVM.menuItems.publicEvents.showOld() )
+				if ( self.lobbyPage.upcomingEventsPart.eventListVM.menuItems.publicEvents.showOld() )
 				{
 					array = ko.utils.arrayFilter( selectedEvents.old(), function ( item )
 					{
@@ -1583,7 +1583,7 @@
 				//////////////////////////////////////////////////////////
 				//upcoming
 				//////////////////////////////////////////////////////////
-				if ( self.lobbyPage.upcomingEventsPart.eventListMenuVM.menuItems.publicEvents.showUpcoming() )
+				if ( self.lobbyPage.upcomingEventsPart.eventListVM.menuItems.publicEvents.showUpcoming() )
 				{
 					array = ko.utils.arrayFilter( selectedEvents.upcoming(), function ( item )
 					{
@@ -1595,7 +1595,7 @@
 
 				if ( !$( "#lobby .menu-item-container" ).hasClass( "selected" ) )
 				{
-					self.lobbyPage.upcomingEventsPart.eventListMenuVM.isOpen( false );
+					self.lobbyPage.upcomingEventsPart.eventListVM.isOpen( false );
 				}
 
 				break;
@@ -2336,7 +2336,7 @@
 		switch ( self.currentPage() )
 		{
 			case 0:
-				self.lobbyPage.upcomingEventsPart.eventListMenuVM.isOpen( false );
+				self.lobbyPage.upcomingEventsPart.eventListVM.isOpen( false );
 
 				$eventsMenuContainer = $( "#lobby .events-menu-container" );
 				$eventsMenuContainer.find( ".menu-item-container" ).each( function ()
@@ -2350,11 +2350,11 @@
 					}
 				} );
 
-				self.lobbyPage.upcomingEventsPart.eventListMenuVM.selectedEventKindValues = [];
-				self.lobbyPage.upcomingEventsPart.eventListMenuVM.menuItems.publicEvents.selectedEvents.old( [] );
-				self.lobbyPage.upcomingEventsPart.eventListMenuVM.menuItems.publicEvents.selectedEvents.upcoming( [] );
+				self.lobbyPage.upcomingEventsPart.eventListVM.selectedEventKindValues = [];
+				self.lobbyPage.upcomingEventsPart.eventListVM.menuItems.publicEvents.selectedEvents.old( [] );
+				self.lobbyPage.upcomingEventsPart.eventListVM.menuItems.publicEvents.selectedEvents.upcoming( [] );
 
-				$( "#lobbyTableOfEventsSection" ).scrollTo( 500, 60 );
+				$( "#lobbyUpcomingEventsPartInnerWrapper" ).scrollTo( 500, 60 );
 				return true;
 			case 2:
 				self.detailsPageJournalMenu.isOpen( false );

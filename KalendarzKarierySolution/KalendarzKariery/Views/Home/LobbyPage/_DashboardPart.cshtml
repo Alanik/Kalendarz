@@ -4,13 +4,13 @@
 		<div class="overview-events-list-container">
 			<div class="dashboard-title">Nadchodzące publiczne wydarzenia</div>
 			<ul data-bind="foreach: $root.lobbyPage.dashboardPart.upcomingPublicEventsVM">
-				@Html.Partial( "_EventListItem" )
+				@Html.Partial( "_EventListItem",  new ViewDataDictionary { { "page", "lobby" } } )
 			</ul>
 		</div>
 		<div class="overview-events-list-container">
 			<div class="dashboard-title">Najnowsze publiczne wydarzenia</div>
 			<ul data-bind="foreach: $root.lobbyPage.dashboardPart.recenlyAddedPublicEventsVM">
-				@Html.Partial( "_EventListItem" )
+				@Html.Partial( "_EventListItem",  new ViewDataDictionary { { "page", "lobby" } } )
 			</ul>
 		</div>
 	</div>
@@ -22,21 +22,21 @@
 
 
 			<ul class="dashboard-calendar-list today-dashboard-list" data-bind="foreach: $root.lobbyPage.dashboardPart.myCalendarVM.today">
-				@Html.Partial( "_EventListItem" )
+				@Html.Partial( "_EventListItem",  new ViewDataDictionary { { "page", "lobby" } } )
 			</ul>
 
 			<h4 style="font-weight: normal; color: #a7a2a2; padding-left: 10px;">jutro</h4>
 
 
 			<ul class="dashboard-calendar-list" data-bind="foreach: $root.lobbyPage.dashboardPart.myCalendarVM.tommorow">
-				@Html.Partial( "_EventListItem" )
+				@Html.Partial( "_EventListItem",  new ViewDataDictionary { { "page", "lobby" } } )
 			</ul>
 
 			<h4 style="font-weight: normal; color: #a7a2a2; padding-left: 10px;">pojutrze</h4>
 
 
 			<ul class="dashboard-calendar-list" data-bind="foreach: $root.lobbyPage.dashboardPart.myCalendarVM.dayAfterTommorow">
-				@Html.Partial( "_EventListItem" )
+				@Html.Partial( "_EventListItem",  new ViewDataDictionary { { "page", "lobby" } } )
 			</ul>
 
 		</div>

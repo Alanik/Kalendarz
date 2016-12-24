@@ -49,11 +49,6 @@ MEDIA QUERIES
 		left: 0;
 	}
 
-	.event-list-item-container-list {
-		padding-left: 2px;
-		padding-right: 2px;
-	}
-
 	#detailsDayTable .details-day-table-head {
 		padding: 2px;
 		padding-left: 2px;

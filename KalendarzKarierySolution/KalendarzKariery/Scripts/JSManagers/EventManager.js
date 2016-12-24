@@ -461,17 +461,17 @@
 			//3. add event to menuItems.selectedEvents
 
 			// lobby page
-			if ( appViewModel.lobbyPage.upcomingEventsPart.eventListMenuVM.isOpen() && $.inArray( newKKEvent.kind.value, appViewModel.lobbyPage.upcomingEventsPart.eventListMenuVM.menuItems.publicEvents.selectedEvents.selectedEventKindValues ) > -1 )
+			if ( appViewModel.lobbyPage.upcomingEventsPart.eventListVM.isOpen() && $.inArray( newKKEvent.kind.value, appViewModel.lobbyPage.upcomingEventsPart.eventListVM.menuItems.publicEvents.selectedEvents.selectedEventKindValues ) > -1 )
 			{
 				today = new Date();
 				endDate = new Date( newKKEvent.startDate.year, newKKEvent.startDate.month - 1, newKKEvent.startDate.day, newKKEvent.startDate.endHour, newKKEvent.startDate.endMinute, 0, 0 );
 
 				if ( today > endDate )
 				{
-					oldOrUpcoming = appViewModel.lobbyPage.upcomingEventsPart.eventListMenuVM.menuItems.publicEvents.selectedEvents.old;
+					oldOrUpcoming = appViewModel.lobbyPage.upcomingEventsPart.eventListVM.menuItems.publicEvents.selectedEvents.old;
 				} else
 				{
-					oldOrUpcoming = appViewModel.lobbyPage.upcomingEventsPart.eventListMenuVM.menuItems.publicEvents.selectedEvents.upcoming;
+					oldOrUpcoming = appViewModel.lobbyPage.upcomingEventsPart.eventListVM.menuItems.publicEvents.selectedEvents.upcoming;
 				}
 
 				oldOrUpcoming.push( newKKEvent );
@@ -554,18 +554,18 @@
 							appViewModel.changeEventCountTreeValueBasedOnEventKind( appViewModel.lobbyPage.upcomingEventsPart.publicEventTreeCountBasedOnEventKindVM, event, -1 );
 
 
-							//1.4 if selected events panel is open and the deleted event is displayed on the list then remove it from eventListMenuVM.menuItems.publicEvents.selectedEvents
-							if ( appViewModel.lobbyPage.upcomingEventsPart.eventListMenuVM.isOpen() && appViewModel.lobbyPage.upcomingEventsPart.eventListMenuVM.selectedMenuItem() === 1 )
+							//1.4 if selected events panel is open and the deleted event is displayed on the list then remove it from eventListVM.menuItems.publicEvents.selectedEvents
+							if ( appViewModel.lobbyPage.upcomingEventsPart.eventListVM.isOpen() && appViewModel.lobbyPage.upcomingEventsPart.eventListVM.selectedMenuItem() === 1 )
 							{
 								today = new Date();
 								endDate = new Date( event.startDate.year, event.startDate.month - 1, event.startDate.day, event.startDate.endHour, event.startDate.endMinute, 0, 0 );
 
 								if ( today > endDate )
 								{
-									oldOrUpcoming = appViewModel.lobbyPage.upcomingEventsPart.eventListMenuVM.menuItems.publicEvents.selectedEvents.old;
+									oldOrUpcoming = appViewModel.lobbyPage.upcomingEventsPart.eventListVM.menuItems.publicEvents.selectedEvents.old;
 								} else
 								{
-									oldOrUpcoming = appViewModel.lobbyPage.upcomingEventsPart.eventListMenuVM.menuItems.publicEvents.selectedEvents.upcoming;
+									oldOrUpcoming = appViewModel.lobbyPage.upcomingEventsPart.eventListVM.menuItems.publicEvents.selectedEvents.upcoming;
 								}
 
 								oldOrUpcoming.remove( function ( event )

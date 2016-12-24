@@ -191,7 +191,7 @@ fieldset {
 	color: gray !important;
 }
 
-#lobbyTableOfEventsSection {
+#lobbyUpcomingEventsPartInnerWrapper {
 	background: #f7f5f3;
 	padding-bottom: 10px;
 	border-top: 1px solid white;
@@ -299,6 +299,7 @@ fieldset {
 	.display-events-header-menu-title.selected {
 		border-bottom: 1px solid #f7f5f3;
 		color: white;
+		background: #BFBBB7;
 	}
 
 .display-events-overview-body {
@@ -321,11 +322,9 @@ fieldset {
 	}
 
 .oldorupcoming-event-count {
-	padding-right: 20px;
-	position: absolute;
-	right: 0;
-	color: #adadad;
-	font-size: 2em;
+	padding: 0 10px;
+	font-size: 1.4em;
+	line-height: 1;
 }
 
 .oldorupcoming-expand-text {
@@ -339,9 +338,10 @@ fieldset {
 	padding: 4px;
 }
 
-.oldorupcoming-text-container {
+.legend-text {
 	position: absolute;
 	left: 0;
+	padding-left: 10px;
 }
 
 .oldorupcoming-sign {
@@ -830,17 +830,20 @@ li.line-through-text {
 	position: relative;
 }
 
-	.event-list-item:hover {
-		cursor: pointer;
-	}
+.event-list {
+}
 
-	.event-list-item.selected .expand-label {
-		display: block;
-	}
+.event-list-item:hover {
+	cursor: pointer;
+}
 
-	.event-list-item.selected .event-list-item-right {
-		visibility: hidden;
-	}
+.event-list-item.selected .expand-label {
+	display: block;
+}
+
+.event-list-item.selected .event-list-item-right {
+	visibility: hidden;
+}
 
 .list-style-none {
 	list-style: none;
@@ -858,7 +861,7 @@ li.line-through-text {
 	line-height: 1;
 }
 
-.event-list-item-container-list-inner-wrapper {
+.event-list-inner-wrapper {
 	background: #807c77;
 }
 
@@ -902,6 +905,7 @@ li.line-through-text {
 .event-kind-tag {
 	/*width: 100px;*/
 	background: rgb(253, 253, 253);
+	padding: 2px;
 }
 
 

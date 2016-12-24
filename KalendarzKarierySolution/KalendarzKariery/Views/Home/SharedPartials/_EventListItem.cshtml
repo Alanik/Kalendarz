@@ -15,7 +15,7 @@
 			</div>
 		</div>
 		<div class="event-block-expand">
-			@Html.Partial( "_EventBlock", new ViewDataDictionary { { "page", "lobby" } } )
+			@Html.Partial( "_EventBlock", new ViewDataDictionary { { "page", ViewData["page"] } } )
 		</div>
 	</div>
 </li>

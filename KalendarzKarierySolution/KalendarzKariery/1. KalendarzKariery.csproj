@@ -375,7 +375,7 @@
     <Content Include="Views\Home\DetailsPage\_DetailsNotesSummary.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsManageOwnPublicEventsMenuItem.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsMyCalendarMenuItem.cshtml" />
-    <Content Include="Views\Home\LobbyPage\_UpcomingEventsPart.EventListMenu.cshtml" />
+    <Content Include="Views\Home\LobbyPage\_UpcomingEventsPart.EventList.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsEventsMenuContainer.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsDayTable.cshtml" />
     <Content Include="Views\Home\LobbyPage\_NavPart.cshtml" />

@@ -209,15 +209,17 @@ fieldset {
 	position: relative;
 	margin-bottom: 20px;
 	transition-duration: .5s;
+	color:gainsboro;
 }
 
 	.menu-item-container.selected {
 		background: white;
+		border-left:2px solid gainsboro;
+		border-bottom:4px solid gainsboro;
 	}
 
 		.menu-item-container.selected .menu-item-number-upcoming {
 			color: gray;
-			/*background: #f7f7f7;*/
 		}
 
 .menu-item {

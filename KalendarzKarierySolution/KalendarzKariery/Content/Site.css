@@ -102,7 +102,7 @@ fieldset {
 }
 
 #lobbyHeader {
-	background: #f7f5f3;
+	/*background: #f7f5f3;*/
 	position: relative;
 	left: 1px;
 	height: 120px;
@@ -277,48 +277,76 @@ fieldset {
 	margin-bottom: 20px;
 	margin-top: 10px;
 	background: #fdfdfd;
+	border: 2px solid #DCDCDC;
 }
 
 .display-events-overview-header {
 	text-align: left;
-	padding-left: 1px;
 	font-size: 1.4em;
 	position: relative;
 	color: #cacaca;
-	background: #e6e1db;
+	background: #DCDCDC;
 	overflow: hidden;
 	font-family: Raleway-Regular;
+	border-bottom: 2px solid #CCCCCC;
 }
+
+.calendar-month-year-container {
+	line-height: 1;
+	color: gray;
+	vertical-align: bottom;
+	position: relative;
+	top: 4px;
+	display: inline-block;
+}
+
+.calendar-month-name {
+	font-size: 1.4em;
+}
+
+.calendar-month-selectbox-container {
+	width: 100px;
+}
+
+.calendar-month-year-arrows {
+	color: gray;
+	font-size: .6em;
+	padding: 4px;
+	border: none;
+	background: none;
+	display: inline-block;
+}
+
+	.calendar-month-year-arrows:hover {
+		cursor: pointer;
+		color: #A4C6FC;
+	}
+
 
 .display-events-header-menu-title {
 	padding: 4px;
 	position: relative;
-	top: 5px;
+	top: 10px;
 }
 
 	.display-events-header-menu-title.selected {
-		border-bottom: 1px solid #f7f5f3;
-		color: white;
-		background: #BFBBB7;
+		border-bottom: 1px solid #F7F5F3;
+		color: black;
+		text-transform: uppercase;
 	}
-
-.display-events-overview-body {
-	border: 2px solid #f7f5f3;
-}
 
 .display-events-overview-container .legend-oldorupcoming {
 	color: #4E4E48;
 	padding: 4px 0;
 	font-size: 1.4em;
 	text-align: center;
-	margin-left: 100px;
 	margin-top: 1px;
 	margin-bottom: 1px;
 	position: relative;
 }
 
 	.display-events-overview-container .legend-oldorupcoming.open .legend-text {
-		background: #e6e1db;
+		background: #F7F5F3;
 	}
 
 .oldorupcoming-event-count {
@@ -750,7 +778,7 @@ fieldset {
 }
 
 .red-color {
-	color: #FD6969;
+	color: rgb(255, 109, 109);
 }
 
 .div-separator {
@@ -776,6 +804,7 @@ fieldset {
 
 .lobby-overview {
 	border-top: 1px solid white;
+	background: #F7F5F3;
 }
 
 .section-title {
@@ -1050,16 +1079,17 @@ li.line-through-text {
 	margin-bottom: 0;
 }
 
-.sm-label {
-	color: #D4CEC6;
-	font-size: .8em;
-}
-
 .event-block-data-content {
 	padding-left: 20px;
 }
 
-.event-block-body {
+.label {
+	color: #ADABAA;
+}
+
+.sm-label {
+	color: #D4CEC6;
+	font-size: .8em;
 }
 
 .rg-label {
@@ -1099,7 +1129,6 @@ li.line-through-text {
 	padding: 12px;
 	font-size: 1.2em;
 	color: black;
-	background: #FDFDFD;
 }
 
 .dashboard-calendar-list {
@@ -1145,18 +1174,15 @@ li.line-through-text {
 	width: 16px;
 	height: 28px;
 	background: gray;
-	border: 4px solid white;
 }
 
 ::-webkit-scrollbar-thumb {
 	background: #cecece;
-	border: 4px solid white;
 	border-top: 0;
 	border-bottom: 0;
 }
 
 ::-webkit-scrollbar-track {
-	border: 4px solid white;
 }
 
 	::-webkit-scrollbar-track:hover {

@@ -10,14 +10,17 @@
 		display: table;
 		table-layout: fixed;
 		border-spacing: 1px;
-		background: #f7f5f3;
 	}
 
-#calendarMenuHeader {
+#calendarWidgetHeader {
 	display: table-caption;
-	letter-spacing: 1px;
 	padding-left: 20px;
-	height:50px;
+	height: 60px;
+	background: #FBFAF9;
+}
+
+#calendarWidgetBody {
+	display: table-row-group;
 }
 
 .today-day-header-calendar {
@@ -48,22 +51,26 @@
 
 .weekday-container {
 	display: table-row;
-	color: #5a5a5a;
-	background: #f7f5f3;
 }
 
 .weekday {
 	display: table-cell;
 	text-align: center;
-	padding: 10px;
-	background:#efedec;
+	background: #FDFDFD;
+}
+
+.weekday-sunday {
+	display: table-cell;
+	text-align: center;
+	background: #FDFDFD;
+	color: rgb(255, 109, 109) !important;
 }
 
 
 .current-weekday {
 	color: black;
 	text-transform: uppercase;
-	background: #fdfdfd;
+	border: 2px solid rgb(255, 109, 109) !important;
 }
 
 .calendar-hours {
@@ -91,7 +98,6 @@
 
 .other-month-cell {
 	position: relative;
-	border: 1px solid #e4e4e4;
 	background: rgb(247, 247, 247);
 }
 
@@ -180,8 +186,8 @@
 }
 
 .today-cell {
-	background: #ffffff !important;
-	border: 2px solid #808080 !important;
+	background: white !important;
+	border: 2px solid rgb(255, 109, 109) !important;
 }
 
 	.today-cell .cell-span-container {

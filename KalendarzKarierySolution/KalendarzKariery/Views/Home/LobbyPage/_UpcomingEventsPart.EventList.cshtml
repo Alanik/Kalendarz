@@ -2,7 +2,7 @@
 	<div class="legend-oldorupcoming hover-cursor-pointer" data-bind="css: { open: menuItems.publicEvents.showOld() }, click: function () { menuItems.publicEvents.showOld( !menuItems.publicEvents.showOld() ), $root.showSelectedEvents( menuItems.publicEvents.selectedEvents, 'old', selectedEventKindValues ) }">
 		<div class="legend-text">
 			<span>stare</span>
-			<span class="oldorupcoming-event-count" data-bind="text: menuItems.publicEvents.selectedEvents.old().length > 0 ? menuItems.publicEvents.selectedEvents.old().length : ''"></span>
+			<span class="oldorupcoming-event-count" data-bind="text: menuItems.publicEvents.selectedEvents.old().length, visible: menuItems.publicEvents.showOld()"></span>
 		</div>
 		<span class="oldorupcoming-expand-text sm-hidden" data-bind="text: menuItems.publicEvents.showOld() == true ? '[zwiń]' : '[rozwiń]'"></span>
 	</div>
@@ -16,9 +16,9 @@
 }">
 		<div class="legend-text">
 			<span>nadchodzące</span>
-			<span class="oldorupcoming-event-count" data-bind="text: menuItems.publicEvents.selectedEvents.upcoming().length > 0 ? menuItems.publicEvents.selectedEvents.upcoming().length : ''"></span>
+			<span class="oldorupcoming-event-count" data-bind="text: menuItems.publicEvents.selectedEvents.upcoming().length, visible: menuItems.publicEvents.showUpcoming()"></span>
 		</div>
-		<span class="oldorupcoming-expand-text sm-hidden" data-bind="text: menuItems.publicEvents.showUpcoming() == true ? '[zwiń]' : '[rozwiń]'"></span>
+		<span class="oldorupcoming-expand-text sm-hidden" data-bind="text: menuItems.publicEvents.showUpcoming() === true ? '[zwiń]' : '[rozwiń]'"></span>
 	</div>
 	<ul class="event-list" data-bind="foreach: menuItems.publicEvents.selectedEvents.upcoming">
 		@Html.Partial( "_EventListItem", new ViewDataDictionary { { "page", "lobby" } } )

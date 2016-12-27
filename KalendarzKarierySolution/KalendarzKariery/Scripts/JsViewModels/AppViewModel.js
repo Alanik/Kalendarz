@@ -60,69 +60,6 @@
 	self.NOTE_MANAGER = new NoteManager( self );
 
 	//////////////////////////////////////////////////////////
-	//page view models
-	//////////////////////////////////////////////////////////
-
-	self.lobbyPage = {};
-	self.calendarPage = {};
-	self.detailsPage = {};
-
-	self.lobbyPage.navPart = {};
-
-	self.lobbyPage.dashboardPart = {};
-	self.lobbyPage.dashboardPart.recenlyAddedPublicEventsVM = ko.observableArray( [] );
-	self.lobbyPage.dashboardPart.upcomingPublicEventsVM = ko.observableArray( [] );
-	self.lobbyPage.dashboardPart.myCalendarVM = {
-		"today": ko.observableArray( [] ),
-		"tommorow": ko.observableArray( [] ),
-		"dayAfterTommorow": ko.observableArray( [] )
-	}
-	self.lobbyPage.upcomingEventsPart = {};
-	// example
-	//
-	//"1": {
-	//	"upcoming": ko.observable(10),
-	//	"old" : ko.observable(20)
-	//},
-	//"2": {
-	//	"upcoming": ko.observable(10),
-	//	"old" : ko.observable(20)
-	//}
-	self.lobbyPage.upcomingEventsPart.publicEventTreeCountBasedOnEventKindVM = null;
-	self.lobbyPage.upcomingEventsPart.eventListVM = {
-		"menuItems": {
-			publicEvents: {
-				"index": 1,
-				//TODO: maybe change into event tree with arrays grouped by event kind
-				"selectedEvents": {
-					//it is filled with public events when building publicEventTree
-					old: ko.observableArray( [] ),
-					upcoming: ko.observableArray( [] )
-				},
-				"showOld": ko.observable( false ),
-				"showUpcoming": ko.observable( true )
-			}
-		},
-		"selectedMenuItem": ko.observable( 1 ),
-		"selectedEventKindValues": [],
-		"getCurrentSelectedEventsProp": function ()
-		{
-			switch ( this.selectedMenuItem() )
-			{
-				case 1:
-					return this.menuItems.publicEvents.selectedEvents;
-				default:
-					return [];
-			}
-		},
-		"isOpen": ko.observable( false )
-	}
-
-	self.lobbyPage.eventGridPart = {};
-	//it is filled with public events when building publicEventTree
-	self.lobbyPage.eventGridPart.publicEventsVM = ko.observableArray( [] );
-
-	//////////////////////////////////////////////////////////
 	//public properties
 	//////////////////////////////////////////////////////////
 	var year = date.getFullYear(), month = date.getMonth(), day = date.getDate();
@@ -153,6 +90,7 @@
 	}
 
 	self.monthNames = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'];
+	self.monthObjs = [{ name: 'Styczeń', value: 1 }, { name: 'Luty', value: 2 }, { name: 'Marzec', value: 3 }, { name: 'Kwiecień', value: 4 }, { name: 'Maj', value: 5 }, { name: 'Czerwiec', value: 6 }, { name: 'Lipiec', value: 7 }, { name: 'Sierpień', value: 8 }, { name: 'Wrzesień', value: 9 }, { name: 'Październik', value: 10 }, { name: 'Listopad', value: 11 }, { name: 'Grudzień', value: 12 }];
 	self.dayNames = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'];
 	self.userName = userName;
 
@@ -164,13 +102,6 @@
 
 	// is used when adding note
 	self.observableNote = new KKNoteModelObservable();
-
-	//month starts from 1 to 12
-	self.calendarPageDisplayDate = {
-		"year": ko.observable( year ),
-		"month": ko.observable( month + 1 )
-	};
-	self.calendarPageMonthEvents = [];
 
 	self.detailsPageDisplayDate = {
 		"year": ko.observable( year ),
@@ -289,6 +220,83 @@
 		//			}
 	};
 
+	//////////////////////////////////////////////////////////
+	//page view models
+	//////////////////////////////////////////////////////////
+
+	self.lobbyPage = {};
+	self.calendarPage = {};
+	self.detailsPage = {};
+
+	self.lobbyPage.navPart = {};
+	self.lobbyPage.dashboardPart = {};
+	self.lobbyPage.dashboardPart.recenlyAddedPublicEventsVM = ko.observableArray( [] );
+	self.lobbyPage.dashboardPart.upcomingPublicEventsVM = ko.observableArray( [] );
+	self.lobbyPage.dashboardPart.myCalendarVM = {
+		"today": ko.observableArray( [] ),
+		"tommorow": ko.observableArray( [] ),
+		"dayAfterTommorow": ko.observableArray( [] )
+	}
+	self.lobbyPage.upcomingEventsPart = {};
+	// example
+	//
+	//"1": {
+	//	"upcoming": ko.observable(10),
+	//	"old" : ko.observable(20)
+	//},
+	//"2": {
+	//	"upcoming": ko.observable(10),
+	//	"old" : ko.observable(20)
+	//}
+	self.lobbyPage.upcomingEventsPart.publicEventTreeCountBasedOnEventKindVM = null;
+	self.lobbyPage.upcomingEventsPart.eventListVM = {
+		"menuItems": {
+			publicEvents: {
+				"index": 1,
+				//TODO: maybe change into event tree with arrays grouped by event kind
+				"selectedEvents": {
+					//it is filled with public events when building publicEventTree
+					old: ko.observableArray( [] ),
+					upcoming: ko.observableArray( [] )
+				},
+				"showOld": ko.observable( false ),
+				"showUpcoming": ko.observable( true )
+			}
+		},
+		"selectedMenuItem": ko.observable( 1 ),
+		"selectedEventKindValues": [],
+		"getCurrentSelectedEventsProp": function ()
+		{
+			switch ( this.selectedMenuItem() )
+			{
+				case 1:
+					return this.menuItems.publicEvents.selectedEvents;
+				default:
+					return [];
+			}
+		},
+		"isOpen": ko.observable( false )
+	}
+	self.lobbyPage.eventGridPart = {};
+	//it is filled with public events when building publicEventTree
+	self.lobbyPage.eventGridPart.publicEventsVM = ko.observableArray( [] );
+
+	self.calendarPage.calendarPart = {};
+	self.calendarPage.calendarPart.calendarVM = {
+		"displayDate": {
+			year: ko.observable( year ),
+			//month starts from 1 to 12
+			month: ko.observable( month + 1 ),
+			monthName: ko.observable( "" )
+		},
+		"monthEvents": []
+	};
+	self.calendarPage.calendarPart.calendarVM.displayDate.monthName( self.monthNames[self.calendarPage.calendarPart.calendarVM.displayDate.month() - 1] );
+	self.calendarPage.calendarPart.calendarVM.displayDate.month.subscribe( function ( month )
+	{
+		self.calendarPage.calendarPart.calendarVM.displayDate.monthName( self.monthNames[month - 1] );
+		self.redisplayCalendarAtChosenMonth( self.calendarPage.calendarPart.calendarVM.displayDate.month() );
+	} );
 
 	//////////////////////////////////////////////////////////
 	// METHODS 
@@ -960,7 +968,7 @@
 	self.redrawCalendarCell = function ( dayEvents, year, month, day )
 	{
 		var monthClass;
-		var calendarYear = self.calendarPageDisplayDate.year(), calendarMonth = self.calendarPageDisplayDate.month();
+		var calendarYear = self.calendarPage.calendarPart.calendarVM.displayDate.year(), calendarMonth = self.calendarPage.calendarPart.calendarVM.displayDate.month();
 
 		if ( year === calendarYear )
 		{
@@ -1118,26 +1126,26 @@
 	{
 		var cellDay, $cell, $cellPlaceholder;
 
-		if ( event.startDate.year == self.calendarPageDisplayDate.year() )
+		if ( event.startDate.year == self.calendarPage.calendarPart.calendarVM.displayDate.year() )
 		{
-			if ( event.startDate.month === self.calendarPageDisplayDate.month() )
+			if ( event.startDate.month === self.calendarPage.calendarPart.calendarVM.displayDate.month() )
 			{
 				cellDay = ".day" + parseInt( event.startDate.day, 10 );
 			}
-			else if ( event.startDate.month < self.calendarPageDisplayDate.month() )
+			else if ( event.startDate.month < self.calendarPage.calendarPart.calendarVM.displayDate.month() )
 			{
 				cellDay = ".prev-month-cell.other-month-day" + parseInt( event.startDate.day, 10 );
 			}
-			else if ( event.startDate.month > self.calendarPageDisplayDate.month() )
+			else if ( event.startDate.month > self.calendarPage.calendarPart.calendarVM.displayDate.month() )
 			{
 				cellDay = ".next-month-cell.other-month-day" + parseInt( event.startDate.day, 10 );
 			}
 		}
-		else if ( event.startDate.year > self.calendarPageDisplayDate.year() )
+		else if ( event.startDate.year > self.calendarPage.calendarPart.calendarVM.displayDate.year() )
 		{
 			cellDay = ".next-month-cell.other-month-day" + parseInt( event.startDate.day, 10 );
 		}
-		else if ( event.startDate.year < self.calendarPageDisplayDate.year() )
+		else if ( event.startDate.year < self.calendarPage.calendarPart.calendarVM.displayDate.year() )
 		{
 			cellDay = ".prev-month-cell.other-month-day" + parseInt( event.startDate.day, 10 );
 		}
@@ -1228,32 +1236,32 @@
 
 		if ( $cell.hasClass( "prev-month-cell" ) )
 		{
-			if ( self.calendarPageDisplayDate.month() == 1 )
+			if ( self.calendarPage.calendarPart.calendarVM.displayDate.month() == 1 )
 			{
-				self.detailsPageDisplayDate.year( self.calendarPageDisplayDate.year() - 1 );
+				self.detailsPageDisplayDate.year( self.calendarPage.calendarPart.calendarVM.displayDate.year() - 1 );
 				self.detailsPageDisplayDate.month( 12 );
 			} else
 			{
-				self.detailsPageDisplayDate.year( self.calendarPageDisplayDate.year() );
-				self.detailsPageDisplayDate.month( self.calendarPageDisplayDate.month() - 1 );
+				self.detailsPageDisplayDate.year( self.calendarPage.calendarPart.calendarVM.displayDate.year() );
+				self.detailsPageDisplayDate.month( self.calendarPage.calendarPart.calendarVM.displayDate.month() - 1 );
 			}
 
 		} else if ( $cell.hasClass( "next-month-cell" ) )
 		{
-			if ( self.calendarPageDisplayDate.month() == 12 )
+			if ( self.calendarPage.calendarPart.calendarVM.displayDate.month() == 12 )
 			{
-				self.detailsPageDisplayDate.year( self.calendarPageDisplayDate.year() + 1 );
+				self.detailsPageDisplayDate.year( self.calendarPage.calendarPart.calendarVM.displayDate.year() + 1 );
 				self.detailsPageDisplayDate.month( 1 );
 			} else
 			{
-				self.detailsPageDisplayDate.year( self.calendarPageDisplayDate.year() )
-				self.detailsPageDisplayDate.month( self.calendarPageDisplayDate.month() + 1 );
+				self.detailsPageDisplayDate.year( self.calendarPage.calendarPart.calendarVM.displayDate.year() )
+				self.detailsPageDisplayDate.month( self.calendarPage.calendarPart.calendarVM.displayDate.month() + 1 );
 			}
 		}
 		else
 		{
-			self.detailsPageDisplayDate.year( self.calendarPageDisplayDate.year() );
-			self.detailsPageDisplayDate.month( self.calendarPageDisplayDate.month() );
+			self.detailsPageDisplayDate.year( self.calendarPage.calendarPart.calendarVM.displayDate.year() );
+			self.detailsPageDisplayDate.month( self.calendarPage.calendarPart.calendarVM.displayDate.month() );
 		}
 
 		var notes = self.NOTE_MANAGER.getNotesForGivenDay( self.detailsPageDisplayDate.year(), self.detailsPageDisplayDate.month(), self.detailsPageDisplayDate.day() )
@@ -1824,7 +1832,7 @@
 
 	self.expandEventOverviewItemOnClick = function ( element )
 	{
-		var $element = $( element );	
+		var $element = $( element );
 		var $expandDiv = $element.siblings( '.event-block-expand' );
 		$element.toggleClass( "selected" );
 
@@ -2098,8 +2106,8 @@
 		var dayNumber = $( element ).siblings( ".day" ).text();
 		dayNumber = dayNumber < 10 ? '0' + dayNumber : dayNumber;
 
-		var currMonth = self.calendarPageDisplayDate.month();
-		var currYear = self.calendarPageDisplayDate.year();
+		var currMonth = self.calendarPage.calendarPart.calendarVM.displayDate.month();
+		var currYear = self.calendarPage.calendarPart.calendarVM.displayDate.year();
 
 		var $cell = $( element ).closest( ".calendar-cell" );
 		if ( $cell.hasClass( "prev-month-cell" ) )
@@ -2214,102 +2222,38 @@
 	self.redisplayCalendarAtChosenMonth = function ( monthNum )
 	{
 		var $calendar = $( "#calendar" );
-		var $addNewEvent = $( "#addNewEventContainer" );
+		var $calendarWidgetBody = $( "#calendarWidgetBody" );
 
 		self.UTILS.loader.show( false );
 
-		$addNewEvent.detach();
-
-		$calendar.find( ".month-name-header-container .current-month-name-calendar" ).removeClass( "current-month-name-calendar" );
-		$calendar.find( ".month-name-header-container:eq( '" + ( monthNum - 1 ) + "' )" ).addClass( "current-month-name-calendar" );
+		ko.unapplyBindings( $calendarWidgetBody[0] );
+		$calendarWidgetBody.empty();
 
 		//calendar widget accepts months as 0 - 11 format
-		$calendar.calendarWidget( { month: monthNum - 1, year: self.calendarPageDisplayDate.year() } );
-		ko.unapplyBindings( $calendar[0] );
-		ko.applyBindings( self, $calendar[0] );
+		$calendarWidgetBody.calendarWidget( { month: monthNum - 1, year: self.calendarPage.calendarPart.calendarVM.displayDate.year() } );
 
-		$calendar.append( '<div id="calendar-navigation-arrows-left"><img src="Images/Nav/arrowLeft.png" alt="arrow-left"/></div>' );
-		$calendar.append( '<div id="calendar-navigation-arrows-right"><img src="Images/Nav/arrowRight.png" alt="arrow-Right"/></div>' );
-		$addNewEvent.prependTo( $calendar );
-
-		var $leftSideCalendar = $( "#leftSideCalendar" );
-		var $rightSideCalendar = $( "#rightSideCalendar" );
-
-		$( "#calendar-navigation-arrows-left" ).hover( function ()
-		{
-			$( this ).css( {
-				"cursor": "pointer"
-			} );
-
-			$leftSideCalendar.css( {
-				"backgroundPosition": "left"
-			} );
-		}, function ()
-		{
-			$( this ).css( {
-				"cursor": "auto"
-			} );
-			$leftSideCalendar.css( {
-				"backgroundPosition": "right"
-			} );
-		} );
-
-		$( "#calendar-navigation-arrows-right" ).hover( function ()
-		{
-			$( this ).css( {
-				"cursor": "pointer"
-			} );
-
-			$rightSideCalendar.css( {
-				"backgroundPosition": "right"
-			} );
-		}, function ()
-		{
-			$( this ).css( {
-				"cursor": "auto"
-			} );
-			$rightSideCalendar.css( {
-				"backgroundPosition": "left"
-
-			} );
-		} );
-
-		$( "#calendar .calendar-year-arrows" ).hover( function ()
-		{
-			$( this ).css( {
-				"cursor": "pointer"
-			} );
-
-		}, function ()
-		{
-			$( this ).css( {
-				"cursor": "auto"
-			} );
-
-		} );
-
-		self.calendarPageDisplayDate.month( monthNum );
+		ko.applyBindings( self, $calendarWidgetBody[0] );
 
 		for ( var i = -1; i < 2; i++ )
 		{
 			//December previous year
-			if ( self.calendarPageDisplayDate.month() + i == 0 )
+			if ( self.calendarPage.calendarPart.calendarVM.displayDate.month() + i == 0 )
 			{
-				self.calendarPageMonthEvents = self.EVENT_MANAGER.getEventsForGivenMonth( self.calendarPageDisplayDate.year() - 1, 12, self.myEventTree );
+				self.calendarPage.calendarPart.calendarVM.monthEvents = self.EVENT_MANAGER.getEventsForGivenMonth( self.calendarPage.calendarPart.calendarVM.displayDate.year() - 1, 12, self.myEventTree );
 			}
 				//January next year
-			else if ( self.calendarPageDisplayDate.month() + i == 13 )
+			else if ( self.calendarPage.calendarPart.calendarVM.displayDate.month() + i == 13 )
 			{
-				self.calendarPageMonthEvents = self.EVENT_MANAGER.getEventsForGivenMonth( self.calendarPageDisplayDate.year() + 1, 1, self.myEventTree );
+				self.calendarPage.calendarPart.calendarVM.monthEvents = self.EVENT_MANAGER.getEventsForGivenMonth( self.calendarPage.calendarPart.calendarVM.displayDate.year() + 1, 1, self.myEventTree );
 			}
 				//all other months
 			else
 			{
-				self.calendarPageMonthEvents = self.EVENT_MANAGER.getEventsForGivenMonth( self.calendarPageDisplayDate.year(), self.calendarPageDisplayDate.month() + i, self.myEventTree );
+				self.calendarPage.calendarPart.calendarVM.monthEvents = self.EVENT_MANAGER.getEventsForGivenMonth( self.calendarPage.calendarPart.calendarVM.displayDate.year(), self.calendarPage.calendarPart.calendarVM.displayDate.month() + i, self.myEventTree );
 			}
 
 			//draw to calendar
-			ko.utils.arrayForEach( self.calendarPageMonthEvents, function ( event )
+			ko.utils.arrayForEach( self.calendarPage.calendarPart.calendarVM.monthEvents, function ( event )
 			{
 				self.drawEventToCalendar( event );
 			} );
@@ -2320,8 +2264,8 @@
 
 	self.redisplayCalendarAtChosenYear = function ( year )
 	{
-		self.calendarPageDisplayDate.year( year );
-		self.redisplayCalendarAtChosenMonth( self.calendarPageDisplayDate.month() );
+		self.calendarPage.calendarPart.calendarVM.year( year );
+		self.redisplayCalendarAtChosenMonth( self.calendarPage.calendarPart.calendarVM.displayDate.month() );
 	};
 
 	self.showEventBlockInfoOnDetailsPageEventRectangleClick = function ( id )

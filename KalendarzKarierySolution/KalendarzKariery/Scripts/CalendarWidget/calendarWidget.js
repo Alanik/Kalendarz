@@ -1,10 +1,10 @@
 ﻿( function ( $ )
 {
-	function calendarWidget( $calendar, params )
+	function calendarWidget( $placeholder, params )
 	{
 		"use strict";
 
-		var currentMonthPrefix, currentWeekdayClass, counter;
+		var currentMonthPrefix, weekDayClass, currentWeekdayClass, counter;
 		var days, firstDay, prev_m, next_m, prev_days;
 		var weekdayModulo, currentDay, dayPlusOne, dayCounter = 0;
 
@@ -27,40 +27,22 @@
 
 		var calendar = '';
 
-		// START calendarMenuHeader
-		calendar += ( '<div id="calendarMenuHeader">' );
-		calendar += ( '<div class="month-name-header-container">' );
-		calendar += ( '<div class="today-day-header-calendar">' + today + '</div>' );
-
-		//for ( var i = 0; i < opts.monthNames.length; i++ )
-		//{
-		//	currentMonthPrefix = ( i == opts.month ? "current-" : '' );
-		//	calendar += ( '<div class="month-name-container ' + currentMonthPrefix + 'month-name-calendar"><span data-bind="click: function(){ $root.redisplayCalendarAtChosenMonth(' + ( i + 1 ) + ') }">' + opts.monthNames[i] + '</span></div>' );
-		//}
-
-		calendar += ( '<div class="month-name-container current-month-name-calendar"><span data-bind="click: function(){ $root.redisplayCalendarAtChosenMonth(' + ( opts.month + 1 ) + ') }">' + opts.monthNames[opts.month] + '</span></div>' );
-
-		calendar += ( '<div class="calendar-header-year-container"><span class="year-name-container">' + opts.year );
-		calendar += ( '<div class="calendar-year-arrows-container"><div id="calendarHeaderYearArrowUp" class="calendar-year-arrows" data-bind="click: function(){ $root.redisplayCalendarAtChosenYear( $root.calendarPageDisplayDate.year() + 1 )}"></div>' );
-		calendar += ( '<div id="calendarHeaderYearArrowDown" class="calendar-year-arrows" data-bind="click: function(){ $root.redisplayCalendarAtChosenYear( $root.calendarPageDisplayDate.year() - 1 )}"></div></div></div>' );
-		calendar += ( '</span></div>' );
-		calendar += ( '</div>' );
-		// END calendarMenuHeader
-
 		// START weekday-container
 		calendar += ( '<div class="weekday-container">' );
 		for ( var d = 0; d < 7; d++ )
 		{
-			if ( weekday == 0 && d == 6)
+			if ( d == 6 )
 			{
-				// sunday is 0 in javascript date.getDate()
-				currentWeekdayClass = 'current-weekday';
-			} else
+				weekDayClass = 'weekday-sunday'
+				currentWeekdayClass = ( weekday === 0 ? 'current-weekday' : '' );
+			}
+			else
 			{
+				weekDayClass = 'weekday';
 				currentWeekdayClass = ( weekday - 1 === d ? 'current-weekday' : '' );
 			}
 
-			calendar += '<div class="weekday ' + currentWeekdayClass + '"><div class="sm-hide">' + opts.dayNames[d] + '</div><div class="sm-show rg-hide">' + opts.shortDayNames[d] + '</div></div>';
+			calendar += '<div class="' + weekDayClass + ' ' + currentWeekdayClass + '"><div class="sm-hide">' + opts.dayNames[d] + '</div><div class="sm-show rg-hide">' + opts.shortDayNames[d] + '</div></div>';
 		}
 		calendar += '</div>';
 		// END weekday-container
@@ -147,10 +129,10 @@
 		calendar += ( '</div>' );
 		// END calendar
 
-		$calendar.html( calendar );
+		$placeholder.append( calendar );
 
 		// draw lines
-		$calendar.find( '.calendar-cell' ).each( function ( index )
+		$placeholder.find( '.calendar-cell' ).each( function ( index )
 		{
 			var $placeholder = $( this ).find( ".calendar-cell-placeholder" );
 			var cellLines = '';
@@ -166,7 +148,7 @@
 		// add today-cell class to today's calendar cell
 		if ( opts.year == thisyear && opts.month == thismonth )
 		{
-			$calendar.find( '.day' + today ).addClass( "today-cell" );
+			$placeholder.find( '.day' + today ).addClass( "today-cell" );
 		}
 
 		function getDaysInMonth( month, year )

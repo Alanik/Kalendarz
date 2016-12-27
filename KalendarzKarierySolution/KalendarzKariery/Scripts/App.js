@@ -111,7 +111,7 @@
 	initializeDzieuoPlugin: function ( $dzieuo )
 	{
 		$dzieuo.dzieuo( {
-			row_scroll_padding_top: 30
+			row_scroll_padding_top: 20
 		} );
 	},
 	displaySiteAfterLoad: function ( siteLoadingTextAnimationInterval, $dzieuo )
@@ -135,7 +135,7 @@
 	{
 		"use strict";
 
-		var $calendar = $( "#calendarWidget" );
+		var $calendarWidgetBody = $( "#calendarWidgetBody" );
 		var $details = $( "#details" );
 		var $lobby = $( "#lobby" );
 
@@ -145,7 +145,7 @@
 		month = date.getMonth();
 		day = date.getDate();
 
-		$calendar.calendarWidget( {
+		$calendarWidgetBody.calendarWidget( {
 			month: month, year: year
 		} );
 
@@ -180,8 +180,8 @@
 			//draw events to the calendar
 			/////////////////////////////////////////////////////////////////////////
 
-			var yearProp = appvm.myEventTree[appvm.calendarPageDisplayDate.year()];
-			var events, month, nextMonth, prevMonth, event, calendarPageMonth = appvm.calendarPageDisplayDate.month();
+			var yearProp = appvm.myEventTree[appvm.calendarPage.calendarPart.calendarVM.displayDate.year()];
+			var events, month, nextMonth, prevMonth, event, calendarPageMonth = appvm.calendarPage.calendarPart.calendarVM.displayDate.month();
 
 			// current month
 			if ( yearProp )
@@ -202,10 +202,10 @@
 				}
 			}
 			// prev month
-			if ( appvm.calendarPageDisplayDate.month() == 1 )
+			if ( appvm.calendarPage.calendarPart.calendarVM.displayDate.month() == 1 )
 			{
 				calendarPageMonth = 12;
-				yearProp = appvm.myEventTree[appvm.calendarPageDisplayDate.year() - 1];
+				yearProp = appvm.myEventTree[appvm.calendarPage.calendarPart.calendarVM.displayDate.year() - 1];
 			}
 			else
 			{
@@ -231,10 +231,10 @@
 			}
 
 			// next month
-			if ( appvm.calendarPageDisplayDate.month() == 12 )
+			if ( appvm.calendarPage.calendarPart.calendarVM.displayDate.month() == 12 )
 			{
 				calendarPageMonth = 1;
-				yearProp = appvm.myEventTree[appvm.calendarPageDisplayDate.year() + 1];
+				yearProp = appvm.myEventTree[appvm.calendarPage.calendarPart.calendarVM.displayDate.year() + 1];
 			}
 			else
 			{
@@ -341,7 +341,7 @@
 		//                //TODO: not finished set dynamic height of calendar cells (calendar's height to be as browser window)
 		//                //setTimeout(function(){				
 
-		//                //	var height1 = $("#calendar #calendarMenuHeader").height();
+		//                //	var height1 = $("#calendar #calendarWidgetHeader").height();
 		//                //	var height2 = $("#calendar .weekday-container").height();
 		//                //	var height3 = $("#calendar .calendar-hours-placeholder").first().height();
 		//                //	var height4 = 42;

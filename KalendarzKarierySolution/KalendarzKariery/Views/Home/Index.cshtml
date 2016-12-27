@@ -7,74 +7,32 @@
 	</section>
 
 	<section id="calendar" class="dz-column">
-		<div id="calendarWidget" class="dz-row" style="margin-bottom: 0px; top: 0;">
-
-			<!-- Calendar is added dynamically (calendarWidget.js)   -->
-
+		<div id="calendarWidget" class="dz-row calendar-part" data-bind="with: $root.calendarPage.calendarPart.calendarVM" style="margin-bottom: 0px; top: 0;">
+			<div id="calendarWidgetHeader">
+				<div class="inline-block calendar-month-selectbox-container">
+					<label for="calendarMonthSelectBox" class="block label">Miesiąc: </label>
+					<select id="calendarMonthSelectBox" name="calendarMonthSelectBox" data-bind="options: $root.monthObjs, optionsText: 'name', optionsValue: 'value', value: displayDate.month"></select>
+				</div>
+				<div class="calendar-month-year-container">
+					<button class="calendar-month-year-arrows">&#9660;</button>
+					<span class="calendar-month-name" data-bind="text: displayDate.monthName"></span>
+					<button class="calendar-month-year-arrows">&#9650</button>
+				</div>
+				<div class="calendar-month-year-container">
+					<button class="calendar-month-year-arrows">&#9660;</button>
+					<span data-bind="text: displayDate.year"></span>
+					<button class="calendar-month-year-arrows">&#9650</button>
+				</div>
+			</div>
+			<div id="calendarWidgetBody">
+				<!-- Calendar is added dynamically (calendarWidget.js)   -->
+			</div>
 		</div>
 	</section>
 
 	<section id="details" class="dz-column">
 		@Html.Partial( "_Details", @Model.RegisterViewModel )
 	</section>
-
 </div>
 
-@*@Scripts.Render("~/bundles/scripts")*@
-
-@Scripts.Render( "~/bundles/jquery" )
-@Scripts.Render( "~/bundles/jqueryval" )
-@Scripts.Render( "~/bundles/modernizr" )
-@Scripts.Render( "~/bundles/knockout" )
-
-<script src="~/Scripts/Lib/SpinJS/spin.min.js"></script>
-<script src="~/Scripts/Lib/Masonry/masonry-docs.min.js"></script>
-<script src="~/Scripts/KnockoutCustomBindings/KOCustomBindings.js"></script>
-<script src="~/Scripts/CalendarWidget/calendarWidget.js"></script>
-
-<script src="~/Scripts/Lib/DzieuoJs/jquery.animate-enhanced.min.js"></script>
-<script src="~/Scripts/Lib/DzieuoJs/dzieuo.js"></script>
-
-<script src="~/Scripts/JSModels/KKEventModel.js"></script>
-<script src="~/Scripts/JSModels/KKEventModelObservable.js"></script>
-<script src="~/Scripts/JSModels/KKNoteModel.js"></script>
-<script src="~/Scripts/JSModels/KKNoteModelObservable.js"></script>
-<script src="~/Scripts/JSModels/KKDateModel.js"></script>
-<script src="~/Scripts/JSModels/KKEventDateModel.js"></script>
-<script src="~/Scripts/JSModels/KKEventDateModelObservable.js"></script>
-<script src="~/Scripts/JSViewModels/AppViewModel.js"></script>
-
-<script src="~/Scripts/JSUtils/EventColorHelper.js"></script>
-<script src="~/Scripts/JSUtils/TreeBuilder.js"></script>
-<script src="~/Scripts/JSUtils/WebApiCaller.js"></script>
-<script src="~/Scripts/JSUtils/SimpleFilt.js"></script>
-
-<script src="~/Scripts/JSManagers/EventManager.js"></script>
-<script src="~/Scripts/JSManagers/NoteManager.js"></script>
-
-<script src="~/Scripts/app.js"></script>
-
-<script type="text/javascript">
-
-	$(function () { 
-		"use strict";
-		var APP = App, siteLoadingTextAnimationInterval = {interval : null};
-		var indexViewModel = @Html.Raw( Json.Encode( @Model.IndexViewModel ) );
-		var userName = '@User.Identity.Name.ToLower()';
-		var $dzieuo = $("#dzieuo");
-
-		//////////////////////////
-		//Start of application
-		//////////////////////////
-
-		APP.initializeSiteLoadingText();
-		APP.animateSiteLoadingText(siteLoadingTextAnimationInterval);
-		APP.initializeJQueryExtentionMethods(SIMPLE_FILT());
-		APP.initializeDzieuoPlugin($dzieuo);
-		APP.initializeApp(indexViewModel, userName, APP.initializeLoader());
-		APP.setPagesHeights();
-		APP.displaySiteAfterLoad(siteLoadingTextAnimationInterval, $dzieuo);	
-	});
-
-</script>
 

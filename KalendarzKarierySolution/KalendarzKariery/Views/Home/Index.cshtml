@@ -14,14 +14,14 @@
 					<select id="calendarMonthSelectBox" name="calendarMonthSelectBox" data-bind="options: $root.monthObjs, optionsText: 'name', optionsValue: 'value', value: displayDate.month"></select>
 				</div>
 				<div class="calendar-month-year-container">
-					<button class="calendar-month-year-arrows">&#9660;</button>
+					<button class="calendar-month-year-arrows" data-bind="click: function () { $root.redisplayCalendarAtChosenMonth( displayDate.month() - 1 ) } ">&#9660;</button>
 					<span class="calendar-month-name" data-bind="text: displayDate.monthName"></span>
-					<button class="calendar-month-year-arrows">&#9650</button>
+					<button class="calendar-month-year-arrows" data-bind="click: function () { $root.redisplayCalendarAtChosenMonth( displayDate.month() + 1 ) }">&#9650</button>
 				</div>
 				<div class="calendar-month-year-container">
-					<button class="calendar-month-year-arrows">&#9660;</button>
+					<button class="calendar-month-year-arrows" data-bind="click: function () { $root.redisplayCalendarAtChosenYear( displayDate.year() - 1 ) } ">&#9660;</button>
 					<span data-bind="text: displayDate.year"></span>
-					<button class="calendar-month-year-arrows">&#9650</button>
+					<button class="calendar-month-year-arrows" data-bind="click: function () { $root.redisplayCalendarAtChosenYear( displayDate.year() + 1 ) } ">&#9650</button>
 				</div>
 			</div>
 			<div id="calendarWidgetBody">

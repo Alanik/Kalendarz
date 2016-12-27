@@ -45,7 +45,7 @@
 					{
 						if ( shouldHideOverlay )
 						{
-							$overlay.fadeOut();
+							$overlay.hide();
 						}
 
 						this.spinner.stop();
@@ -775,7 +775,7 @@
 	{
 		var $details = $( "#details" );
 
-		self.UTILS.loader.$overlay.show();
+		self.UTILS.loader.$overlay.show( true );
 
 		var $addEventContainer = $( "#addNewEventContainer" );
 		$addEventContainer.find( ".popupbox-header-title" ).text( "Edycja wydarzenia" );
@@ -2087,7 +2087,7 @@
 	{
 		var $calendar = $( "#calendar" );
 		$( element ).hide();
-		self.UTILS.loader.$overlay.show();
+		self.UTILS.loader.$overlay.show( true );
 
 		//////////////////////////////////////////////////
 		var $addEventContainer = $( "#addNewEventContainer" );
@@ -2156,7 +2156,7 @@
 		self.resetAndSetPrivacyLvlToObservableEvent( day, month, self.todayDate.year, "public", self.eventPrivacyLevels["public"] );
 
 		///////////////////////////////////////////////////
-		self.UTILS.loader.$overlay.show();
+		self.UTILS.loader.$overlay.show( true );
 
 		var $addEventContainer = $( "#addNewEventContainer" );
 		$addEventContainer.find( ".popupbox-header-title" ).text( "Stwórz publiczne wydarzenie" );
@@ -2219,10 +2219,27 @@
 		self.observableEvent.privacyLevel.value = privacyValue;
 	}
 
-	self.redisplayCalendarAtChosenMonth = function ( monthNum )
+	self.redisplayCalendarAtChosenMonth = function ( month )
 	{
-		var $calendar = $( "#calendar" );
-		var $calendarWidgetBody = $( "#calendarWidgetBody" );
+		var $calendar, $calendarWidgetBody;
+		if ( month == 0 )
+		{
+			// from january to december previous year
+			self.calendarPage.calendarPart.calendarVM.displayDate.month( 12 );
+			self.redisplayCalendarAtChosenYear( self.calendarPage.calendarPart.calendarVM.displayDate.year() - 1 );
+			return;
+		} else if ( month == 13 )
+		{
+			//from december to january next year
+			self.calendarPage.calendarPart.calendarVM.displayDate.month( 1 );
+			self.redisplayCalendarAtChosenYear( self.calendarPage.calendarPart.calendarVM.displayDate.year() + 1 );
+			return;
+		}
+
+		self.calendarPage.calendarPart.calendarVM.displayDate.month( month );
+
+		$calendar = $( "#calendar" );
+		$calendarWidgetBody = $( "#calendarWidgetBody" );
 
 		self.UTILS.loader.show( false );
 
@@ -2230,7 +2247,7 @@
 		$calendarWidgetBody.empty();
 
 		//calendar widget accepts months as 0 - 11 format
-		$calendarWidgetBody.calendarWidget( { month: monthNum - 1, year: self.calendarPage.calendarPart.calendarVM.displayDate.year() } );
+		$calendarWidgetBody.calendarWidget( { month: month - 1, year: self.calendarPage.calendarPart.calendarVM.displayDate.year() } );
 
 		ko.applyBindings( self, $calendarWidgetBody[0] );
 
@@ -2264,7 +2281,7 @@
 
 	self.redisplayCalendarAtChosenYear = function ( year )
 	{
-		self.calendarPage.calendarPart.calendarVM.year( year );
+		self.calendarPage.calendarPart.calendarVM.displayDate.year( year );
 		self.redisplayCalendarAtChosenMonth( self.calendarPage.calendarPart.calendarVM.displayDate.month() );
 	};
 

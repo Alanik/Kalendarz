@@ -31,7 +31,6 @@ namespace KalendarzKarieryData.Repository.KalendarzKarieryRepository
 		ICollection<object> GetEventKindsBasedOnUserName( string name );
 		PrivacyLevel GetPrivacyLevelByValue( int id );
 		EventKind GetEventKindByValue( int id );
-		ICollection<JsonEventModel> GetAllNews();
 		ICollection<JsonEventModel> GetUpcomingEvents( int numOfEvents, PrivacyLevelEnum privacyLevel );
 		object GetMyEventCountTree( int userId );
 		object GetPublicEventCountTree();

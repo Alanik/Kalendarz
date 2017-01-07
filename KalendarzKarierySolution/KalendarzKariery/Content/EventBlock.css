@@ -34,13 +34,6 @@
 	background: #f3f3f3;
 }
 
-#detailsEventBlockList .event-kind-tag {
-	line-height: 1.5;
-	font-size: 1em;
-	float: right;
-	text-align: center;
-}
-
 #detailsEventBlockList .event-block-body {
 	color: rgb(220, 220, 220);
 	padding: 10px;

@@ -125,6 +125,7 @@ fieldset {
 #calendarDayDetailsContainer {
 	padding-top: 20px;
 	border-top: 1px solid white;
+	background: #F7F5F3;
 }
 
 #loginBarContainer {
@@ -162,14 +163,11 @@ fieldset {
 
 .dz-row {
 	position: relative;
-	/*margin-bottom: 20px;*/
-	/*top: 20px;*/
 }
 
 .lobby-login-text {
 	font-size: .8em;
 	margin-right: 6px;
-	/*vertical-align: bottom;*/
 }
 
 #lobbyNavContainer {
@@ -191,17 +189,12 @@ fieldset {
 	color: gray !important;
 }
 
-#lobbyUpcomingEventsPartInnerWrapper {
-	background: #f7f5f3;
-	padding-bottom: 10px;
-	border-top: 1px solid white;
-}
-
 .events-menu-container {
 	text-align: center;
 	padding-top: 10px;
 	float: right;
 	margin-right: 10px;
+	margin-bottom: 10px;
 }
 
 .menu-item-container {
@@ -209,13 +202,13 @@ fieldset {
 	position: relative;
 	margin-bottom: 20px;
 	transition-duration: .5s;
-	color:gainsboro;
+	color: gainsboro;
 }
 
 	.menu-item-container.selected {
 		background: white;
-		border-left:2px solid gainsboro;
-		border-bottom:4px solid gainsboro;
+		border-left: 2px solid #EFECE8;
+		border-bottom: 2px solid #EFECE8;
 	}
 
 		.menu-item-container.selected .menu-item-number-upcoming {
@@ -232,7 +225,7 @@ fieldset {
 }
 
 .border-item {
-	border-bottom: 8px solid;
+	border-bottom: 4px solid;
 }
 
 /*border-colors*/
@@ -277,8 +270,6 @@ fieldset {
 	width: 98%;
 	margin: 0 auto;
 	margin-bottom: 20px;
-	margin-top: 10px;
-	background: #fdfdfd;
 	border: 2px solid #DCDCDC;
 }
 
@@ -287,7 +278,7 @@ fieldset {
 	font-size: 1.4em;
 	position: relative;
 	color: #cacaca;
-	background: #DCDCDC;
+	background: #E0E0E0;
 	overflow: hidden;
 	font-family: Raleway-Regular;
 	border-bottom: 2px solid #CCCCCC;
@@ -347,8 +338,7 @@ fieldset {
 	position: relative;
 }
 
-	.display-events-overview-container .legend-oldorupcoming.open .legend-text {
-		background: #F7F5F3;
+	.display-events-overview-container .legend-oldorupcoming.open {
 	}
 
 .oldorupcoming-event-count {
@@ -363,9 +353,12 @@ fieldset {
 }
 
 .event-list-item-container {
+	border-left: 2px solid #eceae7;
 	border-bottom: 2px solid #eceae7;
 	overflow: hidden;
 	padding: 4px;
+	background: #FDFDFD;
+	margin-bottom: 4px;
 }
 
 .legend-text {
@@ -432,6 +425,13 @@ fieldset {
 	top: 30px !important;
 }
 
+.event-tiles-wrapper {
+	background: #f7f5f3;
+	padding-bottom: 10px;
+	border-top: 1px solid white;
+	overflow: hidden;
+}
+
 /*Details page*/
 #details {
 	top: 30px !important;
@@ -440,23 +440,10 @@ fieldset {
 	#details .dz-column-inner-wrapper {
 		width: 83%;
 		margin: 0 auto;
-		background: #f7f6f5;
+		background: #FBFAF9;
 		border: 1px solid #F1F1E7;
 		border-top: 0;
 	}
-
-#detailsPanel {
-	padding-top: 20px;
-	overflow: hidden;
-	border-top: 1px solid white;
-}
-
-#todayDateAndTimeContainer {
-	height: 200px;
-	width: 200px;
-	background: gray;
-	display: none;
-}
 
 #detailsDayTable {
 	position: relative;
@@ -470,10 +457,8 @@ fieldset {
 	#detailsDayTable .details-day-table-head {
 		overflow: hidden;
 		text-align: left;
-		color: #86837e;
+		color: #D0D0D0;
 		padding-top: 10px;
-		padding-bottom: 10px;
-		font-size: 15px;
 	}
 
 		#detailsDayTable .details-day-table-head div {
@@ -519,7 +504,7 @@ fieldset {
 
 .day-display-date-container {
 	font-size: 2em;
-	color: #c5c5c5;
+	color: #8E8E8E;
 	padding-bottom: 10px;
 	padding-left: 20px;
 }
@@ -546,12 +531,15 @@ fieldset {
 	width: 100%;
 	margin: 0 auto;
 	box-sizing: border-box;
+	padding-top: 20px;
 }
 
 #detailsEventBlockList {
 	width: 49%;
 	display: inline-block;
-	background: #dcdcdc;
+	box-sizing: border-box;
+	padding-left: 0;
+	margin-top: 0;
 }
 
 #notesContainer {
@@ -592,13 +580,6 @@ fieldset {
 	width: 100%;
 	height: 80px;
 	box-sizing: border-box;
-	font-size: 1.4em;
-	background: rgb(243, 243, 243);
-	padding: 10px;
-	border: 2px solid #dcdcdc;
-	overflow: auto;
-	-webkit-appearance: none;
-	outline: 0;
 	color: #000000;
 }
 
@@ -617,11 +598,16 @@ fieldset {
 
 
 #notesListContainer {
-	padding: 20px 20px;
+	padding-top: 20px;
 }
 
 .note-content {
-	border-bottom: 1px solid gainsboro;
+	border: 1px solid #DCDAD8;
+	border-bottom: 2px solid #DCDAD8;
+	border-left: 2px solid #DCDAD8;
+	margin-bottom: 4px;
+	padding: 4px;
+	background: rgb(234, 234, 234);
 }
 
 .edit-mode-note-container {
@@ -767,7 +753,7 @@ fieldset {
 	padding: 0 20px;
 	padding-bottom: 4px;
 	color: white;
-	background: #adadad;
+	background: #5F5F5F;
 	font-size: 1.2em;
 }
 
@@ -838,7 +824,7 @@ li.line-through-text {
 .overview-events-list-container {
 	border: 2px solid #e6e1db;
 	margin: 1px;
-	background: #fdfdfd;
+	background: #F7F5F3;
 }
 
 .enlarged-font {
@@ -862,6 +848,9 @@ li.line-through-text {
 }
 
 .event-list {
+	padding-left: 4px;
+	padding-right: 4px;
+	margin-bottom: 0;
 }
 
 .event-list-item:hover {
@@ -934,13 +923,12 @@ li.line-through-text {
 }
 
 .event-kind-tag {
-	/*width: 100px;*/
 	background: rgb(253, 253, 253);
-	padding: 2px;
+	line-height: 1.5;
 }
 
 
-.dziennik-menu-container {
+.journal-menu-container {
 	width: 50%;
 	height: 200px;
 	background: #ECECEC;
@@ -1119,7 +1107,8 @@ li.line-through-text {
 }
 
 .overview-events-list-container ul {
-	padding-left: 20px;
+	padding-left: 4px;
+	padding-right: 4px;
 }
 
 .upcoming-events-part {

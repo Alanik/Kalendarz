@@ -70,7 +70,7 @@
 .current-weekday {
 	color: black;
 	text-transform: uppercase;
-	border: 2px solid rgb(255, 109, 109) !important;
+	border: 2px solid gray !important;
 }
 
 .calendar-hours {
@@ -133,8 +133,8 @@
 	width: 40px;
 	height: 20px;
 	position: absolute;
-	right: 1px;
-	top: 2px;
+	right: 0px;
+	top: 0px;
 	text-align: center;
 	display: none;
 	z-index: 99;
@@ -187,7 +187,7 @@
 
 .today-cell {
 	background: white !important;
-	border: 2px solid rgb(255, 109, 109) !important;
+	border: 2px solid gray !important;
 }
 
 	.today-cell .cell-span-container {

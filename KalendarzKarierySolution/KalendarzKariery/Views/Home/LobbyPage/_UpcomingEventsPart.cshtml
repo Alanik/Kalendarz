@@ -1,14 +1,10 @@
-﻿<div id="lobbyUpcomingEventsPartInnerWrapper">
+﻿<div id="lobbyUpcomingEventsPartBody" class="event-tiles-wrapper">
 	<div class="lobby-menu-container">
 		<input type="button" value="Stwórz publiczne wydarzenie" id="addPublicEventBtn" class="btn-add green-color hover-cursor-pointer" data-bind="click: function ( data, e ) { $root.showAddPublicEventPopupOnClick( $element, data, e ) }" />
 	</div>
 	@Html.Partial( "_UpcomingEventsPart.EventCountTiles" )
 
 	<div id="lobbyDisplayEventsOverviewContainer" class="display-events-overview-container" data-bind="visible: $root.lobbyPage.upcomingEventsPart.eventListVM.isOpen()">
-		<header class="display-events-overview-header">
-			<span class="display-events-header-menu-title selected hover-cursor-pointer">Publiczne wydarzenia</span>
-			<span class="btn-close hover-cursor-pointer" data-bind="click: $root.closeAllSelectedEventsListContainerOnClick">x</span>
-		</header>
 		@Html.Partial( "_UpcomingEventsPart.EventList" )
 	</div>
 </div>

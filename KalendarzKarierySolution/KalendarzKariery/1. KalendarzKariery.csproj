@@ -201,7 +201,7 @@
   <ItemGroup>
     <Content Include="Content\EventBlock.css" />
     <Content Include="Content\MediaQueries_ShowHide.css" />
-    <Content Include="Scripts\JSViewModels\LobbyPage\AppViewModel.js" />
+    <Content Include="Images\Logo\kalendarz-kariery-logo.png" />
     <Content Include="Scripts\Lib\DzieuoJs\Dzieuo.css" />
     <Content Include="Content\Fonts\Oxygen\OFL.txt" />
     <Content Include="Content\Fonts\Raleway\FONTLOG.txt" />
@@ -364,25 +364,23 @@
     <Content Include="Views\Home\DetailsPage\_Details.cshtml" />
     <Content Include="Views\Home\SharedPartials\_EventBlock.cshtml" />
     <Content Include="Views\Home\SharedPartials\_ConfirmationPopupBox.cshtml" />
-    <Content Include="Views\Home\LobbyPage\_LobbyNews.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsSettings.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsUserProfile.cshtml" />
     <Content Include="Views\Shared\JSUnitTests.cshtml" />
     <Content Include="Views\Home\SharedPartials\_LoginBar.cshtml" />
     <Content Include="Views\Home\LobbyPage\_UpcomingEventsPart.EventCountTiles.cshtml" />
     <Content Include="Views\Shared\_LayoutMobile.cshtml" />
-    <Content Include="Views\Home\DetailsPage\_DetailsEventBlock.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DetailsNotesSummary.cshtml" />
-    <Content Include="Views\Home\DetailsPage\_DetailsManageOwnPublicEventsMenuItem.cshtml" />
-    <Content Include="Views\Home\DetailsPage\_DetailsMyCalendarMenuItem.cshtml" />
+    <Content Include="Views\Home\DetailsPage\_JournalPart.EventList.cshtml" />
     <Content Include="Views\Home\LobbyPage\_UpcomingEventsPart.EventList.cshtml" />
-    <Content Include="Views\Home\DetailsPage\_DetailsEventsMenuContainer.cshtml" />
-    <Content Include="Views\Home\DetailsPage\_DetailsDayTable.cshtml" />
+    <Content Include="Views\Home\DetailsPage\_JournalPart.EventCountTiles.cshtml" />
     <Content Include="Views\Home\LobbyPage\_NavPart.cshtml" />
     <Content Include="Views\Home\LobbyPage\_DashboardPart.cshtml" />
     <Content Include="Views\Home\LobbyPage\_UpcomingEventsPart.cshtml" />
     <Content Include="Views\Home\LobbyPage\_EventGridPart.cshtml" />
     <Content Include="Views\Home\SharedPartials\_EventListItem.cshtml" />
+    <Content Include="Views\Home\DetailsPage\_JournalPart.cshtml" />
+    <Content Include="Views\Home\DetailsPage\_DayPlanPart.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

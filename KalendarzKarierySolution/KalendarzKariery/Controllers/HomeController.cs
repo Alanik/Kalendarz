@@ -27,7 +27,6 @@ namespace KalendarzKariery.Controllers
 			indexViewModel.EventKinds = _repository.GetEventKindsBasedOnUserName( User.Identity.Name );
 			indexViewModel.PrivacyLevels = _repository.GetAllPrivacyLevels();
 			indexViewModel.PublicEventCountTree = _repository.GetPublicEventCountTree();
-			indexViewModel.News = _repository.GetAllNews();
 
 			indexViewModel.MyEvents = null;
 			indexViewModel.MyEventCountTree = null;
@@ -70,7 +69,6 @@ namespace KalendarzKariery.Controllers
 			indexViewModel.EventKinds = _repository.GetEventKindsBasedOnUserName( User.Identity.Name );
 			indexViewModel.PrivacyLevels = _repository.GetAllPrivacyLevels();
 			indexViewModel.PublicEventCountTree = _repository.GetPublicEventCountTree();
-			indexViewModel.News = _repository.GetAllNews();
 
 			indexViewModel.MyEvents = null;
 			indexViewModel.MyEventCountTree = null;

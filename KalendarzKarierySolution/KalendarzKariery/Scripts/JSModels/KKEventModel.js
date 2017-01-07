@@ -4,7 +4,7 @@
 
 	//1 string
 	self.addedBy = null;
-	//2
+	//2 obj
 	self.address = {
 		street: null,
 		city: null,
@@ -20,7 +20,7 @@
 	self.details = null;
 	//7 int
 	self.eventLengthInMinutes = null;
-	//8
+	//8 obj
 	self.kind = {
 		value: null,
 		name: ko.observable( "" ),
@@ -36,22 +36,22 @@
 	self.isEventAddedToCurrentUserCalendar = ko.observable( false );
 	//12 observable(string)
 	self.name = ko.observable( "" );
-	//13 int
+	//13 num
 	self.numberOfPeopleAttending = 0;
-	//14 int
+	//14 num
 	self.occupancyLimit = null;
-	//15
+	//15 obj
 	self.privacyLevel = {
 		name: null,
 		value: null
 	};
-	//16 int
+	//16 num
 	self.price = null;
 	//17 array 
 	self.signedUpUsersForEvent = [];
 	//18 new KKEventDateModel()
 	self.startDate = null;
-	//19
+	//19 obj
 	self.status = {
 		name: null,
 		value: null

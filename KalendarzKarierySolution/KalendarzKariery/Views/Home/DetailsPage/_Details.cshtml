@@ -1,76 +1,17 @@
 ﻿@model KalendarzKarieryData.Models.ViewModels.RegisterViewModel
-<section class="dz-row">
-  <header class="section-title">
-    <span>Dziennik</span>
-  </header>
-  <section id="detailsPanel">
-    <div id="todayDateAndTimeContainer" data-bind="click: $root.showTodayInDetailsPageCalendarDetailsTable" class="hover-cursor-pointer">
-      <div>
-        <div id="todayDateDay" data-bind="text: $root.todayDate.day"></div>
-        <div id="todayDateDayName" data-bind="text: $root.todayDate.getDayName()"></div>
-        <div id="todayDateMonth" data-bind="text: $root.todayDate.getMonthName()"></div>
-        <div id="todayDateYear" data-bind="text: $root.todayDate.year"></div>
-      </div>
-      <div id="clockCanvas">
-        <div id="digitalClock"></div>
-      </div>
-    </div>
 
-    <div class="events-menu-container">
-      @Html.Partial("_DetailsEventsMenuContainer")
-    </div>
-
-    <div id="detailsPageAllEventsListContainer" class="display-events-overview-container" data-bind="visible: $root.detailsPageJournalMenu.isOpen()">
-      <header class="display-events-overview-header">
-        <span class="display-events-header-menu-title hover-cursor-pointer" data-bind="click: function () { $root.showSelectedJournalMenuItem( 1 ) }, css: { selected: $root.detailsPageJournalMenu.selectedMenuItem() === 1 }">Mój kalendarz</span>
-        <span class="display-events-header-menu-title hover-cursor-pointer" data-bind="click: function () { $root.showSelectedJournalMenuItem( 2 ) }, css: { selected: $root.detailsPageJournalMenu.selectedMenuItem() === 2 }">Moje publiczne wydarzenia</span>
-        <div class="hover-cursor-pointer btn-close" data-bind="click: $root.closeAllSelectedEventsListContainerOnClick">x</div>
-      </header>
-
-      @Html.Partial("_DetailsMyCalendarMenuItem")
-      @Html.Partial("_DetailsManageOwnPublicEventsMenuItem")
-    </div>
-
-    <div class="dziennik-menu-container">
-      <div class="manage-pubic-events-menu-link hover-cursor-pointer" data-bind="click: function () { $root.showSelectedJournalMenuItem( 2 ) }">
-        Zarządzaj swoimi publicznymi wydarzeniami
-      </div>
-    </div>
-  </section>
+<section class="dz-row journal-part">
+	<header class="section-title">Dziennik</header>
+	@Html.Partial( "_JournalPart" )
 </section>
-<section class="dz-row">
-  <header class="section-title">
-    <span>Plan dnia</span>
-  </header>
-  <section id="calendarDayDetailsContainer">
-    <div class="day-display-date-container">
-      <span class="display-date-small" data-bind="text: $root.detailsPageDisplayDate.getDayName()"></span>
-      <span data-bind="text: $root.detailsPageDisplayDate.day()"></span>
-      <span data-bind="text: $root.detailsPageDisplayDate.getMonthName()"></span>
-      <span class="display-date-small" data-bind="text: $root.detailsPageDisplayDate.year()"></span>
-    </div>
-    <div id="detailsDayTable">
-      @Html.Partial("_DetailsDayTable")
-    </div>
 
-    <div id="detailsEventsAndNotesContainer">
-
-      <div id="detailsEventBlockList" data-bind="foreach: detailsPageDayEvents()">
-        <div class="event-block-container" data-bind="attr: { 'data-eventid': id }">
-          @Html.Partial("_EventBlock", new ViewDataDictionary { { "page", "details" } } )
-        </div>
-      </div>
-      <div id="notesContainer">
-        @Html.Partial("_DetailsNotesSummary")
-
-      </div>
-    </div>
-
-
-  </section>
+<section class="dz-row day-plan-part">
+	<header class="section-title">Plan dnia</header>
+	@Html.Partial("_DayPlanPart");
 </section>
-<div class="dz-row">
-  @Html.Partial("_DetailsSettings", @Model)
-</div>
+
+<section class="dz-row">
+	@Html.Partial( "_DetailsSettings", @Model )
+</section>
 
 

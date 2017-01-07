@@ -85,26 +85,6 @@
 		return eventTree;
 	};
 
-	self.transformNews = function ( eventsArray )
-	{
-		var event, events = [];
-
-		for ( var i = 0; i < eventsArray.length; i++ )
-		{
-			event = eventsArray[i];
-			setDateAdded( event );
-			events.push( event );
-		}
-
-		return events;
-
-		function setDateAdded( event )
-		{
-			var sdate = new Date( parseInt( event.dateAdded.substr( 6 ) ) );
-			event.dateAdded = new KKDateModel( sdate.getMinutes(), sdate.getHours(), sdate.getDate(), sdate.getMonth() + 1, sdate.getFullYear() );
-		}
-	}
-
 	self.transformEventListToKKEventList = function ( events )
 	{
 		var list = [];

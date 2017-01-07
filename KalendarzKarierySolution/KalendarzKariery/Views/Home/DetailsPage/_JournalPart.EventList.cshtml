@@ -1,0 +1,62 @@
+﻿<header class="display-events-overview-header">
+	<span class="display-events-header-menu-title hover-cursor-pointer" data-bind="click: function () { $root.showSelectedJournalMenuItem( 1 ) }, css: { selected: $root.detailsPage.journalPart.eventListVM.selectedMenuItem() === 1 }">Mój kalendarz</span>
+	<span class="display-events-header-menu-title hover-cursor-pointer" data-bind="click: function () { $root.showSelectedJournalMenuItem( 2 ) }, css: { selected: $root.detailsPage.journalPart.eventListVM.selectedMenuItem() === 2 }">Moje publiczne wydarzenia</span>
+	<div class="hover-cursor-pointer btn-close" data-bind="click: $root.closeAllSelectedEventsListContainerOnClick">x</div>
+</header>
+
+
+<div data-bind="with: $root.detailsPage.journalPart.eventListVM, visible: $root.detailsPage.journalPart.eventListVM.selectedMenuItem() == 1" class="display-events-overview-body">
+	<div class="legend-oldorupcoming hover-cursor-pointer" data-bind="css: { open: menuItems.myCalendar.showOld() }, click: function () { menuItems.myCalendar.showOld( !menuItems.myCalendar.showOld() ), $root.showSelectedEvents( menuItems.myCalendar.selectedEvents, 'old', selectedEventKindValues ) }">
+		<div class="legend-text">
+			<span>stare</span>
+			<span class="oldorupcoming-event-count" data-bind="text: menuItems.myCalendar.selectedEvents.old().length, visible: menuItems.myCalendar.showOld()"></span>
+		</div>
+		<span class="oldorupcoming-expand-text sm-hidden" data-bind="text: menuItems.myCalendar.showOld() == true ? '[zwiń]' : '[rozwiń]'"></span>
+	</div>
+	<ul class="event-list" data-bind="foreach: menuItems.myCalendar.selectedEvents.old">
+		@Html.Partial( "_EventListItem", new ViewDataDictionary { { "page", "lobby" } } )
+	</ul>
+	<div class="legend-oldorupcoming hover-cursor-pointer" data-bind="css: { open: menuItems.myCalendar.showUpcoming() }, click: function ()
+{
+	menuItems.myCalendar.showUpcoming(
+		   !menuItems.myCalendar.showUpcoming() ), $root.showSelectedEvents( menuItems.myCalendar.selectedEvents, 'upcoming', selectedEventKindValues )
+}">
+		<div class="legend-text">
+			<span>nadchodzące</span>
+			<span class="oldorupcoming-event-count" data-bind="text: menuItems.myCalendar.selectedEvents.upcoming().length, visible: menuItems.myCalendar.showUpcoming()"></span>
+		</div>
+		<span class="oldorupcoming-expand-text sm-hidden" data-bind="text: menuItems.myCalendar.showUpcoming() === true ? '[zwiń]' : '[rozwiń]'"></span>
+	</div>
+	<ul class="event-list" data-bind="foreach: menuItems.myCalendar.selectedEvents.upcoming">
+		@Html.Partial( "_EventListItem", new ViewDataDictionary { { "page", "lobby" } } )
+	</ul>
+</div>
+
+<div data-bind="with: $root.detailsPage.journalPart.eventListVM, visible: $root.detailsPage.journalPart.eventListVM.selectedMenuItem() == 2" class="display-events-overview-body">
+	<div class="legend-oldorupcoming hover-cursor-pointer" data-bind="css: { open: menuItems.manageOwnPublicEvents.showOld() }, click: function () { menuItems.manageOwnPublicEvents.showOld( !menuItems.manageOwnPublicEvents.showOld() ), $root.showSelectedEvents( menuItems.manageOwnPublicEvents.selectedEvents, 'old', selectedEventKindValues ) }">
+		<div class="legend-text">
+			<span>stare</span>
+			<span class="oldorupcoming-event-count" data-bind="text: menuItems.manageOwnPublicEvents.selectedEvents.old().length, visible: menuItems.manageOwnPublicEvents.showOld()"></span>
+		</div>
+		<span class="oldorupcoming-expand-text sm-hidden" data-bind="text: menuItems.manageOwnPublicEvents.showOld() == true ? '[zwiń]' : '[rozwiń]'"></span>
+	</div>
+	<ul class="event-list" data-bind="foreach: menuItems.manageOwnPublicEvents.selectedEvents.old">
+		@Html.Partial( "_EventListItem", new ViewDataDictionary { { "page", "lobby" } } )
+	</ul>
+	<div class="legend-oldorupcoming hover-cursor-pointer" data-bind="css: { open: menuItems.manageOwnPublicEvents.showUpcoming() }, click: function ()
+{
+	menuItems.manageOwnPublicEvents.showUpcoming(
+		   !menuItems.manageOwnPublicEvents.showUpcoming() ), $root.showSelectedEvents( menuItems.manageOwnPublicEvents.selectedEvents, 'upcoming', selectedEventKindValues )
+}">
+		<div class="legend-text">
+			<span>nadchodzące</span>
+			<span class="oldorupcoming-event-count" data-bind="text: menuItems.manageOwnPublicEvents.selectedEvents.upcoming().length, visible: menuItems.manageOwnPublicEvents.showUpcoming()"></span>
+		</div>
+		<span class="oldorupcoming-expand-text sm-hidden" data-bind="text: menuItems.manageOwnPublicEvents.showUpcoming() === true ? '[zwiń]' : '[rozwiń]'"></span>
+	</div>
+	<ul class="event-list" data-bind="foreach: menuItems.manageOwnPublicEvents.selectedEvents.upcoming">
+		@Html.Partial( "_EventListItem", new ViewDataDictionary { { "page", "lobby" } } )
+	</ul>
+</div>
+
+

@@ -100,78 +100,6 @@
 	// is used when adding or editing event
 	self.observableEvent = new KKEventModelObservable();
 
-	// is used when adding note
-	self.observableNote = new KKNoteModelObservable();
-
-	self.detailsPageDisplayDate = {
-		"year": ko.observable( year ),
-		//month starts from 1 to 12
-		"month": ko.observable( month + 1 ),
-		"day": ko.observable( day ),
-		"getMonthName": function ()
-		{
-			return self.monthNames[this.month() - 1];
-		},
-		"getDayName": function ()
-		{
-			var weekday = new Date( this.year(), this.month() - 1, this.day() ).getDay();
-			return weekday == 0 ? self.dayNames[6] : self.dayNames[weekday - 1];
-		}
-	};
-
-	// used to specify the most bottom row of events in details page in the daily plan table
-	self.detailsPageEventMostBottomRow = 1;
-
-	self.detailsPageDayEvents = ko.observableArray( [] );
-	self.detailsPageDayNotes = ko.observableArray( [] );
-
-	self.detailsPageJournalMenu = {
-		"menuItems": {
-			myCalendar: {
-				"index": 1,
-				//TODO: maybe change into event tree with arrays grouped by event kind
-				"selectedEvents": {
-					old: ko.observableArray( [] ),
-					upcoming: ko.observableArray( [] )
-				},
-				"showOld": ko.observable( false ),
-				"showUpcoming": ko.observable( true )
-			},
-			manageOwnPublicEvents: {
-				"index": 2,
-				//TODO: maybe change into event tree with arrays grouped by event kind
-				"selectedEvents": {
-					// TODO: oldTemp and upcomingTemp are filled when building publicEventTree and then those arrays are put into old/upcoming observale array on showSelectedJournalMenuItem
-					// is made this way because otherwise app will throw errors... fix it when you get a chance (remove oldTemp and upcomingTemp)
-					oldTemp: [],
-					upcomingTemp: [],
-
-					old: ko.observableArray( [] ),
-					upcoming: ko.observableArray( [] )
-				},
-				"showOld": ko.observable( false ),
-				"showUpcoming": ko.observable( true )
-			}
-		},
-		"selectedMenuItem": ko.observable( 1 ),
-		"getCurrentSelectedEventsProp": function ()
-		{
-			switch ( this.selectedMenuItem() )
-			{
-				case 1:
-					return this.menuItems.myCalendar.selectedEvents;
-				case 2:
-					return this.menuItems.manageOwnPublicEvents.selectedEvents;
-				default:
-					return [];
-			}
-		},
-		"selectedEventKindValues": [],
-		"isOpen": ko.observable( false )
-	}
-
-	self.newsEvents = [];
-
 	self.publicEventTree = {
 		// example to remember the format of publicEventTree object
 		//	"2014": {
@@ -251,13 +179,13 @@
 	self.lobbyPage.upcomingEventsPart.publicEventTreeCountBasedOnEventKindVM = null;
 	self.lobbyPage.upcomingEventsPart.eventListVM = {
 		"menuItems": {
-			publicEvents: {
+			"publicEvents": {
 				"index": 1,
 				//TODO: maybe change into event tree with arrays grouped by event kind
 				"selectedEvents": {
 					//it is filled with public events when building publicEventTree
-					old: ko.observableArray( [] ),
-					upcoming: ko.observableArray( [] )
+					"old": ko.observableArray( [] ),
+					"upcoming": ko.observableArray( [] )
 				},
 				"showOld": ko.observable( false ),
 				"showUpcoming": ko.observable( true )
@@ -265,7 +193,7 @@
 		},
 		"selectedMenuItem": ko.observable( 1 ),
 		"selectedEventKindValues": [],
-		"getCurrentSelectedEventsProp": function ()
+		"getSelectedEvents": function ()
 		{
 			switch ( this.selectedMenuItem() )
 			{
@@ -297,6 +225,76 @@
 		self.calendarPage.calendarPart.calendarVM.displayDate.monthName( self.monthNames[month - 1] );
 		self.redisplayCalendarAtChosenMonth( self.calendarPage.calendarPart.calendarVM.displayDate.month() );
 	} );
+
+	self.detailsPage.journalPart = {};
+	self.detailsPage.journalPart.eventListVM = {
+		"menuItems": {
+			"myCalendar": {
+				"index": 1,
+				//TODO: maybe change into event tree with arrays grouped by event kind
+				"selectedEvents": {
+					"old": ko.observableArray( [] ),
+					"upcoming": ko.observableArray( [] )
+				},
+				"showOld": ko.observable( false ),
+				"showUpcoming": ko.observable( true )
+			},
+			"manageOwnPublicEvents": {
+				"index": 2,
+				//TODO: maybe change into event tree with arrays grouped by event kind
+				"selectedEvents": {
+					// TODO: oldTemp and upcomingTemp are filled when building publicEventTree and then those arrays are put into old/upcoming observale array on showSelectedJournalMenuItem
+					// is made this way because otherwise app will throw errors... fix it when you get a chance (remove oldTemp and upcomingTemp)
+					"oldTemp": [],
+					"upcomingTemp": [],
+
+					"old": ko.observableArray( [] ),
+					"upcoming": ko.observableArray( [] )
+				},
+				"showOld": ko.observable( false ),
+				"showUpcoming": ko.observable( true )
+			}
+		},
+		"selectedMenuItem": ko.observable( 1 ),
+		"getSelectedEvents": function ()
+		{
+			switch ( this.selectedMenuItem() )
+			{
+				case 1:
+					return this.menuItems.myCalendar.selectedEvents;
+				case 2:
+					return this.menuItems.manageOwnPublicEvents.selectedEvents;
+				default:
+					return [];
+			}
+		},
+		"selectedEventKindValues": [],
+		"isOpen": ko.observable( false )
+	}
+
+	self.detailsPage.dayPlanPart = {};
+	self.detailsPage.dayPlanPart.dayPlanVM = {
+		"date": {
+			"year": ko.observable( year ),
+			//month starts from 1 to 12
+			"month": ko.observable( month + 1 ),
+			"day": ko.observable( day ),
+			"getMonthName": function ()
+			{
+				return self.monthNames[this.month() - 1];
+			},
+			"getDayName": function ()
+			{
+				var weekday = new Date( this.year(), this.month() - 1, this.day() ).getDay();
+				return weekday == 0 ? self.dayNames[6] : self.dayNames[weekday - 1];
+			}
+		},
+		"events": ko.observableArray( [] ),
+		"notes": ko.observableArray( [] ),
+		"observableNote" : new KKNoteModelObservable(),
+		// used to specify the most bottom row of events in details page in the daily plan table
+		"eventMostBottomRow": 1
+	}
 
 	//////////////////////////////////////////////////////////
 	// METHODS 
@@ -596,16 +594,16 @@
 	self.AddNoteOnClick = function ()
 	{
 		var promise, data;
-		var text = self.observableNote.data().trim();
+		var text = self.detailsPage.dayPlanPart.dayPlanVM.observableNote.data().trim();
 		if ( text == "" )
 		{
 			return false;
 		}
 
 		data = 'Data=' + text;
-		data += '&DisplayDate.Year=' + self.detailsPageDisplayDate.year();
-		data += '&DisplayDate.Month=' + self.detailsPageDisplayDate.month();
-		data += '&DisplayDate.day=' + self.detailsPageDisplayDate.day();
+		data += '&DisplayDate.Year=' + self.detailsPage.dayPlanPart.dayPlanVM.date.year();
+		data += '&DisplayDate.Month=' + self.detailsPage.dayPlanPart.dayPlanVM.date.month();
+		data += '&DisplayDate.day=' + self.detailsPage.dayPlanPart.dayPlanVM.date.day();
 
 		//////////////////////////////////////////////
 		//call WebAPI - Add new note
@@ -627,13 +625,13 @@
 				alert( result.Message );
 			} else
 			{
-				displayDate = new KKDateModel( null, null, self.detailsPageDisplayDate.day(), self.detailsPageDisplayDate.month(), self.detailsPageDisplayDate.year() );
+				displayDate = new KKDateModel( null, null, self.detailsPage.dayPlanPart.dayPlanVM.date.day(), self.detailsPage.dayPlanPart.dayPlanVM.date.month(), self.detailsPage.dayPlanPart.dayPlanVM.date.year() );
 
-				kkNote = self.NOTE_MANAGER.getNewKKNoteModel( result.NoteId, self.observableNote.data(), self.userName, self.observableNote.privacyLevel.name,
-									self.observableNote.privacyLevel.value, displayDate, false, new KKDateModel( date.getMinutes(), date.getHours(), date.getDate(), date.getMonth() + 1, date.getFullYear() ) );
+				kkNote = self.NOTE_MANAGER.getNewKKNoteModel( result.NoteId, self.detailsPage.dayPlanPart.dayPlanVM.observableNote.data(), self.userName, self.detailsPage.dayPlanPart.dayPlanVM.observableNote.privacyLevel.name,
+									self.detailsPage.dayPlanPart.dayPlanVM.observableNote.privacyLevel.value, displayDate, false, new KKDateModel( date.getMinutes(), date.getHours(), date.getDate(), date.getMonth() + 1, date.getFullYear() ) );
 				self.NOTE_MANAGER.addNote( kkNote );
 
-				self.observableNote.data( "" );
+				self.detailsPage.dayPlanPart.dayPlanVM.observableNote.data( "" );
 				self.UTILS.loader.hide( true );
 			}
 		}
@@ -703,10 +701,10 @@
 
 					//redraw details page event rectangle table
 					self.removeEventRectanglesFromDetailsDay();
-					events = self.detailsPageDayEvents();
+					events = self.detailsPage.dayPlanPart.dayPlanVM.events();
 
 					self.setCalendarPlacementRow( events );
-					self.detailsPageEventMostBottomRow = 1;
+					self.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow = 1;
 					self.redrawCalendarCell( events, year, month, day );
 
 					for ( var i in events )
@@ -715,7 +713,7 @@
 					}
 
 					$detailsDayTable = $( "#details #detailsDayTable" );
-					self.resizeDetailsDayTable( self.detailsPageEventMostBottomRow );
+					self.resizeDetailsDayTable( self.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow );
 					offset = $detailsDayTable.position().top - 83;
 					$detailsDayTable.scrollTo( 500, offset );
 				} );
@@ -915,7 +913,7 @@
 		var $container = $( "#notesListContainer li[data-noteid='" + id + "']" );
 		var text, promise;
 
-		var note = self.NOTE_MANAGER.getNoteByDateAndId( id, self.detailsPageDisplayDate.year(), self.detailsPageDisplayDate.month(), self.detailsPageDisplayDate.day() );
+		var note = self.NOTE_MANAGER.getNoteByDateAndId( id, self.detailsPage.dayPlanPart.dayPlanVM.date.year(), self.detailsPage.dayPlanPart.dayPlanVM.date.month(), self.detailsPage.dayPlanPart.dayPlanVM.date.day() );
 
 		if ( !note )
 		{
@@ -1023,22 +1021,22 @@
 
 	self.showSelectedJournalMenuItem = function ( menuItemIndex )
 	{
-		if ( self.detailsPageJournalMenu.selectedMenuItem() === menuItemIndex )
+		if ( self.detailsPage.journalPart.eventListVM.selectedMenuItem() === menuItemIndex )
 		{
 			return false;
 		}
 
-		var prop = self.detailsPageJournalMenu.getCurrentSelectedEventsProp();
+		var prop = self.detailsPage.journalPart.eventListVM.getSelectedEvents();
 		prop.old( [] );
 		prop.upcoming( [] );
 
-		self.detailsPageJournalMenu.selectedMenuItem( menuItemIndex );
-		self.showSelectedEvents( self.detailsPageJournalMenu.getCurrentSelectedEventsProp(), 'all', self.detailsPageJournalMenu.selectedEventKindValues );
+		self.detailsPage.journalPart.eventListVM.selectedMenuItem( menuItemIndex );
+		self.showSelectedEvents( self.detailsPage.journalPart.eventListVM.getSelectedEvents(), 'all', self.detailsPage.journalPart.eventListVM.selectedEventKindValues );
 
-		if ( !self.detailsPageJournalMenu.isOpen() )
+		if ( !self.detailsPage.journalPart.eventListVM.isOpen() )
 		{
 			//self.hideDetailsPageClockContainer()
-			self.detailsPageJournalMenu.isOpen( true );
+			self.detailsPage.journalPart.eventListVM.isOpen( true );
 		}
 	};
 
@@ -1068,19 +1066,19 @@
 
 	self.showTodayInDetailsPageCalendarDetailsTable = function ()
 	{
-		self.detailsPageEventMostBottomRow = 1;
+		self.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow = 1;
 
-		self.detailsPageDisplayDate.day( self.todayDate.day );
-		self.detailsPageDisplayDate.month( self.todayDate.month );
-		self.detailsPageDisplayDate.year( self.todayDate.year );
+		self.detailsPage.dayPlanPart.dayPlanVM.date.day( self.todayDate.day );
+		self.detailsPage.dayPlanPart.dayPlanVM.date.month( self.todayDate.month );
+		self.detailsPage.dayPlanPart.dayPlanVM.date.year( self.todayDate.year );
 
 		//Events
 		var events = self.EVENT_MANAGER.getEventsForGivenDay( self.todayDate.year, self.todayDate.month, self.todayDate.day, self.myEventTree )
-		self.detailsPageDayEvents( events );
+		self.detailsPage.dayPlanPart.dayPlanVM.events( events );
 
 		//Notes
 		var notes = self.NOTE_MANAGER.getNotesForGivenDay( self.todayDate.year, self.todayDate.month, self.todayDate.day )
-		self.detailsPageDayNotes( notes );
+		self.detailsPage.dayPlanPart.dayPlanVM.notes( notes );
 
 		self.removeEventRectanglesFromDetailsDay();
 
@@ -1090,7 +1088,7 @@
 			self.drawEventToDetailsDayTable( events[i] );
 		}
 
-		self.resizeDetailsDayTable( self.detailsPageEventMostBottomRow );
+		self.resizeDetailsDayTable( self.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow );
 
 		var $detailsDayTable = $( "#details #detailsDayTable" );
 		var offset = $detailsDayTable.position().top - 83;
@@ -1195,12 +1193,12 @@
 
 	self.drawEventToDetailsDayTable = function ( event, onAppInit )
 	{
-		//TODO: inject self.detailsPageEventMostBottomRow into the method
+		//TODO: inject self.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow into the method
 
 		//set detailsPageBottomRow to calculate detailsPageEventsTable height based on the most bottom event.calendarPlacementRow 
-		if ( event.calendarPlacementRow > self.detailsPageEventMostBottomRow )
+		if ( event.calendarPlacementRow > self.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow )
 		{
-			self.detailsPageEventMostBottomRow = event.calendarPlacementRow;
+			self.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow = event.calendarPlacementRow;
 		}
 
 		var startMinuteOffset = event.startDate.startMinute / 60 * 100;
@@ -1222,15 +1220,15 @@
 	self.removeEventRectanglesFromDetailsDay = function ()
 	{
 		$( "#details #detailsDayTable .event-rectangle-details" ).remove();
-		self.detailsPageEventMostBottomRow = 1;
+		self.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow = 1;
 	};
 
 	self.moveToDetailsPageOnCalendarCellClick = function ( element )
 	{
-		self.detailsPageEventMostBottomRow = 1;
+		self.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow = 1;
 		var day = $( element ).data( "daynumber" );
 		var dayInt = parseInt( day, 10 );
-		self.detailsPageDisplayDate.day( dayInt );
+		self.detailsPage.dayPlanPart.dayPlanVM.date.day( dayInt );
 
 		var $cell = $( element ).closest( ".calendar-cell" );
 
@@ -1238,37 +1236,37 @@
 		{
 			if ( self.calendarPage.calendarPart.calendarVM.displayDate.month() == 1 )
 			{
-				self.detailsPageDisplayDate.year( self.calendarPage.calendarPart.calendarVM.displayDate.year() - 1 );
-				self.detailsPageDisplayDate.month( 12 );
+				self.detailsPage.dayPlanPart.dayPlanVM.date.year( self.calendarPage.calendarPart.calendarVM.displayDate.year() - 1 );
+				self.detailsPage.dayPlanPart.dayPlanVM.date.month( 12 );
 			} else
 			{
-				self.detailsPageDisplayDate.year( self.calendarPage.calendarPart.calendarVM.displayDate.year() );
-				self.detailsPageDisplayDate.month( self.calendarPage.calendarPart.calendarVM.displayDate.month() - 1 );
+				self.detailsPage.dayPlanPart.dayPlanVM.date.year( self.calendarPage.calendarPart.calendarVM.displayDate.year() );
+				self.detailsPage.dayPlanPart.dayPlanVM.date.month( self.calendarPage.calendarPart.calendarVM.displayDate.month() - 1 );
 			}
 
 		} else if ( $cell.hasClass( "next-month-cell" ) )
 		{
 			if ( self.calendarPage.calendarPart.calendarVM.displayDate.month() == 12 )
 			{
-				self.detailsPageDisplayDate.year( self.calendarPage.calendarPart.calendarVM.displayDate.year() + 1 );
-				self.detailsPageDisplayDate.month( 1 );
+				self.detailsPage.dayPlanPart.dayPlanVM.date.year( self.calendarPage.calendarPart.calendarVM.displayDate.year() + 1 );
+				self.detailsPage.dayPlanPart.dayPlanVM.date.month( 1 );
 			} else
 			{
-				self.detailsPageDisplayDate.year( self.calendarPage.calendarPart.calendarVM.displayDate.year() )
-				self.detailsPageDisplayDate.month( self.calendarPage.calendarPart.calendarVM.displayDate.month() + 1 );
+				self.detailsPage.dayPlanPart.dayPlanVM.date.year( self.calendarPage.calendarPart.calendarVM.displayDate.year() )
+				self.detailsPage.dayPlanPart.dayPlanVM.date.month( self.calendarPage.calendarPart.calendarVM.displayDate.month() + 1 );
 			}
 		}
 		else
 		{
-			self.detailsPageDisplayDate.year( self.calendarPage.calendarPart.calendarVM.displayDate.year() );
-			self.detailsPageDisplayDate.month( self.calendarPage.calendarPart.calendarVM.displayDate.month() );
+			self.detailsPage.dayPlanPart.dayPlanVM.date.year( self.calendarPage.calendarPart.calendarVM.displayDate.year() );
+			self.detailsPage.dayPlanPart.dayPlanVM.date.month( self.calendarPage.calendarPart.calendarVM.displayDate.month() );
 		}
 
-		var notes = self.NOTE_MANAGER.getNotesForGivenDay( self.detailsPageDisplayDate.year(), self.detailsPageDisplayDate.month(), self.detailsPageDisplayDate.day() )
-		self.detailsPageDayNotes( notes );
+		var notes = self.NOTE_MANAGER.getNotesForGivenDay( self.detailsPage.dayPlanPart.dayPlanVM.date.year(), self.detailsPage.dayPlanPart.dayPlanVM.date.month(), self.detailsPage.dayPlanPart.dayPlanVM.date.day() )
+		self.detailsPage.dayPlanPart.dayPlanVM.notes( notes );
 
-		var events = self.EVENT_MANAGER.getEventsForGivenDay( self.detailsPageDisplayDate.year(), self.detailsPageDisplayDate.month(), self.detailsPageDisplayDate.day(), self.myEventTree )
-		self.detailsPageDayEvents( events );
+		var events = self.EVENT_MANAGER.getEventsForGivenDay( self.detailsPage.dayPlanPart.dayPlanVM.date.year(), self.detailsPage.dayPlanPart.dayPlanVM.date.month(), self.detailsPage.dayPlanPart.dayPlanVM.date.day(), self.myEventTree )
+		self.detailsPage.dayPlanPart.dayPlanVM.events( events );
 
 		self.removeEventRectanglesFromDetailsDay();
 
@@ -1277,7 +1275,7 @@
 			self.drawEventToDetailsDayTable( events[i] );
 		}
 
-		self.resizeDetailsDayTable( self.detailsPageEventMostBottomRow )
+		self.resizeDetailsDayTable( self.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow )
 
 		var $scrollable = $( "#slide-item-details" ).parent();
 
@@ -1290,10 +1288,10 @@
 		}, 10 )
 	};
 
-	self.resizeDetailsDayTable = function ( detailsPageEventMostBottomRow )
+	self.resizeDetailsDayTable = function ( eventMostBottomRow )
 	{
 		var $tableBody = $( "#details .details-day-table-body" );
-		var h = ( detailsPageEventMostBottomRow * 46 ) + 20;
+		var h = ( eventMostBottomRow * 46 ) + 20;
 		$tableBody.height( h + "px" );
 	}
 
@@ -1389,7 +1387,7 @@
 		}
 	}
 
-	self.showSelectedEventsOnEventCountTileClick = function ( element, eventKindValue, selectedEventsProp, menuObj )
+	self.showSelectedEventsOnEventTileClick = function ( element, eventKindValue, selectedEventsProp, menuObj )
 	{
 		var $menuItemContainer = $( element );
 		var $menuItem = $menuItemContainer.find( ".menu-item" );
@@ -1419,13 +1417,13 @@
 		// details page
 		if ( self.currentPage() == 2 )
 		{
-			if ( !self.detailsPageJournalMenu.isOpen() )
+			if ( !self.detailsPage.journalPart.eventListVM.isOpen() )
 			{
 				//self.hideDetailsPageClockContainer();
-				self.detailsPageJournalMenu.isOpen( true );
+				self.detailsPage.journalPart.eventListVM.isOpen( true );
 			}
 
-			switch ( self.detailsPageJournalMenu.selectedMenuItem() )
+			switch ( self.detailsPage.journalPart.eventListVM.selectedMenuItem() )
 			{
 				case 1:
 					// parameter for simpleFilt.checkIf() method
@@ -1439,7 +1437,7 @@
 					//////////////////////////////////////////////////////////
 					if ( ( oldOrUpcoming == 'old' || oldOrUpcoming == 'all' ) )
 					{
-						if ( self.detailsPageJournalMenu.menuItems.myCalendar.showOld() )
+						if ( self.detailsPage.journalPart.eventListVM.menuItems.myCalendar.showOld() )
 						{
 							show( 'old', selectedEventsProp.old, checkArgs, self.myEventTree );
 						} else
@@ -1453,7 +1451,7 @@
 					//////////////////////////////////////////////////////////
 					if ( ( oldOrUpcoming == 'upcoming' || oldOrUpcoming == 'all' ) )
 					{
-						if ( self.detailsPageJournalMenu.menuItems.myCalendar.showUpcoming() )
+						if ( self.detailsPage.journalPart.eventListVM.menuItems.myCalendar.showUpcoming() )
 						{
 							show( 'upcoming', selectedEventsProp.upcoming, checkArgs, self.myEventTree );
 						} else
@@ -1473,7 +1471,7 @@
 					//////////////////////////////////////////////////////////
 					if ( ( oldOrUpcoming == 'old' || oldOrUpcoming == 'all' ) )
 					{
-						if ( self.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.showOld() )
+						if ( self.detailsPage.journalPart.eventListVM.menuItems.manageOwnPublicEvents.showOld() )
 						{
 							show( 'old', selectedEventsProp.old, checkArgs, self.publicEventTree );
 						} else
@@ -1487,7 +1485,7 @@
 					//////////////////////////////////////////////////////////
 					if ( ( oldOrUpcoming == 'upcoming' || oldOrUpcoming == 'all' ) )
 					{
-						if ( self.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.showUpcoming() )
+						if ( self.detailsPage.journalPart.eventListVM.menuItems.manageOwnPublicEvents.showUpcoming() )
 						{
 							show( 'upcoming', selectedEventsProp.upcoming, checkArgs, self.publicEventTree );
 						} else
@@ -1608,13 +1606,13 @@
 
 				break;
 			case 2:
-				switch ( self.detailsPageJournalMenu.selectedMenuItem() )
+				switch ( self.detailsPage.journalPart.eventListVM.selectedMenuItem() )
 				{
 					case 1:
 						//////////////////////////////////////////////////////////
 						//old
 						//////////////////////////////////////////////////////////
-						if ( self.detailsPageJournalMenu.menuItems.myCalendar.showOld() )
+						if ( self.detailsPage.journalPart.eventListVM.menuItems.myCalendar.showOld() )
 						{
 							array = ko.utils.arrayFilter( selectedEvents.old(), function ( item )
 							{
@@ -1627,7 +1625,7 @@
 						//////////////////////////////////////////////////////////
 						//upcoming
 						//////////////////////////////////////////////////////////
-						if ( self.detailsPageJournalMenu.menuItems.myCalendar.showUpcoming() )
+						if ( self.detailsPage.journalPart.eventListVM.menuItems.myCalendar.showUpcoming() )
 						{
 							array = ko.utils.arrayFilter( selectedEvents.upcoming(), function ( item )
 							{
@@ -1641,7 +1639,7 @@
 						//////////////////////////////////////////////////////////
 						//old
 						//////////////////////////////////////////////////////////
-						if ( self.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.showOld() )
+						if ( self.detailsPage.journalPart.eventListVM.menuItems.manageOwnPublicEvents.showOld() )
 						{
 							array = ko.utils.arrayFilter( selectedEvents.old(), function ( item )
 							{
@@ -1654,7 +1652,7 @@
 						//////////////////////////////////////////////////////////
 						//upcoming
 						//////////////////////////////////////////////////////////
-						if ( self.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.showUpcoming() )
+						if ( self.detailsPage.journalPart.eventListVM.menuItems.manageOwnPublicEvents.showUpcoming() )
 						{
 							array = ko.utils.arrayFilter( selectedEvents.upcoming(), function ( item )
 							{
@@ -1670,9 +1668,9 @@
 
 				if ( !$( "#details .menu-item-container" ).hasClass( "selected" ) )
 				{
-					self.detailsPageJournalMenu.isOpen( false );
+					self.detailsPage.journalPart.eventListVM.isOpen( false );
 					self.showDetailsPageClockContainer();
-					self.detailsPageJournalMenu.selectedMenuItem( 1 );
+					self.detailsPage.journalPart.eventListVM.selectedMenuItem( 1 );
 				}
 
 				break;
@@ -1683,17 +1681,17 @@
 
 	self.moveToDetailsDayOnEventCalendarIconClick = function ( id, year, month, day )
 	{
-		self.detailsPageEventMostBottomRow = 1;
+		self.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow = 1;
 
-		self.detailsPageDisplayDate.day( day );
-		self.detailsPageDisplayDate.year( year );
-		self.detailsPageDisplayDate.month( month );
+		self.detailsPage.dayPlanPart.dayPlanVM.date.day( day );
+		self.detailsPage.dayPlanPart.dayPlanVM.date.year( year );
+		self.detailsPage.dayPlanPart.dayPlanVM.date.month( month );
 
 		var notes = self.NOTE_MANAGER.getNotesForGivenDay( year, month, day )
-		self.detailsPageDayNotes( notes );
+		self.detailsPage.dayPlanPart.dayPlanVM.notes( notes );
 
 		var events = self.EVENT_MANAGER.getEventsForGivenDay( year, month, day, self.myEventTree )
-		self.detailsPageDayEvents( events );
+		self.detailsPage.dayPlanPart.dayPlanVM.events( events );
 
 		self.removeEventRectanglesFromDetailsDay();
 
@@ -1702,7 +1700,7 @@
 			self.drawEventToDetailsDayTable( events[i] );
 		}
 
-		self.resizeDetailsDayTable( self.detailsPageEventMostBottomRow );
+		self.resizeDetailsDayTable( self.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow );
 
 		var speed = 800;
 		if ( self.currentPage() == 0 )
@@ -2315,10 +2313,10 @@
 				self.lobbyPage.upcomingEventsPart.eventListVM.menuItems.publicEvents.selectedEvents.old( [] );
 				self.lobbyPage.upcomingEventsPart.eventListVM.menuItems.publicEvents.selectedEvents.upcoming( [] );
 
-				$( "#lobbyUpcomingEventsPartInnerWrapper" ).scrollTo( 500, 60 );
+				$( "#lobbyUpcomingEventsPartBody" ).scrollTo( 500, 60 );
 				return true;
 			case 2:
-				self.detailsPageJournalMenu.isOpen( false );
+				self.detailsPage.journalPart.eventListVM.isOpen( false );
 				self.showDetailsPageClockContainer();
 
 				$eventsMenuContainer = $( "#details .events-menu-container" );
@@ -2333,13 +2331,13 @@
 					}
 				} );
 
-				self.detailsPageJournalMenu.selectedEventKindValues = [];
-				self.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.old( [] );
-				self.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.upcoming( [] );
-				self.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.old( [] );
-				self.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.upcoming( [] );
-				self.detailsPageJournalMenu.selectedMenuItem( 1 );
-				$( "#detailsPanel" ).scrollTo( 500, 60 );
+				self.detailsPage.journalPart.eventListVM.selectedEventKindValues = [];
+				self.detailsPage.journalPart.eventListVM.menuItems.myCalendar.selectedEvents.old( [] );
+				self.detailsPage.journalPart.eventListVM.menuItems.myCalendar.selectedEvents.upcoming( [] );
+				self.detailsPage.journalPart.eventListVM.menuItems.manageOwnPublicEvents.selectedEvents.old( [] );
+				self.detailsPage.journalPart.eventListVM.menuItems.manageOwnPublicEvents.selectedEvents.upcoming( [] );
+				self.detailsPage.journalPart.eventListVM.selectedMenuItem( 1 );
+				$( "#journalPartBody" ).scrollTo( 500, 60 );
 				return true;
 			default: return false;
 		}
@@ -2347,7 +2345,7 @@
 
 	self.setCalendarPlacementRow = function ( dayEvents )
 	{
-		self.detailsPageEventMostBottomRow = 1;
+		self.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow = 1;
 		var anotherEvent;
 		var eStartH, eEndH, eStartM, eEndM;
 		var eventsInTheSameDayTemp = [];
@@ -2388,9 +2386,9 @@
 					}
 				}
 
-				if ( event.calendarPlacementRow > self.detailsPageEventMostBottomRow )
+				if ( event.calendarPlacementRow > self.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow )
 				{
-					self.detailsPageEventMostBottomRow = event.calendarPlacementRow;
+					self.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow = event.calendarPlacementRow;
 				}
 			}
 
@@ -2496,6 +2494,7 @@
 		var $dzVerticalPaging = $( '#dzVerticalPaging' );
 		var $dzVerticalNav = $( '#dzVerticalNav' );
 		var $loginbar = $( "#loginBarContainer" );
+		var $lobby = $( "#lobby" );
 
 		$( document ).bind( "horizontal_transition:before", function ( e, arg )
 		{
@@ -2545,6 +2544,18 @@
 				case 2:
 					break;
 				default:
+			}
+		} );
+
+		$( document ).bind( "vertical_transition:after", function ( e, arg )
+		{
+			switch ( arg.targetRow )
+			{
+				case 0:
+					$lobby.animate( { scrollTop: 0 }, "fast" );
+					break;
+				default:
+					break;
 			}
 		} );
 

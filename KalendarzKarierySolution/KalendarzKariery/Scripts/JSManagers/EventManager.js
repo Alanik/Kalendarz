@@ -384,35 +384,35 @@
 		}
 
 		//2. update appViewModel.detailsPageEvents()
-		if ( newKKEvent.startDate.year == appViewModel.detailsPageDisplayDate.year() && newKKEvent.startDate.month == appViewModel.detailsPageDisplayDate.month() && newKKEvent.startDate.day == appViewModel.detailsPageDisplayDate.day() )
+		if ( newKKEvent.startDate.year == appViewModel.detailsPage.dayPlanPart.dayPlanVM.date.year() && newKKEvent.startDate.month == appViewModel.detailsPage.dayPlanPart.dayPlanVM.date.month() && newKKEvent.startDate.day == appViewModel.detailsPage.dayPlanPart.dayPlanVM.date.day() )
 		{
-			appViewModel.detailsPageDayEvents( dayEventsArr );
+			appViewModel.detailsPage.dayPlanPart.dayPlanVM.events( dayEventsArr );
 
 			appViewModel.removeEventRectanglesFromDetailsDay();
 
 			appViewModel.setCalendarPlacementRow( dayEventsArr );
-			appViewModel.detailsPageEventMostBottomRow = 1;
+			appViewModel.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow = 1;
 
 			for ( var i in dayEventsArr )
 			{
 				appViewModel.drawEventToDetailsDayTable( dayEventsArr[i] );
 			}
 
-			appViewModel.resizeDetailsDayTable( appViewModel.detailsPageEventMostBottomRow );
+			appViewModel.resizeDetailsDayTable( appViewModel.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow );
 		}
 
-		//3. add event to appViewModel.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents
-		if ( appViewModel.detailsPageJournalMenu.isOpen() && appViewModel.detailsPageJournalMenu.selectedMenuItem() == 1 && $.inArray( newKKEvent.kind.value, appViewModel.detailsPageJournalMenu.selectedEventKindValues ) > -1 )
+		//3. add event to appViewModel.detailsPage.journalPart.eventListVM.menuItems.myCalendar.selectedEvents
+		if ( appViewModel.detailsPage.journalPart.eventListVM.isOpen() && appViewModel.detailsPage.journalPart.eventListVM.selectedMenuItem() == 1 && $.inArray( newKKEvent.kind.value, appViewModel.detailsPage.journalPart.eventListVM.selectedEventKindValues ) > -1 )
 		{
 			today = new Date();
 			endDate = new Date( newKKEvent.startDate.year, newKKEvent.startDate.month - 1, newKKEvent.startDate.day, newKKEvent.startDate.endHour, newKKEvent.startDate.endMinute, 0, 0 );
 
 			if ( today > endDate )
 			{
-				oldOrUpcoming = appViewModel.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.old;
+				oldOrUpcoming = appViewModel.detailsPage.journalPart.eventListVM.menuItems.myCalendar.selectedEvents.old;
 			} else
 			{
-				oldOrUpcoming = appViewModel.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.upcoming;
+				oldOrUpcoming = appViewModel.detailsPage.journalPart.eventListVM.menuItems.myCalendar.selectedEvents.upcoming;
 			}
 
 			oldOrUpcoming.push( newKKEvent );
@@ -478,17 +478,17 @@
 			}
 
 			//details page
-			if ( appViewModel.detailsPageJournalMenu.isOpen() && appViewModel.detailsPageJournalMenu.selectedMenuItem() === 2 )
+			if ( appViewModel.detailsPage.journalPart.eventListVM.isOpen() && appViewModel.detailsPage.journalPart.eventListVM.selectedMenuItem() === 2 )
 			{
 				today = new Date();
 				endDate = new Date( newKKEvent.startDate.year, newKKEvent.startDate.month - 1, newKKEvent.startDate.day, newKKEvent.startDate.endHour, newKKEvent.startDate.endMinute, 0, 0 );
 
 				if ( today > endDate )
 				{
-					oldOrUpcoming = appViewModel.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.old;
+					oldOrUpcoming = appViewModel.detailsPage.journalPart.eventListVM.menuItems.manageOwnPublicEvents.selectedEvents.old;
 				} else
 				{
-					oldOrUpcoming = appViewModel.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.upcoming;
+					oldOrUpcoming = appViewModel.detailsPage.journalPart.eventListVM.menuItems.manageOwnPublicEvents.selectedEvents.upcoming;
 				}
 
 				oldOrUpcoming.push( newKKEvent );
@@ -606,17 +606,17 @@
 							}
 
 							//2.2 if selected events panel is open and the deleted event is displayed on the list then remove it from  menuItems.myCalendar.selectedEvents
-							if ( appViewModel.detailsPageJournalMenu.isOpen() && appViewModel.detailsPageJournalMenu.selectedMenuItem() === 1 )
+							if ( appViewModel.detailsPage.journalPart.eventListVM.isOpen() && appViewModel.detailsPage.journalPart.eventListVM.selectedMenuItem() === 1 )
 							{
 								today = new Date();
 								endDate = new Date( event.startDate.year, event.startDate.month - 1, event.startDate.day, event.startDate.endHour, event.startDate.endMinute, 0, 0 );
 
 								if ( today > endDate )
 								{
-									oldOrUpcoming = appViewModel.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.old;
+									oldOrUpcoming = appViewModel.detailsPage.journalPart.eventListVM.menuItems.myCalendar.selectedEvents.old;
 								} else
 								{
-									oldOrUpcoming = appViewModel.detailsPageJournalMenu.menuItems.myCalendar.selectedEvents.upcoming;
+									oldOrUpcoming = appViewModel.detailsPage.journalPart.eventListVM.menuItems.myCalendar.selectedEvents.upcoming;
 								}
 
 								oldOrUpcoming.remove( function ( event )
@@ -626,17 +626,17 @@
 							}
 
 							//2.3 if managage own events panel is open and the deleted event is displayed on the list then remove it from  menuItems.manageOwnPublicEvents.selectedEvents
-							if ( appViewModel.detailsPageJournalMenu.isOpen() && appViewModel.detailsPageJournalMenu.selectedMenuItem() === 2 )
+							if ( appViewModel.detailsPage.journalPart.eventListVM.isOpen() && appViewModel.detailsPage.journalPart.eventListVM.selectedMenuItem() === 2 )
 							{
 								today = new Date();
 								endDate = new Date( event.startDate.year, event.startDate.month - 1, event.startDate.day, event.startDate.endHour, event.startDate.endMinute, 0, 0 );
 
 								if ( today > endDate )
 								{
-									oldOrUpcoming = appViewModel.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.old;
+									oldOrUpcoming = appViewModel.detailsPage.journalPart.eventListVM.menuItems.manageOwnPublicEvents.selectedEvents.old;
 								} else
 								{
-									oldOrUpcoming = appViewModel.detailsPageJournalMenu.menuItems.manageOwnPublicEvents.selectedEvents.upcoming;
+									oldOrUpcoming = appViewModel.detailsPage.journalPart.eventListVM.menuItems.manageOwnPublicEvents.selectedEvents.upcoming;
 								}
 
 								oldOrUpcoming.remove( function ( event )

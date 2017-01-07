@@ -163,8 +163,6 @@
 		appvm.lobbyPage.dashboardPart.recenlyAddedPublicEventsVM( getRecentlyAddedEvents( appvm ) );
 		appvm.lobbyPage.dashboardPart.upcomingPublicEventsVM( UTILS.eventTreeBuilder.transformEventListToKKEventList( indexViewModel.UpcomingPublicEvents ) );
 
-		//appViewModel.newsEvents = appViewModel.UTILS.eventTreeBuilder.transformNews( indexViewModel.News );
-
 		//When user is logged in
 		if ( indexViewModel.MyEvents )
 		{
@@ -263,15 +261,15 @@
 		//////////////////////////////////////////////////////////////////
 		//initialize details page
 		//////////////////////////////////////////////////////////////////
-		appvm.detailsPageEventMostBottomRow = 1;
-		appvm.detailsPageDisplayDate.year( date.getFullYear() );
-		appvm.detailsPageDisplayDate.month( date.getMonth() + 1 );
-		appvm.detailsPageDisplayDate.day( date.getDate() );
+		appvm.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow = 1;
+		appvm.detailsPage.dayPlanPart.dayPlanVM.date.year( date.getFullYear() );
+		appvm.detailsPage.dayPlanPart.dayPlanVM.date.month( date.getMonth() + 1 );
+		appvm.detailsPage.dayPlanPart.dayPlanVM.date.day( date.getDate() );
 
-		var events = EVENT_MANAGER.getEventsForGivenDay( appvm.detailsPageDisplayDate.year(), appvm.detailsPageDisplayDate.month(), appvm.detailsPageDisplayDate.day(), appvm.myEventTree )
-		var notes = NOTE_MANAGER.getNotesForGivenDay( appvm.detailsPageDisplayDate.year(), appvm.detailsPageDisplayDate.month(), appvm.detailsPageDisplayDate.day() )
-		appvm.detailsPageDayEvents( events );
-		appvm.detailsPageDayNotes( notes );
+		var events = EVENT_MANAGER.getEventsForGivenDay( appvm.detailsPage.dayPlanPart.dayPlanVM.date.year(), appvm.detailsPage.dayPlanPart.dayPlanVM.date.month(), appvm.detailsPage.dayPlanPart.dayPlanVM.date.day(), appvm.myEventTree )
+		var notes = NOTE_MANAGER.getNotesForGivenDay( appvm.detailsPage.dayPlanPart.dayPlanVM.date.year(), appvm.detailsPage.dayPlanPart.dayPlanVM.date.month(), appvm.detailsPage.dayPlanPart.dayPlanVM.date.day() )
+		appvm.detailsPage.dayPlanPart.dayPlanVM.events( events );
+		appvm.detailsPage.dayPlanPart.dayPlanVM.notes( notes );
 		///////////////////////////////////////////////////////////////////
 
 		///////////////////////////////////////////////////////////////////
@@ -291,7 +289,7 @@
 		}
 
 		var $tableBody = $( "#detailsDayTable .details-day-table-body" );
-		var h = ( appvm.detailsPageEventMostBottomRow ) * 46;
+		var h = ( appvm.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow ) * 46;
 		h = h + 20;
 		$tableBody.height( h + "px" );
 		///////////////////////////////////////////////////////////////////
@@ -544,22 +542,29 @@
 			$appContainer.on( {
 				mouseenter: function ()
 				{
-					$( this ).css( "background", "rgb(160, 243, 169)" );
+					$( this ).css( "background", "white" );
+					$( this ).css( "border", "2px solid gray" );
+
 				},
 				mouseleave: function ()
 				{
 					$( this ).css( "background", "rgb(225,225,225)" );
+					$( this ).css( "border", "none" );
 				}
 			}, '.light-icon' );
 
 			$appContainer.on( {
 				mouseenter: function ()
 				{
-					$( this ).css( "background", "rgb(160, 243, 169)" );
+					$( this ).css( "background", "white" );
+					$( this ).css( "color", "black" );
+					$( this ).css( "border", "2px solid gray" );
 				},
 				mouseleave: function ()
 				{
 					$( this ).css( "background", "rgb(188,188,188)" );
+					$( this ).css( "color", "white" );
+					$( this ).css( "border", "none" );
 				}
 			}, '.dark-icon' );
 

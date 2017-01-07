@@ -207,14 +207,6 @@
 			}
 		}
 
-		public ICollection<JsonEventModel> GetAllNews()
-		{
-			using (var context = new KalendarzKarieryDBEntities())
-			{
-				return context.Events.Include( "User" ).Include( "Address" ).Include( "EventKind" ).Include( "PrivacyLevel" ).Where( m => m.EventKind.Value == 8 ).OrderBy( m => m.StartDate ).AsEnumerable().Select( m => new JsonEventModel( m, null ) ).ToArray();
-			}
-		}
-
 		public bool AddExistingEventToUserCalendar( int eventId, string username )
 		{
 			using (var context = new KalendarzKarieryDBEntities())

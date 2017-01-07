@@ -1,10 +1,10 @@
 ﻿<div class="notes-shadow-box">
-  <textarea id="notesTxtArea" maxlength="1000" data-bind="value: $root.observableNote.data" placeholder="Wpisz treść notatki"></textarea>
+  <textarea id="notesTxtArea" maxlength="1000" data-bind="value: $root.detailsPage.dayPlanPart.dayPlanVM.observableNote.data" placeholder="Wpisz treść notatki"></textarea>
   <div style="overflow:hidden;">
     <button id="btnAddNewNote" data-bind="click: $root.AddNoteOnClick" class="btn-add green-color hover-cursor-pointer">dodaj</button>
   </div>
   <div id="notesListContainer">
-    <ul id="notesList" data-bind="foreach: $root.detailsPageDayNotes">
+    <ul id="notesList" data-bind="foreach: $root.detailsPage.dayPlanPart.dayPlanVM.notes">
       <li data-bind="attr: { 'data-noteid': id, 'type': isLineThrough() ? 'disc' : 'circle' }, css: { 'line-through-text': isLineThrough() }">
         <div class="note-content">
           <pre data-bind="text: data, css: { 'line-through-text': isLineThrough() }" style="white-space: pre-wrap;"></pre>

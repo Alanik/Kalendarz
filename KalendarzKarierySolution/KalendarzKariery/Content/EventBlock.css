@@ -34,12 +34,6 @@
 	background: #f3f3f3;
 }
 
-#detailsEventBlockList .event-block-body {
-	color: rgb(220, 220, 220);
-	padding: 10px;
-	font-size: 1.2em;
-}
-
 #detailsEventBlockList .event-block-footer {
 	padding: 10px;
 	overflow: hidden;

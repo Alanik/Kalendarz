@@ -384,21 +384,21 @@
 		}
 
 		//2. update appViewModel.detailsPageEvents()
-		if ( newKKEvent.startDate.year == appViewModel.detailsPage.dayPlanPart.dayPlanVM.date.year() && newKKEvent.startDate.month == appViewModel.detailsPage.dayPlanPart.dayPlanVM.date.month() && newKKEvent.startDate.day == appViewModel.detailsPage.dayPlanPart.dayPlanVM.date.day() )
+		if ( newKKEvent.startDate.year == appViewModel.detailsPage.dayPlanPart.dayPlanTableVM.date.year() && newKKEvent.startDate.month == appViewModel.detailsPage.dayPlanPart.dayPlanTableVM.date.month() && newKKEvent.startDate.day == appViewModel.detailsPage.dayPlanPart.dayPlanTableVM.date.day() )
 		{
-			appViewModel.detailsPage.dayPlanPart.dayPlanVM.events( dayEventsArr );
+			appViewModel.detailsPage.dayPlanPart.eventListVM.events( dayEventsArr );
 
 			appViewModel.removeEventRectanglesFromDetailsDay();
 
 			appViewModel.setCalendarPlacementRow( dayEventsArr );
-			appViewModel.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow = 1;
+			appViewModel.detailsPage.dayPlanPart.dayPlanTableVM.eventMostBottomRow = 1;
 
 			for ( var i in dayEventsArr )
 			{
 				appViewModel.drawEventToDetailsDayTable( dayEventsArr[i] );
 			}
 
-			appViewModel.resizeDetailsDayTable( appViewModel.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow );
+			appViewModel.resizeDetailsDayTable( appViewModel.detailsPage.dayPlanPart.dayPlanTableVM.eventMostBottomRow );
 		}
 
 		//3. add event to appViewModel.detailsPage.journalPart.eventListVM.menuItems.myCalendar.selectedEvents

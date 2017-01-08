@@ -174,7 +174,8 @@
         row = data.structure.columns[0].numOfRows == 1 ? 0 : 1;
 
         data.viewPort.nextItem = new ViewPortItem(data, col, row);
-        data.viewPort.getHorizontalSlideOffset = function () {
+        data.viewPort.getHorizontalSlideOffset = function ()
+        {
           return (data.structure.$dzieuo.width() - 20);
         }
       },

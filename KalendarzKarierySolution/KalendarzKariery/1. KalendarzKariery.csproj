@@ -200,6 +200,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\EventBlock.css" />
+    <Content Include="Content\MaterialDesignIcons\materialdesignicons-webfont.svg" />
+    <Content Include="Content\MaterialDesignIcons\materialdesignicons.min.css" />
     <Content Include="Content\MediaQueries_ShowHide.css" />
     <Content Include="Images\Logo\kalendarz-kariery-logo.png" />
     <Content Include="Scripts\Lib\DzieuoJs\Dzieuo.css" />
@@ -277,6 +279,11 @@
     <Content Include="Content\Fonts\Raleway\Raleway-SemiBold.ttf" />
     <Content Include="Content\Fonts\Raleway\Raleway-Thin-Italic.ttf" />
     <Content Include="Content\Fonts\Raleway\Raleway-Thin.ttf" />
+    <Content Include="Content\MaterialDesignIcons\materialdesignicons.min.css.map" />
+    <Content Include="Content\MaterialDesignIcons\materialdesignicons-webfont.eot" />
+    <Content Include="Content\MaterialDesignIcons\materialdesignicons-webfont.ttf" />
+    <Content Include="Content\MaterialDesignIcons\materialdesignicons-webfont.woff" />
+    <Content Include="Content\MaterialDesignIcons\materialdesignicons-webfont.woff2" />
     <None Include="Properties\PublishProfiles\Alan.pubxml" />
     <Content Include="Scripts\CalendarWidget\CalendarWidget.css" />
     <Content Include="Scripts\JSManagers\EventManager.js" />
@@ -370,7 +377,6 @@
     <Content Include="Views\Home\SharedPartials\_LoginBar.cshtml" />
     <Content Include="Views\Home\LobbyPage\_UpcomingEventsPart.EventCountTiles.cshtml" />
     <Content Include="Views\Shared\_LayoutMobile.cshtml" />
-    <Content Include="Views\Home\DetailsPage\_DetailsNotesSummary.cshtml" />
     <Content Include="Views\Home\DetailsPage\_JournalPart.EventList.cshtml" />
     <Content Include="Views\Home\LobbyPage\_UpcomingEventsPart.EventList.cshtml" />
     <Content Include="Views\Home\DetailsPage\_JournalPart.EventCountTiles.cshtml" />
@@ -381,6 +387,8 @@
     <Content Include="Views\Home\SharedPartials\_EventListItem.cshtml" />
     <Content Include="Views\Home\DetailsPage\_JournalPart.cshtml" />
     <Content Include="Views\Home\DetailsPage\_DayPlanPart.cshtml" />
+    <Content Include="Views\Home\DetailsPage\_DayPlanPart.DayPlanTable.cshtml" />
+    <Content Include="Views\Home\DetailsPage\_DayPlanPart.NotesList.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

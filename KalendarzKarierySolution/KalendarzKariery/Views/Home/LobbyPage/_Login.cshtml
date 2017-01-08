@@ -2,7 +2,7 @@
 
 <div id="loginPageContainer" class="flat-form">
   <div class="form-header">
-    <div data-bind="click: closeLoginPopupOnClick" class="btn-close hover-cursor-pointer">x</div>
+    <i data-bind="click: closeLoginPopupOnClick" class="btn-close md-icon-hover md-icon-rg mdi mdi-window-close"></i>
   </div>
   <div class="form-body">
     @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "loginForm" }))

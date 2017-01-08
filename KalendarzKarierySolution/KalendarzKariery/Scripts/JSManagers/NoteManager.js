@@ -90,8 +90,8 @@
 		//1. add note to noteTree 
 		dayNotesArr.splice( 0, 0, newKKNote );
 
-		//2. add note to detailsPage.dayPlanPart.dayPlanVM.notes
-		appViewModel.detailsPage.dayPlanPart.dayPlanVM.notes( dayNotesArr );
+		//2. add note to detailsPage.dayPlanPart.noteListVM.notes
+		appViewModel.detailsPage.dayPlanPart.noteListVM.notes( dayNotesArr );
 	}
 
 	self.removeNote = function ( id, year, month, day )

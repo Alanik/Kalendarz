@@ -273,7 +273,7 @@
 	}
 
 	self.detailsPage.dayPlanPart = {};
-	self.detailsPage.dayPlanPart.dayPlanVM = {
+	self.detailsPage.dayPlanPart.dayPlanTableVM = {
 		"date": {
 			"year": ko.observable( year ),
 			//month starts from 1 to 12
@@ -289,12 +289,18 @@
 				return weekday == 0 ? self.dayNames[6] : self.dayNames[weekday - 1];
 			}
 		},
-		"events": ko.observableArray( [] ),
-		"notes": ko.observableArray( [] ),
-		"observableNote" : new KKNoteModelObservable(),
 		// used to specify the most bottom row of events in details page in the daily plan table
 		"eventMostBottomRow": 1
 	}
+	self.detailsPage.dayPlanPart.eventListVM = {
+		"events": ko.observableArray( [] )
+	}
+	self.detailsPage.dayPlanPart.noteListVM = {
+		"notes": ko.observableArray( [] ),
+		"observableNote": new KKNoteModelObservable(),
+		"isAddNoteSectionOpen" : ko.observable(false)
+	}
+
 
 	//////////////////////////////////////////////////////////
 	// METHODS 
@@ -594,16 +600,16 @@
 	self.AddNoteOnClick = function ()
 	{
 		var promise, data;
-		var text = self.detailsPage.dayPlanPart.dayPlanVM.observableNote.data().trim();
+		var text = self.detailsPage.dayPlanPart.noteListVM.observableNote.data().trim();
 		if ( text == "" )
 		{
 			return false;
 		}
 
 		data = 'Data=' + text;
-		data += '&DisplayDate.Year=' + self.detailsPage.dayPlanPart.dayPlanVM.date.year();
-		data += '&DisplayDate.Month=' + self.detailsPage.dayPlanPart.dayPlanVM.date.month();
-		data += '&DisplayDate.day=' + self.detailsPage.dayPlanPart.dayPlanVM.date.day();
+		data += '&DisplayDate.Year=' + self.detailsPage.dayPlanPart.dayPlanTableVM.date.year();
+		data += '&DisplayDate.Month=' + self.detailsPage.dayPlanPart.dayPlanTableVM.date.month();
+		data += '&DisplayDate.day=' + self.detailsPage.dayPlanPart.dayPlanTableVM.date.day();
 
 		//////////////////////////////////////////////
 		//call WebAPI - Add new note
@@ -625,13 +631,13 @@
 				alert( result.Message );
 			} else
 			{
-				displayDate = new KKDateModel( null, null, self.detailsPage.dayPlanPart.dayPlanVM.date.day(), self.detailsPage.dayPlanPart.dayPlanVM.date.month(), self.detailsPage.dayPlanPart.dayPlanVM.date.year() );
+				displayDate = new KKDateModel( null, null, self.detailsPage.dayPlanPart.dayPlanTableVM.date.day(), self.detailsPage.dayPlanPart.dayPlanTableVM.date.month(), self.detailsPage.dayPlanPart.dayPlanTableVM.date.year() );
 
-				kkNote = self.NOTE_MANAGER.getNewKKNoteModel( result.NoteId, self.detailsPage.dayPlanPart.dayPlanVM.observableNote.data(), self.userName, self.detailsPage.dayPlanPart.dayPlanVM.observableNote.privacyLevel.name,
-									self.detailsPage.dayPlanPart.dayPlanVM.observableNote.privacyLevel.value, displayDate, false, new KKDateModel( date.getMinutes(), date.getHours(), date.getDate(), date.getMonth() + 1, date.getFullYear() ) );
+				kkNote = self.NOTE_MANAGER.getNewKKNoteModel( result.NoteId, self.detailsPage.dayPlanPart.noteListVM.observableNote.data(), self.userName, self.detailsPage.dayPlanPart.noteListVM.observableNote.privacyLevel.name,
+									self.detailsPage.dayPlanPart.noteListVM.observableNote.privacyLevel.value, displayDate, false, new KKDateModel( date.getMinutes(), date.getHours(), date.getDate(), date.getMonth() + 1, date.getFullYear() ) );
 				self.NOTE_MANAGER.addNote( kkNote );
 
-				self.detailsPage.dayPlanPart.dayPlanVM.observableNote.data( "" );
+				self.detailsPage.dayPlanPart.noteListVM.observableNote.data( "" );
 				self.UTILS.loader.hide( true );
 			}
 		}
@@ -701,10 +707,10 @@
 
 					//redraw details page event rectangle table
 					self.removeEventRectanglesFromDetailsDay();
-					events = self.detailsPage.dayPlanPart.dayPlanVM.events();
+					events = self.detailsPage.dayPlanPart.eventListVM.events();
 
 					self.setCalendarPlacementRow( events );
-					self.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow = 1;
+					self.detailsPage.dayPlanPart.dayPlanTableVM.eventMostBottomRow = 1;
 					self.redrawCalendarCell( events, year, month, day );
 
 					for ( var i in events )
@@ -713,7 +719,7 @@
 					}
 
 					$detailsDayTable = $( "#details #detailsDayTable" );
-					self.resizeDetailsDayTable( self.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow );
+					self.resizeDetailsDayTable( self.detailsPage.dayPlanPart.dayPlanTableVM.eventMostBottomRow );
 					offset = $detailsDayTable.position().top - 83;
 					$detailsDayTable.scrollTo( 500, offset );
 				} );
@@ -913,7 +919,7 @@
 		var $container = $( "#notesListContainer li[data-noteid='" + id + "']" );
 		var text, promise;
 
-		var note = self.NOTE_MANAGER.getNoteByDateAndId( id, self.detailsPage.dayPlanPart.dayPlanVM.date.year(), self.detailsPage.dayPlanPart.dayPlanVM.date.month(), self.detailsPage.dayPlanPart.dayPlanVM.date.day() );
+		var note = self.NOTE_MANAGER.getNoteByDateAndId( id, self.detailsPage.dayPlanPart.dayPlanTableVM.date.year(), self.detailsPage.dayPlanPart.dayPlanTableVM.date.month(), self.detailsPage.dayPlanPart.dayPlanTableVM.date.day() );
 
 		if ( !note )
 		{
@@ -1066,19 +1072,19 @@
 
 	self.showTodayInDetailsPageCalendarDetailsTable = function ()
 	{
-		self.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow = 1;
+		self.detailsPage.dayPlanPart.dayPlanTableVM.eventMostBottomRow = 1;
 
-		self.detailsPage.dayPlanPart.dayPlanVM.date.day( self.todayDate.day );
-		self.detailsPage.dayPlanPart.dayPlanVM.date.month( self.todayDate.month );
-		self.detailsPage.dayPlanPart.dayPlanVM.date.year( self.todayDate.year );
+		self.detailsPage.dayPlanPart.dayPlanTableVM.date.day( self.todayDate.day );
+		self.detailsPage.dayPlanPart.dayPlanTableVM.date.month( self.todayDate.month );
+		self.detailsPage.dayPlanPart.dayPlanTableVM.date.year( self.todayDate.year );
 
 		//Events
 		var events = self.EVENT_MANAGER.getEventsForGivenDay( self.todayDate.year, self.todayDate.month, self.todayDate.day, self.myEventTree )
-		self.detailsPage.dayPlanPart.dayPlanVM.events( events );
+		self.detailsPage.dayPlanPart.eventListVM.events( events );
 
 		//Notes
 		var notes = self.NOTE_MANAGER.getNotesForGivenDay( self.todayDate.year, self.todayDate.month, self.todayDate.day )
-		self.detailsPage.dayPlanPart.dayPlanVM.notes( notes );
+		self.detailsPage.dayPlanPart.noteListVM.notes( notes );
 
 		self.removeEventRectanglesFromDetailsDay();
 
@@ -1088,7 +1094,7 @@
 			self.drawEventToDetailsDayTable( events[i] );
 		}
 
-		self.resizeDetailsDayTable( self.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow );
+		self.resizeDetailsDayTable( self.detailsPage.dayPlanPart.dayPlanTableVM.eventMostBottomRow );
 
 		var $detailsDayTable = $( "#details #detailsDayTable" );
 		var offset = $detailsDayTable.position().top - 83;
@@ -1193,12 +1199,12 @@
 
 	self.drawEventToDetailsDayTable = function ( event, onAppInit )
 	{
-		//TODO: inject self.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow into the method
+		//TODO: inject self.detailsPage.dayPlanPart.dayPlanTableVM.eventMostBottomRow into the method
 
 		//set detailsPageBottomRow to calculate detailsPageEventsTable height based on the most bottom event.calendarPlacementRow 
-		if ( event.calendarPlacementRow > self.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow )
+		if ( event.calendarPlacementRow > self.detailsPage.dayPlanPart.dayPlanTableVM.eventMostBottomRow )
 		{
-			self.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow = event.calendarPlacementRow;
+			self.detailsPage.dayPlanPart.dayPlanTableVM.eventMostBottomRow = event.calendarPlacementRow;
 		}
 
 		var startMinuteOffset = event.startDate.startMinute / 60 * 100;
@@ -1220,15 +1226,15 @@
 	self.removeEventRectanglesFromDetailsDay = function ()
 	{
 		$( "#details #detailsDayTable .event-rectangle-details" ).remove();
-		self.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow = 1;
+		self.detailsPage.dayPlanPart.dayPlanTableVM.eventMostBottomRow = 1;
 	};
 
 	self.moveToDetailsPageOnCalendarCellClick = function ( element )
 	{
-		self.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow = 1;
+		self.detailsPage.dayPlanPart.dayPlanTableVM.eventMostBottomRow = 1;
 		var day = $( element ).data( "daynumber" );
 		var dayInt = parseInt( day, 10 );
-		self.detailsPage.dayPlanPart.dayPlanVM.date.day( dayInt );
+		self.detailsPage.dayPlanPart.dayPlanTableVM.date.day( dayInt );
 
 		var $cell = $( element ).closest( ".calendar-cell" );
 
@@ -1236,37 +1242,37 @@
 		{
 			if ( self.calendarPage.calendarPart.calendarVM.displayDate.month() == 1 )
 			{
-				self.detailsPage.dayPlanPart.dayPlanVM.date.year( self.calendarPage.calendarPart.calendarVM.displayDate.year() - 1 );
-				self.detailsPage.dayPlanPart.dayPlanVM.date.month( 12 );
+				self.detailsPage.dayPlanPart.dayPlanTableVM.date.year( self.calendarPage.calendarPart.calendarVM.displayDate.year() - 1 );
+				self.detailsPage.dayPlanPart.dayPlanTableVM.date.month( 12 );
 			} else
 			{
-				self.detailsPage.dayPlanPart.dayPlanVM.date.year( self.calendarPage.calendarPart.calendarVM.displayDate.year() );
-				self.detailsPage.dayPlanPart.dayPlanVM.date.month( self.calendarPage.calendarPart.calendarVM.displayDate.month() - 1 );
+				self.detailsPage.dayPlanPart.dayPlanTableVM.date.year( self.calendarPage.calendarPart.calendarVM.displayDate.year() );
+				self.detailsPage.dayPlanPart.dayPlanTableVM.date.month( self.calendarPage.calendarPart.calendarVM.displayDate.month() - 1 );
 			}
 
 		} else if ( $cell.hasClass( "next-month-cell" ) )
 		{
 			if ( self.calendarPage.calendarPart.calendarVM.displayDate.month() == 12 )
 			{
-				self.detailsPage.dayPlanPart.dayPlanVM.date.year( self.calendarPage.calendarPart.calendarVM.displayDate.year() + 1 );
-				self.detailsPage.dayPlanPart.dayPlanVM.date.month( 1 );
+				self.detailsPage.dayPlanPart.dayPlanTableVM.date.year( self.calendarPage.calendarPart.calendarVM.displayDate.year() + 1 );
+				self.detailsPage.dayPlanPart.dayPlanTableVM.date.month( 1 );
 			} else
 			{
-				self.detailsPage.dayPlanPart.dayPlanVM.date.year( self.calendarPage.calendarPart.calendarVM.displayDate.year() )
-				self.detailsPage.dayPlanPart.dayPlanVM.date.month( self.calendarPage.calendarPart.calendarVM.displayDate.month() + 1 );
+				self.detailsPage.dayPlanPart.dayPlanTableVM.date.year( self.calendarPage.calendarPart.calendarVM.displayDate.year() )
+				self.detailsPage.dayPlanPart.dayPlanTableVM.date.month( self.calendarPage.calendarPart.calendarVM.displayDate.month() + 1 );
 			}
 		}
 		else
 		{
-			self.detailsPage.dayPlanPart.dayPlanVM.date.year( self.calendarPage.calendarPart.calendarVM.displayDate.year() );
-			self.detailsPage.dayPlanPart.dayPlanVM.date.month( self.calendarPage.calendarPart.calendarVM.displayDate.month() );
+			self.detailsPage.dayPlanPart.dayPlanTableVM.date.year( self.calendarPage.calendarPart.calendarVM.displayDate.year() );
+			self.detailsPage.dayPlanPart.dayPlanTableVM.date.month( self.calendarPage.calendarPart.calendarVM.displayDate.month() );
 		}
 
-		var notes = self.NOTE_MANAGER.getNotesForGivenDay( self.detailsPage.dayPlanPart.dayPlanVM.date.year(), self.detailsPage.dayPlanPart.dayPlanVM.date.month(), self.detailsPage.dayPlanPart.dayPlanVM.date.day() )
-		self.detailsPage.dayPlanPart.dayPlanVM.notes( notes );
+		var notes = self.NOTE_MANAGER.getNotesForGivenDay( self.detailsPage.dayPlanPart.dayPlanTableVM.date.year(), self.detailsPage.dayPlanPart.dayPlanTableVM.date.month(), self.detailsPage.dayPlanPart.dayPlanTableVM.date.day() )
+		self.detailsPage.dayPlanPart.noteListVM.notes( notes );
 
-		var events = self.EVENT_MANAGER.getEventsForGivenDay( self.detailsPage.dayPlanPart.dayPlanVM.date.year(), self.detailsPage.dayPlanPart.dayPlanVM.date.month(), self.detailsPage.dayPlanPart.dayPlanVM.date.day(), self.myEventTree )
-		self.detailsPage.dayPlanPart.dayPlanVM.events( events );
+		var events = self.EVENT_MANAGER.getEventsForGivenDay( self.detailsPage.dayPlanPart.dayPlanTableVM.date.year(), self.detailsPage.dayPlanPart.dayPlanTableVM.date.month(), self.detailsPage.dayPlanPart.dayPlanTableVM.date.day(), self.myEventTree )
+		self.detailsPage.dayPlanPart.eventListVM.events( events );
 
 		self.removeEventRectanglesFromDetailsDay();
 
@@ -1275,7 +1281,7 @@
 			self.drawEventToDetailsDayTable( events[i] );
 		}
 
-		self.resizeDetailsDayTable( self.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow )
+		self.resizeDetailsDayTable( self.detailsPage.dayPlanPart.dayPlanTableVM.eventMostBottomRow )
 
 		var $scrollable = $( "#slide-item-details" ).parent();
 
@@ -1681,17 +1687,17 @@
 
 	self.moveToDetailsDayOnEventCalendarIconClick = function ( id, year, month, day )
 	{
-		self.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow = 1;
+		self.detailsPage.dayPlanPart.dayPlanTableVM.eventMostBottomRow = 1;
 
-		self.detailsPage.dayPlanPart.dayPlanVM.date.day( day );
-		self.detailsPage.dayPlanPart.dayPlanVM.date.year( year );
-		self.detailsPage.dayPlanPart.dayPlanVM.date.month( month );
+		self.detailsPage.dayPlanPart.dayPlanTableVM.date.day( day );
+		self.detailsPage.dayPlanPart.dayPlanTableVM.date.year( year );
+		self.detailsPage.dayPlanPart.dayPlanTableVM.date.month( month );
 
 		var notes = self.NOTE_MANAGER.getNotesForGivenDay( year, month, day )
-		self.detailsPage.dayPlanPart.dayPlanVM.notes( notes );
+		self.detailsPage.dayPlanPart.noteListVM.notes( notes );
 
 		var events = self.EVENT_MANAGER.getEventsForGivenDay( year, month, day, self.myEventTree )
-		self.detailsPage.dayPlanPart.dayPlanVM.events( events );
+		self.detailsPage.dayPlanPart.eventListVM.events( events );
 
 		self.removeEventRectanglesFromDetailsDay();
 
@@ -1700,7 +1706,7 @@
 			self.drawEventToDetailsDayTable( events[i] );
 		}
 
-		self.resizeDetailsDayTable( self.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow );
+		self.resizeDetailsDayTable( self.detailsPage.dayPlanPart.dayPlanTableVM.eventMostBottomRow );
 
 		var speed = 800;
 		if ( self.currentPage() == 0 )
@@ -2345,7 +2351,7 @@
 
 	self.setCalendarPlacementRow = function ( dayEvents )
 	{
-		self.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow = 1;
+		self.detailsPage.dayPlanPart.dayPlanTableVM.eventMostBottomRow = 1;
 		var anotherEvent;
 		var eStartH, eEndH, eStartM, eEndM;
 		var eventsInTheSameDayTemp = [];
@@ -2386,9 +2392,9 @@
 					}
 				}
 
-				if ( event.calendarPlacementRow > self.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow )
+				if ( event.calendarPlacementRow > self.detailsPage.dayPlanPart.dayPlanTableVM.eventMostBottomRow )
 				{
-					self.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow = event.calendarPlacementRow;
+					self.detailsPage.dayPlanPart.dayPlanTableVM.eventMostBottomRow = event.calendarPlacementRow;
 				}
 			}
 

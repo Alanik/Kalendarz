@@ -2,7 +2,7 @@
 
 <div id="registerPageContainer" class="flat-form">
   <div class="form-header">
-    <span data-bind="click: closeRegisterPopupOnClick" class="btn-close hover-cursor-pointer">x</span>
+    <i class="btn-close md-icon-hover md-icon-rg mdi mdi-window-close" data-bind="click: closeRegisterPopupOnClick"></i>
   </div>
   <div class="form-body">
     @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { id = "registerForm" }))

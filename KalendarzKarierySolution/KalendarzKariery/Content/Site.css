@@ -77,7 +77,7 @@ fieldset {
 
 #lobby .dz-column-inner-wrapper {
 	border-right: 1px solid #F3F3F3;
-	background: rgb(251, 250, 249);
+	background: #FBFAF9;
 	width: 83%;
 }
 
@@ -203,6 +203,7 @@ fieldset {
 	margin-bottom: 20px;
 	transition-duration: .5s;
 	color: gainsboro;
+	background: #f7f5f3;
 }
 
 	.menu-item-container.selected {
@@ -270,13 +271,11 @@ fieldset {
 	width: 98%;
 	margin: 0 auto;
 	margin-bottom: 20px;
-	border: 2px solid #DCDCDC;
+	background: #F7F5F3;
 }
 
 .display-events-overview-header {
 	text-align: left;
-	font-size: 1.4em;
-	position: relative;
 	color: #cacaca;
 	background: #E0E0E0;
 	overflow: hidden;
@@ -318,12 +317,12 @@ fieldset {
 
 .display-events-header-menu-title {
 	padding: 4px;
+	font-size: 1.4em;
 	position: relative;
-	top: 10px;
+	top: 8px;
 }
 
 	.display-events-header-menu-title.selected {
-		border-bottom: 1px solid #F7F5F3;
 		color: black;
 		text-transform: uppercase;
 	}
@@ -426,7 +425,7 @@ fieldset {
 }
 
 .event-tiles-wrapper {
-	background: #f7f5f3;
+	background: #FBFAF9;
 	padding-bottom: 10px;
 	border-top: 1px solid white;
 	overflow: hidden;
@@ -472,7 +471,8 @@ fieldset {
 		padding-bottom: 4px;
 		padding-left: 1px;
 		border: 2px solid white;
-		border-bottom: 2px solid #dcdcdc;
+		border-bottom: 2px solid #E8E6E6;
+		border-left: 2px solid #FDFDFD;
 	}
 
 	#detailsDayTable .details-day-table-cell {
@@ -531,21 +531,16 @@ fieldset {
 	width: 100%;
 	margin: 0 auto;
 	box-sizing: border-box;
-	padding-top: 20px;
+	padding-top: 10px;
 }
 
 #detailsEventBlockList {
-	width: 49%;
-	display: inline-block;
 	box-sizing: border-box;
 	padding-left: 0;
 	margin-top: 0;
 }
 
 #notesContainer {
-	float: right;
-	vertical-align: top;
-	width: 49%;
 }
 
 .notes-shadow-box {
@@ -576,7 +571,7 @@ fieldset {
     left: auto;
   }*/
 
-#notesTxtArea {
+#noteTxtArea {
 	width: 100%;
 	height: 80px;
 	box-sizing: border-box;
@@ -585,7 +580,6 @@ fieldset {
 
 #btnAddNewNote {
 	float: right;
-	margin-bottom: 5px;
 	padding: 10px 20px;
 }
 
@@ -598,7 +592,6 @@ fieldset {
 
 
 #notesListContainer {
-	padding-top: 20px;
 }
 
 .note-content {
@@ -750,11 +743,9 @@ fieldset {
 
 .btn-close {
 	float: right;
-	padding: 0 20px;
-	padding-bottom: 4px;
-	color: white;
-	background: #5F5F5F;
-	font-size: 1.2em;
+	position: relative;
+	top: 2px;
+	right: 2px;
 }
 
 .gray-color {
@@ -792,7 +783,6 @@ fieldset {
 
 .lobby-overview {
 	border-top: 1px solid white;
-	background: #F7F5F3;
 }
 
 .section-title {
@@ -821,8 +811,29 @@ li.line-through-text {
 	color: black;
 }
 
+.md-icon-sm {
+	font-size: 1.4em;
+	color: gainsboro;
+	vertical-align: top;
+}
+
+.md-icon-rg {
+	font-size: 2em;
+	color: gray;
+	vertical-align: top;
+}
+
+	.md-icon-rg:before {
+		padding: 5px;
+	}
+
+.md-icon-hover:hover:before {
+	cursor: pointer;
+	border: 2px solid #C3C3C3;
+	border-radius: 30px;
+}
+
 .overview-events-list-container {
-	border: 2px solid #e6e1db;
 	margin: 1px;
 	background: #F7F5F3;
 }
@@ -872,11 +883,11 @@ li.line-through-text {
 .event-list-item-right {
 	display: inline-block;
 	vertical-align: bottom;
-	width: 70%;
+	width: 75%;
 }
 
 .event-list-item-left {
-	width: 25%;
+	width: 20%;
 	display: inline-block;
 	line-height: 1;
 }
@@ -902,7 +913,6 @@ li.line-through-text {
 .list-item-date {
 	color: #b3aea8;
 	padding-top: 4px;
-	display: inline-block;
 }
 
 .pad-top-8 {
@@ -915,6 +925,8 @@ li.line-through-text {
 
 #lobbyEventsMasonryContainer .event-block-expand {
 	border: 2px solid #BBBBBB;
+	border-right: 1px solid #BBBBBB;
+	border-top: 1px solid #BBBBBB;
 }
 
 
@@ -1156,7 +1168,7 @@ li.line-through-text {
 
 
 /*SCROLLBARS*/
-::-webkit-scrollbar {
+/*::-webkit-scrollbar {
 	width: 16px;
 	height: 10px;
 }
@@ -1184,4 +1196,4 @@ li.line-through-text {
 
 ::-webkit-scrollbar-corner {
 	background: transparent;
-}
+}*/

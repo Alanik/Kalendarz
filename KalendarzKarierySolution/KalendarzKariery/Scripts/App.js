@@ -261,15 +261,15 @@
 		//////////////////////////////////////////////////////////////////
 		//initialize details page
 		//////////////////////////////////////////////////////////////////
-		appvm.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow = 1;
-		appvm.detailsPage.dayPlanPart.dayPlanVM.date.year( date.getFullYear() );
-		appvm.detailsPage.dayPlanPart.dayPlanVM.date.month( date.getMonth() + 1 );
-		appvm.detailsPage.dayPlanPart.dayPlanVM.date.day( date.getDate() );
+		appvm.detailsPage.dayPlanPart.dayPlanTableVM.eventMostBottomRow = 1;
+		appvm.detailsPage.dayPlanPart.dayPlanTableVM.date.year( date.getFullYear() );
+		appvm.detailsPage.dayPlanPart.dayPlanTableVM.date.month( date.getMonth() + 1 );
+		appvm.detailsPage.dayPlanPart.dayPlanTableVM.date.day( date.getDate() );
 
-		var events = EVENT_MANAGER.getEventsForGivenDay( appvm.detailsPage.dayPlanPart.dayPlanVM.date.year(), appvm.detailsPage.dayPlanPart.dayPlanVM.date.month(), appvm.detailsPage.dayPlanPart.dayPlanVM.date.day(), appvm.myEventTree )
-		var notes = NOTE_MANAGER.getNotesForGivenDay( appvm.detailsPage.dayPlanPart.dayPlanVM.date.year(), appvm.detailsPage.dayPlanPart.dayPlanVM.date.month(), appvm.detailsPage.dayPlanPart.dayPlanVM.date.day() )
-		appvm.detailsPage.dayPlanPart.dayPlanVM.events( events );
-		appvm.detailsPage.dayPlanPart.dayPlanVM.notes( notes );
+		var events = EVENT_MANAGER.getEventsForGivenDay( appvm.detailsPage.dayPlanPart.dayPlanTableVM.date.year(), appvm.detailsPage.dayPlanPart.dayPlanTableVM.date.month(), appvm.detailsPage.dayPlanPart.dayPlanTableVM.date.day(), appvm.myEventTree )
+		var notes = NOTE_MANAGER.getNotesForGivenDay( appvm.detailsPage.dayPlanPart.dayPlanTableVM.date.year(), appvm.detailsPage.dayPlanPart.dayPlanTableVM.date.month(), appvm.detailsPage.dayPlanPart.dayPlanTableVM.date.day() )
+		appvm.detailsPage.dayPlanPart.eventListVM.events( events );
+		appvm.detailsPage.dayPlanPart.noteListVM.notes( notes );
 		///////////////////////////////////////////////////////////////////
 
 		///////////////////////////////////////////////////////////////////
@@ -289,7 +289,7 @@
 		}
 
 		var $tableBody = $( "#detailsDayTable .details-day-table-body" );
-		var h = ( appvm.detailsPage.dayPlanPart.dayPlanVM.eventMostBottomRow ) * 46;
+		var h = ( appvm.detailsPage.dayPlanPart.dayPlanTableVM.eventMostBottomRow ) * 46;
 		h = h + 20;
 		$tableBody.height( h + "px" );
 		///////////////////////////////////////////////////////////////////

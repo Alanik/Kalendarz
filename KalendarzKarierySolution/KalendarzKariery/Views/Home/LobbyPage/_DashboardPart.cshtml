@@ -2,13 +2,13 @@
 <div class="lobby-overview">
 	<div class="inline-block" style="width: 51%;position:relative;top:-1px;">
 		<div class="overview-events-list-container">
-			<div class="dashboard-title">Nadchodzące publiczne wydarzenia</div>
+			<div class="dashboard-title"><span class="selected">Nadchodzące publiczne wydarzenia</span></div>
 			<ul data-bind="foreach: $root.lobbyPage.dashboardPart.upcomingPublicEventsVM">
 				@Html.Partial( "_EventListItem",  new ViewDataDictionary { { "page", "lobby" } } )
 			</ul>
 		</div>
 		<div class="overview-events-list-container">
-			<div class="dashboard-title">Najnowsze publiczne wydarzenia</div>
+			<div class="dashboard-title"><span class="selected">Najnowsze publiczne wydarzenia</span></div>
 			<ul data-bind="foreach: $root.lobbyPage.dashboardPart.recenlyAddedPublicEventsVM">
 				@Html.Partial( "_EventListItem",  new ViewDataDictionary { { "page", "lobby" } } )
 			</ul>
@@ -16,7 +16,7 @@
 	</div>
 	<div class="inline-block" style="width: 49%; float: right; color: white;position:relative;top:-1px;">
 		<div class="overview-events-list-container">
-			<div class="dashboard-title">Mój kalendarz</div>
+			<div class="dashboard-title"><span class="selected">Mój kalendarz</span></div>
 
 			<h4 style="font-weight: normal; color: #a7a2a2; padding-left: 10px;">dzisiaj</h4>
 

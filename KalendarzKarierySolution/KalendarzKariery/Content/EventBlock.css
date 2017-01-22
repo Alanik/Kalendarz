@@ -10,6 +10,7 @@
 
 #lobbyEventsMasonryContainer .event-block {
 	border: none;
+	margin-left: 0;
 }
 
 /*Details - detailsEventBlockList*/
@@ -28,10 +29,6 @@
 }
 
 #detailsEventBlockList .event-block-name {
-	font-size: 1.5em;
-	color: #636363;
-	padding: 10px;
-	background: #f3f3f3;
 }
 
 #detailsEventBlockList .event-block-footer {
@@ -75,6 +72,9 @@
 .event-block-expand .event-block {
 	line-height: 1;
 	background: rgb(249, 248, 246);
+	margin-left: 4px;
+	border-bottom: 1px solid #E6E1DB;
+	border-left: 1px solid #E6E1DB;
 }
 
 .event-block-expand .event-block-link {
@@ -89,16 +89,17 @@
 }
 
 .event-block-expand .event-kind-tag {
-	line-height: 1.5;
 	font-size: 1em;
 	float: right;
 	text-align: center;
+	padding: 4px;
 }
 
 .event-block-expand .event-block-body {
 	color: rgb(72, 68, 62);
 	padding: 10px;
 	font-size: 1.2em;
+	background: #E4E1DE;
 }
 
 	.event-block-expand .event-block-body :hover {

@@ -14,9 +14,9 @@
 
 #calendarWidgetHeader {
 	display: table-caption;
-	padding-left: 20px;
+	padding-left: 5px;
 	height: 60px;
-	background: #FBFAF9;
+	background: #B5B5B5;
 }
 
 #calendarWidgetBody {
@@ -51,26 +51,28 @@
 
 .weekday-container {
 	display: table-row;
+	color: gray;
 }
 
 .weekday {
 	display: table-cell;
 	text-align: center;
-	background: #FDFDFD;
+	background: #E4E1DE;
+	padding: 10px;
 }
 
 .weekday-sunday {
+	color: rgb(255, 109, 109) !important;
 	display: table-cell;
 	text-align: center;
-	background: #FDFDFD;
-	color: rgb(255, 109, 109) !important;
 }
 
 
 .current-weekday {
 	color: black;
 	text-transform: uppercase;
-	border: 2px solid gray !important;
+	border: 2px solid #C1C1C1 !important;
+	background: #CCCCCC;
 }
 
 .calendar-hours {
@@ -118,7 +120,7 @@
 	top: 56px;
 	height: 26px;
 	z-index: 98;
-	color: #B5B5B1;
+	color: gray;
 	background: #f7f7f7;
 }
 
@@ -130,23 +132,15 @@
 	}
 
 .addNewEvent-cellIcon {
-	width: 40px;
-	height: 20px;
+	width: 23px;
+	height: 22px;
 	position: absolute;
-	right: 0px;
-	top: 0px;
+	right: 5px;
+	top: -3px;
 	text-align: center;
-	display: none;
 	z-index: 99;
-}
-
-.dark-icon {
-	color: white;
-	background: rgb(188,188,188);
-}
-
-.light-icon {
-	background: rgb(225, 225, 225);
+	display: none;
+	border-radius: 30px;
 }
 
 .cell-line-style {
@@ -170,11 +164,11 @@
 	}
 
 		.current-month-cell .cell-span-container .cell-month-name-span {
-			color: rgb(184, 184, 184);
+			color: gray;
 		}
 
 	.current-month-cell span {
-		color: #B5B5B1;
+		color: gray;
 		position: absolute;
 		padding-left: 2px;
 		padding-right: 5px;

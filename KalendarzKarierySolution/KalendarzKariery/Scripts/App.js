@@ -404,7 +404,7 @@
 							"cursor": "pointer",
 							"top": "3px"
 						} ).find( ".addNewEvent-cellIcon" ).fadeIn();
-					},
+					}, 
 					mouseleave: function ()
 					{
 						$( this ).css( {
@@ -480,14 +480,14 @@
 				{
 					$( this ).css( {
 						"cursor": "pointer",
-						"color": "rgb(232,232,232)"
+						"color": "black"
 					} );
 				},
 				mouseleave: function ()
 				{
 					$( this ).css( {
 						"cursor": "auto",
-						"color": "gray"
+						"color": "#4C4C4C"
 					} );
 				}
 			}, '.event-rectangle-details' );

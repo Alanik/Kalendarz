@@ -125,7 +125,6 @@ fieldset {
 #calendarDayDetailsContainer {
 	padding-top: 20px;
 	border-top: 1px solid white;
-	background: #F7F5F3;
 }
 
 #loginBarContainer {
@@ -163,6 +162,8 @@ fieldset {
 
 .dz-row {
 	position: relative;
+	width: 85%;
+	margin: 0 auto;
 }
 
 .lobby-login-text {
@@ -173,8 +174,8 @@ fieldset {
 #lobbyNavContainer {
 	font-size: 1.2em;
 	text-align: center;
-	padding-top: 50px;
-	padding-bottom: 40px;
+	padding-top: 80px;
+	padding-bottom: 80px;
 }
 
 	#lobbyNavContainer a {
@@ -186,7 +187,7 @@ fieldset {
 .selected-nav-link {
 	text-shadow: 0px 1px 1px #929292;
 	border-bottom: 2px solid #B5E4EC;
-	color: gray !important;
+	color: #4C4C4C !important;
 }
 
 .events-menu-container {
@@ -203,17 +204,17 @@ fieldset {
 	margin-bottom: 20px;
 	transition-duration: .5s;
 	color: gainsboro;
-	background: #f7f5f3;
+	background: #E4E1DE;
 }
 
 	.menu-item-container.selected {
-		background: white;
+		background: #B1A79D;
 		border-left: 2px solid #EFECE8;
 		border-bottom: 2px solid #EFECE8;
 	}
 
 		.menu-item-container.selected .menu-item-number-upcoming {
-			color: gray;
+			color: #272727;
 		}
 
 .menu-item {
@@ -262,13 +263,12 @@ fieldset {
 
 .menu-item-number-upcoming {
 	font-size: 3em;
-	color: rgb(189, 189, 189);
+	color: gray;
 }
 
 
 .display-events-overview-container {
 	clear: both;
-	width: 98%;
 	margin: 0 auto;
 	margin-bottom: 20px;
 	background: #F7F5F3;
@@ -276,32 +276,30 @@ fieldset {
 
 .display-events-overview-header {
 	text-align: left;
-	color: #cacaca;
-	background: #E0E0E0;
+	color: #CAC8C6;
+	background: #B5B5B5;
 	overflow: hidden;
-	font-family: Raleway-Regular;
-	border-bottom: 2px solid #CCCCCC;
 }
 
 .calendar-month-year-container {
-	line-height: 1;
-	color: gray;
-	vertical-align: bottom;
-	position: relative;
-	top: 4px;
+	color: #000000;
 	display: inline-block;
 }
 
 .calendar-month-name {
 	font-size: 1.4em;
+	display: inline-block;
+	width: 95px;
+	text-align: center;
 }
 
 .calendar-month-selectbox-container {
 	width: 100px;
+	padding-top: 4px;
 }
 
 .calendar-month-year-arrows {
-	color: gray;
+	color: white;
 	font-size: .6em;
 	padding: 4px;
 	border: none;
@@ -316,25 +314,20 @@ fieldset {
 
 
 .display-events-header-menu-title {
-	padding: 4px;
-	font-size: 1.4em;
-	position: relative;
-	top: 8px;
+	padding-right: 4px;
 }
 
-	.display-events-header-menu-title.selected {
-		color: black;
-		text-transform: uppercase;
-	}
+.dashboard-title .selected {
+	color: #4C4C4C;
+}
 
 .display-events-overview-container .legend-oldorupcoming {
-	color: #4E4E48;
+	color: #2F2F2F;
 	padding: 4px 0;
-	font-size: 1.4em;
+	font-size: 1.2em;
 	text-align: center;
-	margin-top: 1px;
-	margin-bottom: 1px;
-	position: relative;
+	border-bottom: 1px solid #B5B5B5;
+	background: #CECECE;
 }
 
 	.display-events-overview-container .legend-oldorupcoming.open {
@@ -352,12 +345,12 @@ fieldset {
 }
 
 .event-list-item-container {
-	border-left: 2px solid #eceae7;
-	border-bottom: 2px solid #eceae7;
+	border-left: 2px solid #CECECE;
+	border-bottom: 2px solid #CECECE;
 	overflow: hidden;
 	padding: 4px;
 	background: #FDFDFD;
-	margin-bottom: 4px;
+	padding-left: 0px;
 }
 
 .legend-text {
@@ -446,18 +439,19 @@ fieldset {
 
 #detailsDayTable {
 	position: relative;
-	padding: 0 2%;
 	padding-bottom: 2px;
 	width: 100%;
 	margin: 0 auto;
 	box-sizing: border-box;
+	background: rgb(232, 229, 225);
+	border-bottom: 2px solid rgb(245, 244, 244);
 }
 
 	#detailsDayTable .details-day-table-head {
 		overflow: hidden;
 		text-align: left;
-		color: #D0D0D0;
-		padding-top: 10px;
+		color: #7E7E7E;
+		padding-top: 20px;
 	}
 
 		#detailsDayTable .details-day-table-head div {
@@ -470,9 +464,7 @@ fieldset {
 		padding-top: 4px;
 		padding-bottom: 4px;
 		padding-left: 1px;
-		border: 2px solid white;
-		border-bottom: 2px solid #E8E6E6;
-		border-left: 2px solid #FDFDFD;
+		border: 2px solid #DAD9D9;
 	}
 
 	#detailsDayTable .details-day-table-cell {
@@ -489,14 +481,14 @@ fieldset {
 
 .hour-line {
 	position: absolute;
-	background: rgb(247, 246, 245);
+	background: rgb(232, 229, 225);
 	height: 100%;
 	width: 1px;
 }
 
 .hour-line-21 {
 	position: absolute;
-	background: rgb(247, 246, 245);
+	background: rgb(232, 229, 225);
 	height: 100%;
 	width: 1px;
 	right: 1px;
@@ -504,18 +496,19 @@ fieldset {
 
 .day-display-date-container {
 	font-size: 2em;
-	color: #8E8E8E;
-	padding-bottom: 10px;
-	padding-left: 20px;
+	color: #4C4C4C;
+	padding-left: 30px;
+	background: #B5B5B5;
+	height: 60px;
 }
 
 	.day-display-date-container .display-date-small {
 		font-size: .5em;
-		color: #b5b5b5;
+		color: white;
 	}
 
 .event-rectangle-details {
-	color: gray;
+	color: #4C4C4C;
 	overflow: hidden;
 	position: absolute;
 	z-index: 2;
@@ -532,6 +525,7 @@ fieldset {
 	margin: 0 auto;
 	box-sizing: border-box;
 	padding-top: 10px;
+	background: rgb(241, 238, 238);
 }
 
 #detailsEventBlockList {
@@ -584,23 +578,17 @@ fieldset {
 }
 
 #notesList {
-	list-style-position: outside;
-	font-size: 1.4em;
 	margin: 0 auto;
-	color: gray;
+	color: #564949;
 }
 
 
 #notesListContainer {
+	background: #FDFDFD;
 }
 
 .note-content {
-	border: 1px solid #DCDAD8;
-	border-bottom: 2px solid #DCDAD8;
-	border-left: 2px solid #DCDAD8;
-	margin-bottom: 4px;
 	padding: 4px;
-	background: rgb(234, 234, 234);
 }
 
 .edit-mode-note-container {
@@ -741,11 +729,14 @@ fieldset {
 	left: 10px;
 }
 
+.display-events-overview-body {
+	overflow: hidden;
+}
+
 .btn-close {
 	float: right;
 	position: relative;
-	top: 2px;
-	right: 2px;
+	font-size: 1.2em;
 }
 
 .gray-color {
@@ -798,6 +789,10 @@ fieldset {
 	cursor: pointer;
 }
 
+.nav-part {
+	width: 100% !important;
+}
+
 li.line-through-text {
 	color: rgba(0, 0, 0, 0.5);
 }
@@ -818,9 +813,7 @@ li.line-through-text {
 }
 
 .md-icon-rg {
-	font-size: 2em;
-	color: gray;
-	vertical-align: top;
+	color: #4C4C4C;
 }
 
 	.md-icon-rg:before {
@@ -829,13 +822,15 @@ li.line-through-text {
 
 .md-icon-hover:hover:before {
 	cursor: pointer;
-	border: 2px solid #C3C3C3;
+	border: 2px solid gray;
 	border-radius: 30px;
 }
 
 .overview-events-list-container {
 	margin: 1px;
-	background: #F7F5F3;
+	background: rgb(232, 229, 225);
+	overflow: hidden;
+	border: 1px solid #E2E2E2;
 }
 
 .enlarged-font {
@@ -853,15 +848,15 @@ li.line-through-text {
 
 .event-list-item {
 	font-size: 1em;
-	color: #5D5B55;
+	color: #5A5A5A;
 	overflow: hidden;
 	position: relative;
 }
 
 .event-list {
-	padding-left: 4px;
-	padding-right: 4px;
-	margin-bottom: 0;
+	padding-right: 2px;
+	margin: 0;
+	background: #E8E5E1;
 }
 
 .event-list-item:hover {
@@ -882,7 +877,7 @@ li.line-through-text {
 
 .event-list-item-right {
 	display: inline-block;
-	vertical-align: bottom;
+	vertical-align: top;
 	width: 75%;
 }
 
@@ -897,6 +892,7 @@ li.line-through-text {
 }
 
 .list-item-title {
+	font-size: 1.4em;
 }
 
 .list-item-star {
@@ -911,8 +907,9 @@ li.line-through-text {
 }
 
 .list-item-date {
-	color: #b3aea8;
+	color: gray;
 	padding-top: 4px;
+	padding-left: 8px;
 }
 
 .pad-top-8 {
@@ -931,12 +928,13 @@ li.line-through-text {
 
 
 .event-block-expand {
-	border: 2px solid #E6E1DB;
+	border-right: 1px solid #E6E1DB;
 }
 
 .event-kind-tag {
-	background: rgb(253, 253, 253);
+	background: rgb(80, 80, 80);
 	line-height: 1.5;
+	padding: 4px;
 }
 
 
@@ -1082,7 +1080,6 @@ li.line-through-text {
 }
 
 .event-block-data-content {
-	padding-left: 20px;
 }
 
 .label {
@@ -1090,7 +1087,7 @@ li.line-through-text {
 }
 
 .sm-label {
-	color: #D4CEC6;
+	color: gray;
 	font-size: .8em;
 }
 
@@ -1119,8 +1116,7 @@ li.line-through-text {
 }
 
 .overview-events-list-container ul {
-	padding-left: 4px;
-	padding-right: 4px;
+	padding-right: 2px;
 }
 
 .upcoming-events-part {
@@ -1131,7 +1127,9 @@ li.line-through-text {
 .dashboard-title {
 	padding: 12px;
 	font-size: 1.2em;
-	color: black;
+	background: #E8E5E1;
+	color: #B9B9B9;
+	position: relative;
 }
 
 .dashboard-calendar-list {

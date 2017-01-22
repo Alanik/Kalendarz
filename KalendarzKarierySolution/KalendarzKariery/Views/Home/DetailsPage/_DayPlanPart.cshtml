@@ -3,17 +3,17 @@
 
 	<div id="detailsEventsAndNotesContainer" data-bind="with: $root.detailsPage.dayPlanPart.eventListVM">
 		<div class="inline-block" style="width: 49%;">
-			<div style="margin-bottom: 10px; height: 40px; color: #909090;">Wydarzenia</div>
+			<div class="dashboard-title"><span class="selected">Wydarzenia</span></div>
 			<ul id="detailsEventBlockList" data-bind="foreach: events()">
 				@Html.Partial( "_EventListItem", new ViewDataDictionary { { "page", "details" } } )
 			</ul>
 		</div>
 		<div class="inline-block" style="width: 49%; float: right;" data-bind="with: $root.detailsPage.dayPlanPart.noteListVM">
-			<div style="margin-bottom: 10px; height: 40px; color: #909090;">
-				Notatki
-		<div style="float: right;">
-			<i class="mdi mdi-library-plus md-icon-rg md-icon-hover" data-bind="click: function () { isAddNoteSectionOpen( true ); $('#noteTxtArea').focus() }"></i>
-		</div>
+			<div class="dashboard-title">
+				<span class="selected">Notatki</span>
+				<div style="float: right; font-size: 1.2em;">
+					<i class="mdi mdi-plus md-icon-rg md-icon-hover" data-bind="click: function () { isAddNoteSectionOpen( true ); $( '#noteTxtArea' ).focus() }"></i>
+				</div>
 			</div>
 			<div id="notesContainer">
 				@Html.Partial( "_DayPlanPart.NotesList" )

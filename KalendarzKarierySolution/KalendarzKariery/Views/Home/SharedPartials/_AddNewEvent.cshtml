@@ -1,170 +1,169 @@
 ﻿@model KalendarzKarieryData.Models.ViewModels.AddEventViewModel
 
-<div id="addNewEventContainer" class="popupbox" style="display:none;">
+<div id="addNewEventContainer" class="popupbox" style="display: none;">
+	<div class="popupbox-inner-wrapper">
+		<div class="popupbox-header">
+			<i class="btn-close md-icon-hover md-icon-rg mdi mdi-window-close" data-bind="click: $root.closeAddNewEventPopupOnClick"></i>
+		</div>
 
-  <div class="popupbox-header">
-  <span class="popupbox-header-title">Dodaj do kalendarza</span>
-    <i class="btn-close md-icon-hover md-icon-rg mdi mdi-window-close" data-bind="click: $root.closeAddNewEventPopupOnClick"></i>
-  </div>
+		<div class="popupbox-body">
+			@using (Html.BeginForm( "Post", "api/Events", FormMethod.Post, new { id = "addEventForm" } ))
+   {
+				<fieldset style="width:400px;">
+					<legend class="popupbox-header-title">Dodaj do kalendarza</legend>
+					<div data-bind="with: observableEvent">
+						<div class="div-separator">
+							@Html.LabelFor( m => m.Event.Title, new { @class = "block" } )
+							<div>
+								@Html.ValidationMessageFor( m => m.Event.Title )
+							</div>
+							@Html.TextBoxFor( m => m.Event.Title, new { maxlength = 100, data_bind = "value: name" } )
+						</div>
 
-  <div class="popupbox-body">
-    @using (Html.BeginForm("Post", "api/Events", FormMethod.Post, new { id = "addEventForm" }))
-    {
-        <fieldset>
-		<legend></legend>
-          <div data-bind="with: observableEvent">
-            <div class="div-separator">
-              @Html.LabelFor(m => m.Event.Title, new { @class = "block" })
-              <div>
-                @Html.ValidationMessageFor(m => m.Event.Title)
-              </div>
-              @Html.TextBoxFor(m => m.Event.Title, new { maxlength = 100, data_bind = "value: name" })
-            </div>
+						<div class="div-separator">
+							<label for="kindSelectBox" class="block" style="width: 235px;">Kategoria: </label>
+							<select id="kindSelectBox" name="kindSelectBox" data-bind="options: $root.eventKinds, optionsText: 'name', optionsValue: 'value', selectedText: kind.name, value: kind.value "></select>
+						</div>
 
-            <div class="div-separator">
-              <label for="kindSelectBox" class="block" style="width:235px;">Kategoria: </label>
-              <select id="kindSelectBox" name="kindSelectBox" data-bind="options: $root.eventKinds, optionsText: 'name', optionsValue: 'value', selectedText: kind.name, value: kind.value "></select>
-            </div>
+						<div class="div-separator">
+							<div class="inline-block">
+								<label for="startMinuteSelectBox" class="block">Godzina rozpoczęcia: </label>
+								<select id="startHourSelectBox" class="time-select-box" data-bind="optionsText: 'name', optionsValue: 'value', value: $root.observableEvent.startDate.startHour">
+									@for (int i = 7; i < 21; i++)
+		 {
+										<option value="@i">@i</option>
+		 }
+								</select>
 
-            <div class="div-separator">
-              <div class="inline-block">
-                <label for="startMinuteSelectBox" class="block">Godzina rozpoczęcia: </label>
-                <select id="startHourSelectBox" class="time-select-box" data-bind="optionsText: 'name', optionsValue: 'value', value: $root.observableEvent.startDate.startHour">
-                  @for (int i = 7; i < 21; i++)
-                  {
-                      <option value="@i">@i</option>
-                  }
-                </select>
+								<span style="font-size: .8em;">: </span>
+								<select id="startMinuteSelectBox" class="time-select-box" data-bind="optionsText: 'name', optionsValue: 'value', value: $root.observableEvent.startDate.startMinute">
+									@for (int i = 0; i < 60; i++)
+		 {
+										<option value="@i">@i</option>
+		 }
+								</select>
+							</div>
 
-                <span style="font-size:.8em;">: </span>
-                <select id="startMinuteSelectBox" class="time-select-box" data-bind="optionsText: 'name', optionsValue: 'value', value: $root.observableEvent.startDate.startMinute">
-                  @for (int i = 0; i < 60; i++)
-                  {
-                      <option value="@i">@i</option>
-                  }
-                </select>
-              </div>
+							<div class="end-hour-container inline-block">
+								<label for="endHourSelectBox" class="block">Godzina zakończenia: </label>
 
-              <div class="end-hour-container inline-block">
-                <label for="endHourSelectBox" class="block">Godzina zakończenia: </label>
-
-                <div id="endDateValidationErrorMsg" class="field-validation-error"></div>
-                <select id="endHourSelectBox" class="time-select-box end-date-selectbox" data-bind="optionsText: 'name', optionsValue: 'value', value: $root.observableEvent.startDate.endHour">
-                  @for (int i = 7; i < 21; i++)
-                  {
-                      <option value="@i">@i</option>
-                  }
-                </select>
+								<div id="endDateValidationErrorMsg" class="field-validation-error"></div>
+								<select id="endHourSelectBox" class="time-select-box end-date-selectbox" data-bind="optionsText: 'name', optionsValue: 'value', value: $root.observableEvent.startDate.endHour">
+									@for (int i = 7; i < 21; i++)
+		 {
+										<option value="@i">@i</option>
+		 }
+								</select>
 
 
-                <span style="font-size:.8em;">: </span>
-                <select id="endMinuteSelectBox" class="time-select-box end-date-selectbox" data-bind="optionsText: 'name', optionsValue: 'value', value: $root.observableEvent.startDate.endMinute">
-                  @for (int i = 0; i < 60; i++)
-                  {
-                      <option value="@i">@i</option>
-                  }
-                </select>
-              </div>
+								<span style="font-size: .8em;">: </span>
+								<select id="endMinuteSelectBox" class="time-select-box end-date-selectbox" data-bind="optionsText: 'name', optionsValue: 'value', value: $root.observableEvent.startDate.endMinute">
+									@for (int i = 0; i < 60; i++)
+		 {
+										<option value="@i">@i</option>
+		 }
+								</select>
+							</div>
 
-            </div>
+						</div>
 
-            <div class="div-separator">
-              <div>
-                @Html.LabelFor(m => m.Event.StartDate, new { @class = "block" })
-                <div>
-                  <div>
-                    @Html.ValidationMessageFor(m => m.StartDate.Day)
-                  </div>
-                  <div>
-                    @Html.ValidationMessageFor(m => m.StartDate.Month)
-                  </div>
-                  <div>
-                    @Html.ValidationMessageFor(m => m.StartDate.Year)
-                  </div>
-                  <div>
-                    <span id="dateValidationErrorMsg" class="field-validation-error" style="display: none">Nieprawidłowa data.</span>
-                  </div>
-                </div>
-                @Html.TextBoxFor(m => m.StartDate.Day, string.Empty, new { id = "eventStartDayTxtBox", @class = "event-startdate-txtbox", placeholder = "dzień", maxlength = 2, data_bind = "value: $root.observableEvent.startDate.day" }) <span style="color: #b3aba1;font-size:.8em;">/ </span>@Html.TextBoxFor(m => m.StartDate.Month, string.Empty, new { id = "eventStartMonthTxtBox", @class = "event-startdate-txtbox", placeholder = "miesiąc", maxlength = 2, data_bind = "value: $root.observableEvent.startDate.month" }) <span style="color: #b3aba1;font-size:.8em;">/ </span>@Html.TextBoxFor(m => m.StartDate.Year, string.Empty, new { id = "eventStartYearTxtBox", @class = "event-startdate-txtbox", placeholder = "rok", maxlength = 4, data_bind = "value: $root.observableEvent.startDate.year" })
-              </div>
-            </div>
+						<div class="div-separator">
+							<div>
+								@Html.LabelFor( m => m.Event.StartDate, new { @class = "block" } )
+								<div>
+									<div>
+										@Html.ValidationMessageFor( m => m.StartDate.Day )
+									</div>
+									<div>
+										@Html.ValidationMessageFor( m => m.StartDate.Month )
+									</div>
+									<div>
+										@Html.ValidationMessageFor( m => m.StartDate.Year )
+									</div>
+									<div>
+										<span id="dateValidationErrorMsg" class="field-validation-error" style="display: none">Nieprawidłowa data.</span>
+									</div>
+								</div>
+								@Html.TextBoxFor( m => m.StartDate.Day, string.Empty, new { id = "eventStartDayTxtBox", @class = "event-startdate-txtbox", placeholder = "dzień", maxlength = 2, data_bind = "value: $root.observableEvent.startDate.day" } ) <span style="color: #b3aba1; font-size: .8em;">/ </span>@Html.TextBoxFor( m => m.StartDate.Month, string.Empty, new { id = "eventStartMonthTxtBox", @class = "event-startdate-txtbox", placeholder = "miesiąc", maxlength = 2, data_bind = "value: $root.observableEvent.startDate.month" } ) <span style="color: #b3aba1; font-size: .8em;">/ </span>@Html.TextBoxFor( m => m.StartDate.Year, string.Empty, new { id = "eventStartYearTxtBox", @class = "event-startdate-txtbox", placeholder = "rok", maxlength = 4, data_bind = "value: $root.observableEvent.startDate.year" } )
+							</div>
+						</div>
 
-            <div id="addNewEventShowMoreOptionsLink" class="hover-cursor-pointer" data-bind="click: function(){ $root.showMoreOptionsInAddNewEventPopupOnClick( $element ) }">
-              Pokaż więcej opcji +
-            </div>
+						<div id="addNewEventShowMoreOptionsLink" class="blue-color hover-cursor-pointer" data-bind="click: function () { $root.showMoreOptionsInAddNewEventPopupOnClick( $element ) }">
+							Pokaż więcej opcji +
+						</div>
 
-            <div style="display: none;" class="more-options-container">
-              <div class="div-separator">
-                <div>
-                  @Html.LabelFor(m => m.Address.Street, new { @class = "block" })
-                  <div>
-                    @Html.ValidationMessageFor(m => m.Address.Street)
-                  </div>
-                  @Html.TextBoxFor(m => m.Address.Street, new { maxlength = 30, data_bind = "value: address.street" })
-                </div>
-                <div class="inline-block">
-                  @Html.LabelFor(m => m.Address.City, new { @class = "block" })
-                  <div>
-                    @Html.ValidationMessageFor(m => m.Address.City)
-                  </div>
-                  @Html.TextBoxFor(m => m.Address.City, new { maxlength = 30, data_bind = "value: address.city" })
-                </div>
-                <div class="inline-block">
-                  @Html.LabelFor(m => m.Address.ZipCode, new { @class = "block" })
-                  <div>
-                    @Html.ValidationMessageFor(m => m.Address.ZipCode)
-                  </div>
-                  @Html.TextBoxFor(m => m.Address.ZipCode, new { maxlength = 6, placeholder = "00-000", style = "width:50px !important;", data_bind = "value:address.zipCode" })
-                </div>
-              </div>
+						<div style="display: none;" class="more-options-container">
+							<div class="div-separator">
+								<div>
+									@Html.LabelFor( m => m.Address.Street, new { @class = "block" } )
+									<div>
+										@Html.ValidationMessageFor( m => m.Address.Street )
+									</div>
+									@Html.TextBoxFor( m => m.Address.Street, new { maxlength = 30, data_bind = "value: address.street" } )
+								</div>
+								<div class="inline-block">
+									@Html.LabelFor( m => m.Address.City, new { @class = "block" } )
+									<div>
+										@Html.ValidationMessageFor( m => m.Address.City )
+									</div>
+									@Html.TextBoxFor( m => m.Address.City, new { maxlength = 30, data_bind = "value: address.city" } )
+								</div>
+								<div class="inline-block">
+									@Html.LabelFor( m => m.Address.ZipCode, new { @class = "block" } )
+									<div>
+										@Html.ValidationMessageFor( m => m.Address.ZipCode )
+									</div>
+									@Html.TextBoxFor( m => m.Address.ZipCode, new { maxlength = 6, placeholder = "00-000", style = "width:50px !important;", data_bind = "value:address.zipCode" } )
+								</div>
+							</div>
 
-              <div class="div-separator">
-                @Html.LabelFor(m => m.Event.Description, new { @class = "block" })
-                <div>
-                  @Html.ValidationMessageFor(m => m.Event.Description)
-                </div>
-                @Html.TextAreaFor(m => m.Event.Description, new { cols = 30, rows = 3, maxlength = 1000, data_bind = "value: description" })
-              </div>
+							<div class="div-separator">
+								@Html.LabelFor( m => m.Event.Description, new { @class = "block" } )
+								<div>
+									@Html.ValidationMessageFor( m => m.Event.Description )
+								</div>
+								@Html.TextAreaFor( m => m.Event.Description, new { cols = 30, rows = 3, maxlength = 1000, data_bind = "value: description" } )
+							</div>
 
-              <div class="div-separator">
-                @Html.LabelFor(m => m.Event.Details, new { @class = "block" })
-                <div>
-                  @Html.ValidationMessageFor(m => m.Event.Details)
-                </div>
-                @Html.TextAreaFor(m => m.Event.Details, new { cols = 30, rows = 5, maxlength = 5000, data_bind = "value: details" })
-              </div>
+							<div class="div-separator">
+								@Html.LabelFor( m => m.Event.Details, new { @class = "block" } )
+								<div>
+									@Html.ValidationMessageFor( m => m.Event.Details )
+								</div>
+								@Html.TextAreaFor( m => m.Event.Details, new { cols = 30, rows = 5, maxlength = 5000, data_bind = "value: details" } )
+							</div>
 
-              <div class="div-separator">
-                @Html.LabelFor(m => m.Event.UrlLink, new { @class = "block" })
-                <div>
-                  @Html.ValidationMessageFor(m => m.Event.UrlLink)
-                </div>
-                @Html.TextBoxFor(m => m.Event.UrlLink, new { maxlength = 200, data_bind = "value: urlLink" })
-              </div>
+							<div class="div-separator">
+								@Html.LabelFor( m => m.Event.UrlLink, new { @class = "block" } )
+								<div>
+									@Html.ValidationMessageFor( m => m.Event.UrlLink )
+								</div>
+								@Html.TextBoxFor( m => m.Event.UrlLink, new { maxlength = 200, data_bind = "value: urlLink" } )
+							</div>
 
-              <div class="div-separator">
-                @Html.LabelFor(m => m.Event.Price, new { @class = "block" })
-                <div>
-                  @Html.ValidationMessageFor(m => m.Event.Price)
-                </div>
-                @Html.TextBoxFor(m => m.Event.Price, new { style = "width:50px;", maxlength = 7, data_bind = "value: price" })<span style="font-size:.5em;vertical-align:bottom;">ZŁ.</span>
-              </div>
+							<div class="div-separator">
+								@Html.LabelFor( m => m.Event.Price, new { @class = "block" } )
+								<div>
+									@Html.ValidationMessageFor( m => m.Event.Price )
+								</div>
+								@Html.TextBoxFor( m => m.Event.Price, new { style = "width:50px;", maxlength = 7, data_bind = "value: price" } )<span style="font-size: .5em; vertical-align: bottom;">ZŁ.</span>
+							</div>
 
-              <div class="div-separator" style="margin-bottom:40px;">
-                @Html.LabelFor(m => m.Event.OccupancyLimit, new { @class = "block" })
-                <div>
-                  @Html.ValidationMessageFor(m => m.Event.OccupancyLimit)
-                </div>
-                @Html.TextBoxFor(m => m.Event.OccupancyLimit, new { style = "width:50px;", maxlength = 6, data_bind = "value: occupancyLimit" })
-              </div>
-            </div>
+							<div class="div-separator" style="margin-bottom: 40px;">
+								@Html.LabelFor( m => m.Event.OccupancyLimit, new { @class = "block" } )
+								<div>
+									@Html.ValidationMessageFor( m => m.Event.OccupancyLimit )
+								</div>
+								@Html.TextBoxFor( m => m.Event.OccupancyLimit, new { style = "width:50px;", maxlength = 6, data_bind = "value: occupancyLimit" } )
+							</div>
+						</div>
 
-            <button id="btnAddNewEvent" class="btn-add green-color hover-cursor-pointer" data-bind="click: $root.addEventOnClick">
-              dodaj
-            </button>
-          </div>
-        </fieldset>
-    }
-  </div>
+						<button id="btnAddNewEvent" class="btn-add hover-cursor-pointer" data-bind="click: $root.addEventOnClick">dodaj
+						</button>
+					</div>
+				</fieldset>
+   }
+		</div>
+	</div>
 
 </div>

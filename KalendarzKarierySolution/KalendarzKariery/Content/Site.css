@@ -42,6 +42,8 @@ fieldset {
 	border: none;
 	padding: 0;
 	margin: 0;
+	border-bottom: 1px solid #CACACA;
+	padding-bottom: 5px;
 }
 
 /*@font-face {
@@ -109,17 +111,13 @@ fieldset {
 }
 
 #loginFormBtn {
-	padding: 14px;
 	float: right;
-	margin-right: 50%;
-	background: #fdfdfd;
 }
 
 #registerFormBtn {
-	padding: 14px;
-	float: right;
-	margin-right: 50%;
-	background: #fdfdfd;
+	float: left;
+	position: relative;
+	left: 330px;
 }
 
 #calendarDayDetailsContainer {
@@ -345,8 +343,8 @@ fieldset {
 }
 
 .event-list-item-container {
-	border-left: 2px solid #CECECE;
-	border-bottom: 2px solid #CECECE;
+	border-left: 1px solid #CECECE;
+	border-bottom: 1px solid #CECECE;
 	overflow: hidden;
 	padding: 4px;
 	background: #FDFDFD;
@@ -405,7 +403,6 @@ fieldset {
 	font-size: .9em;
 	line-height: 1;
 	background: none;
-	font-family: Raleway-Regular;
 	opacity: 1;
 }
 
@@ -519,12 +516,10 @@ fieldset {
 
 #detailsEventsAndNotesContainer {
 	overflow: hidden;
-	padding: 0 2%;
-	padding-bottom: 40px;
+	padding: 10px 2%;
 	width: 100%;
 	margin: 0 auto;
 	box-sizing: border-box;
-	padding-top: 10px;
 	background: rgb(241, 238, 238);
 }
 
@@ -645,25 +640,25 @@ fieldset {
 
 .flat-form {
 	margin: 40px auto;
-	width: 50%;
+	width: 500px;
 	position: relative;
 	border: 1px solid #D8D8D8;
 	padding: 20px;
-	background: #ECECEC;
+	background: #EAEAEA;
 	font-size: 1.4em;
 }
 
 	.flat-form label {
-		color: #484848;
+		color: gray;
 		text-transform: uppercase;
 		font-size: .6em;
 	}
 
 	.flat-form legend {
-		color: #808080;
+		color: #4C4C4C;
 		font-size: 1em;
-		border-bottom: 2px solid;
-		width: 50%;
+		border-bottom: 1px solid #CACACA;
+		width: 100%;
 	}
 
 	.flat-form textarea {
@@ -671,12 +666,11 @@ fieldset {
 	}
 
 	.flat-form input[type=text], .flat-form input[type=password], .flat-form textarea, .flat-form select {
-		color: #8B836B;
-		width: 220px;
-		height: 36px;
+		background: #EAEAEA;
+		width: 200px;
+		height: 32px;
 		padding: 0px 10px;
-		border: 0px solid #f8f5f1;
-		box-shadow: inset 0px 0px 1px #b3a895;
+		border: 1px solid #CACACA;
 	}
 
 
@@ -688,9 +682,6 @@ fieldset {
 
 
 		.flat-form textarea:focus, .flat-form input[type=text]:focus, .flat-form input[type=password]:focus select:focus {
-			background: rgba(214, 211, 196, 0.4);
-			border: 2px solid white;
-			color: gray;
 		}
 
 
@@ -717,16 +708,16 @@ fieldset {
 }
 
 .btn-add {
-	background: rgb(253, 253, 253);
-	font-family: Raleway-Regular;
-	padding: 10px;
-	color: #828282;
+	color: white;
+	background: #71A4D8;
+	padding: 14px;
 }
 
 .popupbox-header-title {
-	position: absolute;
-	bottom: 0;
-	left: 10px;
+	color: #4C4C4C;
+	font-size: 1em;
+	border-bottom: 1px solid #CACACA;
+	width: 100%;
 }
 
 .display-events-overview-body {
@@ -747,12 +738,17 @@ fieldset {
 	color: rgb(106, 183, 129);
 }
 
+.blue-color {
+	color: #71A4D8;
+}
+
 .red-color {
 	color: rgb(255, 109, 109);
 }
 
 .div-separator {
-	margin: 10px 20px;
+	margin: 10px 0px;
+	width: 440px;
 }
 
 .block {
@@ -822,7 +818,7 @@ li.line-through-text {
 
 .md-icon-hover:hover:before {
 	cursor: pointer;
-	border: 2px solid gray;
+	border: 2px solid #CEC8C8;
 	border-radius: 30px;
 }
 
@@ -988,12 +984,12 @@ li.line-through-text {
 	background: #f7f7f7;
 	border: 2px solid white;
 	color: #a2a2a2;
-	width: 60%;
-	left: 20%;
+	width: 100%;
 	z-index: 100;
 	top: 30px !important;
 	position: absolute;
 	box-sizing: border-box;
+	padding: 20px;
 }
 
 .confirmation-popupbox {
@@ -1005,39 +1001,40 @@ li.line-through-text {
 }
 
 .popupbox-header {
-	position: relative;
 	font-size: 1.4em;
 	width: 100%;
-	background: white;
-	overflow: hidden;
-	font-family: Raleway-Regular;
+}
+
+.popupbox-inner-wrapper {
+	width: 500px;
+	margin: 0 auto;
+	background: #EAEAEA;
+	border: 1px solid #D8D8D8;
+	padding: 20px;
 }
 
 .popupbox-body {
-	font-size: 2em;
-	padding-bottom: 20px;
+	font-size: 1.4em;
 }
 
 .popupbox label {
-	color: #484848;
+	color: gray;
 	text-transform: uppercase;
 	font-size: .6em;
-	margin-bottom: -10px;
 }
 
 .popupbox legend {
 }
 
 .popupbox textarea {
-	margin-top: 8px;
 }
 
 .popupbox input[type=text], .popupbox input[type=password], .popupbox textarea, .popupbox select {
-	color: #8B836B;
-	width: 220px;
-	height: 40px;
+	background: #EAEAEA;
+	width: 200px;
+	height: 32px;
 	padding: 0px 10px;
-	border: 1px solid #ececec;
+	border: 1px solid #CACACA;	
 }
 
 .event-startdate-txtbox {
@@ -1059,8 +1056,6 @@ li.line-through-text {
 }
 
 .popupbox textarea:focus, .popupbox input[type=text]:focus, .popupbox input[type=password]:focus select:focus {
-	background: white;
-	border: 2px solid white;
 }
 
 .event-block-description {
@@ -1099,15 +1094,13 @@ li.line-through-text {
 
 #btnAddNewEvent {
 	float: right;
-	font-size: .6em;
-	margin-right: 50%;
+	font-size: .8em;
 	padding: 10px 40px;
 	margin-top: 20px;
 }
 
 #addNewEventShowMoreOptionsLink {
-	font-size: .6em;
-	padding-left: 20px;
+	font-size: .8em;
 }
 
 .dashboard-part {
@@ -1148,7 +1141,10 @@ li.line-through-text {
 	}
 
 
-
+.checkbox-label {
+	position: relative;
+	bottom: 4px;
+}
 
 /*Validation*/
 .input-validation-error {
@@ -1156,12 +1152,14 @@ li.line-through-text {
 }
 
 .field-validation-error {
-	font-size: .6em;
-	color: red;
-	position: relative;
-	margin-top: 10px;
+	font-size: .8em;
+	color: white;
 	padding: 4px;
-	background: #fff8fa;
+	background: #FF7979;
+}
+
+input[type="checkbox"] {
+	zoom: 2;
 }
 
 

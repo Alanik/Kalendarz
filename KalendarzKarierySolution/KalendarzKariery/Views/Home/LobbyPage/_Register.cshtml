@@ -9,7 +9,7 @@
     {
         @Html.AntiForgeryToken()
 
-        <fieldset>
+        <fieldset style="width:440px;">
           <legend>Rejestracja</legend>
           <div class="summary-validation-errors"></div>
           <ol>
@@ -169,13 +169,12 @@
               @Html.TextAreaFor(m => m.User.Bio, new { cols = 50, rows = 5, maxlength = 300 })
             </li>
           </ol>
-          <input type="button" value="Utwórz konto" id="registerFormBtn" class="btn-add green-color hover-cursor-pointer" data-bind="click: $root.registerUserOnClick" />
+          <input type="button" value="Utwórz konto" id="registerFormBtn" class="btn-add hover-cursor-pointer" data-bind="click: $root.registerUserOnClick" />
         </fieldset>
     }
-    <div style="text-align:right;margin-top:20px;font-size:.8em;">
-      <a class="green-color hover-cursor-pointer" id="showLoginFormBtn" data-bind="click: $root.showLoginFormOnClick" href="#">Zaloguj się</a><span style="color:gray;"> jeśli już posiadasz własne konto.</span>
+    <div style="text-align:left;margin-top:16px;font-size:.8em;">
+      <a class="blue-color hover-cursor-pointer" id="showLoginFormBtn" data-bind="click: $root.showLoginFormOnClick" href="#">Zaloguj się</a><span style="color:gray;"> jeśli już posiadasz własne konto.</span>
     </div>
-
   </div>
 
 

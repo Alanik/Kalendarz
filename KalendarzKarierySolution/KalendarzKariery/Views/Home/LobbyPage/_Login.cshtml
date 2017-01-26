@@ -1,44 +1,46 @@
 ﻿@model KalendarzKarieryData.Models.AccountModels.LoginModel
 
-<div id="loginPageContainer" class="flat-form">
-	<div class="form-header">
-		<i data-bind="click: closeLoginPopupOnClick" class="btn-close md-icon-hover md-icon-rg mdi mdi-window-close"></i>
-	</div>
-	<div class="form-body">
-		@using (Html.BeginForm( "Login", "Account", FormMethod.Post, new { id = "loginForm" } ))
-  {
-			@Html.AntiForgeryToken()
-
-			<fieldset style="width: 200px;">
-				<legend>Logowanie</legend>
-
-				<div class="div-separator">
-					@Html.LabelFor( m => m.UserName, new { @class = "form-label" } )
-					<div>
-						@Html.ValidationMessageFor( m => m.UserName )
-					</div>
-					@Html.TextBoxFor( m => m.UserName )
-				</div>
-				<div class="div-separator">
-					@Html.LabelFor( m => m.Password, new { @class = "form-label" } )
-					<div>
-						@Html.ValidationMessageFor( m => m.Password )
-					</div>
-					@Html.PasswordFor( m => m.Password )
-				</div>
-				<div class="div-separator">
-					@Html.CheckBoxFor( m => m.RememberMe, new { @class = "hover-cursor-pointer" } )
-					@Html.LabelFor( m => m.RememberMe, new { @class = "checkbox-label hover-cursor-pointer" } )
-				</div>
-
-				<input type="button" id="loginFormBtn" class="btn-add hover-cursor-pointer" value="Zaloguj sie" data-bind="click: $root.loginUserOnClick" />
-			</fieldset>
-  }
-
-		<div style="text-align: left; margin-top: 16px; font-size: .8em;">
-			<a id="showRegisterFormBtn" style="color: #71A4D8;" class="hover-cursor-pointer" href="#" data-bind="click: $root.showRegisterFormOnClick">Utwórz konto</a><span style="color: gray;"> jeśli jeszcze takiego nie posiadasz.</span>
+<div id="loginPageContainer">
+	<div class="flat-form">
+		<div class="form-header">
+			<i data-bind="click: closeLoginPopupOnClick" class="btn-close md-icon-hover md-icon-rg mdi mdi-window-close"></i>
 		</div>
+		<div class="form-body">
+			@using (Html.BeginForm( "Login", "Account", FormMethod.Post, new { id = "loginForm" } ))
+   {
+				@Html.AntiForgeryToken()
 
+				<fieldset style="width: 200px;">
+					<legend>Logowanie</legend>
+
+					<div class="div-separator">
+						@Html.LabelFor( m => m.UserName, new { @class = "form-label" } )
+						<div>
+							@Html.ValidationMessageFor( m => m.UserName )
+						</div>
+						@Html.TextBoxFor( m => m.UserName )
+					</div>
+					<div class="div-separator">
+						@Html.LabelFor( m => m.Password, new { @class = "form-label" } )
+						<div>
+							@Html.ValidationMessageFor( m => m.Password )
+						</div>
+						@Html.PasswordFor( m => m.Password )
+					</div>
+					<div class="div-separator">
+						@Html.CheckBoxFor( m => m.RememberMe, new { @class = "hover-cursor-pointer" } )
+						@Html.LabelFor( m => m.RememberMe, new { @class = "checkbox-label hover-cursor-pointer" } )
+					</div>
+
+					<input type="button" id="loginFormBtn" class="btn-add hover-cursor-pointer" value="Zaloguj sie" data-bind="click: $root.loginUserOnClick" />
+				</fieldset>
+   }
+
+			<div style="text-align: left; margin-top: 16px; font-size: .8em;">
+				<a id="showRegisterFormBtn" style="color: #71A4D8;" class="hover-cursor-pointer" href="#" data-bind="click: $root.showRegisterFormOnClick">Utwórz konto</a><span style="color: gray;"> jeśli jeszcze takiego nie posiadasz.</span>
+			</div>
+
+		</div>
 	</div>
 </div>
 

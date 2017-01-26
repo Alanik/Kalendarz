@@ -12,6 +12,7 @@
 	{
 		var Utils = function ( spinner )
 		{
+			this.skinConfig = new SkinConfig();
 			this.colorHelper = new EventColorHelper();
 			this.webApiCaller = new WebApiCaller();
 			this.eventTreeBuilder = new TreeBuilder( self );
@@ -1763,7 +1764,7 @@
 
 		setTimeout( function ()
 		{
-			$registerForm.scrollTo( 1000, 40 );
+			$registerForm.scrollTo( 1000, 0 );
 		}, 10 );
 
 	};
@@ -1790,7 +1791,7 @@
 
 		setTimeout( function ()
 		{
-			$loginForm.scrollTo( 1000, 40 );
+			$loginForm.scrollTo( 1000, 0 );
 		}, 10 );
 	};
 
@@ -2499,7 +2500,7 @@
 	{
 		var $dzVerticalPaging = $( '#dzVerticalPaging' );
 		var $dzVerticalNav = $( '#dzVerticalNav' );
-		var $loginbar = $( "#loginBarContainer" );
+		var $loginbar = $( "#loginBar" );
 		var $lobby = $( "#lobby" );
 
 		$( document ).bind( "horizontal_transition:before", function ( e, arg )

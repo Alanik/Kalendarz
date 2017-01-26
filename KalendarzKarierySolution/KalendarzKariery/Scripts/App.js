@@ -111,7 +111,11 @@
 	initializeDzieuoPlugin: function ( $dzieuo )
 	{
 		$dzieuo.dzieuo( {
-			row_scroll_padding_top: 20
+			row_scroll_padding_top: 20,
+			prev_arrow_content: '<img src="Images/arrow-left.png" alt="left navigation arrow" class="skin-prev-arrow">',
+			next_arrow_content: '<img src="Images/arrow-right.png" alt="right navigation arrow" class="skin-next-arrow">',
+			up_arrow_content: '<img src="Images/arrow-up.png" alt="up navigation arrow" class="skin-up-arrow">',
+			down_arrow_content: '<img src="Images/arrow-down.png" alt="down navigation arrow" class="skin-down-arrow">'
 		} );
 	},
 	displaySiteAfterLoad: function ( siteLoadingTextAnimationInterval, $dzieuo )
@@ -153,6 +157,9 @@
 		var UTILS = appvm.UTILS;
 		var EVENT_MANAGER = appvm.EVENT_MANAGER;
 		var NOTE_MANAGER = appvm.NOTE_MANAGER;
+
+		//apply theme
+		UTILS.skinConfig.applyTheme( 'skin-theme-default-dark' );
 
 		appvm.eventPrivacyLevels = UTILS.eventTreeBuilder.transformPrivacyLevels( indexViewModel.PrivacyLevels );
 		appvm.eventKinds = indexViewModel.EventKinds;
@@ -404,7 +411,7 @@
 							"cursor": "pointer",
 							"top": "3px"
 						} ).find( ".addNewEvent-cellIcon" ).fadeIn();
-					}, 
+					},
 					mouseleave: function ()
 					{
 						$( this ).css( {

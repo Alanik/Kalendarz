@@ -1,6 +1,6 @@
 ﻿@if (Request.IsAuthenticated)
 {
-<div id="loginBarContainer">
+<div id="loginBar" class="skin-login-bar">
   <span class="lobby-login-text">@User.Identity.Name</span>
   @using (Html.BeginForm( "LogOff", "Account", FormMethod.Post, new { id = "logoutForm" } ))
   {
@@ -10,7 +10,7 @@
 }
 else
 {
-<div id="loginBarContainer">
+<div id="loginBar" class="skin-login-bar">
   <span id="registerLink" class="lobby-login-text hover-cursor-pointer" data-bind="click: showRegisterFormOnClick">Stwórz konto</span>
   <span id="loginLink" data-bind="click: showLoginFormOnClick" class="hover-cursor-pointer lobby-login-text">Zaloguj sie</span>
 </div>

@@ -1,0 +1,75 @@
+﻿/****************************************/
+/*default-dark theme*/
+/****************************************/
+.skin-theme-default-dark {
+}
+
+	.skin-theme-default-dark.skin-app-background {
+		background: #424242;
+	}
+
+	.skin-theme-default-dark .skin-nav-part {
+		background: rgb(47, 47, 47);
+		border-right: 1px solid #2F2F2F;
+	}
+
+	.skin-theme-default-dark .skin-prev-arrow {
+		border: 2px solid #777777;
+		background: #565656;
+	}
+
+	.skin-theme-default-dark .skin-next-arrow {
+		border: 2px solid #777777;
+		background: #565656;
+	}
+
+	.skin-theme-default-dark .skin-up-arrow {
+		border: 2px solid #777777;
+		background: #565656;
+		padding: 6px;
+	}
+
+	.skin-theme-default-dark .skin-down-arrow {
+		border: 2px solid #777777;
+		background: #565656;
+		padding: 6px;
+	}
+
+	.skin-theme-default-dark .dz-horizontal-paging-item {
+		border: 2px solid black;
+	}
+
+		.skin-theme-default-dark .dz-horizontal-paging-item.current {
+			border: 2px solid white;
+		}
+
+	.skin-theme-default-dark .dz-vertical-paging-item {
+		border: 2px solid black;
+	}
+
+		.skin-theme-default-dark .dz-vertical-paging-item.current {
+			border: 2px solid white;
+		}
+
+	.skin-theme-default-dark .skin-login-bar {
+		color: #B3B3B3;
+	}
+
+	.skin-theme-default-dark .skin-nav-item {
+		color: #777777;
+		text-shadow: 1px 2px 2px #000000;
+		font-size: 1.5em;
+	}
+
+		.skin-theme-default-dark .skin-nav-item.selected {
+			border-bottom: 2px solid #b5e4ec;
+			color: #DADADA!important;
+		}
+
+	.skin-theme-default-dark .skin-event-block {
+		background: #CECECE;
+	}
+
+	.skin-theme-default-dark #lobby .dz-column-inner-wrapper {
+		/* border-right: 1px solid #F3F3F3; */
+	}

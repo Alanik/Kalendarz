@@ -199,6 +199,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Skin.css" />
     <Content Include="Content\EventBlock.css" />
     <Content Include="Content\MaterialDesignIcons\materialdesignicons-webfont.svg" />
     <Content Include="Content\MaterialDesignIcons\materialdesignicons.min.css" />
@@ -342,6 +343,7 @@
     <Content Include="Scripts\Lib\_references.js" />
     <Content Include="Scripts\Lib\modernizr-2.7.1.js" />
     <Content Include="Scripts\app.js" />
+    <Content Include="Scripts\JSUtils\SkinConfig.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

@@ -158,9 +158,6 @@
 		var EVENT_MANAGER = appvm.EVENT_MANAGER;
 		var NOTE_MANAGER = appvm.NOTE_MANAGER;
 
-		//apply theme
-		UTILS.skinConfig.applyTheme( 'skin-theme-default-dark' );
-
 		appvm.eventPrivacyLevels = UTILS.eventTreeBuilder.transformPrivacyLevels( indexViewModel.PrivacyLevels );
 		appvm.eventKinds = indexViewModel.EventKinds;
 
@@ -531,8 +528,8 @@
 					var $this = $( this );
 					if ( !$this.hasClass( "main-page-link" ) )
 					{
-						$this.toggleClass( "selected-nav-link" );
-						$this.parent().children().first().toggleClass( "selected-nav-link" );
+						$this.toggleClass( "selected" );
+						$this.parent().children().first().toggleClass( "selected" );
 					}
 				},
 				mouseleave: function ()
@@ -540,8 +537,8 @@
 					var $this = $( this );
 					if ( !$this.hasClass( "main-page-link" ) )
 					{
-						$this.toggleClass( "selected-nav-link" );
-						$this.parent().children().first().toggleClass( "selected-nav-link" );
+						$this.toggleClass( "selected" );
+						$this.parent().children().first().toggleClass( "selected" );
 					}
 				}
 			}, '.lobby-nav-link-container' );

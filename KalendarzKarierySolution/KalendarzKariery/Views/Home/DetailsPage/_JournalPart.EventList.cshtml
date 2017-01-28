@@ -1,10 +1,8 @@
-﻿<header class="dashboard-title">
+﻿<header class="dashboard-title event-list-header">
 	<span class="display-events-header-menu-title hover-cursor-pointer" data-bind="click: function () { $root.showSelectedJournalMenuItem( 1 ) }, css: { selected: $root.detailsPage.journalPart.eventListVM.selectedMenuItem() === 1 }">Mój kalendarz</span>
 	<span class="display-events-header-menu-title hover-cursor-pointer" data-bind="click: function () { $root.showSelectedJournalMenuItem( 2 ) }, css: { selected: $root.detailsPage.journalPart.eventListVM.selectedMenuItem() === 2 }">Moje publiczne wydarzenia</span>
 	<i class="btn-close md-icon-hover md-icon-rg mdi mdi-window-close" data-bind="click: $root.closeAllSelectedEventsListContainerOnClick"></i>
 </header>
-
-
 <div data-bind="with: $root.detailsPage.journalPart.eventListVM, visible: $root.detailsPage.journalPart.eventListVM.selectedMenuItem() == 1" class="display-events-overview-body">
 	<div class="legend-oldorupcoming hover-cursor-pointer" data-bind="css: { open: menuItems.myCalendar.showOld() }, click: function () { menuItems.myCalendar.showOld( !menuItems.myCalendar.showOld() ), $root.showSelectedEvents( menuItems.myCalendar.selectedEvents, 'old', selectedEventKindValues ) }">
 		<div class="legend-text">
@@ -13,9 +11,9 @@
 		</div>
 		<span class="oldorupcoming-expand-text sm-hidden" data-bind="text: menuItems.myCalendar.showOld() == true ? '[zwiń]' : '[rozwiń]'"></span>
 	</div>
-	<ul class="event-list" data-bind="foreach: menuItems.myCalendar.selectedEvents.old">
+	<ol class="event-list" data-bind="foreach: menuItems.myCalendar.selectedEvents.old">
 		@Html.Partial( "_EventListItem", new ViewDataDictionary { { "page", "lobby" } } )
-	</ul>
+	</ol>
 	<div class="legend-oldorupcoming hover-cursor-pointer" data-bind="css: { open: menuItems.myCalendar.showUpcoming() }, click: function ()
 {
 	menuItems.myCalendar.showUpcoming(
@@ -27,9 +25,9 @@
 		</div>
 		<span class="oldorupcoming-expand-text sm-hidden" data-bind="text: menuItems.myCalendar.showUpcoming() === true ? '[zwiń]' : '[rozwiń]'"></span>
 	</div>
-	<ul class="event-list" data-bind="foreach: menuItems.myCalendar.selectedEvents.upcoming">
+	<ol class="event-list" data-bind="foreach: menuItems.myCalendar.selectedEvents.upcoming">
 		@Html.Partial( "_EventListItem", new ViewDataDictionary { { "page", "lobby" } } )
-	</ul>
+	</ol>
 </div>
 
 <div data-bind="with: $root.detailsPage.journalPart.eventListVM, visible: $root.detailsPage.journalPart.eventListVM.selectedMenuItem() == 2" class="display-events-overview-body">
@@ -40,9 +38,9 @@
 		</div>
 		<span class="oldorupcoming-expand-text sm-hidden" data-bind="text: menuItems.manageOwnPublicEvents.showOld() == true ? '[zwiń]' : '[rozwiń]'"></span>
 	</div>
-	<ul class="event-list" data-bind="foreach: menuItems.manageOwnPublicEvents.selectedEvents.old">
+	<ol class="event-list" data-bind="foreach: menuItems.manageOwnPublicEvents.selectedEvents.old">
 		@Html.Partial( "_EventListItem", new ViewDataDictionary { { "page", "lobby" } } )
-	</ul>
+	</ol>
 	<div class="legend-oldorupcoming hover-cursor-pointer" data-bind="css: { open: menuItems.manageOwnPublicEvents.showUpcoming() }, click: function ()
 {
 	menuItems.manageOwnPublicEvents.showUpcoming(
@@ -54,9 +52,9 @@
 		</div>
 		<span class="oldorupcoming-expand-text sm-hidden" data-bind="text: menuItems.manageOwnPublicEvents.showUpcoming() === true ? '[zwiń]' : '[rozwiń]'"></span>
 	</div>
-	<ul class="event-list" data-bind="foreach: menuItems.manageOwnPublicEvents.selectedEvents.upcoming">
+	<ol class="event-list" data-bind="foreach: menuItems.manageOwnPublicEvents.selectedEvents.upcoming">
 		@Html.Partial( "_EventListItem", new ViewDataDictionary { { "page", "lobby" } } )
-	</ul>
+	</ol>
 </div>
 
 

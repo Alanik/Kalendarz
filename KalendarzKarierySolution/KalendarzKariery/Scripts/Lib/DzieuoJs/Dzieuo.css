@@ -31,9 +31,9 @@
 #dzHorizontalPaging {
 	position: fixed;
 	top: 0px;
-	left: 10%;
-	width: 80%;
+	width: 100%;
 	text-align: center;
+	height: 30px;
 }
 
 	#dzHorizontalPaging .dz-horizontal-paging-item {

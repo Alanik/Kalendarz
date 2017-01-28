@@ -11,6 +11,7 @@
 #lobbyEventsMasonryContainer .event-block {
 	border: none;
 	margin-left: 0;
+	background: #CECECE;
 }
 
 /*Details - detailsEventBlockList*/
@@ -21,7 +22,7 @@
 
 #detailsEventBlockList .event-block {
 	line-height: 1;
-	background: #fbfbfb;
+	background: #CECECE;
 }
 
 #detailsEventBlockList .event-block-link {
@@ -35,6 +36,8 @@
 	padding: 10px;
 	overflow: hidden;
 	color: #dedede;
+	border-top: 1px solid #DCDCDC;
+	background: #BDBDBD;
 }
 
 #detailsEventBlockList .event-block-date {
@@ -71,7 +74,7 @@
 
 .event-block-expand .event-block {
 	line-height: 1;
-	/*background: rgb(249, 248, 246);*/
+	background: #CECECE;
 	/*margin-left: 4px;*/
 	/*border-bottom: 1px solid #E6E1DB;
 	border-left: 1px solid #E6E1DB;*/
@@ -84,14 +87,13 @@
 .event-block-expand .event-block-name {
 	font-size: 1.5em;
 	color: #636363;
-	padding: 6px;
+	padding: 10px;
 }
 
 .event-block-expand .event-kind-tag {
 	font-size: 1em;
 	float: right;
 	text-align: center;
-	padding: 4px;
 }
 
 .event-block-expand .event-block-body {
@@ -108,7 +110,8 @@
 	padding: 10px;
 	overflow: hidden;
 	color: rgb(152, 152, 137);
-	border-top: 1px solid #9C9C9C;
+	border-top: 1px solid #DCDCDC;
+	background: #BDBDBD;
 }
 
 .event-block-expand .event-block-date {

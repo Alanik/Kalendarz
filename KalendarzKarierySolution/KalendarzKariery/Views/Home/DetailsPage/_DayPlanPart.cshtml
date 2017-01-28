@@ -4,11 +4,11 @@
 	<div id="detailsEventsAndNotesContainer" data-bind="with: $root.detailsPage.dayPlanPart.eventListVM">
 		<div class="inline-block" style="width: 49%;">
 			<div class="dashboard-title"><span class="selected">Wydarzenia</span></div>
-			<ul id="detailsEventBlockList" data-bind="foreach: events()">
+			<ol id="detailsEventBlockList" data-bind="foreach: events()">
 				@Html.Partial( "_EventListItem", new ViewDataDictionary { { "page", "details" } } )
-			</ul>
+			</ol>
 		</div>
-		<div class="inline-block" style="width: 49%; float: right;" data-bind="with: $root.detailsPage.dayPlanPart.noteListVM">
+		<div class="inline-block" style="width: 49%; float: right; border-right: 2px solid #F1EEEE; border-bottom: 2px solid #F1EEEE;" data-bind="with: $root.detailsPage.dayPlanPart.noteListVM">
 			<div class="dashboard-title">
 				<span class="selected">Notatki</span>
 				<div style="float: right; font-size: 1.2em;">

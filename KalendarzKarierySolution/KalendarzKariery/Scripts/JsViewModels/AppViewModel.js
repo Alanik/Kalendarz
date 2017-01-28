@@ -12,7 +12,6 @@
 	{
 		var Utils = function ( spinner )
 		{
-			this.skinConfig = new SkinConfig();
 			this.colorHelper = new EventColorHelper();
 			this.webApiCaller = new WebApiCaller();
 			this.eventTreeBuilder = new TreeBuilder( self );
@@ -97,6 +96,8 @@
 
 	self.eventKinds = [];
 	self.eventPrivacyLevels = {};
+
+	self.currentTheme = "default-dark";
 
 	// is used when adding or editing event
 	self.observableEvent = new KKEventModelObservable();
@@ -299,7 +300,7 @@
 	self.detailsPage.dayPlanPart.noteListVM = {
 		"notes": ko.observableArray( [] ),
 		"observableNote": new KKNoteModelObservable(),
-		"isAddNoteSectionOpen" : ko.observable(false)
+		"isAddNoteSectionOpen": ko.observable( false )
 	}
 
 
@@ -2493,6 +2494,34 @@
 	{
 		$( "#details #clockCanvas" ).hide();
 	};
+
+	self.switchDefaultTheme = function ()
+	{
+		var themePrefix = "skin-theme-", $body = $( "body" );
+
+		self.currentTheme = ( self.currentTheme === "default-light" ? "default-dark" : "default-light" );
+
+		removeTheme( $body, themePrefix );
+		applyTheme( $body, themePrefix );
+
+		function removeTheme( $rootElem, themePrefix )
+		{
+			var classArray = $rootElem.attr( "class" ).split( " " );
+
+			for ( var i = 0; i < classArray.length; i++ )
+			{
+				if ( classArray[i].indexOf( themePrefix ) !== -1 )
+				{
+					$rootElem.removeClass( classArray[i] );
+					return;
+				}
+			}
+		}
+		function applyTheme( $rootElem, themePrefix )
+		{
+			$rootElem.addClass( themePrefix + self.currentTheme );
+		}
+	}
 
 	////////////////////////////////////////////////////////////
 

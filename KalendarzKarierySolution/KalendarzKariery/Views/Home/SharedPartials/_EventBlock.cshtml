@@ -1,11 +1,11 @@
-﻿<div class="event-block skin-event-block">
+﻿<div class="event-block">
 	<div class="event-kind-tag" data-bind="text: kind.name, style: { color: kind.headerColor }"></div>
 	<div class="event-block-name" data-bind="text: name"></div>
 	<div class="event-block-body">
 		<div class="rg-label">kiedy:</div>
 		<div class="event-block-data-content">
 			<span class="event-block-date" data-bind="html: startDate.displayFullDate_EnlargeDay()"></span>
-			<span class="sm-label">(<span class="list-item-date" data-bind="text: startDate.displayInfo()"></span>)</span>
+			<span class="sm-label">(<span data-bind="text: startDate.displayInfo()"></span>)</span>
 			<div class="event-block-time" data-bind="text: startDate.displayFullTime()"></div>
 		</div>
 		<div data-bind="if: _isFullAddressDefined() === 'full'">

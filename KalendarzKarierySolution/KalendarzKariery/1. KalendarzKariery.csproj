@@ -343,7 +343,6 @@
     <Content Include="Scripts\Lib\_references.js" />
     <Content Include="Scripts\Lib\modernizr-2.7.1.js" />
     <Content Include="Scripts\app.js" />
-    <Content Include="Scripts\JSUtils\SkinConfig.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

@@ -78,8 +78,6 @@ fieldset {
 }
 
 #lobby .dz-column-inner-wrapper {
-	/*border-right: 1px solid #F3F3F3;*/
-	background: #FBFAF9;
 	width: 83%;
 }
 
@@ -170,9 +168,9 @@ fieldset {
 
 #lobbyNavContainer {
 	text-align: center;
-	padding-top: 0px;
-	padding-bottom: 80px;
-	font-family: Raleway-Regular;
+	padding-top: 20px;
+	padding-bottom: 40px;
+	/*font-family: Raleway-Regular;*/
 }
 
 	#lobbyNavContainer a {
@@ -182,8 +180,6 @@ fieldset {
 .events-menu-container {
 	text-align: center;
 	padding-top: 10px;
-	float: right;
-	margin-right: 10px;
 	margin-bottom: 10px;
 }
 
@@ -336,10 +332,8 @@ fieldset {
 .event-list-item-container {
 	border-left: 1px solid #CECECE;
 	border-bottom: 1px solid #CECECE;
-	overflow: hidden;
-	padding: 4px;
-	/*background: #FDFDFD;*/
-	padding-left: 0px;
+	padding: 4px 0;
+	background: #FDFDFD;
 }
 
 .legend-text {
@@ -397,12 +391,17 @@ fieldset {
 	opacity: 1;
 }
 
+.event-list-header {
+	background: #CECECE;
+	border-bottom: 1px solid #B5B5B5;
+}
+
 .today-cell .event-rectangle {
 	font-size: .9em;
 }
 
 #calendar {
-	top: 30px !important;
+	top: 31px !important;
 }
 
 .event-tiles-wrapper {
@@ -507,7 +506,6 @@ fieldset {
 
 #detailsEventsAndNotesContainer {
 	overflow: hidden;
-	padding: 10px 2%;
 	width: 100%;
 	margin: 0 auto;
 	box-sizing: border-box;
@@ -516,7 +514,6 @@ fieldset {
 
 #detailsEventBlockList {
 	box-sizing: border-box;
-	padding-left: 0;
 	margin-top: 0;
 }
 
@@ -844,7 +841,6 @@ li.line-through-text {
 .event-list-item {
 	font-size: 1em;
 	color: #5A5A5A;
-	overflow: hidden;
 	position: relative;
 }
 
@@ -877,9 +873,10 @@ li.line-through-text {
 }
 
 .event-list-item-left {
-	width: 20%;
+	width: 22%;
 	display: inline-block;
 	line-height: 1;
+	border-right: 1px solid #CECECE;
 }
 
 .event-list-inner-wrapper {
@@ -887,7 +884,8 @@ li.line-through-text {
 }
 
 .list-item-title {
-	font-size: 1.4em;
+	font-size: 1.8em;
+	line-height: 1;
 }
 
 .list-item-star {
@@ -919,11 +917,6 @@ li.line-through-text {
 	border: 2px solid #BBBBBB;
 	border-right: 1px solid #BBBBBB;
 	border-top: 1px solid #BBBBBB;
-}
-
-
-.event-block-expand {
-	border-right: 1px solid #E6E1DB;
 }
 
 .event-kind-tag {
@@ -1082,12 +1075,12 @@ li.line-through-text {
 
 .sm-label {
 	color: gray;
-	font-size: .8em;
+	font-size: .85em;
 }
 
 .rg-label {
 	font-size: 1em;
-	color: #ADABAA;
+	color: #F3F3F3;
 	padding: 10px 0;
 }
 
@@ -1119,10 +1112,8 @@ li.line-through-text {
 .dashboard-title {
 	padding: 12px;
 	font-size: 1.2em;
-	background: #CECECE;
 	color: #b9b9b9;
 	position: relative;
-	border-bottom: 1px solid #B5B5B5;
 }
 
 .dashboard-calendar-list {

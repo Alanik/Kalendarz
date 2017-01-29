@@ -59,7 +59,7 @@
 }
 
 #detailsEventBlockList .event-block-addedby {
-	color: rgb(76, 76, 76);
+	color: rgb(72, 68, 62);
 	text-align: right;
 }
 
@@ -85,8 +85,8 @@
 }
 
 .event-block-expand .event-block-name {
-	font-size: 1.5em;
-	color: #636363;
+	font-size: 1.8em;
+	color: rgb(72, 68, 62);
 	padding: 10px;
 }
 
@@ -99,6 +99,7 @@
 .event-block-expand .event-block-body {
 	color: rgb(72, 68, 62);
 	padding: 10px;
+	padding-top: 0;
 	font-size: 1.2em;
 }
 
@@ -124,7 +125,7 @@
 }
 
 .event-block-expand .event-block-addedby {
-	color: #ADABAA;
+	color: rgb(72, 68, 62);
 	text-align: right;
 }
 

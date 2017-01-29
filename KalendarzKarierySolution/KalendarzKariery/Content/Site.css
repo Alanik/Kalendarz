@@ -468,7 +468,7 @@ fieldset {
 
 .hour-line {
 	position: absolute;
-	background: rgb(232, 229, 225);
+	background: rgb(245, 243, 242);
 	height: 100%;
 	width: 1px;
 }
@@ -502,6 +502,10 @@ fieldset {
 	border-top: 4px solid;
 	height: 40px;
 	line-height: 1;
+}
+
+.event-block-dash {
+	color: rgb(72, 68, 62);
 }
 
 #detailsEventsAndNotesContainer {
@@ -572,6 +576,7 @@ fieldset {
 
 .note-content {
 	padding: 4px;
+	font-size: 1.4em;
 }
 
 .edit-mode-note-container {
@@ -832,9 +837,8 @@ li.line-through-text {
 .expand-label {
 	display: none;
 	position: absolute;
-	text-align: center;
-	width: 100%;
-	bottom: 10px;
+	bottom: 0;
+	right: 0;
 	padding: 0 !important;
 }
 
@@ -854,13 +858,21 @@ li.line-through-text {
 	cursor: pointer;
 }
 
-.event-list-item.selected .expand-label {
-	display: block;
+.event-list-item.selected {
+	padding-top: 2px;
 }
 
-.event-list-item.selected .event-list-item-right {
-	visibility: hidden;
-}
+	.event-list-item.selected .expand-label {
+		display: block;
+	}
+
+	.event-list-item.selected .event-list-item-right {
+		display: none;
+	}
+
+	.event-list-item.selected .event-list-item-left {
+		display: none;
+	}
 
 .list-style-none {
 	list-style: none;

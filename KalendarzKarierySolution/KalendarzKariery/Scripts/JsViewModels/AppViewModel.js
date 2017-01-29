@@ -1848,7 +1848,6 @@
 			{
 				$element.scrollTo( 500, 200 );
 			} );
-
 		}
 		else
 		{

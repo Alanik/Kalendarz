@@ -16,8 +16,8 @@
 				<div class="note-content">
 					<pre data-bind="text: data, css: { 'line-through-text': isLineThrough() }" style="white-space: pre-wrap;"></pre>
 					<div style="overflow: hidden;">
-						<div style="font-size: 14px; color: rgb(154, 154, 154); text-align: right; text-decoration: none;">
-							<span data-bind="text: dateAdded.displayFullTime()"></span><span></span><span data-bind="	text: dateAdded.displayFullDate()"></span>
+						<div style="font-size: 14px; color: rgb(167, 167, 167); text-align: right; text-decoration: none;">
+							<span data-bind="text: dateAdded.displayFullTime()" style="padding-right:10px;"></span><span></span><span data-bind="	text: dateAdded.displayFullDate()"></span>
 						</div>
 						<span style="font-size: 16px; float: right; color: rgb(220, 220, 220)">
 							<span class="link" data-bind="click: function () { $root.setLineThroughNoteDetailsPageOnLineThroughLinkClick( id, displayDate.year, displayDate.month, displayDate.day, !isLineThrough() ) }, text: isLineThrough() ? 'odkreśl' : 'skreśl' ">skreśl</span>

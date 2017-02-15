@@ -1392,10 +1392,12 @@
 		}
 	}
 
-	self.showAllEventsOnClick = function (menuObj)
+	self.showAllEventsOnClick = function ( menuObj )
 	{
+		var $menuItemContainer = self.currentPage() === 0 ? $( '#lobby .menu-item-container' ) : $( '#details .menu-item-container' );
+
 		menuObj.selectedEventKindValues = [0, 1, 2, 3, 4, 5, 6];
-		$( ".menu-item-container" ).css( "top", "20px" ).addClass('selected');
+		$menuItemContainer.css( "top", "20px" ).addClass( 'selected' );
 		self.showSelectedEvents( menuObj.getSelectedEvents(), 'all', [0, 1, 2, 3, 4, 5, 6] );
 	}
 

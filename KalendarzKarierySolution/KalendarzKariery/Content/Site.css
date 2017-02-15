@@ -23,7 +23,7 @@ html, body, #appContainer {
 body {
 	font-size: .85em;
 	line-height: 1.6;
-	font-family: "SegoeUI", Helvetica, Sans-Serif, Raleway-Regular;
+	font-family: "Helvetica Neue", "SegoeUI", Helvetica, Sans-Serif, Raleway-Regular;
 	font-weight: 400;
 	-webkit-font-smoothing: antialiased;
 }
@@ -1130,7 +1130,7 @@ li.line-through-text {
 
 .sm-label {
 	color: gray;
-	font-size: .85em;
+	font-size: 1em;
 }
 
 .rg-label {

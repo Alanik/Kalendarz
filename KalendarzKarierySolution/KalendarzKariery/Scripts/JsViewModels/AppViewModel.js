@@ -53,6 +53,7 @@
 					}
 				}
 			}( spinner ) );
+			this.notificationUtil = new NotificationUtil( $( "#appContainer" ) );
 		}
 		return new Utils( spinner );
 	} )( spinner );
@@ -97,7 +98,8 @@
 	self.eventKinds = [];
 	self.eventPrivacyLevels = {};
 
-	self.currentTheme = "default-dark";
+	self.skinThemes = ["default-gray", "default-light", "default-dark"];
+	self.currentSkinThemeIndex = 0;
 
 	// is used when adding or editing event
 	self.observableEvent = new KKEventModelObservable();
@@ -310,6 +312,8 @@
 
 	self.addEventOnClick = function ()
 	{
+		var notification;
+		var webApi = self.UTILS.webApiCaller;
 		var $addEventForm = $( "#addEventForm" );
 		var $addEventContainer = $( "#addNewEventContainer" );
 		var privacyLvlValue = self.observableEvent.privacyLevel.value;
@@ -351,8 +355,6 @@
 			{
 				$( "#endHourSelectBox" ).addClass( "input-validation-error" );
 				$( "#endMinuteSelectBox" ).addClass( "input-validation-error" );
-
-				//TODO: validation message hard coded - needs to be moved to consts
 				$( "#endDateValidationErrorMsg" ).text( "Wydarzenie powinno trwać przynajmniej 10 minut." ).show();
 
 				return false;
@@ -390,20 +392,26 @@
 			//////////////////////////////////////////////
 			//call WebAPI - Add new event
 			//////////////////////////////////////////////
-			self.UTILS.loader.show( true );
+
+			//self.UTILS.loader.show( true );
+			self.UTILS.loader.$overlay.hide();
 			$addEventContainer.hide();
 
-			var promise = self.UTILS.webApiCaller.callAddEvent( data );
-			promise.then(
-						function ( result ) { success( result ); },
-						function ( result ) { error( result ); } )
+			notification = self.UTILS.notificationUtil.newNotification();
+			notification.loading( "zapisywanie wydarzenia..." );
+
+			webApi.callAddEvent( data ).then(
+			function ( data, textStatus, request ) { webApi.getResponse( data, request, function ( webApiOutput ) { success( data, webApiOutput ) } ); },
+			function ( data, textStatus, request ) { webApi.getResponse( data, request, function () { notification.error( "Wystąpił błąd. Dodanie wydarzenia się niepowiodło." ); error( data ) } ); } );
 		}
 
-		function success( result )
+		function success( result, webApiOutput )
 		{
 			var kkEvent, date = new Date();
 			var status = { name: "Accepted", value: 1 };
 			var isCurrentUserSignedUpForEvent = false, isEventAddedToCurrentUserCalendar = true;
+
+			notification.success( "Wydarzenie zostało dodane.", webApiOutput);
 
 			if ( result.IsSuccess === false )
 			{
@@ -442,20 +450,21 @@
 				self.setCalendarPlacementRow( dayEvents );
 				self.redrawCalendarCell( dayEvents, kkEvent.startDate.year, kkEvent.startDate.month, kkEvent.startDate.day );
 
-				self.UTILS.loader.hide( true );
+				//self.UTILS.loader.hide( true );
 			}
 
 		};
 		function error( result )
 		{
 			alert( "Wystąpił nieoczekiwany błąd. Prosze spróbować jeszcze raz." );
-			self.UTILS.loader.hide( false );
+			//self.UTILS.loader.hide( false );
 			$addEventContainer.show();
 		};
 	};
 
 	self.updateEventOnClick = function ()
 	{
+		var webApi = self.UTILS.webApiCaller;
 		var $addEventForm = $( "#addEventForm" );
 		var $addEventContainer = $( "#addNewEventContainer" );
 		var privacyLvlValue = self.observableEvent.privacyLevel.value;
@@ -540,10 +549,9 @@
 			self.UTILS.loader.show( true );
 			$addEventContainer.hide();
 
-			var promise = self.UTILS.webApiCaller.callUpdateEvent( data );
-			promise.then(
-						function ( result ) { success( result ); },
-						function ( result ) { error( result ); } )
+			webApi.callUpdateEvent( data ).then(
+						function ( data, textStatus, request ) { webApi.getResponse( data, request, function () { success( data ) } ); },
+						function ( data, textStatus, request ) { webApi.getResponse( data, request, function () { error( data ) } ); } )
 		}
 
 		function success( result )
@@ -601,8 +609,8 @@
 
 	self.AddNoteOnClick = function ()
 	{
-		var promise, data;
-		var text = self.detailsPage.dayPlanPart.noteListVM.observableNote.data().trim();
+		var data, text = self.detailsPage.dayPlanPart.noteListVM.observableNote.data().trim(), webApi = self.UTILS.webApiCaller;
+
 		if ( text == "" )
 		{
 			return false;
@@ -618,10 +626,9 @@
 		//////////////////////////////////////////////
 		self.UTILS.loader.show( true );
 
-		promise = self.UTILS.webApiCaller.callAddNote( data );
-		promise.then(
-					function ( result ) { success( result ); },
-					function () { error(); } )
+		webApi.callAddNote( data ).then(
+		function ( data, textStatus, request ) { webApi.getResponse( data, request, function () { success( data ) } ); },
+		function ( data, textStatus, request ) { webApi.getResponse( data, request, function () { error( data ) } ); } )
 
 		function success( result )
 		{
@@ -679,16 +686,16 @@
 
 	self.deleteEventDetailsPageOnConfirmationYesBtnClick = function ( element, id, year, month, day )
 	{
+		var webApi = self.UTILS.webApiCaller;
 		//////////////////////////////////////////////
 		//call WebAPI - Delete event with given id
 		//////////////////////////////////////////////
 		self.hideConfirmationPopupBox( element );
 		self.UTILS.loader.show( true );
 
-		var promise = self.UTILS.webApiCaller.callDeleteEvent( id );
-		promise.then(
-					function ( result ) { success( result ); },
-					function () { error(); } )
+		webApi.callDeleteEvent( id ).then(
+		function ( data, textStatus, request ) { webApi.getResponse( data, request, function () { success( data ) } ); },
+		function ( data, textStatus, request ) { webApi.getResponse( data, request, function () { error( data ) } ); } )
 
 		function success( result )
 		{
@@ -737,7 +744,7 @@
 
 	self.deleteNoteDetailsPageOnConfirmationYesBtnClick = function ( element, id, year, month, day )
 	{
-		var promise;
+		var webApi = self.UTILS.webApiCaller;
 
 		//////////////////////////////////////////////
 		//call WebAPI - Delete note with given id
@@ -745,10 +752,9 @@
 		self.hideConfirmationPopupBox( element );
 		self.UTILS.loader.show( true );
 
-		promise = self.UTILS.webApiCaller.callDeleteNote( id );
-		promise.then(
-					function ( result ) { success( result ); },
-					function () { error(); } )
+		webApi.callDeleteNote( id ).then(
+			function ( data, textStatus, request ) { webApi.getResponse( data, request, function () { success( data ) } ); },
+			function ( data, textStatus, request ) { webApi.getResponse( data, request, function () { error( data ) } ); } )
 
 		function success( result )
 		{
@@ -866,9 +872,8 @@
 
 	self.updateNoteDetailsPageOnSaveLinkClick = function ( id, year, month, day )
 	{
-		var $container = $( "#notesListContainer li[data-noteid='" + id + "']" );
-		var text = $container.find( "textarea" ).val().trim();
-		var promise, note, data;
+		var note, data, text, $container = $( "#notesListContainer li[data-noteid='" + id + "']" ), webApi = self.UTILS.webApiCaller;
+		text = $container.find( "textarea" ).val().trim();
 
 		if ( text == "" )
 		{
@@ -889,10 +894,9 @@
 		//////////////////////////////////////////////
 		self.UTILS.loader.show( true );
 
-		var promise = self.UTILS.webApiCaller.callUpdateNote( data );
-		promise.then(
-						function ( result ) { success( result ); },
-						function () { error(); } )
+		webApi.callUpdateNote( data ).then(
+			function ( data, textStatus, request ) { webApigetResponse( data, request, function () { success( data ) } ); },
+			function ( data, textStatus, request ) { webApi.getResponse( data, request, function () { error( data ) } ); } )
 
 		function success( result )
 		{
@@ -918,10 +922,9 @@
 
 	self.setLineThroughNoteDetailsPageOnLineThroughLinkClick = function ( id, year, month, day, isLineThrough )
 	{
-		var $container = $( "#notesListContainer li[data-noteid='" + id + "']" );
-		var text, promise;
+		var data, note, text, $container = $( "#notesListContainer li[data-noteid='" + id + "']" ), webApi = self.UTILS.webApiCaller;
 
-		var note = self.NOTE_MANAGER.getNoteByDateAndId( id, self.detailsPage.dayPlanPart.dayPlanTableVM.date.year(), self.detailsPage.dayPlanPart.dayPlanTableVM.date.month(), self.detailsPage.dayPlanPart.dayPlanTableVM.date.day() );
+		note = self.NOTE_MANAGER.getNoteByDateAndId( id, self.detailsPage.dayPlanPart.dayPlanTableVM.date.year(), self.detailsPage.dayPlanPart.dayPlanTableVM.date.month(), self.detailsPage.dayPlanPart.dayPlanTableVM.date.day() );
 
 		if ( !note )
 		{
@@ -929,18 +932,16 @@
 		}
 
 		text = note.data;
-
-		var data = 'Data=' + text + '&Id=' + id + '&IsLineThrough=' + isLineThrough;
+		data = 'Data=' + text + '&Id=' + id + '&IsLineThrough=' + isLineThrough;
 
 		//////////////////////////////////////////////
 		//call WebAPI - setLineThrough note with given id
 		//////////////////////////////////////////////
 		self.UTILS.loader.show( true );
 
-		promise = self.UTILS.webApiCaller.callSetLineThroughNote( data );
-		promise.then(
-						function ( result ) { success( result ); },
-						function () { error(); } )
+		webApi.callUpdateNote( data ).then(
+		function ( data, textStatus, request ) { webApi.getResponse( data, request, function () { success( data ) } ); },
+		function ( data, textStatus, request ) { webApi.getResponse( data, request, function () { error( data ) } ); } )
 
 		function success( result )
 		{
@@ -1305,18 +1306,16 @@
 
 	self.addPublicEventToMyCalendarOnClick = function ( element, id, year, month, day )
 	{
-		var data = 'Username=' + self.userName + '&EventId=' + id;
-		var promise;
+		var data = 'Username=' + self.userName + '&EventId=' + id, webApi = self.UTILS.webApiCaller;
 
 		//////////////////////////////////////////////
 		//call WebAPI - add existing event to user
 		//////////////////////////////////////////////
 		self.UTILS.loader.show( true );
 
-		promise = self.UTILS.webApiCaller.callAddExistingEventToUser( data );
-		promise.then(
-					function ( result ) { success( result ); },
-					function () { error(); } )
+		webApi.callAddExistingEventToUser( data ).then(
+		function ( data, textStatus, request ) { webApi.getResponse( data, request, function () { success( data ) } ); },
+		function ( data, textStatus, request ) { webApi.getResponse( data, request, function () { error( data ) } ); } )
 
 		function success( result )
 		{
@@ -1348,18 +1347,16 @@
 
 	self.signUpUserForEventOnClick = function ( element, id, year, month, day )
 	{
-		var data = 'Username=' + self.userName + '&EventId=' + id;
-		var promise;
+		var data = 'Username=' + self.userName + '&EventId=' + id, webApi = self.UTILS.webApiCaller;
 
 		//////////////////////////////////////////////
 		//call WebAPI - sign up user for event
 		//////////////////////////////////////////////
 		self.UTILS.loader.show( true );
 
-		promise = self.UTILS.webApiCaller.callSignUpUserForEvent( data );
-		promise.then(
-					function ( result ) { success( result ); },
-					function () { error(); } )
+		webApi.callSignUpUserForEvent( data ).then(
+			function ( data, textStatus, request ) { webApi.getResponse( data, request, function () { success( data ) } ); },
+			function ( data, textStatus, request ) { webApi.getResponse( data, request, function () { error( data ) } ); } )
 
 		function success( result )
 		{
@@ -1395,6 +1392,13 @@
 		}
 	}
 
+	self.showAllEventsOnClick = function (menuObj)
+	{
+		menuObj.selectedEventKindValues = [0, 1, 2, 3, 4, 5, 6];
+		$( ".menu-item-container" ).css( "top", "20px" ).addClass('selected');
+		self.showSelectedEvents( menuObj.getSelectedEvents(), 'all', [0, 1, 2, 3, 4, 5, 6] );
+	}
+
 	self.showSelectedEventsOnEventTileClick = function ( element, eventKindValue, selectedEventsProp, menuObj )
 	{
 		var $menuItemContainer = $( element );
@@ -1407,7 +1411,6 @@
 			$menuItemContainer.css( "top", "20px" );
 			menuObj.selectedEventKindValues.push( eventKindValue );
 			self.showSelectedEvents( selectedEventsProp, 'all', [eventKindValue] );
-
 		} else
 		{
 			$menuItemContainer.css( "top", "0px" );
@@ -1415,7 +1418,7 @@
 			self.removeSelectedEvents( selectedEventsProp, eventKindValue );
 		}
 
-		$menuItemContainer.scrollTo( 500, 20 );
+		$( ".upcoming-events-part" ).scrollTo( 500, 0 );
 	};
 
 	self.showSelectedEvents = function ( selectedEventsProp, oldOrUpcoming, valuesArr )
@@ -2498,8 +2501,6 @@
 	{
 		var themePrefix = "skin-theme-", $body = $( "body" );
 
-		self.currentTheme = ( self.currentTheme === "default-light" ? "default-dark" : "default-light" );
-
 		removeTheme( $body, themePrefix );
 		applyTheme( $body, themePrefix );
 
@@ -2518,7 +2519,14 @@
 		}
 		function applyTheme( $rootElem, themePrefix )
 		{
-			$rootElem.addClass( themePrefix + self.currentTheme );
+			self.currentSkinThemeIndex++;
+
+			if ( self.currentSkinThemeIndex === self.skinThemes.length)
+			{
+				self.currentSkinThemeIndex = 0;
+			}
+
+			$rootElem.addClass( themePrefix + self.skinThemes[self.currentSkinThemeIndex] );
 		}
 	}
 

@@ -8,10 +8,12 @@ using KalendarzKarieryData.Repository.KalendarzKarieryRepository;
 using KalendarzKarieryCore.Consts;
 using KalendarzKarieryData.BO.Cache;
 using KalendarzKarieryCore.BO;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace KalendarzKarieryWebAPI.Controllers
 {
-    public class EventsController : BaseController
+	public class EventsController : BaseController
 	{
 		private readonly IKalendarzKarieryRepository _repository = RepositoryProvider.GetRepository();
 
@@ -33,45 +35,56 @@ namespace KalendarzKarieryWebAPI.Controllers
 		[HttpPost]
 		public IValidationResponse AddEvent( AddEventViewModel addEventViewModel )
 		{
+			var reqContentLength = string.Empty;
+				reqContentLength = Request.Content.Headers.ContentLength.ToString();
+
 			if (!User.Identity.IsAuthenticated)
 			{
-				return new DefaultValidationResponseModel { Message = Consts.NotAuthenticatedErrorMsg, IsSuccess = false };
+				return new DefaultValidationResponseModel { Message = Consts.NotAuthenticatedErrorMsg, IsSuccess = false, RequestContentLength = reqContentLength };
 			}
 
 			if (!ModelState.IsValid)
 			{
-				return new DefaultValidationResponseModel { Message = Consts.GeneralValidationErrorMsg, IsSuccess = false };
+				return new DefaultValidationResponseModel { Message = Consts.GeneralValidationErrorMsg, IsSuccess = false, RequestContentLength = reqContentLength };
 			}
 
-			var @event = this.GetEventModelFromAddEventViewModel( addEventViewModel, new Event());
+			var @event = this.GetEventModelFromAddEventViewModel( addEventViewModel, new Event() );
 
 			if (@event == null)
 			{
-				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralOperationErrorMsg };
+				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralOperationErrorMsg, RequestContentLength = reqContentLength };
 			}
 
 			_repository.AddEvent( @event, @event.Address );
 
-			return new AddEventValidationResponseModel { IsSuccess = true, EventId = @event.Id, DateAdded = @event.CreateDate};
+			return new AddEventValidationResponseModel { IsSuccess = true, EventId = @event.Id, DateAdded = @event.CreateDate, RequestContentLength = reqContentLength };
 		}
 
 		// PUT api/events/5 (update)
 		[HttpPut]
 		public IValidationResponse UpdateEvent( AddEventViewModel addEventViewModel )
 		{
+			var reqContentLength = string.Empty;
+			IEnumerable<string> headerValues;
+
+			if (Request.Headers.TryGetValues( "content-length", out headerValues ))
+			{
+				reqContentLength = headerValues.FirstOrDefault();
+			}
+
 			if (!User.Identity.IsAuthenticated)
 			{
-				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.NotAuthenticatedErrorMsg };
+				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.NotAuthenticatedErrorMsg, RequestContentLength = reqContentLength };
 			}
 
 			if (!ModelState.IsValid)
 			{
-				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralValidationErrorMsg };
+				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralValidationErrorMsg, RequestContentLength = reqContentLength };
 			}
 
 			if (addEventViewModel.Event == null)
 			{
-				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralValidationErrorMsg };
+				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralValidationErrorMsg, RequestContentLength = reqContentLength };
 			}
 
 			var @event = _repository.GetEventById( addEventViewModel.Event.Id );
@@ -81,65 +94,81 @@ namespace KalendarzKarieryWebAPI.Controllers
 
 			if (@event != null)
 			{
-				if (!@event.User.UserName.Equals(User.Identity.Name, StringComparison.InvariantCultureIgnoreCase))
+				if (!@event.User.UserName.Equals( User.Identity.Name, StringComparison.InvariantCultureIgnoreCase ))
 				{
-					return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralOperationErrorMsg };
+					return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralOperationErrorMsg, RequestContentLength = reqContentLength };
 				}
 
 				@event = this.GetEventModelFromAddEventViewModel( addEventViewModel, @event );
 
 				if (@event == null)
 				{
-					return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralOperationErrorMsg };
+					return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralOperationErrorMsg, RequestContentLength = reqContentLength };
 				}
 
 				_repository.UpdateEvent( @event, @event.Address );
 
-				return new UpdateEventValidationResponseModel { IsSuccess = true, EventId = @event.Id, Year = year, Month = month, Day = day };
+				return new UpdateEventValidationResponseModel { IsSuccess = true, EventId = @event.Id, Year = year, Month = month, Day = day, RequestContentLength = reqContentLength };
 			}
 			else
 			{
-				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.EventDoesNotExistErrorMsg };
+				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.EventDoesNotExistErrorMsg, RequestContentLength = reqContentLength };
 			}
 		}
 
 		[HttpPost]
 		public IValidationResponse AddExistingEventToUser( AddExistingEventToUserModel model )
 		{
+			var reqContentLength = string.Empty;
+			IEnumerable<string> headerValues;
+
+			if (Request.Headers.TryGetValues( "content-length", out headerValues ))
+			{
+				reqContentLength = headerValues.FirstOrDefault();
+			}
+
 			if (!User.Identity.IsAuthenticated)
 			{
-				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.NotAuthenticatedErrorMsg };
+				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.NotAuthenticatedErrorMsg, RequestContentLength = reqContentLength };
 			}
 
 			var result = _repository.AddExistingEventToUserCalendar( model.EventId, User.Identity.Name );
 
 			if (result == true)
 			{
-				return new AddEventValidationResponseModel { IsSuccess = true, EventId = model.EventId };
+				return new AddEventValidationResponseModel { IsSuccess = true, EventId = model.EventId, RequestContentLength = reqContentLength };
 			}
 			else
 			{
-				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralOperationErrorMsg };
+				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralOperationErrorMsg, RequestContentLength = reqContentLength };
 			}
 		}
 
 		[HttpPost]
 		public IValidationResponse SignUpUserForEvent( SignUpUserForEventModel model )
 		{
+			var reqContentLength = string.Empty;
+			IEnumerable<string> headerValues;
+
+			if (Request.Headers.TryGetValues( "content-length", out headerValues ))
+			{
+				reqContentLength = headerValues.FirstOrDefault();
+			}
+
 			if (!User.Identity.IsAuthenticated)
 			{
-				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.NotAuthenticatedErrorMsg };
+				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.NotAuthenticatedErrorMsg, RequestContentLength = reqContentLength };
 			}
 
 			var result = _repository.SignUpUserForEvent( model.EventId, User.Identity.Name );
 
 			if (result == true)
 			{
-				return new AddEventValidationResponseModel { IsSuccess = true, EventId = model.EventId };
+				return new AddEventValidationResponseModel { IsSuccess = true, EventId = model.EventId, RequestContentLength = reqContentLength };
 			}
 			else
 			{
-				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralOperationErrorMsg };
+				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralOperationErrorMsg, RequestContentLength = reqContentLength };
 			}
 		}
 
@@ -147,26 +176,34 @@ namespace KalendarzKarieryWebAPI.Controllers
 		[HttpDelete]
 		public IValidationResponse DeleteEvent( int id )
 		{
+			var reqContentLength = string.Empty;
+			IEnumerable<string> headerValues;
+
+			if (Request.Headers.TryGetValues( "content-length", out headerValues ))
+			{
+				reqContentLength = headerValues.FirstOrDefault();
+			}
+
 			if (!User.Identity.IsAuthenticated)
 			{
-				return new DefaultValidationResponseModel{ IsSuccess = false, Message = Consts.NotAuthenticatedErrorMsg };
+				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.NotAuthenticatedErrorMsg, RequestContentLength = reqContentLength };
 			}
 
 			var @event = _repository.GetEventById( id );
 
 			if (@event != null)
 			{
-				if (@event.User.UserName.Equals(User.Identity.Name, StringComparison.InvariantCultureIgnoreCase))
+				if (@event.User.UserName.Equals( User.Identity.Name, StringComparison.InvariantCultureIgnoreCase ))
 				{
 					_repository.DeleteEvent( @event, @event.Address );
 
-					return new DefaultValidationResponseModel { IsSuccess = true, Message = Consts.EventDeletedSuccesfullyMsg };
+					return new DefaultValidationResponseModel { IsSuccess = true, Message = Consts.EventDeletedSuccesfullyMsg, RequestContentLength = reqContentLength };
 				}
 
-				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralOperationErrorMsg };
+				return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralOperationErrorMsg, RequestContentLength = reqContentLength };
 			}
 
-			return new DefaultValidationResponseModel{ IsSuccess = false, Message = Consts.EventDoesNotExistErrorMsg };
+			return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.EventDoesNotExistErrorMsg, RequestContentLength = reqContentLength };
 		}
 
 		private Event GetEventModelFromAddEventViewModel( AddEventViewModel viewModel, Event @event )

@@ -84,8 +84,8 @@ fieldset {
 #pageOverlayAtSiteLoad {
 	width: 83%;
 	height: 100%;
-	background: #f7f5f3;
-	border-right: 1px solid #F3F3F3;
+	background: #EAEAEA;
+	border-right: 1px solid #ADADAD;
 	position: absolute;
 	left: -14px;
 	z-index: 100;
@@ -122,6 +122,50 @@ fieldset {
 	padding-top: 20px;
 	border-top: 1px solid white;
 }
+
+#appNotificationContainer {
+	position: fixed;
+	right: 20px;
+	bottom: 20px;
+	width: 200px;
+	z-index: 100;
+}
+
+.app-notification {
+	float: right;
+	width: 300px;
+	height: 100px;
+	color: black;
+	margin-bottom: 5px;
+	padding: 10px;
+	padding-right: 20px;
+	position: relative;
+}
+
+	.app-notification.app-notification-loading {
+		background: gray;
+	}
+
+	.app-notification.app-notification-success {
+		background: #70BD70;
+	}
+
+	.app-notification.app-notification-error {
+		background: #FF8484;
+	}
+
+	.app-notification .app-notification-close {
+		padding: 10px;
+		position: absolute;
+		right: 10px;
+		top: 10px;
+		background: white;
+	}
+
+	.app-notification .app-notification-message {
+		font-size: 1.4em;
+	}
+
 
 #loginBar {
 	font-size: 18px;
@@ -256,7 +300,6 @@ fieldset {
 	clear: both;
 	margin: 0 auto;
 	margin-bottom: 20px;
-	background: #F7F5F3;
 }
 
 .display-events-overview-header {
@@ -303,19 +346,18 @@ fieldset {
 }
 
 .dashboard-title .selected {
-	color: #4C4C4C;
+	color: #404040;
 }
 
 .display-events-overview-container .legend-oldorupcoming {
 	color: #2F2F2F;
-	padding: 4px 0;
+	padding: 10px 0;
 	font-size: 1.2em;
 	text-align: center;
-	border-bottom: 1px solid #B5B5B5;
-	background: #CECECE;
 }
 
 	.display-events-overview-container .legend-oldorupcoming.open {
+		margin-bottom: 10px;
 	}
 
 .oldorupcoming-event-count {
@@ -331,15 +373,14 @@ fieldset {
 
 .event-list-item-container {
 	border-left: 1px solid #CECECE;
-	border-bottom: 1px solid #CECECE;
+	border-bottom: 1px solid #EAEAEA;
 	padding: 4px 0;
-	background: #FDFDFD;
 }
 
 .legend-text {
 	position: absolute;
 	left: 0;
-	padding-left: 10px;
+	padding-left: 40px;
 }
 
 .oldorupcoming-sign {
@@ -392,8 +433,7 @@ fieldset {
 }
 
 .event-list-header {
-	background: #CECECE;
-	border-bottom: 1px solid #B5B5B5;
+	border-bottom: 1px solid #EAEAEA;
 }
 
 .today-cell .event-rectangle {
@@ -406,7 +446,6 @@ fieldset {
 
 .event-tiles-wrapper {
 	background: #FBFAF9;
-	padding-bottom: 10px;
 	border-top: 1px solid white;
 	overflow: hidden;
 }
@@ -675,6 +714,7 @@ fieldset {
 
 
 		.flat-form textarea:focus, .flat-form input[type=text]:focus, .flat-form input[type=password]:focus select:focus {
+			background: #FBFAF9;
 		}
 
 
@@ -693,7 +733,7 @@ fieldset {
 	width: 100%;
 	box-sizing: border-box;
 	background: #FBFAF9;
-	padding-top: 20px;
+	padding: 20px 0;
 }
 
 #registerPageContainer {
@@ -701,7 +741,7 @@ fieldset {
 	width: 100%;
 	box-sizing: border-box;
 	background: #FBFAF9;
-	padding-top: 20px;
+	padding: 20px 0;
 }
 
 #logoutForm {
@@ -775,7 +815,7 @@ fieldset {
 
 .section-title {
 	font-size: 1.6em;
-	color: gray;
+	color: #383838;
 	text-align: center;
 	padding-bottom: 10px;
 	padding-top: 20px;
@@ -811,6 +851,8 @@ li.line-through-text {
 
 .md-icon-rg {
 	color: #4C4C4C;
+	font-size: 3em;
+	display:block;
 }
 
 	.md-icon-rg:before {
@@ -825,9 +867,9 @@ li.line-through-text {
 
 .overview-events-list-container {
 	margin: 1px;
-	background: #eaeaea;
 	overflow: hidden;
 	border: 1px solid #e2e2e2;
+	background: #FBFAF9;
 }
 
 .enlarged-font {
@@ -838,7 +880,7 @@ li.line-through-text {
 	display: none;
 	position: absolute;
 	bottom: 0;
-	right: 0;
+	right: 48%;
 	padding: 0 !important;
 }
 
@@ -851,7 +893,6 @@ li.line-through-text {
 .event-list {
 	padding-right: 2px;
 	margin: 0;
-	background: #EAEAEA;
 }
 
 .event-list-item:hover {
@@ -859,7 +900,7 @@ li.line-through-text {
 }
 
 .event-list-item.selected {
-	padding-top: 2px;
+	height: 60px;
 }
 
 	.event-list-item.selected .expand-label {
@@ -885,10 +926,11 @@ li.line-through-text {
 }
 
 .event-list-item-left {
-	width: 22%;
+	width: 100px;
 	display: inline-block;
 	line-height: 1;
-	border-right: 1px solid #CECECE;
+	text-align: right;
+	padding-right: 5px;
 }
 
 .event-list-inner-wrapper {
@@ -1060,6 +1102,7 @@ li.line-through-text {
 }
 
 .popupbox textarea:focus, .popupbox input[type=text]:focus, .popupbox input[type=password]:focus select:focus {
+	background: #FBFAF9;
 }
 
 .event-block-description {
@@ -1092,7 +1135,7 @@ li.line-through-text {
 
 .rg-label {
 	font-size: 1em;
-	color: #F3F3F3;
+	color: white;
 	padding: 10px 0;
 }
 
@@ -1122,11 +1165,15 @@ li.line-through-text {
 }
 
 .dashboard-title {
-	padding: 12px;
-	font-size: 1.2em;
+	padding: 0 12px;
+	padding-top:12px;
 	color: #b9b9b9;
 	position: relative;
 }
+
+	.dashboard-title span {
+		font-size: 1.2em;
+	}
 
 .dashboard-calendar-list {
 }

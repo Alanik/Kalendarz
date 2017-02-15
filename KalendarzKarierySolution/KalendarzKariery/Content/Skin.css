@@ -86,7 +86,7 @@
 		}
 
 		.skin-theme-default-dark .skin-brightness-icon:before {
-			content: "\f0dd";
+			content: "\f0e0";
 		}
 
 	.skin-theme-default-dark #dzHorizontalPaging {
@@ -187,4 +187,91 @@
 
 	.skin-theme-default-light #dzHorizontalPaging {
 		border-bottom: 1px solid rgb(243, 243, 243);
+	}
+
+
+
+/****************************************/
+/*theme-default-gray*/
+/****************************************/
+.skin-theme-default-gray {
+}
+
+	.skin-theme-default-gray.skin-app-background {
+		background: #EAEAEA;
+	}
+
+	.skin-theme-default-gray .skin-nav-part {
+		background: #EAEAEA;
+	}
+
+	.skin-theme-default-gray .skin-prev-arrow {
+		/*border: 2px solid #ADADAD;*/
+	}
+
+	.skin-theme-default-gray .skin-next-arrow {
+		/*border: 2px solid #ADADAD;*/
+	}
+
+	.skin-theme-default-gray .skin-up-arrow {
+		/*border: 2px solid #ADADAD;
+		padding: 6px;*/
+	}
+
+	.skin-theme-default-gray .skin-down-arrow {
+		/*border: 2px solid #ADADAD;
+		padding: 6px;*/
+	}
+
+	.skin-theme-default-gray .dz-horizontal-paging-item {
+	}
+
+		.skin-theme-default-gray .dz-horizontal-paging-item.current {
+			border: 2px solid #424242 !important;
+		}
+
+	.skin-theme-default-gray .dz-vertical-paging-item {
+	}
+
+		.skin-theme-default-gray .dz-vertical-paging-item.current {
+			border: 2px solid #424242 !important;
+		}
+
+	.skin-theme-default-gray .skin-login-bar {
+		color: black;
+	}
+
+	.skin-theme-default-gray .skin-nav-item {
+		color: #777777;
+		text-shadow: none;
+		font-size: 1.2em;
+		margin-right: 10px;
+	}
+
+		.skin-theme-default-gray .skin-nav-item.selected {
+			border-bottom: 2px solid #b5e4ec;
+		}
+
+	.skin-theme-default-gray #lobby .dz-column-inner-wrapper {
+		border-right: 1px solid #ADADAD;
+		background: #EAEAEA;
+	}
+
+	.skin-theme-default-gray .skin-brightness-icon {
+		font-size: 2em;
+		color: #ADADAD;
+	}
+
+		.skin-theme-default-gray .skin-brightness-icon:before {
+			content: "\f0df";
+		}
+
+		.skin-theme-default-gray .skin-brightness-icon:hover {
+			color: wheat;
+			cursor: pointer;
+		}
+
+	.skin-theme-default-gray #dzHorizontalPaging {
+		border-bottom: 1px solid #ADADAD;
+		background:#EAEAEA;
 	}

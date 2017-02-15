@@ -71,5 +71,6 @@
 			<div class="menu-item-number-upcoming" data-bind="text: publicEventTreeCountBasedOnEventKindVM[5].upcoming() != 0 ? publicEventTreeCountBasedOnEventKindVM[5].upcoming() : '-'"></div>
 		</div>
 	</div>
+	<i class="md-icon-hover md-icon-rg mdi mdi-chevron-down" data-bind="visible: eventListVM.isOpen() == false, click: function () { $root.showAllEventsOnClick(eventListVM) }" style="margin: 0 auto;"></i>
 </div>
 

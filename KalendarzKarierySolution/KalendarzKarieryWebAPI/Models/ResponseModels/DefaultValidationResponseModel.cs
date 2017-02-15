@@ -1,8 +1,7 @@
 ﻿namespace KalendarzKarieryWebAPI.Models.ResponseModels
 {
-    public class DefaultValidationResponseModel : IValidationResponse
+    public class DefaultValidationResponseModel : BaseResponseModel
 	{
-		public bool IsSuccess { get; set; }
 		public string Message { get; set; }
 	}
 }

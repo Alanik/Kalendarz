@@ -205,6 +205,7 @@
     <Content Include="Content\MaterialDesignIcons\materialdesignicons.min.css" />
     <Content Include="Content\MediaQueries_ShowHide.css" />
     <Content Include="Images\Logo\kalendarz-kariery-logo.png" />
+    <Content Include="Scripts\JSUtils\NotificationUtil.js" />
     <Content Include="Scripts\Lib\DzieuoJs\Dzieuo.css" />
     <Content Include="Content\Fonts\Oxygen\OFL.txt" />
     <Content Include="Content\Fonts\Raleway\FONTLOG.txt" />

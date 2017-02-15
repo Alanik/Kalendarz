@@ -62,9 +62,9 @@
 	self.getEventBoxHeaderColor = function (kindValue) {
 		switch (kindValue) {
 			case 1:
-				return "rgb(251, 251, 54)";
+				return "rgb(255, 255, 196)";
 			case 2:
-				return "rgb(255, 181, 43)";
+				return "rgb(255, 232, 189)";
 			case 3:
 				return "rgb(5, 199, 255)";
 			case 4:

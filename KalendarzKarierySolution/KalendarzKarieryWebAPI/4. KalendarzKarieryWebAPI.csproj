@@ -120,6 +120,7 @@
     </Compile>
     <Compile Include="Models\ResponseModels\AddEventValidationResponseModel.cs" />
     <Compile Include="Models\ResponseModels\AddNoteValidationResponseModel.cs" />
+    <Compile Include="Models\ResponseModels\BaseResponseModel.cs" />
     <Compile Include="Models\ResponseModels\IValidationResponse.cs" />
     <Compile Include="Models\ResponseModels\UpdateEventValidationResponseModel.cs" />
     <Compile Include="Models\ResponseModels\UpdateNoteValidationResponseModel.cs" />

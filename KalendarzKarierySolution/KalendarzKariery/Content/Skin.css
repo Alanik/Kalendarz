@@ -253,8 +253,9 @@
 		}
 
 	.skin-theme-default-gray #lobby .dz-column-inner-wrapper {
-		border-right: 1px solid #ADADAD;
-		background: #EAEAEA;
+		/*border-right: 1px solid #ADADAD;*/
+		/*background: #EAEAEA;*/
+		background: #fbfaf9;
 	}
 
 	.skin-theme-default-gray .skin-brightness-icon {
@@ -273,5 +274,5 @@
 
 	.skin-theme-default-gray #dzHorizontalPaging {
 		border-bottom: 1px solid #ADADAD;
-		background:#EAEAEA;
+		background: #EAEAEA;
 	}

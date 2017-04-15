@@ -286,6 +286,8 @@
     <Content Include="Content\MaterialDesignIcons\materialdesignicons-webfont.ttf" />
     <Content Include="Content\MaterialDesignIcons\materialdesignicons-webfont.woff" />
     <Content Include="Content\MaterialDesignIcons\materialdesignicons-webfont.woff2" />
+    <Content Include="Content\Fonts\HelveticaNeueLTPro\Linotype-HelveticaNeueLTPro-Lt.otf" />
+    <Content Include="Content\Fonts\HelveticaNeueLTPro\Linotype-HelveticaNeueLTPro-Lt.ttf" />
     <None Include="Properties\PublishProfiles\Alan.pubxml" />
     <Content Include="Scripts\CalendarWidget\CalendarWidget.css" />
     <Content Include="Scripts\JSManagers\EventManager.js" />

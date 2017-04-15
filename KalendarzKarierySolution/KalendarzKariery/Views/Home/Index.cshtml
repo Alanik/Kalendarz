@@ -9,7 +9,7 @@
 	<section id="calendar" class="dz-column">
 		<div id="calendarWidget" class="dz-row calendar-part" data-bind="with: $root.calendarPage.calendarPart.calendarVM" style="margin-bottom: 0px; top: 0;">
 			<div id="calendarWidgetHeader">
-				<div class="inline-block calendar-month-selectbox-container">
+				<div class="calendar-month-selectbox-container">
 					<select id="calendarMonthSelectBox" name="calendarMonthSelectBox" data-bind="options: $root.monthObjs, optionsText: 'name', optionsValue: 'value', value: displayDate.month"></select>
 				</div>
 				<div class="calendar-month-year-container">
@@ -19,7 +19,7 @@
 				</div>
 				<div class="calendar-month-year-container">
 					<button class="calendar-month-year-arrows" data-bind="click: function () { $root.redisplayCalendarAtChosenYear( displayDate.year() - 1 ) } ">&#9660;</button>
-					<span data-bind="text: displayDate.year"></span>
+					<span class="calendar-year" data-bind="text: displayDate.year"></span>
 					<button class="calendar-month-year-arrows" data-bind="click: function () { $root.redisplayCalendarAtChosenYear( displayDate.year() + 1 ) } ">&#9650</button>
 				</div>
 			</div>

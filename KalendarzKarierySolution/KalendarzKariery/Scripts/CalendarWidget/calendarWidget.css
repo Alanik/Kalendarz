@@ -14,9 +14,8 @@
 
 #calendarWidgetHeader {
 	display: table-caption;
-	padding-left: 5px;
-	height: 60px;
-	background: #B5B5B5;
+	height: 50px;
+	background: #fbfaf9;
 }
 
 #calendarWidgetBody {
@@ -52,12 +51,14 @@
 .weekday-container {
 	display: table-row;
 	color: gray;
+	background: #fbfaf9;
 }
 
 .weekday {
 	display: table-cell;
 	text-align: center;
 	padding: 10px;
+	color: black;
 }
 
 .weekday-sunday {
@@ -66,12 +67,19 @@
 	text-align: center;
 }
 
+.calendar-cell .mdi-plus {
+	color: #A4C6FC;
+	font-size: 20px;
+}
+
+	.calendar-cell .mdi-plus:before {
+		padding: 5px;
+	}
 
 .current-weekday {
-	color: black;
+	color: #000000;
 	text-transform: uppercase;
-	border: 2px solid #C1C1C1 !important;
-	background: #CCCCCC;
+	border-bottom: 2px solid black;
 }
 
 .calendar-hours {
@@ -99,6 +107,8 @@
 
 .other-month-cell {
 	position: relative;
+	border: 1px solid #d6d6d6;
+	border-left: 2px solid #d6d6d6;
 }
 
 .calendar-cell {

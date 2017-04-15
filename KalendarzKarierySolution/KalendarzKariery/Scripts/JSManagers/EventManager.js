@@ -354,6 +354,7 @@
 			default: return arr;
 		}
 	}
+
 	self.addEvent = function ( newKKEvent )
 	{
 		var today, endDay, oldOrUpcoming, event, didAddEvent = false, recentlyAddedEvents;

@@ -105,7 +105,7 @@
 	self.observableEvent = new KKEventModelObservable();
 
 	self.publicEventTree = {
-		// example to remember the format of publicEventTree object
+		// example
 		//	"2014": {
 		//		"8": [{ "3": [event, event] }, { "7": [event] }, { "9": [event, event, event, event] }],
 		//		"9": [{ "2": [event] }]	

@@ -1,6 +1,6 @@
 ﻿<header class="dashboard-title event-list-header">
 	<span class="display-events-header-menu-title selected hover-cursor-pointer selected">Publiczne wydarzenia</span>
-	<i class="btn-close md-icon-hover md-icon-rg mdi mdi-window-close" style="position:relative;bottom:7px;" data-bind="click: $root.closeAllSelectedEventsListContainerOnClick"></i>
+	<i class="btn-close md-icon-hover md-icon-rg mdi mdi-window-close" style="position:absolute;right:7px;bottom:-5px;" data-bind="click: $root.closeAllSelectedEventsListContainerOnClick"></i>
 </header>
 <div data-bind="with: $root.lobbyPage.upcomingEventsPart.eventListVM" class="display-events-overview-body">
 	<div class="legend-oldorupcoming hover-cursor-pointer" data-bind="css: { open: menuItems.publicEvents.showOld() }, click: function () { menuItems.publicEvents.showOld( !menuItems.publicEvents.showOld() ), $root.showSelectedEvents( menuItems.publicEvents.selectedEvents, 'old', selectedEventKindValues ) }">

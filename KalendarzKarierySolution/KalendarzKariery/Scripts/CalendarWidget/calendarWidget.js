@@ -92,7 +92,7 @@
 				{
 					calendar += ( '<span class="cell-month-name-span" style="margin-left:20px;">' + opts.monthNames[prev_m] + '</span>' );
 				}
-				calendar += ( '<div class="addNewEvent-cellIcon" data-bind="click:function(data, e){ $root.showAddPrivateCalendarEventPopupOnClick($element, data, e)}"><i class="mdi mdi-plus md-icon-rg md-icon-hover"></i></div></div></div></div>' );
+				calendar += ( '<div class="addNewEvent-cellIcon" data-bind="click:function(data, e){ $root.showAddPrivateCalendarEventPopupOnClick($element, data, e)}"><i class="mdi mdi-plus md-icon-hover"></i></div></div></div></div>' );
 
 				// next month
 			} else if ( d >= firstDay + days )
@@ -104,7 +104,7 @@
 				{
 					calendar += ( '<span class="cell-month-name-span" style="margin-left:10px;">' + opts.monthNames[next_m] + '</span>' );
 				}
-				calendar += ( ' <div class="addNewEvent-cellIcon" data-bind="click:function(data, e){ $root.showAddPrivateCalendarEventPopupOnClick($element, data, e)}"><i class="mdi mdi-plus md-icon-rg md-icon-hover"></i></div></div></div></div>' );
+				calendar += ( ' <div class="addNewEvent-cellIcon" data-bind="click:function(data, e){ $root.showAddPrivateCalendarEventPopupOnClick($element, data, e)}"><i class="mdi mdi-plus md-icon-hover"></i></div></div></div></div>' );
 
 				// current month
 			} else
@@ -117,7 +117,7 @@
 				{
 					calendar += ( '<span class="cell-month-name-span" style="margin-left:10px;">' + opts.monthNames[opts.month] + '</span>' );
 				}
-				calendar += ( '<div class="addNewEvent-cellIcon" data-bind="click:function(data, e){ $root.showAddPrivateCalendarEventPopupOnClick($element, data, e)}"><i class="mdi mdi-plus md-icon-rg md-icon-hover"></i></div></div></div></div>' );
+				calendar += ( '<div class="addNewEvent-cellIcon" data-bind="click:function(data, e){ $root.showAddPrivateCalendarEventPopupOnClick($element, data, e)}"><i class="mdi mdi-plus md-icon-hover"></i></div></div></div></div>' );
 			}
 
 			if ( d % 7 == 6 )

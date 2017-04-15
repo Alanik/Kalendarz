@@ -13,6 +13,11 @@
 	src: url('Fonts/SegoeUI/segoeui.ttf');
 }
 
+@font-face {
+	font-family: HelveticaNeueLTPro;
+	src: url('Fonts/HelveticaNeueLTPro/Linotype-HelveticaNeueLTPro-Lt.ttf');
+}
+
 html, body, #appContainer {
 	padding: 0px;
 	margin: 0px;
@@ -23,7 +28,7 @@ html, body, #appContainer {
 body {
 	font-size: .85em;
 	line-height: 1.6;
-	font-family: "Helvetica Neue", "SegoeUI", Helvetica, Sans-Serif, Raleway-Regular;
+	font-family: HelveticaNeueLTPro,SegoeUI, Helvetica, Sans-Serif, Raleway-Regular;
 	font-weight: 400;
 	-webkit-font-smoothing: antialiased;
 }
@@ -119,7 +124,6 @@ fieldset {
 }
 
 #calendarDayDetailsContainer {
-	padding-top: 20px;
 	border-top: 1px solid white;
 }
 
@@ -237,9 +241,7 @@ fieldset {
 }
 
 	.menu-item-container.selected {
-		background: #B1A79D;
-		border-left: 2px solid #EFECE8;
-		border-bottom: 2px solid #EFECE8;
+		background: #bfbfbf;
 	}
 
 		.menu-item-container.selected .menu-item-number-upcoming {
@@ -315,20 +317,28 @@ fieldset {
 }
 
 .calendar-month-name {
-	font-size: 1.4em;
+	font-size: 3em;
 	display: inline-block;
-	width: 95px;
+	width: 200px;
 	text-align: center;
+	display: inline-block;
+}
+
+.calendar-year {
+	font-size: 1.6em;
 }
 
 .calendar-month-selectbox-container {
 	width: 100px;
-	padding-top: 4px;
+	position: relative;
+	bottom: 4px;
+	left: 2px;
+	display: inline-block;
 }
 
 .calendar-month-year-arrows {
-	color: white;
-	font-size: .6em;
+	color: #A4C6FC;
+	font-size: .7em;
 	padding: 4px;
 	border: none;
 	background: none;
@@ -374,13 +384,13 @@ fieldset {
 .event-list-item-container {
 	border-left: 1px solid #CECECE;
 	border-bottom: 1px solid #EAEAEA;
-	padding: 4px 0;
+	background: gainsboro;
 }
 
 .legend-text {
 	position: absolute;
 	left: 0;
-	padding-left: 40px;
+	padding-left: 12px;
 }
 
 .oldorupcoming-sign {
@@ -464,12 +474,7 @@ fieldset {
 	}
 
 #detailsDayTable {
-	position: relative;
-	padding-bottom: 2px;
-	width: 100%;
-	margin: 0 auto;
-	box-sizing: border-box;
-	background: rgb(232, 229, 225);
+	background: rgb(234, 234, 234);
 	border-bottom: 2px solid rgb(245, 244, 244);
 }
 
@@ -520,18 +525,15 @@ fieldset {
 	right: 1px;
 }
 
-.day-display-date-container {
-	font-size: 2em;
-	color: #4C4C4C;
-	padding-left: 30px;
-	background: #B5B5B5;
-	height: 60px;
+.day-display-date-container .display-date-small {
+	font-size: 1.4em;
+	color: gray;
 }
 
-	.day-display-date-container .display-date-small {
-		font-size: .5em;
-		color: white;
-	}
+.day-display-date-container .display-date-large {
+	font-size: 2em;
+	color: black;
+}
 
 .event-rectangle-details {
 	color: #4C4C4C;
@@ -549,15 +551,12 @@ fieldset {
 
 #detailsEventsAndNotesContainer {
 	overflow: hidden;
-	width: 100%;
-	margin: 0 auto;
-	box-sizing: border-box;
-	background: rgb(241, 238, 238);
 }
 
 #detailsEventBlockList {
 	box-sizing: border-box;
 	margin-top: 0;
+	margin-bottom: 0;
 }
 
 #notesContainer {
@@ -608,9 +607,14 @@ fieldset {
 	color: #564949;
 }
 
+	#notesList li {
+		margin: -2px;
+		background: #fdfdfd;
+		border: 2px solid #f1eeee;
+	}
+
 
 #notesListContainer {
-	background: #FDFDFD;
 }
 
 .note-content {
@@ -844,20 +848,36 @@ li.line-through-text {
 }
 
 .md-icon-sm {
-	font-size: 1.4em;
-	color: gainsboro;
+	font-size: 1.2em;
+	color: #A4C6FC;
 	vertical-align: top;
 }
 
 .md-icon-rg {
-	color: #4C4C4C;
-	font-size: 3em;
-	display:block;
+	color: #A4C6FC;
+	font-size: 2em;
+	display: block;
 }
 
 	.md-icon-rg:before {
 		padding: 5px;
 	}
+
+.md-icon-hover:hover:before {
+	cursor: pointer;
+	border: 2px solid #CEC8C8;
+	border-radius: 50%;
+}
+
+.md-icon-lg {
+	color: #A4C6FC;
+	font-size: 3em;
+	display: block;
+}
+
+.md-icon-rg:before {
+	padding: 5px;
+}
 
 .md-icon-hover:hover:before {
 	cursor: pointer;
@@ -868,7 +888,7 @@ li.line-through-text {
 .overview-events-list-container {
 	margin: 1px;
 	overflow: hidden;
-	border: 1px solid #e2e2e2;
+	/*border: 1px solid #e2e2e2;*/
 	background: #FBFAF9;
 }
 
@@ -880,7 +900,7 @@ li.line-through-text {
 	display: none;
 	position: absolute;
 	bottom: 0;
-	right: 48%;
+	right: 45%;
 	padding: 0 !important;
 }
 
@@ -901,6 +921,7 @@ li.line-through-text {
 
 .event-list-item.selected {
 	height: 60px;
+	background: #fbfaf9;
 }
 
 	.event-list-item.selected .expand-label {
@@ -926,10 +947,8 @@ li.line-through-text {
 }
 
 .event-list-item-left {
-	width: 100px;
 	display: inline-block;
 	line-height: 1;
-	text-align: right;
 	padding-right: 5px;
 }
 
@@ -938,8 +957,10 @@ li.line-through-text {
 }
 
 .list-item-title {
-	font-size: 1.8em;
+	font-size: 1.4em;
 	line-height: 1;
+	color: black;
+	/*color:#eaeaea;*/
 }
 
 .list-item-star {
@@ -954,9 +975,9 @@ li.line-through-text {
 }
 
 .list-item-date {
-	color: gray;
+	color: #aaa;
 	padding-top: 4px;
-	padding-left: 8px;
+	width: 90px;
 }
 
 .pad-top-8 {
@@ -974,9 +995,11 @@ li.line-through-text {
 }
 
 .event-kind-tag {
-	background: rgb(80, 80, 80);
+	background: #EAEAEA;
 	line-height: 1.5;
 	padding: 4px;
+	border-top: 4px solid;
+	color: black;
 }
 
 
@@ -1129,14 +1152,23 @@ li.line-through-text {
 }
 
 .sm-label {
-	color: gray;
+	color: #aaa;
 	font-size: 1em;
+}
+
+.sm-label-rg {
+	color: #aaa;
+	font-size: 1.1em;
 }
 
 .rg-label {
 	font-size: 1em;
 	color: white;
 	padding: 10px 0;
+}
+
+.txt-align-right {
+	text-align: right;
 }
 
 #btnAddNewEvent {
@@ -1165,8 +1197,8 @@ li.line-through-text {
 }
 
 .dashboard-title {
-	padding: 0 12px;
-	padding-top:12px;
+	padding: 12px 12px;
+	padding-top: 12px;
 	color: #b9b9b9;
 	position: relative;
 }

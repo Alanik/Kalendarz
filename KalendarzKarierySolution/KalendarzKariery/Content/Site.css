@@ -86,7 +86,7 @@ fieldset {
 	width: 83%;
 }
 
-#pageOverlayAtSiteLoad {
+#appPageOverlayAtSiteLoad {
 	width: 83%;
 	height: 100%;
 	background: #EAEAEA;
@@ -96,7 +96,7 @@ fieldset {
 	z-index: 100;
 }
 
-#pageOverlayAtSiteLoadText {
+#appPageOverlayAtSiteLoadText {
 	width: 50%;
 	margin: 0 auto;
 	text-align: center;
@@ -120,7 +120,7 @@ fieldset {
 #registerFormBtn {
 	float: left;
 	position: relative;
-	left: 330px;
+	left: 278px;
 }
 
 #calendarDayDetailsContainer {
@@ -595,6 +595,8 @@ fieldset {
 	height: 80px;
 	box-sizing: border-box;
 	color: #000000;
+	border-left: 1px solid #eaeaea;
+	border-right: none;
 }
 
 #btnAddNewNote {
@@ -681,45 +683,48 @@ fieldset {
 	border: 1px solid #D8D8D8;
 	padding: 20px;
 	background: #EAEAEA;
+}
+
+.form-body {
 	font-size: 1.4em;
 }
 
-	.flat-form label {
-		color: gray;
-		text-transform: uppercase;
-		font-size: .6em;
+.flat-form label {
+	color: gray;
+	text-transform: uppercase;
+	font-size: .6em;
+}
+
+.flat-form legend {
+	color: #4C4C4C;
+	font-size: 1em;
+	border-bottom: 1px solid #CACACA;
+	width: 100%;
+}
+
+.flat-form textarea {
+	margin-top: 8px;
+}
+
+.flat-form input[type=text], .flat-form input[type=password], .flat-form textarea, .flat-form select {
+	background: #EAEAEA;
+	width: 200px;
+	height: 32px;
+	padding: 0px 10px;
+	border: 1px solid #CACACA;
+}
+
+
+.flat-form textarea {
+	height: 80px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+
+	.flat-form textarea:focus, .flat-form input[type=text]:focus, .flat-form input[type=password]:focus select:focus {
+		background: #FBFAF9;
 	}
-
-	.flat-form legend {
-		color: #4C4C4C;
-		font-size: 1em;
-		border-bottom: 1px solid #CACACA;
-		width: 100%;
-	}
-
-	.flat-form textarea {
-		margin-top: 8px;
-	}
-
-	.flat-form input[type=text], .flat-form input[type=password], .flat-form textarea, .flat-form select {
-		background: #EAEAEA;
-		width: 200px;
-		height: 32px;
-		padding: 0px 10px;
-		border: 1px solid #CACACA;
-	}
-
-
-	.flat-form textarea {
-		height: 80px;
-		padding-top: 10px;
-		padding-bottom: 10px;
-	}
-
-
-		.flat-form textarea:focus, .flat-form input[type=text]:focus, .flat-form input[type=password]:focus select:focus {
-			background: #FBFAF9;
-		}
 
 
 .popup-form {
@@ -754,8 +759,8 @@ fieldset {
 
 .btn-add {
 	color: white;
-	background: #71A4D8;
-	padding: 14px;
+	background: #a4c6fc;
+	padding: 10px 40px;
 }
 
 .popupbox-header-title {
@@ -1030,7 +1035,7 @@ li.line-through-text {
 	top: 20px;
 }
 
-.page-overlay {
+.app-page-overlay {
 	position: fixed;
 	width: 100%;
 	height: 100%;
@@ -1067,11 +1072,6 @@ li.line-through-text {
 	font-size: 2em;
 	border: 2px solid white;
 	border-top: 40px solid white;
-}
-
-.popupbox-header {
-	font-size: 1.4em;
-	width: 100%;
 }
 
 .popupbox-inner-wrapper {
@@ -1173,8 +1173,6 @@ li.line-through-text {
 
 #btnAddNewEvent {
 	float: right;
-	font-size: .8em;
-	padding: 10px 40px;
 	margin-top: 20px;
 }
 
@@ -1198,7 +1196,6 @@ li.line-through-text {
 
 .dashboard-title {
 	padding: 12px 12px;
-	padding-top: 12px;
 	color: #b9b9b9;
 	position: relative;
 }

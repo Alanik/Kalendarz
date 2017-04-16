@@ -11,21 +11,18 @@
 </head>
 <body class="skin-theme-default-gray skin-app-background">
 	<div id="appContainer">
-		<div id="pageOverlayAtSiteLoad">
-			<div id="pageOverlayAtSiteLoadText">
-			</div>
+		<div id="appPageOverlayAtSiteLoad">
+			<div id="appPageOverlayAtSiteLoadText"></div>
 		</div>
-		<div id="spinnerContainer" style="display: none;">
-			<span id="spinnerText"></span>
+		<div id="appSpinnerContainer" style="display: none;">
+			<span id="appSpinnerText"></span>
 		</div>
+		<div class="app-page-overlay" style="display: none;"></div>
 
-
-		<div class="page-overlay" style="display: none;"></div>
 		@Html.Partial( "_ConfirmationPopupBox" )
 		@Html.Partial( "_AddNewEvent", new KalendarzKarieryData.Models.ViewModels.AddEventViewModel() )
 
 		@RenderBody()
-
 	</div>
 
 	@*@Scripts.Render("~/bundles/scripts")*@
@@ -42,7 +39,6 @@
 
 	<script src="~/Scripts/Lib/DzieuoJs/jquery.animate-enhanced.min.js"></script>
 	<script src="~/Scripts/Lib/DzieuoJs/dzieuo.js"></script>
-
 
 	<script src="~/Scripts/JSModels/KKEventModel.js"></script>
 	<script src="~/Scripts/JSModels/KKEventModelObservable.js"></script>
@@ -68,22 +64,9 @@
 
 		$(function () { 
 			"use strict";
-			var APP = App, siteLoadingTextAnimationInterval = {interval : null};
-			var indexViewModel = @Html.Raw( Json.Encode( @Model.IndexViewModel ) );
-			var userName = '@User.Identity.Name.ToLower()';
-			var $dzieuo = $("#dzieuo");
-
-			//////////////////////////
-			//Start of application
-			//////////////////////////
-
-			APP.initializeSiteLoadingText();
-			APP.animateSiteLoadingText(siteLoadingTextAnimationInterval);
-			APP.initializeJQueryExtentionMethods(SIMPLE_FILT());
-			APP.initializeDzieuoPlugin($dzieuo);
-			APP.initializeApp(indexViewModel, userName, APP.initializeLoader());
-			APP.setPagesHeights();
-			APP.displaySiteAfterLoad(siteLoadingTextAnimationInterval, $dzieuo);	
+			var indexViewModel = @Html.Raw( Json.Encode( @Model) );
+			APP.init();
+			APP.start(indexViewModel);
 		});
 
 	</script>

@@ -18,5 +18,7 @@ namespace KalendarzKarieryData.Models.ViewModels
 		public ICollection<object> PrivacyLevels { get; set; }
 		public object MyEventCountTree { get; set; }
 		public object PublicEventCountTree { get; set; }
+		public string UserName { get; set; }
+		public bool IsUserAuthenticated { get; set; }
 	}
 }

@@ -1,13 +1,12 @@
-﻿function AppViewModel( date, userName, spinner )
+﻿function AppViewModel( userName, spinner )
 {
 	"use strict";
 
 	var self = this;
-
+	var date = new Date();
 	//////////////////////////////////////////////////////////
 	//utils, managers etc
 	//////////////////////////////////////////////////////////
-
 	self.UTILS = ( function ( spinner )
 	{
 		var Utils = function ( spinner )
@@ -17,8 +16,8 @@
 			this.eventTreeBuilder = new TreeBuilder( self );
 			this.loader = ( function ( spinner )
 			{
-				var $spinner = $( "#spinnerContainer" );
-				var $overlay = $( "#appContainer" ).children( ".page-overlay" );
+				var $spinner = $( "#appSpinnerContainer" );
+				var $overlay = $( "#appContainer" ).children( ".app-page-overlay" );
 
 				return {
 					$overlay: $overlay,
@@ -117,7 +116,7 @@
 	};
 
 	self.myEventTreeCountBasedOnEventKind = null;
-	// example
+	// examplec self.myEventTreeCountBasedOnEventKind
 	//
 	//"1": {
 	//	"upcoming": ko.observable(10),
@@ -411,7 +410,7 @@
 			var status = { name: "Accepted", value: 1 };
 			var isCurrentUserSignedUpForEvent = false, isEventAddedToCurrentUserCalendar = true;
 
-			notification.success( "Wydarzenie zostało dodane.", webApiOutput);
+			notification.success( "Wydarzenie zostało dodane.", webApiOutput );
 
 			if ( result.IsSuccess === false )
 			{
@@ -861,7 +860,7 @@
 		ko.applyBindings( self, cancelLink );
 		ko.applyBindings( self, saveLink );
 
-		var $textbox = $( "<textarea style='width: 100%;vertical-align: top;margin-top: 10px;box-sizing: border-box;border: 2px solid #dcdcdc;resize: none;outline: none;padding: 10px;background: #f3f3f3;'/>" );
+		var $textbox = $( "<textarea style='width: 100%;vertical-align: top;box-sizing: border-box;border: none;padding: 10px;background: #f3f3f3;height:100px;'/>" );
 		var $container = $( "#notesListContainer li[data-noteid='" + id + "']" );
 		var noteText = $container.find( "pre" ).text();
 		$container.find( ".note-content" ).hide();
@@ -1012,7 +1011,7 @@
 	self.showConfirmationPopupBox = function ( $popup, txt )
 	{
 		$popup.find( ".confirmation-popupbox-maintext" ).text( txt );
-		$( "#appContainer" ).children( ".page-overlay" ).show();
+		$( "#appContainer" ).children( ".app-page-overlay" ).show();
 		$popup.show();
 	};
 
@@ -1023,7 +1022,7 @@
 		var $yesBtn = $popup.find( ".confirmation-popupbox-yesbtn" );
 		$yesBtn.attr( "data-bind", '' );
 
-		$popup.siblings( ".page-overlay" ).hide();
+		$popup.siblings( ".app-page-overlay" ).hide();
 		$popup.hide();
 
 	};
@@ -1125,6 +1124,53 @@
 			} else
 			{
 				eventTreeCountNode.upcoming( upcoming + value );
+			}
+		}
+	}
+
+	self.drawEventsToCalendar = function ()
+	{
+		// current month
+		drawEvents( self.myEventTree[self.calendarPage.calendarPart.calendarVM.displayDate.year()], self.calendarPage.calendarPart.calendarVM.displayDate.month() );
+
+		// prev months
+		if ( self.calendarPage.calendarPart.calendarVM.displayDate.month() === 1 )
+		{
+			drawEvents( self.myEventTree[self.calendarPage.calendarPart.calendarVM.displayDate.year() - 1], 12 );
+		}
+		else
+		{
+			drawEvents( self.myEventTree[self.calendarPage.calendarPart.calendarVM.displayDate.year()], self.calendarPage.calendarPart.calendarVM.displayDate.month() - 1 );
+		}
+
+		// next month
+		if ( self.calendarPage.calendarPart.calendarVM.displayDate.month() == 12 )
+		{
+			drawEvents( self.myEventTree[self.calendarPage.calendarPart.calendarVM.displayDate.year() + 1], 1 );
+		}
+		else
+		{
+			drawEvents( self.myEventTree[self.calendarPage.calendarPart.calendarVM.displayDate.year()], self.calendarPage.calendarPart.calendarVM.displayDate.month() + 1 );
+		}
+
+		function drawEvents( yearNode, calendarPageMonth )
+		{
+			var monthNode, days, events;
+
+			if ( yearNode )
+			{
+				monthNode = yearNode[calendarPageMonth];
+				if ( monthNode )
+				{
+					for ( days in monthNode )
+					{
+						events = monthNode[days];
+						for ( var i = 0; i < events.length; i++ )
+						{
+							self.drawEventToCalendar( events[i] );
+						}
+					}
+				}
 			}
 		}
 	}
@@ -1753,7 +1799,7 @@
 	self.closeAddNewEventPopupOnClick = function ()
 	{
 		var $cont = $( "#addNewEventContainer" );
-		$( "#appContainer" ).children( ".page-overlay" ).hide();
+		$( "#appContainer" ).children( ".app-page-overlay" ).hide();
 		$cont.hide();
 		$cont.css( "top", 30 );
 		//TODO:add scroll to top 
@@ -2194,11 +2240,11 @@
 		var $calendar = $( "#calendar" );
 		var $details = $( "#details" );
 
-		$lobby.siblings( ".page-overlay" ).hide();
-		$calendar.siblings( ".page-overlay" ).hide();
-		$details.siblings( ".page-overlay" ).hide();
+		$lobby.siblings( ".app-page-overlay" ).hide();
+		$calendar.siblings( ".app-page-overlay" ).hide();
+		$details.siblings( ".app-page-overlay" ).hide();
 
-		var $overlay = $lobby.siblings( ".page-overlay" );
+		var $overlay = $lobby.siblings( ".app-page-overlay" );
 		$overlay.css( "opacity", 1 );
 		$overlay.show();
 
@@ -2523,7 +2569,7 @@
 		{
 			self.currentSkinThemeIndex++;
 
-			if ( self.currentSkinThemeIndex === self.skinThemes.length)
+			if ( self.currentSkinThemeIndex === self.skinThemes.length )
 			{
 				self.currentSkinThemeIndex = 0;
 			}

@@ -106,7 +106,6 @@
     <Compile Include="Models\ViewModels\AddNoteViewModel.cs" />
     <Compile Include="Models\ViewModels\DateModel.cs" />
     <Compile Include="Models\ViewModels\DateTimeModel.cs" />
-    <Compile Include="Models\ViewModels\MainViewModel.cs" />
     <Compile Include="Models\ViewModels\SignUpUserForEventModel.cs" />
     <Compile Include="Models\ViewModels\UpdateNoteViewModel.cs" />
     <Compile Include="Note.cs">

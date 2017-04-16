@@ -22,7 +22,7 @@ namespace KalendarzKariery.Controllers
 			var currentUserId = this.GetUserId( User.Identity.Name.ToLower(), _repository );
 
 			var indexViewModel = new IndexViewModel();
-			indexViewModel.UpcomingPublicEvents  = _repository.GetUpcomingEvents(5, PrivacyLevelEnum.@public);
+			indexViewModel.UpcomingPublicEvents = _repository.GetUpcomingEvents( 5, PrivacyLevelEnum.@public );
 			indexViewModel.PublicEvents = _repository.GetAllPublicEvents( currentUserId );
 			indexViewModel.EventKinds = _repository.GetEventKindsBasedOnUserName( User.Identity.Name );
 			indexViewModel.PrivacyLevels = _repository.GetAllPrivacyLevels();
@@ -31,16 +31,16 @@ namespace KalendarzKariery.Controllers
 			indexViewModel.MyEvents = null;
 			indexViewModel.MyEventCountTree = null;
 
-			RegisterViewModel registerViewModel = new RegisterViewModel();
-
 			if (User.Identity.IsAuthenticated)
 			{
+				indexViewModel.IsUserAuthenticated = true;
+				indexViewModel.UserName = User.Identity.Name.ToLower();
+
 				if (currentUserId.HasValue)
 				{
 					indexViewModel.MyEvents = _repository.GetAllEventsConnectedToUserId( currentUserId.Value );
 					indexViewModel.MyEventCountTree = _repository.GetMyEventCountTree( currentUserId.Value );
 					indexViewModel.MyNotes = _repository.GetNotesByUserId( currentUserId.Value );
-					registerViewModel = this.GetRegisterViewModel( currentUserId.Value, _repository );
 				}
 				else
 				{
@@ -48,11 +48,7 @@ namespace KalendarzKariery.Controllers
 				}
 			}
 
-			MainViewModel mainViewModel = new MainViewModel();
-			mainViewModel.IndexViewModel = indexViewModel;
-			mainViewModel.RegisterViewModel = registerViewModel;
-
-			return View( "Index", mainViewModel );
+			return View( "Index", indexViewModel );
 		}
 
 		public ActionResult m()
@@ -73,8 +69,6 @@ namespace KalendarzKariery.Controllers
 			indexViewModel.MyEvents = null;
 			indexViewModel.MyEventCountTree = null;
 
-			RegisterViewModel registerViewModel = new RegisterViewModel();
-
 			if (User.Identity.IsAuthenticated)
 			{
 				if (currentUserId.HasValue)
@@ -82,7 +76,6 @@ namespace KalendarzKariery.Controllers
 					indexViewModel.MyEvents = _repository.GetAllEventsCreatedByUserId( currentUserId.Value );
 					indexViewModel.MyEventCountTree = _repository.GetMyEventCountTree( currentUserId.Value );
 					indexViewModel.MyNotes = _repository.GetNotesByUserId( currentUserId.Value );
-					registerViewModel = this.GetRegisterViewModel( currentUserId.Value, _repository );
 				}
 				else
 				{
@@ -90,37 +83,7 @@ namespace KalendarzKariery.Controllers
 				}
 			}
 
-			MainViewModel mainViewModel = new MainViewModel();
-			mainViewModel.IndexViewModel = indexViewModel;
-			mainViewModel.RegisterViewModel = registerViewModel;
-
-			return View( "Index", "~/Views/Shared/_LayoutMobile.cshtml", mainViewModel );
-		}
-
-		private RegisterViewModel GetRegisterViewModel( int id, IKalendarzKarieryRepository repository )
-		{
-			RegisterViewModel registerViewModel = new RegisterViewModel();
-
-			var user = repository.GetUserById( id );
-			registerViewModel.User = user;
-
-			if (user.Address != null)
-			{
-				registerViewModel.User.Address = user.Address;
-			}
-			else
-			{
-				registerViewModel.User.Address = new Address();
-			}
-
-			registerViewModel.BirthDateModel = new DateModel();
-			registerViewModel.BirthDateModel.Day = user.BirthDay.Day.ToString();
-			registerViewModel.BirthDateModel.Month = user.BirthDay.Month.ToString();
-			registerViewModel.BirthDateModel.Year = user.BirthDay.Year.ToString();
-			registerViewModel.RegisterModel = new RegisterModel();
-			registerViewModel.RegisterModel.UserName = user.UserName;
-
-			return registerViewModel;
+			return View( "Index", "~/Views/Shared/_LayoutMobile.cshtml", indexViewModel );
 		}
 	}
 }

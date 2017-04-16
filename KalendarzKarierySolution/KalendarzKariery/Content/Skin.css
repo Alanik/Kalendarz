@@ -135,8 +135,7 @@
 	}
 
 		.skin-theme-default-light .dz-horizontal-paging-item.current {
-			border: 2px solid white;
-			background: #4C4C4C;
+			border: 2px solid #424242 !important;
 		}
 
 	.skin-theme-default-light .dz-vertical-paging-item {
@@ -144,8 +143,7 @@
 	}
 
 		.skin-theme-default-light .dz-vertical-paging-item.current {
-			border: 2px solid white;
-			background: #4C4C4C;
+		border: 2px solid #424242 !important;
 		}
 
 	.skin-theme-default-light .skin-login-bar {

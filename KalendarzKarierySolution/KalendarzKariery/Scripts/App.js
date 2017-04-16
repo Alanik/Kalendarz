@@ -1,397 +1,240 @@
-﻿var App = {
-	indexViewModel: null,
-	initializeJQueryExtentionMethods: function ( simpleFilt )
-	{
-		jQuery.fn.extend( {
-			scrollTo: function ( speed, offset )
-			{
-				if ( typeof offset === undefined )
-				{
-					offset = 0;
-				}
-
-				var $col = this.closest( ".dz-column" );
-				var scrollTo = this.offset().top - $col.offset().top + $col.scrollTop() - offset;
-				$col.animate( { scrollTop: scrollTo }, speed );
-			}
-		} );
-
-		jQuery.extend( {
-			simpleFilt: simpleFilt
-		} )
-	},
-	initializeLoader: function ()
-	{
-		//////////////////////////////////////////////////////////
-		//ajax loader (spinner)
-		//////////////////////////////////////////////////////////
-		var opts = {
-			lines: 17, // The number of lines to draw
-			length: 6, // The length of each line
-			width: 4, // The line thickness
-			radius: 20, // The radius of the inner circle
-			corners: 1, // Corner roundness (0..1)
-			rotate: 0, // The rotation offset
-			direction: 1, // 1: clockwise, -1: counterclockwise
-			color: '#FFF', // #rgb or #rrggbb or array of colors
-			speed: 2, // Rounds per second
-			trail: 80, // Afterglow percentage
-			shadow: false, // Whether to render a shadow
-			hwaccel: false, // Whether to use hardware acceleration
-			className: 'spinner', // The CSS class to assign to the spinner
-			zIndex: 2e9, // The z-index (defaults to 2000000000)
-			top: '50%', // Top position relative to parent
-			left: '50%' // Left position relative to parent
-		};
-
-		var spinner = new Spinner( opts );
-		var $target = $( "#spinnerContainer" );
-
-		//Get the window height and width
-		var winH = $( window ).height();
-		var winW = $( window ).width();
-
-		//Set the popup window to center
-		$target.css( 'top', winH / 2 - $target.height() / 2 );
-		$target.css( 'left', winW / 2 - $target.width() / 2 - 20 );
-		return spinner;
-	},
-	initializeEventGrid: function ()
-	{
-		var $container = $( '#lobby .grid' );
-		//layout Masonry again after all images have loaded
-		$container.imagesLoaded( function ()
-		{
-			$container.masonry( {
-				itemSelector: '.event-block-container'
-			} );
-		} );
-	},
-	initializeSiteLoadingText: function ()
-	{
-		var textArr = ["Z", "N", "A", "J", "D", "Ź", " ", "C", "Z", "A", "S", " ", "N", "A", " ", "S", "U", "K", "C", "E", "S"];
-		var spanOpened = "<span>", spanClosed = "</span>";
-		var output = "";
-
-		for ( var i = 0; i < textArr.length; i++ )
-		{
-			output += spanOpened + textArr[i] + spanClosed;
-		}
-
-		$( "#pageOverlayAtSiteLoadText" ).html( output );
-	},
-	animateSiteLoadingText: function ( siteLoadingTextAnimationInterval )
-	{
-		var $spans = $( "#pageOverlayAtSiteLoadText" ).children();
-		var counter = 0;
-
-		siteLoadingTextAnimationInterval.interval = setInterval( function () { animate( $spans ) }, 50 );
-
-		function animate( $spans )
-		{
-			if ( counter > 0 )
-			{
-				$spans[counter - 1].style.color = "gray";
-			}
-			else if ( counter == 0 )
-			{
-				$spans[$spans.length - 1].style.color = "gray";
-			}
-
-			if ( counter != $spans.length )
-			{
-				$spans[counter].style.color = "#E4E4DA";
-				counter++;
-			} else
-			{
-				counter = 0;
-			}
-		}
-	},
-	initializeDzieuoPlugin: function ( $dzieuo )
-	{
-		$dzieuo.dzieuo( {
-			row_scroll_padding_top: 20,
-			prev_arrow_content: '<img src="Images/arrow-left.png" alt="left navigation arrow" class="skin-prev-arrow">',
-			next_arrow_content: '<img src="Images/arrow-right.png" alt="right navigation arrow" class="skin-next-arrow">',
-			up_arrow_content: '<img src="Images/arrow-up.png" alt="up navigation arrow" class="skin-up-arrow">',
-			down_arrow_content: '<img src="Images/arrow-down.png" alt="down navigation arrow" class="skin-down-arrow">'
-		} );
-	},
-	displaySiteAfterLoad: function ( siteLoadingTextAnimationInterval, $dzieuo )
-	{
-		setTimeout( function ()
-		{
-			clearInterval( siteLoadingTextAnimationInterval.interval );
-			$( "#pageOverlayAtSiteLoad" ).hide();
-			$dzieuo.css( "visibility", "visible" );
-		}, 1050 );
-	},
-	setPagesHeights: function ()
-	{
-		var height = $( window ).height() - 30;
-		$( "#lobby" ).css( "height", height );
-		$( "#details" ).css( "height", height );
-		$( "#calendar" ).css( "height", height );
-
-	},
-	initializeApp: function ( indexViewModel, userName, spinner )
+﻿var APP = {
+	init: function ()
 	{
 		"use strict";
 
-		var $calendarWidgetBody = $( "#calendarWidgetBody" );
-		var $details = $( "#details" );
-		var $lobby = $( "#lobby" );
+		initializeJQueryExtentionMethods();
+		initializePagesHeights();
 
-		var year, month, day;
-		var date = new Date();
-		year = date.getFullYear();
-		month = date.getMonth();
-		day = date.getDate();
-
-		$calendarWidgetBody.calendarWidget( {
-			month: month, year: year
-		} );
-
-		var appvm = new AppViewModel( date, userName, spinner );
-		var UTILS = appvm.UTILS;
-		var EVENT_MANAGER = appvm.EVENT_MANAGER;
-		var NOTE_MANAGER = appvm.NOTE_MANAGER;
-
-		appvm.eventPrivacyLevels = UTILS.eventTreeBuilder.transformPrivacyLevels( indexViewModel.PrivacyLevels );
-		appvm.eventKinds = indexViewModel.EventKinds;
-
-		appvm.publicEventTree = UTILS.eventTreeBuilder.buildEventTree( indexViewModel.PublicEvents, true );
-		appvm.lobbyPage.upcomingEventsPart.publicEventTreeCountBasedOnEventKindVM = UTILS.eventTreeBuilder.buildEventTreeCountBasedOnEventKind( indexViewModel.PublicEventCountTree, appvm.eventKinds );
-
-		appvm.lobbyPage.dashboardPart.recenlyAddedPublicEventsVM( getRecentlyAddedEvents( appvm ) );
-		appvm.lobbyPage.dashboardPart.upcomingPublicEventsVM( UTILS.eventTreeBuilder.transformEventListToKKEventList( indexViewModel.UpcomingPublicEvents ) );
-
-		//When user is logged in
-		if ( indexViewModel.MyEvents )
+		function initializePagesHeights()
 		{
-			appvm.myEventTree = UTILS.eventTreeBuilder.buildEventTree( indexViewModel.MyEvents, false );
-			appvm.myEventTreeCountBasedOnEventKind = UTILS.eventTreeBuilder.buildEventTreeCountBasedOnEventKind( indexViewModel.MyEventCountTree, appvm.eventKinds );
+			var height = $( window ).height() - 30;
+			$( "#lobby" ).css( "height", height );
+			$( "#details" ).css( "height", height );
+			$( "#calendar" ).css( "height", height );
 
-			appvm.myNoteTree = UTILS.eventTreeBuilder.buildNoteTree( indexViewModel.MyNotes );
-			appvm.lobbyPage.dashboardPart.myCalendarVM.today( EVENT_MANAGER.getEventsForGivenDay( year, month + 1, day, appvm.myEventTree ) );
-			appvm.lobbyPage.dashboardPart.myCalendarVM.tommorow( EVENT_MANAGER.getEventsForGivenDay( year, month + 1, day + 1, appvm.myEventTree ) );
-			appvm.lobbyPage.dashboardPart.myCalendarVM.dayAfterTommorow( EVENT_MANAGER.getEventsForGivenDay( year, month + 1, day + 2, appvm.myEventTree ) );
-
-			/////////////////////////////////////////////////////////////////////////
-			//draw events to the calendar
-			/////////////////////////////////////////////////////////////////////////
-
-			var yearProp = appvm.myEventTree[appvm.calendarPage.calendarPart.calendarVM.displayDate.year()];
-			var events, month, nextMonth, prevMonth, event, calendarPageMonth = appvm.calendarPage.calendarPart.calendarVM.displayDate.month();
-
-			// current month
-			if ( yearProp )
-			{
-				month = yearProp[calendarPageMonth]
-				if ( month )
+		}
+		function initializeJQueryExtentionMethods()
+		{
+			jQuery.fn.extend( {
+				scrollTo: function ( speed, offset )
 				{
-					for ( var days in month )
-					{
-						events = month[days];
-						for ( var i = 0; i < events.length; i++ )
-						{
-							event = events[i];
+					var $col, scrollTo;
 
-							appvm.drawEventToCalendar( event );
-						}
-					}
+					offset = offset || 0;
+
+					$col = this.closest( ".dz-column" );
+					scrollTo = this.offset().top - $col.offset().top + $col.scrollTop() - offset;
+					$col.animate( { scrollTop: scrollTo }, speed );
 				}
-			}
-			// prev month
-			if ( appvm.calendarPage.calendarPart.calendarVM.displayDate.month() == 1 )
-			{
-				calendarPageMonth = 12;
-				yearProp = appvm.myEventTree[appvm.calendarPage.calendarPart.calendarVM.displayDate.year() - 1];
-			}
-			else
-			{
-				calendarPageMonth = calendarPageMonth - 1;
-			}
+			} );
 
-			if ( yearProp )
-			{
-				prevMonth = yearProp[calendarPageMonth];
-				if ( prevMonth )
-				{
-					for ( var days in prevMonth )
-					{
-						events = prevMonth[days];
-						for ( var i = 0; i < events.length; i++ )
-						{
-							event = events[i];
+			jQuery.extend( {
+				simpleFilt: SIMPLE_FILT()
+			} )
+		}
+	},
+	start: function ( indexViewModel )
+	{
+		"use strict";
 
-							appvm.drawEventToCalendar( event );
-						}
-					}
-				}
-			}
+		var appvm, $dzieuo = $( '#dzieuo' ), siteLoadingTextAnimationInterval = { interval: null };
 
-			// next month
-			if ( appvm.calendarPage.calendarPart.calendarVM.displayDate.month() == 12 )
-			{
-				calendarPageMonth = 1;
-				yearProp = appvm.myEventTree[appvm.calendarPage.calendarPart.calendarVM.displayDate.year() + 1];
-			}
-			else
-			{
-				calendarPageMonth = calendarPageMonth + 1;
-			}
+		animateSiteLoadingText( $( "#appPageOverlayAtSiteLoadText" ), siteLoadingTextAnimationInterval );
+		createDzieuoSlider( $dzieuo );
+		createCalendarWidget();
+		appvm = initializeAppViewModel( indexViewModel, indexViewModel.UserName, getLoadingSpinner() );
+		setUpHoverHandlers();
+		setUpClickHandlers();
+		setUpDateValidationErrorMsgDisplay();
 
-			if ( yearProp )
-			{
-				nextMonth = yearProp[calendarPageMonth];
-				if ( nextMonth )
-				{
-					for ( var days in nextMonth )
-					{
-						events = nextMonth[days];
-						for ( var i = 0; i < events.length; i++ )
-						{
-							event = events[i];
-
-							appvm.drawEventToCalendar( event );
-						}
-					}
-				}
-			}
+		if ( indexViewModel.IsUserAuthenticated )
+		{
+			drawToDetailsPageDayTable( appvm );
+			appvm.drawEventsToCalendar();
 		}
 
-		//////////////////////////////////////////////////////////////////
-		//initialize details page
-		//////////////////////////////////////////////////////////////////
-		appvm.detailsPage.dayPlanPart.dayPlanTableVM.eventMostBottomRow = 1;
-		appvm.detailsPage.dayPlanPart.dayPlanTableVM.date.year( date.getFullYear() );
-		appvm.detailsPage.dayPlanPart.dayPlanTableVM.date.month( date.getMonth() + 1 );
-		appvm.detailsPage.dayPlanPart.dayPlanTableVM.date.day( date.getDate() );
+		displaySite( siteLoadingTextAnimationInterval, $dzieuo );
 
-		var events = EVENT_MANAGER.getEventsForGivenDay( appvm.detailsPage.dayPlanPart.dayPlanTableVM.date.year(), appvm.detailsPage.dayPlanPart.dayPlanTableVM.date.month(), appvm.detailsPage.dayPlanPart.dayPlanTableVM.date.day(), appvm.myEventTree )
-		var notes = NOTE_MANAGER.getNotesForGivenDay( appvm.detailsPage.dayPlanPart.dayPlanTableVM.date.year(), appvm.detailsPage.dayPlanPart.dayPlanTableVM.date.month(), appvm.detailsPage.dayPlanPart.dayPlanTableVM.date.day() )
-		appvm.detailsPage.dayPlanPart.eventListVM.events( events );
-		appvm.detailsPage.dayPlanPart.noteListVM.notes( notes );
-		///////////////////////////////////////////////////////////////////
-
-		///////////////////////////////////////////////////////////////////
-		//Knockout apply bindings
-		///////////////////////////////////////////////////////////////////
-		ko.applyBindings( appvm );
-		///////////////////////////////////////////////////////////////////
-
-		///////////////////////////////////////////////////////////////////
-		//draw to details page
-		///////////////////////////////////////////////////////////////////
-
-		//method drawEventToDetailsDayTable(events[i]) needs to be called after ko.applyBindings(appvm)!
-		for ( var i in events )
+		function createDzieuoSlider( $dzieuo )
 		{
-			appvm.drawEventToDetailsDayTable( events[i] );
+			$dzieuo.dzieuo( {
+				row_scroll_padding_top: 20,
+				prev_arrow_content: '<img src="Images/arrow-left.png" alt="left navigation arrow" class="skin-prev-arrow">',
+				next_arrow_content: '<img src="Images/arrow-right.png" alt="right navigation arrow" class="skin-next-arrow">',
+				up_arrow_content: '<img src="Images/arrow-up.png" alt="up navigation arrow" class="skin-up-arrow">',
+				down_arrow_content: '<img src="Images/arrow-down.png" alt="down navigation arrow" class="skin-down-arrow">'
+			} );
+		};
+		function createCalendarWidget()
+		{
+			var date = new Date();
+
+			$( "#calendarWidgetBody" ).calendarWidget( {
+				month: date.getMonth(), year: date.getFullYear()
+			} );
 		}
+		function animateSiteLoadingText( $container, siteLoadingTextAnimationInterval )
+		{
+			var $spans, counter = 0;
 
-		var $tableBody = $( "#detailsDayTable .details-day-table-body" );
-		var h = ( appvm.detailsPage.dayPlanPart.dayPlanTableVM.eventMostBottomRow ) * 46;
-		h = h + 20;
-		$tableBody.height( h + "px" );
-		///////////////////////////////////////////////////////////////////
+			initializeSiteLoadingText( $container );
+			$spans = $container.children();
 
-		//this.initializeSlides = function () {
-		//    location.hash = '#0';
+			siteLoadingTextAnimationInterval.interval = setInterval( function () { animate( $spans ) }, 50 );
 
-		//    var $slides = $('#slides');
+			function animate( $spans )
+			{
+				if ( counter > 0 )
+				{
+					$spans[counter - 1].style.color = "gray";
+				}
+				else if ( counter == 0 )
+				{
+					$spans[$spans.length - 1].style.color = "gray";
+				}
 
-		//    //for touch swipes (using hammer.js)
-		//    //Hammer( $slides[0] ).on( "swipeleft", function ( e )
-		//    //{
-		//    //	$slides.data( 'superslides' ).animate( 'next' );
-		//    //} );
+				if ( counter != $spans.length )
+				{
+					$spans[counter].style.color = "#E4E4DA";
+					counter++;
+				} else
+				{
+					counter = 0;
+				}
+			}
+			function initializeSiteLoadingText( $container )
+			{
+				var textArr = ["Z", "N", "A", "J", "D", "Ź", " ", "C", "Z", "A", "S", " ", "N", "A", " ", "S", "U", "K", "C", "E", "S"];
+				var spanOpened = "<span>", spanClosed = "</span>";
+				var output = "";
 
-		//    //Hammer( $slides[0] ).on( "swiperight", function ( e )
-		//    //{
-		//    //	$slides.data( 'superslides' ).animate( 'prev' );
-		//    //} );
+				for ( var i = 0; i < textArr.length; i++ )
+				{
+					output += spanOpened + textArr[i] + spanClosed;
+				}
 
-		//    $slides.superslides({
-		//        slide_easing: 'easeInOutCubic',
-		//        slide_speed: 800,
-		//        pagination: true,
-		//        hashchange: true,
-		//        scrollable: true
-		//    });
+				$container.html( output );
+			}
+		};
+		function getLoadingSpinner()
+		{
+			//////////////////////////////////////////////////////////
+			//ajax loader (spinner)
+			//////////////////////////////////////////////////////////
+			var opts = {
+				lines: 17, // The number of lines to draw
+				length: 6, // The length of each line
+				width: 4, // The line thickness
+				radius: 20, // The radius of the inner circle
+				corners: 1, // Corner roundness (0..1)
+				rotate: 0, // The rotation offset
+				direction: 1, // 1: clockwise, -1: counterclockwise
+				color: '#FFF', // #rgb or #rrggbb or array of colors
+				speed: 2, // Rounds per second
+				trail: 80, // Afterglow percentage
+				shadow: false, // Whether to render a shadow
+				hwaccel: false, // Whether to use hardware acceleration
+				className: 'spinner', // The CSS class to assign to the spinner
+				zIndex: 2e9, // The z-index (defaults to 2000000000)
+				top: '50%', // Top position relative to parent
+				left: '50%' // Left position relative to parent
+			};
 
-		//    $(window).on("hashchange", function () {
-		//        setTimeout(function () {
-		//            var events = appvm.calendarDayEventsToUpdate.events;
+			var spinner = new Spinner( opts );
+			var $target = $( "#appSpinnerContainer" );
 
-		//            if (location.hash === "#0") {
-		//                appvm.currentPage() = 0;
-		//            }
-		//            else if (location.hash === "#1") {
-		//                appvm.currentPage() = 1;
+			//Get the window height and width
+			var winH = $( window ).height();
+			var winW = $( window ).width();
 
-		//                if (events && $.isArray(events)) {
-		//                    //setTimeout( function ()
-		//                    //{
-		//                    appvm.redrawCalendarCell(events, appvm.calendarDayEventsToUpdate.day, appvm.calendarDayEventsToUpdate.month, appvm.calendarDayEventsToUpdate.year);
-		//                    appvm.calendarDayEventsToUpdate.events = null;
-		//                    //}, 10 )
-		//                }
+			//Set the popup window to center
+			$target.css( 'top', winH / 2 - $target.height() / 2 );
+			$target.css( 'left', winW / 2 - $target.width() / 2 - 20 );
+			return spinner;
+		};
+		function displaySite( siteLoadingTextAnimationInterval, $dzieuo )
+		{
+			//TODO: remove timeout and return promise from dzieuo plugin instead
+			setTimeout( function ()
+			{
+				clearInterval( siteLoadingTextAnimationInterval.interval );
+				$( "#appPageOverlayAtSiteLoad" ).hide();
+				$dzieuo.css( "visibility", "visible" );
+			}, 1050 );
+		};
+		function initializeAppViewModel( indexViewModel, userName, spinner )
+		{
+			var date = new Date(), year = date.getFullYear(), month = date.getMonth(), day = date.getDate();
+			var appvm = new AppViewModel( userName, spinner );
+			var UTILS = appvm.UTILS;
+			var EVENT_MANAGER = appvm.EVENT_MANAGER;
+			var NOTE_MANAGER = appvm.NOTE_MANAGER;
 
-		//                //TODO: not finished set dynamic height of calendar cells (calendar's height to be as browser window)
-		//                //setTimeout(function(){				
+			initializeGeneralViewModelProperties();
+			initializeLobbyPageViewModel();
+			initializeDetailsPageViewModel();
 
-		//                //	var height1 = $("#calendar #calendarWidgetHeader").height();
-		//                //	var height2 = $("#calendar .weekday-container").height();
-		//                //	var height3 = $("#calendar .calendar-hours-placeholder").first().height();
-		//                //	var height4 = 42;
-		//                //	var winHeight = $(window).height();
+			///////////////////////////////////////////////////////////////////
+			//Knockout apply bindings
+			///////////////////////////////////////////////////////////////////
+			ko.applyBindings( appvm );
+			///////////////////////////////////////////////////////////////////
 
-		//                //	var cellHeight = (winHeight - (height1 + height2 + height3 + 60)) / 6;
+			return appvm;
 
-		//                //	$("#calendar .calendar-cell").css("height", cellHeight);
+			function initializeGeneralViewModelProperties()
+			{
+				appvm.eventPrivacyLevels = UTILS.eventTreeBuilder.transformPrivacyLevels( indexViewModel.PrivacyLevels );
+				appvm.eventKinds = indexViewModel.EventKinds;
+				appvm.publicEventTree = UTILS.eventTreeBuilder.buildEventTree( indexViewModel.PublicEvents, true );
 
-		//                //	console.log(cellHeight);
+				if ( indexViewModel.IsUserAuthenticated )
+				{
+					appvm.myEventTree = UTILS.eventTreeBuilder.buildEventTree( indexViewModel.MyEvents, false );
+					appvm.myEventTreeCountBasedOnEventKind = UTILS.eventTreeBuilder.buildEventTreeCountBasedOnEventKind( indexViewModel.MyEventCountTree, appvm.eventKinds );
+					appvm.myNoteTree = UTILS.eventTreeBuilder.buildNoteTree( indexViewModel.MyNotes );
+				}
+			}
+			function initializeLobbyPageViewModel()
+			{
+				appvm.lobbyPage.upcomingEventsPart.publicEventTreeCountBasedOnEventKindVM = UTILS.eventTreeBuilder.buildEventTreeCountBasedOnEventKind( indexViewModel.PublicEventCountTree, appvm.eventKinds );
+				appvm.lobbyPage.dashboardPart.recenlyAddedPublicEventsVM( getRecentlyAddedEvents( appvm ) );
+				appvm.lobbyPage.dashboardPart.upcomingPublicEventsVM( UTILS.eventTreeBuilder.transformEventListToKKEventList( indexViewModel.UpcomingPublicEvents ) );
 
-		//                //}, 10)
+				if ( indexViewModel.IsUserAuthenticated )
+				{
+					appvm.lobbyPage.dashboardPart.myCalendarVM.today( EVENT_MANAGER.getEventsForGivenDay( year, month + 1, day, appvm.myEventTree ) );
+					appvm.lobbyPage.dashboardPart.myCalendarVM.tommorow( EVENT_MANAGER.getEventsForGivenDay( year, month + 1, day + 1, appvm.myEventTree ) );
+					appvm.lobbyPage.dashboardPart.myCalendarVM.dayAfterTommorow( EVENT_MANAGER.getEventsForGivenDay( year, month + 1, day + 2, appvm.myEventTree ) );
+				}
 
-		//            }
-		//            else if (location.hash === "#2") {
-		//                appvm.currentPage() = 2;
-		//            }
-		//        }, 10);
-		//    });
+				function getRecentlyAddedEvents()
+				{
+					var recentlyAddedEvents = appvm.lobbyPage.eventGridPart.publicEventsVM.sort( function ( event1, event2 )
+					{
+						return event1.dateAdded.javaScriptDate - event2.dateAdded.javaScriptDate;
+					} );
 
-		//    $(".slides-pagination a").on("click", function () {
-		//        var hash = $(this).attr("href");
+					return recentlyAddedEvents.slice( Math.max( recentlyAddedEvents.length - 5, 1 ) ).reverse();
+				}
+			}
+			function initializeDetailsPageViewModel()
+			{
+				var events, notes;
 
-		//        if (hash === "#2") {
-		//            var $scrollable = $("#slide-item-details").parent();
+				appvm.detailsPage.dayPlanPart.dayPlanTableVM.eventMostBottomRow = 1;
+				appvm.detailsPage.dayPlanPart.dayPlanTableVM.date.year( date.getFullYear() );
+				appvm.detailsPage.dayPlanPart.dayPlanTableVM.date.month( date.getMonth() + 1 );
+				appvm.detailsPage.dayPlanPart.dayPlanTableVM.date.day( date.getDate() );
 
-		//            setTimeout(function () {
-		//                $scrollable.scrollTop(0);
-		//            }, 10)
-		//        }
-		//    });
-		//}();
-
-		//this.createCalendarNavigationArrows = function () {
-		//    $calendar.append('<div id="calendar-navigation-arrows-left"><img src="Images/Nav/arrowLeft.png" alt="arrow-left"/></div>');
-		//    $calendar.append('<div id="calendar-navigation-arrows-right"><img src="Images/Nav/arrowRight.png" alt="arrow-Right"/></div>');
-		//    $details.append('<div id="details-navigation-arrows-left"><img src="Images/Nav/arrowLeft.png" alt="arrow-Left"/></div>');
-		//    $lobby.append('<div id="lobby-navigation-arrows-right"><img src="Images/Nav/arrowRight.png" alt="arrow-Right"/></div>');
-		//}();
-
-		//this.drawClocks = function () {
-		//    appvm.drawAnalogClock();
-		//    appvm.drawDigitalClock();
-		//}();
-
-		$( "#dzVerticalPaging" ).addClass( "xs-hide" );
-
-		this.initializeHover = function ()
+				events = EVENT_MANAGER.getEventsForGivenDay( appvm.detailsPage.dayPlanPart.dayPlanTableVM.date.year(), appvm.detailsPage.dayPlanPart.dayPlanTableVM.date.month(), appvm.detailsPage.dayPlanPart.dayPlanTableVM.date.day(), appvm.myEventTree )
+				notes = NOTE_MANAGER.getNotesForGivenDay( appvm.detailsPage.dayPlanPart.dayPlanTableVM.date.year(), appvm.detailsPage.dayPlanPart.dayPlanTableVM.date.month(), appvm.detailsPage.dayPlanPart.dayPlanTableVM.date.day() )
+				appvm.detailsPage.dayPlanPart.eventListVM.events( events );
+				appvm.detailsPage.dayPlanPart.noteListVM.notes( notes );
+			}
+		}
+		function setUpHoverHandlers()
 		{
 			var $eventHoverContainer = $( "#eventHoverContainer" );
 			var $appContainer = $( "#appContainer" );
@@ -860,11 +703,9 @@
 				}
 			}, ".event-block-user-option" );
 
-		}();
-
-		this.initializeClick = function ()
+		};
+		function setUpClickHandlers()
 		{
-
 			//register user
 			var $txtbox = $( "#registerPageContainer .register-birthdate-txtbox" );
 			$txtbox.keyup( function ()
@@ -907,11 +748,9 @@
 			{
 				window.location = "#1";
 			} );
-		}();
-
-		this.initializeDateValidationErrorMsgDisplay = function ()
+		};
+		function setUpDateValidationErrorMsgDisplay()
 		{
-
 			var $txtbox = $( "#addNewEventContainer .event-startdate-txtbox" );
 			$txtbox.keyup( function ()
 			{
@@ -926,16 +765,19 @@
 				$( "#addNewEventContainer #endDateValidationErrorMsg" ).hide();
 			} );
 
-		}();
-
-		function getRecentlyAddedEvents( appvm )
+			//to hide vertical paging when responsive mobile view
+			$( "#dzVerticalPaging" ).addClass( "xs-hide" );
+		};
+		function drawToDetailsPageDayTable( appvm )
 		{
-			var recentlyAddedEvents = appvm.lobbyPage.eventGridPart.publicEventsVM.sort( function ( event1, event2 )
+			//method drawEventToDetailsDayTable(events[i]) must be called after ko.applyBindings(appvm)!
+			var events = appvm.detailsPage.dayPlanPart.eventListVM.events();
+			for ( var i in events )
 			{
-				return event1.dateAdded.javaScriptDate - event2.dateAdded.javaScriptDate;
-			} );
+				appvm.drawEventToDetailsDayTable( events[i] );
+			}
 
-			return recentlyAddedEvents.slice( Math.max( recentlyAddedEvents.length - 5, 1 ) ).reverse();
+			appvm.resizeDetailsDayTable( appvm.detailsPage.dayPlanPart.dayPlanTableVM.eventMostBottomRow );
 		}
 	}
-};
+}

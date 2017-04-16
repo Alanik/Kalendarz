@@ -1,11 +1,13 @@
 ﻿<div>
-	<div data-bind="visible: isAddNoteSectionOpen" style="margin-bottom: 20px; border-width: 1px 1px 2px 2px; border-style: solid; border-color: rgb(206, 206, 206); background: rgb(226, 226, 226);">
-		<div class="dashboard-title" style="background: #E2E2E2;padding-right:10px;">
-			<div class="inline-block selected">Dodaj notatke</div>
-			<i style="float: right; font-size: 1.2em;" class="mdi mdi-window-close md-icon-rg md-icon-hover" data-bind="click: function () { isAddNoteSectionOpen( !isAddNoteSectionOpen ) }"></i>
+	<div data-bind="visible: isAddNoteSectionOpen" style="margin-bottom: 20px; background: rgb(234, 234, 234); border-left: 1px solid #eaeaea;">
+		<div class="dashboard-title">
+			<span class="inline-block selected">Dodaj notatke</span>
+			<div style="position:absolute;bottom:2px;right:2px;">
+				<i class="mdi mdi-window-close md-icon-rg md-icon-hover" data-bind="click: function () { isAddNoteSectionOpen( !isAddNoteSectionOpen ) }"></i>
+			</div>
 		</div>
 		<textarea id="noteTxtArea" maxlength="1000" data-bind="value: observableNote.data" placeholder="Wpisz treść notatki"></textarea>
-		<div style="overflow: hidden;">
+		<div style="overflow: hidden;padding-bottom:8px;">
 			<button id="btnAddNewNote" data-bind="click: $root.AddNoteOnClick" class="btn-add hover-cursor-pointer">dodaj</button>
 		</div>
 	</div>

@@ -11,6 +11,11 @@
 		var year, yearProp, eventTreeYearProp, eventTreeMonthProp, eventTreeDayGroupProp, eventTreeEventsProp;
 		var nowDate = appViewModel.todayDate.javaScriptDate;
 
+		if ( !yearEventTreeModel )
+		{
+			return eventTree;
+		}
+
 		for ( var y = 0; y < yearEventTreeModel.length; y++ )
 		{
 			yearProp = yearEventTreeModel[y];
@@ -44,7 +49,7 @@
 						if ( isPublicEventTree )
 						{
 							//push public event to appViewModel.publicEvents
-						  appViewModel.lobbyPage.eventGridPart.publicEventsVM.push(kkEvent);
+							appViewModel.lobbyPage.eventGridPart.publicEventsVM.push( kkEvent );
 						}
 					}
 
@@ -90,7 +95,7 @@
 		var list = [];
 		for ( var i = 0; i < events.length; i++ )
 		{
-			list.push(self.transformEventToKKEvent(events[i]));
+			list.push( self.transformEventToKKEvent( events[i] ) );
 		}
 		return list;
 	}

@@ -1,0 +1,457 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7C231524-5F3B-4E35-A009-EB4B87D01AD9}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KalendarzKariery</RootNamespace>
+    <AssemblyName>KalendarzKariery</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.AspNet">
+      <HintPath>..\packages\DotNetOpenAuth.AspNet.4.1.4.12333\lib\net45-full\DotNetOpenAuth.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.Core">
+      <HintPath>..\packages\DotNetOpenAuth.Core.4.1.4.12333\lib\net45-full\DotNetOpenAuth.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth">
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Core.4.1.4.12333\lib\net45-full\DotNetOpenAuth.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth.Consumer">
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Consumer.4.1.4.12333\lib\net45-full\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId">
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.Core.4.1.4.12333\lib\net45-full\DotNetOpenAuth.OpenId.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.RelyingParty">
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.1.4.12333\lib\net45-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.WebPages.OAuth, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.OAuth.3.0.0\lib\net45\Microsoft.Web.WebPages.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NMemory, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6a46696d54971e6d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NMemory.1.0.0\lib\net45\NMemory.dll</HintPath>
+    </Reference>
+    <Reference Include="Postal">
+      <HintPath>..\packages\postal.0.8.2\lib\net45\Postal.dll</HintPath>
+    </Reference>
+    <Reference Include="RazorEngine">
+      <HintPath>..\packages\RazorEngine.3.2.0\lib\net40\RazorEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Extensions">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.18\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.0.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.18\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.0-rc1\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.0.0\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.0.0\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.1.0-rc1\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.1.0-rc1\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.0-rc1\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.0-rc1\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.0-rc1\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Providers">
+      <HintPath>..\packages\Microsoft.AspNet.Providers.Core.1.1\lib\net40\System.Web.Providers.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.Data, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.3.0.0\lib\net45\WebMatrix.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.WebData, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.WebData.3.0.0\lib\net45\WebMatrix.WebData.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\AuthConfig.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BO\ExtentionMethods\ModelStateHelper.cs" />
+    <Compile Include="BO\SeedMembership\InitializeMembership.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TestsController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Skin.css" />
+    <Content Include="Content\EventBlock.css" />
+    <Content Include="Content\MaterialDesignIcons\materialdesignicons-webfont.svg" />
+    <Content Include="Content\MaterialDesignIcons\materialdesignicons.min.css" />
+    <Content Include="Content\MediaQueries_ShowHide.css" />
+    <Content Include="Images\Logo\kalendarz-kariery-logo.png" />
+    <Content Include="Scripts\JSUtils\NotificationUtil.js" />
+    <Content Include="Scripts\Lib\DzieuoJs\Dzieuo.css" />
+    <Content Include="Content\Fonts\Oxygen\OFL.txt" />
+    <Content Include="Content\Fonts\Raleway\FONTLOG.txt" />
+    <Content Include="Content\Fonts\Raleway\images\raleway-1.jpeg" />
+    <Content Include="Content\Fonts\Raleway\images\raleway-2.jpeg" />
+    <Content Include="Content\Fonts\Raleway\images\raleway-3.jpeg" />
+    <Content Include="Content\Fonts\Raleway\images\raleway-4.jpeg" />
+    <Content Include="Content\Fonts\Raleway\OFL.txt" />
+    <Content Include="Content\MediaQueries.css" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Images\arrow-down.png" />
+    <Content Include="Images\arrow-left.png" />
+    <Content Include="Images\arrow-right.png" />
+    <Content Include="Images\arrow-up.png" />
+    <Content Include="Images\BackgroundParts\kalendarzTlo.png" />
+    <Content Include="Images\BackgroundParts\kalendarzTloLewy.png" />
+    <Content Include="Images\BackgroundParts\kalendarzTloPrawo.png" />
+    <Content Include="Images\BackgroundParts\LeftSidePixelDark.png" />
+    <Content Include="Images\BackgroundParts\MiddlePartBg.png" />
+    <Content Include="Images\BackgroundParts\RightSidePixelDark.png" />
+    <Content Include="Images\Form\letter_bg.png" />
+    <Content Include="Images\Icons\arrow_down.png" />
+    <Content Include="Images\Icons\arrow_up.png" />
+    <Content Include="Images\Icons\calendar.png" />
+    <Content Include="Images\Icons\star.png" />
+    <Content Include="Images\Ico\favicon.ico" />
+    <Content Include="Images\kalendarzTloClear.png" />
+    <Content Include="Images\Icons\list-icon.png" />
+    <Content Include="Images\Logo\blackAndWhiteSmallKKLogo.png" />
+    <Content Include="Images\Logo\kkLogo.png" />
+    <Content Include="Images\Logo\kkLogo200px.png" />
+    <Content Include="Images\Logo\kkLogo_mobile.png" />
+    <Content Include="Images\Logo\kkLogo_smaller.png" />
+    <Content Include="Images\Logo\lightSmallKKLogo.png" />
+    <Content Include="Images\Logo\sephiaLogo.png" />
+    <Content Include="Images\Logo\sephiaSmallKKLogo.png" />
+    <Content Include="Images\Logo\smallKKLogo.png" />
+    <Content Include="Images\Nav\arrow-left.png" />
+    <Content Include="Images\Nav\arrow-right.png" />
+    <Content Include="Images\Icons\triangle-left.png" />
+    <Content Include="Images\Icons\triangle-right.png" />
+    <Content Include="Images\Nav\arrowLeft.png" />
+    <Content Include="Images\Nav\arrowRight.png" />
+    <Content Include="Images\tapeta.jpg" />
+    <Content Include="Content\Fonts\CodePro\CODE Bold.otf" />
+    <Content Include="Content\Fonts\CodePro\CODE Light.otf" />
+    <Content Include="Content\Fonts\CodePro\FFF_EULA_license.pdf" />
+    <Content Include="Content\Fonts\Oxygen\Oxygen-Bold.ttf" />
+    <Content Include="Content\Fonts\Oxygen\Oxygen-Light.ttf" />
+    <Content Include="Content\Fonts\Oxygen\Oxygen-Regular.ttf" />
+    <Content Include="Content\Fonts\SegoeUI\segoeui.ttf" />
+    <Content Include="Content\Fonts\SegoeUI\segoeuib.ttf" />
+    <Content Include="Content\Fonts\SegoeUI\segoeuii.ttf" />
+    <Content Include="Content\Fonts\SegoeUI\segoeuil.ttf" />
+    <Content Include="Content\Fonts\SegoeUI\segoeuiz.ttf" />
+    <Content Include="Content\Fonts\SegoeUI\seguisb.ttf" />
+    <Content Include="Content\Fonts\Raleway\Raleway-Black-Italic.ttf" />
+    <Content Include="Content\Fonts\Raleway\Raleway-Black.ttf" />
+    <Content Include="Content\Fonts\Raleway\Raleway-Bold-Italic.ttf" />
+    <Content Include="Content\Fonts\Raleway\Raleway-Bold.ttf" />
+    <Content Include="Content\Fonts\Raleway\Raleway-ExtraBold-Italic.ttf" />
+    <Content Include="Content\Fonts\Raleway\Raleway-ExtraBold.ttf" />
+    <Content Include="Content\Fonts\Raleway\Raleway-ExtraLight-Italic.ttf" />
+    <Content Include="Content\Fonts\Raleway\Raleway-ExtraLight.ttf" />
+    <Content Include="Content\Fonts\Raleway\Raleway-Light-Italic.ttf" />
+    <Content Include="Content\Fonts\Raleway\Raleway-Light.ttf" />
+    <Content Include="Content\Fonts\Raleway\Raleway-Medium-Italic.ttf" />
+    <Content Include="Content\Fonts\Raleway\Raleway-Medium.ttf" />
+    <Content Include="Content\Fonts\Raleway\Raleway-Regular-Italic.ttf" />
+    <Content Include="Content\Fonts\Raleway\Raleway-Regular.ttf" />
+    <Content Include="Content\Fonts\Raleway\Raleway-SemiBold-Italic.ttf" />
+    <Content Include="Content\Fonts\Raleway\Raleway-SemiBold.ttf" />
+    <Content Include="Content\Fonts\Raleway\Raleway-Thin-Italic.ttf" />
+    <Content Include="Content\Fonts\Raleway\Raleway-Thin.ttf" />
+    <Content Include="Content\MaterialDesignIcons\materialdesignicons.min.css.map" />
+    <Content Include="Content\MaterialDesignIcons\materialdesignicons-webfont.eot" />
+    <Content Include="Content\MaterialDesignIcons\materialdesignicons-webfont.ttf" />
+    <Content Include="Content\MaterialDesignIcons\materialdesignicons-webfont.woff" />
+    <Content Include="Content\MaterialDesignIcons\materialdesignicons-webfont.woff2" />
+    <Content Include="Content\Fonts\HelveticaNeueLTPro\Linotype-HelveticaNeueLTPro-Lt.otf" />
+    <Content Include="Content\Fonts\HelveticaNeueLTPro\Linotype-HelveticaNeueLTPro-Lt.ttf" />
+    <None Include="Properties\PublishProfiles\Alan.pubxml" />
+    <Content Include="Scripts\CalendarWidget\CalendarWidget.css" />
+    <Content Include="Scripts\JSManagers\EventManager.js" />
+    <Content Include="Scripts\JSManagers\NoteManager.js" />
+    <Content Include="Scripts\JSUtils\SimpleFilt.js" />
+    <Content Include="Scripts\JSUtils\WebApiCaller.js" />
+    <Content Include="Scripts\JSModels\KKEventDateModelObservable.js" />
+    <Content Include="Scripts\JSModels\KKNoteModelObservable.js" />
+    <Content Include="Scripts\JSModels\KKNoteModel.js" />
+    <Content Include="Scripts\Lib\DzieuoJs\dzieuo.js" />
+    <Content Include="Scripts\Lib\DzieuoJs\jquery.animate-enhanced.min.js" />
+    <Content Include="Scripts\Lib\HammerJS\hammer.min.map" />
+    <None Include="Scripts\Lib\jquery-2.0.3.intellisense.js" />
+    <Content Include="Images\TestBackgrounds\1600x900.jpg" />
+    <Content Include="Images\TestBackgrounds\1600x900 %282%29.jpg" />
+    <Content Include="Images\TestBackgrounds\1600x900purple-white.jpg" />
+    <Content Include="Images\TestBackgrounds\kalendarzTlo4.png" />
+    <Content Include="Images\TestBackgrounds\tapetaBrx.png" />
+    <Content Include="Scripts\JSUnitTests\Jasmine-2.1.3\spec\SimpleFiltSpec.js" />
+    <Content Include="Scripts\JSUtils\TreeBuilder.js" />
+    <Content Include="Scripts\JSUtils\EventColorHelper.js" />
+    <Content Include="Scripts\JSModels\KKDateModel.js" />
+    <Content Include="Scripts\JSModels\KKEventDateModel.js" />
+    <Content Include="Scripts\JSModels\KKEventModel.js" />
+    <Content Include="Scripts\JSModels\KKEventModelObservable.js" />
+    <Content Include="Scripts\KnockoutCustomBindings\KOCustomBindings.js" />
+    <Content Include="Scripts\JSUnitTests\Jasmine-2.1.3\boot.js" />
+    <Content Include="Scripts\JSUnitTests\Jasmine-2.1.3\console.js" />
+    <Content Include="Scripts\JSUnitTests\Jasmine-2.1.3\jasmine-html.js" />
+    <Content Include="Scripts\JSUnitTests\Jasmine-2.1.3\jasmine.css" />
+    <Content Include="Scripts\JSUnitTests\Jasmine-2.1.3\jasmine.js" />
+    <Content Include="Scripts\JSUnitTests\Jasmine-2.1.3\jasmine_favicon.png" />
+    <Content Include="Scripts\Lib\jquery-2.0.3.js" />
+    <Content Include="Scripts\Lib\jquery-2.0.3.min.js" />
+    <Content Include="Scripts\Lib\jquery-2.0.3.min.map" />
+    <Content Include="Images\kalendarzTlo.png" />
+    <Content Include="Images\point.png" />
+    <Content Include="Scripts\JSViewModels\AppViewModel.js" />
+    <Content Include="Scripts\CalendarWidget\calendarWidget.js" />
+    <None Include="Scripts\Lib\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\Lib\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\Lib\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\Lib\jquery.validate.js" />
+    <Content Include="Scripts\Lib\jquery.validate.min.js" />
+    <Content Include="Scripts\Lib\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\Lib\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Lib\knockout-3.0.0.debug.js" />
+    <Content Include="Scripts\Lib\knockout-3.0.0.js" />
+    <Content Include="Scripts\Lib\jquery-ui-1.8.20.custom.min.js" />
+    <Content Include="Scripts\Lib\jquery-ui-1.8.20.js" />
+    <Content Include="Scripts\Lib\jquery-ui-1.8.20.min.js" />
+    <Content Include="Scripts\Lib\Masonry\masonry-docs.min.js" />
+    <Content Include="Scripts\Lib\HammerJS\hammer.min.js" />
+    <Content Include="Scripts\Lib\SpinJS\spin.js" />
+    <Content Include="Scripts\Lib\SpinJS\spin.min.js" />
+    <Content Include="Scripts\Lib\_references.js" />
+    <Content Include="Scripts\Lib\modernizr-2.7.1.js" />
+    <Content Include="Scripts\app.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\SharedPartials\_AddNewEvent.cshtml" />
+    <Content Include="Views\Home\LobbyPage\_Lobby.cshtml" />
+    <Content Include="Views\Home\CalendarPage\_HoverEvent.cshtml" />
+    <Content Include="Views\Home\LobbyPage\_Login.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
+    <Content Include="Views\Account\_RemoveExternalLoginsPartial.cshtml" />
+    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\Manage.cshtml" />
+    <Content Include="Views\Home\LobbyPage\_Register.cshtml" />
+    <Content Include="Views\Home\DetailsPage\_Details.cshtml" />
+    <Content Include="Views\Home\SharedPartials\_EventBlock.cshtml" />
+    <Content Include="Views\Home\SharedPartials\_ConfirmationPopupBox.cshtml" />
+    <Content Include="Views\Home\DetailsPage\_DetailsSettings.cshtml" />
+    <Content Include="Views\Home\DetailsPage\_DetailsUserProfile.cshtml" />
+    <Content Include="Views\Shared\JSUnitTests.cshtml" />
+    <Content Include="Views\Home\SharedPartials\_LoginBar.cshtml" />
+    <Content Include="Views\Home\LobbyPage\_UpcomingEventsPart.EventCountTiles.cshtml" />
+    <Content Include="Views\Shared\_LayoutMobile.cshtml" />
+    <Content Include="Views\Home\DetailsPage\_JournalPart.EventList.cshtml" />
+    <Content Include="Views\Home\LobbyPage\_UpcomingEventsPart.EventList.cshtml" />
+    <Content Include="Views\Home\DetailsPage\_JournalPart.EventCountTiles.cshtml" />
+    <Content Include="Views\Home\LobbyPage\_NavPart.cshtml" />
+    <Content Include="Views\Home\LobbyPage\_DashboardPart.cshtml" />
+    <Content Include="Views\Home\LobbyPage\_UpcomingEventsPart.cshtml" />
+    <Content Include="Views\Home\LobbyPage\_EventGridPart.cshtml" />
+    <Content Include="Views\Home\SharedPartials\_EventListItem.cshtml" />
+    <Content Include="Views\Home\DetailsPage\_JournalPart.cshtml" />
+    <Content Include="Views\Home\DetailsPage\_DayPlanPart.cshtml" />
+    <Content Include="Views\Home\DetailsPage\_DayPlanPart.DayPlanTable.cshtml" />
+    <Content Include="Views\Home\DetailsPage\_DayPlanPart.NotesList.cshtml" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KalendarzKarieryData\3. KalendarzKarieryData.csproj">
+      <Project>{556eca30-9acb-4557-abab-a1434957a871}</Project>
+      <Name>3. KalendarzKarieryData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KalendarzKarieryCore\2. KalendarzKarieryCore.csproj">
+      <Project>{a2d99e83-cdef-4c1e-8e0a-bf4f697a6036}</Project>
+      <Name>2. KalendarzKarieryCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KalendarzKarieryWebAPI\4. KalendarzKarieryWebAPI.csproj">
+      <Project>{b2d55052-26ae-49e4-8f7e-01a260a90dd0}</Project>
+      <Name>4. KalendarzKarieryWebAPI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>63445</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:8081/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

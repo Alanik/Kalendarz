@@ -1,0 +1,17 @@
+﻿@if (Request.IsAuthenticated)
+{
+<div id="loginBar" class="skin-login-bar">
+  <span class="lobby-login-text">@User.Identity.Name</span>
+  @using (Html.BeginForm( "LogOff", "Account", FormMethod.Post, new { id = "logoutForm" } ))
+  {
+  @Html.AntiForgeryToken()
+  <a style="color: rgb(255, 109, 109);" href="javascript:document.getElementById('logoutForm').submit()">wyloguj</a>   }
+</div>
+}
+else
+{
+<div id="loginBar" class="skin-login-bar">
+  <span id="registerLink" class="lobby-login-text hover-cursor-pointer" data-bind="click: showRegisterFormOnClick">Stwórz konto</span>
+  <span id="loginLink" data-bind="click: showLoginFormOnClick" class="hover-cursor-pointer lobby-login-text">Zaloguj sie</span>
+</div>
+}

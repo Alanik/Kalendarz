@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{556ECA30-9ACB-4557-ABAB-A1434957A871}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KalendarzKarieryData</RootNamespace>
+    <AssemblyName>KalendarzKarieryData</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Effort, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6a46696d54971e6d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Effort.EF6.1.1.0\lib\net45\Effort.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="NMemory, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6a46696d54971e6d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NMemory.1.0.0\lib\net45\NMemory.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Address.cs">
+      <DependentUpon>KalendarzKarieryDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BO\Cache\AppCache.cs" />
+    <Compile Include="Comment.cs">
+      <DependentUpon>KalendarzKarieryDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Enums\EventKindEnum.cs" />
+    <Compile Include="Event.cs">
+      <DependentUpon>KalendarzKarieryDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EventKind.cs">
+      <DependentUpon>KalendarzKarieryDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EventStatus.cs">
+      <DependentUpon>KalendarzKarieryDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KalendarzKarieryDBEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KalendarzKarieryDBEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KalendarzKarieryDBEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KalendarzKarieryDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KalendarzKarieryDBEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KalendarzKarieryDBEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataTransferModels\Events\EventsGroupedByYearModel.cs" />
+    <Compile Include="Models\DataTransferModels\Events\EventsGroupedByDayModel.cs" />
+    <Compile Include="Models\DataTransferModels\Events\EventsGroupedByMonthModel.cs" />
+    <Compile Include="Models\DataTransferModels\JsonDateTimeModel.cs" />
+    <Compile Include="Models\DataTransferModels\Events\JsonEventModel.cs" />
+    <Compile Include="Models\DataTransferModels\Notes\JsonNoteModel.cs" />
+    <Compile Include="Models\DataTransferModels\Notes\NotesGroupedByDayModel.cs" />
+    <Compile Include="Models\DataTransferModels\Notes\NotesGroupedByMonthModel.cs" />
+    <Compile Include="Models\DataTransferModels\Notes\NotesGroupedByYearModel.cs" />
+    <Compile Include="Models\ViewModels\AddExistingEventToUserModel.cs" />
+    <Compile Include="Models\ViewModels\AddNoteViewModel.cs" />
+    <Compile Include="Models\ViewModels\DateModel.cs" />
+    <Compile Include="Models\ViewModels\DateTimeModel.cs" />
+    <Compile Include="Models\ViewModels\SignUpUserForEventModel.cs" />
+    <Compile Include="Models\ViewModels\UpdateNoteViewModel.cs" />
+    <Compile Include="Note.cs">
+      <DependentUpon>KalendarzKarieryDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NoteKind.cs">
+      <DependentUpon>KalendarzKarieryDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PrivacyLevel.cs">
+      <DependentUpon>KalendarzKarieryDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\KalendarzKarieryRepository\IKalendarzKarieryRepository.cs" />
+    <Compile Include="Repository\KalendarzKarieryRepository\KalendarzKarieryRepository.cs" />
+    <Compile Include="Models\AccountModels\AccountModels.cs" />
+    <Compile Include="Models\ValidationModels\AddressValidationModel.cs" />
+    <Compile Include="Models\ValidationModels\EventValidationModel.cs" />
+    <Compile Include="Models\ValidationModels\UserValidationModel.cs" />
+    <Compile Include="Models\ViewModels\AddEventViewModel.cs" />
+    <Compile Include="Models\ViewModels\IndexViewModel.cs" />
+    <Compile Include="Models\ViewModels\RegisterViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\RepositoryProvider.cs" />
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>KalendarzKarieryDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User.cs">
+      <DependentUpon>KalendarzKarieryDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserAccountInfo.cs">
+      <DependentUpon>KalendarzKarieryDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="webpages_Membership.cs">
+      <DependentUpon>KalendarzKarieryDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="webpages_OAuthMembership.cs">
+      <DependentUpon>KalendarzKarieryDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="webpages_Roles.cs">
+      <DependentUpon>KalendarzKarieryDBEntities.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <EntityDeploy Include="KalendarzKarieryDBEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>KalendarzKarieryDBEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="KalendarzKarieryDBEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>KalendarzKarieryDBEntities.edmx</DependentUpon>
+      <LastGenOutput>KalendarzKarieryDBEntities.Context.cs</LastGenOutput>
+    </None>
+    <None Include="KalendarzKarieryDBEntities.edmx.diagram">
+      <DependentUpon>KalendarzKarieryDBEntities.edmx</DependentUpon>
+    </None>
+    <None Include="KalendarzKarieryDBEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>KalendarzKarieryDBEntities.edmx</DependentUpon>
+      <LastGenOutput>KalendarzKarieryDBEntities.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SqlScripts\ReseedTable.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KalendarzKarieryCore\2. KalendarzKarieryCore.csproj">
+      <Project>{a2d99e83-cdef-4c1e-8e0a-bf4f697a6036}</Project>
+      <Name>2. KalendarzKarieryCore</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

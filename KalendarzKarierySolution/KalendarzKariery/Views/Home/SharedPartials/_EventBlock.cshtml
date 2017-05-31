@@ -1,0 +1,105 @@
+﻿<div class="event-block">
+	<div class="event-kind-tag" data-bind="text: kind.name, style: { borderColor: kind.headerColor }"></div>
+	<div class="event-block-name" data-bind="text: name"></div>
+	<div class="event-block-body">
+		<div class="rg-label">kiedy:</div>
+		<div class="event-block-data-content">
+			<span class="event-block-date" data-bind="html: startDate.displayFullDate_EnlargeDay()"></span>
+			<span class="sm-label">(<span data-bind="text: startDate.displayInfo()"></span>)</span>
+			<div class="event-block-time" data-bind="text: startDate.displayFullTime()"></div>
+		</div>
+		<div data-bind="if: _isFullAddressDefined() === 'full'">
+			<div class="rg-label">gdzie:</div>
+			<div class="event-block-data-content">
+				<div data-bind="text: address.street"></div>
+				<span data-bind="text: address.zipCode"></span>
+				<span data-bind="text: ' ' + address.city"></span>
+			</div>
+		</div>
+		<div data-bind="if: _isFullAddressDefined() === 'empty'">
+			<div class="rg-label">
+				<div class="inline-block width-60">gdzie:</div>
+				<span class="event-block-dash">-</span>
+			</div>
+		</div>
+		<div data-bind="if: _isFullAddressDefined() === 'partial'">
+			<div class="rg-label">gdzie:</div>
+			<div class="event-block-data-content">
+				<div data-bind="ifnot: address.street === null">
+					<span data-bind="text: address.street"></span>
+				</div>
+				<span data-bind="ifnot: address.city === null">
+					<span data-bind="text: address.city"></span>
+				</span>
+				<span data-bind="ifnot: address.zipCode === null">
+					<span data-bind="text: address.zipCode"></span>
+				</span>
+			</div>
+		</div>
+
+
+		<div data-bind="if: _isFullDescriptionDefined() === 'full'">
+			<div class="rg-label">opis:</div>
+			<div class="event-block-data-content">
+				<p class="event-block-description" data-bind="text: description"></p>
+				<p class="event-block-details" data-bind="text: details"></p>
+			</div>
+		</div>
+		<div data-bind="if: _isFullDescriptionDefined() === 'empty'">
+			<div class="rg-label">
+				<div class="inline-block width-60">opis:</div>
+				<span class="event-block-dash">-</span>
+			</div>
+		</div>
+		<div data-bind="if: _isFullDescriptionDefined() === 'partial'">
+			<div class="rg-label">opis:</div>
+			<div class="event-block-data-content">
+				<div data-bind="ifnot: description === null">
+					<p class="event-block-description" data-bind="text: description"></p>
+				</div>
+				<div data-bind="ifnot: details === null">
+					<p class="event-block-details" data-bind="text: details"></p>
+				</div>
+			</div>
+		</div>
+		<div data-bind="ifnot: price === null">
+			<div class="rg-label">opłata za wstęp:</div>
+			<p class="event-block-price event-block-data-content" data-bind="text: price + 'zł.'"></p>
+		</div>
+		<div data-bind="ifnot: occupancyLimit === null">
+			<div class="rg-label">limit miejsc:</div>
+			<p class="event-block-occupancylimit event-block-data-content" data-bind="text: occupancyLimit"></p>
+		</div>
+		<div data-bind="ifnot: urlLink === null">
+			<p class="event-block-link">
+				<a data-bind="attr: { href: 'http://' + urlLink, title: name }, text: urlLink" target="_blank"></a>
+			</p>
+		</div>
+	</div>
+	<div class="event-block-footer">
+		<div class="event-block-footer-right">
+			<div class="event-block-addedby">
+				<div data-bind="text: addedBy"></div>
+				<span data-bind="text: dateAdded.displayFullTime()"></span>
+				<span data-bind="text: dateAdded.displayFullDate()"></span>
+			</div>
+
+			@if (ViewData["page"].ToString() == "lobby")
+			{
+				<div data-bind="if: isEventAddedToCurrentUserCalendar">
+					<a href="#" data-bind="click: function () { $root.moveToDetailsDayOnEventCalendarIconClick( id, startDate.year, startDate.month, startDate.day ) }">pokaż w dzienniku</a>
+				</div>			
+			}
+
+			@if (ViewData["page"].ToString() == "details")
+			{
+				<div data-bind="if: $root.userName.toUpperCase() == addedBy.toUpperCase()">
+					<div style="text-align: right; font-size: 18px;">
+						<div style="display: inline-block;" class="link details-edit-event-link" data-bind="click: function () { $root.editEventDetailsPageOnEditLinkClick( id, startDate.year, startDate.month, startDate.day ) }"><span>edytuj</span></div>
+						<div style="display: inline-block;" class="link details-delete-event-link" data-bind="click: function () { $root.prepareDeleteEventDetailsPageOnDeleteLinkClick( id, startDate.year, startDate.month, startDate.day, privacyLevel.name ) }"><span>usuń</span></div>
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+</div>

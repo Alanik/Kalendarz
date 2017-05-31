@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+	<title>Kalendarz Kariery</title>
+
+	<link rel="icon" href="@Url.Content( "~/Images/Ico/favicon.ico" )"/>
+	@Styles.Render( "~/Content/css" )
+</head>
+<body>
+	<header>
+	</header>
+
+	<div id="appContainer">
+		<div id="appSpinnerContainer">
+			<span id="appSpinnerText"></span>
+		</div>
+
+		@RenderBody()
+
+	</div>
+</body>
+</html>

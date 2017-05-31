@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	@* <meta name="viewport" content="width=device-width, initial-scale=1">*@
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>Kalendarz Kariery</title>
+	<link rel="icon" href="@Url.Content( "~/Images/Ico/favicon.ico" )" />
+	<link href="/Content/MaterialDesignIcons/materialdesignicons.min.css" rel="stylesheet">
+	@Styles.Render( "~/Content/css" )
+</head>
+<body class="skin-theme-default-gray skin-app-background">
+	<div id="appContainer">
+		<div id="appPageOverlayAtSiteLoad">
+			<div id="appPageOverlayAtSiteLoadText"></div>
+		</div>
+		<div id="appSpinnerContainer" style="display: none;">
+			<span id="appSpinnerText"></span>
+		</div>
+		<div class="app-page-overlay" style="display: none;"></div>
+
+		@Html.Partial( "_ConfirmationPopupBox" )
+		@Html.Partial( "_AddNewEvent", new KalendarzKarieryData.Models.ViewModels.AddEventViewModel() )
+
+		@RenderBody()
+	</div>
+
+	@*@Scripts.Render("~/bundles/scripts")*@
+
+	@Scripts.Render( "~/bundles/jquery" )
+	@Scripts.Render( "~/bundles/jqueryval" )
+	@Scripts.Render( "~/bundles/modernizr" )
+	@Scripts.Render( "~/bundles/knockout" )
+
+	<script src="~/Scripts/Lib/SpinJS/spin.min.js"></script>
+	<script src="~/Scripts/Lib/Masonry/masonry-docs.min.js"></script>
+	<script src="~/Scripts/KnockoutCustomBindings/KOCustomBindings.js"></script>
+	<script src="~/Scripts/CalendarWidget/calendarWidget.js"></script>
+
+	<script src="~/Scripts/Lib/DzieuoJs/jquery.animate-enhanced.min.js"></script>
+	<script src="~/Scripts/Lib/DzieuoJs/dzieuo.js"></script>
+
+	<script src="~/Scripts/JSModels/KKEventModel.js"></script>
+	<script src="~/Scripts/JSModels/KKEventModelObservable.js"></script>
+	<script src="~/Scripts/JSModels/KKNoteModel.js"></script>
+	<script src="~/Scripts/JSModels/KKNoteModelObservable.js"></script>
+	<script src="~/Scripts/JSModels/KKDateModel.js"></script>
+	<script src="~/Scripts/JSModels/KKEventDateModel.js"></script>
+	<script src="~/Scripts/JSModels/KKEventDateModelObservable.js"></script>
+	<script src="~/Scripts/JSViewModels/AppViewModel.js"></script>
+
+	<script src="~/Scripts/JSUtils/EventColorHelper.js"></script>
+	<script src="~/Scripts/JSUtils/TreeBuilder.js"></script>
+	<script src="~/Scripts/JSUtils/WebApiCaller.js"></script>
+	<script src="~/Scripts/JSUtils/SimpleFilt.js"></script>
+	<script src="~/Scripts/JSUtils/NotificationUtil.js"></script>
+
+	<script src="~/Scripts/JSManagers/EventManager.js"></script>
+	<script src="~/Scripts/JSManagers/NoteManager.js"></script>
+
+	<script src="~/Scripts/app.js"></script>
+
+	<script type="text/javascript">
+
+		$(function () { 
+			"use strict";
+			var indexViewModel = @Html.Raw( Json.Encode( @Model) );
+			APP.init();
+			APP.start(indexViewModel);
+		});
+
+	</script>
+
+</body>
+</html>

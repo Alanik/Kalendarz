@@ -1,0 +1,76 @@
+﻿<div class="events-menu-container" data-bind="with: $root.lobbyPage.upcomingEventsPart">
+	<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnEventTileClick( $element, 7, eventListVM.getSelectedEvents(), eventListVM ) }">
+		<div class="border-item inne-border-tab"></div>
+		<div class="menu-item" data-eventkind="7">
+			<span>Inne</span>
+		</div>
+		<div class="menu-item-number-container">
+			<div class="menu-item-number-upcoming" data-bind="text: publicEventTreeCountBasedOnEventKindVM[7].upcoming() != 0 ? publicEventTreeCountBasedOnEventKindVM[7].upcoming() : '-'"></div>
+		</div>
+	</div>
+
+	<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnEventTileClick( $element, 2, eventListVM.getSelectedEvents(), eventListVM ) }">
+		<div class="border-item lekcje-border-tab"></div>
+		<div class="menu-item" data-eventkind="2">
+			<span>Lekcje</span>
+		</div>
+		<div class="menu-item-number-container">
+			<div class="menu-item-number-upcoming" data-bind="text: publicEventTreeCountBasedOnEventKindVM[2].upcoming() != 0 ? publicEventTreeCountBasedOnEventKindVM[2].upcoming() : '-'"></div>
+		</div>
+	</div>
+
+
+	<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnEventTileClick( $element, 1, eventListVM.getSelectedEvents(), eventListVM ) }">
+		<div class="border-item wydarzenia-border-tab"></div>
+		<div class="menu-item" data-eventkind="1">
+			<span>Wydarzenia</span>
+		</div>
+		<div class="menu-item-number-container">
+			<div class="menu-item-number-upcoming" data-bind="text: publicEventTreeCountBasedOnEventKindVM[1].upcoming() != 0 ? publicEventTreeCountBasedOnEventKindVM[1].upcoming() : '-'"></div>
+		</div>
+	</div>
+
+	<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnEventTileClick( $element, 6, eventListVM.getSelectedEvents(), eventListVM ) }">
+		<div class="border-item spotkania-border-tab"></div>
+		<div class="menu-item" data-eventkind="6">
+			<span>Spotkania</span>
+
+		</div>
+		<div class="menu-item-number-container">
+			<div class="menu-item-number-upcoming" data-bind="text: publicEventTreeCountBasedOnEventKindVM[6].upcoming() != 0 ? publicEventTreeCountBasedOnEventKindVM[6].upcoming() : '-'"></div>
+		</div>
+	</div>
+
+	<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnEventTileClick( $element, 3, eventListVM.getSelectedEvents(), eventListVM ) }">
+		<div class="border-item zajecia-border-tab"></div>
+		<div class="menu-item" data-eventkind="3">
+			<span>Zajęcia</span>
+		</div>
+		<div class="menu-item-number-container">
+			<div class="menu-item-number-upcoming" data-bind="text: publicEventTreeCountBasedOnEventKindVM[3].upcoming() != 0 ? publicEventTreeCountBasedOnEventKindVM[3].upcoming() : '-'"></div>
+		</div>
+	</div>
+
+	<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnEventTileClick( $element, 4, eventListVM.getSelectedEvents(), eventListVM ) }">
+		<div class="border-item szkolenia-border-tab"></div>
+		<div class="menu-item" data-eventkind="4">
+			<span>Szkolenia</span>
+
+		</div>
+		<div class="menu-item-number-container">
+			<div class="menu-item-number-upcoming" data-bind="text: publicEventTreeCountBasedOnEventKindVM[4].upcoming() != 0 ? publicEventTreeCountBasedOnEventKindVM[4].upcoming() : '-'"></div>
+		</div>
+	</div>
+
+	<div class="menu-item-container" data-bind="click: function () { $root.showSelectedEventsOnEventTileClick( $element, 5, eventListVM.getSelectedEvents(), eventListVM ) }">
+		<div class="border-item kursy-border-tab"></div>
+		<div class="menu-item" data-eventkind="5">
+			<span>Kursy</span>
+		</div>
+		<div class="menu-item-number-container">
+			<div class="menu-item-number-upcoming" data-bind="text: publicEventTreeCountBasedOnEventKindVM[5].upcoming() != 0 ? publicEventTreeCountBasedOnEventKindVM[5].upcoming() : '-'"></div>
+		</div>
+	</div>
+	<i class="md-icon-hover md-icon-lg mdi mdi-chevron-down" data-bind="visible: eventListVM.isOpen() == false, click: function () { $root.showAllEventsOnClick(eventListVM) }" style="margin: 0 auto;"></i>
+</div>
+

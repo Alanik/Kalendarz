@@ -1,0 +1,19 @@
+﻿<div style="position: fixed; right: 15%;">
+	<i class="mdi skin-brightness-icon" data-bind="click: switchDefaultTheme"></i>
+</div>
+<header id="lobbyHeader">
+	<div id="lobbyLogo">
+		<img src="~/Images/Logo/kalendarz-kariery-logo.png" alt="logo" style="position: relative; top: 2px;" />
+	</div>
+</header>
+<section id="lobbyQuoteSection">
+	<p class="lobby-quote">Twój osobisty kalendarz stworzony na miare Twoich potrzeb.</p>
+</section>
+<nav id="lobbyNavContainer">
+	<a href="#0" class="skin-nav-item selected">Strona Główna</a>
+	<a href="#1" class="skin-nav-item">Kalendarz</a>
+	<a href="#2" class="skin-nav-item">Dziennik</a>
+</nav>
+
+@Html.Partial( "_Login", new KalendarzKarieryData.Models.AccountModels.LoginModel() )
+@Html.Partial( "_Register", new KalendarzKarieryData.Models.ViewModels.RegisterViewModel() )

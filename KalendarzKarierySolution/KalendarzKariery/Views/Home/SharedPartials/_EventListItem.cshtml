@@ -1,0 +1,23 @@
+﻿<li>
+	<div class="event-list-item-container">
+		<div class="event-list-item" data-bind="click: function () { $root.expandEventOverviewItemOnClick( $element ) }">
+			<i class="md-icon-hover md-icon-rg mdi mdi-chevron-up expand-label"></i>
+			<div class="event-list-item-left">
+				<div class="event-kind-tag inline-block" data-bind="style: { borderColor: kind.headerColor }, text: kind.name"></div>
+				<div class="list-item-date"></div>
+			</div>
+			<div class="event-list-item-right">
+				<div>
+					<span class="sm-label-rg" data-bind="text: startDate.displayFullDate()"></span>
+					<span class="sm-label" data-bind="text: $root.dayNames[startDate.javaScriptStartDate.getDay()]"></span>,
+					<span class="sm-label" data-bind="text: startDate.displayFullTime()"></span>
+					<span class="sm-label" style="color: white;position:absolute;right:4px;" data-bind="text: startDate.displayInfo()"></span>
+				</div>
+				<span class="list-item-title" data-bind="text: name"></span>
+			</div>
+		</div>
+		<div class="event-block-expand">
+			@Html.Partial( "_EventBlock", new ViewDataDictionary { { "page", ViewData["page"] } } )
+		</div>
+	</div>
+</li>

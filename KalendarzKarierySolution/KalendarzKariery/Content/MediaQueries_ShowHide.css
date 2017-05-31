@@ -1,0 +1,189 @@
+﻿/*
+MEDIA QUERIES
+*/
+
+@media only screen and (min-width: 768px) {
+  /* tablets and desktop */
+  .rg-show {
+    display: block !important;
+  }
+
+  .rg-show-inline {
+    display: inline !important;
+  }
+
+  .rg-hide {
+    display: none !important;
+  }
+
+  .rg-hide-inline {
+    display: none !important;
+  }
+
+
+  .sm-show {
+    display: none !important;
+  }
+
+  .sm-show-inline {
+    display: none !important;
+  }
+
+  .sm-hide {
+    display: block !important;
+  }
+
+  .sm-hide-inline {
+    display: inline !important;
+  }
+
+  .sm-hidden {
+    visibility: visible !important;
+  }
+
+
+  .xs-show {
+    display: none !important;
+  }
+
+  .xs-show-inline {
+    display: none !important;
+  }
+
+  .xs-hide {
+    display: block !important;
+  }
+
+  .xs-hide-inline {
+    display: inline !important;
+  }
+
+  .rg-inline-block {
+    display: inline-block;
+    /*overflow: hidden;*/
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  /* phones */
+  .rg-show {
+    display: none !important;
+  }
+
+  .rg-show-inline {
+    display: none !important;
+  }
+
+  .rg-hide {
+    display: none !important;
+  }
+
+  .rg-hide-inline {
+    display: none !important;
+  }
+
+
+  .sm-show {
+    display: block !important;
+  }
+
+  .sm-show-inline {
+    display: inline !important;
+  }
+
+  .sm-hide {
+    display: none !important;
+  }
+
+  .sm-hide-inline {
+    display: none !important;
+  }
+
+  .sm-hidden {
+    visibility: hidden !important;
+  }
+
+
+  .xs-show {
+    display: none !important;
+  }
+
+  .xs-show-inline {
+    display: none !important;
+  }
+
+  .xs-hide {
+    display: block !important;
+  }
+
+  .xs-hide-inline {
+    display: inline !important;
+  }
+
+  .rg-inline-block {
+    display: block;
+    /*overflow: hidden;*/
+  }
+}
+
+@media only screen and (max-width: 767px) and (orientation: portrait) {
+  /* portrait phones */
+
+  .rg-show {
+    display: block !important;
+  }
+
+  .rg-show-inline {
+    display: inline !important;
+  }
+
+  .rg-hide {
+    display: none !important;
+  }
+
+  .rg-hide-inline {
+    display: none !important;
+  }
+
+
+  .sm-show {
+    display: inline !important;
+  }
+
+  .sm-show-inline {
+    display: inline !important;
+  }
+
+  .sm-hide {
+    display: none !important;
+  }
+
+  .sm-hide-inline {
+    display: none !important;
+  }
+
+  .sm-hidden {
+    visibility: hidden !important;
+  }
+
+  .xs-show {
+    display: block !important;
+  }
+
+  .xs-show-inline {
+    display: inline !important;
+  }
+
+  .xs-hide {
+    display: none !important;
+  }
+
+  .xs-hide-inline {
+    display: none !important;
+  }
+
+  .rg-inline-block {
+    display: block;
+    /*overflow: hidden;*/
+  }
+}

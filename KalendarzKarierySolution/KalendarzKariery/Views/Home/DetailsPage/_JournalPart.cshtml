@@ -1,0 +1,6 @@
+﻿<div id="journalPartBody" class="event-tiles-wrapper">
+	@Html.Partial( "_JournalPart.EventCountTiles" )
+	<div id="detailsPageAllEventsListContainer" class="display-events-overview-container" data-bind="visible: $root.detailsPage.journalPart.eventListVM.isOpen()">
+		@Html.Partial( "_JournalPart.EventList" )
+	</div>
+</div>

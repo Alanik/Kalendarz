@@ -4,24 +4,23 @@
 	<section id="lobby" class="dz-column">
 		@Html.Partial( "_Lobby" )
 	</section>
-
 	<section id="calendar" class="dz-column">
-		<div id="calendarWidget" class="dz-row calendar-part" data-bind="with: $root.calendarPage.calendarPart.calendarVM" style="margin-bottom: 0px; top: 0;">
-			<div id="calendarWidgetHeader">
-				<div class="calendar-month-selectbox-container">
-					<select id="calendarMonthSelectBox" name="calendarMonthSelectBox" data-bind="options: $root.monthObjs, optionsText: 'name', optionsValue: 'value', value: displayDate.month"></select>
-				</div>
-				<div class="calendar-month-year-container">
-					<button class="calendar-month-year-arrows" data-bind="click: function () { $root.redisplayCalendarAtChosenMonth( displayDate.month() - 1 ) } ">&#9660;</button>
-					<span class="calendar-month-name" data-bind="text: displayDate.monthName"></span>
-					<button class="calendar-month-year-arrows" data-bind="click: function () { $root.redisplayCalendarAtChosenMonth( displayDate.month() + 1 ) }">&#9650</button>
-				</div>
-				<div class="calendar-month-year-container">
-					<button class="calendar-month-year-arrows" data-bind="click: function () { $root.redisplayCalendarAtChosenYear( displayDate.year() - 1 ) } ">&#9660;</button>
-					<span class="calendar-year" data-bind="text: displayDate.year"></span>
-					<button class="calendar-month-year-arrows" data-bind="click: function () { $root.redisplayCalendarAtChosenYear( displayDate.year() + 1 ) } ">&#9650</button>
-				</div>
-			</div>
+    <div style="width:23%;position:absolute;right:0;font-size:1.4em;color:#888181;">
+      <div class="calendar-month-year-container">
+        <span class="calendar-month-name" data-bind="text:$root.todayDate.day"></span>
+        <span class="calendar-month-name" data-bind="text:$root.todayDate.getMonthName()"></span>
+        <span class="calendar-year" data-bind="text: $root.todayDate.year"></span>
+      </div>
+      <div data-bind="foreach: $root.monthObjs"> 
+        <div class="calendar-month-item" data-bind="text: name, css: { selected : ($index() + 1) === $root.calendarPage.calendarPart.calendarVM.displayDate.month() }, click: function(){ $root.redisplayCalendarAtChosenMonth( $index() + 1 ) }"></div>
+      </div>
+      <div style="color:#888181;">
+        <span data-bind="text: $root.calendarPage.calendarPart.calendarVM.displayDate.year"></span>
+        <button class="calendar-month-year-arrows" data-bind="click: function () { $root.redisplayCalendarAtChosenYear( $root.calendarPage.calendarPart.calendarVM.displayDate.year() - 1 ) } ">&#9660;</button> 
+        <button class="calendar-month-year-arrows" data-bind="click: function () { $root.redisplayCalendarAtChosenYear( $root.calendarPage.calendarPart.calendarVM.displayDate.year() + 1 ) } ">&#9650</button>
+      </div>
+    </div>
+		<div id="calendarWidget" class="dz-row calendar-part" data-bind="with: $root.calendarPage.calendarPart.calendarVM" style="margin-bottom: 0px; top: -1px;">
 			<div id="calendarWidgetBody">
 				<!-- Calendar is added dynamically (calendarWidget.js)   -->
 			</div>

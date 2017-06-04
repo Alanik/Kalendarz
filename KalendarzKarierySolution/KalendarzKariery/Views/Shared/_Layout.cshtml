@@ -48,7 +48,6 @@
 	<script src="~/Scripts/JSModels/KKEventDateModel.js"></script>
 	<script src="~/Scripts/JSModels/KKEventDateModelObservable.js"></script>
 	<script src="~/Scripts/JSViewModels/AppViewModel.js"></script>
-
 	<script src="~/Scripts/JSUtils/EventColorHelper.js"></script>
 	<script src="~/Scripts/JSUtils/TreeBuilder.js"></script>
 	<script src="~/Scripts/JSUtils/WebApiCaller.js"></script>
@@ -63,7 +62,6 @@
 	<script type="text/javascript">
 
 		$(function () { 
-			"use strict";
 			var indexViewModel = @Html.Raw( Json.Encode( @Model) );
 			APP.init();
 			APP.start(indexViewModel);

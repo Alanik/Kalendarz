@@ -292,7 +292,7 @@
 	//////////////////////////////////////////////////////////
 
 	self.saveEventOnClick = function (isUpdate) {
-		var dataToSend, webApi, $addEventContainer;
+		var dataToSend, webApi, $addEventContainer, promise;
 		var day = parseInt(self.observableEvent.startDate.day(), 10);
 		var month = parseInt(self.observableEvent.startDate.month(), 10);
 		var year = parseInt(self.observableEvent.startDate.year(), 10);
@@ -311,81 +311,64 @@
 		//////////////////////////////////////////////
 		//call WebAPI - Add new event
 		//////////////////////////////////////////////
-		if (isUpdate) {
-			webApi.callUpdateEvent(dataToSend).then(
-				function (data, textStatus, request) {
-					webApi.interceptResponse(data, request, function (webApiOutput) {
-						success(data, webApiOutput)
-					});
-				},
-				function (data, textStatus, request) {
-					webApi.interceptResponse(data, request, function () {
-						notification.error("Wystąpił błąd. Zapisanie wydarzenia się niepowiodło.");
-						error(data)
-					});
-				});
-		} else {
-			webApi.callAddEvent(dataToSend).then(
-				function (data, textStatus, request) {
-					webApi.interceptResponse(data, request, function (webApiOutput) {
-						success(data, webApiOutput)
-					});
-				},
-				function (data, textStatus, request) {
-					webApi.interceptResponse(data, request, function () {
-						notification.error("Wystąpił błąd. Zapisanie wydarzenia się niepowiodło.");
-						error(data)
-					});
-				});
-		}
+		promise = isUpdate ? webApi.callUpdateEvent(dataToSend) : webApi.callAddEvent(dataToSend);
+		promise.then(successCallback, failureCallback);
 
-
+		function successCallback(data, textStatus, request) {
+			webApi.interceptResponse(data, request, function (webApiOutput) {
+				success(data, webApiOutput)
+			});
+		};
+		function failureCallback(data, textStatus, request) {
+			webApi.interceptResponse(data, request, function () {
+				notification.error("Wystąpił błąd. Zapisanie wydarzenia się niepowiodło.");
+				error(data);
+			})
+		};
 		function success(result, webApiOutput) {
 			var kkEvent, date = new Date();
 			var status = { name: "Accepted", value: 1 };
-			var isCurrentUserSignedUpForEvent = false, isEventAddedToCurrentUserCalendar = true;
+			var isCurrentUserSignedUpForEvent = false,
+				isEventAddedToCurrentUserCalendar = true;
+
+			if (result.IsSuccess === false) {
+				$addEventContainer.show();
+				notification.error(result.Message);
+				return;
+			}
 
 			notification.success("Wydarzenie zostało dodane.", webApiOutput);
 
-			if (result.IsSuccess === false) {
-				self.UTILS.loader.hide(false);
-				$addEventContainer.show();
-				alert(result.Message);
-			} else {
-				kkEvent = self.EVENT_MANAGER.getNewKKEventModel(
-					self.userName,
-					self.observableEvent.address.street(),
-					self.observableEvent.address.city(),
-					self.observableEvent.address.zipCode(),
-					self.observableEvent.description(),
-					self.observableEvent.details(),
-					minutes,
-					self.observableEvent.kind.value(),
-					self.observableEvent.kind.name(),
-					result.EventId,
-					self.observableEvent.occupancyLimit(),
-					self.observableEvent.privacyLevel.name,
-					self.observableEvent.privacyLevel.value,
-					new KKEventDateModel(startMinute, endMinute, startHour, endHour, day, month, year),
-					self.observableEvent.name(),
-					self.observableEvent.urlLink(),
-					self.observableEvent.price(),
-					new KKDateModel(date.getMinutes(), date.getHours(), date.getDate(), date.getMonth() + 1, date.getFullYear()),
-					isEventAddedToCurrentUserCalendar,
-					isCurrentUserSignedUpForEvent,
-					//TODO: refactor event status code
-					status
-				);
+			kkEvent = self.EVENT_MANAGER.getNewKKEventModel(
+				self.userName,
+				self.observableEvent.address.street(),
+				self.observableEvent.address.city(),
+				self.observableEvent.address.zipCode(),
+				self.observableEvent.description(),
+				self.observableEvent.details(),
+				minutes,
+				self.observableEvent.kind.value(),
+				self.observableEvent.kind.name(),
+				result.EventId,
+				self.observableEvent.occupancyLimit(),
+				self.observableEvent.privacyLevel.name,
+				self.observableEvent.privacyLevel.value,
+				new KKEventDateModel(startMinute, endMinute, startHour, endHour, day, month, year),
+				self.observableEvent.name(),
+				self.observableEvent.urlLink(),
+				self.observableEvent.price(),
+				new KKDateModel(date.getMinutes(), date.getHours(), date.getDate(), date.getMonth() + 1, date.getFullYear()),
+				isEventAddedToCurrentUserCalendar,
+				isCurrentUserSignedUpForEvent,
+				//TODO: refactor event status code
+				status
+			);
 
-				var dayEvents = self.EVENT_MANAGER.addEvent(kkEvent);
+			var dayEvents = self.EVENT_MANAGER.addEvent(kkEvent);
 
-				self.setCalendarPlacementRow(dayEvents);
-				self.redrawCalendarCell(dayEvents, kkEvent.startDate.year, kkEvent.startDate.month, kkEvent.startDate.day);
-
-				//self.UTILS.loader.hide( true );
-			}
-
-		};
+			self.setCalendarPlacementRow(dayEvents);
+			self.redrawCalendarCell(dayEvents, kkEvent.startDate.year, kkEvent.startDate.month, kkEvent.startDate.day);
+		}
 		function error(result) {
 			alert("Wystąpił nieoczekiwany błąd. Prosze spróbować jeszcze raz.");
 			$addEventContainer.show();
@@ -418,11 +401,11 @@
 
 				return true;
 			}
-		}
+		};
 		function prepareData(day, month, year) {
-			var notification, privacyLvlValue, eventKindValue, startEventDate, endEventDate, diff, minutes, startDateJson, data,
+			var notification, privacyLvlValue, eventKindValue, startEventDate, endEventDate, diff, minutes, startDateJson, data;
 
-				privacyLvlValue = self.observableEvent.privacyLevel.value;
+			privacyLvlValue = self.observableEvent.privacyLevel.value;
 			eventKindValue = self.observableEvent.kind.value();
 			startEventDate = new Date(year, month - 1, day, startHour, startMinute, 0, 0);
 			endEventDate = new Date(year, month - 1, day, endHour, endMinute, 0, 0);
@@ -456,7 +439,6 @@
 			return data
 		};
 	};
-
 	self.AddNoteOnClick = function () {
 		var data, text = self.detailsPage.dayPlanPart.noteListVM.observableNote.data().trim(), webApi = self.UTILS.webApiCaller;
 
@@ -2189,11 +2171,11 @@
 					$loginbar.css({ 'right': '18%' });
 					break;
 				case 1:
-					$loginbar.css({ 'right': '9.4%' });
+					$loginbar.css({ 'right': '8.5%' });
 					break;
 				case 2:
 					$dzVerticalPaging.css({ 'right': '2%' });
-					$dzVerticalNav.css({ 'right': '8.5%' });
+					$dzVerticalNav.css({ 'right': '8.7%' });
 
 					$loginbar.css({ 'right': '9.6%' });
 					break;
@@ -2254,4 +2236,4 @@
 		// Remove KO subscriptions and references
 		ko.cleanNode(node);
 	};
-};
+}

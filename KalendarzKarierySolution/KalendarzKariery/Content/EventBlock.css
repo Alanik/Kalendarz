@@ -2,132 +2,129 @@
 /*Lobby - lobbyEventsMasonryContainer*/
 
 #lobbyEventsMasonryContainer .event-block-container {
-	display: inline-block;
-	width: 33.05%;
-	vertical-align: top;
-	margin: 1px;
+  display: inline-block;
+  width: 33.05%;
+  vertical-align: top;
+  margin: 1px;
 }
 
 #lobbyEventsMasonryContainer .event-block {
-	border: none;
-	margin-left: 0;
-	background: #CECECE;
+  border: none;
+  margin-left: 0;
+  background: #c6c1c1;
 }
 
 /*Details - detailsEventBlockList*/
 
 #detailsEventBlockList .event-block-container {
-	margin: 2px;
+  margin: 2px;
 }
 
 #detailsEventBlockList .event-block {
-	line-height: 1;
-	background: #CECECE;
+  line-height: 1;
+  background: #CECECE;
 }
 
 #detailsEventBlockList .event-block-link {
-	word-break: break-all;
+  word-break: break-all;
 }
 
 #detailsEventBlockList .event-block-name {
 }
 
 #detailsEventBlockList .event-block-footer {
-	padding: 10px;
-	overflow: hidden;
-	color: #dedede;
-	border-top: 1px solid #DCDCDC;
-	background: #BDBDBD;
+  padding: 10px;
+  overflow: hidden;
+  color: #dedede;
+  border-top: 1px solid #DCDCDC;
+  background: #BDBDBD;
 }
 
 #detailsEventBlockList .event-block-date {
-	margin-bottom: 2px;
-	font-size: 1em;
-	color: rgb(76, 76, 76);
+  margin-bottom: 2px;
+  font-size: 1em;
+  color: rgb(76, 76, 76);
 }
 
 #detailsEventBlockList .event-block-time {
-	font-size: 1.8em;
+  font-size: 1.8em;
 }
 
 #detailsEventBlockList .event-block-description {
-	color: #f7f7f7;
+  color: #f7f7f7;
 }
 
 #detailsEventBlockList .event-block-details {
-	color: #f7f7f7;
+  color: #f7f7f7;
 }
 
 #detailsEventBlockList .event-block-addedby {
-	color: rgb(72, 68, 62);
-	text-align: right;
+  color: rgb(72, 68, 62);
+  text-align: right;
 }
 
 #detailsEventBlockList .event-block-price {
 }
 
 #detailsEventBlockList .event-block-menu {
-	float: right;
+  float: right;
 }
 
 /*Lobby and Details - event-block-expand*/
 
 .event-block-expand .event-block {
-	line-height: 1;
-	background: #CECECE;
-	/*margin-left: 4px;*/
-	/*border-bottom: 1px solid #E6E1DB;
-	border-left: 1px solid #E6E1DB;*/
+  line-height: 1;
+  background: #c6c1c1;
 }
 
 .event-block-expand .event-block-link {
-	word-break: break-all;
+  word-break: break-all;
 }
 
 .event-block-expand .event-block-name {
-	font-size: 1.8em;
-	color: black;
-	padding: 10px;
+  font-size: 1.8em;
+  color: black;
+  padding: 10px;
 }
 
 .event-block-expand .event-kind-tag {
-	font-size: 1em;
-	text-align: center;
+  font-size: 1em;
+  text-align: center;
 }
 
 .event-block-expand .event-block-body {
-	color: rgb(72, 68, 62);
-	padding: 20px;
-	padding-top: 0;
-	font-size: 1.2em;
+  color: rgb(72, 68, 62);
+  padding: 20px;
+  padding-top: 0;
+  font-size: 1.2em;
 }
 
-	.event-block-expand .event-block-body :hover {
-		background: initial;
-	}
+  .event-block-expand .event-block-body :hover {
+    background: initial;
+  }
 
 .event-block-expand .event-block-footer {
-	padding: 10px;
-	overflow: hidden;
-	color: rgb(152, 152, 137);
-	border-top: 1px solid #DCDCDC;
-	background: #BDBDBD;
+  padding: 10px;
+  overflow: hidden;
+  color: rgb(152, 152, 137);
+  background: #eaeaea;
 }
 
 .event-block-expand .event-block-date {
-	margin-bottom: 2px;
-	font-size: 1.6em;
+  margin-bottom: 2px;
+  font-size: 1.6em;
 }
 
 .event-block-expand .event-block-time {
-	font-size: 1.2em;
+  font-size: 1.2em;
 }
 
 .event-block-expand .event-block-addedby {
-	color: rgb(72, 68, 62);
-	text-align: right;
+  color: rgb(72, 68, 62);
+  text-align: right;
 }
 
 .event-block-expand .event-block-menu {
-	float: right;
+  float: right;
 }
+

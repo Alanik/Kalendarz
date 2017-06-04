@@ -1,211 +1,222 @@
 ﻿#calendar {
 }
 
-	#calendar .dz-column-inner-wrapper {
-		margin: auto;
-		position: relative;
-		width: 83%;
-		height: auto;
-		color: rgb(177,177,177);
-		display: table;
-		table-layout: fixed;
-		border-spacing: 1px;
-	}
+  #calendar .dz-column-inner-wrapper {
+    margin: auto;
+    position: relative;
+    width: 83%;
+    height: auto;
+    color: rgb(177,177,177);
+    display: table;
+    table-layout: fixed;
+    border-spacing: 1px;
+    background: #424242;
+  }
 
 #calendarWidgetHeader {
-	display: table-caption;
-	height: 50px;
-	background: #fbfaf9;
+  display: table-caption;
+  height: 50px;
+  display: none;
+}
+
+#calendarMonthSelectBox {
+  border: 2px solid #ffffff;
+  padding: 10px;
+  position: relative;
+  right: 2px;
+  bottom: 10px;
 }
 
 #calendarWidgetBody {
-	display: table-row-group;
+  display: table-row-group;
 }
 
 .today-day-header-calendar {
-	display: inline-block;
-	font-size: 2em;
+  display: inline-block;
+  font-size: 2em;
 }
 
 .month-name-calendar {
-	color: gray;
-	text-decoration: underline;
+  color: gray;
+  text-decoration: underline;
 }
 
 .month-name-container {
-	display: inline-block;
-	padding-left: 10px;
-	padding-right: 10px;
-	font-size: 1.2em;
+  display: inline-block;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 1.2em;
 }
 
 .calendar-header-year-container {
-	display: inline-block;
+  display: inline-block;
 }
 
 .year-name-container {
-	display: inline-block;
-	font-size: 1.2em;
+  display: inline-block;
+  font-size: 1.2em;
 }
 
 .weekday-container {
-	display: table-row;
-	color: gray;
-	background: #fbfaf9;
+  display: table-row;
+  color: gray;
+  background: #eaeae9;
 }
 
 .weekday {
-	display: table-cell;
-	text-align: center;
-	padding: 10px;
-	color: black;
+  display: table-cell;
+  text-align: center;
+  padding: 10px;
+  color: black;
 }
 
 .weekday-sunday {
-	color: rgb(255, 109, 109) !important;
-	display: table-cell;
-	text-align: center;
+  color: rgb(255, 109, 109) !important;
+  display: table-cell;
+  text-align: center;
 }
 
 .calendar-cell .mdi-plus {
-	color: #A4C6FC;
-	font-size: 20px;
+  color: #A4C6FC;
+  font-size: 20px;
 }
 
-	.calendar-cell .mdi-plus:before {
-		padding: 5px;
-	}
+  .calendar-cell .mdi-plus:before {
+    padding: 5px;
+  }
 
 .current-weekday {
-	color: #000000;
-	text-transform: uppercase;
-	border-bottom: 2px solid black;
+  color: #000000;
+  text-transform: uppercase;
+  border: 2px solid #424242;
 }
 
 .calendar-hours {
-	width: 100%;
-	height: 14px;
-	display: table-cell;
-	overflow: hidden;
-	color: rgb(97, 85, 85);
-	position: relative;
-	padding-bottom: 2px;
+  width: 100%;
+  height: 14px;
+  display: table-cell;
+  overflow: hidden;
+  color: rgb(97, 85, 85);
+  position: relative;
+  padding-bottom: 2px;
 }
 
 .hour {
-	font-size: 10px;
-	position: absolute;
+  font-size: 10px;
+  position: absolute;
 }
 
 .calendar-row {
-	/* height: 84px; */
-	width: 100%;
-	margin: auto;
-	display: table-row;
-	position: relative;
+  height: 84px;
+  width: 100%;
+  margin: auto;
+  display: table-row;
+  position: relative;
 }
 
 .other-month-cell {
-	position: relative;
-	border: 1px solid #d6d6d6;
-	border-left: 2px solid #d6d6d6;
+  position: relative;
 }
 
 .calendar-cell {
-	height: 80px;
-	display: table-cell;
+  height: 80px;
+  display: table-cell;
 }
 
 .calendar-cell-placeholder {
-	position: relative;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
 .other-month-cell .cell-span-container {
-	position: relative;
-	top: 56px;
-	height: 26px;
-	z-index: 98;
-	color: gray;
+  position: relative;
+  top: 59px;
+  height: 26px;
+  z-index: 98;
+  color: #424242;
 }
 
-	.other-month-cell .cell-span-container span {
-		position: absolute;
-		padding-left: 2px;
-		padding-right: 5px;
-		top: 4px;
-	}
+  .other-month-cell .cell-span-container span {
+    position: absolute;
+    padding-left: 2px;
+    padding-right: 5px;
+    top: 4px;
+  }
 
 .addNewEvent-cellIcon {
-	width: 23px;
-	height: 22px;
-	position: absolute;
-	right: 5px;
-	top: -3px;
-	text-align: center;
-	z-index: 99;
-	display: none;
-	border-radius: 30px;
+  width: 23px;
+  height: 22px;
+  position: absolute;
+  right: 5px;
+  top: -3px;
+  text-align: center;
+  z-index: 99;
+  display: none;
+  border-radius: 30px;
 }
 
 .cell-line-style {
-	position: absolute;
-	width: 1px;
+  position: absolute;
+  width: 1px;
 }
 
 .current-month-cell {
-	border: 2px solid white;
-	background-color: rgb(253,253,253);
-	color: black;
-	position: relative;
+  border: 2px solid white;
+  background-color: rgb(253,253,253);
+  color: black;
+  position: relative;
 }
 
-	.current-month-cell .cell-span-container {
-		position: relative;
-		top: 56px;
-		height: 25px;
-		z-index: 10;
-		background: #FDFDFD;
-	}
+  .current-month-cell .cell-span-container {
+    position: relative;
+    top: 56px;
+    height: 25px;
+    z-index: 10;
+    background: #FDFDFD;
+  }
 
-		.current-month-cell .cell-span-container .cell-month-name-span {
-			color: gray;
-		}
+    .current-month-cell .cell-span-container .cell-month-name-span {
+      color: #424242;
+    }
 
-	.current-month-cell span {
-		color: gray;
-		position: absolute;
-		padding-left: 2px;
-		padding-right: 5px;
-		top: 4px;
-	}
+  .current-month-cell span {
+    color: #424242;
+    position: absolute;
+    padding-left: 2px;
+    padding-right: 5px;
+    top: 4px;
+  }
 
 .cell-month-name-span {
-	background: #eaeae9;
+  background: #eaeae9;
 }
 
 .today-cell {
-	background: white !important;
-	border: 2px solid gray !important;
+  border: 2px solid #424242 !important;
 }
 
-	.today-cell .cell-span-container {
-		position: relative;
-		top: 56px;
-		height: 24px;
-		z-index: 98;
-		background: white !important;
-	}
+  .today-cell .cell-span-container {
+    position: relative;
+    top: 55px;
+    height: 24px;
+    z-index: 98;
+  }
 
-		.today-cell .cell-span-container span {
-			color: gray;
-		}
+    .today-cell .cell-span-container span {
+      color: #424242;
+    }
 
 #calendarWidget {
-	display: table;
-	table-layout: fixed;
-	width: 100%;
-	background: #EAEAEA;
+  margin-bottom: 0px;
+  top: -1px;
+  display: table;
+  table-layout: fixed;
+  width: 76%;
+  background: #c6c1c1;
+  overflow: visible;
+  position: relative;
+  right: 12%;
+  border-left:1px solid #424242;
 }

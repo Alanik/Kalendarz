@@ -9,11 +9,9 @@
 			</ol>
 		</div>
 		<div class="inline-block" style="width: 49%; float: right; border-right: 2px solid #F1EEEE; border-bottom: 2px solid #F1EEEE;" data-bind="with: $root.detailsPage.dayPlanPart.noteListVM">
-			<div class="dashboard-title">
+			<div class="dashboard-title" style="height:27px;">
 				<span class="selected">Notatki</span>
-				<div style="font-size: 1.2em;position:absolute;bottom:0px;right:2px;">
-					<i class="mdi mdi-plus md-icon-rg md-icon-hover" data-bind="click: function () { isAddNoteSectionOpen( true ); $( '#noteTxtArea' ).focus() }"></i>
-				</div>
+					<i style="position: absolute;right: 0px;top: 0;text-align: center;width: 43px;height: 43px;padding: 4px;background: #888181;" class="mdi mdi-plus md-icon-rg md-icon-hover" data-bind="click: function () { isAddNoteSectionOpen( true ); $( '#noteTxtArea' ).focus() }"></i>
 			</div>
 			<div id="notesContainer">
 				@Html.Partial( "_DayPlanPart.NotesList" )

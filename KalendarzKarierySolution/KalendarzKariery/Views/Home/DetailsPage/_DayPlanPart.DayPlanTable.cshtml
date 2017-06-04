@@ -1,10 +1,10 @@
-﻿<div class="day-display-date-container" data-bind="with: $root.detailsPage.dayPlanPart.dayPlanTableVM">
-	<span class="display-date-small" data-bind="text: date.getDayName()"></span>
-	<span class="display-date-large" data-bind="text: date.day()"></span>
-	<span class="display-date-large" data-bind="text: date.getMonthName()"></span>
-	<span class="display-date-small" data-bind="text: date.year()"></span>
-</div>
-<div id="detailsDayTable">
+﻿<div id="detailsDayTable">
+  <div class="day-display-date-container" data-bind="with: $root.detailsPage.dayPlanPart.dayPlanTableVM">
+    <span class="display-date-small" data-bind="text: date.getDayName()"></span>
+    <span class="display-date-large" data-bind="text: date.day()"></span>
+    <span class="display-date-large" data-bind="text: date.getMonthName()"></span>
+    <span class="display-date-small" data-bind="text: date.year()"></span>
+  </div>
 	<div class="details-day-table-head">
 		<div>7<span class="small-minutes">00</span></div>
 		<div class="sm-hide">8<span class="small-minutes">00</span></div>

@@ -427,11 +427,11 @@ fieldset {
   z-index: 2;
   border-top: 4px solid;
   height: 23px;
-  color: rgb(102, 102, 102);
+  color: #eaeae9;
   font-size: .9em;
   line-height: 1;
-  background: none;
   opacity: 1;
+  background: #424242;
 }
 
 .event-list-header {
@@ -459,13 +459,13 @@ fieldset {
   #details .dz-column-inner-wrapper {
     width: 83%;
     margin: 0 auto;
-    background: #FBFAF9;
+    /*background: #FBFAF9;*/
+    background:#424242;
     border-top: 0;
   }
 
 #detailsDayTable {
   background: rgb(66, 66, 66);
-  border-bottom: 2px solid rgb(245, 244, 244);
   position: relative;
 }
 
@@ -485,8 +485,8 @@ fieldset {
     background: rgb(251, 250, 249);
     padding-top: 4px;
     padding-bottom: 40px;
-    padding-left: 1px;
-    border: 2px solid #424242;
+    padding-left: 2px;
+    border-bottom: 2px solid #424242;
   }
 
   #detailsDayTable .details-day-table-cell {
@@ -604,14 +604,15 @@ fieldset {
 }
 
 #notesList {
-  margin: 0 auto;
-  color: #564949;
+  padding: 0px;
+  margin:0px;
+  list-style-type: none;
 }
 
   #notesList li {
-    margin: -2px;
-    background: #fdfdfd;
-    border: 2px solid #f1eeee;
+    background: #fbfaf9;
+    border: 1px solid #c6c1c1;
+    list-style-type: none;
   }
 
 
@@ -1145,7 +1146,7 @@ li.line-through-text {
 }
 
 .sm-label {
-  color: #c6c1c1;
+  color: #e3e3e3;
   font-size: 1em;
 }
 

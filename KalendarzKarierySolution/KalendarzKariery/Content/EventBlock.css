@@ -22,7 +22,7 @@
 
 #detailsEventBlockList .event-block {
   line-height: 1;
-  background: #CECECE;
+  background: #c6c1c1;
 }
 
 #detailsEventBlockList .event-block-link {
@@ -35,15 +35,14 @@
 #detailsEventBlockList .event-block-footer {
   padding: 10px;
   overflow: hidden;
-  color: #dedede;
-  border-top: 1px solid #DCDCDC;
-  background: #BDBDBD;
+  color: rgb(152, 152, 137);
+  background: #eaeaea;
 }
 
 #detailsEventBlockList .event-block-date {
   margin-bottom: 2px;
   font-size: 1em;
-  color: rgb(76, 76, 76);
+  color: black;
 }
 
 #detailsEventBlockList .event-block-time {
@@ -51,11 +50,11 @@
 }
 
 #detailsEventBlockList .event-block-description {
-  color: #f7f7f7;
+  color: black;
 }
 
 #detailsEventBlockList .event-block-details {
-  color: #f7f7f7;
+  color: black;
 }
 
 #detailsEventBlockList .event-block-addedby {
@@ -93,10 +92,10 @@
 }
 
 .event-block-expand .event-block-body {
-  color: rgb(72, 68, 62);
+  color: black;
   padding: 20px;
   padding-top: 0;
-  font-size: 1.2em;
+  font-size: 1.4em;
 }
 
   .event-block-expand .event-block-body :hover {

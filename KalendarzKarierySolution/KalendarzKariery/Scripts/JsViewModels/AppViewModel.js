@@ -286,13 +286,12 @@
 		"isAddNoteSectionOpen": ko.observable(false)
 	}
 
-
 	//////////////////////////////////////////////////////////
 	// METHODS 
 	//////////////////////////////////////////////////////////
 
 	self.saveEventOnClick = function (isUpdate) {
-		var dataToSend, webApi, $addEventContainer, promise;
+		var dataToSend, webApi, $addEventContainer, promise, notification;
 		var day = parseInt(self.observableEvent.startDate.day(), 10);
 		var month = parseInt(self.observableEvent.startDate.month(), 10);
 		var year = parseInt(self.observableEvent.startDate.year(), 10);
@@ -306,6 +305,7 @@
 		$addEventContainer.hide();
 
 		webApi = self.UTILS.webApiCaller;
+
 		dataToSend = prepareData(day, month, year);
 
 		//////////////////////////////////////////////
@@ -316,7 +316,7 @@
 
 		function successCallback(data, textStatus, request) {
 			webApi.interceptResponse(data, request, function (webApiOutput) {
-				success(data, webApiOutput)
+				success(data, webApiOutput);
 			});
 		};
 		function failureCallback(data, textStatus, request) {
@@ -333,11 +333,26 @@
 
 			if (result.IsSuccess === false) {
 				$addEventContainer.show();
+				self.UTILS.loader.$overlay.show();
 				notification.error(result.Message);
 				return;
 			}
 
 			notification.success("Wydarzenie zostało dodane.", webApiOutput);
+
+			var startHour = parseInt(self.observableEvent.startDate.startHour(), 10);
+			var endHour = parseInt(self.observableEvent.startDate.endHour(), 10);
+			var startMinute = parseInt(self.observableEvent.startDate.startMinute(), 10);
+			var endMinute = parseInt(self.observableEvent.startDate.endMinute(), 10);
+			var startEventDate, endEventDate, diff, minutes;
+			startEventDate = new Date(year, month - 1, day, startHour, startMinute, 0, 0);
+			endEventDate = new Date(year, month - 1, day, endHour, endMinute, 0, 0);
+
+			//TODO: move this code to separate class and unit test it
+			////////////
+			diff = Math.abs(startEventDate - endEventDate);
+			minutes = Math.floor((diff / 1000) / 60);
+			////////////
 
 			kkEvent = self.EVENT_MANAGER.getNewKKEventModel(
 				self.userName,
@@ -372,6 +387,7 @@
 		function error(result) {
 			alert("Wystąpił nieoczekiwany błąd. Prosze spróbować jeszcze raz.");
 			$addEventContainer.show();
+			self.UTILS.loader.$overlay.show();
 		};
 		function isFormInvalid(day, month, year) {
 			var startHour, endHour, startMinute, endMinute, dateDiffAtLeast10Mins, $addEventForm, $addEventContainer, $dateValidationMsg;
@@ -386,7 +402,7 @@
 			$addEventForm = $("#addEventForm");
 			$addEventForm.validate().form();
 
-			if (!$addEventForm.valid() === false) return true;
+			if ($addEventForm.valid() === false) return true;
 
 			startHour = parseInt(self.observableEvent.startDate.startHour(), 10);
 			endHour = parseInt(self.observableEvent.startDate.endHour(), 10);
@@ -405,6 +421,11 @@
 		function prepareData(day, month, year) {
 			var notification, privacyLvlValue, eventKindValue, startEventDate, endEventDate, diff, minutes, startDateJson, data;
 
+			var startHour = parseInt(self.observableEvent.startDate.startHour(), 10);
+			var endHour = parseInt(self.observableEvent.startDate.endHour(), 10);
+			var startMinute = parseInt(self.observableEvent.startDate.startMinute(), 10);
+			var endMinute = parseInt(self.observableEvent.startDate.endMinute(), 10);
+
 			privacyLvlValue = self.observableEvent.privacyLevel.value;
 			eventKindValue = self.observableEvent.kind.value();
 			startEventDate = new Date(year, month - 1, day, startHour, startMinute, 0, 0);
@@ -421,7 +442,7 @@
 			///////////////////////////////////////////
 			//prepare parameters to call WebAPI
 			///////////////////////////////////////////
-			data = $addEventForm.serialize() +
+			data = $("#addEventForm").serialize() +
 				"&Event.StartDate=" + startDateJson +
 				"&EventStartDate.Year=" + year +
 				"&EventStartDate.Month=" + month +
@@ -1537,7 +1558,7 @@
 					}
 				},
 				error: function () {
-					self.UTILS.loader.hide(false);
+					self.UTILS.loader.hide(true);
 					$loginContainer.show();
 					alert("Wystąpił nieoczekiwany błąd. Prosze sprobować jeszcze raz.");
 				}
@@ -1612,7 +1633,7 @@
 					}
 				},
 				error: function () {
-					self.UTILS.loader.hide(false);
+					self.UTILS.loader.hide(true);
 					$("#lobby #registerPageContainer").show()
 					alert("Wystąpił nieoczekiwany błąd. Prosze spróbować jeszcze raz.");
 				}
@@ -1776,7 +1797,7 @@
 
 		var $addBtn = $addEventContainer.find("#btnAddNewEvent");
 		$addBtn.text("dodaj");
-		$addBtn.attr("data-bind", "click: $root.saveEventOnClick")
+		$addBtn.attr("data-bind", "click: function(){ $root.saveEventOnClick() }")
 
 		ko.unapplyBindings($addBtn[0]);
 		ko.applyBindings(self, $addBtn[0]);
@@ -1836,7 +1857,7 @@
 
 		var $addBtn = $addEventContainer.find("#btnAddNewEvent");
 		$addBtn.text("dodaj");
-		$addBtn.attr("data-bind", "click: $root.saveEventOnClick")
+		$addBtn.attr("data-bind", "click: function(){ $root.saveEventOnClick() }")
 
 		ko.unapplyBindings($addBtn[0]);
 		ko.applyBindings(self, $addBtn[0]);
@@ -1871,7 +1892,7 @@
 
 		var $addBtn = $addEventContainer.find("#btnAddNewEvent");
 		$addBtn.find("span").text("+");
-		$addBtn.attr("data-bind", "click: $root.saveEventOnClick")
+		$addBtn.attr("data-bind", "click: function(){ $root.saveEventOnClick() }")
 
 		ko.unapplyBindings($addBtn[0]);
 		ko.applyBindings(self, $addBtn[0]);
@@ -1948,7 +1969,9 @@
 	};
 
 	self.showEventBlockInfoOnDetailsPageEventRectangleClick = function (id) {
-		$("#details .event-block-container[data-eventid='" + id + "']").scrollTo(500);
+		var $eventItemList = $("#details .event-list-item-container[eventid='" + id + "'] .event-list-item");
+		$eventItemList.addClass(".selected").scrollTo(500);
+		self.expandEventOverviewItemOnClick($eventItemList[0]);
 	};
 
 	self.closeAllSelectedEventsListContainerOnClick = function () {

@@ -116,26 +116,29 @@
 
 .other-month-cell {
   position: relative;
+  background: #888181;
 }
 
 .calendar-cell {
   height: 80px;
   display: table-cell;
+  overflow:hidden;
 }
 
 .calendar-cell-placeholder {
-  position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
 }
 
 .other-month-cell .cell-span-container {
-  position: relative;
-  top: 59px;
-  height: 26px;
-  z-index: 98;
-  color: #424242;
+  position: absolute;
+  bottom: 0px;
+  height: 27px;
+  width:100%;
+  z-index: 10;
+  color: black;
+  background: #888181;
 }
 
   .other-month-cell .cell-span-container span {
@@ -170,9 +173,10 @@
 }
 
   .current-month-cell .cell-span-container {
-    position: relative;
-    top: 56px;
+    position: absolute;
+    bottom: 0px;
     height: 25px;
+    width:100%;
     z-index: 10;
     background: #FDFDFD;
   }
@@ -198,8 +202,9 @@
 }
 
   .today-cell .cell-span-container {
-    position: relative;
-    top: 55px;
+    position: absolute;
+    width:100%;
+    bottom: 0px;
     height: 24px;
     z-index: 98;
   }
@@ -218,5 +223,5 @@
   overflow: visible;
   position: relative;
   right: 12%;
-  border-left:1px solid #424242;
+  border-left: 1px solid #424242;
 }

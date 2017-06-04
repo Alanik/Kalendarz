@@ -88,12 +88,13 @@ namespace KalendarzKarieryWebAPI.Controllers
 			}
 
 			var @event = _repository.GetEventById( addEventViewModel.Event.Id );
-			var year = @event.StartDate.Year;
-			var month = @event.StartDate.Month;
-			var day = @event.StartDate.Day;
 
 			if (@event != null)
 			{
+				var year = @event.StartDate.Year;
+				var month = @event.StartDate.Month;
+				var day = @event.StartDate.Day;
+
 				if (!@event.User.UserName.Equals( User.Identity.Name, StringComparison.InvariantCultureIgnoreCase ))
 				{
 					return new DefaultValidationResponseModel { IsSuccess = false, Message = Consts.GeneralOperationErrorMsg, RequestContentLength = reqContentLength };

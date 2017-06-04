@@ -213,19 +213,19 @@
 			var $appContainer = $("#appContainer");
 			var tap = ("ontouchstart" in document.documentElement);
 
-			if (!tap) {
+			//if (!tap) {
 				$appContainer.on({
 					mouseenter: function () {
 						$(this).css({
-							"border-bottom": "2px solid rgb(235,235,235)",
-							"border-top": "2px solid rgb(250,250,250)",
+							//"border-bottom": "2px solid rgb(235,235,235)",
+							//"border-top": "2px solid rgb(250,250,250)",
 							"cursor": "pointer",
 							"top": "3px"
 						}).find(".addNewEvent-cellIcon").fadeIn();
 					},
 					mouseleave: function () {
 						$(this).css({
-							"border": "2px solid white",
+							//"border": "2px solid white",
 							"cursor": "auto",
 							"top": "0"
 						}).find(".addNewEvent-cellIcon").hide();
@@ -284,7 +284,7 @@
 						$eventHoverContainer.hide();
 					}
 				}, '.event-rectangle');
-			}
+			//}
 
 			$appContainer.on({
 				mouseenter: function () {
